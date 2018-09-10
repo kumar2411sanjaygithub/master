@@ -33,7 +33,7 @@ class ManageOfficialsController extends Controller
 
     $validator = Validator::make($request->all(), [
            'depatment_name' => 'required|regex:/^[a-zA-Z ]*$/|min:1|unique:department,depatment_name,NULL,id,deleted_at,NULL',
-           
+
        ],
        [
            'depatment_name' => 'Please Enter Deparment Name|Please Unique Name',
@@ -63,7 +63,7 @@ class ManageOfficialsController extends Controller
 
         return view('ManageOfficials.editdepartments',compact('departmentData'));
     }
-    
+
     public function updatedepartmentdata(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -85,7 +85,7 @@ class ManageOfficialsController extends Controller
         $department->update();
         return redirect('/departments')->with('updatemsg', 'Data Update Successfully!');
     }
-    
+
     public function deletedepartments($id)
     {
         $department = Department::find($id);
@@ -101,7 +101,7 @@ class ManageOfficialsController extends Controller
       $employeeData = Employee::all()->where('approve_status','1');
         return view('ManageOfficials.employeeview',compact('employeeData'));
     }
-    
+
     public function employeepermissionview()
     {
 
@@ -148,10 +148,10 @@ class ManageOfficialsController extends Controller
         ]);
         if($validator->fails())
         {
-            
+
             return redirect()->back()->withInput($request->input())->withErrors($validator);
         }
-        
+
         $employees = new Employee();
         $employees->employee = $request->input('employee');
         $employees->employee_id = $request->input('employee_id');
@@ -177,9 +177,9 @@ class ManageOfficialsController extends Controller
         // save role_officials table data here
         $employee_id =$employees->id;
       //dd($request->input('role_id'));
-        
+
         if($request->input('role_id')!=''){
-       
+
           $roleemployee = new ModelHasRoles();
           $roleemployee->model_id = $employee_id;
           $roleemployee->model_type = 'App\employees';
@@ -187,7 +187,7 @@ class ManageOfficialsController extends Controller
           $roleemployee->save();
         }
         // save officials_permission data Here
-       
+
         return redirect('manageofficials/employeeview')->with('message', 'Data Save Successfully!');
     }
     public function viewoneoemployeepermission($id)
@@ -207,14 +207,14 @@ class ManageOfficialsController extends Controller
   }
    public function editemployee($id)
     {
-        
+
         $department = Department::get();
-        
+
         $role = Role::get();
 
         $officialstData = Employee::select('*')->where('id', $id)->first();
         $off_role= ModelHasRoles::all()->where('model_id', $id)->toArray();
-       
+
         $role_off = array_column($off_role, 'role_id');
 
         return view('ManageOfficials.editemployee',compact('id','officialpermission','department','official_permission','role','officialstData','role_off'));
@@ -259,11 +259,11 @@ class ManageOfficialsController extends Controller
         ]);
         if($validator->fails())
         {
-            
+
             return redirect()->back()->withInput($request->input())->withErrors($validator);
         }
-        
-       
+
+
         $employees =  Employee::find($id);
         $employees->employee = $request->input('employee');
         $employees->employee_id = $request->input('employee_id');
@@ -282,7 +282,7 @@ class ManageOfficialsController extends Controller
         $employees->state = $request->input('state');
         $employees->city = $request->input('city');
         $employees->pin_code = $request->input('pin_code');
-        
+
         // $officialstemp->role_id = $request->input('role_id');
 
         $dierty = $employees->getDirty();
@@ -325,7 +325,7 @@ class ManageOfficialsController extends Controller
 
             return Redirect::back()->withErrors($validator);
         }
-       
+
         $user_id=$id;
         $roles = $request->input('role_id');
 
@@ -342,8 +342,8 @@ class ManageOfficialsController extends Controller
         // }
 
         //$off_id =$employees->id;
-        
-       
+
+
         foreach ($dierty as $key => $value) {
            // dd($key);
             if($key == "department_id"){
@@ -357,8 +357,8 @@ class ManageOfficialsController extends Controller
                 $key  = "comm_state";
                 // dd($state_list);
                 $value = $state_list[$value]['name'];
-                
-            }    
+
+            }
           $existing = new Employeeupdatestatus();
           $existing->employee_id = $id;
           $existing->keyname = $key;
@@ -396,6 +396,6 @@ class ManageOfficialsController extends Controller
             return redirect()->back()->with('delmsg', 'Data Deleted Successfully!');
         }
 
-    
+
 
 }
