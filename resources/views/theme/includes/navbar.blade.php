@@ -362,8 +362,6 @@
 
             <span>PPA & Bidding Setting</span>
 
-            <span>CRM</span>
-
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -376,7 +374,30 @@
           </ul>
         </li>
 
-            <li><a href="{{ route('lead.index') }}"><i class="fa fa-circle-o"></i>Lead</a></li>
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-laptop"></i>
+              <span>CRM</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="{{ route('lead.index') }}"><i class="fa fa-circle-o"></i>Lead</a></li>
+            </ul>
+          </li>  
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-laptop"></i>
+              <span>Trader's Setting</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="{{ route('discom-sldc-state.index') }}"><i class="fa fa-circle-o"></i>DISCOM & SLDC List</a></li>
+            </ul>
+          </li>            
           </ul>
         </li>
 
