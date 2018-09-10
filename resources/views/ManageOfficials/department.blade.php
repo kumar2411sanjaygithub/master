@@ -80,7 +80,7 @@
                       </div>
                     </div>
                 </div>
-             </div>       
+             </div>
              <div class="row">
                 <div class="col-md-10"></div>
                 <div class="col-md-2">
@@ -111,7 +111,7 @@
                               <td class="text-center">{{$value->description}}</td>
                               <td class="text-center">{{$value->creator_name()}}</td>
                               <td class="text-center">{{@date('d/m/Y',strtotime($value->created_at)) }}</td>
-                            
+
                               <td class="text-center">
                                 <a href="/manageofficials/editdepartments/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
                                 &nbsp;&nbsp;&nbsp;
@@ -125,7 +125,7 @@
                 </div>
                 <!-- /.box-body -->
              </div>
-          </form>    
+          </form>
       </section>
       <!-- /.content -->
 @endsection

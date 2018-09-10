@@ -39,10 +39,10 @@ Route::group(['middleware' => 'auth'], function ()
 	    Route::get('/assignpermission/{id}',['as'=>'assignpermission','uses'=>'AssignPermissionController@index']);
 	    Route::post('/assignpermission/store',['as'=>'assignpermission.store','uses'=>'AssignPermissionController@store']);
 
-	// Permission    
+	// Permission
 	    Route::resource('permissionlist', 'PermissionListController');
 
-	// Employee    
+	// Employee
 
 	Route::get('/manageofficials/employeeview',['as'=>'employee','uses'=>'ManageOfficialsController@employeeview']);
 	Route::get('/manageofficials/officialsadd',['as'=>'officialsadd','uses'=>'ManageOfficialsController@employeepermissionview']);
@@ -54,6 +54,18 @@ Route::group(['middleware' => 'auth'], function ()
 
 	Route::get('/manageofficials/editofficials/{id}',['as'=>'editofficialsdata','uses'=>'ManageOfficialsController@editemployee']);
 	Route::get('/manageofficials/deleteofficialsdetail/{id}',['as'=>'deleteofficialsdata','uses'=>'ManageOfficialsController@deleteemployee']);
+
+
+		// PPA Bid Setting
+   // Route::get('/ppa/addppadetails',['as'=>'addppadetails','uses'=>'PpaDetailsController@addppadetails']);
+  Route::post('/ppa/addppadetails',['as'=>'addppadetails','uses'=>'PpaDetailsController@saveppa']);
+ 	Route::get('/ppa/addppadetails',['as'=>'addppadetailss','uses'=>'PpaDetailsController@ppadetails']);
+  Route::get('/ppa/editppa/{id}',['as'=>'ppa.editppa','uses'=>'PpaDetailsController@editppa']);
+  Route::post('/ppa/updateppadata/{id}',['as'=>'ppa.updateppadata','uses'=>'PpaDetailsController@updateppadata']);
+  Route::get('/ppa/deleteppa/{id}',['as'=>'deleteppa','uses'=>'PpaDetailsController@deleteppa']);
+
+  // Route::post('/ppa/addppadetails','PpaDetailsController@ppadetails');
+
 	 Route::resource('lead', 'LeadController');
 	 Route::post('/task-lead','LeadController@taskadd');
 	 Route::get('/task-delete/{id}','LeadController@taskdelete');
@@ -62,7 +74,6 @@ Route::group(['middleware' => 'auth'], function ()
 	 Route::get('/leadproduct-delete/{id}','LeadController@leadproduct_delete');
 	 Route::post('/lead-email-add','LeadController@lead_email_add');
 	 Route::get('/lead-email-delete/{id}','LeadController@lead_email_delete');
-	
 });
 
 	// Client Login

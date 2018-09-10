@@ -359,15 +359,27 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-laptop"></i>
+
+            <span>PPA & Bidding Setting</span>
+
             <span>CRM</span>
+
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
+
+            <li><a href="{{ route('addppadetailss') }}"><i class="fa fa-circle-o"></i>PPA</a></li>
+            <li><a href=""><i class="fa fa-circle-o"></i>Bid Setting</a></li>
+
+          </ul>
+        </li>
+
             <li><a href="{{ route('lead.index') }}"><i class="fa fa-circle-o"></i>Lead</a></li>
           </ul>
-        </li>        
+        </li>
+
 <!--         <li class="treeview">
           <a href="#">
             <i class="fa fa-edit"></i> <span>Forms</span>
