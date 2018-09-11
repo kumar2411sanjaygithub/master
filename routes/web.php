@@ -64,7 +64,18 @@ Route::group(['middleware' => 'auth'], function ()
   Route::post('/ppa/updateppadata/{id}',['as'=>'ppa.updateppadata','uses'=>'PpaDetailsController@updateppadata']);
   Route::get('/ppa/deleteppa/{id}',['as'=>'deleteppa','uses'=>'PpaDetailsController@deleteppa']);
 
-  // Route::post('/ppa/addppadetails','PpaDetailsController@ppadetails');
+  // bid setting
+  Route::get('/ppa/bidsetting',['as'=>'bid.bidview','uses'=>'PpaDetailsController@viewbidsetting']);
+  Route::post('/ppa/bidsetting',['as'=>'addbidsetting','uses'=>'PpaDetailsController@addbidsetting']);
+  Route::get('/ppa/biddata',['as'=>'biddata','uses'=>'PpaDetailsController@findBidData']);
+
+  // POC & DISCOM LOSSES
+  Route::get('/poc',['as'=>'pocdetails','uses'=>'PocController@viewpocdetails']);
+  Route::post('/poc',['as'=>'addpoc','uses'=>'PocController@savepoc']);
+  Route::get('/poc/{id}',['as'=>'poc.editpoc','uses'=>'PocController@editpoc']);
+  Route::post('/updatepoc/{id}',['as'=>'poc.updatepoc','uses'=>'PocController@updateppadata']);
+  Route::get('/poc/deleteppa/{id}',['as'=>'deletepoc','uses'=>'PocController@deletepoc']);
+
 
 	 Route::resource('lead', 'LeadController');
 	 Route::post('/task-lead','LeadController@taskadd');

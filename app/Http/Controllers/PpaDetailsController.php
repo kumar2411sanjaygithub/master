@@ -5,10 +5,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
 use App\Ppadetails;
+use App\Client;
 use Carbon\Carbon;
 use DB;
 use Validator;
 use Illuminate\Support\Facades\Redirect;
+use Response;
 class PpaDetailsController extends Controller
 {
 
@@ -65,14 +67,7 @@ class PpaDetailsController extends Controller
             'validity_from' => 'required',
             'validity_to' => 'required',
             'file_path' => 'required',
-        ]
-        // ,
-        // [
-        //     'validity_from' => 'Please Choose From Date',
-        //     'validity_to' => 'Please Choose To Date',
-        //     'file_path' => 'Please Choose File',
-        // ]
-      );
+        ]);
         if($validator->fails())
         {
             return Redirect::back()->withErrors($validator);
@@ -104,6 +99,38 @@ class PpaDetailsController extends Controller
         return redirect()->back()->with('delmsg', 'Data Deleted Successfully!');
     }
 
+// bid setting start---
 
+public function viewbidsetting()
+  {
+    $clientData = Client::all();
+    return view('ppa.bidsetting',compact('clientData'));
+  }
+
+  public function findBidData(Request $request)
+    {
+      $selData = Client::select('*')->where('id', $request['id'])->first();
+      return Response::json(array('bid_cut_off_time' => $selData->bid_cut_off_time, 'trader_type' => $selData->trader_type));
+    }
+
+public function addbidsetting(Request $request)
+  {
+    $validator = Validator::make($request->all(), [
+        'bid_cut_off_time' => 'required',
+        'trader_type' => 'required',
+    ]
+  );
+    if($validator->fails())
+    {
+        return Redirect::back()->withErrors($validator);
+    }
+    $id = $request->input('client');
+    $ppa = Client::find($id);
+    $ppa->bid_cut_off_time = $request->input('bid_cut_off_time');
+    $ppa->trader_type = $request->input('trader_type');
+
+    $ppa->save();
+    return redirect()->route('bid.bidview')->with('addmsg', 'Data Add Successfully!');
+}
 
 }

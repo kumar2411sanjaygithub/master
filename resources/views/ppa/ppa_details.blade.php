@@ -183,4 +183,9 @@
 
    })
 </script>
+<script type="text/javascript">
+ setTimeout(function() {
+   $('.alert-success').fadeOut('fast');
+   }, 2000); // <-
+</script>
 @endsection
