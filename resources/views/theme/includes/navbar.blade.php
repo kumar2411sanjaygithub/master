@@ -213,6 +213,7 @@
             </ul>
           </li>
           <!-- User Account: style can be found in dropdown.less -->
+
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{url('img/admin2.png')}}" class="user-image" alt="User Image">
@@ -344,6 +345,24 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-laptop"></i>
+            <span>Manage Client</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ route('basic.details') }}"><i class="fa fa-circle-o"></i>Client Basic DEtails</a></li>
+            <li><a href="{{ route('dam') }}"><i class="fa fa-circle-o"></i>DAM</a></li>
+            <li><a href="{{ route('tem') }}"><i class="fa fa-circle-o"></i>TAM</a></li>
+            <li><a href="{{ route('rec') }}"><i class="fa fa-circle-o"></i>REC</a></li>
+            <li><a href="{{ route('escerts') }}"><i class="fa fa-circle-o"></i>EScerts</a></li>
+            <li><a href="{{ route('agsetting') }}"><i class="fa fa-circle-o"></i>Accoutn Group Setting</a></li>
+            <li><a href="{{ route('bared.client') }}"><i class="fa fa-circle-o"></i>Barred Client</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
             <span>Manage Official</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -358,14 +377,41 @@
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-setting"></i>
-            <span>PPA & Bidding</span>
+            <i class="fa fa-laptop"></i>
+            <span>Approval Client</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
+            <li><a href="{{ route('approve.newclient') }}"><i class="fa fa-circle-o"></i>New</a></li>
+            <li><a href="{{ route('approve.existingclient') }}"><i class="fa fa-circle-o"></i>Existing</a></li>            
+          </ul>
+      </li>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-laptop"></i>
+          <span>Approval Employee</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>      
+          <ul class="treeview-menu">
+            <li><a href="{{ route('approve.newemployee') }}"><i class="fa fa-circle-o"></i>New</a></li>
+            <li><a href="{{ route('approve.existingemployee') }}"><i class="fa fa-circle-o"></i>Existing</a></li>
+            
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>PPA & Bid</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>   
 
+          <ul class="treeview-menu">
             <li><a href="{{ route('addppadetailss') }}"><i class="fa fa-circle-o"></i>PPA</a></li>
             <li><a href="{{ route('bid.bidview') }}"><i class="fa fa-circle-o"></i>Bid setting</a></li>
 
@@ -383,8 +429,8 @@
           <ul class="treeview-menu">
             <li><a href="{{ route('pocdetails')}}"><i class="fa fa-circle-o"></i>Poc Details</a></li>
             <li><a href="/discom"><i class="fa fa-circle-o"></i>Discom Losses</a></li>
-
-
+          </ul>
+        </li>
           <li class="treeview">
             <a href="#">
               <i class="fa fa-laptop"></i>
@@ -413,7 +459,6 @@
           </ul>
         </li>
 
-        <li><a href="{{ route('lead.index') }}"><i class="fa fa-circle-o"></i>Lead</a></li>
 
 
 

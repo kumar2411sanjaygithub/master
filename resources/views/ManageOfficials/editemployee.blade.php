@@ -35,7 +35,7 @@
   <div class="row">
       <div class="col-md-3">
      <label  class="control-label">EMPLOYEE</label>
-       <input class="form-control input-sm" type="text" name="employee" onKeyPress="return ValidateAlpha(event);" id="employee"   value="{{ $officialstData->employee }}">
+       <input class="form-control input-sm" type="text" name="name" onKeyPress="return ValidateAlpha(event);" id="name"   value="{{ $officialstData->name }}">
     </div>
   <div class="col-md-3">
     <label  class="control-label">EMPLOYEE ID</label>
@@ -61,7 +61,7 @@
 </div>
 <div class="col-md-3">
   <label  class="control-label">USER NAME</label>
-<input class="form-control input-sm" type="text" name="user_name"  id="user_name"   value="{{ $officialstData->user_name }}">
+<input class="form-control input-sm" type="text" name="username"  id="username"   value="{{ $officialstData->username }}">
 </div>
 <div class="col-md-3">
   <label  class="control-label">NEW PASSWORD</label>
@@ -114,21 +114,20 @@
   <div class="col-md-3">
     <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
     <select class="form-control input-sm select2" name="country" id="country" style="width: 100%;">
-        <option selected="selected"> ENTER COUNTRY NAME</option>
-        <option value="India" {{ isset($officialstData) && $officialstData->comm_country == 'India' ? 'selected="selected"' : '' }}>India</option>
-     <option value="UK" {{ isset($officialstData) && $officialstData->comm_country == 'UK' ? 'selected="selected"' : '' }}>UK</option>
-     <option value="USA" {{ isset($officialstData) && $officialstData->comm_country == 'USA' ? 'selected="selected"' : '' }}>USA</option> --}}}
+        
+        <option value="India" {{ isset($officialstData) && $officialstData->country == 'India' ? 'selected="selected"' : '' }}>India</option>
+     
     </select>
   </div>
   <div class="col-md-3">
     <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
     <select class="form-control input-sm select2" name="state" id="state" style="width: 100%;">
-        <option selected="selected">ENTER STATE</option>
+        
          <?php
           $state_list = \App\Common\StateList::get_states();
               ?>
         @foreach($state_list as $state_code=>$state_ar)
-          <option value="{{$state_code}}" {{ isset($officialstData) && $officialstData->comm_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
+          <option value="{{$state_code}}" {{ isset($officialstData) && $officialstData->state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
         @endforeach
     </select>
   </div>
@@ -144,11 +143,11 @@
 </div>
 <div class="col-md-3">
   <label  class="control-label">MOBILE NUMBER</label><span class="text-danger"><strong>*</strong></span>
-<input class="form-control input-sm" type="text" name="mobile_number" id="mobile_number" value="{{ $officialstData->mobile_number }}">
+<input class="form-control input-sm" type="text" name="comm_mob" id="comm_mob" value="{{ $officialstData->comm_mob }}">
 </div>
 <div class="col-md-3">
   <label  class="control-label">TELEPHONE NUMBER</label>
-<input class="form-control input-sm" type="text" name="telephone_number" id="telephone_number" value="{{ $officialstData->telephone_number }}">
+<input class="form-control input-sm" type="text" name="comm_telephone" id="comm_telephone" value="{{ $officialstData->comm_telephone }}">
 </div>
 </div>
 <div class="row">&nbsp;</div>
@@ -179,4 +178,9 @@ function ValidateAlpha(evt)
            return true;
    }
 </script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+{{ Html::script('js/employee/empvalidate.js') }}
     @endsection
