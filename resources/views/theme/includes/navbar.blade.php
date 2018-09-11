@@ -378,26 +378,90 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-laptop"></i>
-            <span>Approval Request</span>
+            <span>Approval Client</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <li>
           <ul class="treeview-menu">
             <li><a href="{{ route('approve.newclient') }}"><i class="fa fa-circle-o"></i>New</a></li>
-            <li><a href="{{ route('approve.existingclient') }}"><i class="fa fa-circle-o"></i>Existing</a></li>
-            
+            <li><a href="{{ route('approve.existingclient') }}"><i class="fa fa-circle-o"></i>Existing</a></li>            
           </ul>
-        </li>
-        <li>
+      </li>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-laptop"></i>
+          <span>Approval Employee</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>      
           <ul class="treeview-menu">
             <li><a href="{{ route('approve.newemployee') }}"><i class="fa fa-circle-o"></i>New</a></li>
             <li><a href="{{ route('approve.existingemployee') }}"><i class="fa fa-circle-o"></i>Existing</a></li>
             
           </ul>
         </li>
-      </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>PPA & Bid</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>   
+
+          <ul class="treeview-menu">
+            <li><a href="{{ route('addppadetailss') }}"><i class="fa fa-circle-o"></i>PPA</a></li>
+            <li><a href="{{ route('bid.bidview') }}"><i class="fa fa-circle-o"></i>Bid setting</a></li>
+
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>POC & DISCOM</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ route('pocdetails')}}"><i class="fa fa-circle-o"></i>Poc Details</a></li>
+            <li><a href="/discom"><i class="fa fa-circle-o"></i>Discom Losses</a></li>
+          </ul>
+        </li>
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-laptop"></i>
+              <span>CRM</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="{{ route('lead.index') }}"><i class="fa fa-circle-o"></i>Lead</a></li>
+            </ul>
+          </li>
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-laptop"></i>
+              <span>Trader's Setting</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="{{ route('discom-sldc-state.index') }}"><i class="fa fa-circle-o"></i>DISCOM & SLDC List</a></li>
+            </ul>
+          </li>
+
+          </ul>
+        </li>
+
+
+
+
 <!--         <li class="treeview">
           <a href="#">
             <i class="fa fa-edit"></i> <span>Forms</span>
