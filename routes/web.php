@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth'], function ()
 	// Permission    
 	    Route::resource('permissionlist', 'PermissionListController');
 
-	// Employee    
+	// Employee --SHALU //  
 
 	Route::get('/manageofficials/employeeview',['as'=>'employee','uses'=>'ManageOfficialsController@employeeview']);
 	Route::get('/manageofficials/officialsadd',['as'=>'officialsadd','uses'=>'ManageOfficialsController@employeepermissionview']);
@@ -53,6 +53,8 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::get('/manageofficials/viewoneoffiicals/{id}',['as'=>'viewofficialsdata','uses'=>'ManageOfficialsController@viewoneoemployeepermission']);
 
 	Route::get('/manageofficials/editofficials/{id}',['as'=>'editofficialsdata','uses'=>'ManageOfficialsController@editemployee']);
+	Route::post('/manageofficials/updateofficialsdata/{id}',['as'=>'updateofficialsdata','uses'=>'ManageOfficialsController@updateemployee']);
+
 	Route::get('/manageofficials/deleteofficialsdetail/{id}',['as'=>'deleteofficialsdata','uses'=>'ManageOfficialsController@deleteemployee']);
 
 	
@@ -72,3 +74,33 @@ Route::post('password/reset', 'Auth\ClientResetPasswordController@reset')->name(
 
 
 });
+
+// APPROVAL FOR EMPLOYEE---SHALU //
+// Route::get('/employee/newemployeeclient',array('as'=>'approve.newemployee','uses'=>'EmployeeApprovalController@approveemployeeview'));
+Route::get('/employee/newemployeeclient',['as'=>'approve.newemployee','uses'=>'EmployeeApprovalController@approveemployeeview']);
+
+Route::get('/existemployeeclients',['as'=>'approve.existingemployee','uses'=>'EmployeeApprovalController@viewexistingemployee']);
+Route::get('/approve/{id}',['as'=>'approve','uses'=>'EmployeeApprovalController@approvenew']);
+Route::get('/reject/{id}',['as'=>'reject','uses'=>'EmployeeApprovalController@rejectnew']);
+Route::get('/employee/approve/{id}',['as'=>'existing.approve','uses'=>'EmployeeApprovalController@existingApprove']);
+Route::get('/employee/reject/{id}',['as'=>'existing.reject','uses'=>'EmployeeApprovalController@existingReject']);
+//MANAGE CLIENT---SHALU//
+Route::get('/basicdetails',['as'=>'basic.details','uses'=>'ClientDeatilsController@viewlist']);
+Route::get('/clientadd',['as'=>'clientadd','uses'=>'ClientDeatilsController@addclient']);
+Route::post('/client/saveclient',['as'=>'clientsave','uses'=>'ClientDeatilsController@saveclient']);
+
+
+
+
+Route::get('/dam',['as'=>'dam','uses'=>'ClientDetailsController@damdetails']);
+Route::get('/tem',['as'=>'tem','uses'=>'ClientDetailsController@temdetails']);
+Route::get('/rec',['as'=>'rec','uses'=>'ClientDetailsController@recdetails']);
+Route::get('/escerts',['as'=>'escerts','uses'=>'ClientDetailsController@escertsdetails']);
+Route::get('/agsetting',['as'=>'agsetting','uses'=>'ClientDetailsController@agsettingdetails']);
+Route::get('/barred',['as'=>'bared.client','uses'=>'ClientDetailsController@barreddetails']);
+//APPROVAL FOR CLIENT//
+Route::get('/client/new',['as'=>'approve.newclient','uses'=>'ClientApprovalController@approveemployeeview']);
+
+Route::get('/client/existing',['as'=>'approve.existingclient','uses'=>'ClientApprovalController@viewexistingemployee']);
+
+

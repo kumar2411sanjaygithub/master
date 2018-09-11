@@ -18,7 +18,7 @@
   <div class="row">
       <div class="col-md-3">
      <label  class="control-label">EMPLOYEE</label>
-       <input class="form-control input-sm" type="text" name="employee" id="employee" readonly name="employee" value="{{ $officialstData->employee }}">
+       <input class="form-control input-sm" type="text" name="name" id="name" readonly name="name" value="{{ $officialstData->name }}">
     </div>
   <div class="col-md-3">
     <label  class="control-label">EMPLOYEE ID</label>
@@ -44,21 +44,26 @@
 </div>
 <div class="col-md-3">
   <label  class="control-label">USER NAME</label>
-<input class="form-control input-sm" type="text" name="user_name" id="user_name" readonly name="user_name" value="{{ $officialstData->user_name }}">
+<input class="form-control input-sm" type="text" name="username" id="username" readonly name="username" value="{{ $officialstData->username }}">
 </div>
-<div class="col-md-3">
+<!-- <div class="col-md-3">
   <label  class="control-label">NEW PASSWORD</label>
 <input class="form-control input-sm" typpassworde="text" name="password" id="password" readonly name="password" value="{{ $officialstData->password }}">
-</div>
+</div> -->
 </div>
 <div class="row">
-    <div class="col-md-3">
+   <!--  <div class="col-md-3">
    <label  class="control-label">CONFIRM PASSWORD</label>
      <input class="form-control input-sm" type="text" name="confirmed" id="confirmed" readonly name="confirmed" value="{{ $officialstData->confirmed }}">
-  </div>
+  </div> -->
 <div class="col-md-3">
   <label  class="control-label">DEPARTMENT NAME</label>
-   <input class="form-control input-sm" type="text" name="department_id" id="department_id" readonly name="department_id" value="{{ $officialstData->department_id }}">
+   <select class="form-control valid" readonly name="department_id" id="department_id" value="">
+              <option value='0'>Please Select Department</option>
+              @foreach($department as $departmentuser)
+                <option value="{{$departmentuser->id}}" {{isset($officialstData) && $officialstData->department_id == $departmentuser->id ? 'selected="selected"' : ''}}>{{$departmentuser->depatment_name}}</option>
+              @endForeach
+                </select>
 </div>
 <div class="col-md-3">
   <label  class="control-label">ROLE</label>
@@ -85,7 +90,14 @@
   </div>
   <div class="col-md-3">
     <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
-    <input class="form-control input-sm" type="text" name="state" id="state" readonly name="state" value="{{ $officialstData->state }}">
+     <select class="form-control valid" readonly name="state" id="state" value="">                     
+         <?php
+       $state_list = \App\Common\StateList::get_states();
+         ?>
+        @foreach($state_list as $state_code=>$state_ar)
+                <option value="{{$state_code}}" {{ isset($officialstData) && $officialstData->state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>                                
+               @endforeach
+            </select>
   </div>
 </div>
 <div class="row">
@@ -110,7 +122,7 @@
  <div class="row">
     <div class="col-md-5"></div>
      
-     <div class="col-md-1"><a href="{{ route('employee') }}"><input type="button" class="btn btn-block btn-danger btn-xs" value="Back To Multiple View"></a></div>
+     <div class="col-md-2"><a href="{{ route('employee') }}"><input type="button" class="btn btn-block btn-danger btn-xs" value="Back To Multiple View"></a></div>
    <div class="col-md-5"></div>
  </div>
 

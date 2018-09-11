@@ -10,7 +10,7 @@ use App\Department;
 use App\Permission;
 use App\Employee;
 use App\ModelHasRoles;
-
+use App\User;
 use App\Roleofficial;
 use App\Rolepermission;
 use App\Officialspermission;
@@ -98,7 +98,7 @@ class ManageOfficialsController extends Controller
     }
 
     public function employeeview(){
-      $employeeData = Employee::all()->where('approve_status','1');
+      $employeeData = User::all()->where('emp_app_status','1');
         return view('ManageOfficials.employeeview',compact('employeeData'));
     }
     
@@ -113,12 +113,12 @@ class ManageOfficialsController extends Controller
     {
        //dd(1);
         $validator = Validator::make($request->all(), [
-            'employee' => 'required|max:25|regex:/^[a-zA-Z ]*$/|max:50',
+            'name' => 'required|max:25|regex:/^[a-zA-Z ]*$/|max:50',
             'employee_id'=>'required|max:20',
             'email' => 'required|email|unique:users|max:80',
             'contact_number' => 'required|unique:employee_temp|max:10|min:10|regex:/^[0-9]{10}$/',
             //'telephone_number'=>'max:20|min:10|regex:/(01)[0-9]{9}/',
-            'user_name' => 'required|max:20',
+            'username' => 'required|max:20',
             'password' => 'max:20|required',
             'confirmed' => 'max:20|same:password',
             'role_id' => 'required',
@@ -131,11 +131,11 @@ class ManageOfficialsController extends Controller
             'pin_code' => 'required|max:6|min:6',
         ],
         [
-            'employee' => 'Please Enter  Name',
+            'name' => 'Please Enter  Name',
             'email' => 'Please Enter Email',
             'contact_number' => 'Please Enter Mobile No.',
            // 'telephone_number' => 'Please Enter valid landline No.',
-            'user_name' => 'Please Enter User Name',
+            'username' => 'Please Enter User Name',
             'password' => 'Please Enter Password',
             'role_id' => 'Please Select Role',
             'designation' => 'Please Enter Designation',
@@ -152,19 +152,20 @@ class ManageOfficialsController extends Controller
             return redirect()->back()->withInput($request->input())->withErrors($validator);
         }
         
-        $employees = new Employee();
-        $employees->employee = $request->input('employee');
+        $employees = new User();
+        $employees->name = $request->input('name');
         $employees->employee_id = $request->input('employee_id');
         $employees->email = $request->input('email');
 
         $employees->contact_number = $request->input('contact_number');
         $employees->telephone_number = $request->input('telephone_number');
-        $employees->user_name = $request->input('user_name');
+        $employees->username = $request->input('username');
         $employees->password = $request->input('password');
         $employees->designation = $request->input('designation');
         $employees->department_id = $request->input('department_id');
         //$employees->role_id = $request->input('role_id');
-        $employees->line1 = $request->input('line1');
+        $employees->line1 = $request->input('role_id');
+        $employees->role = $request->input('line1');
         $employees->line2 = $request->input('line2');
         $employees->country = $request->input('country');
         $employees->state = $request->input('state');
@@ -199,8 +200,8 @@ class ManageOfficialsController extends Controller
             $department = Department::get();
             //$officialpermission = Permission::all();
             $role = Role::get();
-            $officialstData = Employee::select('*')->where('id', $id)->first();
-            //dd($officialstData->comm_state);
+            $officialstData = User::select('*')->where('id', $id)->first();
+            //dd($officialstData);
             $off_role= ModelHasRoles::all()->where('model_id', $id)->toArray();
             $role_off = array_column($off_role, 'role_id');
             return view('ManageOfficials.viewoneemployee',compact('id','department','role','officialstData','role_off'));
@@ -212,7 +213,8 @@ class ManageOfficialsController extends Controller
         
         $role = Role::get();
 
-        $officialstData = Employee::select('*')->where('id', $id)->first();
+        $officialstData = User::select('*')->where('id', $id)->first();
+        //dd($officialstData);
         $off_role= ModelHasRoles::all()->where('model_id', $id)->toArray();
        
         $role_off = array_column($off_role, 'role_id');
@@ -224,12 +226,12 @@ class ManageOfficialsController extends Controller
 
 
         $validator = Validator::make($request->all(), [
-            'employee' => 'required|max:25|regex:/^[a-zA-Z ]*$/|max:50',
+            'name' => 'required|max:25|regex:/^[a-zA-Z ]*$/|max:50',
             'employee_id'=>'required|max:20',
-            'email' => 'required|email|unique:users|max:80',
-            'contact_number' => 'required|unique:employee_temp|max:10|min:10|regex:/^[0-9]{10}$/',
+            
+            'contact_number' => 'required|unique:users|max:10|min:10|regex:/^[0-9]{10}$/',
             //'telephone_number'=>'max:20|min:10|regex:/(01)[0-9]{9}/',
-            'user_name' => 'required|max:20',
+            'username' => 'required|max:20',
             'password' => 'max:20|required',
             'confirmed' => 'max:20|same:password',
             'role_id' => 'required',
@@ -242,7 +244,7 @@ class ManageOfficialsController extends Controller
             'pin_code' => 'required|max:6|min:6',
         ],
         [
-            'employee' => 'Please Enter  Name',
+            'name' => 'Please Enter  Name',
             'email' => 'Please Enter Email',
             'contact_number' => 'Please Enter Mobile No.',
            // 'telephone_number' => 'Please Enter valid landline No.',
@@ -264,14 +266,14 @@ class ManageOfficialsController extends Controller
         }
         
        
-        $employees =  Employee::find($id);
-        $employees->employee = $request->input('employee');
+        $employees =  User::find($id);
+        $employees->name = $request->input('name');
         $employees->employee_id = $request->input('employee_id');
         $employees->email = $request->input('email');
 
         $employees->mob_number = $request->input('contact_number');
         $employees->telephone_number = $request->input('telephone_number');
-        $employees->user_name = $request->input('user_name');
+        $employees->username = $request->input('username');
         $employees->password = $request->input('password');
         $employees->designation = $request->input('designation');
         $employees->department_id = $request->input('department_id');
@@ -291,12 +293,14 @@ class ManageOfficialsController extends Controller
         $pendding = Employeeupdatestatus::select('keyname')->where('employee_id',$id)->where('approve_status','0')->get()->toArray();
         $existing = array();
         $field_name = array(
-            'employee' => 'Employee',
+            'name' => 'Employee',
             'email' => 'Email',
             'contact_number' => 'Contact Number',
-            'user_name' => 'User Name',
+            'username' => 'User Name',
             'password' => 'Password',
             'role_id' => 'Role',
+            'country'=>'Country',
+            'state'=>'State',
             'designation' => 'Designation',
             'department_id' => 'Department',
             'comm_add_line1' => 'Address Line 1',
@@ -392,7 +396,7 @@ class ManageOfficialsController extends Controller
     }
     public function deleteemployee($id)
         {
-            Employee::destroy($id);
+            User::destroy($id);
             return redirect()->back()->with('delmsg', 'Data Deleted Successfully!');
         }
 
