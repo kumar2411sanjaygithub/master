@@ -358,10 +358,8 @@
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-laptop"></i>
-
-            <span>PPA & Bidding Setting</span>
-
+            <i class="fa fa-setting"></i>
+            <span>PPA & Bidding</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -369,10 +367,23 @@
           <ul class="treeview-menu">
 
             <li><a href="{{ route('addppadetailss') }}"><i class="fa fa-circle-o"></i>PPA</a></li>
-            <li><a href=""><i class="fa fa-circle-o"></i>Bid Setting</a></li>
+            <li><a href="{{ route('bid.bidview') }}"><i class="fa fa-circle-o"></i>Bid setting</a></li>
 
           </ul>
         </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>POC & DISCOM</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ route('pocdetails')}}"><i class="fa fa-circle-o"></i>Poc Details</a></li>
+            <li><a href="/discom"><i class="fa fa-circle-o"></i>Discom Losses</a></li>
+
 
           <li class="treeview">
             <a href="#">
@@ -385,7 +396,7 @@
             <ul class="treeview-menu">
               <li><a href="{{ route('lead.index') }}"><i class="fa fa-circle-o"></i>Lead</a></li>
             </ul>
-          </li>  
+          </li>
           <li class="treeview">
             <a href="#">
               <i class="fa fa-laptop"></i>
@@ -397,9 +408,14 @@
             <ul class="treeview-menu">
               <li><a href="{{ route('discom-sldc-state.index') }}"><i class="fa fa-circle-o"></i>DISCOM & SLDC List</a></li>
             </ul>
-          </li>            
+          </li>
+
           </ul>
         </li>
+
+        <li><a href="{{ route('lead.index') }}"><i class="fa fa-circle-o"></i>Lead</a></li>
+
+
 
 <!--         <li class="treeview">
           <a href="#">
