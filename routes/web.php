@@ -74,6 +74,11 @@ Route::group(['middleware' => 'auth'], function ()
 	 Route::get('/leadproduct-delete/{id}','LeadController@leadproduct_delete');
 	 Route::post('/lead-email-add','LeadController@lead_email_add');
 	 Route::get('/lead-email-delete/{id}','LeadController@lead_email_delete');
+	 Route::resource('discom-sldc-state', 'DiscomSLDCController');
+	 Route::get('/discom-sldc-state/delsldc/{id}/e_del/{eid}','DiscomSLDCController@delsldc');
+	 Route::get('/discom-sldc-state/deldiscom/{id}/e_del/{eid}','DiscomSLDCController@deldiscom');
+	 Route::get('/discom-sldc-state/delvoltage/{id}/e_del/{eid}','DiscomSLDCController@delvoltage');
+
 });
 
 	// Client Login
