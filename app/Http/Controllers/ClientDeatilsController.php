@@ -3,13 +3,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
-// use App\Role;
-// use App\Department;
+use App\StateDiscom;
+
+use App\Bank;
 use Carbon\Carbon;
 use DB;
 use App\Client;
-// use App\Employeeupdatestatus;
+use App\BankTemp;
 use Validator;
+use App\Approvalrequest;
 use Illuminate\Support\Facades\Redirect;
 
 
@@ -19,12 +21,14 @@ class ClientDeatilsController extends Controller
 	public function viewlist()
 	{
 		$clientdata = Client::all()->where('client_app_status','1');
-		return view('ManageClient.addclient');
+
+		return view('ManageClient.addclient',compact('clientdata'));
 	}
 
 	public function addclient()
 	{
-
+        
+        
 		return view('ManageClient.basicdetails');
 	}
 	public function saveclient(Request $request){
@@ -120,5 +124,153 @@ class ClientDeatilsController extends Controller
         //$lsatinsertedId = $clien->id;
 		return redirect('basicdetails')->with('message', 'Data Save Successfully!');
 	}
+    public function edit_bankdetails($id='',$eid=''){
+        $bank_id=$eid;
+        $client_id=$id;
+        $get_bank_details = Bank::where('id',$bank_id)->where('status',1)->first();
+        $bankdetails = Bank::where('client_id',$client_id)->where('status',1)->get();
 
+        return view('ManageClient.bankdetails',compact('bankdetails','client_id','get_bank_details'));
+    }
+
+    public function bankdetails($id){
+        $client_id=$id;
+       // $bankdetails = Bank::where('client_id',$id)->where('status',1)->get();
+        $bankdetails = DB::table('bank')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',2); })->where('client_id',$id)->where('status',1)->get();
+
+
+        return view('ManageClient.bankdetails',compact('bankdetails','client_id'));
+    }
+    public function add_bankdetails(Request $request){
+        // dd();
+        // $this->validate($request, [
+        //     // 'account_holder_name' => 'required|max:100',
+        //     'account_number' => 'required|regex:/^[\w-]*$/|max:20',
+        //     'bank_name' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
+        //     'branch_name' => 'required|regex:/^[a-z\d\-_\s]+$/i|max:50',
+        //     'ifsc_code' => 'required|max:11',
+        // ]);
+        
+        // if($checkaccountnumber){
+        //     $validator = Validator::make([], []);
+        //     $validator->getMessageBag()->add('account_no', 'Account Number already registered');
+        //         return response()->json(['errors'=>$validator->errors()],400);
+        // }
+        
+        $bankdetail = new BankTemp();
+       $bankdetail->client_id = $request->client_id;
+        $bankdetail->account_number = $request->input('account_number');
+        $bankdetail->bank_name = $request->input('bank_name');
+        $bankdetail->branch_name = $request->input('branch_name');
+        $bankdetail->ifsc = $request->input('ifsc');
+        $bankdetail->virtual_account_number = $request->input('virtual_account_number');
+        //dd(3);
+        $bankdetail->save();
+        return redirect()->back()->with('message','Detail added successfully and sent to Approver');
+        
+    }
+
+    public function update_bankdetails(Request $request ,$bank_detail_id)
+    {
+        //  $this->validate($request, [
+        //     // 'account_holder_name' => 'required|max:100',
+        //     'account_number' => 'required|max:20',
+        //     'bank_name' => 'required|max:50',
+        //     'branch_name' => 'required|max:50',
+        //     'ifsc' => 'required|max:11',
+        // ]);
+        //$checkaccountnumber = Bank::where(['account_number'=>$request->input('account_number'),'status'=>1])->where('id','!=',$bank_detail_id)->get()->toArray();
+
+
+
+        // if($checkaccountnumber){
+        //       $validator = Validator::make([], []);
+        //       $validator->getMessageBag()->add('account_no', 'Account Number already registered');
+        //         return response()->json(['errors'=>$validator->errors()],400);
+        // }
+        //Old Logic
+        $client_id=$request->input('client_id');
+        $bankdetailtemp = Bank::find($bank_detail_id)->toArray();
+
+        $datas =array();
+        $datas['account_number'] = $bankdetailtemp['account_number'];
+        $datas['bank_name'] = $bankdetailtemp['bank_name'];
+        $datas['branch_name'] = $bankdetailtemp['branch_name'];
+        $datas['ifsc'] = $bankdetailtemp['ifsc'];
+        $datas['virtual_account_number'] = $bankdetailtemp['virtual_account_number'];
+
+        $dataArray =array();
+        $dataArray['account_number'] = $request->input('account_number');
+        $dataArray['bank_name'] = $request->input('bank_name');
+        $dataArray['branch_name'] = $request->input('branch_name');
+        $dataArray['ifsc_code'] = $request->input('ifsc_code');
+        $dataArray['virtual_account_number'] = $request->input('virtual_account_number');
+        $result=array_diff($dataArray,$bankdetailtemp);
+
+        $this->generateApprovalrequest($result, 'bank', $client_id, $bank_detail_id,$datas);
+
+        return redirect()->route('bankdetails', ['id' => $client_id])->with('message','Detail added successfully and sent to Approver');
+    }
+
+
+    public function delete_bankdetails(Request $request ,$bank_detail_id)
+    {
+        $client_id=$request->input('client_id');
+        Bank::destroy($bank_detail_id);
+
+        return redirect()->back()->with('Bank detail request successfully and sent to approver');
+    }
+    public function search_discom(Request $request)
+    {
+        $voltage_array=array();
+       $sldc=StateDiscom::where('state',$request['state'])->first();
+       $voltage_data=json_decode($sldc->voltage);
+       foreach($voltage_data as $voltage)
+       {
+           foreach($voltage as $sk=>$voltage_value)
+           {
+               if($voltage_value!=NULL)
+               {
+                   array_push($voltage_array,$voltage_value);
+               }
+
+           }
+           
+       }
+
+       $discom_array=array();
+       $json_discom=json_decode($sldc->discom);
+       foreach($json_discom as $discom)
+       {
+           foreach($discom as $sk=>$discom_value)
+           {
+               if($discom_value!=NULL){
+                   array_push($discom_array,$discom_value);
+               }
+           }
+           
+       }
+      return response()->json(['voltage' => $voltage_array, 'discom' => $discom_array],200);
+    }
+    function generateApprovalrequest($data, $type, $client_id, $reference_id='',$datas){
+        $arrayKey = array_keys($data);
+
+        $arrayValue = array_values($data);
+        //$keys = array('bill_address_line_2'=>'Address Line 1');
+         foreach($data as $key=>$value){
+          //dd($key);
+           $approvalRequest = New Approvalrequest();
+            $approvalRequest->client_id       = $client_id;
+            $approvalRequest->attribute_name  = $key;
+            $approvalRequest->updated_attribute_value =  $value;
+            $approvalRequest->approval_type   = $type;
+            $approvalRequest->old_att_value   = isset($datas[$key])?$datas[$key]:'-';
+            //$approvalRequest->updated_by      = \Auth::id();
+            //$approvalRequest->approved_by      = '';
+            $approvalRequest->status          = '0';
+            $approvalRequest->reference_id    = $reference_id;
+            $approvalRequest->save();
+        }
+
+    }
 }
