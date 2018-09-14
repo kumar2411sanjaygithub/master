@@ -9,12 +9,12 @@
 
 <section class="content-header">
    <h5>
-      <label  class="control-label">ADD POC LOSSES</label>
+      <label  class="control-label">ADD DISCOM</label>
    </h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">POC & Discom Losses</a></li>
-      <li><a href="#" class="active">POC Add</a></li>
+      <li><a href="#" class="active">Discom Add</a></li>
    </ol>
 </section>
 <!-- Content Header (Page header) -->
@@ -45,7 +45,7 @@
            {{ session()->get('delmsg') }}
        </div>
      @endif
-    <form method="post" enctype="multipart/form-data" action="{{ route('addpoc')}}">
+    <form method="post" enctype="multipart/form-data" action="{{ route('adddiscom')}}">
       {{ csrf_field()}}
       <div class="row">
       <div class="col-xs-12">
@@ -129,7 +129,7 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($lossesData as $key => $value)
+            @foreach ($discomData as $key => $value)
             <tr>
               <td class="text-center">{{$key+1}}</td>
               <td class="text-center">{{ $value->date_from }}</td>
@@ -139,9 +139,9 @@
               <td class="text-center">{{ $value->injection_poc_loss }}</td>
               <td class="text-center">{{ $value->withdraw_poc_loss }}</td>
               <td class="text-center">
-                <a href="/poc/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a href="/discom/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
                 &nbsp;&nbsp;&nbsp;
-                <a href="/poc/deleteppa/{{$value->id}}"><span class="glyphicon glyphicon-trash"></span></a>
+                <a href="/discom/deletediscom/{{$value->id}}"><span class="glyphicon glyphicon-trash"></span></a>
               </td>
             </tr>
             @endforeach
@@ -150,6 +150,8 @@
      </div>
   </div>
   </section>
+
+
   <!-- The Modal -->
   <div class="modal" id="myModal">
     <div class="modal-dialog modal-sm">
