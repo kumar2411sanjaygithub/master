@@ -340,8 +340,6 @@
                   <option value=''>PLEASE SELECT</option>
                 </select>
               </div>
-
-
             </div>
             <div class="row">
               <div class="col-md-12"></div>
@@ -365,10 +363,10 @@
             <label  class="control-label">DOES BELONG TO COMMON FEEDER</label>
             <div class="form-group">
               <div class="col-md-6 pull-left">
-                  <input type="radio" class="flat-red" name="rt" id="rt"><span  class="pull-left">YES</span>
+                  <span  class="pull-left">YES</span>&nbsp&nbsp<input type="radio" class="flat-red" name="rt" id="rt">
               </div>
              <div class="col-md-6 pull-Left">
-                   <input type="radio" class="flat-red" name="rt" id="rt1"><span  class="pull-left">NO</span>
+                   <span  class="pull-left">NO</span>&nbsp&nbsp<input type="radio" class="flat-red" name="rt" id="rt1">
               </div>
             </div>
               </div>
@@ -411,8 +409,7 @@
                 </select>
               </div>
             </div>
-
-           <hr>
+            <hr>
               <div class="row">
                  <div class="col-md-5"></div>
                   <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" id="saveclient">SAVE</button></div>

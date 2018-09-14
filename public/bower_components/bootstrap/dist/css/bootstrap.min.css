@@ -3327,7 +3327,7 @@ fieldset[disabled] .radio label {
 }
 
 select.input-sm {
-	height: 30px;
+	height: 27px;
 	line-height: 30px
 }
 
@@ -3337,7 +3337,7 @@ textarea.input-sm {
 }
 
 .form-group-sm .form-control {
-	height: 30px;
+	height: 27px;
 	padding: 5px 10px;
 	font-size: 12px;
 	line-height: 1.5;
@@ -3345,7 +3345,7 @@ textarea.input-sm {
 }
 
 .form-group-sm select.form-control {
-	height: 30px;
+	height: 27px;
 	line-height: 30px
 }
 
