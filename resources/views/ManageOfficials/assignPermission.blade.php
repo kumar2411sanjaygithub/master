@@ -10,11 +10,9 @@
       </ol>
     </section>
 
-    <!-- Main content -->
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
-    <!------------new table start--->
 <div class="box">
   <div class="box-header">
     @if (\Session::has('success'))
@@ -42,10 +40,10 @@
     <th>APPROVER </br><input type="checkbox" id="approver-checkbox"></th>
   </thead>
   <tbody>
-    
+
   @php $i=1; @endphp
   @if (count($permission_list) > 0)
-    @foreach ($permission_list as $k=>$permission)    
+    @foreach ($permission_list as $k=>$permission)
     <tr>
 
       <td>{{$i}}</td>
@@ -58,7 +56,7 @@
       <td><input type="checkbox" class="minimal verifier-checkbox" name="get[{{$i}}][]" value="{{$permission->permission_name.'_verifier-'.$permission->id}}" @if(in_array($permission->id,$all_permission_id) && in_array($permission->permission_name.'_verifier',$permission_name)) checked="checked" @endif></td>
       <td><input type="checkbox" class="minimal approver-checkbox" name="get[{{$i}}][]" value="{{$permission->permission_name.'_approver-'.$permission->id}}" @if(in_array($permission->id,$all_permission_id) && in_array($permission->permission_name.'_approver',$permission_name)) checked="checked" @endif></td>
     </tr>
-       @php $i++; @endphp                                   
+       @php $i++; @endphp
    @endforeach
   @else
    <tr>
@@ -79,11 +77,7 @@
  <div class="row">&nbsp;</div>
  </div>
 </form>
-<!-----------------------------------------modal----------------------------->
 
-
-<!---------------new table closed-->
-      <!-- /.row -->
     </div>
   </div>
 
