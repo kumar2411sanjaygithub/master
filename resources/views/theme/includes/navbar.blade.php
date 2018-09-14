@@ -431,6 +431,7 @@
 
           <ul class="treeview-menu">
             <li><a href="{{ route('psmdetials') }}"><i class="fa fa-circle-o"></i>PSM Details</a></li>
+            <li><a href="{{ route('insufficientpsm') }}"><i class="fa fa-circle-o"></i>Insufficent PSM</a></li>
           </ul>
         </li>
 

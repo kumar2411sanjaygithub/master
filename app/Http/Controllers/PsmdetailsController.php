@@ -35,6 +35,10 @@ class PsmdetailsController extends Controller
         return view('psm.psmdetails',compact('psmData','clientData'));
     }
 
+    public function viewinsuffi(){
+      return view('psm.insufficientpsm');
+    }
+
     public function paymentsecuritymargin(Request $request)
     {
         $date = date('Y-m-d',strtotime(date('Y-m-d').'+1 day'));

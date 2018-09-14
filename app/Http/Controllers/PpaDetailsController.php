@@ -17,7 +17,8 @@ class PpaDetailsController extends Controller
   public function ppadetails()
   {
     $ppaData = Ppadetails::where('status','0')->paginate(10);
-    return view('ppa.ppa_details',compact('ppaData'));
+    $clientData = Client::all();
+    return view('ppa.ppa_details',compact('ppaData','clientData'));
   }
 
   public function saveppa(Request $request)
@@ -61,7 +62,7 @@ class PpaDetailsController extends Controller
         $validator = Validator::make($request->all(), [
             'validity_from' => 'required',
             'validity_to' => 'required',
-            'file_path' => 'required',
+            // 'file_path' => 'required',
         ]);
         if($validator->fails())
         {
@@ -74,7 +75,7 @@ class PpaDetailsController extends Controller
            }
            else
            {
-               $imageName = "";
+               $imageName = $request->input('old');
            }
         $ppa = Ppadetails::find($id);
         $ppa->validity_from = $request->input('validity_from');
@@ -110,17 +111,12 @@ public function viewbidsetting()
       return Response::json(array('bid_cut_off_time' => $selData->bid_cut_off_time, 'trader_type' => $selData->trader_type));
     }
 
-public function addbidsetting(Request $request)
-  {
-    $validator = Validator::make($request->all(), [
-        'bid_cut_off_time' => 'required',
-        'trader_type' => 'required',
-    ]
-  );
-    if($validator->fails())
-    {
-        return Redirect::back()->withErrors($validator);
-    }
+public function addbidsetting(Request $request){
+    $this->validate($request,[
+      'client' => 'required',
+      'bid_cut_off_time' => 'required',
+      'trader_type' => 'required'
+    ]);
     $id = $request->input('client');
     $ppa = Client::find($id);
     $ppa->bid_cut_off_time = $request->input('bid_cut_off_time');

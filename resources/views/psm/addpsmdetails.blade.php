@@ -81,7 +81,7 @@ a.disabled {
                                    <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
                                    </div>
-                                   <input type="text" value="{{old('received_date')}}" class="form-control pull-right input-sm" name="received_date" id="datepicker">
+                                   <input type="text" autocomplete="off" value="{{old('received_date')}}" class="form-control pull-right input-sm" name="received_date" id="datepicker">
                                    <span class="text-danger">{{ $errors->first('received_date') }}</span>
                                 </div>
                              </div>
@@ -91,7 +91,7 @@ a.disabled {
                              </div>
                              <div class="col-md-3 {{ $errors->has('amount') ? 'has-error' : '' }}">
                                 <label  class="control-label">AMOUNT</label><span class="text-danger"><strong>*</strong></span>
-                                <input class="form-control input-sm" value="{{old('amount')}}" type="text" name="amount" placeholder="ENTER AMOUNT">
+                                <input class="form-control input-sm num" value="{{old('amount')}}" type="text" name="amount" placeholder="ENTER AMOUNT">
                                 <span class="text-danger">{{ $errors->first('amount') }}</span>
                              </div>
                           </div>
@@ -102,7 +102,7 @@ a.disabled {
                                    <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
                                    </div>
-                                   <input type="text" disabled="disabled" value="{{old('issue_date')}}" name="issue_date" class="form-control pull-right input-sm" id="issue_date">
+                                   <input type="text" autocomplete="off" disabled="disabled" value="{{old('issue_date')}}" name="issue_date" class="form-control pull-right input-sm" id="issue_date">
                                    <span class="text-danger">{{ $errors->first('issue_date') }}</span>
                                 </div>
                              </div>
@@ -112,7 +112,7 @@ a.disabled {
                                    <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
                                    </div>
-                                   <input type="text" class="form-control pull-right input-sm" value="{{old('expiry_date')}}" name="expiry_date" id="datepicker2">
+                                   <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{old('expiry_date')}}" name="expiry_date" id="datepicker2">
                                    <span class="text-danger">{{ $errors->first('expiry_date') }}</span>
                                 </div>
                              </div>
@@ -222,7 +222,7 @@ a.disabled {
             <section class="content-header">
               <h5><label  class="control-label"><u>ADD PSM EXPOSURE DETAILS</u> &nbsp; <small>{{$clientData->company_name}}</small></label></h5>
             </section>
-            <form method="post" enctype="multipart/form-data" action="{{ url('addpsmexposure/'.$last_id->id)}}" class="aped hidden">
+            <form method="post" enctype="multipart/form-data" action="{{ url('addpsmexposure/'.@$last_id->id)}}" class="aped hidden">
               {{ csrf_field()}}
               <div class="row">
                <div class="col-xs-12">
@@ -231,15 +231,15 @@ a.disabled {
                         <div class="row">
                           <div class="col-md-3">
                              <label  class="control-label">PSM Amount</label>
-                             <input class="form-control input-sm" readonly value="{{$last_id->amount}}" name="psm_amount" id="psm_amount" type="text">
+                             <input class="form-control input-sm" readonly value="{{@$last_id->amount}}" name="psm_amount" id="psm_amount" type="text">
                           </div>
                            <div class="col-md-3">
                               <label  class="control-label">Exposure(%)</label>
-                              <input class="form-control input-sm" value="{{$last_id->exposure_percent}}" name="exposure_percent" id="exposure_percent" type="text" placeholder="Enter Percent">
+                              <input class="form-control input-sm" value="{{@$last_id->exposure_percent}}" name="exposure_percent" id="exposure_percent" type="text" placeholder="Enter Percent">
                            </div>
                            <div class="col-md-3">
                               <label  class="control-label">PSM Exposure (Auto-Calculate)</label>
-                              <input class="form-control input-sm" value="{{$last_id->exposure}}" name="exposure" id="exposure" type="text" placeholder="Auto Calculate">
+                              <input class="form-control input-sm" value="{{@$last_id->exposure}}" name="exposure" id="exposure" type="text" placeholder="Auto Calculate">
                            </div>
                         </div>
                         <div class="row">&nbsp;</div>
@@ -284,10 +284,10 @@ a.disabled {
                      <tbody>
                         <tr>
                            <td>1</td>
-                           <td>{{isset($last_id->psm_amount)?$last_id->psm_amount:'-'}}</td>
-                           <td>{{isset($last_id->exposure)?$last_id->exposure:'-'}}</td>
-                           <td>{{($last_id->psm_added_date)?$last_id->psm_added_date:'-'}}</td>
-                           <td><a href="/editexposure/{{$last_id->id}}/{{$clientData->id}}" class="{{ isset($last_id->exposure)? '':'apedbtn disabled'}}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                           <td>{{isset($last_id->psm_amount)?@$last_id->psm_amount:'-'}}</td>
+                           <td>{{isset($last_id->exposure)?@$last_id->exposure:'-'}}</td>
+                           <td>{{(isset($last_id->psm_added_date))?@$last_id->psm_added_date:'-'}}</td>
+                           <td><a href="/editexposure/{{@$last_id->id}}/{{$clientData->id}}" class="{{ isset($last_id->exposure)? '':'apedbtn disabled'}}"><span class="glyphicon glyphicon-pencil"></span></a></td>
                         </tr>
                      </tbody>
                   </table>
@@ -363,4 +363,5 @@ $(document).ready(function(){
     });
 });
 </script>
+
 @endsection
