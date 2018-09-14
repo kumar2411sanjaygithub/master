@@ -130,6 +130,16 @@ Route::post('/contact_create',['as'=>'contact_create','uses'=>'ContactController
 Route::get('/editcontactdetail/{id}/eid/{eid}',['as'=>'editcontactdetail','uses'=>'ContactController@edit_contactdetails']);
 Route::post('/contact_edit/{id}',['as'=>'contact_edit','uses'=>'ContactController@update_contactdetails']);
 Route::get('/delete/contact/{id}',['as'=>'contactdelete','uses'=>'ContactController@delete_contactdetails']);
+Route::get('/service/contact/{id}',['as'=>'service','uses'=>'ContactController@sevices']);
+
+//NOC----SHALU//
+Route::get('/nocdetails/{id}',['as'=>'nocdetails','uses'=>'NocController@nocdetails']);
+Route::post('/noc_create',['as'=>'noc_create','uses'=>'NocController@add_nocdetails']);
+Route::get('/editnocdetail/{id}/eid/{eid}',['as'=>'editnocdetail','uses'=>'NocController@edit_nocdetails']);
+Route::post('/noc_edit/{id}',['as'=>'noc_edit','uses'=>'NocController@update_nocdetails']);
+Route::get('/delete/noc/{id}',['as'=>'nocdelete','uses'=>'NocController@delete_nocdetails']);
+
+
 
 
 

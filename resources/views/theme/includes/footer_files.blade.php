@@ -26,3 +26,4 @@
       {{ Html::script('dist/js/adminlte.min.js') }}
       <!-- AdminLTE for demo purposes -->
       {{ Html::script('dist/js/demo.js') }}
+      

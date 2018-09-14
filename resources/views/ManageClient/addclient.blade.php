@@ -60,7 +60,7 @@
                                 <td class="text-center">{{ $value->pxil_portfolio }}</td>
                                 <td class="text-center">{{ $value->crn_no }}</td>
                                 <td class="text-center ">
-                                  <a href="#" class="text-decoration: underline">BASIC</a>&nbsp<a href="/contactdetails/{{$value->id}}">CONTACT</a>&nbsp<a href="/exchangedetails/{{$value->id}}">EXCHANGE FILE</a>&nbsp<a href="#">NOC</a>&nbsp<a href="/bankdetails/{{$value->id}}">BANK</a>&nbsp<a href="#">PSM</a>
+                                  <a href="#" class="text-decoration: underline">BASIC</a>&nbsp<a href="/contactdetails/{{$value->id}}">CONTACT</a>&nbsp<a href="/exchangedetails/{{$value->id}}">EXCHANGE FILE</a>&nbsp<a href="/nocdetails/{{$value->id}}">NOC</a>&nbsp<a href="/bankdetails/{{$value->id}}">BANK</a>&nbsp<a href="#">PSM</a>
                                 </td>
                               </tr>
                             <?php
