@@ -61,12 +61,31 @@ Route::group(['middleware' => 'auth'], function ()
 
 
 		// PPA Bid Setting
-   // Route::get('/ppa/addppadetails',['as'=>'addppadetails','uses'=>'PpaDetailsController@addppadetails']);
   Route::post('/ppa/addppadetails',['as'=>'addppadetails','uses'=>'PpaDetailsController@saveppa']);
  	Route::get('/ppa/addppadetails',['as'=>'addppadetailss','uses'=>'PpaDetailsController@ppadetails']);
   Route::get('/ppa/editppa/{id}',['as'=>'ppa.editppa','uses'=>'PpaDetailsController@editppa']);
   Route::post('/ppa/updateppadata/{id}',['as'=>'ppa.updateppadata','uses'=>'PpaDetailsController@updateppadata']);
   Route::get('/ppa/deleteppa/{id}',['as'=>'deleteppa','uses'=>'PpaDetailsController@deleteppa']);
+
+// ValidationSetting
+Route::get('/validationSetting/validationSetting',['as'=>'validationSetting','uses'=>'ValidationSettingController@validationsettingview']);
+Route::post('/validationSetting/validationSetting',['as'=>'addppadetails','uses'=>'ValidationSettingController@savevalidationsetting']);
+Route::get('/deleteeditvalidationsetting/{id}',['as'=>'deleteeditvalidationsetting','uses'=>'ValidationSettingController@deletevalidation']);
+Route::get('/editvalidationsetting/{id}',['as'=>'editvalidationsetting','uses'=>'ValidationSettingController@editvalidationsetting']);
+Route::post('updateValidationSetting/{id}',['as'=>'updateValidationSetting','uses'=>'ValidationSettingController@updateValidationSetting']);
+
+// PSM
+Route::get('/psm/psmdetails',['as'=>'psmdetials','uses'=>'PsmdetailsController@viewclient']);
+Route::post('/psm/psmdetails/{id}',['as'=>'addpsmdetails','uses'=>'PsmdetailsController@addpsmdetailssubmit']);
+Route::get('/deletepsmdetails/{id}',['as'=>'deletepsm','uses'=>'PsmdetailsController@deletepaymentsecuritymargin']);
+Route::get('/editpsmdetails/{id}/{client_id}',['as'=>'editpsmdetails','uses'=>'PsmdetailsController@editpsmdetails']);
+Route::post('updatepsm/{id}',['as'=>'updatepsm','uses'=>'PsmdetailsController@updatepsm']);
+Route::get('/psm/psmdetails/{id}',['as'=>'psmdata','uses'=>'PsmdetailsController@findPsmData']);
+Route::post('addpsmexposure/{id}',['as'=>'addpsmexposure','uses'=>'PsmdetailsController@addpsmexposure']);
+Route::get('/editexposure/{id}/{client_id}',['as'=>'editexposure','uses'=>'PsmdetailsController@editexposure']);
+
+
+
 
   // bid setting
   Route::get('/ppa/bidsetting',['as'=>'bid.bidview','uses'=>'PpaDetailsController@viewbidsetting']);
@@ -80,6 +99,11 @@ Route::group(['middleware' => 'auth'], function ()
   Route::post('/updatepoc/{id}',['as'=>'poc.updatepoc','uses'=>'PocController@updateppadata']);
   Route::get('/poc/deleteppa/{id}',['as'=>'deletepoc','uses'=>'PocController@deletepoc']);
 
+  Route::get('/discom',['as'=>'discomdetails','uses'=>'DiscomController@viewdiscomdetails']);
+  Route::post('/discom',['as'=>'adddiscom','uses'=>'DiscomController@savediscom']);
+  Route::get('/discom/{id}',['as'=>'discom.editdiscom','uses'=>'DiscomController@editdiscom']);
+  Route::post('/updatediscom/{id}',['as'=>'poc.updatediscom','uses'=>'DiscomController@updatediscomdata']);
+  Route::get('/discom/deletediscom/{id}',['as'=>'deletediscom','uses'=>'DiscomController@deletediscom']);
 
 	 Route::resource('lead', 'LeadController');
 	 Route::post('/task-lead','LeadController@taskadd');
@@ -192,4 +216,3 @@ Route::get('/delete_contact/{id}/{type}/{type2}',['as'=>'deletecontact.approve',
 
 
 });
-
