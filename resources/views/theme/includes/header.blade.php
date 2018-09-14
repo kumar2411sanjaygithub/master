@@ -14,6 +14,8 @@
       <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
       {{ Html::style('dist/css/skins/_all-skins.min.css') }}
+      {{ Html::style('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}
+      {{ Html::style('plugins/timepicker/bootstrap-timepicker.min.css') }}
       <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
       <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
       <!--[if lt IE 9]>
@@ -32,3 +34,4 @@
       <!-- Google Font -->
       <link rel="stylesheet"
          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+      <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">

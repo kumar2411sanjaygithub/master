@@ -122,7 +122,35 @@ Route::get('/client/new',['as'=>'approve.newclient','uses'=>'ClientApprovalContr
 
 Route::get('/client/existing',['as'=>'approve.existingclient','uses'=>'ClientApprovalController@viewexistingemployee']);
 
+//Noc Application & Bill Setting & Approval
+//Route::resource('noc-application', 'NocAppController');
+Route::get('/noc-applications',['as'=>'noc-applications.index','uses'=>'NocAppController@index']);
 
+ Route::post('/noc-applicationn',['as'=>'noc-applicationn.nocstore','uses'=>'NocAppController@nocstore']);
+Route::get('/client/search',['as'=>'clientSearch','uses'=>'NocAppController@clientSearch']);
+Route::get('/getclientData/{id}',['as'=>'getclientData','uses'=>'NocAppController@clientData']);
+
+Route::get('/noc-application-approval',['as'=>'nocapplicationapproval','uses'=>'NocAppController@nocApproval']);
+Route::delete('/noc-approval-request/{id}/status/{status_id}',['as'=>'nocapprovalRequest','uses'=>'NocAppController@nocApprovalReq']);
+Route::post('/add-payment',['as'=>'add-payment','uses'=>'NocAppController@addPayment']);
+Route::get('/generateNocPDF/{id}',['as'=>'NocPdf','uses'=>'NocAppController@generateNocPdf']);
+Route::delete('/noc-pdf-delete/{id}',['as'=>'nocpdfdelete','uses'=>'NocAppController@nocPdfDelete']);
+Route::get('/noc/edit/{id}',['as'=>'nocedit','uses'=>'NocAppController@editnoc']);
+Route::post('/noc/update/{id}',['as'=>'nocupdate','uses'=>'NocAppController@updatenoc']);
+Route::get('/noc/email/{id}/client/{c_id}',['as'=>'nocemail','uses'=>'NocAppController@emailnoc']);
+Route::get('/generatesldcPDF/{id}/client/{c_id}',['as'=>'NocPdf','uses'=>'NocAppController@generateSldcPdf']);
+Route::get('/generatediscomPDF/{id}/client/{c_id}',['as'=>'NocDisocmPdf','uses'=>'NocAppController@generateDiscomPdf']);
+
+Route::delete('/noc-request/{id}/status/{status_id}',['as'=>'nocRequest','uses'=>'NocAppController@nocReq']);
+Route::get('/noc/email-debit/{id}/client/{c_id}',['as'=>'noc-debit-email','uses'=>'NocAppController@emailDebitNoc']);
+
+
+Route::get('/noc/billingsetting',['as'=>'billsetting.nocbilllist','uses'=>'NocAppController@nocbilllist']);
+Route::get('/noc_discom_search',['as'=>'noc_discom_search','uses'=>'NocAppController@nocbillsearch']);
+Route::post('/noc-billing/create',['as'=>'noc_billing.nocbillingcreate','uses'=>'NocAppController@nocbillingcreate']);
+Route::delete('/noc-billing-setting/{id}',['as'=>'noc-billing-setting.nocbillingdelete','uses'=>'NocAppController@nocbillingdelete']);
+Route::get('/noc-billing/edit/{id}',['as'=>'noc_billing.nocbillingedit','uses'=>'NocAppController@nocbillingedit']);
+Route::post('/noc-billing-update/{id}',['as'=>'noc_billing.nocbillingupdate','uses'=>'NocAppController@nocbillingupdate']);
 
 });
 
