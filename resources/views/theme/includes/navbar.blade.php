@@ -26,6 +26,7 @@
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
                   <li><!-- start message -->
+
                     <a href="#">
                       <div class="pull-left">
                         <img src="{{url('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
@@ -385,10 +386,26 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-
           <ul class="treeview-menu">
             <li><a href="{{ route('addppadetailss') }}"><i class="fa fa-circle-o"></i>PPA</a></li>
+
             <li><a href="{{ route('bid.bidview') }}"><i class="fa fa-circle-o"></i>Bid setting</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i>Billing Setting</a></li>
+            <li><a href="{{ route('validationSetting') }}"><i class="fa fa-circle-o"></i>Validation Setting</a></li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>PSM Detials</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+
+          <ul class="treeview-menu">
+            <li><a href="{{ route('psmdetials') }}"><i class="fa fa-circle-o"></i>PSM Details</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -401,7 +418,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{ route('pocdetails')}}"><i class="fa fa-circle-o"></i>Poc Details</a></li>
-            <li><a href="/discom"><i class="fa fa-circle-o"></i>Discom Losses</a></li>
+            <li><a href="{{ route('discomdetails')}}"><i class="fa fa-circle-o"></i>Discom Losses</a></li>
           </ul>
         </li>
           <li class="treeview">

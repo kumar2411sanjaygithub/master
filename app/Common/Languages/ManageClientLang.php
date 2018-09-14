@@ -54,7 +54,7 @@ class ManageClientLang
             'name'=>'Contact Name',
             'designation'=>'Designation',
             'email'=>'Contact Email',
-            'mobile_no'=>'Contact Email',
+            'mob_num'=>'Contact Number',
             'submission_time'=>'Submission Time',
             'ca_client_id'=>'IEX Client Id',
            
@@ -74,7 +74,9 @@ class ManageClientLang
             'final_noc_quantum'=>'Final Noc Quantum',
             'validity_from'=>'From Date',
             'validity_to'=>'To Date',
-            'upload_noc'=>'Upload File'
+            'upload_noc'=>'Upload File',
+            'bid_alert'=> 'Bid Alert',
+            'obligation'=> 'Obligation'
         );
    }
 }
