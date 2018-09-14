@@ -60,6 +60,7 @@
                                 <td class="text-center ">
 
 
+
                                   <a href="#" class="text-decoration: underline"><u>BASIC</u></a>&nbsp&nbsp<a href="/contactdetails/{{$value->id}}"><u>CONTACT</u></a>&nbsp&nbsp<a href="/exchangedetails/{{$value->id}}"><u>EXCHANGE FILE</u></a>&nbsp&nbsp<a href="#"><u>NOC</u></a>&nbsp&nbsp<a href="/bankdetails/{{$value->id}}"><u>BANK</u></a>&nbsp&nbsp<a href="#"><u>PSM</u></a>
 
                                 </td>
@@ -72,6 +73,10 @@
                 </tbody>
                 </table>
             </div>
+<<<<<<< HEAD
+
+=======
+>>>>>>> ceff4bdc2c574587b674559d5a1a2b6448adfb5d
           </div>
         </section>
  <script>
@@ -81,4 +86,8 @@
         });
     }, 5000);
   </script>
+<<<<<<< HEAD
+        @endsection
+=======
   @endsection
+>>>>>>> ceff4bdc2c574587b674559d5a1a2b6448adfb5d

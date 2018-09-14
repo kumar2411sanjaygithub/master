@@ -109,11 +109,11 @@
                 </div>
              </div>
              <div class="col-md-8"></div>
-             <div class="col-md-2">
-                <div href="#" class="btn btn-info btn-xs pull-right" id="vg9" name="vg9">
+             <!-- <div class="col-md-2">
+                <a href="#" class="btn btn-info btn-xs pull-right" id="vg9" name="vg9">
                    <span class="glyphicon glyphicon-plus"> </span>ADD VALIDATION
-                </div>
-             </div>
+                </a>
+             </div> -->
           </div>
        </div>
       </div>

@@ -90,23 +90,16 @@ class ValidationSettingController extends Controller
      */
     public function updateValidationSetting(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'required|max:500',
-        ],
-        [
-            'user_id' => 'Please Select User',
+        $this->validate($request, [
+            'user_id' => 'required'
         ]);
-        if($validator->fails())
-        {
-            return Redirect::back()->withErrors($validator);
-        }
         $validationsettingtempttemp = Validationsetting::find($id);
         $validationsettingtempttemp->user_id = $request->input('user_id');
         $validationsettingtempttemp->noc = $request->input('noc');
         $validationsettingtempttemp->ppa = $request->input('ppa');
         $validationsettingtempttemp->exchange = $request->input('exchange');
         $validationsettingtempttemp->psm = $request->input('psm');
-        $validationsettingtempttemp->update();
+        $validationsettingtempttemp->save();
         return redirect()->route('validationSetting')->with('message', 'Data Update Successfully!');
     }
     /**

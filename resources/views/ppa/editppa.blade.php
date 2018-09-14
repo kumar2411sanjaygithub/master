@@ -29,7 +29,7 @@
                            <div class="input-group-addon">
                               <i class="fa fa-calendar"></i>
                            </div>
-                           <input type="text" value="{{ $ppaData->validity_from }}" class="form-control pull-right input-sm" id="datepicker" name="validity_from">
+                           <input type="text" autocomplete="off" value="{{ $ppaData->validity_from }}" class="form-control pull-right input-sm" id="datepicker" name="validity_from">
                             <span class="text-danger">{{ $errors->first('validity_from') }}</span>
                         </div>
                      </div>
@@ -39,13 +39,14 @@
                            <div class="input-group-addon">
                               <i class="fa fa-calendar"></i>
                            </div>
-                           <input type="text" value="{{ $ppaData->validity_to }}" class="form-control pull-right input-sm" id="datepicker1" name="validity_to">
+                           <input type="text"  autocomplete="off" value="{{ $ppaData->validity_to }}" class="form-control pull-right input-sm" id="datepicker1" name="validity_to">
                             <span class="text-danger">{{ $errors->first('validity_to') }}</span>
                         </div>
                      </div>
                      <div class="col-md-3 {{ $errors->has('file_path') ? 'has-error' : '' }}">
-                        <label  class="control-label">UPLOAD DOCUMENT</label><span class="text-danger"><strong>*</strong></span>
+                        <label  class="control-label">UPLOAD DOCUMENT</label><span class="text-danger"><strong></strong></span>
                         <input class="form-control input-sm" type="file" value="{{ $ppaData->file_path }}" name="file_path" placeholder="ENTER POC LOSSES">
+                        <input class="form-control input-sm" type="hidden" value="{{ $ppaData->file_path }}" name="old" placeholder="ENTER POC LOSSES">
                           <span class="text-danger">{{ $errors->first('file_path') }}</span>
                      </div>
                   </div>
@@ -61,22 +62,30 @@
             </div>
 </form>
  </section>
+
  <script>
     $(function () {
 
       //Date picker
-      $('#datepicker').datepicker({
-        autoclose: true
-      })
-      $('#datepicker1').datepicker({
-        autoclose: true
-      })
-      $('#datepicker2').datepicker({
-        autoclose: true
-      })
-      $('#datepicker3').datepicker({
-        autoclose: true
-      })
+
+                 $('#datepicker').datepicker({
+                  autoclose: true,
+                  format: 'dd/mm/yyyy',
+                }).on('changeDate', function (selected) {
+                   var startDate = new Date(selected.date.valueOf());
+                   $('#datepicker1').datepicker('setStartDate', startDate);
+                 }).on('clearDate', function (selected) {
+                     $('#datepicker1').datepicker('setStartDate', null);
+                 });
+                $('#datepicker1').datepicker({
+                  autoclose: true,
+                   format: 'dd/mm/yyyy'
+                }).on('changeDate', function (selected) {
+                     var endDate = new Date(selected.date.valueOf());
+                     $('#datepicker').datepicker('setEndDate', endDate);
+                 }).on('clearDate', function (selected) {
+                     $('#datepicker').datepicker('setEndDate', null);
+                 });
 
     })
  </script>
