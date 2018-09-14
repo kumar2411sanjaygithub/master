@@ -151,9 +151,8 @@
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="bill_country" name="bill_country">
-                  <option selected="selected">PLEASE SELECT</option>
-                  <option>ALASKA</option>
-                  <option>CALIFONIA</option>
+                  <option selected="selected">India</option>
+                  
 
                 </select>
               </div>
@@ -161,9 +160,12 @@
               <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="bill_state" name="bill_state">
                   <option selected="selected">PLEASE SELECT</option>
-                  <option>NOIDA</option>
-                  <option>DELHI</option>
-                  <option>GURGAON</option>
+                  <?php
+          $state_list = \App\Common\StateList::get_states();
+          ?>
+          @foreach($state_list as $state_code=>$state_ar)
+           <option value="{{$state_code}}" {{ isset($clientData) && $clientData->reg_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
+          @endforeach
                 </select>
               </div>
             </div>
@@ -171,12 +173,9 @@
             <div class="row">
               <div class="col-md-3">
               <label  class="control-label">CITY</label><span class="text-danger"><strong>*</strong></span>
-              <select class="form-control input-sm" style="width: 100%;" id="bill_city" name="bill_city">
-                  <option selected="selected">PLESE SELECT</option>
-                  <option>NOIDA</option>
-                  <option>DELHI</option>
-
-                </select>
+              <input class="form-control input-sm" style="width: 100%;" id="bill_city" name="bill_city">
+                  
+                
               </div>
               <div class="col-md-3">
             <label  class="control-label">PIN CODE</label>
@@ -214,9 +213,8 @@
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="del_country" name="del_country">
-                  <option selected="selected">PLEASE SELECT</option>
-                  <option>ALASKA</option>
-                  <option>CALIFONIA</option>
+                  <option selected="selected">India</option>
+                  
 
                 </select>
               </div>
@@ -225,7 +223,12 @@
               <select class="form-control input-sm" style="width: 100%;" id="del_state" name="del_state">
                   <option selected="selected">PLEASE SELECT</option>
                   
-
+                  <?php
+          $state_list = \App\Common\StateList::get_states();
+          ?>
+          @foreach($state_list as $state_code=>$state_ar)
+           <option value="{{$state_code}}" {{ isset($clientData) && $clientData->reg_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
+          @endforeach
                 </select>
               </div>
             </div>
@@ -233,12 +236,8 @@
             <div class="row">
               <div class="col-md-3">
               <label  class="control-label">CITY</label>
-              <select class="form-control input-sm" style="width: 100%;" id="del_city" name="del_city">
-                  <option selected="selected">PLESE SELECT</option>
-                  <option>NOIDA</option>
-                  <option>DELHI</option>
-
-                </select>
+              <input class="form-control input-sm" style="width: 100%;" id="del_city" name="del_city">
+                  
               </div>
               <div class="col-md-3">
             <label  class="control-label">PIN CODE</label>
@@ -309,28 +308,40 @@
           <h5><label  class="control-label"><u>CONNECTION DETAILS</u></label></h5>
             <div class="row">
               <div class="col-md-3">
+              <label  class="control-label">STATE TYPE</label>
+              <select class="form-control input-sm" style="width: 100%;" id="state_type" name="state_type">
+                  <option selected="selected">PLEASE SELECT</option>
+                  <option>intra state </option>
+                  <option>inter state</option>
+                  
+                </select>
+              </div>
+               <div class="col-md-3">
+            <label  class="control-label">STATE(For NOC)</label>
+            <select class="form-control input-sm" style="width: 100%;" name="conn_state" id="conn_state">
+                <option selected="selected">PLEASE SELECT</option>
+                <?php
+          $state_list = \App\Common\StateList::get_states();
+          ?>
+          @foreach($state_list as $state_code=>$state_ar)
+           <option value="{{$state_code}}" {{ isset($clientData) && $clientData->reg_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
+          @endforeach
+              </select>
+              </div>
+              <div class="col-md-3">
               <label  class="control-label">DISCOM</label>
-              <input class="form-control input-sm" type="text" placeholder="ENTER DISCOM" id="discom" name="discom">
+              <select class="form-control input-sm" style="width: 100%;" id="discom" name="discom">
+                  <option value=''>PLEASE SELECT</option>
+                </select>              
               </div>
               <div class="col-md-3">
               <label  class="control-label">VOLTAGE LEVEL</label>
               <select class="form-control input-sm" style="width: 100%;" id="voltage" name="voltage">
-                  <option selected="selected">PLEASE SELECT</option>
-                  <option>ALASKA</option>
-                  <option>CALIFONIA</option>
+                  <option value=''>PLEASE SELECT</option>
                 </select>
               </div>
-              <div class="col-md-3">
-              <label  class="control-label">STATE TYPE</label>
-              <select class="form-control input-sm" style="width: 100%;" id="state_type" name="state_type">
-                  <option selected="selected">PLEASE SELECT</option>
-                  
-                </select>
-              </div>
-              <div class="col-md-3">
-              <label  class="control-label"> NAME OF SUBSTATION</label>
-            <input class="form-control input-sm" type="text" placeholder="ENTER SUBSTATION NAME" id="name_of_substation" name="name_of_substation">
-              </div>
+              
+             
             </div>
             <div class="row">
               <div class="col-md-12"></div>
@@ -371,16 +382,10 @@
               </div>
             </div>
             <div class="row">
+              
               <div class="col-md-3">
-              <label  class="control-label">DISCOM</label>
-            <input class="form-control input-sm" type="text" placeholder="ENTER DISCOM" name="conn_discom" id="conn_discom">
-              </div>
-              <div class="col-md-3">
-            <label  class="control-label">STATE</label>
-            <select class="form-control input-sm" style="width: 100%;" name="conn_state" id="conn_state">
-                <option selected="selected">PLEASE SELECT</option>
-                
-              </select>
+              <label  class="control-label"> NAME OF SUBSTATION</label>
+            <input class="form-control input-sm" type="text" placeholder="ENTER SUBSTATION NAME" id="name_of_substation" name="name_of_substation">
               </div>
               <div class="col-md-3">
             <label  class="control-label">MAXIMUM INJECTION QUANTUM</label>
@@ -425,4 +430,38 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
  {{ Html::script('js/client/clientdetails.js') }}
+ <script>
+ $(document).ready(function(){
+   $('#conn_state').on('change', function() {
+     
+     var state=this.value;
+     if(state!='')
+     {
+       $.ajax({
+           url: '{{ url()->to("noc_discom_s") }}',
+           type: 'GET',
+           data: {'state':state},
+           dataType: 'JSON',
+           success: function(data)
+           {
+             html1='';
+             html1+='<option value="">CHOOSE</option>';
+             $.each(data.voltage, function(key1, value1){
+               html1+='<option value="'+value1+'">'+value1+'</option>';
+             });
+             $('#voltage').html(html1);
+
+             html='';
+             html+='<option value="">CHOOSE</option>';
+             $.each(data.discom, function(key, value){
+               html+='<option value="'+value+'">'+value+'</option>';
+             });
+             $('#discom').html(html);
+           }
+       });        
+     }     
+   });
+
+ });
+</script>
           @endsection
