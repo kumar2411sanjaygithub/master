@@ -98,6 +98,14 @@ class ContactController extends Controller
 
         return redirect()->back()->with('message','contact detail request successfully and sent to approver');
     }
+
+    public function sevices($id)
+    {
+        $client_id=$id;
+        $alert_type = ServiseAlert::select('*')->where('client_id',$id)->get();
+        return view('ManageClient.service',compact('client_id','alert_type'));
+
+    }
     function generateApprovalrequest($data, $type, $client_id, $reference_id='',$datas){
         $arrayKey = array_keys($data);
 
