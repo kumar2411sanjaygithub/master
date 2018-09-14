@@ -23,7 +23,7 @@ body {
 	overflow-y: auto
 }
 .box-body>.table {
-	font-size: 12px!important;
+	font-size: 11px!important;
 	}
 	.table tbody tr td {
      padding:2px!important;
@@ -321,7 +321,7 @@ a:focus {
 	display: block;
 	float: left;
 	height: 50px;
-	font-size: 20px;
+	font-size: 13px;
 	line-height: 50px;
 	text-align: center;
 	width: 230px;
@@ -3558,7 +3558,7 @@ table.text-center th {
 .treeview-menu>li>a {
 	padding: 5px 5px 5px 15px;
 	display: block;
-	font-size: 14px
+	font-size: 11px;
 }
 
 .treeview-menu>li>a>.fa,

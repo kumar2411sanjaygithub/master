@@ -31,7 +31,6 @@
             <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD CLIENT</a>
           </div>
           </div>
-
           <div class="box">
                     <!-- /.box-header -->
             <div class="box-body table-responsive">
@@ -48,7 +47,6 @@
                 </thead>
                 <tbody>
                  @isset($clientdata)
-
                               <?php
                                 $i=1;
                               ?>
@@ -71,7 +69,6 @@
                 </tbody>
                 </table>
             </div>
-            
           </div>
         </section>
  <script>
@@ -81,4 +78,4 @@
         });
     }, 5000);
   </script>
-        @endsection
+  @endsection
