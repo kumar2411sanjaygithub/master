@@ -124,6 +124,13 @@ Route::get('/editexchangedetail/{id}/eid/{eid}',['as'=>'editexchangedetail','use
 Route::post('/exchange_edit/{id}',['as'=>'exchange_edit','uses'=>'ExchangeController@update_exchangedetails']);
 Route::get('/delete/exchange/{id}',['as'=>'exchangedelete','uses'=>'ExchangeController@delete_exchangedetails']);
 
+//CONTACT----SHALU//
+Route::get('/contactdetails/{id}',['as'=>'contactdetails','uses'=>'ContactController@contactdetails']);
+Route::post('/contact_create',['as'=>'contact_create','uses'=>'ContactController@add_contactdetails']);
+Route::get('/editcontactdetail/{id}/eid/{eid}',['as'=>'editcontactdetail','uses'=>'ContactController@edit_contactdetails']);
+Route::post('/contact_edit/{id}',['as'=>'contact_edit','uses'=>'ContactController@update_contactdetails']);
+Route::get('/delete/contact/{id}',['as'=>'contactdelete','uses'=>'ContactController@delete_contactdetails']);
+
 
 
 
@@ -154,6 +161,11 @@ Route::get('/exchangeapproval/{id}',['as'=>'exchangeapproval','uses'=>'ExchangeA
 Route::get('/addexchange/{id}/{type}/{type2}',['as'=>'addexchange.approve','uses'=>'ExchangeApprovalController@addapprove']);
 Route::get('/exchange/modified/{id}/{type}/',['as'=>'modifiedexchange.approve','uses'=>'ExchangeApprovalController@modified']);
 Route::get('/delete_exchange/{id}/{type}/{type2}',['as'=>'deleteexchange.approve','uses'=>'ExchangeApprovalController@delete_exchange']);
+
+Route::get('/contact/approval/{id}',['as'=>'contactapproval','uses'=>'ContactApprovalController@contactapproval']);
+Route::get('/addcontact/{id}/{type}/{type2}',['as'=>'addcontact.approve','uses'=>'ContactApprovalController@addapprove']);
+Route::get('/contact/modified/{id}/{type}/',['as'=>'modifiedcontact.approve','uses'=>'ContactApprovalController@modified']);
+Route::get('/delete_contact/{id}/{type}/{type2}',['as'=>'deletecontact.approve','uses'=>'ContactApprovalController@delete_contact']);
 
 
 
