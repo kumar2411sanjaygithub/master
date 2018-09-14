@@ -31,4 +31,9 @@ class Client extends Authenticatable
     {
         $this->notify(new ClientResetPasswordNotification($token));
     }
+    public function nocbilling()
+    {
+        return $this->belongsTo('App\NocBilling','conn_state','state');
+    }
+
    }
