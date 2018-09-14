@@ -18,7 +18,7 @@
                    {!! \Session::get('success') !!}
                </div>
           @endif
-      
+
       <div class="row">
         <div class="col-xs-12">
           <div class="row">
@@ -35,12 +35,12 @@
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>
       <tr>
-        <th>SR.NO</th>
-        <th>CLIENT NAME</th>
-        <th>GST IN</th>
-        <th>PAN</th>
-        <th>CIN</th>
-        <th>ACTION</th>
+         <th>SR.NO</th>
+         <th>CLIENT NAME</th>
+         <th>GSTIN</th>
+         <th>PAN</th>
+         <th>CIN</th>
+         <th>ACTION</th>
       </tr>
       </thead>
       <tbody>
@@ -50,36 +50,36 @@
         <td>Win9554665755656645</td>
         <td>Win9536567457545664</td>
         <td>r79879879789ahu</td>
-         
+
          <td><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button>&nbsp<button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></td>
-      
+
       </tr> -->
-                                <?php $i=1; ?> 
+                                <?php $i=1; ?>
                                 @foreach ($approveclient as $key => $value)
-                              
+
                                   <tr>
                                     <td>
-                                      
+
                                       <div class="text-center">{{$i}}</div>
                                       </td>
                                     <td class="text-center tr_1">{{$value->company_name}}</td>
                                     <td class="text-center">{{$value->gstin}}</td>
                                     <td class="text-center">{{$value->pan}}</td>
-                                    <td class="text-center">{{$value->cin}}</td> 
+                                    <td class="text-center">{{$value->cin}}</td>
 
                                      @if($value->client_app_status =='0')
-                                     
+
                                       <td class="text-center">
                                         <a href="/status/{{$value->id}}/approve" class="btn  btn-info btn-xs">Approve</a>
                                         <a href="/status/{{$value->id}}/reject" class="btn  btn-danger btn-xs">Reject</a>
                                       </td>
                                     @elseif($value->client_app_status =='1')
-                                    
+
                                       <td class="text-center">
                                         <span class="text-primary">Approved</span>
                                       </td>
                                     @elseif($value->client_app_status =='2')
-                                    
+
                                       <td class="text-center">
                                         <span class="text-danger">Rejected</span>
                                       </td>
@@ -91,7 +91,7 @@
     </tbody>
       </table>
   </div>
-  
+
 </div>
     </section>
     <script>
@@ -123,4 +123,3 @@
     }, 5000);
   </script>
     @endsection
-   

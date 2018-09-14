@@ -18,6 +18,7 @@ $(document).ready(function() {
 });
 </script>
 {{ Html::script('bower_components/jquery/dist/jquery.min.js') }}
+
       <!-- Bootstrap 3.3.7 -->
       {{ Html::script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}
       <!-- Select2 -->
@@ -45,3 +46,5 @@ $(document).ready(function() {
       {{ Html::script('dist/js/adminlte.min.js') }}
       <!-- AdminLTE for demo purposes -->
       {{ Html::script('dist/js/demo.js') }}
+
+      {{ Html::script('https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js.js') }}

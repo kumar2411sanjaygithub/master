@@ -67,10 +67,12 @@ class PsmdetailsController extends Controller
 
     public function findPsmData(Request $request,$id)
       {
+        dd($id);
         $psmData = Psmdetails::select('*')->where('client_id', $id)->paginate(10);
         $id = $request['id'];
         $clientData = Client::where('id',$id)->first();
         $last_id = Psmdetails::where('client_id',$id)->orderBy('id', 'DESC')->first();
+        dd($last_id);
         return view('psm.addpsmdetails',compact('psmData','id','clientData','last_id'));
       }
 

@@ -23,15 +23,15 @@ class PpaDetailsController extends Controller
 
   public function saveppa(Request $request)
   {
-    $validator = Validator::make($request->all(), [
-        'validity_from' => 'required',
-        'validity_to' => 'required',
-        'file_path' => 'required',
-    ]);
-    if($validator->fails())
-    {
-        return Redirect::back()->withErrors($validator);
-    }
+    // $validator = Validator::make($request->all(), [
+    //     'validity_from' => 'required',
+    //     'validity_to' => 'required',
+    //     'file_path' => 'required',
+    // ]);
+    // if($validator->fails())
+    // {
+    //     return Redirect::back()->withErrors($validator);
+    // }
     if(isset(request()->file_path))
        {
            $imageName = time().'.'.request()->file_path->getClientOriginalName();
