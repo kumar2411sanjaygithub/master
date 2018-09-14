@@ -16,22 +16,17 @@ class PpaDetailsController extends Controller
 
   public function ppadetails()
   {
-    $ppaData = Ppadetails::where('status','0')->paginate(1);
+    $ppaData = Ppadetails::where('status','0')->paginate(10);
     return view('ppa.ppa_details',compact('ppaData'));
   }
-  public function saveppa(Request $request){
+
+  public function saveppa(Request $request)
+  {
     $validator = Validator::make($request->all(), [
         'validity_from' => 'required',
         'validity_to' => 'required',
         'file_path' => 'required',
-    ]
-    // ,
-    // [
-    //     'validity_from' => 'Please Choose From Date',
-    //     'validity_to' => 'Please Choose To Date',
-    //     'file_path' => 'Please Choose File',
-    // ]
-  );
+    ]);
     if($validator->fails())
     {
         return Redirect::back()->withErrors($validator);
@@ -39,7 +34,7 @@ class PpaDetailsController extends Controller
     if(isset(request()->file_path))
        {
            $imageName = time().'.'.request()->file_path->getClientOriginalName();
-           request()->file_path->move(public_path('ppa/'), $imageName);
+           request()->file_path->move(public_path('documents/ppa/'), $imageName);
        }
        else
        {
@@ -75,7 +70,7 @@ class PpaDetailsController extends Controller
         if(isset(request()->file_path))
            {
                $imageName = time().'.'.request()->file_path->getClientOriginalName();
-               request()->file_path->move(public_path('ppa/'), $imageName);
+               request()->file_path->move(public_path('documents/ppa/'), $imageName);
            }
            else
            {
@@ -95,7 +90,9 @@ class PpaDetailsController extends Controller
     public function deleteppa($id)
     {
         $ppa = Ppadetails::find($id);
+        $file_path=$ppa->file_path;
         $ppa->destroy($id);
+        unlink('documents/ppa/'.$file_path);
         return redirect()->back()->with('delmsg', 'Data Deleted Successfully!');
     }
 
