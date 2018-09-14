@@ -110,7 +110,7 @@
     <div class="row">
      <div class="col-md-1"></div>
      <div class="col-md-9"></div>
-    <div class="col-md-1 text-right"><a href="#" class="btn btn-info btn-xs" id=" " name=" ">&nbsp IMPORT(CSV/XLSX)</a></div>
+    <div class="col-md-1 text-right"><a href="#" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal">&nbsp IMPORT(CSV/XLSX)</a></div>
    <div class="col-md-1 text-right"><a href="add_poc_losses.html" class="btn btn-info btn-xs" id=" " name=" "><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</a></div>
 </div>
   <div class="box">
@@ -150,7 +150,30 @@
      </div>
   </div>
   </section>
+  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
 
+        <!-- Modal Header -->
+        <div class="modal-header text-center">
+          <h4 class="modal-title">Import CSV/XLSX</h4>
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <input type="file" name="file">
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer text-center">
+          <button type="button" class="btn btn-danger text-center" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
 <script type="text/javascript">
  setTimeout(function() {
    $('.alert-success').fadeOut('fast');
