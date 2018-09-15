@@ -12,6 +12,7 @@ use App\Client;
 use App\BankTemp;
 use Validator;
 use App\Approvalrequest;
+use App\Groupusersetting;
 use Illuminate\Support\Facades\Redirect;
 
 
@@ -38,7 +39,7 @@ class ClientDeatilsController extends Controller
 			'company_name' => 'required|max:100',
             'gstin' => 'required|regex:/^[0-9]{2}[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z][0-9A-z]{3}$/|max:15',
             'pan' => 'required|regex:/^[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z]$/|max:10',
-            'short_id' => 'required|max:15',
+            //'short_id' => 'required|max:15',
             'pri_contact_no'=>'required',
             'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|min:21|max:21',
             'email'=>'required|email||max:81',
@@ -62,6 +63,7 @@ class ClientDeatilsController extends Controller
         $client->company_name = $request->input('company_name');
         $client->gstin = $request->input('gstin');
         $client->pan = $request->input('pan');
+        $client->cin = $request->input('cin');
         $client->short_id = $request->input('short_id');
         $client->email = $request->input('email');
         $client->new_sap = $request->input('new_sap');
@@ -124,6 +126,24 @@ class ClientDeatilsController extends Controller
         //$lsatinsertedId = $clien->id;
 		return redirect('basicdetails')->with('message', 'Data Save Successfully!');
 	}
+
+    public function viewclient($id){
+
+        $clientdata = Client::select('*')->where('client_app_status','1')->where('id',$id)->first();
+//dd($clientdata);
+        return view('ManageClient.viewbasic',compact('clientdata'));
+    }
+
+
+
+
+
+
+
+
+
+
+
     public function edit_bankdetails($id='',$eid=''){
         $bank_id=$eid;
         $client_id=$id;
@@ -143,19 +163,19 @@ class ClientDeatilsController extends Controller
     }
     public function add_bankdetails(Request $request){
         // dd();
-        // $this->validate($request, [
-        //     // 'account_holder_name' => 'required|max:100',
-        //     'account_number' => 'required|regex:/^[\w-]*$/|max:20',
-        //     'bank_name' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
-        //     'branch_name' => 'required|regex:/^[a-z\d\-_\s]+$/i|max:50',
-        //     'ifsc_code' => 'required|max:11',
-        // ]);
+        $this->validate($request, [
+            // 'account_holder_name' => 'required|max:100',
+            'account_number' => 'required|regex:/^[\w-]*$/|max:20',
+            'bank_name' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
+            'branch_name' => 'required|regex:/^[a-z\d\-_\s]+$/i|max:50',
+            'ifsc' => 'required|max:11',
+        ]);
         
-        // if($checkaccountnumber){
-        //     $validator = Validator::make([], []);
-        //     $validator->getMessageBag()->add('account_no', 'Account Number already registered');
-        //         return response()->json(['errors'=>$validator->errors()],400);
-        // }
+        if($validator->fails())
+        {
+            
+            return redirect()->back()->withInput($request->input())->withErrors($validator);
+        }
         
         $bankdetail = new BankTemp();
        $bankdetail->client_id = $request->client_id;
@@ -276,7 +296,117 @@ class ClientDeatilsController extends Controller
 
     public function barreddetails()
     {
-        dd('dassa');
+        $client_list=Client::orderBy('id','DESC')->paginate(10);
+        
+        return view('ManageClient.barred_client',compact('client_list'));
+    }
+    public function barredChangeStatus($c_id='',$status_id='')
+    {
+        $status = Client::find($c_id);
+        $status->barred_status = $status_id;
+        $status->save();
+        return redirect()->back()->with('success','Client status change successfully.');
+    }
+    public function accountGroupDetails()
+    {
+        $Clientsdetails = Client::select('barred_status','company_name','group_id','group_role','id')->where('barred_status',"1")
+        ->where(function($query){
+            $query->where('group_role', '!=', 'MainMember','AND')->orWhereNull('group_role');
+        })->get()->toArray();
+
+        $get_client_id = Client::all()->where('group_role','Member')->toArray();;
+        $role_off = array_column($get_client_id, 'id');
+
+
+        $Groupuserdetails = Groupusersetting::where('status',0)->get()->toArray();
+            //dd($Groupuserdetails);
+        return view('ManageClient.account_group',compact('Clientsdetails','role_off','Groupuserdetails'));
+    }    
+    public function creategroup(Request $request)
+    {
+        $clientid = $request->input('clientid');
+        $clintdetails = Client::where('id',$clientid)->first();
+        $group_name   = $clintdetails['company_name'];
+        $user         = Groupusersetting::where('client_id', '=', $clientid)->first();
+        if ($user === null) {
+            // user doesn't exist
+            $usergroupsetting = new Groupusersetting();
+            $usergroupsetting->group_name = $group_name;
+            $usergroupsetting->client_id  = $clientid;
+            $usergroupsetting->status = '0';
+            $usergroupsetting->save();
+        }
+        else
+        {
+            $usergroupsetting = Groupusersetting::where('client_id',$clientid)->first();
+            $usergroupsetting->status = '0';
+            $usergroupsetting->update();
+        }
+        
+
+        $clientmaster_newusermapping = Client::where('id',$clientid)->first();
+        $clientmaster_newusermapping->group_id = $clientid;
+        $clientmaster_newusermapping->group_role = "MainMember";
+        $clientmaster_newusermapping->save();
+
+
+        /*$accountStatement_newusermapping = AccountStatement::where('clientid',$clientid)->find($clientid);
+        $accountStatement_newusermapping->group_id = $clientid;
+        $accountStatement_newusermapping->group_role = "MainMember";
+        $accountStatement_newusermapping->save();*/
+
+        //return with('success', 'your data saved');
     }
 
+    public function addnewusersforgroup(Request $request)
+    {
+        $clientid     = $request->input('clientid');
+        $group_id     = $request->input('group_id');
+        $group_name   = $request->input('group_name');
+        //dd($clientid,$group_id,$group_name);
+        $clientmaster_newusermapping = Client::where('id',$clientid)->first();
+        $clientmaster_newusermapping->group_id = $group_id;
+        $clientmaster_newusermapping->group_role = "Member";
+        $clientmaster_newusermapping->save();
+
+        
+        return redirect()->back()->with('success', 'your data saved');
+    }
+
+    public function deletenewuser_usegroupsetting(Request $request, $clientid=null)
+    {
+        $clientmaster_newusermapping = Client::where('id',$clientid)->first();
+        if($clientmaster_newusermapping != ''){
+        $clientmaster_newusermapping->group_id = "Null";
+        $clientmaster_newusermapping->group_role = "Null";
+        $clientmaster_newusermapping->save();
+        }   
+        return redirect('/agsetting')->with('deletesuccess', 'User Deleted Successfully');
+    }
+
+    public function deletegroup(Request $request)
+    {
+        $group_id = $request->input('group_id');
+        $group_role = "Member";
+        $Clientsdetails = Client::where('group_id',$group_id, 'AND')
+                            ->where('group_role','Member')
+                            ->get()
+                            ->toArray();
+        if(count($Clientsdetails) > 0)
+        {
+            return response()->json(0);
+        }
+        else
+        {
+            $Groupuserdetails = Groupusersetting::where('client_id',$group_id)->first();
+            $Groupuserdetails->status = "1";
+            $Groupuserdetails->save();
+
+            Client::where('group_id',$group_id)->update(['group_role'=>'']);
+
+            return response()->json(1);
+        }
+        //dd(count($Clientsdetails));
+        //dd('deletegroup',$group_id);
+    }
 }

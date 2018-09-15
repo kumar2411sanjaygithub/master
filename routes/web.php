@@ -134,6 +134,8 @@ Route::get('/basicdetails',['as'=>'basic.details','uses'=>'ClientDeatilsControll
 Route::get('/clientadd',['as'=>'clientadd','uses'=>'ClientDeatilsController@addclient']);
 Route::get('/noc_discom_s',['as'=>'noc_discom_s','uses'=>'ClientDeatilsController@search_discom']);
 Route::post('/client/saveclient',['as'=>'clientsave','uses'=>'ClientDeatilsController@saveclient']);
+Route::get('/basic/{id}',['as'=>'basic','uses'=>'ClientDeatilsController@viewclient']);
+
 
 //CLIENT-BANK----SHALU//
 Route::get('/bankdetails/{id}',['as'=>'bankdetails','uses'=>'ClientDeatilsController@bankdetails']);
@@ -175,33 +177,48 @@ Route::get('/delete/noc/{id}',['as'=>'nocdelete','uses'=>'NocController@delete_n
 
 
 
-Route::get('/dam',['as'=>'dam','uses'=>'ClientDetailsController@damdetails']);
-Route::get('/tem',['as'=>'tem','uses'=>'ClientDetailsController@temdetails']);
-Route::get('/rec',['as'=>'rec','uses'=>'ClientDetailsController@recdetails']);
-Route::get('/escerts',['as'=>'escerts','uses'=>'ClientDetailsController@escertsdetails']);
-Route::get('/agsetting',['as'=>'agsetting','uses'=>'ClientDetailsController@agsettingdetails']);
-Route::get('/barred',['as'=>'bared.barreddetails','uses'=>'ClientDetailsController@barreddetails']);
+Route::get('/dam',['as'=>'dam','uses'=>'ClientDeatilsController@damdetails']);
+Route::get('/tem',['as'=>'tem','uses'=>'ClientDeatilsController@temdetails']);
+Route::get('/rec',['as'=>'rec','uses'=>'ClientDeatilsController@recdetails']);
+Route::get('/escerts',['as'=>'escerts','uses'=>'ClientDeatilsController@escertsdetails']);
+Route::get('/agsetting',['as'=>'agsetting','uses'=>'ClientDeatilsController@accountGroupDetails']);
+Route::any('/creategroup','ClientDeatilsController@creategroup')->name('creategroups');
+Route::any('/addnewusersforgroup','ClientDeatilsController@addnewusersforgroup')->name('addnewusersforgroups');
+Route::any('/deletenewuser_usegroupsetting/{id}','ClientDeatilsController@deletenewuser_usegroupsetting')->name('deletenewuser_usegroupsettings');
+Route::any('/deletegroup','ClientDeatilsController@deletegroup')->name('deletegroups');
+
+
+Route::get('/barred',['as'=>'bared.barreddetails','uses'=>'ClientDeatilsController@barreddetails']);
+Route::get('/client-status/{c_id}/status/{status_id}',['as'=>'bared.barredstatus','uses'=>'ClientDeatilsController@barredChangeStatus']);
 //APPROVAL FOR CLIENT//
 Route::get('/client/new',['as'=>'approve.newclient','uses'=>'ClientApprovalController@approvenew']);
 
 Route::get('/client/existing',['as'=>'approve.existingclient','uses'=>'ClientApprovalController@approveexisting']);
 
+//APPROVAL FOR BANK//
 Route::get('/status/{id}/{type}',['as'=>'approve.status','uses'=>'ClientApprovalController@status']);
 Route::get('/bankapproval/{id}',['as'=>'bankapproval','uses'=>'ClientApprovalController@bankapproval']);
 Route::get('/add/{id}/{type}/{type2}',['as'=>'add.approve','uses'=>'ClientApprovalController@addapprove']);
 Route::get('/modified/{id}/{type}/',['as'=>'modified.approve','uses'=>'ClientApprovalController@modified']);
 Route::get('/deletebank/{id}/{type}/{type2}',['as'=>'deletebank.approve','uses'=>'ClientApprovalController@deletebank']);
 
-
+//APPROVAL FOR EXCHANGE//
 Route::get('/exchangeapproval/{id}',['as'=>'exchangeapproval','uses'=>'ExchangeApprovalController@exchangeapproval']);
 Route::get('/addexchange/{id}/{type}/{type2}',['as'=>'addexchange.approve','uses'=>'ExchangeApprovalController@addapprove']);
 Route::get('/exchange/modified/{id}/{type}/',['as'=>'modifiedexchange.approve','uses'=>'ExchangeApprovalController@modified']);
 Route::get('/delete_exchange/{id}/{type}/{type2}',['as'=>'deleteexchange.approve','uses'=>'ExchangeApprovalController@delete_exchange']);
 
+//APPROVAL FOR CONTACT//
 Route::get('/contact/approval/{id}',['as'=>'contactapproval','uses'=>'ContactApprovalController@contactapproval']);
 Route::get('/addcontact/{id}/{type}/{type2}',['as'=>'addcontact.approve','uses'=>'ContactApprovalController@addapprove']);
 Route::get('/contact/modified/{id}/{type}/',['as'=>'modifiedcontact.approve','uses'=>'ContactApprovalController@modified']);
 Route::get('/delete_contact/{id}/{type}/{type2}',['as'=>'deletecontact.approve','uses'=>'ContactApprovalController@delete_contact']);
+
+//APPROVAL FOR NOC//
+Route::get('/nocapproval/{id}',['as'=>'nocapproval','uses'=>'NocApprovalController@nocapproval']);
+Route::get('/addnoc/{id}/{type}/{type2}',['as'=>'addnoc.approve','uses'=>'NocApprovalController@addapprove']);
+Route::get('/noc/modified/{id}/{type}/',['as'=>'modifiednoc.approve','uses'=>'NocApprovalController@modified']);
+Route::get('/delete_noc/{id}/{type}/{type2}',['as'=>'deletenoc.approve','uses'=>'NocApprovalController@delete_noc']);
 
 
 
