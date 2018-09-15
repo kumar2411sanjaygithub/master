@@ -58,7 +58,7 @@
                        <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                        </div>
-                       <input type="text" class="form-control pull-right input-sm" id="datepicker" name="date_from">
+                       <input type="text" class="form-control pull-right input-sm" autocomplete="off" id="datepicker" name="date_from">
                        <span class="text-danger">{{ $errors->first('date_from') }}</span>
                     </div>
                  </div>
@@ -68,7 +68,7 @@
                        <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                        </div>
-                       <input type="text" class="form-control pull-right input-sm" id="datepicker1" name="date_to">
+                       <input type="text" class="form-control pull-right input-sm" autocomplete="off" id="datepicker1" name="date_to">
                        <span class="text-danger">{{ $errors->first('date_to') }}</span>
                     </div>
                  </div>
@@ -184,17 +184,23 @@
 
      //Date picker
      $('#datepicker').datepicker({
-       autoclose: true
-     })
-     $('#datepicker1').datepicker({
-       autoclose: true
-     })
-     $('#datepicker2').datepicker({
-       autoclose: true
-     })
-     $('#datepicker3').datepicker({
-       autoclose: true
-     })
+                autoclose: true,
+                format: 'dd/mm/yyyy',
+              }).on('changeDate', function (selected) {
+                 var startDate = new Date(selected.date.valueOf());
+                 $('#datepicker1').datepicker('setStartDate', startDate);
+               }).on('clearDate', function (selected) {
+                   $('#datepicker1').datepicker('setStartDate', null);
+               });
+              $('#datepicker1').datepicker({
+                autoclose: true,
+                 format: 'dd/mm/yyyy'
+              }).on('changeDate', function (selected) {
+                   var endDate = new Date(selected.date.valueOf());
+                   $('#datepicker').datepicker('setEndDate', endDate);
+               }).on('clearDate', function (selected) {
+                   $('#datepicker').datepicker('setEndDate', null);
+               });
 
    })
 </script>
