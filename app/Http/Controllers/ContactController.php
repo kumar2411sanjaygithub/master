@@ -34,17 +34,17 @@ class ContactController extends Controller
         return view('ManageClient.contactdetails',compact('contactdetails','client_id','alert_type'));
     }
     public function add_contactdetails(Request $request){
-        // $validator = Validator::make($request->all(), [
-        //     'name' => 'required|regex:/^[a-zA-Z ]*$/|max:100',
-        //     'designation' => 'required|regex:/^[a-zA-Z ]*$/|max:100',
-        //     'email' => 'required|unique:contact|email',
-        //     //'required|min:1|unique:department,depatment_name,NULL,id,deleted_at,NULL',
-        //     'mob_num' => 'required|unique:contact|regex:/^[0-9]{10}$/',
-        // ]);
-        // if($validator->fails())
-        // {
-        //     return Redirect::back()->withErrors($validator);
-        // }
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|regex:/^[a-zA-Z ]*$/|max:100',
+            'designation' => 'required|regex:/^[a-zA-Z ]*$/|max:100',
+            'email' => 'required|unique:contact|email',
+            //'required|min:1|unique:department,depatment_name,NULL,id,deleted_at,NULL',
+            'mob_num' => 'required|unique:contact|regex:/^[0-9]{10}$/',
+        ]);
+        if($validator->fails())
+        {
+            return Redirect::back()->withErrors($validator);
+        }
          
         
        

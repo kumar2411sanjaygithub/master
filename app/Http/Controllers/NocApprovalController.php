@@ -79,7 +79,7 @@ class NocApprovalController extends Controller
             return Redirect::back()->with('success', 'User Successfully Rejected.');
         }
     }
-     public function delete_exchange($id,$type,$type2){
+     public function delete_noc($id,$type,$type2){
 
         if($id!='' && $type=='approved'){
 

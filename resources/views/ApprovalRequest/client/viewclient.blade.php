@@ -20,7 +20,7 @@
           <div class="row">
               <div class="col-md-2">
               <div class="input-group input-group-sm">
-                <input type="text" class="form-control" placeholder="SEARCH">
+                <input type="text" class="form-control" placeholder="SEARCH" id="input" onkeyup="myFunction()">
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-info btn-flat"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
@@ -78,4 +78,24 @@
         });
     }, 5000);
   </script>
+  <script>
+ function myFunction() {
+ var input, filter, table, tr, td, i;
+ input = document.getElementById("input");
+ filter = input.value.toUpperCase();
+ table = document.getElementById("example1");
+ tr = table.getElementsByTagName("tr");
+ console.log(tr);
+ for (i = 0; i < tr.length; i++) {
+   td = tr[i].getElementsByTagName("td")[1];
+   if (td) {
+     if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+       tr[i].style.display = "";
+     } else {
+       tr[i].style.display = "none";
+     }
+   }
+ }
+}
+</script>
         @endsection

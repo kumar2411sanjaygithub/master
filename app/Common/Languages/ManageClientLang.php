@@ -74,9 +74,15 @@ class ManageClientLang
             'final_noc_quantum'=>'Final Noc Quantum',
             'validity_from'=>'From Date',
             'validity_to'=>'To Date',
-            'upload_noc'=>'Upload File',
+            'upload_noc'=>' File Name',
             'bid_alert'=> 'Bid Alert',
-            'obligation'=> 'Obligation'
+            'obligation'=> 'Obligation',
+            'final_quantum'=> 'Final Quantum',
+            'stu_losses'=> 'Stu Losses',
+            'poc_losses'=>'Poc Losses',
+            'discom_losses'=>'Discom Losses',
+            'region'=>'Region',
+            'region_entity'=>'Region Entity'
         );
    }
 }

@@ -4,6 +4,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 @endsection
 @section('content')
 
@@ -34,7 +35,7 @@
         <div class="box">
            <div class="box-body">
               <div class="row">
-                 <div class="col-md-12">
+                 <div class="col-md-12 {{ $errors->has('client') ? 'has-error' : '' }}">
                     <!-- <div class="input-group input-group-sm">
                        <input type="text" class="form-control" placeholder="SEARCH CLIENT.......................">
                        <span class="input-group-btn">
@@ -42,18 +43,19 @@
                        </span>
                     </div> -->
                     <select class="form-control input-sm select2" id="client" name="client" style="width: 100%;">
-                       <option selected="selected">SELECT CLIENT</option>
+                       <option value="">SELECT CLIENT</option>
                        @foreach ($clientData as $key => $value)
                         <option value="{{ $value->id }}">{{ $value->name }}</option>
                         @endforeach
                     </select>
+                    <span class="text-danger">{{ $errors->first('client') }}</span>
                  </div>
               </div>
               <div class="row">&nbsp;</div>
               <div class="row">
                  <div class="col-md-3 {{ $errors->has('bid_cut_off_time') ? 'has-error' : '' }}">
                     <label  class="control-label">BIDDING CUTT OFF TIME</label><span class="text-danger"><strong>*</strong></span>
-                    <input class="form-control input-sm" type="text" id="bid_cut_off_time" name="bid_cut_off_time" placeholder="ENTER BIDDING CUTT OFF TIME">
+                    <input class="form-control input-sm timepicker" type="text" id="bid_cut_off_time" name="bid_cut_off_time" placeholder="ENTER BIDDING CUTT OFF TIME">
                     <span class="text-danger">{{ $errors->first('bid_cut_off_time') }}</span>
                  </div>
                  <div class="col-md-3 {{ $errors->has('trader_type') ? 'has-error' : '' }}">
@@ -101,7 +103,10 @@
      })
      $('#datepicker3').datepicker({
        autoclose: true
-     })
+     });
+     $('.timepicker').timepicker({
+        showInputs: false
+      });
    })
    </script>
    <script>

@@ -29,24 +29,11 @@ $(document).ready(function() {
 		       $('#cin').focus();
 		       return false;
 		     }
-		// var new_sap_id = $('#new_sap_id').val();
-		//    if(new_sap_id == "")
-		//      {
-		//        swal('Error!', 'Please Enter Accounting Id. !!!.', 'error');
-		//        $('#new_sap_id').focus();
-		//        return false;
-		//      }
-		// var short_id = $('#short_id').val();
-		//    if(short_id == "")
-		//      {
-		//        swal('Error!', 'Please Enter Short Id !!!.', 'error');
-		//        $('#short_id').focus();
-		//        return false;
-		//      }
+		
 		var email = $('#email').val();
 		   if(email == "")
 		     {
-		       swal('Error!', 'Please Enter Short Id !!!.', 'error');
+		       swal('Error!', 'Please Enter Email !!!.', 'error');
 		       $('#email').focus();
 		       return false;
 		     }

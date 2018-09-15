@@ -38,7 +38,7 @@ class ClientDeatilsController extends Controller
 			'company_name' => 'required|max:100',
             'gstin' => 'required|regex:/^[0-9]{2}[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z][0-9A-z]{3}$/|max:15',
             'pan' => 'required|regex:/^[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z]$/|max:10',
-            'short_id' => 'required|max:15',
+            //'short_id' => 'required|max:15',
             'pri_contact_no'=>'required',
             'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|min:21|max:21',
             'email'=>'required|email||max:81',
@@ -62,6 +62,7 @@ class ClientDeatilsController extends Controller
         $client->company_name = $request->input('company_name');
         $client->gstin = $request->input('gstin');
         $client->pan = $request->input('pan');
+        $client->cin = $request->input('cin');
         $client->short_id = $request->input('short_id');
         $client->email = $request->input('email');
         $client->new_sap = $request->input('new_sap');
@@ -124,6 +125,24 @@ class ClientDeatilsController extends Controller
         //$lsatinsertedId = $clien->id;
 		return redirect('basicdetails')->with('message', 'Data Save Successfully!');
 	}
+
+    public function viewclient($id){
+
+        $clientdata = Client::select('*')->where('client_app_status','1')->where('id',$id)->first();
+//dd($clientdata);
+        return view('ManageClient.viewbasic',compact('clientdata'));
+    }
+
+
+
+
+
+
+
+
+
+
+
     public function edit_bankdetails($id='',$eid=''){
         $bank_id=$eid;
         $client_id=$id;
@@ -143,19 +162,19 @@ class ClientDeatilsController extends Controller
     }
     public function add_bankdetails(Request $request){
         // dd();
-        // $this->validate($request, [
-        //     // 'account_holder_name' => 'required|max:100',
-        //     'account_number' => 'required|regex:/^[\w-]*$/|max:20',
-        //     'bank_name' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
-        //     'branch_name' => 'required|regex:/^[a-z\d\-_\s]+$/i|max:50',
-        //     'ifsc_code' => 'required|max:11',
-        // ]);
+        $this->validate($request, [
+            // 'account_holder_name' => 'required|max:100',
+            'account_number' => 'required|regex:/^[\w-]*$/|max:20',
+            'bank_name' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
+            'branch_name' => 'required|regex:/^[a-z\d\-_\s]+$/i|max:50',
+            'ifsc' => 'required|max:11',
+        ]);
         
-        // if($checkaccountnumber){
-        //     $validator = Validator::make([], []);
-        //     $validator->getMessageBag()->add('account_no', 'Account Number already registered');
-        //         return response()->json(['errors'=>$validator->errors()],400);
-        // }
+        if($validator->fails())
+        {
+            
+            return redirect()->back()->withInput($request->input())->withErrors($validator);
+        }
         
         $bankdetail = new BankTemp();
        $bankdetail->client_id = $request->client_id;
@@ -273,4 +292,10 @@ class ClientDeatilsController extends Controller
         }
 
     }
+
+    public function barreddetails()
+    {
+        dd('dassa');
+    }
+
 }

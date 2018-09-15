@@ -7,6 +7,9 @@ use App\ExchangeTemp;
 use App\Exchange;
 use App\Approvalrequest;
 use DB;
+use App\ServiseAlert;
+use Validator;
+use File;
 
 
 class ExchangeController extends Controller
@@ -32,14 +35,16 @@ class ExchangeController extends Controller
     }
     public function add_exchangedetails(Request $request){
         
-        //  $this->validate($request, [
-        //     'iex_portfilio_id' => 'required|max:40',
-        //     'name_asper_iex' => 'required|max:100',
-        //     'iex_ca_client_id' => 'required|max:40',
-        //     'iex_region' => 'required',
-        //     'validitiy_from_iex' => 'required',
-        //     'iex_validitiy_to' => 'required',
-        // ]);
+         $this->validate($request, [
+            'ex_type' => 'required|max:40',
+            'file_upload' => 'required',
+            'validity_from' => 'required',
+            'validity_to' => 'required',
+        ]);
+        //  if($validator->fails())
+        // {
+        //     return Redirect::back()->withErrors($validator);
+        // }
        
         $exchangedetail = new ExchangeTemp();
        $exchangedetail->client_id = $request->client_id;
@@ -50,7 +55,8 @@ class ExchangeController extends Controller
         if($file = $request->hasFile('file_upload')) {
               $file = $request->file('file_upload') ;
               $fileName = 'EX_REG_'.($request->input('ex_type')).'_'.time().'_'.$file->getClientOriginalName();
-              $UID_path = storage_path('/app/public/uploads/ex_reg');
+              $UID_path = storage_path('/files/client/exreg');
+           File::isDirectory($UID_path) or File::makeDirectory($UID_path, 0777, true, true);
               $destinationPath = $UID_path ;
               $file->move($destinationPath,$fileName);
               $exchangedetail->file_upload = $fileName;
@@ -71,7 +77,7 @@ class ExchangeController extends Controller
         $datas['validity_from'] = $exchangedetail['validity_from'];
         $datas['validity_to'] = $exchangedetail['validity_to'];
         $datas['file_upload'] = $exchangedetail['file_upload'];
-        print_r($datas['file_upload']);
+       
         $dataArray =array();
         $dataArray['ex_type'] = $request->input('ex_type');
         $dataArray['validity_from'] = $request->input('validity_from');

@@ -44,17 +44,17 @@
    @endif
 
    <div class="box">
-     <form method="post" action="{{ route('addppadetails') }}" enctype="multipart/form-data">
+     <form method="post" action="{{ route('ppadetails') }}" enctype="multipart/form-data">
         {{ csrf_field() }}
-      <div class="box-body">
+      <div class="box-body hidden" id="apd-tab">
          <div class="row">
             <div class="col-md-12">
-               <div class="input-group input-group-sm">
-                  <input type="text" class="form-control" placeholder="SEARCH CLIENT.......................">
-                  <span class="input-group-btn">
-                  <button type="button" class="btn btn-info btn-flat"><span class="glyphicon glyphicon-search"></span></button>
-                  </span>
-               </div>
+              <select class="form-control input-sm select2" id="client" name="client" style="width: 100%;">
+                 <option selected="selected">SELECT CLIENT</option>
+                 @foreach ($clientData as $key => $value)
+                  <option value="{{ $value->id }}">{{ $value->name }}</option>
+                  @endforeach
+              </select>
             </div>
          </div>
          <div class="row">&nbsp;</div>
@@ -65,7 +65,7 @@
                   <div class="input-group-addon">
                      <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right input-sm" id="datepicker" name="validity_from">
+                  <input type="text" autocomplete="off" class="form-control pull-right input-sm" id="datepicker" name="validity_from">
                   <span class="text-danger">{{ $errors->first('validity_from') }}</span>
                </div>
             </div>
@@ -75,7 +75,7 @@
                   <div class="input-group-addon">
                      <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right input-sm" id="datepicker1" name="validity_to">
+                  <input type="text" autocomplete="off" class="form-control pull-right input-sm" id="datepicker1" name="validity_to">
                   <span class="text-danger">{{ $errors->first('validity_to') }}</span>
                </div>
             </div>
@@ -106,7 +106,7 @@
       </div>
       <div class="col-md-8"></div>
       <div class="col-md-2">
-         <a href="#" class="btn btn-info btn-xs pull-right" >
+         <a href="#" id="add-ppa" class="btn btn-info btn-xs pull-right" >
          <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PPA</a>
       </div>
    </div>
@@ -130,8 +130,7 @@
                   <td>{{ $i }}</td>
                   <td>{{$value->validity_from}}</td>
                   <td>{{$value->validity_to}}</td>
-                  <td><a href="/ppa">{{$value->file_path}}</a></td>
-                  <!-- <td>{{$value->status}}</td> -->
+                  <td><a href="{{url('/documents/ppa/'.$value->file_path)}}" download='download'>{{$value->file_path}}</a></td>
                   <td class="text-center">
                     <a href="/ppa/editppa/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
                     &nbsp;&nbsp;&nbsp;
@@ -166,22 +165,33 @@
 </script>
 <script>
    $(function () {
-
      //Date picker
-     $('#datepicker').datepicker({
-       autoclose: true
-     })
-     $('#datepicker1').datepicker({
-       autoclose: true
-     })
-     $('#datepicker2').datepicker({
-       autoclose: true
-     })
-     $('#datepicker3').datepicker({
-       autoclose: true
-     })
-
+        $('#datepicker').datepicker({
+         autoclose: true,
+         format: 'dd/mm/yyyy',
+       }).on('changeDate', function (selected) {
+          var startDate = new Date(selected.date.valueOf());
+          $('#datepicker1').datepicker('setStartDate', startDate);
+        }).on('clearDate', function (selected) {
+            $('#datepicker1').datepicker('setStartDate', null);
+        });
+       $('#datepicker1').datepicker({
+         autoclose: true,
+          format: 'dd/mm/yyyy'
+       }).on('changeDate', function (selected) {
+            var endDate = new Date(selected.date.valueOf());
+            $('#datepicker').datepicker('setEndDate', endDate);
+        }).on('clearDate', function (selected) {
+            $('#datepicker').datepicker('setEndDate', null);
+        });
    })
+</script>
+<script>
+  $(document).ready(function(){
+    $("#add-ppa").click(function(){
+        $("#apd-tab").removeClass('hidden');
+    });
+  });
 </script>
 <script type="text/javascript">
  setTimeout(function() {

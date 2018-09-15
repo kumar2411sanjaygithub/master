@@ -334,7 +334,7 @@
             <li><a href="{{ route('rec') }}"><i class="fa fa-circle-o"></i>REC</a></li>
             <li><a href="{{ route('escerts') }}"><i class="fa fa-circle-o"></i>EScerts</a></li>
             <li><a href="{{ route('agsetting') }}"><i class="fa fa-circle-o"></i>Accoutn Group Setting</a></li>
-            <li><a href="{{ route('bared.client') }}"><i class="fa fa-circle-o"></i>Barred Client</a></li>
+            <li><a href="{{ route('bared.barreddetails') }}"><i class="fa fa-circle-o"></i>Barred Client</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -406,6 +406,7 @@
 
           <ul class="treeview-menu">
             <li><a href="{{ route('psmdetials') }}"><i class="fa fa-circle-o"></i>PSM Details</a></li>
+            <li><a href="{{ route('insufficientpsm') }}"><i class="fa fa-circle-o"></i>Insufficent PSM</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -445,6 +446,23 @@
               <li><a href="{{ route('discom-sldc-state.index') }}"><i class="fa fa-circle-o"></i>DISCOM & SLDC List</a></li>
             </ul>
           </li>
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-laptop"></i>
+              <span>NOC</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li>
+                <a href="{{ route('noc-applications.index') }}"><i class="fa fa-circle-o"></i>NOC Application</a>
+                 <a href="{{ route('nocapplicationapproval') }}"><i class="fa fa-circle-o"></i>NOC Approval</a>                
+                 <a href="{{ route('billsetting.nocbilllist') }}"><i class="fa fa-circle-o"></i>NOC Billing Setting</a>
+              </li>
+            </ul>
+          </li>
+
           </ul>
         </li>
 
