@@ -334,7 +334,7 @@
             <li><a href="{{ route('rec') }}"><i class="fa fa-circle-o"></i>REC</a></li>
             <li><a href="{{ route('escerts') }}"><i class="fa fa-circle-o"></i>EScerts</a></li>
             <li><a href="{{ route('agsetting') }}"><i class="fa fa-circle-o"></i>Accoutn Group Setting</a></li>
-            <li><a href="{{ route('bared.client') }}"><i class="fa fa-circle-o"></i>Barred Client</a></li>
+            <li><a href="{{ route('bared.barreddetails') }}"><i class="fa fa-circle-o"></i>Barred Client</a></li>
           </ul>
         </li>
         <li class="treeview">
