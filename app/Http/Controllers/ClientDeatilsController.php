@@ -273,4 +273,10 @@ class ClientDeatilsController extends Controller
         }
 
     }
+
+    public function barreddetails()
+    {
+        dd('dassa');
+    }
+
 }
