@@ -40,7 +40,7 @@
                            <div class="box">
                               <div class="box-body">
                                  <div class="row">
-                                    <div class="col-md-2"><label  class="control-label">EXCHANGE DETAILS</label></div>
+                                    <div class="col-md-2"><label  class="control-label">NOC DETAILS</label></div>
                                     <div class="col-md-6"></div>
                                     <div class="col-md-4 text-right"><input type="checkbox"  class="minimal">&nbsp&nbsp<label  class="control-label">APPROVE ALL</label>
                                        &nbsp&nbsp&nbsp<input type="checkbox" class="minimal">&nbsp&nbsp<label  class="control-label"  >REJECT ALL</label>
@@ -51,28 +51,40 @@
                                        <thead>
                                           <tr>
                                              <th><input type="checkbox"  class="minimal"></th>
-                                             <th>EXCHANGE TYPE</th>
+                                             <th>NOC TYPE</th>
+                                             <th>NOC QUANTUM</th>
                                              <th>VALIDITY FROM</th>
                                              <th>VALIDITY TO</th>
+                                             <th>NOC PERIPHERY</th>
+                                             <th>FINAL NOC QUANTUM</th>
+                                             <th>POC LOSSES</th>
+                                             <th>STU LOSSES</th>
+                                             <th>DISCOM LOSSES</th>
                                              <th>FILE NAME</th>
                                              <th>ACTION</th>
                                           </tr>
                                        </thead>
                                        <tbody>
-                                          @isset($Addexchangedata)
+                                          @isset($Addnocdata)
                                           <?php
                                           $i=1;
                                           ?>
-                                          @foreach ($Addexchangedata as $key => $value)
+                                          @foreach ($Addnocdata as $key => $value)
                                           <tr>
                                              
                                              
                                                <td class="text-center">{{ $i }}</td>
-                                               <td class="text-center">{{ $value->ex_type}}</td>
+                                               <td class="text-center">{{ $value->noc_type}}</td>
+                                               <td class="text-center">{{ $value->noc_quantum }}</td>
                                                <td class="text-center">{{ $value->validity_from }}</td>
                                                <td class="text-center">{{ $value->validity_to }}</td>
-                                               <td class="text-center">{{ $value->file_upload }}</td>
-                                             <td><a href="/addexchange/{{ $value->id }}/approved/exchange_temp"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/addexchange/{{ $value->id }}/rejected/exchange_temp"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
+                                               <td class="text-center">{{ $value->noc_periphery }}</td>
+                                               <td class="text-center">{{ $value->final_quantum }}</td>
+                                               <td class="text-center">{{ $value->poc_losses }}</td>
+                                               <td class="text-center">{{ $value->stu_losses }}</td>
+                                               <td class="text-center">{{ $value->discom_losses }}</td>
+                                               <td class="text-center">{{ $value->upload_noc }}</td>
+                                             <td><a href="/addnoc/{{ $value->id }}/approved/noc_temp"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/addnoc/{{ $value->id }}/rejected/noc_temp"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
                                           </tr>
                                         <?php
                                        $i++;
@@ -89,7 +101,7 @@
                            <div class="box">
                               <div class="box-body">
                                  <div class="row">
-                                    <div class="col-md-2"><label  class="control-label"> EXCHANGE DETAILS</label></div>
+                                    <div class="col-md-2"><label  class="control-label"> NOC DETAILS</label></div>
                                     <div class="col-md-6"></div>
                                     <div class="col-md-4 text-right"><input type="checkbox"  class="minimal">&nbsp&nbsp<label  class="control-label">APPROVE ALL</label>
                                        &nbsp&nbsp&nbsp<input type="checkbox" class="minimal">&nbsp&nbsp<label  class="control-label"  >REJECT ALL</label>
@@ -109,12 +121,12 @@
                                        </thead>
                                        <tbody>
                                           
-                                              @isset($exchangeData)
+                                              @isset($nocData)
                                           <?php
                                           $i=1;
                                            $input_lebels = \App\Common\Languages\ManageClientLang::input_labels();
                                           ?>
-                                          @foreach ($exchangeData as $key => $value)
+                                          @foreach ($nocData as $key => $value)
                                           <tr>
                                              
                                              
@@ -122,7 +134,7 @@
                                                <td class="text-center">{{ $input_lebels[$value->attribute_name]}}</td>
                                                <td class="text-center">{{ $value->old_att_value }}</td>
                                                <td class="text-center">{{ $value->updated_attribute_value }}</td>
-                                             <td><a href="/exchange/modified/{{ $value->id }}/approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/exchange/modified/{{ $value->id }}/rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
+                                             <td><a href="/noc/modified/{{ $value->id }}/approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/noc/modified/{{ $value->id }}/rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
                                           </tr>
                                         <?php
                                        $i++;
@@ -141,7 +153,7 @@
                            <div class="box">
                               <div class="box-body">
                                  <div class="row">
-                                    <div class="col-md-2"><label  class="control-label"> EXCHANGE DETAILS</label></div>
+                                    <div class="col-md-2"><label  class="control-label"> NOC DETAILS</label></div>
                                     <div class="col-md-6"></div>
                                     <div class="col-md-4 text-right"><input type="checkbox"  class="minimal">&nbsp&nbsp<label  class="control-label">APPROVE ALL</label>
                                        &nbsp&nbsp&nbsp<input type="checkbox" class="minimal">&nbsp&nbsp<label  class="control-label"  >REJECT ALL</label>
@@ -151,34 +163,46 @@
                                     <table id="example1" class="table table-bordered table-striped table-hover text-center">
                                        <thead>
                                           <tr>
-                                              <th><input type="checkbox"  class="minimal"></th>
-                                             <th>EXCHANGE TYPE</th>
+                                             <th><input type="checkbox"  class="minimal"></th>
+                                             <th>NOC TYPE</th>
+                                             <th>NOC QUANTUM</th>
                                              <th>VALIDITY FROM</th>
                                              <th>VALIDITY TO</th>
+                                             <th>NOC PERIPHERY</th>
+                                             <th>FINAL NOC QUANTUM</th>
+                                             <th>POC LOSSES</th>
+                                             <th>STU LOSSES</th>
+                                             <th>DISCOM LOSSES</th>
                                              <th>FILE NAME</th>
                                              <th>ACTION</th>
                                           </tr>
                                        </thead>
                                        <tbody>
                                           <tr>
-                                                @isset($delexcgData)
+                                                @isset($delnocData)
                                                   <?php
                                                   $i=1;
                                                   ?>
-                                                  @foreach ($delexcgData as $key => $value)
+                                                  @foreach ($delnocData as $key => $value)
 
                                                   
                                                 <tr>
                                                     <td class="text-center">{{ $i }}</td>
-                                                    <td class="text-center">{{ $value->ex_type}}</td>
-                                                    <td class="text-center">{{ $value->validity_from }}</td>
-                                                    <td class="text-center">{{ $value->validity_to }}</td>
-                                                    <td class="text-center">{{ $value->file_upload }}</td>
+                                               <td class="text-center">{{ $value->noc_type}}</td>
+                                               <td class="text-center">{{ $value->noc_quantum }}</td>
+                                               <td class="text-center">{{ $value->validity_from }}</td>
+                                               <td class="text-center">{{ $value->validity_to }}</td>
+                                               <td class="text-center">{{ $value->noc_periphery }}</td>
+                                               <td class="text-center">{{ $value->final_quantum }}</td>
+                                               <td class="text-center">{{ $value->poc_losses }}</td>
+                                               <td class="text-center">{{ $value->stu_losses }}</td>
+                                               <td class="text-center">{{ $value->discom_losses }}</td>
+                                               <td class="text-center">{{ $value->upload_noc }}</td>
                                                     <td class="text-center">
                                                        
-                                                          <a href="/delete_exchange/{{ $value->id }}/approved/exchange"><button type="button" class="btn  btn-info btn-xs">Approve</button></a>
+                                                          <a href="/delete_noc/{{ $value->id }}/approved/noc"><button type="button" class="btn  btn-info btn-xs">Approve</button></a>
                             
-                                                          <a href="/delete_exchange/{{ $value->id }}/rejected/exchange"><button type="button" class="btn  btn-danger btn-xs">Reject</button></a>
+                                                          <a href="/delete_noc/{{ $value->id }}/rejected/noc"><button type="button" class="btn  btn-danger btn-xs">Reject</button></a>
                                                      
                                                     </td>
                                                 </tr>

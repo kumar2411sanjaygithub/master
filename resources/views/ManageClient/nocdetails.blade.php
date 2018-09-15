@@ -16,7 +16,7 @@
             </div>
           @endif
               <h5><label  class="control-label"><u>NOC DETAILS</u> <small>lakhan pvt. ltd</small></label></h5>
-      <div class="row{{isset($get_noc_details)?'':'divhide'}}" id="nocbox">
+      <div class="row" id="nocbox">
         <div class="col-xs-12">
           <div class="row">
               <div class="col-md-10"></div>
@@ -25,14 +25,14 @@
                
               </div>
           </div>
-          <form method ="post" action="{{isset($get_noc_details)?url('exchange_edit/'.$get_noc_details->id):route('noc_create')}}" enctype="multipart/form-data">
+          <form method ="post" action="{{isset($get_noc_details)?url('noc_edit/'.$get_noc_details->id):route('noc_create')}}" enctype="multipart/form-data">
            {{ csrf_field() }}
 
-      <div class="row">
+      <div class="row {{(isset($get_noc_details)||!$errors->isEmpty())?'':'divhide'}}">
         <div class="col-xs-12">
-     <div class="box">
+     <div class="box" id="noccbox">
     <div class="box-body">
-    <div class="row">
+    <div class="row {{ $errors->has('noc_type') ? 'has-error' : '' }}">
       <div class="col-md-3">
       <label  class="control-label">NOC TYPE</label>
       <input type="hidden"  name="client_id" value="{{@$client_id}}" id="client">
@@ -42,7 +42,7 @@
                               <option value="sell">Sell</option>
       </select>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 {{ $errors->has('validity_from') ? 'has-error' : '' }}">
        <label  class="control-label">VALIDITY START DATE</label>
        <div class="input-group date"  id="datepicker" name="sde">
          <div class="input-group-addon">
@@ -50,24 +50,28 @@
          </div>
          <input type="text" class="form-control pull-right input-sm" id="validity_from" name="validity_from" value="{{isset($get_noc_details)?$get_noc_details->validity_from:old('validity_from')}}">
        </div>
+       <span class="text-danger">{{ $errors->first('validity_from') }}</span>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 {{ $errors->has('validity_to') ? 'has-error' : '' }}">
         <label  class="control-label">VALIDITY END START</label>
         <div class="input-group date" id="datepicker" name="mkl">
           <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
           </div>
+          
           <input type="text" class="form-control pull-right input-sm" id="validity_to" name="validity_to" value="{{isset($get_noc_details)?$get_noc_details->validity_to:old('validity_to')}}">
         </div>
+        <span class="text-danger">{{ $errors->first('validity_to') }}</span>
       </div>
-        <div class="col-md-3">
+        <div class="col-md-3 {{ $errors->has('noc_periphery') ? 'has-error' : '' }}">
       <label  class="control-label">NOC PERIPHERY</label>
       <select class="form-control input-sm" style="width: 100%;" id="noc_periphery" name="noc_periphery" value="{{isset($get_noc_details)?$get_noc_details->noc_periphery:old('noc_periphery')}}">
          <option value="">Select</option>
-                              <option value="Regional">Regional</option>
-                              <option value="Ex-Bus">Ex-Bus</option>
-                              <option value="stu">STU</option>
+                              <option value="Regional" {{(isset($get_noc_details)&& $get_noc_details->ex_type=='Regional')||old('noc_periphery')=='Regional'?'selected':''}}>Regional</option>
+                              <option value="Ex-Bus" {{(isset($get_noc_details)&& $get_noc_details->ex_type=='Ex-Bus')||old('noc_periphery')=='Ex-Bus'?'selected':''}}>Ex-Bus</option>
+                              <option value="stu" {{(isset($get_noc_details)&& $get_noc_details->ex_type=='stu')||old('noc_periphery')=='stu'?'selected':''}}>STU</option>
         </select>
+         <span class="text-danger">{{ $errors->first('noc_periphery') }}</span>
     </div>
     </div>
 
@@ -151,7 +155,7 @@
           @else
           <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs" id="save" name="save">SAVE</button></div>
           @endif
-          <div class="col-md-1"><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="Cancel" onclick="close();"></div>
+          <div class="col-md-1"><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="Cancel" onclick="myFunction()"></div>
       </div>
       </div>
     </div>
@@ -204,11 +208,11 @@
                               <td class="text-center">{{ $value->discom_losses }}</td>
                               <td class="text-center">{{ $value->stu_losses }}</td>
                               <td class="text-center">{{ $value->final_quantum }}</td>
-                              <td class="text-center">{{ $value->file_name }}</td>
+                              <td class="text-center">{{ $value->upload_noc }}</td>
                               <td class="text-center">{{ $value->status }}</td>                                  
                               <td class="text-center">
-                                 <a href=""><span class="glyphicon glyphicon-pencil" id="edit-noc-detail" noc_detail_id="{{$value->id}}"></span></a>
-                                 <a href=""><span class="glyphicon glyphicon-trash " id="remove-noc-detail" noc_detail_id="{{$value->id}}"></span></a>
+                                  <a href="{{url('/editnocdetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-noc-detail" noc_detail_id="{{$value->id}}"></span></a>
+                                <a href="/delete/noc/{{$value->id}}"><span class="glyphicon glyphicon-trash " id="remove-noc-detail" noc_detail_id="{{$value->id}}"></span></a>
                               </td>
                            </tr>
                            <?php
@@ -235,6 +239,12 @@
       });
       });
      </script>
+     <script>
+  function myFunction(){
+    //alert(1);
+    $('#noccbox').addClass('divhide').removeClass('divshow');
+  }
+  </script>
     <script>
        $(document).ready(function(){
 
@@ -356,23 +366,34 @@
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
-   $("#validity_from").datepicker({
-      autoclose: true,
-      format: 'dd/mm/yyyy'
-    });
-   $("#validity_to").datepicker({
-      autoclose: true,
-      format: 'dd/mm/yyyy'
-    });
-   $("#validity_from_ppa").datepicker({
-      autoclose: true,
-      format: 'dd/mm/yyyy'
-    });
-   $("#validity_to_ppa").datepicker({
-      autoclose: true,
-      format: 'dd/mm/yyyy'
-    });
-});
+   $('#datepicker').datepicker({
+            autoclose: true,
+            format: 'dd/mm/yyyy',
+          }).on('changeDate', function (selected) {
+             var startDate = new Date(selected.date.valueOf());
+             $('#datepicker1').datepicker('setStartDate', startDate);
+           }).on('clearDate', function (selected) {
+               $('#datepicker1').datepicker('setStartDate', null);
+           });
+          $('#datepicker1').datepicker({
+            autoclose: true,
+             format: 'dd/mm/yyyy'
+          }).on('changeDate', function (selected) {
+               var endDate = new Date(selected.date.valueOf());
+               $('#datepicker').datepicker('setEndDate', endDate);
+           }).on('clearDate', function (selected) {
+               $('#datepicker').datepicker('setEndDate', null);
+           });
+          $('#datepicker2').datepicker({
+            autoclose: true
+          })
+          $('#datepicker3').datepicker({
+            autoclose: true
+          })
+       $('.timepicker').timepicker({
+            showInputs: false
+          })
+        })
 </script>
 <script type="text/javascript">
   $(".save ").click(function(){
