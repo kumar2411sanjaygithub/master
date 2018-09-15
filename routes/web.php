@@ -180,7 +180,7 @@ Route::get('/tem',['as'=>'tem','uses'=>'ClientDetailsController@temdetails']);
 Route::get('/rec',['as'=>'rec','uses'=>'ClientDetailsController@recdetails']);
 Route::get('/escerts',['as'=>'escerts','uses'=>'ClientDetailsController@escertsdetails']);
 Route::get('/agsetting',['as'=>'agsetting','uses'=>'ClientDetailsController@agsettingdetails']);
-Route::get('/barred',['as'=>'bared.client','uses'=>'ClientDetailsController@barreddetails']);
+Route::get('/barred',['as'=>'bared.barreddetails','uses'=>'ClientDetailsController@barreddetails']);
 //APPROVAL FOR CLIENT//
 Route::get('/client/new',['as'=>'approve.newclient','uses'=>'ClientApprovalController@approvenew']);
 
