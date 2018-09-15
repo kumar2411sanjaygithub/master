@@ -19,6 +19,7 @@ use Mail;
 use Session;
 use Validator;
 use Illuminate\Support\Facades\Input;
+use File;
 
 class NocAppController extends Controller
 {
@@ -98,7 +99,9 @@ class NocAppController extends Controller
         if(isset(request()->noc_file))
         {
             $imageName = time().'.'.request()->noc_file->getClientOriginalName();
-            request()->noc_file->move(public_path('noc-application'), $imageName);           
+            $noc_path = storage_path().'/FILES/TPTCL/NOC';
+            File::isDirectory($noc_path) or File::makeDirectory($noc_path, 0777, true, true);
+            request()->noc_file->move($noc_path, $imageName);
         }
         else
         {
@@ -209,7 +212,9 @@ class NocAppController extends Controller
         if(isset(request()->noc_file))
         {
             $imageName = time().'.'.request()->noc_file->getClientOriginalName();
-            request()->noc_file->move(public_path('noc-application'), $imageName);           
+            $noc_path = storage_path().'/FILES/TPTCL/NOC';
+            File::isDirectory($noc_path) or File::makeDirectory($noc_path, 0777, true, true);
+            request()->noc_file->move($noc_path, $imageName);         
         }
         else
         {
@@ -616,7 +621,8 @@ class NocAppController extends Controller
         $update_pdf->generate_noc_application=$pdf_name;
         $update_pdf->save();
 
-        $generate_noc = public_path().'/noc-application/generate_noc_application';
+        $generate_noc = storage_path().'/FILES/TPTCL/NOC/generate_noc_application';
+
         $pdf=PDF::loadView('noc.generate_noc_app',['date'=>date('d.m.Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'exchange'=>strtoupper($exchange),'quantum'=>$get_data->quantum,'from_date'=>date('d.m.Y',strtotime($get_data->start_date)),'end_date'=>date('d.m.Y',strtotime($get_data->end_date)),'amount'=>$get_data->amount,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d.m.Y',strtotime($get_data->transcation_date))]);
          $pdf->save($generate_noc.'/'.$pdf_name);
         return redirect()->route('getclientData', ['id' => $get_data->client_id])->with('success','Noc generate successfully');
@@ -630,9 +636,9 @@ class NocAppController extends Controller
         $discom_path=$request->input('noc_discom_pdf');
         if(isset($file_path))
         {
-            if($file_path!=''&&file_exists(public_path('/noc-application/generate_noc_application/'.$file_path)))
+            if($file_path!=''&&file_exists(storage_path('/FILES/TPTCL/NOC/generate_noc_application/'.$file_path)))
              {
-               unlink('noc-application/generate_noc_application/'.$file_path);
+               unlink(storage_path('/FILES/TPTCL/NOC/generate_noc_application/'.$file_path));
              }
             $pdf = NocApp::find($id);
             $client_id=$pdf->client_id;
@@ -643,9 +649,9 @@ class NocAppController extends Controller
         }
         if(isset($sldc_path))
         {
-            if($sldc_path!=''&&file_exists(public_path('/noc-application/bill/'.$sldc_path)))
+            if($sldc_path!=''&&file_exists(storage_path('/FILES/TPTCL/NOC/generate_noc_application/'.$sldc_path)))
              {
-               unlink('noc-application/bill/'.$sldc_path);
+               unlink(storage_path('/FILES/TPTCL/NOC/generate_noc_application/'.$sldc_path));
              }
             $pdf = NocApp::find($id);
             $client_id=$pdf->client_id;
@@ -656,9 +662,9 @@ class NocAppController extends Controller
         }
         if(isset($discom_path))
         {
-            if($discom_path!=''&&file_exists(public_path('/noc-application/bill/'.$discom_path)))
+            if($discom_path!=''&&file_exists(storage_path('/FILES/TPTCL/NOC/generate_noc_application/'.$discom_path)))
              {
-               unlink('noc-application/bill/'.$discom_path);
+               unlink(storage_path('/FILES/TPTCL/NOC/generate_noc_application/'.$discom_path));
              }
             $pdf = NocApp::find($id);
             $client_id=$pdf->client_id;
@@ -690,7 +696,8 @@ class NocAppController extends Controller
         $update_pdf->generate_sldc_debit=$pdf_name;
         $update_pdf->save();
 
-        $generate_noc = public_path().'/noc-application/bill';
+        $generate_noc = storage_path().'/FILES/TPTCL/NOC/bill';
+
         $pdf=PDF::loadView('noc.bill_view',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'client_name'=>strtoupper($client->name),'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$get_data->amount,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date))]);
         $pdf->save($generate_noc.'/'.$pdf_name);
 
@@ -717,7 +724,7 @@ class NocAppController extends Controller
         $update_pdf->generate_discom_debit=$pdf_name;
         $update_pdf->save();
 
-        $generate_noc = public_path().'/noc-application/bill';
+        $generate_noc = storage_path().'/FILES/TPTCL/NOC/bill';
         $pdf=PDF::loadView('noc.discomBill',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'client_name'=>strtoupper($client->name),'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$get_data->amount,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date))]);
         $pdf->save($generate_noc.'/'.$pdf_name);
 
