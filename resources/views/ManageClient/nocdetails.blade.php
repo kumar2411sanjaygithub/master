@@ -25,7 +25,7 @@
                
               </div>
           </div>
-          <form method ="post" action="{{isset($get_noc_details)?url('exchange_edit/'.$get_noc_details->id):route('noc_create')}}" enctype="multipart/form-data">
+          <form method ="post" action="{{isset($get_noc_details)?url('noc_edit/'.$get_noc_details->id):route('noc_create')}}" enctype="multipart/form-data">
            {{ csrf_field() }}
 
       <div class="row">
@@ -204,11 +204,11 @@
                               <td class="text-center">{{ $value->discom_losses }}</td>
                               <td class="text-center">{{ $value->stu_losses }}</td>
                               <td class="text-center">{{ $value->final_quantum }}</td>
-                              <td class="text-center">{{ $value->file_name }}</td>
+                              <td class="text-center">{{ $value->upload_noc }}</td>
                               <td class="text-center">{{ $value->status }}</td>                                  
                               <td class="text-center">
-                                 <a href=""><span class="glyphicon glyphicon-pencil" id="edit-noc-detail" noc_detail_id="{{$value->id}}"></span></a>
-                                 <a href=""><span class="glyphicon glyphicon-trash " id="remove-noc-detail" noc_detail_id="{{$value->id}}"></span></a>
+                                  <a href="{{url('/editnocdetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-noc-detail" noc_detail_id="{{$value->id}}"></span></a>
+                                <a href="/delete/noc/{{$value->id}}"><span class="glyphicon glyphicon-trash " id="remove-noc-detail" noc_detail_id="{{$value->id}}"></span></a>
                               </td>
                            </tr>
                            <?php

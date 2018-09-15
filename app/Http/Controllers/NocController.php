@@ -8,6 +8,7 @@ use App\Noc;
 use App\Approvalrequest;
 use App\Client;
 use App\Pocdetails;
+use App\Discomdetails;
 use DB;
 
 
@@ -20,7 +21,7 @@ class NocController extends Controller
     	$region = Pocdetails::select('region')->get();
     	$regional = Pocdetails::select('regional_entity')->get();
     	$poc_losses = Pocdetails::select('injection_poc_loss','withdraw_poc_loss')->get();
-    	$discom = Discom::select('injection_poc_loss','withdraw_poc_loss')->get();
+    	$discom = Discomdetails::select('injection_poc_loss','withdraw_poc_loss')->get();
 //dd($regional);
     	//dd($noc_losses);
         return view('ManageClient.nocdetails',compact('nocData','client_id','noc_losses','region','regional','poc_losses','discom'));
@@ -56,7 +57,7 @@ class NocController extends Controller
         }else{
         $noc->status = 'valid';
         }
-        $noc->client_id = $id;
+        $noc->client_id = $request->client_id;
         
         if($file = $request->hasFile('upload_noc')) {
               $file = $request->file('upload_noc') ;
@@ -68,15 +69,21 @@ class NocController extends Controller
            }
         
         $noc->save();
-    	return view('ManageClient.nocdetails');
+    	//return view('ManageClient.nocdetails');
+        return redirect()->back()->with('message','Detail added successfully and sent to Approver');
     }
     public function edit_nocdetails($id='',$eid=''){
         $noc_id=$eid;
         $client_id=$id;
         $get_noc_details = Noc::where('id',$noc_id)->where('status',1)->first();
+        $region = Pocdetails::select('region')->get();
+        $regional = Pocdetails::select('regional_entity')->get();
+        $poc_losses = Pocdetails::select('injection_poc_loss','withdraw_poc_loss')->get();
+       // dd($get_noc_details);
         $nocdetails = Noc::where('client_id',$client_id)->where('status',1)->get();
+        $noc_losses = Client::select('inter_discom','inter_poc','inter_stu')->where('client_app_status',1)->where('id',$id)->first();
 
-        return view('ManageClient.nocdetails',compact('nocdetails','client_id','get_noc_details'));
+        return view('ManageClient.nocdetails',compact('nocdetails','client_id','get_noc_details','region','regional','poc_losses','noc_losses'));
     }
      public function update_nocdetails(Request $request ,$noc_detail_id)
     {

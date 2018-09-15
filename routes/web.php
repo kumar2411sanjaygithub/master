@@ -184,22 +184,30 @@ Route::get('/client/new',['as'=>'approve.newclient','uses'=>'ClientApprovalContr
 
 Route::get('/client/existing',['as'=>'approve.existingclient','uses'=>'ClientApprovalController@approveexisting']);
 
+//APPROVAL FOR BANK//
 Route::get('/status/{id}/{type}',['as'=>'approve.status','uses'=>'ClientApprovalController@status']);
 Route::get('/bankapproval/{id}',['as'=>'bankapproval','uses'=>'ClientApprovalController@bankapproval']);
 Route::get('/add/{id}/{type}/{type2}',['as'=>'add.approve','uses'=>'ClientApprovalController@addapprove']);
 Route::get('/modified/{id}/{type}/',['as'=>'modified.approve','uses'=>'ClientApprovalController@modified']);
 Route::get('/deletebank/{id}/{type}/{type2}',['as'=>'deletebank.approve','uses'=>'ClientApprovalController@deletebank']);
 
-
+//APPROVAL FOR EXCHANGE//
 Route::get('/exchangeapproval/{id}',['as'=>'exchangeapproval','uses'=>'ExchangeApprovalController@exchangeapproval']);
 Route::get('/addexchange/{id}/{type}/{type2}',['as'=>'addexchange.approve','uses'=>'ExchangeApprovalController@addapprove']);
 Route::get('/exchange/modified/{id}/{type}/',['as'=>'modifiedexchange.approve','uses'=>'ExchangeApprovalController@modified']);
 Route::get('/delete_exchange/{id}/{type}/{type2}',['as'=>'deleteexchange.approve','uses'=>'ExchangeApprovalController@delete_exchange']);
 
+//APPROVAL FOR CONTACT//
 Route::get('/contact/approval/{id}',['as'=>'contactapproval','uses'=>'ContactApprovalController@contactapproval']);
 Route::get('/addcontact/{id}/{type}/{type2}',['as'=>'addcontact.approve','uses'=>'ContactApprovalController@addapprove']);
 Route::get('/contact/modified/{id}/{type}/',['as'=>'modifiedcontact.approve','uses'=>'ContactApprovalController@modified']);
 Route::get('/delete_contact/{id}/{type}/{type2}',['as'=>'deletecontact.approve','uses'=>'ContactApprovalController@delete_contact']);
+
+//APPROVAL FOR NOC//
+Route::get('/nocapproval/{id}',['as'=>'nocapproval','uses'=>'NocApprovalController@nocapproval']);
+Route::get('/addnoc/{id}/{type}/{type2}',['as'=>'addnoc.approve','uses'=>'NocApprovalController@addapprove']);
+Route::get('/noc/modified/{id}/{type}/',['as'=>'modifiednoc.approve','uses'=>'NocApprovalController@modified']);
+Route::get('/delete_noc/{id}/{type}/{type2}',['as'=>'deletenoc.approve','uses'=>'NocApprovalController@delete_noc']);
 
 
 
