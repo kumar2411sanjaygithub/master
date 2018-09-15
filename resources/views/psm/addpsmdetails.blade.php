@@ -141,7 +141,7 @@ a.disabled {
                           <div class="row">
                              <div class="col-md-5"></div>
                              <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                             <div class="col-md-1"><button type="button" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
+                             <div class="col-md-1"><button type="button" id="cancel1" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
                              <div class="col-md-5"></div>
                           </div>
                        </div>
@@ -204,7 +204,7 @@ a.disabled {
                            <td>{{$value->issue_date}}</td>
                            <td>{{$value->expiry_date}}</td>
                            <td>{{$value->revocable_date}}</td>
-                           <td>{{$value->document}}</td>
+                           <td><a href="{{url('documents/psm/'.$value->document)}}" download="download">{{$value->document}}</a></td>
                            <td>{{$value->description}}</td>
                            <td>
                              <a href="/editpsmdetails/{{$value->id}}/{{$value->client_id}}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp
@@ -246,7 +246,7 @@ a.disabled {
                         <div class="row">
                            <div class="col-md-5"></div>
                            <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                           <div class="col-md-1"><button type="submit" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
+                           <div class="col-md-1"><input type="reset" class="btn btn-block btn-danger btn-xs" value="CANCEL" id="cancel"></div>
                            <div class="col-md-5"></div>
                         </div>
                      </div>
@@ -350,6 +350,12 @@ $(document).ready(function(){
     });
     $(".apedbtn").click(function(){
         $(".aped").removeClass("hidden");
+    });
+    $("#cancel").click(function(){
+      $(".aped").addClass("hidden")
+    });
+    $("#cancel1").click(function(){
+      $(".apd").addClass("hidden")
     });
 });
 </script>
