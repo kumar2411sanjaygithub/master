@@ -73,10 +73,6 @@
                 </tbody>
                 </table>
             </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> ceff4bdc2c574587b674559d5a1a2b6448adfb5d
           </div>
         </section>
  <script>
@@ -86,8 +82,5 @@
         });
     }, 5000);
   </script>
-<<<<<<< HEAD
-        @endsection
-=======
-  @endsection
->>>>>>> ceff4bdc2c574587b674559d5a1a2b6448adfb5d
+@endsection
+
