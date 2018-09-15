@@ -1,5 +1,5 @@
 <aside class="main-sidebar">
-    <section class="sidebar">    
+    <section class="sidebar">
         <div class="user-panel">
             <div class="pull-left image">
                 <img src="{{asset('img/user2-160x160.jpg')}}" class="img-circle" alt="User Image" />
@@ -20,7 +20,7 @@
                     <li><a href=""><i class="fa fa-circle-o"></i>Add Category</a></li>
                     <li><a href=""><i class="fa fa-circle-o"></i>All Categories</a></li>
                 </ul>
-            </li> 
+            </li>
         </ul>
     </section>
 </aside>
