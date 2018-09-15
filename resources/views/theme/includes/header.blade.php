@@ -9,6 +9,9 @@
       {{ Html::style('bower_components/Ionicons/css/ionicons.min.css') }}
       <!-- DataTables -->
       {{ Html::style('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}
+
+      {{ Html::style('https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css') }}
+      {{ Html::script('https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js') }}
       <!-- Theme style -->
       {{ Html::style('dist/css/AdminLTE.min.css') }}
       <!-- AdminLTE Skins. Choose a skin from the css/skins

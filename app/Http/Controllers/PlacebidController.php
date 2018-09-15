@@ -3,45 +3,45 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 use App\Placebid;
 use App\Placebiddetails;
 use DB;
-use App\Clientmaster;
-use Carbon\Carbon;
-use App\Exchangeuser;
-use App\Bill;
-use App\AccountStatement;
-use App\PsmApproval;
-use Auth;
-use App\Nocregistration;
-use App\Basicinformation;
-use App\Validationsetting;
+use App\Client;
+// use Carbon\Carbon;
+// use App\Exchangeuser;
+// use App\Bill;
+// use App\AccountStatement;
+// use App\PsmApproval;
+// use Auth;
+// use App\Nocregistration;
+// use App\Basicinformation;
+// use App\Validationsetting;
 
 class PlacebidController extends Controller
 {
     public function index()
     {
-    	$clientData = DB::table('client_master')->select('id','company_name')->get();
+    	$clientData = DB::table('clients')->select('id','name')->get();
       $user_id=Auth::user();
 
-      switch(true){
-        case ($user_id->member_type=="ADMIN"):
-        case ($user_id->member_type=="TRADER"):
-          $bidallowedperiod="12:00";
-          break;
-        case ($user_id->member_type=="CLIENT"):
-          $timeperiod = Basicinformation::where('client_id',$user_id->client_id)->select('submission_time')->first();
-          $bidallowedperiod = ($timeperiod->count()>0)?$timeperiod->submission_time:'12:00';
-          //$client = clientmaster::select('company_name','short_id','crn_no','portfolio_id')->where('id',$user_id->client_id)->get();
-          break;
-        default:
-          Auth::logout();
-          return redirect('/login');
-      }
+      // switch(true){
+      //   case ($user_id->member_type=="ADMIN"):
+      //   case ($user_id->member_type=="TRADER"):
+           $bidallowedperiod="12:00";
+      //     break;
+      //   case ($user_id->member_type=="CLIENT"):
+          // $timeperiod = Client::where('id',$user_id->client_id)->select('bid_cut_off_time')->first();
+          // $bidallowedperiod = ($timeperiod->count()>0)?$timeperiod->bid_cut_off_time :'12:00';
+        //   break;
+        // default:
+        //   Auth::logout();
+        //   return redirect('/login');
+      //}
       // $timeperiod = Basicinformation::where('id',$user_id)->select('submission_time')->first()->submission_time;
       // $bidallowedperiod = (@$timeperiod)?$timeperiod:'12:00';
-      return view('placebid.index',compact('clientData','bidallowedperiod'));
+      return view('dam.iex.placebid.index',compact('clientData','bidallowedperiod'));
     }
 
     // public function placesimilarearlierdatebid(Request $request, $trading)
@@ -1113,7 +1113,6 @@ class PlacebidController extends Controller
 
         $biddate = DB::table('place_bid')
         ->selectRaw('Distinct(`bid_date`) as date')
-        ->where('trading',$trading)
         ->where('exchange',$request->input('exchange'))
         ->where('client_id',$request->input('client_id'))
         ->whereNull('place_bid.deleted_at')
@@ -1759,8 +1758,8 @@ class PlacebidController extends Controller
     public function getbidsubmissiontime($id)
     {
 
-        $bidsubmissiontimeData = DB::table('client_master')
-        ->select('id','bid_submission_time','bid_submission_time_trader')
+        $bidsubmissiontimeData = DB::table('clients')
+        ->select('id','bid_cut_off_time')
         ->where('id',$id)
         ->get();
 

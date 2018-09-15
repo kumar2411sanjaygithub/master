@@ -74,6 +74,44 @@ Route::group(['middleware' => 'auth'], function ()
 	 Route::get('/leadproduct-delete/{id}','LeadController@leadproduct_delete');
 	 Route::post('/lead-email-add','LeadController@lead_email_add');
 	 Route::get('/lead-email-delete/{id}','LeadController@lead_email_delete');
+
+
+	 /*
+    |--------------------------------------------------------------------------
+    | Action     : Place Bid Routes
+    | Created By : Piyush Kr Shukla <php11@cybuzzsc.com>
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/placebid/{trading}',['as'=>'placebid.index','uses'=>'PlacebidController@index']);
+    Route::post('/placebid/addnewbid/{trading}',['as'=>'placebid.addnewbid','uses'=>'PlacebidController@addnewbid']);
+    Route::post('/placebid/getallbid/{trading}',['as'=>'placebid.getallbid','uses'=>'PlacebidController@getallbid']);
+    Route::get('/placebid/deletebid/{bid_id}',['as'=>'placebid.deletebid','uses'=>'PlacebidController@deletebid']);
+    Route::post('/placebid/deleteallselectedbid',['as'=>'placebid.deleteallselectedbid','uses'=>'PlacebidController@deleteallselectedbid']);
+    Route::post('/placebid/confirmplacebid',['as'=>'placebid.confirmplacebid','uses'=>'PlacebidController@confirmplacebid']);
+    Route::get('/placebid/getbidsubmissiontime/{id}',['as'=>'placebid.getbidsubmissiontime','uses'=>'PlacebidController@getbidsubmissiontime']);
+    Route::post('/placebid/getbiddetailsbybidtype/{trading}',['as'=>'placebid.getbiddetailsbybidtype','uses'=>'PlacebidController@getbiddetailsbybidtype']);
+    Route::get('/placebid/getbiddetailsbyid/{id}',['as'=>'placebid.getbiddetailsbyid','uses'=>'PlacebidController@getbiddetailsbyid']);
+    Route::post('/placebid/updatebiddata/{trading}/{id}',['as'=>'placebid.updatebiddata','uses'=>'PlacebidController@updatebiddata']);
+    Route::post('/placebid/placesimilarearlierdatebid/{trading}',['as'=>'placebid.placesimilarearlierdatebid','uses'=>'PlacebidController@placesimilarearlierdatebid']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Action     : Ajax Search Routes
+    | Created By : Piyush Kr Shukla <php11@cybuzzsc.com>
+    |--------------------------------------------------------------------------
+    */
+    Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'AutoCompleteController@index'));
+    Route::get('searchajax',array('as'=>'searchajax','uses'=>'AutoCompleteController@autoComplete'));
+
+    /*
+    |--------------------------------------------------------------------------
+    | Orderbook Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/power/orderbook',['as'=>'orderbook.orderbook','uses'=>'OrderbookController@orderbook']);
+    Route::post('/orderbook/orderbookdata',['as'=>'orderbook.orderbookdata','uses'=>'OrderbookController@orderbookdata']);
+    Route::get('/orderbook/vieworderdetails/{orderno}/{bid_type}',['as'=>'orderbook.vieworderdetails','uses'=>'OrderbookController@vieworderdetails']);
+    Route::get('/orderbook/downloadExcel/{type}', ['as'=>'orderbook.downloadExcel','uses'=>'OrderbookController@downloadExcel']);
 });
 
 	// Client Login
