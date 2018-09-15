@@ -175,12 +175,19 @@ Route::get('/delete/noc/{id}',['as'=>'nocdelete','uses'=>'NocController@delete_n
 
 
 
-Route::get('/dam',['as'=>'dam','uses'=>'ClientDetailsController@damdetails']);
-Route::get('/tem',['as'=>'tem','uses'=>'ClientDetailsController@temdetails']);
-Route::get('/rec',['as'=>'rec','uses'=>'ClientDetailsController@recdetails']);
-Route::get('/escerts',['as'=>'escerts','uses'=>'ClientDetailsController@escertsdetails']);
-Route::get('/agsetting',['as'=>'agsetting','uses'=>'ClientDetailsController@agsettingdetails']);
-Route::get('/barred',['as'=>'bared.barreddetails','uses'=>'ClientDetailsController@barreddetails']);
+Route::get('/dam',['as'=>'dam','uses'=>'ClientDeatilsController@damdetails']);
+Route::get('/tem',['as'=>'tem','uses'=>'ClientDeatilsController@temdetails']);
+Route::get('/rec',['as'=>'rec','uses'=>'ClientDeatilsController@recdetails']);
+Route::get('/escerts',['as'=>'escerts','uses'=>'ClientDeatilsController@escertsdetails']);
+Route::get('/agsetting',['as'=>'agsetting','uses'=>'ClientDeatilsController@accountGroupDetails']);
+Route::any('/creategroup','ClientDeatilsController@creategroup')->name('creategroups');
+Route::any('/addnewusersforgroup','ClientDeatilsController@addnewusersforgroup')->name('addnewusersforgroups');
+Route::any('/deletenewuser_usegroupsetting/{id}','ClientDeatilsController@deletenewuser_usegroupsetting')->name('deletenewuser_usegroupsettings');
+Route::any('/deletegroup','ClientDeatilsController@deletegroup')->name('deletegroups');
+
+
+Route::get('/barred',['as'=>'bared.barreddetails','uses'=>'ClientDeatilsController@barreddetails']);
+Route::get('/client-status/{c_id}/status/{status_id}',['as'=>'bared.barredstatus','uses'=>'ClientDeatilsController@barredChangeStatus']);
 //APPROVAL FOR CLIENT//
 Route::get('/client/new',['as'=>'approve.newclient','uses'=>'ClientApprovalController@approvenew']);
 
