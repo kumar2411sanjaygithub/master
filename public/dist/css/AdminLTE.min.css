@@ -1,4 +1,4 @@
-/*!
+/*!/*!
  *   AdminLTE v2.4.8
  *   Author: Almsaeed Studio
  *	 Website: Almsaeed Studio <https://adminlte.io>
@@ -124,7 +124,7 @@ body {
 
 .fixed .content-wrapper,
 .fixed .right-side {
-	padding-top: 50px
+	padding-top: 43px;
 }
 
 @media (max-width:767px) {
@@ -370,6 +370,7 @@ a:focus {
 	position: absolute;
 	top: 2px;
 	right: 10px;
+	font-weight:600;
 	border-radius: 2px
 }
 
