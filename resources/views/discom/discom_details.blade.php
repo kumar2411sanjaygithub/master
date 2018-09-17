@@ -58,7 +58,7 @@
                        <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                        </div>
-                       <input type="text" class="form-control pull-right input-sm" id="datepicker" name="date_from">
+                       <input type="text" class="form-control pull-right input-sm" value="{{old('date_from')}}" id="datepicker" name="date_from">
                        <span class="text-danger">{{ $errors->first('date_from') }}</span>
                     </div>
                  </div>
@@ -68,30 +68,30 @@
                        <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                        </div>
-                       <input type="text" class="form-control pull-right input-sm" id="datepicker1" name="date_to">
+                       <input type="text" autocomplete="off" value="{{old('date_to')}}" class="form-control pull-right input-sm" id="datepicker1" name="date_to">
                        <span class="text-danger">{{ $errors->first('date_to') }}</span>
                     </div>
                  </div>
                  <div class="col-md-3 {{ $errors->has('region') ? 'has-error' : '' }}">
                     <label  class="control-label">REGION</label>
-                    <input class="form-control input-sm" type="text" placeholder="VALUE" id="region" name="region">
+                    <input class="form-control input-sm" type="text" placeholder="VALUE" value="{{old('region')}}" id="region" name="region">
                     <span class="text-danger">{{ $errors->first('region') }}</span>
                  </div>
                  <div class="col-md-3 {{ $errors->has('regional_entity') ? 'has-error' : '' }}">
                     <label  class="control-label">REGIONAL ENTITY</label>
-                    <input class="form-control input-sm" type="text" placeholder="VALUE" id="regional_entity" name="regional_entity">
+                    <input class="form-control input-sm" type="text" placeholder="VALUE" value="{{old('regional_entity')}}" id="regional_entity" name="regional_entity">
                     <span class="text-danger">{{ $errors->first('regional_entity') }}</span>
                  </div>
                </div>
                <div class="row">
                  <div class="col-md-3 {{ $errors->has('injection_poc_loss') ? 'has-error' : '' }}">
                     <label  class="control-label">INJECTION POC LOSSES(%)</label>
-                    <input class="form-control input-sm" type="text" placeholder="VALUE" id="injection_poc_loss" name="injection_poc_loss">
+                    <input class="form-control input-sm num" type="text" placeholder="VALUE" value="{{old('injection_poc_loss')}}" id="injection_poc_loss" name="injection_poc_loss">
                     <span class="text-danger">{{ $errors->first('injection_poc_loss') }}</span>
                  </div>
                  <div class="col-md-3 {{ $errors->has('withdraw_poc_loss') ? 'has-error' : '' }}">
                     <label  class="control-label">WITHDRAWAL POC LOSS(%)</label>
-                    <input class="form-control input-sm" type="text" placeholder="VALUE" id="withdraw_poc_loss" name="withdraw_poc_loss">
+                    <input class="form-control input-sm num" type="text" placeholder="VALUE" value="{{old('withdraw_poc_loss')}}" id="withdraw_poc_loss" name="withdraw_poc_loss">
                     <span class="text-danger">{{ $errors->first('withdraw_poc_loss') }}</span>
                  </div>
                </div>
