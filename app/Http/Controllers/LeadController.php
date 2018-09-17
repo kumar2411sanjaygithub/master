@@ -69,7 +69,17 @@ class LeadController extends Controller
             'contact_number' => 'nullable|digits:10',
         ]);
 
+        $last = Lead::orderBy('id', 'desc')->get();        
+        if ($last) {
+            $lead_id=count($last)+1;
+        }else{
+            $lead_id = 1;
+        }
+
+         $leadID='L-'.str_pad($lead_id, 4, '0', STR_PAD_LEFT)."";
+
         $lead = new Lead;
+        $lead->leadID = $leadID;
         $lead->company_name = request('company_name');
         $lead->product = request('product');
         $lead->contact_person = request('contact_person');
