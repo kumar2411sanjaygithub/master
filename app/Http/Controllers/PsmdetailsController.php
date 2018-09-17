@@ -34,36 +34,10 @@ class PsmdetailsController extends Controller
         $psmData = Psmdetails::paginate(10);
         return view('psm.psmdetails',compact('psmData','clientData'));
     }
-
-    public function viewinsuffi(){
-      return view('psm.insufficientpsm');
-    }
-
-    public function paymentsecuritymargin(Request $request)
+    public function viewinsuffi()
     {
-        $date = date('Y-m-d',strtotime(date('Y-m-d').'+1 day'));
-        $clientstatusData = DB::table('client_master')->select('*')->get();
-        $PsmApproval = PsmApproval::with(['clientmaster'=>function($query){
-          $query->with('exchangedata');
-        }])->where('psm_date',$date)->where('client_id',$request['id'])->where('status','0')->groupBy('client_id')->get();
-        $curdate=date('d/m/Y',strtotime($date));
-        $user_id = $request['id'];
-        $ClientmastertempData = Clientmaster::select('company_name','crn_no','id','short_id')->where('status',1)->get();
-         //dd($ClientmastertempData);
-        $Clientmaster = Clientmaster::where("id",$request['id'])->first();
-        $Psmdetails = Psmdetails::where('client_id',$request['id'])->get();
-        //dd($Psmdetails);
-        $user_psm_data = Psmdetails::select('amount')->where('client_id',$request['id'])->WhereDate('issue_date','<=',Date('Y-m-d'))->WhereDate('expiry_date','>=',Date('Y-m-d'))->orderBy('id','Desc')->first();
-        if($user_psm_data){
-            $user_psm_data=$user_psm_data->amount;
-        }else{
-          $user_psm_data=0;
-        }
-        $Psmdetailsid = $request['psm_id'];
-        $Psmdata = Psmdetails::where('id',$Psmdetailsid)->first();
-        return view('manageclient.paymentsecuritymargin',compact('clientstatusData','exchange_user_temp','user_id','ClientmastertempData','Clientmaster','Psmdetails','Psmdata','Psmdetailsid','PsmApproval','curdate','user_psm_data'));
+        return view('psm.insufficientpsm');
     }
-
 
     public function findPsmData(Request $request,$id)
       {
@@ -118,35 +92,31 @@ class PsmdetailsController extends Controller
 
     public function addpsmdetailssubmit(Request $request, $id)
     {
-      // $validator = Validator::make($request->all(),[
         $validator = $this->validate($request, [
-        // "upload_document"=>'mimes:jpeg,png,jpg,gif,svg,pdf',
         "type"=>"required",
-        // "document_no"=>"required",
         "received_date"=>"required",
         "amount"=>"required",
         "issue_date"=>"after:today",
         "expiry_date"=>"required",
-        // "client_id"=>"required",
       ]);
-
-      $var = $request['received_date'];
-      $date = str_replace('/', '-', $var);
-      $request['received_date'] = date('Y-m-d', strtotime($date));
-      $var = $request['issue_date'];
-      $date = str_replace('/', '-', $var);
-      $request['issue_date'] = date('Y-m-d', strtotime($date));
-      $var =$request['expiry_date'];
-      $date = str_replace('/', '-', $var);
-      $request['expiry_date'] = date('Y-m-d', strtotime($date));
-      $var = $request['Revocable_date'];
-      $date = str_replace('/', '-', $var);
-      $request['Revocable_date'] = date('Y-m-d', strtotime($date));
-      $validator = Validator::make([], []);
-      if(strtotime($request['issue_date'])>strtotime($request['expiry_date'])){
-      $validator->getMessageBag()->add('Date', 'Issue date cannot be greater than Expiry date');
-      return redirect()->back()->withErrors($validator->getMessageBag());
-     }
+     //  $var1 = $request['received_date'];
+     //  $date1 = str_replace('/', '-', $var1);
+     //  $received_date = date('Y-m-d', strtotime($date1));
+     //
+     //  $var2 = $request['issue_date'];
+     //  $date2 = strtr( $var2,'/', '-');
+     //  $issue_date = date('Y-m-d', strtotime($date2));
+     //  $var =$request['expiry_date'];
+     //  $date = str_replace('/', '-', $var);
+     //  $request['expiry_date'] = date('Y-m-d', strtotime($date));
+     //  $var = $request['Revocable_date'];
+     //  $date = str_replace('/', '-', $var);
+     //  $request['Revocable_date'] = date('Y-m-d', strtotime($date));
+     //  $validator = Validator::make([], []);
+     //  if(strtotime($request['issue_date'])>strtotime($request['expiry_date'])){
+     //  $validator->getMessageBag()->add('Date', 'Issue date cannot be greater than Expiry date');
+     //  return redirect()->back()->withErrors($validator->getMessageBag());
+     // }
 
       $psm = new Psmdetails();
       if($request['type'] == 2 || $request['type'] == 3)
@@ -154,7 +124,9 @@ class PsmdetailsController extends Controller
         if(isset(request()->document))
            {
                $imageName = time().'.'.request()->document->getClientOriginalName();
-               request()->document->move(public_path('documents/psm/'), $imageName);
+               $contact_path = public_path().'/documents/psm/';
+               File::isDirectory($contact_path) or File::makeDirectory($contact_path, 0777, true, true);
+              request()->document->move($contact_path, $imageName);
            }
            else
            {
@@ -166,9 +138,10 @@ class PsmdetailsController extends Controller
       $psm->received_date = $request['received_date'];
       $psm->document_no = $request['document_no'];
       $psm->amount = $request['amount'];
+
       $psm->issue_date = $request['issue_date'];
       $psm->expiry_date = $request['expiry_date'];
-      $psm->revocable_date = $request['Revocable_date'];
+      $psm->revocable_date = $request['revocable_date'];
       $psm->description = $request['description'];
       $psm->client_id = $id;
       $psm->save();
@@ -217,23 +190,23 @@ class PsmdetailsController extends Controller
         // "client_id"=>"required",
       ]);
 
-      $var = $request['received_date'];
-      $date = str_replace('/', '-', $var);
-      $request['received_date'] = date('Y-m-d', strtotime($date));
-      $var = $request['issue_date'];
-      $date = str_replace('/', '-', $var);
-      $request['issue_date'] = date('Y-m-d', strtotime($date));
-      $var =$request['expiry_date'];
-      $date = str_replace('/', '-', $var);
-      $request['expiry_date'] = date('Y-m-d', strtotime($date));
-      $var = $request['Revocable_date'];
-      $date = str_replace('/', '-', $var);
-      $request['Revocable_date'] = date('Y-m-d', strtotime($date));
-      $validator = Validator::make([], []);
-      if(strtotime($request['issue_date'])>strtotime($request['expiry_date'])){
-      $validator->getMessageBag()->add('Date', 'Issue date cannot be greater than Expiry date');
-      return redirect()->back()->withErrors($validator->getMessageBag());
-     }
+     //  $var = $request['received_date'];
+     //  $date = str_replace('/', '-', $var);
+     //  $request['received_date'] = date('Y-m-d', strtotime($date));
+     //  $var = $request['issue_date'];
+     //  $date = str_replace('/', '-', $var);
+     //  $request['issue_date'] = date('Y-m-d', strtotime($date));
+     //  $var =$request['expiry_date'];
+     //  $date = str_replace('/', '-', $var);
+     //  $request['expiry_date'] = date('Y-m-d', strtotime($date));
+     //  $var = $request['Revocable_date'];
+     //  $date = str_replace('/', '-', $var);
+     //  $request['Revocable_date'] = date('Y-m-d', strtotime($date));
+     //  $validator = Validator::make([], []);
+     //  if(strtotime($request['issue_date'])>strtotime($request['expiry_date'])){
+     //  $validator->getMessageBag()->add('Date', 'Issue date cannot be greater than Expiry date');
+     //  return redirect()->back()->withErrors($validator->getMessageBag());
+     // }
 
       $psm = Psmdetails::find($id);
       if($request['type'] == 2 || $request['type'] == 3)
@@ -242,10 +215,12 @@ class PsmdetailsController extends Controller
            {
                $imageName = time().'.'.request()->document->getClientOriginalName();
                request()->document->move(public_path('documents/psm/'), $imageName);
+               unlink('documents/psm/'.request()->old);
+
            }
            else
            {
-               $imageName = "";
+               $imageName = $request['old'];
            }
         $psm->document = $imageName;
       }
@@ -255,7 +230,7 @@ class PsmdetailsController extends Controller
       $psm->amount = $request['amount'];
       $psm->issue_date = $request['issue_date'];
       $psm->expiry_date = $request['expiry_date'];
-      $psm->revocable_date = $request['Revocable_date'];
+      $psm->revocable_date = $request['revocable_date'];
       $psm->description = $request['description'];
       $psm->client_id = $request['client_id'];
       $psm->save();
