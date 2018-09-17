@@ -23,20 +23,20 @@ class PpaDetailsController extends Controller
 
   public function saveppa(Request $request)
   {
-    // $validator = Validator::make($request->all(), [
-    //     'validity_from' => 'required',
-    //     'validity_to' => 'required',
-    //     'file_path' => 'required',
-    // ]);
-    // if($validator->fails())
-    // {
-    //     return Redirect::back()->withErrors($validator);
-    // }
+    $this->validate($request,[
+      'client' => 'required',
+      'validity_from' => 'required',
+        'validity_to' => 'required',
+        'file_path' => 'required',
+    ]);
+
     if(isset(request()->file_path))
        {
            $imageName = time().'.'.request()->file_path->getClientOriginalName();
-           request()->file_path->move(public_path('documents/ppa/'), $imageName);
-       }
+           $contact_path = public_path().'/documents/ppa/';
+           File::isDirectory($contact_path) or File::makeDirectory($contact_path, 0777, true, true);
+          request()->file_path->move($contact_path, $imageName);
+        }
        else
        {
            $imageName = "";
@@ -44,6 +44,7 @@ class PpaDetailsController extends Controller
        $ppadetails = new Ppadetails();
        $ppadetails->validity_from = $request->input('validity_from');
        $ppadetails->validity_to = $request->input('validity_to');
+       $ppadetails->client_id = $request->input('client');
        $ppadetails->file_path = $imageName;
        $ppadetails->save();
        return redirect()->back()->with('message', 'Data Save Successfully!');
@@ -59,19 +60,17 @@ class PpaDetailsController extends Controller
 
     public function updateppadata(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
+        $this->validate($request, [
             'validity_from' => 'required',
-            'validity_to' => 'required',
+            'validity_to' => 'required'
             // 'file_path' => 'required',
         ]);
-        if($validator->fails())
-        {
-            return Redirect::back()->withErrors($validator);
-        }
+
         if(isset(request()->file_path))
            {
                $imageName = time().'.'.request()->file_path->getClientOriginalName();
                request()->file_path->move(public_path('documents/ppa/'), $imageName);
+               unlink('documents/ppa/'.request()->old);
            }
            else
            {

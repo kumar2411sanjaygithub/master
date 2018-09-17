@@ -8,11 +8,11 @@
 @section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-   <h5><label  class="control-label">ADD PPA DETAILS</label></h5>
+   <h5><label  class="control-label"><u>ADD PPA DETAILS</u></label></h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">PPA Details</a></li>
-      <li><a href="active">ADD PPA DETAILS</a></li>
+      <li><a href="active"><u>ADD PPA DETAILS</u></a></li>
    </ol>
 </section>
 <!-- Main content -->
@@ -43,18 +43,20 @@
      </div>
    @endif
 
-   <div class="box">
+
      <form method="post" action="{{ route('ppadetails') }}" enctype="multipart/form-data">
         {{ csrf_field() }}
-      <div class="box-body hidden" id="apd-tab">
+     <div class="box  hidden" id="apd-tab">
+      <div class="box-body" >
          <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 {{ $errors->has('') ? 'has-error' : '' }}">
               <select class="form-control input-sm select2" id="client" name="client" style="width: 100%;">
-                 <option selected="selected">SELECT CLIENT</option>
+                 <option value="">SELECT CLIENT</option>
                  @foreach ($clientData as $key => $value)
-                  <option value="{{ $value->id }}">{{ $value->name }}</option>
+                  <option value="{{ $value->id }}" {{(old('client')==$value->id)?'selected':''}} >{{ $value->name }}</option>
                   @endforeach
               </select>
+              <span class="text-danger">{{ $errors->first('client') }}</span>
             </div>
          </div>
          <div class="row">&nbsp;</div>
@@ -89,11 +91,10 @@
          <div class="row">
             <div class="col-md-5"></div>
             <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-            <div class="col-md-1"><button type="reset" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
+            <div class="col-md-1"><button type="reset" id="cancel" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
             <div class="col-md-5"></div>
          </div>
-         <div class="row">&nbsp;</div>
-      </div>
+        </div>
    </div>
    <div class="row">
       <div class="col-md-2">
@@ -134,7 +135,7 @@
                   <td class="text-center">
                     <a href="/ppa/editppa/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
                     &nbsp;&nbsp;&nbsp;
-                    <a href="/ppa/deleteppa/{{$value->id}}"><span class="glyphicon glyphicon-trash"></span></a>
+                    <a href="/ppa/deleteppa/{{$value->id}}"><span class="glyphicon glyphicon-trash text-danger"></span></a>
                   </td>
                  </tr>
                <?php $i++; ?>
@@ -148,21 +149,7 @@
  </form>
 </section>
 <!-- /.content -->
-<script>
-   $(document).ready(function(){
-       $("#ram").click(function(){
-           $("#sharma").hide();
-           $("#lakhan").removeClass("hidden");
 
-   });
-   });
-     $(function () {
-       $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-         checkboxClass: 'icheckbox_flat-green',
-         radioClass   : 'iradio_flat-green'
-       })
-     });
-</script>
 <script>
    $(function () {
      //Date picker
@@ -190,6 +177,9 @@
   $(document).ready(function(){
     $("#add-ppa").click(function(){
         $("#apd-tab").removeClass('hidden');
+    });
+    $("#cancel").click(function(){
+        $("#apd-tab").addClass('hidden');
     });
   });
 </script>

@@ -7,7 +7,7 @@
   display: inline-block;
   width: 40px;
   height: 13px;
-
+  margin-top:-3px; 
 }
 
 .switch input {display:none;}
@@ -76,7 +76,7 @@ input:checked + .slider:before {
              <li>{!! \Session::get('success') !!}</li>
          </ul>
       </div>
-   @endif    
+   @endif
 
 <!-- Main content -->
 <section class="content">
@@ -99,7 +99,7 @@ input:checked + .slider:before {
    <tbody>
       @php $i=1; @endphp
       @if (count($client_list) > 0)
-         @foreach ($client_list as $k=>$client_data)                  
+         @foreach ($client_list as $k=>$client_data)
           <tr>
             <td>{{$i}}</td>
             <td>{{@$client_data->name}}</td>
@@ -130,13 +130,13 @@ input:checked + .slider:before {
            </div>
           </div>
 
-            @php $i++; @endphp                                   
+            @php $i++; @endphp
         @endforeach
       @else
         <tr>
             <td colspan="8" style="background-color: #c74343a6;"><b>No Data Found.</b></td>
         </tr>
-      @endif    
+      @endif
      </tbody>
  </table>
  {{ $client_list->links() }}
@@ -145,4 +145,3 @@ input:checked + .slider:before {
 </section>
 
 @endsection
-

@@ -18,22 +18,16 @@
                 {{ session()->get('message') }}
             </div>
           @endif
-           <div class="row">
-              <div class="col-md-10"></div>
-               <div class="col-md-2 text-right" style="margin-top:-38px;">
-                 <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
-               
-              </div>
-          </div>
 
-        <div class="row{{isset($get_bank_details)?'':'divhide'}}" id="exchangebox">
-        <div class="col-xs-12">
-         
+
+
           <form method ="post" action="{{isset($get_exchange_details)?url('exchange_edit/'.$get_exchange_details->id):route('exchange_create')}}" enctype="multipart/form-data">
            {{ csrf_field() }}
+           <div class="row{{isset($get_bank_details)?'':'divhide'}}" id="exchangebox">
+
           <div class="box">
           <div class="box-body">
-            <div class="row">
+          <div class="row">
               <div class="col-md-3 {{ $errors->has('ex_type') ? 'has-error' : '' }}">
                 <input type="hidden"  name="client_id" value="{{@$client_id}}" id="client">
               <label  class="control-label">EXCHANGE TYPE*</label>
@@ -51,7 +45,7 @@
            <i class="fa fa-calendar"></i>
          </div>
          <input type="text" class="form-control pull-right input-sm"  id="validity_from" name="validity_from" value="{{isset($get_exchange_details)?$get_exchange_details->validity_from:old('validity_from')}}">
-          
+
        </div>
        <span class="text-danger">{{ $errors->first('validity_from') }}</span>
       </div>
@@ -62,7 +56,7 @@
             <i class="fa fa-calendar"></i>
           </div>
           <input type="text" class="form-control pull-right input-sm"  id="validity_to" name="validity_to" value="{{isset($get_exchange_details)?$get_exchange_details->validity_to:old('validity_to')}}">
-           
+
         </div>
         <span class="text-danger">{{ $errors->first('validity_to') }}</span>
       </div>
@@ -84,20 +78,19 @@
 
         <div class="col-md-5"></div>
       </div>
-      </div>
+
     </div>
     </div>
   </div>
 </form>
-      <div class="row">
-        <div class="col-xs-12">
-          
+                    <div class="row">
+                         <div class="col-xs-12">
                                 <div class="row">
-                                   <div class="col-md-1"></div>
-                                   <div class="col-md-10"></div>
-                                   <div class="col-md-1 text-right"><button class="btn btn-info btn-xs" id="add">
-                                    <span class="glyphicon glyphicon-plus"></span>&nbsp ADD</div>
-                                </div>
+                                   <div class="col-md-9"></div>
+                                   <div class="col-md-3 text-right"><button class="btn btn-info btn-xs" id="add">
+                                    <span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
+                                    <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
+                                  </div></div>
                                 <div class="box">
                                 <div class="box-body table-responsive">
                                   <table class="table table-bordered text-center">
@@ -108,7 +101,7 @@
                                     <th>VALIDITY START DATE</th>
                                     <th>VALIDITY END DATE</th>
                                     <th>FILE</th>
-                                    
+
                                     <th>ACTION</th>
                                   </tr>
                                 </thead>
@@ -124,10 +117,10 @@
                                   <td class="text-center">{{ $value->validity_from }}</td>
                                   <td class="text-center">{{ $value->validity_to }}</td>
                                   <td class="text-center">{{ $value->file_upload }}</td>
-                                  
+
                                   <td class="text-center">
                                     <a href="{{url('/editexchangedetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>
-                                    <a href="/delete/exchange/{{$value->id}}"><span class="glyphicon glyphicon-trash" id="remove-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>
+                                    <a href="/delete/exchange/{{$value->id}}"><span class="glyphicon glyphicon-trash text-danger" id="remove-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>
                                   </td>
                               </tr>
                               <?php
@@ -145,7 +138,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
      <script>
-    
+
      $(document).ready(function(){
       $('#add').on('click', function(){
 

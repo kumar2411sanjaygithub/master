@@ -54,13 +54,12 @@ a.disabled {
 
       <div class="row">
          <div class="col-xs-12">
-
+           <form method="post" enctype="multipart/form-data" action="{{ url('psm/psmdetails/'.$id) }}" class="apd hidden">
+             {{ csrf_field()}}
             <section class="content-header">
               <h5><label  class="control-label"><u>ADD PSM DETAILS</u> &nbsp; <small>{{@$clientData->company_name}}</small></label></h5>
             </section>
-            <form method="post" enctype="multipart/form-data" action="{{ url('psm/psmdetails/'.$id) }}" class="apd hidden">
-              {{ csrf_field()}}
-              <div class="row">
+                      <div class="row">
                  <div class="col-xs-12">
                     <div class="box">
                        <div class="box-body">
@@ -122,7 +121,7 @@ a.disabled {
                                    <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
                                    </div>
-                                   <input type="text" class="form-control pull-right input-sm" value="{{old('revocable_date')}}" name="revocable_date" id="revocable_date" disabled="disabled">
+                                   <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{old('revocable_date')}}" name="revocable_date" id="revocable_date" disabled="disabled">
                                 </div>
                              </div>
                              <div class="col-md-3 {{ $errors->has('document') ? 'has-error' : '' }}">
@@ -210,7 +209,7 @@ a.disabled {
                              <a href="/editpsmdetails/{{$value->id}}/{{$value->client_id}}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp
                              <a href="/deletepsmdetails/{{$value->id}}" class="text-danger"><span class="glyphicon glyphicon-trash "></span></a>
                            </td>
-                        <tr>
+                        </tr>
                           <?php $i++; ?>
                         @endforeach
                      </tbody>
@@ -219,11 +218,11 @@ a.disabled {
                </div>
                <!-- /.box-body -->
             </div>
+            <form method="post" enctype="multipart/form-data" action="{{ url('addpsmexposure/'.@$last_id->id)}}" class="aped hidden">
+              {{ csrf_field()}}
             <section class="content-header">
               <h5><label  class="control-label"><u>ADD PSM EXPOSURE DETAILS</u> &nbsp; <small>{{$clientData->company_name}}</small></label></h5>
             </section>
-            <form method="post" enctype="multipart/form-data" action="{{ url('addpsmexposure/'.@$last_id->id)}}" class="aped hidden">
-              {{ csrf_field()}}
               <div class="row">
                <div class="col-xs-12">
                   <div class="box">
@@ -332,6 +331,9 @@ a.disabled {
        autoclose: true
      })
      $('#issue_date').datepicker({
+       autoclose: true
+     })
+     $(".datepicker").datepicker({
        autoclose: true
      })
      $('#datepicker2').datepicker({
