@@ -122,7 +122,7 @@ a.disabled {
                                    <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
                                    </div>
-                                   <input type="text" class="form-control pull-right input-sm" value="{{old('revocable_date')}}" name="revocable_date" id="revocable_date" disabled="disabled">
+                                   <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{old('revocable_date')}}" name="revocable_date" id="revocable_date" disabled="disabled">
                                 </div>
                              </div>
                              <div class="col-md-3 {{ $errors->has('document') ? 'has-error' : '' }}">
@@ -332,6 +332,9 @@ a.disabled {
        autoclose: true
      })
      $('#issue_date').datepicker({
+       autoclose: true
+     })
+     $(".datepicker").datepicker({
        autoclose: true
      })
      $('#datepicker2').datepicker({

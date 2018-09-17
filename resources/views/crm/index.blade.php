@@ -55,7 +55,7 @@
                      @foreach ($leads as $k=>$lead)                  
                       <tr>
                         <td>{{$i}}</td>
-                        <td>{{$lead->id}}</td>
+                        <td>{{$lead->leadID}}</td>
                         <td><a href="{{ route('lead.edit',[$lead->id]) }}">{{$lead->company_name}}</a></td>
                         <td>{{$lead->email_id}}</td>
                         <td>{{$lead->contact_number}}</td>

@@ -39,10 +39,10 @@
                     <div class="col-md-3 {{ $errors->has('type') ? 'has-error' : '' }}">
                        <label  class="control-label">TYPE</label><span class="text-danger"><strong>*</strong></span>
                        <select class="form-control input-sm select2" name="type" id="bankselect" onchange="select()" style="width: 100%;">
-                          <option value="0">Cash Transfer</option>
-                          <option value="1">Bank Transfer</option>
-                          <option value="2">Letter Of Credit</option>
-                          <option value="3">Bank Guarantee</option>
+                          <option value="0" @if($psmData->type == 0) selected="selected" @endif>Cash Transfer</option>
+                          <option value="1" @if($psmData->type == 1) selected="selected" @endif>Bank Transfer</option>
+                          <option value="2" @if($psmData->type == 2) selected="selected" @endif>Letter Of Credit</option>
+                          <option value="3" @if($psmData->type == 3) selected="selected" @endif>Bank Guarantee</option>
                        </select>
                        <span class="text-danger">{{ $errors->first('type') }}</span>
                     </div>
@@ -52,7 +52,7 @@
                           <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" value="{{$psmData->received_date}}" class="form-control pull-right input-sm" name="received_date" id="datepicker">
+                          <input autocomplete="off" type="text" value="{{$psmData->received_date}}" class="form-control pull-right input-sm" name="received_date" id="datepicker">
                           <span class="text-danger">{{ $errors->first('received_date') }}</span>
                        </div>
                     </div>
@@ -73,7 +73,7 @@
                           <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" disabled="disabled" value="{{$psmData->issue_date}}" name="issue_date" class="form-control pull-right input-sm" id="issue_date">
+                          <input autocomplete="off" type="text" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif value="{{$psmData->issue_date}}" name="issue_date" class="form-control pull-right input-sm" id="issue_date">
                           <span class="text-danger">{{ $errors->first('issue_date') }}</span>
                        </div>
                     </div>
@@ -83,7 +83,7 @@
                           <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" class="form-control pull-right input-sm" value="{{$psmData->expiry_date}}" name="expiry_date" id="datepicker2">
+                          <input autocomplete="off" type="text" class="form-control pull-right input-sm" value="{{$psmData->expiry_date}}" name="expiry_date" id="datepicker2">
                           <span class="text-danger">{{ $errors->first('expiry_date') }}</span>
                        </div>
                     </div>
@@ -93,12 +93,14 @@
                           <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" class="form-control pull-right input-sm" value="{{$psmData->revocable_date}}" name="revocable_date" id="revocable_date" disabled="disabled">
+                          <input autocomplete="off" type="text" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif class="form-control pull-right input-sm" value="{{$psmData->revocable_date}}" name="revocable_date" id="revocable_date">
                        </div>
                     </div>
                     <div class="col-md-3 {{ $errors->has('document') ? 'has-error' : '' }}">
                        <label  class="control-label">UPLOAD DOCUMENT</label><span class="text-danger"><strong>*</strong></span>
-                       <input class="form-control input-sm" type="file" value="{{$psmData->document}}" name="document" id="upload" placeholder="ENTER POC LOSSES" disabled="disabled">
+                       <input class="form-control input-sm" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif type="file" value="{{$psmData->document}}" name="document" id="upload" placeholder="ENTER POC LOSSES">
+                       <input class="form-control input-sm" type="hidden" value="{{ $psmData->document }}" name="old">
+
                        <span class="text-danger">{{ $errors->first('document') }}</span>
                     </div>
                  </div>
@@ -113,7 +115,7 @@
                     <div class="col-md-5"></div>
                     <input type="hidden" name="client_id" value="{{$psmData->client_id}}">
                     <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                    <div class="col-md-1"><button type="button" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
+                    <!-- <div class="col-md-1"><button type="button" class="btn btn-block btn-danger btn-xs">CANCEL</button></div> -->
                     <div class="col-md-5"></div>
                  </div>
               </div>
