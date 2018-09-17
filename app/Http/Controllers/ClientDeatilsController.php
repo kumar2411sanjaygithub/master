@@ -131,7 +131,10 @@ class ClientDeatilsController extends Controller
 
         $clientdata = Client::select('*')->where('client_app_status','1')->where('id',$id)->first();
 //dd($clientdata);
-        return view('ManageClient.viewbasic',compact('clientdata'));
+        return view('ManageClient.viewbasic',compact('clientdata','id'));
+    }
+    public function updateclient($id){
+
     }
 
 
