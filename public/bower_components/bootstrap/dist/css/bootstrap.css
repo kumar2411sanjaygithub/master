@@ -2508,8 +2508,8 @@ legend {
 label {
   display: inline-block;
   max-width: 100%;
-  margin-bottom: 5px;
-  font-weight: bold;
+  margin-bottom:1px;
+  font-weight:510;
 }
 input[type="search"] {
   -webkit-box-sizing: border-box;
@@ -2705,14 +2705,14 @@ fieldset[disabled] .checkbox label {
   padding-left: 0;
 }
 .input-sm {
-  height: 30px;
+  height: 27px;
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
   border-radius: 3px;
 }
 select.input-sm {
-  height: 30px;
+  height: 27px;
   line-height: 30px;
 }
 textarea.input-sm,
@@ -2727,7 +2727,7 @@ select[multiple].input-sm {
   border-radius: 3px;
 }
 .form-group-sm select.form-control {
-  height: 30px;
+  height: 27px;
   line-height: 30px;
 }
 .form-group-sm textarea.form-control,
@@ -2749,7 +2749,7 @@ select[multiple].input-sm {
   border-radius: 6px;
 }
 select.input-lg {
-  height: 46px;
+  height: 27px;
   line-height: 46px;
 }
 textarea.input-lg,
@@ -3908,7 +3908,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .input-group-addon.input-sm {
   padding: 5px 10px;
-  font-size: 12px;
+  font-size: 11px;
   border-radius: 3px;
 }
 .input-group-addon.input-lg {

@@ -1,18 +1,13 @@
   <header class="main-header">
-    <!-- Logo -->
     <a href="{{url('home')}}" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
-      <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>TPTCL</b>&nbsp;ERP</span>
     </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
+    <nav class="navbar navbar-static-top" >
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
-
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
@@ -27,6 +22,7 @@
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
                   <li><!-- start message -->
+
                     <a href="#">
                       <div class="pull-left">
                         <img src="{{url('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
@@ -213,6 +209,7 @@
             </ul>
           </li>
           <!-- User Account: style can be found in dropdown.less -->
+
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{url('img/admin2.png')}}" class="user-image" alt="User Image">
@@ -263,225 +260,312 @@
       </div>
     </nav>
   </header>
-  <!-- Left side column. contains the logo and sidebar -->
+<!----------------------------
+    * Menu Bar Section
+    * All Side Bar Menu
+----------------------------->
   <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="{{url('img/admin2.png')}}" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>{{ucfirst(Auth::user()->name)}}</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-      </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
-        <li class="active treeview">
+        <!-- Dashboard Menu Start -->
+        <li><a href="{{url('home')}}"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <!-- Dashboard Menu End -->
+
+        <!-- CRM Menu Start -->
+        <li class="treeview">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            <i class="fa fa-tv"></i>
+            <span>CRM</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="{{url('home')}}"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li> -->
+            <li><a href="{{ route('lead.index') }}"><i class="fa fa-circle-o"></i>Lead</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i>Task</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i>Deal</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i>Email Management</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i>Maps</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i>Reports</a></li>
           </ul>
         </li>
-<!--         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-files-o"></i>
-            <span>Layout Options</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="pages/widgets.html">
-            <i class="fa fa-th"></i> <span>Widgets</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-green">new</small>
-            </span>
-          </a>
-        </li>
+        <!-- CRM Menu End -->
+
+        <!-- Manage Client Menu Start -->
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-pie-chart"></i>
-            <span>Charts</span>
+            <i class="fa fa-group"></i> <span>Manage Client</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+          <ul class="treeview-menu" style="display: none;">
+            <li><a href="{{ route('basic.details') }}"><i class="fa fa-circle-o"></i>Client Basic Details</a></li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-circle-o"></i> DAM
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li class="treeview">
+                  <a href="#"><i class="fa fa-circle-o"></i> IEX
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="{{ route('addppadetailss') }}"><i class="fa fa-circle-o"></i>PPA</a></li>
+                    <li><a href="{{ route('bid.bidview') }}"><i class="fa fa-circle-o"></i>Bid Setting</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Bill Setting</a></li>
+                    <li><a href="{{ route('validationSetting') }}"><i class="fa fa-circle-o"></i>Validation Setting</a></li>
+                  </ul>
+                </li>
+                <li class="treeview">
+                  <a href="#"><i class="fa fa-circle-o"></i> PXIL
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="#"><i class="fa fa-circle-o"></i>PPA</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Bid Setting</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Bill Setting</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Validation Setting</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-circle-o"></i> TAM
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li class="treeview">
+                  <a href="#"><i class="fa fa-circle-o"></i> IEX
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="#"><i class="fa fa-circle-o"></i>PPA</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Bill Setting</a></li>
+                  </ul>
+                </li>
+                <li class="treeview">
+                  <a href="#"><i class="fa fa-circle-o"></i> PXIL
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="#"><i class="fa fa-circle-o"></i>PPA</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Bill Setting</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-circle-o"></i> REC
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li><a href="#"><i class="fa fa-circle-o"></i>Bid Setting</a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i>Price Setting</a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i>Due Days</a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i>Success Fee</a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i>Exchange Ratio</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-circle-o"></i> ESCERT
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li><a href="#"><i class="fa fa-circle-o"></i>Bid Setting</a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i>Price Setting</a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i>Due Days</a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i>Success Fee</a></li>
+              </ul>
+            </li>
+            <li><a href="{{ route('agsetting') }}"><i class="fa fa-circle-o"></i>Accoutn Group Setting</a></li>
+            <li><a href="{{ route('bared.barreddetails') }}"><i class="fa fa-circle-o"></i>Barred Client</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i>TM Name Setting</a></li>
           </ul>
-        </li> -->
+        </li>
+        <!-- Manage Client Menu End -->
+
+        <!-- Manage Employee Client Menu Start -->
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-laptop"></i>
-            <span>Manage Official</span>
+            <i class="fa fa-sitemap"></i>
+            <span>Manage Employee</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
             <li><a href="{{ route('departments') }}"><i class="fa fa-circle-o"></i>Department</a></li>
-            <li><a href="{{ route('roles.index') }}"><i class="fa fa-circle-o"></i>Roles</a></li>
             <li><a href="{{ route('permissionlist.index') }}"><i class="fa fa-circle-o"></i>Permission</a></li>
+            <li><a href="{{ route('roles.index') }}"><i class="fa fa-circle-o"></i>Roles</a></li>
             <li><a href="{{ route('employee') }}"><i class="fa fa-circle-o"></i>Employee</a></li>
           </ul>
         </li>
+        <!-- Manage Official Client Menu End -->
+
+        <!-- Approve Request Menu Start -->
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-laptop"></i>
-
-            <span>PPA & Bidding Setting</span>
-
-            <span>CRM</span>
-
+            <i class="fa fa-check-square-o"></i> <span>Approve Request</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-
-            <li><a href="{{ route('addppadetailss') }}"><i class="fa fa-circle-o"></i>PPA</a></li>
-            <li><a href=""><i class="fa fa-circle-o"></i>Bid Setting</a></li>
-
-          </ul>
-        </li>
-
-            <li><a href="{{ route('lead.index') }}"><i class="fa fa-circle-o"></i>Lead</a></li>
-          </ul>
-        </li>
-
-<!--         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Forms</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-            <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-table"></i> <span>Tables</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="pages/calendar.html">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-red">3</small>
-              <small class="label pull-right bg-blue">17</small>
-            </span>
-          </a>
-        </li>
-        <li>
-          <a href="pages/mailbox/mailbox.html">
-            <i class="fa fa-envelope"></i> <span>Mailbox</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-yellow">12</small>
-              <small class="label pull-right bg-green">16</small>
-              <small class="label pull-right bg-red">5</small>
-            </span>
-          </a>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-folder"></i> <span>Examples</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-            <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-            <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-            <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-            <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-            <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-            <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-            <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-            <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-share"></i> <span>Multilevel</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+          <ul class="treeview-menu" style="display: none;">
             <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> Level One
+              <a href="#"><i class="fa fa-circle-o"></i> Client
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
+              <ul class="treeview-menu" style="display: none;">
+                <li><a href="{{ route('approve.newclient') }}"><i class="fa fa-circle-o"></i> New</a></li>
+                <li><a href="{{ route('approve.existingclient') }}"><i class="fa fa-circle-o"></i> Existing</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-circle-o"></i> Employee
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li><a href="{{ route('approve.newemployee') }}"><i class="fa fa-circle-o"></i> New</a></li>
+                <li><a href="{{ route('approve.existingemployee') }}"><i class="fa fa-circle-o"></i> Existing</a></li>
+              </ul>
+            </li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Insufficient PSM</a></li>
+          </ul>
+        </li>
+        <!-- Approve Request Menu End -->
+
+        <!-- NOC Application Menu Start -->
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-file-text"></i>
+            <span>NOC</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li>
+              <a href="{{ route('noc-applications.index') }}"><i class="fa fa-circle-o"></i>NOC Application</a>
+               <a href="{{ route('nocapplicationapproval') }}"><i class="fa fa-circle-o"></i>NOC Application Approval</a>                
+               <a href="{{ route('billsetting.nocbilllist') }}"><i class="fa fa-circle-o"></i>NOC Bill Setting</a>
+            </li>
+          </ul>
+        </li>
+        <!-- NOC Application Menu End -->
+
+        <!-- DAM Menu Start -->
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-group"></i> <span>DAM</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+              <ul class="treeview-menu" style="display: none;">
                 <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o"></i> Level Two
+                  <a href="#"><i class="fa fa-circle-o"></i> IEX
                     <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                     </span>
                   </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Place Bid</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Order Book</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Download Bid</a></li>
+                    <li class="treeview">
+                      <a href="#"><i class="fa fa-circle-o"></i> Bid Confirmation
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                      </a>
+                      <ul class="treeview-menu" style="display: none;">
+                        <li><a href="#"><i class="fa fa-circle-o"></i>Submitted / Rejected</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i>Un-submitted</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i>Deleted</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i>No Bid</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Bid Placement Reminder</a></li>
+                    <li class="treeview">
+                      <a href="#"><i class="fa fa-circle-o"></i> Import
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                      </a>
+                      <ul class="treeview-menu" style="display: none;">
+                        <li><a href="#"><i class="fa fa-circle-o"></i>Obligation</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i>Scheduling</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i>Rate Sheet</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i>Rate Sheet Graph</a></li>
+                      </ul>
+                    </li>
+                    <li class="treeview">
+                      <a href="#"><i class="fa fa-circle-o"></i> Periphery Losses
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                      </a>
+                      <ul class="treeview-menu" style="display: none;">
+                        <li><a href="{{ route('pocdetails')}}"><i class="fa fa-circle-o"></i>POC</a></li>
+                        <li><a href="{{ route('discomdetails')}}"><i class="fa fa-circle-o"></i>STU/DISCOM</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>RTC</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Profitablity</a></li>
+                  </ul>
+                </li>
+                <li class="treeview">
+                  <a href="#"><i class="fa fa-circle-o"></i> PXIL
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="#"><i class="fa fa-circle-o"></i>PPA</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Bid Setting</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Bill Setting</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Validation Setting</a></li>
                   </ul>
                 </li>
               </ul>
-            </li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+        </li>
+        <!-- DAM Menu End -->
+
+        <!-- Trader's Setting Menu Start -->
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>Trader's Setting</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ route('discom-sldc-state.index') }}"><i class="fa fa-circle-o"></i>DISCOM & SLDC List</a></li>
           </ul>
         </li>
-        <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-        <li class="header">LABELS</li>
-        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li> -->
+        <!-- Trader's Setting Menu End -->
       </ul>
     </section>
-    <!-- /.sidebar -->
   </aside>

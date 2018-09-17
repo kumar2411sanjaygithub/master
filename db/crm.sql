@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 07, 2018 at 06:28 PM
+-- Generation Time: Sep 10, 2018 at 07:34 PM
 -- Server version: 5.7.23-0ubuntu0.18.04.1
 -- PHP Version: 7.2.9-1+ubuntu18.04.1+deb.sury.org+1
 
@@ -32,6 +32,8 @@ CREATE TABLE `clients` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `job_title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bid_cut_off_time` time DEFAULT NULL,
+  `trader_type` varchar(222) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'buy,sell,both',
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -41,8 +43,8 @@ CREATE TABLE `clients` (
 -- Dumping data for table `clients`
 --
 
-INSERT INTO `clients` (`id`, `name`, `email`, `job_title`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'php55', 'php6@cybuzzsc.com', 'editor', '$2y$10$Q.vl950Nk1KG2hXVJvqx/eGPnGEtTlgbKtMdrHxWA8cuNRZVUqs2.', '1cR5MzUrtmZaPFgEHXxyyzCsZLI7RWq9pgNIAF2GMkJslLbyroeJpMXNSkj1', '2018-09-04 18:31:23', '2018-09-04 18:31:23');
+INSERT INTO `clients` (`id`, `name`, `email`, `job_title`, `password`, `bid_cut_off_time`, `trader_type`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'php55', 'php6@cybuzzsc.com', 'editor', '$2y$10$Q.vl950Nk1KG2hXVJvqx/eGPnGEtTlgbKtMdrHxWA8cuNRZVUqs2.', '05:00:00', 'Sell', '1cR5MzUrtmZaPFgEHXxyyzCsZLI7RWq9pgNIAF2GMkJslLbyroeJpMXNSkj1', '2018-09-04 18:31:23', '2018-09-10 03:54:08');
 
 -- --------------------------------------------------------
 
@@ -218,6 +220,72 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `permission_id`, `created
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `poc_losses`
+--
+
+CREATE TABLE `poc_losses` (
+  `id` int(11) NOT NULL,
+  `region` varchar(50) DEFAULT NULL,
+  `regional_entity` varchar(50) DEFAULT NULL,
+  `regional_entity_code` varchar(50) DEFAULT NULL,
+  `injection_poc_loss` varchar(222) DEFAULT NULL COMMENT '(%)',
+  `withdraw_poc_loss` varchar(222) DEFAULT NULL COMMENT '(%)',
+  `date_from` varchar(222) DEFAULT NULL,
+  `date_to` varchar(222) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `poc_losses`
+--
+
+INSERT INTO `poc_losses` (`id`, `region`, `regional_entity`, `regional_entity_code`, `injection_poc_loss`, `withdraw_poc_loss`, `date_from`, `date_to`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(163, 'dsf', 'asdf', NULL, '2.2', 'sdf', '08/31/2018', '09/12/2018', '2018-09-10 06:43:41', '2018-09-10 07:36:46', NULL),
+(164, 'dsf', '4.3asdfasdf', NULL, '2.2asdfasdf', '3.3asdfasdfa', '09/13/2018', '10/05/2018', '2018-09-10 06:46:38', '2018-09-10 07:41:16', NULL),
+(165, '4.4', '11', NULL, '2.23', 'sdfsdf', '09/19/2018', '10/04/2018', '2018-09-10 07:42:01', '2018-09-10 07:42:01', NULL),
+(166, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-09-10 07:42:13', '2018-09-10 08:10:36', '2018-09-10 08:10:36'),
+(167, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-09-10 07:45:34', '2018-09-10 08:10:39', '2018-09-10 08:10:39'),
+(168, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-09-10 08:09:39', '2018-09-10 08:10:40', '2018-09-10 08:10:40'),
+(169, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-09-10 08:10:44', '2018-09-10 08:13:39', '2018-09-10 08:13:39'),
+(170, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-09-10 08:13:25', '2018-09-10 08:13:41', '2018-09-10 08:13:41'),
+(171, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-09-10 08:13:44', '2018-09-10 08:13:48', '2018-09-10 08:13:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ppa_details`
+--
+
+CREATE TABLE `ppa_details` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `client_id` int(11) DEFAULT NULL,
+  `validity_to` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `validity_from` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `file_path` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remarks` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_by` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` varchar(191) CHARACTER SET latin1 DEFAULT NULL,
+  `del_status` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ppa_details`
+--
+
+INSERT INTO `ppa_details` (`id`, `client_id`, `validity_to`, `validity_from`, `file_path`, `remarks`, `created_by`, `status`, `created_at`, `updated_at`, `deleted_at`, `del_status`) VALUES
+(139, NULL, '10/06/2018', '10/06/2018', 'da59b91c628a6688ceb1-2df52b27c2cce22a846d0a31ac70c47e388752ff.zip', NULL, NULL, '0', '2018-09-08 06:05:15', '2018-09-08 07:30:22', '2018-09-08 13:00:22', 0),
+(140, NULL, NULL, '09/13/2018', '', NULL, NULL, '0', '2018-09-08 06:05:23', '2018-09-08 07:09:33', '2018-09-08 12:39:33', 0),
+(141, NULL, '09/27/2018', '09/26/2018', '1536410813.download (6)', NULL, NULL, '0', '2018-09-08 07:16:53', '2018-09-08 07:16:53', NULL, 0),
+(142, NULL, '10/06/2018', '09/26/2018', '1536553500.download.xls', NULL, NULL, '0', '2018-09-09 22:55:00', '2018-09-09 22:55:00', NULL, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `roles`
 --
 
@@ -372,6 +440,18 @@ ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `poc_losses`
+--
+ALTER TABLE `poc_losses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ppa_details`
+--
+ALTER TABLE `ppa_details`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -426,6 +506,16 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `permissions`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+--
+-- AUTO_INCREMENT for table `poc_losses`
+--
+ALTER TABLE `poc_losses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=172;
+--
+-- AUTO_INCREMENT for table `ppa_details`
+--
+ALTER TABLE `ppa_details`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
 --
 -- AUTO_INCREMENT for table `roles`
 --

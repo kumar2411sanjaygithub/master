@@ -38,7 +38,7 @@
   <div class="row">
       <div class="col-md-3">
      <label  class="control-label">EMPLOYEE</label>
-       <input class="form-control input-sm valid" type="text" name="employee" id="employee" value="{{ old('employee') }}">
+       <input class="form-control input-sm valid" type="text" name="name" id="name" value="{{ old('name') }}">
     </div>
   <div class="col-md-3">
     <label  class="control-label">EMPLOYEE ID</label>
@@ -64,7 +64,7 @@
 </div>
 <div class="col-md-3">
   <label  class="control-label">USER NAME</label>
-<input class="form-control input-sm" type="text" name="user_name" id="user_name" value="{{ old('user_name') }}">
+<input class="form-control input-sm" type="text" name="username" id="username" value="{{ old('username') }}">
 </div>
 <div class="col-md-3">
   <label  class="control-label">NEW PASSWORD</label>
@@ -168,4 +168,10 @@
 
 </form>
     </section>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    {{ Html::script('js/employee/empvalidate.js') }}
   @endsection
