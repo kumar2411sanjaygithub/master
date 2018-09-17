@@ -47,4 +47,5 @@ $(document).ready(function() {
       <!-- AdminLTE for demo purposes -->
       {{ Html::script('dist/js/demo.js') }}
 
-      {{ Html::script('https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js') }}
+<!--       {{ Html::script('https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js') }}
+ -->
