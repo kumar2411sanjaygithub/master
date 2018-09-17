@@ -303,7 +303,7 @@
               <div class="col-md-3">
             <label  class="control-label">IEX REGION</label>
             <select class="form-control input-sm" style="width: 100%;"id="iex_region" name="iex_region" value="{{old('iex_region')}}">
-               
+
                 <option value="">Select Region</option>
                     <option value="A1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A1") ? 'selected' : '' }}>A1(Tripura, Mainpur, Mizoram, Nagaland)</option>
                     <option value="A2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A2") ? 'selected' : '' }}>A2(Assam, Arunachal Pradesh, Meghalaya)</option>
