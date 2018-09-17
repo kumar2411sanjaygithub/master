@@ -94,6 +94,11 @@ Route::get('/psm/insufficientpsm',['as'=>'insufficientpsm','uses'=>'PsmdetailsCo
   Route::post('/ppa/bidsetting',['as'=>'addbidsetting','uses'=>'PpaDetailsController@addbidsetting']);
   Route::get('/ppa/biddata',['as'=>'biddata','uses'=>'PpaDetailsController@findBidData']);
 
+    // TM setting
+    Route::get('/tm/tmnamesetting',['as'=>'tmnameview','uses'=>'TmNameController@view']);
+    Route::post('/tm/tmnamesetting',['as'=>'tmnameupdate','uses'=>'TmNameController@update']);
+
+
   // POC & DISCOM LOSSES
   Route::get('/poc',['as'=>'pocdetails','uses'=>'PocController@viewpocdetails']);
   Route::post('/poc',['as'=>'addpoc','uses'=>'PocController@savepoc']);

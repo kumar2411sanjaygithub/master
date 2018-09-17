@@ -396,7 +396,7 @@
             </li>
             <li><a href="{{ route('agsetting') }}"><i class="fa fa-circle-o"></i>Accoutn Group Setting</a></li>
             <li><a href="{{ route('bared.barreddetails') }}"><i class="fa fa-circle-o"></i>Barred Client</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i>TM Name Setting</a></li>
+            <li><a href="{{route('tmnameview')}}"><i class="fa fa-circle-o"></i>TM Name Setting</a></li>
           </ul>
         </li>
         <!-- Manage Client Menu End -->
@@ -450,7 +450,7 @@
                 <li><a href="{{ route('approve.existingemployee') }}"><i class="fa fa-circle-o"></i> Existing</a></li>
               </ul>
             </li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Insufficient PSM</a></li>
+            <li><a href="{{route('insufficientpsm')}}"><i class="fa fa-circle-o"></i> Insufficient PSM</a></li>
           </ul>
         </li>
         <!-- Approve Request Menu End -->
@@ -467,7 +467,7 @@
           <ul class="treeview-menu">
             <li>
               <a href="{{ route('noc-applications.index') }}"><i class="fa fa-circle-o"></i>NOC Application</a>
-               <a href="{{ route('nocapplicationapproval') }}"><i class="fa fa-circle-o"></i>NOC Application Approval</a>                
+               <a href="{{ route('nocapplicationapproval') }}"><i class="fa fa-circle-o"></i>NOC Application Approval</a>
                <a href="{{ route('billsetting.nocbilllist') }}"><i class="fa fa-circle-o"></i>NOC Bill Setting</a>
             </li>
           </ul>
@@ -543,7 +543,7 @@
                   </a>
                   <ul class="treeview-menu" style="display: none;">
                     <li><a href="#"><i class="fa fa-circle-o"></i>PPA</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Bid Setting</a></li>
+                    <li><a href="{{route('bid.bidview')}}"><i class="fa fa-circle-o"></i>Bid Setting</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>Bill Setting</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>Validation Setting</a></li>
                   </ul>
@@ -562,6 +562,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
+            <!-- <li><a href="{{route('tmnameview')}}"><i class="fa fa-circle-o"></i>TM Name Setting</a></li> -->
             <li><a href="{{ route('discom-sldc-state.index') }}"><i class="fa fa-circle-o"></i>DISCOM & SLDC List</a></li>
           </ul>
         </li>
