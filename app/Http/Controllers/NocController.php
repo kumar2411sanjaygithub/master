@@ -8,6 +8,7 @@ use App\Noc;
 use App\Approvalrequest;
 use App\Client;
 use App\Pocdetails;
+use App\Discomdetails;
 use DB;
 
 
@@ -20,7 +21,7 @@ class NocController extends Controller
     	$region = Pocdetails::select('region')->get();
     	$regional = Pocdetails::select('regional_entity')->get();
     	$poc_losses = Pocdetails::select('injection_poc_loss','withdraw_poc_loss')->get();
-    	$discom = Discom::select('injection_poc_loss','withdraw_poc_loss')->get();
+    	$discom = Discomdetails::select('injection_poc_loss','withdraw_poc_loss')->get();
 //dd($regional);
     	//dd($noc_losses);
         return view('ManageClient.nocdetails',compact('nocData','client_id','noc_losses','region','regional','poc_losses','discom'));
@@ -37,8 +38,12 @@ class NocController extends Controller
             // 'poc_losses' => 'required',
             'validity_from' => 'required',
             'validity_to' => 'required',
-            // 'upload_noc_doc' => 'image',
+            'upload_noc_doc' => 'required',
         ]);
+         if($validator->fails())
+        {
+            return Redirect::back()->withErrors($validator);
+        }
     	 $noc = new NocTemp();
         $noc->final_quantum = $request->input('final_quantum');
         $noc->noc_periphery = $request->input('noc_periphery');
@@ -56,50 +61,73 @@ class NocController extends Controller
         }else{
         $noc->status = 'valid';
         }
-        $noc->client_id = $id;
+        $noc->client_id = $request->client_id;
         
         if($file = $request->hasFile('upload_noc')) {
               $file = $request->file('upload_noc') ;
               $fileName = 'NOC_'.($noc->noc_type).'_'.time().'_'.$file->getClientOriginalName();
-              $UID_path = storage_path('/app/public/uploads/noc');
+              $UID_path = storage_path('/files/client/noc');
               $destinationPath = $UID_path ;
               $file->move($destinationPath,$fileName);
               $noc->upload_noc = $fileName;
            }
         
         $noc->save();
-    	return view('ManageClient.nocdetails');
+    	//return view('ManageClient.nocdetails');
+        return redirect()->back()->with('message','Detail added successfully and sent to Approver');
     }
     public function edit_nocdetails($id='',$eid=''){
         $noc_id=$eid;
         $client_id=$id;
         $get_noc_details = Noc::where('id',$noc_id)->where('status',1)->first();
+        $region = Pocdetails::select('region')->get();
+        $regional = Pocdetails::select('regional_entity')->get();
+        $poc_losses = Pocdetails::select('injection_poc_loss','withdraw_poc_loss')->get();
+       // dd($get_noc_details);
         $nocdetails = Noc::where('client_id',$client_id)->where('status',1)->get();
+        $noc_losses = Client::select('inter_discom','inter_poc','inter_stu')->where('client_app_status',1)->where('id',$id)->first();
 
-        return view('ManageClient.nocdetails',compact('nocdetails','client_id','get_noc_details'));
+        return view('ManageClient.nocdetails',compact('nocdetails','client_id','get_noc_details','region','regional','poc_losses','noc_losses'));
     }
      public function update_nocdetails(Request $request ,$noc_detail_id)
     {
     	$client_id = $request->input('client_id');
         $nocdetail = Noc::find($noc_detail_id)->toArray();
         $datas =array();
-        $datas['ex_type'] = $nocdetail['ex_type'];
+        $datas['noc_type'] = $nocdetail['noc_type'];
         $datas['validity_from'] = $nocdetail['validity_from'];
         $datas['validity_to'] = $nocdetail['validity_to'];
-        $datas['file_upload'] = $nocdetail['file_upload'];
-        print_r($datas['file_upload']);
+        $datas['upload_noc'] = $nocdetail['upload_noc'];
+        $datas['final_quantum'] = $nocdetail['final_quantum'];
+        $datas['noc_quantum'] = $nocdetail['noc_quantum'];
+        $datas['noc_periphery'] = $nocdetail['noc_periphery'];
+        $datas['stu_losses'] = $nocdetail['stu_losses'];
+        $datas['poc_losses'] = $nocdetail['poc_losses'];
+        $datas['discom_losses'] = $nocdetail['discom_losses'];
+        $datas['region'] = $nocdetail['region'];
+        $datas['region_entity'] = $nocdetail['region_entity'];
+       
         $dataArray =array();
-        $dataArray['ex_type'] = $request->input('ex_type');
+        $dataArray['noc_type'] = $request->input('noc_type');
         $dataArray['validity_from'] = $request->input('validity_from');
         $dataArray['validity_to'] = $request->input('validity_to');
+        $dataArray['upload_noc'] = $request->input('upload_noc');
+        $dataArray['final_quantum'] = $request->input('final_quantum');
+        $dataArray['noc_quantum'] = $request->input('noc_quantum');
+        $dataArray['noc_periphery'] = $request->input('noc_periphery');
+        $dataArray['stu_losses'] = $request->input('stu_losses');
+        $dataArray['poc_losses'] = $request->input('poc_losses');
+        $dataArray['discom_losses'] = $request->input('discom_losses');
+        $dataArray['region'] = $request->input('region');
+        $dataArray['region_entity'] = $request->input('region_entity');
         //$dataArray['file_upload'] = '';
-        if($file = $request->hasFile('file_upload')) {
-              $file = $request->file('file_upload') ;
-              $fileName = 'EX_REG_'.($request->input('ex_type')).'_'.time().'_'.$file->getClientOriginalName();
-              $UID_path = storage_path('/app/public/uploads/ex_reg');
+        if($file = $request->hasFile('upload_noc')) {
+              $file = $request->file('upload_noc') ;
+              $fileName = 'NOC_'.($request->input('noc_type')).'_'.time().'_'.$file->getClientOriginalName();
+              $UID_path = storage_path('/app/public/uploads/noc');
               $destinationPath = $UID_path ;
               $file->move($destinationPath,$fileName);
-              $dataArray['file_upload'] = $fileName;
+              $dataArray['upload_noc'] = $fileName;
            }
         
         $result=array_diff($dataArray,$datas);
@@ -113,7 +141,8 @@ class NocController extends Controller
         $client_id=$request->input('client_id');
         Noc::destroy($noc_detail_id);
 
-        return redirect()->back()->with('exchange detail request successfully and sent to approver');
+        
+        return redirect()->back()->with('message','Detail  successfully  sent to Approver');
     }
     function generateApprovalrequest($data, $type, $client_id, $reference_id='',$datas){
         $arrayKey = array_keys($data);
