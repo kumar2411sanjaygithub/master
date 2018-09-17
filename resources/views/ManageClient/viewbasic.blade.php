@@ -14,10 +14,15 @@
         <div class="col-xs-12">
           <div class="row">
           <div class="col-md-10"></div>
-          <div class="col-md-2 text-right" style="margin-top:-38px;">
+          <div class="col-md-1 text-right" style="margin-top:-38px;">
                  <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
                
               </div>
+              <div class="col-md-2 text-right" style="margin-top:-38px;">
+                 <a href=""><input type="button"  class="btn btn-info btn-xs" value=" EDIT"></a>
+               
+              </div>
+
        </div>
 
 
