@@ -34,6 +34,10 @@ class PsmdetailsController extends Controller
         $psmData = Psmdetails::paginate(10);
         return view('psm.psmdetails',compact('psmData','clientData'));
     }
+    public function viewinsuffi()
+    {
+        return view('psm.insufficientpsm');
+    }
 
     public function findPsmData(Request $request,$id)
       {

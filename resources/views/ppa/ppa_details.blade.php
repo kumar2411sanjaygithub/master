@@ -149,21 +149,7 @@
  </form>
 </section>
 <!-- /.content -->
-<script>
-   $(document).ready(function(){
-       $("#ram").click(function(){
-           $("#sharma").hide();
-           $("#lakhan").removeClass("hidden");
 
-   });
-   });
-     $(function () {
-       $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-         checkboxClass: 'icheckbox_flat-green',
-         radioClass   : 'iradio_flat-green'
-       })
-     });
-</script>
 <script>
    $(function () {
      //Date picker
