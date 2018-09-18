@@ -168,5 +168,4 @@ a.disabled {
 
    })
 </script>
-
 @endsection
