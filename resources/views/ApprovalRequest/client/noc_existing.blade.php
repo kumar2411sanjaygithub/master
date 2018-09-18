@@ -71,8 +71,8 @@
                                           ?>
                                           @foreach ($Addnocdata as $key => $value)
                                           <tr>
-                                             
-                                             
+
+
                                                <td class="text-center">{{ $i }}</td>
                                                <td class="text-center">{{ $value->noc_type}}</td>
                                                <td class="text-center">{{ $value->noc_quantum }}</td>
@@ -112,7 +112,7 @@
                                        <thead>
                                           <tr>
                                              <th><input type="checkbox"  class="minimal">Sr.no</th>
-                                             
+
                                              <th>FIELD NAME</th>
                                              <th>CURRENT VALUE</th>
                                              <th>UPDATED VALUE</th>
@@ -120,7 +120,7 @@
                                           </tr>
                                        </thead>
                                        <tbody>
-                                          
+
                                               @isset($nocData)
                                           <?php
                                           $i=1;
@@ -128,8 +128,8 @@
                                           ?>
                                           @foreach ($nocData as $key => $value)
                                           <tr>
-                                             
-                                             
+
+
                                                <td class="text-center">{{ $i }}</td>
                                                <td class="text-center">{{ $input_lebels[$value->attribute_name]}}</td>
                                                <td class="text-center">{{ $value->old_att_value }}</td>
@@ -141,8 +141,8 @@
                                        ?>
                                        @endforeach
                                        @endisset
-                                     
-                                         
+
+
                                        </tbody>
                                     </table>
                                  </div>
@@ -185,7 +185,7 @@
                                                   ?>
                                                   @foreach ($delnocData as $key => $value)
 
-                                                  
+
                                                 <tr>
                                                     <td class="text-center">{{ $i }}</td>
                                                <td class="text-center">{{ $value->noc_type}}</td>
@@ -199,21 +199,21 @@
                                                <td class="text-center">{{ $value->discom_losses }}</td>
                                                <td class="text-center">{{ $value->upload_noc }}</td>
                                                     <td class="text-center">
-                                                       
+
                                                           <a href="/delete_noc/{{ $value->id }}/approved/noc"><button type="button" class="btn  btn-info btn-xs">Approve</button></a>
-                            
+
                                                           <a href="/delete_noc/{{ $value->id }}/rejected/noc"><button type="button" class="btn  btn-danger btn-xs">Reject</button></a>
-                                                     
+
                                                     </td>
                                                 </tr>
                                                 <?php
                                                 $i++;
                                                 ?>
-                                              
+
                                             @endforeach
                                           @endisset
                                           </tr>
-                                          
+
                                        </tbody>
                                     </table>
                                  </div>
