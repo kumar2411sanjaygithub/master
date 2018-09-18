@@ -22,7 +22,9 @@ class ContactController extends Controller
         $get_contact_details = Contact::where('id',$contact_id)->where('status',1)->withTrashed()->first();
         $contactdetails = Contact::where('client_id',$client_id)->where('status',1)->withTrashed()->get();
  // dd($client_id);
-        return view('ManageClient.contactdetails',compact('contactdetails','client_id','get_contact_details'));
+        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
+        return view('ManageClient.contactdetails',compact('contactdetails','client_id','get_contact_details','client_details'));
+
     }
 
     public function contactdetails($id){

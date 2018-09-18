@@ -268,8 +268,9 @@ class ClientDeatilsController extends Controller
         $client_id=$id;
         $get_bank_details = Bank::where('id',$bank_id)->where('status',1)->withTrashed()->first();
         $bankdetails = Bank::where('client_id',$client_id)->where('status',1)->withTrashed()->get();
+        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
 
-        return view('ManageClient.bankdetails',compact('bankdetails','client_id','get_bank_details'));
+        return view('ManageClient.bankdetails',compact('bankdetails','client_id','get_bank_details','client_details'));
     }
 
     public function bankdetails($id){

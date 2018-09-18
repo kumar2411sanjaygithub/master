@@ -87,8 +87,9 @@ class NocController extends Controller
        // dd($get_noc_details);
         $nocdetails = Noc::where('client_id',$client_id)->where('status',1)->withTrashed()->get();
         $noc_losses = Client::select('inter_discom','inter_poc','inter_stu')->where('client_app_status',1)->where('id',$id)->first();
+        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
 
-        return view('ManageClient.nocdetails',compact('nocdetails','client_id','get_noc_details','region','regional','poc_losses','noc_losses'));
+        return view('ManageClient.nocdetails',compact('client_details','nocdetails','client_id','get_noc_details','region','regional','poc_losses','noc_losses'));
     }
      public function update_nocdetails(Request $request ,$noc_detail_id)
     {

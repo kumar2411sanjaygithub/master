@@ -20,8 +20,9 @@ class ExchangeController extends Controller
         $client_id=$id;
         $get_exchange_details = Exchange::where('id',$exchange_id)->where('status',1)->withTrashed()->first();
         $exchangedetails = Exchange::where('client_id',$client_id)->where('status',1)->withTrashed()->get();
+        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
 
-        return view('ManageClient.exchangedetails',compact('exchangedetails','client_id','get_exchange_details'));
+        return view('ManageClient.exchangedetails',compact('exchangedetails','client_id','get_exchange_details','client_details'));
     }
 
     public function exchangedetails($id){
