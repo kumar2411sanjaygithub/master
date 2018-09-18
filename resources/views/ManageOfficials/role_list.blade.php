@@ -24,7 +24,7 @@
       </div>
    @endif
 <div class="col-md-10"></div>
-<div class="col-md-2">
+<div class="col-md-2 mb10">
   <a href="{{ route('roles.create') }}" class="btn btn-info btn-xs pull-right">
   <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD ROLE</a>
 </div>
@@ -79,9 +79,9 @@
                      </div>
                    </div>
                    </form>
-                 </div>                
+                 </div>
                </tr>
-               @php $i++; @endphp                                   
+               @php $i++; @endphp
            @endforeach
          @else
            <tr>

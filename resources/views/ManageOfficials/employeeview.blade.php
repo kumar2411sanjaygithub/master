@@ -1,6 +1,6 @@
 @extends('theme.layouts.default')
 @section('content')
-  
+
     <!-- Content Header (Page header) -->
     <section class="content-header">
     <h5><label  class="control-label">EMPLOYEE LIST</label></h5>
@@ -47,7 +47,7 @@
 <div class="col-md-8"></div>
 <div class="col-md-2">
   <a href="{{ ('officialsadd')}}" class="btn btn-info btn-xs pull-right"  id="ram">
-    <button type="button" class="glyphicon glyphicon-plus adddeportmentbtn">ADD EMPLOYEE</button></a>
+    <span type="button" class="glyphicon glyphicon-plus adddeportmentbtn"></span> ADD EMPLOYEE</a>
 </div>
 </div>
 <div class="box">
@@ -64,7 +64,7 @@
         <th>ACTION</th>
       </tr>
       </thead>
-      
+
        <tbody>
                               @isset($employeeData)
                               <?php

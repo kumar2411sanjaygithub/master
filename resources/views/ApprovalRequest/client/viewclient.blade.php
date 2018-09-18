@@ -57,7 +57,7 @@
                                 <td class="text-center">{{ $value->pxil_portfolio }}</td>
                                 <td class="text-center">{{ $value->crn_no }}</td>
                                 <td class="text-center ">
-                                  <a href="#" class="text-decoration: underline"><u>BASIC</u></a>&nbsp&nbsp<a href="/contact/approval/{{$value->id}}"><u>CONTACT</u></a>&nbsp&nbsp<a href="/exchangeapproval/{{$value->id}}"><u>EXCHANGE FILE</u></a>&nbsp&nbsp<a href="/nocapproval/{{$value->id}}"><u>NOC</u></a>&nbsp&nbsp<a href="/bankapproval/{{$value->id}}"><u>BANK</u></a>&nbsp&nbsp<a href="#"><u>PSM</u></a>
+                                  <a href="/basic/approval/{{$value->id}}" class="text-decoration: underline">basic</a>&nbsp<a href="/contact/approval/{{$value->id}}">contact</a>&nbsp<a href="/exchangeapproval/{{$value->id}}">exchange file</a>&nbsp<a href="/nocapproval/{{$value->id}}">noc</a>&nbsp<a href="/bankapproval/{{$value->id}}">bank</a>&nbsp<a href="#">psm</a>
                                 </td>
                               </tr>
                             <?php

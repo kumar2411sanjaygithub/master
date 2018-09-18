@@ -66,8 +66,8 @@
                                           ?>
                                           @foreach ($Addbankdata as $key => $value)
                                           <tr>
-                                             
-                                             
+
+
                                                <td class="text-center">{{ $i }}</td>
                                                <td class="text-center">{{ $value->bank_name }}</td>
                                                <td class="text-center">{{ $value->branch_name }}</td>
@@ -102,7 +102,7 @@
                                        <thead>
                                           <tr>
                                              <th><input type="checkbox"  class="minimal">Sr.no</th>
-                                             
+
                                              <th>FIELD NAME</th>
                                              <th>CURRENT VALUE</th>
                                              <th>UPDATED VALUE</th>
@@ -110,7 +110,7 @@
                                           </tr>
                                        </thead>
                                        <tbody>
-                                          
+
                                               @isset($bankData)
                                           <?php
                                           $i=1;
@@ -118,8 +118,8 @@
                                           ?>
                                           @foreach ($bankData as $key => $value)
                                           <tr>
-                                             
-                                             
+
+
                                                <td class="text-center">{{ $i }}</td>
                                                <td class="text-center">{{ $input_lebels[$value->attribute_name]}}</td>
                                                <td class="text-center">{{ $value->old_att_value }}</td>
@@ -131,8 +131,8 @@
                                        ?>
                                        @endforeach
                                        @endisset
-                                     
-                                         
+
+
                                        </tbody>
                                     </table>
                                  </div>
@@ -163,7 +163,7 @@
                                           </tr>
                                        </thead>
                                        <tbody>
-                                         
+
                                            @isset($deletedbnkData)
                                              <?php
                                              $i=1;
@@ -179,11 +179,11 @@
                                                <td class="text-center">{{ $value->ifsc }}</td>
                                                <td class="text-center">{{ $value->virtual_account_number }}</td>
                                                <td class="text-center">
-                                                   
+
                                                         <a href="/deletebank/{{ $value->id }}/approved/bank"><button type="button" class="btn  btn-info btn-xs">Approve</button></a>
-                                               
+
                                                         <a href="/deletebank/{{ $value->id }}/rejected/bank"><button type="button" class="btn  btn-danger btn-xs">Reject</button></a>
-                                                 
+
                                                </td>
                                              </tr>
                                           <?php
@@ -191,7 +191,7 @@
                                           ?>
                                           @endforeach
                                           @endisset
-                                          
+
                                        </tbody>
                                     </table>
                                  </div>
@@ -208,5 +208,5 @@
             $(this).remove();
         });
     }, 5000);
-  </script>           
+  </script>
             @endsection
