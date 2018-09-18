@@ -95,6 +95,15 @@ class ClientApprovalController extends Controller
         //return view('ApprovalRequest.client.existing')
     	
     }
+     public function clientapproval(Request $request,$id)
+    {
+        $user_id = $request['id'];
+        $client_id  =  $user_id;
+        $clientData = Approvalrequest::select('id','updated_attribute_value','attribute_name','approval_type','client_id','created_at','old_att_value','updated_by')->where('approval_type','client')->where('client_id',$request['id'])->where('status', 0)->orderBy('created_at','desc')->get();
+        $state_data = array_keys(\App\Common\StateList::get_states());
+        //dd(array_keys($state_data));
+        return view('ApprovalRequest.client.client_existing',compact('clientData','Addclientdata','deletedclientData','state_data'));
+    }
     public function bankapproval(Request $request)
     {
         $user_id = $request['id'];

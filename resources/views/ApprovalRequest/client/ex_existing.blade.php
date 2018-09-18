@@ -40,10 +40,10 @@
                            <div class="box">
                               <div class="box-body">
                                  <div class="row">
-                                    <div class="col-md-2"><label  class="control-label">EXCHANGE DETAILS</label></div>
+                                    <div class="col-md-2"><label class="control-label">EXCHANGE DETAILS</label></div>
                                     <div class="col-md-6"></div>
-                                    <div class="col-md-4 text-right"><input type="checkbox"  class="minimal">&nbsp&nbsp<label  class="control-label">APPROVE ALL</label>
-                                       &nbsp&nbsp&nbsp<input type="checkbox" class="minimal">&nbsp&nbsp<label  class="control-label"  >REJECT ALL</label>
+                                    <div class="col-md-4 text-right"><input type="checkbox" id="approvalall" class="minimal">&nbsp&nbsp<label for="approvalall" class="control-label">APPROVE ALL</label>
+                                       &nbsp&nbsp&nbsp<input type="checkbox" id="rejectall" class="minimal">&nbsp&nbsp<label  class="control-label" for="rejectall" >REJECT ALL</label>
                                     </div>
                                  </div>
                                  <div class="box-body table-responsive">
@@ -51,6 +51,7 @@
                                        <thead>
                                           <tr>
                                              <th><input type="checkbox"  class="minimal"></th>
+                                             <th>SR. No.</th>
                                              <th>EXCHANGE TYPE</th>
                                              <th>VALIDITY FROM</th>
                                              <th>VALIDITY TO</th>
@@ -65,8 +66,9 @@
                                           ?>
                                           @foreach ($Addexchangedata as $key => $value)
                                           <tr>
-                                             
-                                             
+
+
+                                               <td class="text-center"><input type="checkbox"  class="minimal"></td>
                                                <td class="text-center">{{ $i }}</td>
                                                <td class="text-center">{{ $value->ex_type}}</td>
                                                <td class="text-center">{{ $value->validity_from }}</td>
@@ -100,7 +102,7 @@
                                        <thead>
                                           <tr>
                                              <th><input type="checkbox"  class="minimal">Sr.no</th>
-                                             
+
                                              <th>FIELD NAME</th>
                                              <th>CURRENT VALUE</th>
                                              <th>UPDATED VALUE</th>
@@ -108,7 +110,7 @@
                                           </tr>
                                        </thead>
                                        <tbody>
-                                          
+
                                               @isset($exchangeData)
                                           <?php
                                           $i=1;
@@ -116,8 +118,8 @@
                                           ?>
                                           @foreach ($exchangeData as $key => $value)
                                           <tr>
-                                             
-                                             
+
+
                                                <td class="text-center">{{ $i }}</td>
                                                <td class="text-center">{{ $input_lebels[$value->attribute_name]}}</td>
                                                <td class="text-center">{{ $value->old_att_value }}</td>
@@ -129,8 +131,8 @@
                                        ?>
                                        @endforeach
                                        @endisset
-                                     
-                                         
+
+
                                        </tbody>
                                     </table>
                                  </div>
@@ -167,7 +169,7 @@
                                                   ?>
                                                   @foreach ($delexcgData as $key => $value)
 
-                                                  
+
                                                 <tr>
                                                     <td class="text-center">{{ $i }}</td>
                                                     <td class="text-center">{{ $value->ex_type}}</td>
@@ -175,21 +177,21 @@
                                                     <td class="text-center">{{ $value->validity_to }}</td>
                                                     <td class="text-center">{{ $value->file_upload }}</td>
                                                     <td class="text-center">
-                                                       
+
                                                           <a href="/delete_exchange/{{ $value->id }}/approved/exchange"><button type="button" class="btn  btn-info btn-xs">Approve</button></a>
-                            
+
                                                           <a href="/delete_exchange/{{ $value->id }}/rejected/exchange"><button type="button" class="btn  btn-danger btn-xs">Reject</button></a>
-                                                     
+
                                                     </td>
                                                 </tr>
                                                 <?php
                                                 $i++;
                                                 ?>
-                                              
+
                                             @endforeach
                                           @endisset
                                           </tr>
-                                          
+
                                        </tbody>
                                     </table>
                                  </div>
@@ -226,5 +228,31 @@
    }
  }
 }
+</script>
+<script>
+$(function () {
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+    checkboxClass: 'icheckbox_minimal-blue',
+    radioClass   : 'iradio_minimal-blue'
+  })
+  //Red color scheme for iCheck
+  $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+    checkboxClass: 'icheckbox_minimal-red',
+    radioClass   : 'iradio_minimal-red'
+  })
+  //Flat red color scheme for iCheck
+  $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+    checkboxClass: 'icheckbox_flat-blue',
+    radioClass   : 'iradio_flat-blue'
+  })
+
+})
+
+$(function () {
+$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+checkboxClass: 'icheckbox_flat-green',
+radioClass   : 'iradio_flat-green'
+})
+});
 </script>
             @endsection

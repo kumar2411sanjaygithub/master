@@ -47,4 +47,3 @@ $(document).ready(function() {
       <!-- AdminLTE for demo purposes -->
       {{ Html::script('dist/js/demo.js') }}
 
-

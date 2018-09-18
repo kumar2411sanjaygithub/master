@@ -11,6 +11,7 @@ use App\Approvalrequest;
 use DB;
 use App\ServiseAlert;
 use Validator;
+use App\Client;
 use Illuminate\Support\Facades\Redirect;
 
 class ContactController extends Controller
@@ -18,20 +19,25 @@ class ContactController extends Controller
     public function edit_contactdetails($id='',$eid=''){
         $contact_id=$eid;
         $client_id=$id;
-        $get_contact_details = Contact::where('id',$contact_id)->where('status',1)->first();
-        $contactdetails = Contact::where('client_id',$client_id)->where('status',1)->get();
+        $get_contact_details = Contact::where('id',$contact_id)->where('status',1)->withTrashed()->first();
+        $contactdetails = Contact::where('client_id',$client_id)->where('status',1)->withTrashed()->get();
+ // dd($client_id);
+        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
+        return view('ManageClient.contactdetails',compact('contactdetails','client_id','get_contact_details','client_details'));
 
-        return view('ManageClient.contactdetails',compact('contactdetails','client_id','get_contact_details'));
     }
 
     public function contactdetails($id){
 
         $client_id=$id;
         //$contactdetails = Exchange::where('client_id',$id)->where('status',1)->get();
-        $contactdetails = DB::table('contact')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',2); })->where('client_id',$id)->where('status',1)->get();
+        // $contactdetails = DB::table('contact')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',2); })->where('client_id',$id)->where('status',1)->get();
+        $contactdetails = Contact::select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',2); })->where('client_id',$id)->where('status',1)->withTrashed()->get();
         $alert_type = ServiseAlert::select('*')->where('client_id',$id)->get();
-        //dd($alert_type);
-        return view('ManageClient.contactdetails',compact('contactdetails','client_id','alert_type'));
+        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
+        //dd($client_details[0]['company_name']);
+     //dd($client_id);
+        return view('ManageClient.contactdetails',compact('contactdetails','client_id','alert_type','client_details'));
     }
     public function add_contactdetails(Request $request){
         $validator = Validator::make($request->all(), [

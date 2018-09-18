@@ -599,7 +599,10 @@
 .skin-black-light .main-header .navbar>.sidebar-toggle {
 	color: #333;
 	border-right: 1px solid #d2d6de;
-  margin-left:-56px;
+	/* margin-left:-56px; */
+	padding-right: 21px;
+padding-left: 10px;
+	margin-left:-7px;
 }
 
 .skin-black-light .main-header .navbar .navbar-nav>li>a {
@@ -616,8 +619,8 @@
 	background-color: #fff;
 	color: #333;
 	border-bottom: 0 solid transparent;
-	border-right: 1px solid #d2d6de;
-  margin-left: -45px;
+	/* border-right: 1px solid #d2d6de; */
+	margin-left: -45px;
 }
 
 .skin-black-light .main-header .logo:hover {

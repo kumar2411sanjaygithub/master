@@ -41,7 +41,7 @@
                           @endif
                         @endforeach
                     </select>
-                    <span class="text-danger">{{ $errors->first('state') }}</span>                           
+                    <span class="text-danger">{{ $errors->first('state') }}</span>
                 </div>
               <div class="col-md-3">
                  <div class="col-sm-12 col-md-12" id='TextBoxesGroup2'>
@@ -61,16 +61,16 @@
                     {
                       if($sldc_data!='')
                       {
-                @endphp                 
+                @endphp
                      <div class="col-sm-12 col-md-12" id=>
                        <div id="">
                           <input class="form-control input-sm" type="text" placeholder="ENTER SLDC 1" name="sldc[]" value="{{$sldc_data}}">
                     </div>
                      <a href="{{url('discom-sldc-state/delsldc/'.$get_state_discom->id.'/e_del/'.$sk)}}" class="btn btn-danger btn-xs" style="margin-left:103%;margin-top:-50px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
                    </div>
-              @php   
+              @php
                       }
-                    }  
+                    }
                   }
                 }
               @endphp
@@ -95,16 +95,16 @@
                     {
                       if($discom_data!='')
                       {
-                @endphp                 
+                @endphp
                      <div class="col-sm-12 col-md-12" id=>
                        <div id="">
                           <input class="form-control input-sm" type="text" placeholder="ENTER DISCOM 1" name="discom[]" value="{{$discom_data}}">
                     </div>
                      <a href="{{url('discom-sldc-state/deldiscom/'.$get_state_discom->id.'/e_del/'.$dk)}}" class="btn btn-danger btn-xs" style="margin-left:103%;margin-top:-50px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
                    </div>
-              @php    
+              @php
                       }
-                    } 
+                    }
                   }
                 }
               @endphp
@@ -130,16 +130,16 @@
                     {
                       if($voltage_data!='')
                       {
-                @endphp                 
+                @endphp
                      <div class="col-sm-12 col-md-12" id=>
                        <div id="">
                           <input class="form-control input-sm" type="text" placeholder="ENTER VOLTAGE 1" name="voltage[]" value="{{$voltage_data}}">
                     </div>
                      <a href="{{url('discom-sldc-state/delvoltage/'.$get_state_discom->id.'/e_del/'.$vk)}}" class="btn btn-danger btn-xs" style="margin-left:103%;margin-top:-50px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
                    </div>
-              @php   
+              @php
                       }
-                    }  
+                    }
                   }
                 }
               @endphp
@@ -156,7 +156,8 @@
                 <div class="col-md-5"></div>
               </div>
           </form>
-          </div>
+        </div>
+      </div>
           <div class="box">
             <div class="box-body table-responsive">
               <table id="example1" class="table table-bordered table-striped table-hover text-center">
@@ -173,7 +174,7 @@
                 <tbody>
                   @php $i=1; @endphp
                   @if (count($stateDiscomData) > 0)
-                     @foreach ($stateDiscomData as $k=>$stateDiscom)                  
+                     @foreach ($stateDiscomData as $k=>$stateDiscom)
                       <tr>
                         <td>{{$i}}</td>
                         <td>
@@ -202,8 +203,8 @@
                                 else
                                 {
                                   echo $sldc_data;
-                                }   
-                              }                           
+                                }
+                              }
                             }
                           @endphp
                         </td>
@@ -272,9 +273,9 @@
                            </div>
                          </div>
                          </form>
-                       </div>  
+                       </div>
                       </tr>
-                        @php $i++; @endphp                                   
+                        @php $i++; @endphp
                     @endforeach
                   @else
                     <tr>

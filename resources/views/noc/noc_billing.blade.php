@@ -36,13 +36,13 @@
           $state_list = \App\Common\StateList::get_states();
               ?>
         @foreach($state_list as $state_code=>$state_ar)
-          @if(isset($inset_state)&&!in_array($state_code,@$inset_state)|| isset($edit_nocBilling->id))        
+          @if(isset($inset_state)&&!in_array($state_code,@$inset_state)|| isset($edit_nocBilling->id))
             <option value="{{$state_code}}" {{ isset($edit_nocBilling) && $edit_nocBilling->state == $state_code || old('state')==  $state_code? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
 
           @endif
         @endforeach
     </select>
-    <span class="text-danger">{{ $errors->first('state') }}</span>                               
+    <span class="text-danger">{{ $errors->first('state') }}</span>
   </div>
   <div class="col-md-6 {{ $errors->has('noc_application_for') ? 'has-error' : '' }}">
     <label  class="control-label">NOC APPLICATION SENT TO <span class="text-danger">*</span></label>
@@ -52,9 +52,9 @@
        <option value="discom" {{ isset($edit_nocBilling) && $edit_nocBilling->noc_application_for == 'discom' || old('noc_application_for')==  'discom'? 'selected="selected"' : '' }}>DISCOM</option>
        <option value="both" {{ isset($edit_nocBilling) && $edit_nocBilling->noc_application_for == 'both' || old('noc_application_for')==  'both'? 'selected="selected"' : '' }}>BOTH</option>
   </select>
-    <span class="text-danger">{{ $errors->first('noc_application_for') }}</span>                                 
+    <span class="text-danger">{{ $errors->first('noc_application_for') }}</span>
   </div>
-  </div>    
+  </div>
     <div class="row">&nbsp;</div>
 <div class="row">
   <div class="col-md-3">
@@ -94,6 +94,7 @@
   </div>
   <div class="col-md-3">
     <label  class="control-label">IGST AMOUNT</label>
+
     <input class="form-control input-sm num" type="text" placeholder="VALUE" id="discom_igst_value" name="discom_igst_value" value="{{ isset($edit_nocBilling->discom_igst_value) ? $edit_nocBilling->discom_igst_value : old('discom_igst_value') }}">
   </div>    
   </div>
@@ -127,6 +128,7 @@
       <label  class="control-label">CGST AMOUNT</label>
       <input class="form-control input-sm num" type="text" placeholder="VALUE" id="sldc_cgst_amt" name="sldc_cgst_amt"  value="{{ isset($edit_nocBilling->sldc_cgst_amt) ?$edit_nocBilling->sldc_cgst_amt  : old('sldc_cgst_amt') }}">
     </div>    
+
   <div class="col-md-3">
     <label  class="control-label">SGST AMOUNT</label>
     <input class="form-control input-sm num" type="text" placeholder="VALUE" id="sldc_sgst_amt" name="sldc_sgst_amt" value="{{ isset($edit_nocBilling->sldc_sgst_amt) ? $edit_nocBilling->sldc_sgst_amt : old('sldc_sgst_amt') }}">
@@ -139,6 +141,7 @@
     <label  class="control-label">IGST AMOUNT</label>
     <input class="form-control input-sm num" type="text" placeholder="VALUE" id="sldc_igst_amt" name="sldc_igst_amt" value="{{ isset($edit_nocBilling->sldc_igst_amt) ? $edit_nocBilling->sldc_igst_amt : old('sldc_igst_amt') }}">
   </div>    
+
   </div>
 
     <div class="row">&nbsp;</div>
@@ -162,11 +165,11 @@
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>
       <tr>
-        <th rowspan="2" style="width:3%;" class="vertical-align">SR.NO</th>
-        <th rowspan="2" class="vertical-align">STATE</th>
+        <th rowspan="2" style="width:3%;vertical-align: middle;" >SR.NO</th>
+        <th rowspan="2"  style="vertical-align: middle;">STATE1</th>
         <th colspan="7">DISCOM</th>
         <th colspan="7">SDLC</th>
-        <th rowspan="2">ACTION</th>
+        <th rowspan="2" style="vertical-align: middle;">ACTION</th>
       </tr>
       <tr>
         <th>NAME</th>
@@ -188,7 +191,7 @@
       <tbody>
       @php $i=1; @endphp
       @if (count($nocBillingList) > 0)
-         @foreach ($nocBillingList as $k=>$nocBilling)                  
+         @foreach ($nocBillingList as $k=>$nocBilling)
           <tr>
             <td>{{$i}}</td>
             <td>
@@ -206,17 +209,17 @@
             <td>{{($nocBilling->discom_gst_applicabale)?$nocBilling->discom_gst_applicabale:'-'}}</td>
             <td>{{($nocBilling->discom_cgst_value)?$nocBilling->discom_cgst_value:'-'}}</td>
             <td>{{($nocBilling->discom_sgst_value)?$nocBilling->discom_sgst_value:'-'}}</td>
-            <td>{{($nocBilling->discom_utgst_value)?$nocBilling->discom_utgst_value:'-'}}</td>  <td>{{($nocBilling->discom_igst_value)?$nocBilling->discom_igst_value:'-'}}</td>                                 
+            <td>{{($nocBilling->discom_utgst_value)?$nocBilling->discom_utgst_value:'-'}}</td>  <td>{{($nocBilling->discom_igst_value)?$nocBilling->discom_igst_value:'-'}}</td>
             <td>{{($nocBilling->sldc)?$nocBilling->sldc:'-'}}</td>
             <td>{{($nocBilling->sldc_amt)?$nocBilling->sldc_amt:'-'}}</td>
             <td>{{($nocBilling->sldc_gst_applicable)?$nocBilling->sldc_gst_applicable:'-'}}</td>
             <td>{{($nocBilling->sldc_cgst_amt)?$nocBilling->sldc_cgst_amt:'-'}}</td>
             <td>{{($nocBilling->sldc_sgst_amt)?$nocBilling->sldc_sgst_amt:'-'}}</td>
             <td>{{($nocBilling->sldc_utgst_amt)?$nocBilling->sldc_utgst_amt:'-'}}</td>
-            <td>{{($nocBilling->sldc_igst_amt)?$nocBilling->sldc_igst_amt:'-'}}</td>            
+            <td>{{($nocBilling->sldc_igst_amt)?$nocBilling->sldc_igst_amt:'-'}}</td>
             <td>
               <a href="{{ route('noc_billing.nocbillingedit',[$nocBilling->id]) }}"><span class="glyphicon glyphicon-pencil"></span>
-              <a href="" data-toggle="modal" data-target="#deleteData{{ $nocBilling->id }}"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a>              
+              <a href="" data-toggle="modal" data-target="#deleteData{{ $nocBilling->id }}"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a>
             </td>
             <div id="deleteData{{ $nocBilling
            ->id }}" class="modal fade" role="dialog">
@@ -238,10 +241,10 @@
                  </div>
                </div>
                </form>
-             </div>  
+             </div>
 
           </tr>
-            @php $i++; @endphp                                   
+            @php $i++; @endphp
         @endforeach
       @else
         <tr>
@@ -291,14 +294,14 @@
               });
               $('#discom').html(html);
             }
-        });        
+        });
       }
       else
       {
         $('#noc_application_for').val('');
-        $("#state").css('border-color', 'red'); 
+        $("#state").css('border-color', 'red');
       }
-      
+
     });
 
   });

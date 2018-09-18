@@ -15,23 +15,27 @@
                 {{ session()->get('message') }}
             </div>
           @endif
+          <div class="box">
       <div class="row">
         <div class="col-xs-12">
-          <div class="row">
-              <div class="col-md-2">
+          <div style="height:10px;">&nbsp;</div>
+          <div class="row1">
+              <div class="col-md-2" style="padding-left:10px;">
               <div class="input-group input-group-sm">
                 <input type="text" class="form-control" placeholder="SEARCH">
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-info btn-flat"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
               </div></div>
+          </div>
+          <div class="row">
           <div class="col-md-8"></div>
-          <div class="col-md-2">
+          <div class="col-md-2 pull-right" style="margin-right:10px;">
             <a href="{{ ('clientadd')}}" class="btn btn-info btn-xs pull-right">
             <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD CLIENT</a>
           </div>
           </div>
-          <div class="box">
+          <div class="box1">
                     <!-- /.box-header -->
             <div class="box-body table-responsive">
               <table id="example1" class="table table-bordered table-striped table-hover text-center">
@@ -61,7 +65,7 @@
 
 
 
-                                  <a href="#" class="text-decoration: underline"><u>BASIC</u></a>&nbsp&nbsp<a href="/contactdetails/{{$value->id}}"><u>CONTACT</u></a>&nbsp&nbsp<a href="/exchangedetails/{{$value->id}}"><u>EXCHANGE FILE</u></a>&nbsp&nbsp<a href="#"><u>NOC</u></a>&nbsp&nbsp<a href="/bankdetails/{{$value->id}}"><u>BANK</u></a>&nbsp&nbsp<a href="{{url('/psm/psmdetails/'.$value->id)}}"><u>PSM</u></a>
+                                  <a href="/basic/{{$value->id}}" class="text-decoration: underline"><u>BASIC</u></a>&nbsp&nbsp<a href="/contactdetails/{{$value->id}}"><u>CONTACT</u></a>&nbsp&nbsp<a href="/exchangedetails/{{$value->id}}"><u>EXCHANGE FILE</u></a>&nbsp&nbsp<a href="/nocdetails/{{$value->id}}"><u>NOC</u></a>&nbsp&nbsp<a href="/bankdetails/{{$value->id}}"><u>BANK</u></a>&nbsp&nbsp<a href="{{url('/psm/psmdetails/'.$value->id)}}"><u>PSM</u></a>
 
                                 </td>
                               </tr>
@@ -75,6 +79,7 @@
             </div>
           </div>
         </section>
+      </div>
  <script>
     window.setTimeout(function() {
         $(".alert").fadeTo(500, 0).slideUp(500, function(){

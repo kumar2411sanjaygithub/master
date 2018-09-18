@@ -30,7 +30,7 @@
               </div>
            @endforeach
           @endif
-     
+
 <form method="post" action="/manageofficials/saveofficialsdata">
   {{ csrf_field() }}
 <div class="box">
@@ -85,7 +85,7 @@
         </select>
         <div class="mda-form-control-line"></div>
 
-   </div>    
+   </div>
 <div class="col-md-3">
   <label  class="control-label">ROLE</label>
   <select class="form-control input-sm" name="role_id" id="role_id" style="width: 100%;">
@@ -93,8 +93,8 @@
         <option value="{{$roleuser->id}}">{{$roleuser->name}}</option>
           @endForeach
         </select>
-        <div class="mda-form-control-line"></div> 
-  
+        <div class="mda-form-control-line"></div>
+
 </div>
 
 </div>
@@ -120,7 +120,7 @@
     <select class="form-control input-sm select2" name="country" id="country" style="width: 100%;">
         <option selected="selected"> SELECT COUNTRY</option>
         <option>INDIA</option>
-        
+
     </select>
   </div>
   <div class="col-md-3">
@@ -133,7 +133,7 @@
           @foreach($state_list as $state_code=>$state_ar)
            <option value="{{$state_code}}" {{ isset($clientData) && $clientData->reg_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
           @endforeach
-        
+
     </select>
   </div>
 </div>
@@ -157,11 +157,10 @@
 </div>
 <div class="row">&nbsp;</div>
  <div class="row">
-    <div class="col-md-5"></div>
-     <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" id="save_officials">SAVE</button></div>
-     <div class="col-md-1">
-     <a href="{{ route('employee') }}"><input type="button" class="btn btn-block btn-danger btn-xs" value="Cancel"></a></div>
-   <div class="col-md-5"></div>
+    <div class="col-md-12 text-center">
+     <button type="submit" class="btn btn-info btn-xs" id="save_officials">SAVE</button>
+     <a href="{{ route('employee') }}"><input type="button" class="btn btn-danger btn-xs" value="Cancel"></a>
+   </div>
  </div>
 </div>
 </div>

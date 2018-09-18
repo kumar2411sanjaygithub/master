@@ -9,7 +9,7 @@
 }
 </style>
  <section class="content-header">
-            <h5><label  class="control-label">BANK DETAILS <small> pvt. ltd</small></label></h5>
+            <h5><label  class="control-label">BANK DETAILS <small>{{$client_details[0]['company_name']}}/{{$client_details[0]['crn_no']}}/{{$client_details[0]['iex_portfolio']}}/{{$client_details[0]['pxil_portfolio']}}</small></label></h5>
     </section>
     <section class="content">
       @if(session()->has('message'))
@@ -20,14 +20,7 @@
           @endif
       <div class="row">
         <div class="col-xs-12">
-          <div class="row">
-              <div class="col-md-10"></div>
-               <div class="col-md-2 text-right" style="margin-top:-38px;">
-                 <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
-               
-              </div>
-          </div>
-  <form method ="post" action="{{isset($get_bank_details)?url('bank_edit/'.$get_bank_details->id):route('bank_create')}}">
+        <form method ="post" action="{{isset($get_bank_details)?url('bank_edit/'.$get_bank_details->id):route('bank_create')}}">
       {{ csrf_field() }}
   <div class="row {{(isset($get_bank_details)||!$errors->isEmpty())?'':'divhide'}}" id="bankbox">
   <div class="col-xs-12">
@@ -80,15 +73,14 @@
   </div>
 </form>
 <div class="row">
-     <div class="col-md-1"></div>
-     <div class="col-md-10"></div>
-     <div class="col-md-1 text-right"><button class="btn btn-info btn-xs"  id="add">
+  <div class="col-md-9"></div>
+   <div class="col-md-3 text-right"><button class="btn btn-info btn-xs"  id="add">
       <span class="glyphicon glyphicon-plus"></span>&nbspADD
-    </button></div>
+    </button>   <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a></div>
 </div>
 <div class="box">
   <div class="box-body table-responsive">
-    <table class="table table-bordered text-center" id="show-bank">
+    <table class="table table-bordered text-center table-striped table-hover table-condensed" id="show-bank">
   <thead>
     <tr>
       <th>SR.NO</th>
@@ -115,7 +107,7 @@
                         <td class="text-center">{{ $value->virtual_account_number }}</td>
                         <td class="text-center">
                           <a href="{{url('/editbankdetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>
-                          <a href="/delete/bank/{{$value->id}}"><span class="glyphicon glyphicon-trash" id="remove-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>
+                          <a href="/delete/bank/{{$value->id}}"><span class="glyphicon glyphicon-trash text-danger" id="remove-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>
                         </td>
                       </tr>
                       <?php
@@ -123,7 +115,7 @@
                     ?>
                     @endforeach
                     @endisset
-    
+
   </tbody>
 </table>
   </div>
@@ -131,12 +123,12 @@
 
     </div>
   </div>
- 
+
      </section>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
      <script>
-    
+
      $(document).ready(function(){
       $('#add').on('click', function(){
       $('#bankbox').removeClass('divhide').addClass('divshow');
@@ -155,5 +147,5 @@
             $(this).remove();
         });
     }, 5000);
-  </script> 
+  </script>
     @endsection

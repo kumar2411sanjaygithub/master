@@ -34,14 +34,14 @@
          @endif
 
        </select>
-        <span class="text-danger">{{ $errors->first('department') }}</span>       
+        <span class="text-danger">{{ $errors->first('department') }}</span>
     </div>
   <div class="col-md-3 {{ $errors->has('name') ? 'has-error' : '' }}">
     <label  class="control-label">ROLE</label>
   <input class="form-control input-sm" type="text" placeholder="ENTER ROLE" name="name" value="{{(isset($role->id)&& $role->name)?$role->name:old('name')}}">
     <span class="text-danger">{{ $errors->first('name') }}</span>
   </div>
-<div class="col-md-1" style="margin-top:8px!important;">
+<div class="col-md-1 mt3">
   <label  class="control-label"></label>
   <button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
 </div>
