@@ -114,6 +114,7 @@ Route::get('/psm/insufficientpsm',['as'=>'insufficientpsm','uses'=>'PsmdetailsCo
 
 	 Route::resource('lead', 'LeadController');
 	 Route::post('/task-lead','LeadController@taskadd');
+	 Route::get('lead/genearet/{id}/crn/{p_id}',['as'=>'generatecrn','uses'=>'LeadController@generateCrn']);
 	 Route::get('/task-delete/{id}','LeadController@taskdelete');
 	 Route::post('/task-update/{id}','LeadController@taskupdate');
 	 Route::post('/product-lead','LeadController@productadd');
@@ -140,6 +141,9 @@ Route::get('/clientadd',['as'=>'clientadd','uses'=>'ClientDeatilsController@addc
 Route::get('/noc_discom_s',['as'=>'noc_discom_s','uses'=>'ClientDeatilsController@search_discom']);
 Route::post('/client/saveclient',['as'=>'clientsave','uses'=>'ClientDeatilsController@saveclient']);
 Route::get('/basic/{id}',['as'=>'basic','uses'=>'ClientDeatilsController@viewclient']);
+Route::post('/client/updateclient/{id}',['as'=>'updatebasic','uses'=>'ClientDeatilsController@updateclient']);
+
+
 
 
 //CLIENT-BANK----SHALU//
@@ -199,6 +203,7 @@ Route::get('/client-status/{c_id}/status/{status_id}',['as'=>'bared.barredstatus
 Route::get('/client/new',['as'=>'approve.newclient','uses'=>'ClientApprovalController@approvenew']);
 
 Route::get('/client/existing',['as'=>'approve.existingclient','uses'=>'ClientApprovalController@approveexisting']);
+Route::get('/basic/approval/{id}',['as'=>'approve.client','uses'=>'ClientApprovalController@clientapproval']);
 
 //APPROVAL FOR BANK//
 Route::get('/status/{id}/{type}',['as'=>'approve.status','uses'=>'ClientApprovalController@status']);

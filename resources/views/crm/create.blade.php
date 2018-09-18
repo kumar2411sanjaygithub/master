@@ -25,8 +25,8 @@
               <input class="form-control input-sm" type="text" placeholder="ENTER COMPANY NAME" id="company_name" name="company_name" value="{{old('company_name')}}">
               <span class="text-danger">{{ $errors->first('company_name') }}</span>
               </div>
-              <div class="col-md-3">
-              <label  class="control-label">PRODUCT</label>
+              <div class="col-md-3 {{ $errors->has('product') ? 'has-error' : '' }}">
+              <label  class="control-label">PRODUCT</label><span class="text-danger"><strong>*</strong></span>
                 <select class="form-control"  id="product"  name="product">
                   <option value="">CHOOSE PRODUCT</option>
                   @if(count($product)>0)
@@ -37,6 +37,7 @@
                     <option value="">No Data.</option>
                   @endif
                 </select>
+              <span class="text-danger">{{ $errors->first('product') }}</span>                       
               </div>
               <div class="col-md-3">
             <label  class="control-label">CONTACT PERSON</label>
@@ -97,9 +98,10 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-3 {{ $errors->has('quantum') ? 'has-error' : '' }}">
             <label  class="control-label">QUANTUM</label>
               <input class="form-control input-sm" type="text" placeholder="ENTER QUANTUM" id="quantum" name="quantum" value="{{old('quantum')}}">
+              <span class="text-danger">{{ $errors->first('quantum') }}</span>              
               </div>
               <div class="col-md-3">
             <label  class="control-label">STATE</label>
@@ -192,7 +194,7 @@
               <div class="row">
                  <div class="col-md-5"></div>
                   <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                  <div class="col-md-1"><button type="reset" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
+                  <div class="col-md-1"><a href="{{url('lead')}}" class="btn btn-block btn-danger btn-xs">CANCEL</a></div>
                 <div class="col-md-5"></div>
               </div>
               <div class="row">&nbsp;</div>

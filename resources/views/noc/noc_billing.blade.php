@@ -68,7 +68,7 @@
   </div>
   <div class="col-md-3">
     <label  class="control-label">AMOUNT</label>
-    <input class="form-control input-sm" type="text" placeholder="VALUE" id="discom_amt" name="discom_amt" value="{{ isset($edit_nocBilling->discom_amt) ? $edit_nocBilling->discom_amt : old('discom_amt') }}">
+    <input class="form-control input-sm num" type="text" placeholder="VALUE" id="discom_amt" name="discom_amt" value="{{ isset($edit_nocBilling->discom_amt) ? $edit_nocBilling->discom_amt : old('discom_amt') }}">
   </div>
   <div class="col-md-3">
     <label  class="control-label">GST APPLICABLE</label>
@@ -81,21 +81,22 @@
   <div class="row">
   <div class="col-md-3">
     <label  class="control-label">CGST AMOUNT</label>
-    <input class="form-control input-sm" type="text" placeholder="VALUE" id="discom_cgst_value" name="discom_cgst_value" value="{{ isset($edit_nocBilling->discom_cgst_value) ? $edit_nocBilling->discom_cgst_value : old('discom_cgst_value') }}">
+    <input class="form-control input-sm num" type="text" placeholder="VALUE" id="discom_cgst_value" name="discom_cgst_value" value="{{ isset($edit_nocBilling->discom_cgst_value) ? $edit_nocBilling->discom_cgst_value : old('discom_cgst_value') }}">
   </div>
 
   <div class="col-md-3">
     <label  class="control-label">SGST AMOUNT</label>
-    <input class="form-control input-sm" type="text" placeholder="VALUE" id="discom_sgst_value" name="discom_sgst_value" value="{{ isset($edit_nocBilling->discom_sgst_value) ? $edit_nocBilling->discom_sgst_value : old('discom_sgst_value') }}">
+    <input class="form-control input-sm num" type="text" placeholder="VALUE" id="discom_sgst_value" name="discom_sgst_value" value="{{ isset($edit_nocBilling->discom_sgst_value) ? $edit_nocBilling->discom_sgst_value : old('discom_sgst_value') }}">
   </div>
   <div class="col-md-3">
     <label  class="control-label">UTGST AMOUNT</label>
-    <input class="form-control input-sm" type="text" placeholder="VALUE" id="discom_utgst_value" name="discom_utgst_value" value="{{ isset($edit_nocBilling->discom_utgst_value) ? $edit_nocBilling->discom_utgst_value : old('discom_utgst_value') }}">
+    <input class="form-control input-sm num" type="text" placeholder="VALUE" id="discom_utgst_value" name="discom_utgst_value" value="{{ isset($edit_nocBilling->discom_utgst_value) ? $edit_nocBilling->discom_utgst_value : old('discom_utgst_value') }}">
   </div>
   <div class="col-md-3">
     <label  class="control-label">IGST AMOUNT</label>
-    <input class="form-control input-sm" type="text" placeholder="VALUE" id="discom_igst_value" name="discom_igst_value" value="{{ isset($edit_nocBilling->discom_igst_value) ? $edit_nocBilling->discom_igst_value : old('discom_igst_value') }}">
-  </div>
+
+    <input class="form-control input-sm num" type="text" placeholder="VALUE" id="discom_igst_value" name="discom_igst_value" value="{{ isset($edit_nocBilling->discom_igst_value) ? $edit_nocBilling->discom_igst_value : old('discom_igst_value') }}">
+  </div>    
   </div>
 
   <div class="row">&nbsp;</div>
@@ -112,7 +113,7 @@
     </div>
     <div class="col-md-3">
       <label  class="control-label">AMOUNT</label>
-      <input class="form-control input-sm" type="text" placeholder="VALUE" id="sldc_amt" name="sldc_amt"  value="{{ isset($edit_nocBilling->sldc_amt) ? $edit_nocBilling->sldc_amt : old('sldc_amt') }}">
+      <input class="form-control input-sm num" type="text" placeholder="VALUE" id="sldc_amt" name="sldc_amt"  value="{{ isset($edit_nocBilling->sldc_amt) ? $edit_nocBilling->sldc_amt : old('sldc_amt') }}">
     </div>
     <div class="col-md-3">
       <label  class="control-label">GST APPLICABLE</label>
@@ -125,20 +126,22 @@
   <div class="row">
     <div class="col-md-3">
       <label  class="control-label">CGST AMOUNT</label>
-      <input class="form-control input-sm" type="text" placeholder="VALUE" id="sldc_cgst_amt" name="sldc_cgst_amt"  value="{{ isset($edit_nocBilling->sldc_cgst_amt) ?$edit_nocBilling->sldc_cgst_amt  : old('sldc_cgst_amt') }}">
-    </div>
+      <input class="form-control input-sm num" type="text" placeholder="VALUE" id="sldc_cgst_amt" name="sldc_cgst_amt"  value="{{ isset($edit_nocBilling->sldc_cgst_amt) ?$edit_nocBilling->sldc_cgst_amt  : old('sldc_cgst_amt') }}">
+    </div>    
+
   <div class="col-md-3">
     <label  class="control-label">SGST AMOUNT</label>
-    <input class="form-control input-sm" type="text" placeholder="VALUE" id="sldc_sgst_amt" name="sldc_sgst_amt" value="{{ isset($edit_nocBilling->sldc_sgst_amt) ? $edit_nocBilling->sldc_sgst_amt : old('sldc_sgst_amt') }}">
+    <input class="form-control input-sm num" type="text" placeholder="VALUE" id="sldc_sgst_amt" name="sldc_sgst_amt" value="{{ isset($edit_nocBilling->sldc_sgst_amt) ? $edit_nocBilling->sldc_sgst_amt : old('sldc_sgst_amt') }}">
   </div>
   <div class="col-md-3">
     <label  class="control-label">UTGST AMOUNT</label>
-    <input class="form-control input-sm" type="text" placeholder="VALUE" id="sldc_utgst_amt" name="sldc_utgst_amt" value="{{ isset($edit_nocBilling->sldc_utgst_amt) ? $edit_nocBilling->sldc_utgst_amt : old('sldc_utgst_amt') }}">
+    <input class="form-control input-sm num" type="text" placeholder="VALUE" id="sldc_utgst_amt" name="sldc_utgst_amt" value="{{ isset($edit_nocBilling->sldc_utgst_amt) ? $edit_nocBilling->sldc_utgst_amt : old('sldc_utgst_amt') }}">
   </div>
   <div class="col-md-3">
     <label  class="control-label">IGST AMOUNT</label>
-    <input class="form-control input-sm" type="text" placeholder="VALUE" id="sldc_igst_amt" name="sldc_igst_amt" value="{{ isset($edit_nocBilling->sldc_igst_amt) ? $edit_nocBilling->sldc_igst_amt : old('sldc_igst_amt') }}">
-  </div>
+    <input class="form-control input-sm num" type="text" placeholder="VALUE" id="sldc_igst_amt" name="sldc_igst_amt" value="{{ isset($edit_nocBilling->sldc_igst_amt) ? $edit_nocBilling->sldc_igst_amt : old('sldc_igst_amt') }}">
+  </div>    
+
   </div>
 
     <div class="row">&nbsp;</div>
