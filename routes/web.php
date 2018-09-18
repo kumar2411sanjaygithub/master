@@ -114,6 +114,7 @@ Route::get('/psm/insufficientpsm',['as'=>'insufficientpsm','uses'=>'PsmdetailsCo
 
 	 Route::resource('lead', 'LeadController');
 	 Route::post('/task-lead','LeadController@taskadd');
+	 Route::get('lead/genearet/{id}/crn/{p_id}',['as'=>'generatecrn','uses'=>'LeadController@generateCrn']);
 	 Route::get('/task-delete/{id}','LeadController@taskdelete');
 	 Route::post('/task-update/{id}','LeadController@taskupdate');
 	 Route::post('/product-lead','LeadController@productadd');

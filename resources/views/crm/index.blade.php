@@ -23,7 +23,7 @@
           <div class="row">
               <div class="col-md-2">
               <div class="input-group input-group-sm">
-                <input type="text" class="form-control" placeholder="SEARCH" id=" " name=" ">
+                <input type="text" class="form-control" placeholder="SEARCH" id="search" name=" " onkeyup="myFunction()">
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-info btn-flat" id=" " name=" "><span class="glyphicon glyphicon-search"></span></button>
                     </span>
@@ -78,9 +78,26 @@
   </div>
     </section>
     <!-- /.content -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>    
     <script type="text/javascript">
      setTimeout(function() {
        $('#successMessage').fadeOut('fast');
        }, 2000); // <-
    </script>
+  <script>
+    $("#search").keyup(function () {
+        var value = this.value.toLowerCase().trim();
+
+        $("table tr").each(function (index) {
+            if (!index) return;
+            $(this).find("td").each(function () {
+                var id = $(this).text().toLowerCase().trim();
+                var not_found = (id.indexOf(value) == -1);
+                $(this).closest('tr').toggle(!not_found);
+                return not_found;
+            });
+        });
+    });
+  </script>
   @endsection

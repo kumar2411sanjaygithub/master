@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Datatables;
 use App\PermissionList;
 use App\Lead;
@@ -14,8 +15,12 @@ use App\Industry;
 use App\Product;
 use App\User;
 use App\Task;
+use App\Client;
 use App\LeadEmail;
 use App\LeadProduct;
+use App\TraderMail;
+use Mail;
+use App\LeadCRN;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 
@@ -58,13 +63,14 @@ class LeadController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'company_name' => 'required|regex:/^[a-zA-Z]+$/u|max:50',
-            'contact_person' => 'nullable|regex:/^[a-zA-Z]+$/u|max:50',
+            'company_name' => 'required|regex:/^[a-zA-Z ]+$/u|min:1|max:50',
+            'contact_person' => 'nullable|regex:/^[a-zA-Z ]+$/u|max:50',
             'add_line1' => 'required|max:200',
             'add_line2' => 'nullable|max:200',
+            'quantum' => 'nullable|regex:/^[0-9]+$/',
             'add_country' => 'required',
             'add_state' => 'required',
-            'add_city' => 'required|regex:/^[a-zA-Z]+$/u|max:50',
+            'add_city' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
             'add_pincode' => 'required|min:4|max:8|not_in:0',
             'contact_number' => 'nullable|digits:10',
         ]);
@@ -124,8 +130,12 @@ class LeadController extends Controller
         $lead_keys=array_column($leadProduct_arr, 'product_id');
         $leadEmail = LeadEmail::orderBy('id','desc')->where('lead_id',$id)->paginate(10);
 
+        $getcrn_info=LeadCRN::where('lead_id',$id)->where('product_id',$leads->product)->where('crn_no','!=','')->first();
 
-        return view('crm.edit', compact('leads','user','leadsource','industry','product','tasks','leadProduct','lead_keys','leadEmail'));
+        $all_crn_info=LeadCRN::where('lead_id',$id)->where('product_id','!=','')->where('crn_no','!=','')->get()->toArray();
+        $print_crn=array_column($all_crn_info, 'product_id');
+
+        return view('crm.edit', compact('leads','user','leadsource','industry','product','tasks','leadProduct','lead_keys','leadEmail','print_crn','getcrn_info'));
     }
 
     /**
@@ -139,20 +149,20 @@ class LeadController extends Controller
     {
         
         $this->validate($request, [
-            'company_name' => 'required|regex:/^[a-zA-Z]+$/u|max:50',
-            'contact_person' => 'nullable|regex:/^[a-zA-Z]+$/u|max:50',
+            'company_name' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
+            'contact_person' => 'nullable|regex:/^[a-zA-Z ]+$/u|max:50',
             'add_line1' => 'required|max:200',
             'add_line2' => 'nullable|max:200',
             'add_country' => 'required',
             'add_state' => 'required',
-            'add_city' => 'required|regex:/^[a-zA-Z]+$/u|max:50',
+            'add_city' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
             'add_pincode' => 'required|min:4|max:8|not_in:0',
             'contact_number' => 'nullable|digits:10',
         ]);
 
         $lead = Lead::find($id);
         $lead->company_name = request('company_name');
-        $lead->product = request('product');
+        //$lead->product = request('product');
         $lead->contact_person = request('contact_person');
         $lead->contact_number = request('contact_number');
         $lead->email_id = request('email_id');
@@ -286,4 +296,68 @@ class LeadController extends Controller
 
         return Redirect::back()->with('success', 'Email deleted successfully.');
     }
+    public function generateCrn($id='',$c_id='')
+    {
+        
+        $lead_info = Lead::findOrFail($id);              
+        $password = str_random(10);
+
+        if($lead_info->product==$c_id)
+        {
+            $client = new Client;
+            $client->company_name = $lead_info->company_name;
+            $client->name = $lead_info->contact_person;
+            $client->email = $lead_info->email_id;
+            $client->password = Hash::make($password);
+            $client->reg_line1 = $lead_info->add_line1;
+            $client->reg_line2 = $lead_info->add_lin2;
+            $client->reg_country = $lead_info->add_country;
+            $client->reg_state = $lead_info->add_state;
+            $client->reg_city = $lead_info->add_city;
+            $client->reg_pin = $lead_info->add_pincode;
+            $client->reg_mob = $lead_info->contact_number;
+            $client->client_app_status = 0;
+            $client->save();
+
+            // Create Unique CRN no.
+            $cid = $client->id;
+            $crn_no = 'CRN00000'.$cid;
+            $insertCRN_no=Client::find($cid);
+            $insertCRN_no->crn_no= $crn_no;
+            $insertCRN_no->save();
+
+            // insert Crn information to other table
+            $data = array(array('lead_id'=>$lead_info->id,'crn_no'=>$crn_no,'product_id'=>$lead_info->product));
+            $insert_leadcrn_no=LeadCRN::insert($data);
+
+            //For mail password and username send
+            $dateName = date('d-M-Y');
+           $trader_mail = TraderMail::select('email_cc','email_bcc','mail_from')->get()->toArray();
+            $client_mail = Client::select('email','company_name')->where('id', $cid)->get()->toArray();
+
+           $headers  = "MIME-Version: 1.0\r\n";
+           $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+           $clientname = $client_mail[0]['company_name'];
+           //dd($clientname);
+           $out = Mail::send('email.credential',array('crn_no'=>$crn_no,'password'=>$password,'dateName'=> $dateName,'clientname' => $lead_info->company_name) , function($message) use ($client_mail,$trader_mail,$headers) {
+           foreach ($client_mail as $key => $user) {
+              $message->to($user['email'], $user['company_name']);
+            }
+              $message->subject('CRM Login Details ');
+                foreach($trader_mail as $key => $email){
+                  $message->cc($email['email_cc']);
+                  $message->bcc($email['email_bcc']);
+                  $message->from($email['mail_from']);
+                }
+              });
+        }
+        else
+        {
+            $convert=LeadProduct::where(['lead_id'=>$id,'product_id'=>$c_id])->update(['product_converted' => 1]);
+            
+        }
+        return redirect()->route('lead.index')->with('success', 'Client CRN information generate Successfully.');       
+
+    }
+
 }

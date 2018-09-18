@@ -74,6 +74,8 @@
                   }
                 }
               @endphp
+              <div class="col-sm-12 col-md-12" id='TextBoxesGroup22'>
+              </div>
             </div>
               <div class="col-md-3">
                  <div class="col-md-12" id='TextBoxesGroup'>
@@ -106,7 +108,8 @@
                   }
                 }
               @endphp
-
+              <div class="col-md-12" id='TextBoxesGroup11'>
+              </div>
             </div>
 
               <div class="col-md-3">
@@ -140,7 +143,8 @@
                   }
                 }
               @endphp
-
+              <div class="col-md-12" id='TextBoxesGroup33'>
+              </div>
             </div>
 
             </div>
@@ -295,7 +299,7 @@
 
   var a=2;var b=2;var c=2;
   $(document).delegate("#addButton","click",function(){
-  $("#TextBoxesGroup").append('<div class=" extra-discom-container"><input type="text" class="form-control input-sm" placeholder="ENTER DISCOM '+a+'" id="fx'+a+'" name="discom[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="discom-subtract" style="margin-left:103%;margin-top:-50px;"></i></span></div>');
+  $("#TextBoxesGroup11").append('<div class=" extra-discom-container"><input type="text" class="form-control input-sm" placeholder="ENTER DISCOM '+a+'" id="fx'+a+'" name="discom[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="discom-subtract" style="margin-left:103%;margin-top:-50px;"></i></span></div>');
   $('#fx'+a).focus();
   count_row();
   a+=1;
@@ -310,7 +314,7 @@ $(document).delegate("#discom-subtract","click",function(){
 });
 
   $(document).delegate("#addButton2","click",function(){
-  $("#TextBoxesGroup2").append('<div class=" extra-sldc-container"><input type="text" class="form-control input-sm" placeholder="ENTER SLDC '+b+'" id="fx1'+b+'" name="sldc[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="sldc-subtract" style="margin-left:103%;margin-top:-50px;"></i></span></div>');
+  $("#TextBoxesGroup22").append('<div class=" extra-sldc-container"><input type="text" class="form-control input-sm" placeholder="ENTER SLDC '+b+'" id="fx1'+b+'" name="sldc[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="sldc-subtract" style="margin-left:103%;margin-top:-50px;"></i></span></div>');
   $('#fx1'+b).focus();
   count_row();
   b+=1;
@@ -325,7 +329,7 @@ $(document).delegate("#sldc-subtract","click",function(){
 });
 
   $(document).delegate("#addButton3","click",function(){
-  $("#TextBoxesGroup3").append('<div class=" extra-voltage-container"><input type="text" class="form-control input-sm" placeholder="ENTER VOLTAGE '+c+'" id="fx2'+c+'" name="voltage[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="voltage-subtract" style="margin-left:103%;margin-top:-50px;"></i></span></div>');
+  $("#TextBoxesGroup33").append('<div class=" extra-voltage-container"><input type="text" class="form-control input-sm" placeholder="ENTER VOLTAGE '+c+'" id="fx2'+c+'" name="voltage[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="voltage-subtract" style="margin-left:103%;margin-top:-50px;"></i></span></div>');
   $('#fx2'+c).focus();
   count_row();
   c+=1;

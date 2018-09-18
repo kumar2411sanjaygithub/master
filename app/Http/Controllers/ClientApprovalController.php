@@ -68,7 +68,7 @@ class ClientApprovalController extends Controller
                 foreach ($client_mail as $key => $user) {
                    $message->to($user['email'], $user['company_name']);
                  }
-                   $message->subject('PETS Login Details ');
+                   $message->subject('CRM Login Details ');
                      foreach($trader_mail as $key => $email){
                        $message->cc($email['email_cc']);
                        $message->bcc($email['email_bcc']);

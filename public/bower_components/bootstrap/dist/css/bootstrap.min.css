@@ -5639,7 +5639,7 @@ fieldset[disabled] .navbar-inverse .btn-link:hover {
 
 .breadcrumb>li+li:before {
 	padding: 0 5px;
-	color: #ccc;
+	color: #51c0ee;
 	content: "/\00a0"
 }
 
