@@ -14,7 +14,7 @@
         <div class="col-xs-12">
           <div class="row">
           <div class="col-md-10"></div>
-          <div class="col-md-2 text-right"><a href="" class="btn btn-info btn-xs">
+          <div class="col-md-2 text-right"><a href="{{ route('basic.details') }}" class="btn btn-info btn-xs">
            <span class="glyphicon glyphicon-plus"></span>&nbspBACK TO LIST
          </a></div></div>
 
@@ -42,20 +42,20 @@
                <span class="text-danger">{{ $errors->first('pan') }}</span>
               </div>
               <div class="col-md-3 {{ $errors->has('cin') ? 'has-error' : '' }}">
-            <label  class="control-label">CIN</label>
-              <input class="form-control input-sm" type="text" placeholder="ENTER CIN NUMBER" name="cin" id="cin"value="{{old('cin')}}">
+            <label  class="control-label">CIN</label><span class="text-danger"><strong>*</strong></span>
+              <input class="form-control input-sm" type="text" placeholder="ENTER CIN NUMBER" name="cin" id="cin" value="{{old('cin')}}">
                <span class="text-danger">{{ $errors->first('cin') }}</span>
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-3  {{ $errors->has('pri_contact_no') ? 'has-error' : '' }}">
-            <label  class="control-label">PRIMARY CONTACT NUMBER</label>
+            <label  class="control-label">PRIMARY CONTACT NUMBER</label><span class="text-danger"><strong>*</strong></span>
               <input class="form-control input-sm" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" value="{{old('pri_contact_no')}}">
                <span class="text-danger">{{ $errors->first('pri_contact_no') }}</span>
               </div>
               <div class="col-md-3 {{ $errors->has('email') ? 'has-error' : '' }}">
-            <label  class="control-label">PRIMARY EMAIL ID</label>
+            <label  class="control-label">PRIMARY EMAIL ID</label><span class="text-danger"><strong>*</strong></span>
               <input class="form-control input-sm" type="text" placeholder="ENTER PRIMARY MAIL ID"name="email" id="email" value="{{old('email')}}">
                <span class="text-danger">{{ $errors->first('email') }}</span>
               </div>
@@ -73,10 +73,10 @@
             <label  class="control-label">SAP CODE</label>
               <input class="form-control input-sm" type="text" placeholder="ENTER SAP CODE" name="new_sap" id="new_sap" value="{{old('new_sap')}}">
               </div>
-              <div class="col-md-3">
-            <label  class="control-label">CRN</label>
-              <input class="form-control input-sm" type="text" placeholder="ENTER CRN NUMBER" name="crn_no" id="crn_no" value="{{old('crn_no')}}">
-              </div>
+              <!-- <div class="col-md-3">
+                <label  class="control-label">CRN</label>
+                <input class="form-control input-sm" type="text" placeholder="ENTER CRN NUMBER" name="crn_no" id="crn_no" value="{{old('crn_no')}}">
+              </div> -->
             </div>
           <hr>
           <h5><label  class="control-label"><u>REGISTERED OFFICE ADDRESS</u></label></h5>
@@ -122,7 +122,7 @@
               <span class="text-danger">{{ $errors->first('reg_city') }}</span>
               </div>
               <div class="col-md-3 {{ $errors->has('reg_pin') ? 'has-error' : '' }}">
-            <label  class="control-label">PIN CODE</label>
+            <label  class="control-label">PIN CODE</label><span class="text-danger"><strong>*</strong></span>
                 <input class="form-control input-sm" type="text" placeholder="ENTER PIN CODE" id="reg_pin" name="reg_pin" value="{{old('reg_pin')}}">
                 <span class="text-danger">{{ $errors->first('reg_pin') }}</span>
               </div>
@@ -147,7 +147,7 @@
       </div>
             <div class="row">
               <div class="col-md-3">
-              <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
+              <label  class="control-label">LINE-1</label>
               <input class="form-control input-sm" type="text" placeholder=".ENTER ADDRESS1" id="bill_line1" name="bill_line1" value="{{old('bill_line1')}}">
               </div>
               <div class="col-md-3">
@@ -155,7 +155,7 @@
                 <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS2" id="bill_line2" name="bill_line2">
               </div>
               <div class="col-md-3">
-              <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
+              <label  class="control-label">COUNTRY</label>
               <select class="form-control input-sm" style="width: 100%;" id="bill_country" name="bill_country"value="{{old('bill_country')}}">
                   <option selected="selected">India</option>
 
@@ -163,7 +163,7 @@
                 </select>
               </div>
               <div class="col-md-3">
-              <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
+              <label  class="control-label">STATE</label>
               <select class="form-control input-sm" style="width: 100%;" id="bill_state" name="bill_state" value="{{old('bill_state')}}">
                   <option selected="selected">PLEASE SELECT</option>
                   <?php
@@ -178,7 +178,7 @@
 
             <div class="row">
               <div class="col-md-3">
-              <label  class="control-label">CITY</label><span class="text-danger"><strong>*</strong></span>
+              <label  class="control-label">CITY</label>
               <input class="form-control input-sm" style="width: 100%;" id="bill_city" name="bill_city" value="{{old('bill_city')}}">
 
 
@@ -188,7 +188,7 @@
                 <input class="form-control input-sm" type="text" placeholder="ENTER PIN CODE" id="bill_pin" name="bill_pin"value="{{old('bill_pin')}}">
               </div>
               <div class="col-md-3">
-            <label  class="control-label">MOBILE NUMBER</label><span class="text-danger"><strong>*</strong></span>
+            <label  class="control-label">MOBILE NUMBER</label>
                 <input class="form-control input-sm" type="text" placeholder="ENTER MOBILE NUMBER" id="bill_mob" name="bill_mob"value="{{old('bill_mob')}}">
               </div>
               <div class="col-md-3">
@@ -209,7 +209,7 @@
       </div>
             <div class="row">
               <div class="col-md-3">
-              <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
+              <label  class="control-label">LINE-1</label>
               <input class="form-control input-sm" type="text" placeholder=".ENTER ADDRESS1" id="del_lin1" name="del_lin1" value="{{old('del_lin1')}}">
               </div>
               <div class="col-md-3">
@@ -217,7 +217,7 @@
                 <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS2" id="del_lin2" name="del_lin2" value="{{old('del_lin2')}}">
               </div>
               <div class="col-md-3">
-              <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
+              <label  class="control-label">COUNTRY</label>
               <select class="form-control input-sm" style="width: 100%;" id="del_country" name="del_country" value="{{old('del_country')}}">
                   <option selected="selected">India</option>
 
@@ -225,7 +225,7 @@
                 </select>
               </div>
               <div class="col-md-3">
-              <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
+              <label  class="control-label">STATE</label>
               <select class="form-control input-sm" style="width: 100%;" id="del_state" name="del_state" value="{{old('del_state')}}">
                   <option selected="selected">PLEASE SELECT</option>
 
@@ -250,7 +250,7 @@
                 <input class="form-control input-sm" type="text" placeholder="ENTER PIN CODE" id="del_pin" name="del_pin" value="{{old('del_pin')}}">
               </div>
               <div class="col-md-3">
-            <label  class="control-label">MOBILE NUMBER</label><span class="text-danger"><strong>*</strong></span>
+            <label  class="control-label">MOBILE NUMBER</label>
                 <input class="form-control input-sm" type="text" placeholder="ENTER MOBILE NUMBER" id="del_mob" name="del_mob" value="{{old('del_mob')}}">
               </div>
               <div class="col-md-3">

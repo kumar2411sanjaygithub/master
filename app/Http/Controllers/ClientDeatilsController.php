@@ -28,8 +28,8 @@ class ClientDeatilsController extends Controller
 
 	public function addclient()
 	{
-        
-        
+
+
 		return view('ManageClient.basicdetails');
 	}
 	public function saveclient(Request $request){
@@ -37,8 +37,8 @@ class ClientDeatilsController extends Controller
 		$validator = validator::make($request->all(),[
 
 			'company_name' => 'required|max:100',
-            'gstin' => 'required|regex:/^[0-9]{2}[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z][0-9A-z]{3}$/|max:15',
-            'pan' => 'required|regex:/^[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z]$/|max:10',
+            'gstin' => 'required|regex:/^[0-9]{2}[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z][0-9A-z]{3}$/|unique:posts|unique:postsmax:15',
+            'pan' => 'required|regex:/^[A-z]{3}[KCAFHTG][A-z][0-9]{4}[A-z]$/|unique:posts|max:10',
             //'short_id' => 'required|max:15',
             'pri_contact_no'=>'required',
             'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|min:21|max:21',
@@ -55,7 +55,7 @@ class ClientDeatilsController extends Controller
 			]);
 		 if($validator->fails())
         {
-            
+
             return redirect()->back()->withInput($request->input())->withErrors($validator);
         }
 
@@ -122,7 +122,7 @@ class ClientDeatilsController extends Controller
         $client->payment = $request->input('payment');
         $client->obligation = $request->input('obligation');
         $client->save();
-       
+
         //$lsatinsertedId = $clien->id;
 		return redirect('basicdetails')->with('message', 'Data Save Successfully!');
 	}
@@ -173,13 +173,13 @@ class ClientDeatilsController extends Controller
             'branch_name' => 'required|regex:/^[a-z\d\-_\s]+$/i|max:50',
             'ifsc' => 'required|max:11',
         ]);
-        
+
         if($validator->fails())
         {
-            
+
             return redirect()->back()->withInput($request->input())->withErrors($validator);
         }
-        
+
         $bankdetail = new BankTemp();
        $bankdetail->client_id = $request->client_id;
         $bankdetail->account_number = $request->input('account_number');
@@ -190,7 +190,7 @@ class ClientDeatilsController extends Controller
         //dd(3);
         $bankdetail->save();
         return redirect()->back()->with('message','Detail added successfully and sent to Approver');
-        
+
     }
 
     public function update_bankdetails(Request $request ,$bank_detail_id)
@@ -258,7 +258,7 @@ class ClientDeatilsController extends Controller
                }
 
            }
-           
+
        }
 
        $discom_array=array();
@@ -271,7 +271,7 @@ class ClientDeatilsController extends Controller
                    array_push($discom_array,$discom_value);
                }
            }
-           
+
        }
       return response()->json(['voltage' => $voltage_array, 'discom' => $discom_array],200);
     }
@@ -300,7 +300,7 @@ class ClientDeatilsController extends Controller
     public function barreddetails()
     {
         $client_list=Client::orderBy('id','DESC')->paginate(10);
-        
+
         return view('ManageClient.barred_client',compact('client_list'));
     }
     public function barredChangeStatus($c_id='',$status_id='')
@@ -324,7 +324,7 @@ class ClientDeatilsController extends Controller
         $Groupuserdetails = Groupusersetting::where('status',0)->get()->toArray();
             //dd($Groupuserdetails);
         return view('ManageClient.account_group',compact('Clientsdetails','role_off','Groupuserdetails'));
-    }    
+    }
     public function creategroup(Request $request)
     {
         $clientid = $request->input('clientid');
@@ -345,7 +345,7 @@ class ClientDeatilsController extends Controller
             $usergroupsetting->status = '0';
             $usergroupsetting->update();
         }
-        
+
 
         $clientmaster_newusermapping = Client::where('id',$clientid)->first();
         $clientmaster_newusermapping->group_id = $clientid;
@@ -372,7 +372,7 @@ class ClientDeatilsController extends Controller
         $clientmaster_newusermapping->group_role = "Member";
         $clientmaster_newusermapping->save();
 
-        
+
         return redirect()->back()->with('success', 'your data saved');
     }
 
@@ -383,7 +383,7 @@ class ClientDeatilsController extends Controller
         $clientmaster_newusermapping->group_id = "Null";
         $clientmaster_newusermapping->group_role = "Null";
         $clientmaster_newusermapping->save();
-        }   
+        }
         return redirect('/agsetting')->with('deletesuccess', 'User Deleted Successfully');
     }
 
