@@ -22,9 +22,10 @@ class NocController extends Controller
     	$regional = Pocdetails::select('regional_entity')->get();
     	$poc_losses = Pocdetails::select('injection_poc_loss','withdraw_poc_loss')->get();
     	$discom = Discomdetails::select('injection_poc_loss','withdraw_poc_loss')->get();
+         $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
 //dd($regional);
     	//dd($noc_losses);
-        return view('ManageClient.nocdetails',compact('nocData','client_id','noc_losses','region','regional','poc_losses','discom'));
+        return view('ManageClient.nocdetails',compact('nocData','client_id','noc_losses','region','regional','poc_losses','discom','client_details'));
 
     }
 
@@ -79,15 +80,16 @@ class NocController extends Controller
     public function edit_nocdetails($id='',$eid=''){
         $noc_id=$eid;
         $client_id=$id;
-        $get_noc_details = Noc::where('id',$noc_id)->where('status',1)->first();
+        $get_noc_details = Noc::where('id',$noc_id)->where('status',1)->withTrashed()->first();
         $region = Pocdetails::select('region')->get();
         $regional = Pocdetails::select('regional_entity')->get();
         $poc_losses = Pocdetails::select('injection_poc_loss','withdraw_poc_loss')->get();
        // dd($get_noc_details);
-        $nocdetails = Noc::where('client_id',$client_id)->where('status',1)->get();
+        $nocdetails = Noc::where('client_id',$client_id)->where('status',1)->withTrashed()->get();
         $noc_losses = Client::select('inter_discom','inter_poc','inter_stu')->where('client_app_status',1)->where('id',$id)->first();
+        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
 
-        return view('ManageClient.nocdetails',compact('nocdetails','client_id','get_noc_details','region','regional','poc_losses','noc_losses'));
+        return view('ManageClient.nocdetails',compact('client_details','nocdetails','client_id','get_noc_details','region','regional','poc_losses','noc_losses'));
     }
      public function update_nocdetails(Request $request ,$noc_detail_id)
     {
