@@ -35,7 +35,7 @@
                         <div class="row">
                            <div class="col-md-3 pull-left">
                               <div class="input-group input-group-sm">
-                                 <input type="text" class="form-control" placeholder="SEARCH..">
+                                 <input type="text" class="form-control" placeholder="SEARCH.." id="search">
                               </div>
                            </div>
                            <div class="col-md-1 pull-right">
@@ -162,6 +162,10 @@
   <script type="text/javascript">
       $('#select-client').on('click', function(e) {
         e.preventDefault();
+        if($('#select-client').val()=='')
+          {
+            return false;
+          }
         var href_to_hit = $(this).closest('a').prop('href');
         swal({
             title: 'Are you sure?',
@@ -321,4 +325,20 @@
          $('#deleteuserMessage1').fadeOut('fast');
          }, 2000); // <-
      </script>
+  <script>
+    $("#search").keyup(function () {
+        var value = this.value.toLowerCase().trim();
+
+        $("table tr").each(function (index) {
+            if (!index) return;
+            $(this).find("td").each(function () {
+                var id = $(this).text().toLowerCase().trim();
+                var not_found = (id.indexOf(value) == -1);
+                $(this).closest('tr').toggle(!not_found);
+                return not_found;
+            });
+        });
+    });
+  </script>
+
     @endsection
