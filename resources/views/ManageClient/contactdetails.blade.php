@@ -9,7 +9,7 @@
 }
 </style>
      <section class="content-header">
-          <h5><label  class="control-label"><u>CONTACT DETAILS</u>&nbsp <small>lakhan pvt. ltd</small></label></h5>
+          <h5><label  class="control-label"><u>CONTACT DETAILS</u>&nbsp <small>{{$client_details[0]['company_name']}}/{{$client_details[0]['crn_no']}}/{{$client_details[0]['iex_portfolio']}}/{{$client_details[0]['pxil_portfolio']}}</small></label></h5>
     </section>
 
     <!-- Main content -->
@@ -32,11 +32,12 @@
 
           <div class="row">
            <div class="col-xs-12">
-            <div class="row">
-               <div class="col-md-10"></div>
+              <div class="pull-right">
                 <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
+                <button class="btn btn-info btn-xs" id="add"><span class="glyphicon glyphicon-plus"></span>&nbspADD</button>
               </div>
             </div>
+          </div>
       <form method ="post" action="{{isset($get_contact_details)?url('contact_edit/'.$get_contact_details->id):route('contact_create')}}">
       {{ csrf_field() }}
       <div class="row {{(isset($get_contact_details)||!$errors->isEmpty())?'':'divhide'}}" id="contactbox">
@@ -85,15 +86,7 @@
   </form>
 
    
-               <div class="row">
-                  <div class="col-xs-12">
-                     
-                     <div class="row">
-                        <div class="col-md-11"></div>
-                        <div class="col-md-1 text-right"><button class="btn btn-info btn-xs"  id="add">
-      <span class="glyphicon glyphicon-plus"></span>&nbspADD
-    </button></div>
-                     </div>
+
                      <div class="box">
                         <div class="box-body table-responsive">
                            <table class="table table-bordered text-center">

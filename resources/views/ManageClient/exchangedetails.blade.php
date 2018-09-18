@@ -9,7 +9,7 @@
 }
 </style>
  <section class="content-header">
-      <h5><label  class="control-label"><u>Upload Exchange File</u>&nbsp <small>lakhan pvt. ltd</small></label></h5>
+      <h5><label  class="control-label"><u>Upload Exchange File</u>&nbsp <small>{{$client_details[0]['company_name']}}/{{$client_details[0]['crn_no']}}/{{$client_details[0]['iex_portfolio']}}/{{$client_details[0]['pxil_portfolio']}}</small></label></h5>
     </section>
     <section class="content">
        @if(session()->has('message'))
@@ -20,7 +20,7 @@
           @endif
            <div class="row">
               <div class="col-md-10"></div>
-               <div class="col-md-2 text-right" style="margin-top:-38px;">
+               <div class="col-md-2 text-right">
                  <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
                
               </div>
@@ -145,10 +145,8 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
      <script>
-    
      $(document).ready(function(){
       $('#add').on('click', function(){
-
       $('#exchangebox').removeClass('divhide').addClass('divshow');
       });
       });

@@ -15,7 +15,7 @@
                 {{ session()->get('message') }}
             </div>
           @endif
-              <h5><label  class="control-label"><u>NOC DETAILS</u> <small>lakhan pvt. ltd</small></label></h5>
+              <h5><label  class="control-label"><u>NOC DETAILS</u> <small>{{$client_details[0]['company_name']}}/{{$client_details[0]['crn_no']}}/{{$client_details[0]['iex_portfolio']}}/{{$client_details[0]['pxil_portfolio']}}</small></label></h5>
       <div class="row" id="nocbox">
         <div class="col-xs-12">
           <div class="row">

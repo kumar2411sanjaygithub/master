@@ -14,9 +14,10 @@
         <div class="col-xs-12">
           <div class="row">
           <div class="col-md-10"></div>
-          <div class="col-md-2 text-right"><a href="" class="btn btn-info btn-xs">
-           <span class="glyphicon glyphicon-plus"></span>&nbspBACK TO LIST
-         </a></div></div>
+          <div class="row">
+               <div class="col-md-10"></div>
+                <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
+              </div>
 
 
          <form method="post" action="/client/saveclient">
@@ -93,7 +94,7 @@
               <div class="col-md-3 {{ $errors->has('reg_country') ? 'has-error' : '' }}">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="reg_country" name="reg_country" value="{{old('reg_country')}}">
-                  <option selected="selected"> SELECT COUNTRY</option>
+                  <option value=""> SELECT COUNTRY</option>
                  <option>INDIA</option>
 
                 </select>
@@ -157,7 +158,7 @@
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="bill_country" name="bill_country"value="{{old('bill_country')}}">
-                  <option selected="selected">India</option>
+                  <option value="">India</option>
 
 
                 </select>
@@ -165,12 +166,12 @@
               <div class="col-md-3">
               <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="bill_state" name="bill_state" value="{{old('bill_state')}}">
-                  <option selected="selected">PLEASE SELECT</option>
+                  <option value="">PLEASE SELECT</option>
                   <?php
           $state_list = \App\Common\StateList::get_states();
           ?>
           @foreach($state_list as $state_code=>$state_ar)
-           <option value="{{$state_code}}" {{ isset($clientData) && $clientData->reg_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
+           <option value="{{$state_code}}" {{ isset($clientData) && $clientData->bill_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
           @endforeach
                 </select>
               </div>
@@ -219,7 +220,7 @@
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="del_country" name="del_country" value="{{old('del_country')}}">
-                  <option selected="selected">India</option>
+                  <option value="">India</option>
 
 
                 </select>
@@ -227,13 +228,13 @@
               <div class="col-md-3">
               <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="del_state" name="del_state" value="{{old('del_state')}}">
-                  <option selected="selected">PLEASE SELECT</option>
+                  <option value=''>PLEASE SELECT</option>
 
                   <?php
           $state_list = \App\Common\StateList::get_states();
           ?>
           @foreach($state_list as $state_code=>$state_ar)
-           <option value="{{$state_code}}" {{ isset($clientData) && $clientData->reg_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
+           <option value="{{$state_code}}" {{ isset($clientData) && $clientData->del_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
           @endforeach
                 </select>
               </div>
@@ -273,9 +274,9 @@
               <label  class="control-label">IEX STATUS</label>
               <select class="form-control input-sm " style="width: 100%;"  id="iex_status" name="iex_status" value="{{old('iex_status')}}">
                   <option value="">Select</option>
-                              <option value="Active" {{ isset($basicInformation) && $basicInformation->iex_status == 'Active' ? 'selected="selected"' : '' }}>Active</option>
-                              <option value="Inactive" {{ isset($basicInformation) && $basicInformation->iex_status == 'Inactive' ? 'selected="selected"' : '' }}>Inactive</option>
-                              <option value="Suspended" {{ isset($basicInformation) && $basicInformation->iex_status == 'Suspended' ? 'selected="selected"' : '' }}>Suspended</option>
+                              <option value="Active" {{ isset($clientData) && $clientData->iex_status == 'Active' ? 'selected="selected"' : '' }}>Active</option>
+                              <option value="Inactive" {{ isset($clientData) && $clientData->iex_status == 'Inactive' ? 'selected="selected"' : '' }}>Inactive</option>
+                              <option value="Suspended" {{ isset($clientData) && $clientData->iex_status == 'Suspended' ? 'selected="selected"' : '' }}>Suspended</option>
 
                 </select>
               </div>
@@ -294,9 +295,9 @@
             <label  class="control-label">PXIL STATUS</label>
             <select class="form-control input-sm" style="width: 100%;" id="pxil_status" name="pxil_status" value="{{old('pxil_status')}}">
                 <option value="">Select</option>
-                              <option value="Active" {{ isset($basicInformation) && $basicInformation->iex_status == 'Active' ? 'selected="selected"' : '' }}>Active</option>
-                              <option value="Inactive" {{ isset($basicInformation) && $basicInformation->iex_status == 'Inactive' ? 'selected="selected"' : '' }}>Inactive</option>
-                              <option value="Suspended" {{ isset($basicInformation) && $basicInformation->iex_status == 'Suspended' ? 'selected="selected"' : '' }}>Suspended</option>
+                              <option value="Active" {{ isset($clientData) && $clientData->iex_status == 'Active' ? 'selected="selected"' : '' }}>Active</option>
+                              <option value="Inactive" {{ isset($clientData) && $clientData->iex_status == 'Inactive' ? 'selected="selected"' : '' }}>Inactive</option>
+                              <option value="Suspended" {{ isset($clientData) && $clientData->iex_status == 'Suspended' ? 'selected="selected"' : '' }}>Suspended</option>
 
               </select>
               </div>
@@ -305,38 +306,38 @@
             <select class="form-control input-sm" style="width: 100%;"id="iex_region" name="iex_region" value="{{old('iex_region')}}">
                
                 <option value="">Select Region</option>
-                    <option value="A1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A1") ? 'selected' : '' }}>A1(Tripura, Mainpur, Mizoram, Nagaland)</option>
-                    <option value="A2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A2") ? 'selected' : '' }}>A2(Assam, Arunachal Pradesh, Meghalaya)</option>
-                    <option value="E1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="E1") ? 'selected' : '' }}>E1(West Bengal, Sikkim, Bihar, Jharkhand)</option>
-                    <option value="E2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="E2") ? 'selected' : '' }}>E2(Odisha)</option>
-                    <option value="N1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N1") ? 'selected' : '' }}>N1(J&K, HP, Chandigarh, Haryana)</option>
-                    <option value="N2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N2") ? 'selected' : '' }}>N2(UP, Uttaranchal, Rajasthan, Delhi)</option>
-                    <option value="N3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N3") ? 'selected' : '' }}>N3(Punjab)</option>
-                    <option value="S1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S1") ? 'selected' : '' }}>S1(AP,Telangana, Karnataka, Pondicherry, SG)</option>
-                    <option value="S2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S2") ? 'selected' : '' }}>S2(Tamilnadu, Punducherry, Karaikal, Mahe)</option>
-                    <option value="S3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S3") ? 'selected' : '' }}>S3(Kerla)</option>
-                    <option value="W1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W1") ? 'selected' : '' }}>W1(Madhya Pradesh)</option>
-                    <option value="W2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W2") ? 'selected' : '' }}>W2(Maharashtra, Gujarat, DD, DNH, North Goa)</option>
-                    <option value="W3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W3") ? 'selected' : '' }}>W3(Chhattisharh)</option>
+                    <option value="A1" {{ (isset($clientData[0]) && $clientData[0]->iex_region=="A1") ? 'selected' : '' }}>A1(Tripura, Mainpur, Mizoram, Nagaland)</option>
+                    <option value="A2" {{ (isset($clientData[0]) && $clientData[0]->iex_region=="A2") ? 'selected' : '' }}>A2(Assam, Arunachal Pradesh, Meghalaya)</option>
+                    <option value="E1" {{ (isset($clientData[0]) && $clientData[0]->iex_region=="E1") ? 'selected' : '' }}>E1(West Bengal, Sikkim, Bihar, Jharkhand)</option>
+                    <option value="E2" {{ (isset($clientData[0]) && $clientData[0]->iex_region=="E2") ? 'selected' : '' }}>E2(Odisha)</option>
+                    <option value="N1" {{ (isset($clientData[0]) && $clientData[0]->iex_region=="N1") ? 'selected' : '' }}>N1(J&K, HP, Chandigarh, Haryana)</option>
+                    <option value="N2" {{ (isset($clientData[0]) && $clientData[0]->iex_region=="N2") ? 'selected' : '' }}>N2(UP, Uttaranchal, Rajasthan, Delhi)</option>
+                    <option value="N3" {{ (isset($clientData[0]) && $clientData[0]->iex_region=="N3") ? 'selected' : '' }}>N3(Punjab)</option>
+                    <option value="S1" {{ (isset($clientData[0]) && $clientData[0]->iex_region=="S1") ? 'selected' : '' }}>S1(AP,Telangana, Karnataka, Pondicherry, SG)</option>
+                    <option value="S2" {{ (isset($clientData[0]) && $clientData[0]->iex_region=="S2") ? 'selected' : '' }}>S2(Tamilnadu, Punducherry, Karaikal, Mahe)</option>
+                    <option value="S3" {{ (isset($clientData[0]) && $clientData[0]->iex_region=="S3") ? 'selected' : '' }}>S3(Kerla)</option>
+                    <option value="W1" {{ (isset($clientData[0]) && $clientData[0]->iex_region=="W1") ? 'selected' : '' }}>W1(Madhya Pradesh)</option>
+                    <option value="W2" {{ (isset($clientData[0]) && $clientData[0]->iex_region=="W2") ? 'selected' : '' }}>W2(Maharashtra, Gujarat, DD, DNH, North Goa)</option>
+                    <option value="W3" {{ (isset($clientData[0]) && $clientData[0]->iex_region=="W3") ? 'selected' : '' }}>W3(Chhattisharh)</option>
               </select>
               </div>
               <div class="col-md-3">
             <label  class="control-label">PXIL REGION</label>
             <select class="form-control input-sm" style="width: 100%;" id="pxil_region" name="pxil_region" value="{{old('pxil_region')}}">
                  <option value="">Select Region</option>
-                    <option value="A1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A1") ? 'selected' : '' }}>A1(Tripura, Mainpur, Mizoram, Nagaland)</option>
-                    <option value="A2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A2") ? 'selected' : '' }}>A2(Assam, Arunachal Pradesh, Meghalaya)</option>
-                    <option value="E1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="E1") ? 'selected' : '' }}>E1(West Bengal, Sikkim, Bihar, Jharkhand)</option>
-                    <option value="E2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="E2") ? 'selected' : '' }}>E2(Odisha)</option>
-                    <option value="N1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N1") ? 'selected' : '' }}>N1(J&K, HP, Chandigarh, Haryana)</option>
-                    <option value="N2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N2") ? 'selected' : '' }}>N2(UP, Uttaranchal, Rajasthan, Delhi)</option>
-                    <option value="N3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N3") ? 'selected' : '' }}>N3(Punjab)</option>
-                    <option value="S1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S1") ? 'selected' : '' }}>S1(AP,Telangana, Karnataka, Pondicherry, SG)</option>
-                    <option value="S2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S2") ? 'selected' : '' }}>S2(Tamilnadu, Punducherry, Karaikal, Mahe)</option>
-                    <option value="S3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S3") ? 'selected' : '' }}>S3(Kerla)</option>
-                    <option value="W1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W1") ? 'selected' : '' }}>W1(Madhya Pradesh)</option>
-                    <option value="W2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W2") ? 'selected' : '' }}>W2(Maharashtra, Gujarat, DD, DNH, North Goa)</option>
-                    <option value="W3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W3") ? 'selected' : '' }}>W3(Chhattisharh)</option>
+                    <option value="A1" {{ (isset($clientData[0]) && $clientData[0]->pxil_region=="A1") ? 'selected' : '' }}>A1(Tripura, Mainpur, Mizoram, Nagaland)</option>
+                    <option value="A2" {{ (isset($clientData[0]) && $clientData[0]->pxil_region=="A2") ? 'selected' : '' }}>A2(Assam, Arunachal Pradesh, Meghalaya)</option>
+                    <option value="E1" {{ (isset($clientData[0]) && $clientData[0]->pxil_region=="E1") ? 'selected' : '' }}>E1(West Bengal, Sikkim, Bihar, Jharkhand)</option>
+                    <option value="E2" {{ (isset($clientData[0]) && $clientData[0]->pxil_region=="E2") ? 'selected' : '' }}>E2(Odisha)</option>
+                    <option value="N1" {{ (isset($clientData[0]) && $clientData[0]->pxil_region=="N1") ? 'selected' : '' }}>N1(J&K, HP, Chandigarh, Haryana)</option>
+                    <option value="N2" {{ (isset($clientData[0]) && $clientData[0]->pxil_region=="N2") ? 'selected' : '' }}>N2(UP, Uttaranchal, Rajasthan, Delhi)</option>
+                    <option value="N3" {{ (isset($clientData[0]) && $clientData[0]->pxil_region=="N3") ? 'selected' : '' }}>N3(Punjab)</option>
+                    <option value="S1" {{ (isset($clientData[0]) && $clientData[0]->pxil_region=="S1") ? 'selected' : '' }}>S1(AP,Telangana, Karnataka, Pondicherry, SG)</option>
+                    <option value="S2" {{ (isset($clientData[0]) && $clientData[0]->pxil_region=="S2") ? 'selected' : '' }}>S2(Tamilnadu, Punducherry, Karaikal, Mahe)</option>
+                    <option value="S3" {{ (isset($clientData[0]) && $clientData[0]->pxil_region=="S3") ? 'selected' : '' }}>S3(Kerla)</option>
+                    <option value="W1" {{ (isset($clientData[0]) && $clientData[0]->pxil_region=="W1") ? 'selected' : '' }}>W1(Madhya Pradesh)</option>
+                    <option value="W2" {{ (isset($clientData[0]) && $clientData[0]->pxil_region=="W2") ? 'selected' : '' }}>W2(Maharashtra, Gujarat, DD, DNH, North Goa)</option>
+                    <option value="W3" {{ (isset($clientData[0]) && $clientData[0]->pxil_region=="W3") ? 'selected' : '' }}>W3(Chhattisharh)</option>
               </select>
               </div>
             </div>
@@ -355,12 +356,12 @@
                <div class="col-md-3">
             <label  class="control-label">STATE(For NOC)</label>
             <select class="form-control input-sm" style="width: 100%;" name="conn_state" id="conn_state" value="{{old('conn_state')}}">
-                <option selected="selected">PLEASE SELECT</option>
+                <option value="">PLEASE SELECT</option>
                 <?php
           $state_list = \App\Common\StateList::get_states();
           ?>
           @foreach($state_list as $state_code=>$state_ar)
-           <option value="{{$state_code}}" {{ isset($clientData) && $clientData->reg_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
+           <option value="{{$state_code}}" {{ isset($clientData) && $clientData->conn_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
           @endforeach
               </select>
               </div>
@@ -440,7 +441,7 @@
               <div class="col-md-3">
               <label  class="control-label">PAYMENT OBLIGATION</label>
               <select class="form-control input-sm" style="width: 100%;" name="obligation" id="obligation">
-                  <option selected="selected">PLEASE SELECT</option>
+                  <option value="">PLEASE SELECT</option>
 
                 </select>
               </div>

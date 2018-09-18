@@ -140,6 +140,9 @@ Route::get('/clientadd',['as'=>'clientadd','uses'=>'ClientDeatilsController@addc
 Route::get('/noc_discom_s',['as'=>'noc_discom_s','uses'=>'ClientDeatilsController@search_discom']);
 Route::post('/client/saveclient',['as'=>'clientsave','uses'=>'ClientDeatilsController@saveclient']);
 Route::get('/basic/{id}',['as'=>'basic','uses'=>'ClientDeatilsController@viewclient']);
+Route::post('/client/updateclient/{id}',['as'=>'updatebasic','uses'=>'ClientDeatilsController@updateclient']);
+
+
 
 
 //CLIENT-BANK----SHALU//
@@ -199,6 +202,7 @@ Route::get('/client-status/{c_id}/status/{status_id}',['as'=>'bared.barredstatus
 Route::get('/client/new',['as'=>'approve.newclient','uses'=>'ClientApprovalController@approvenew']);
 
 Route::get('/client/existing',['as'=>'approve.existingclient','uses'=>'ClientApprovalController@approveexisting']);
+Route::get('/basic/approval/{id}',['as'=>'approve.client','uses'=>'ClientApprovalController@clientapproval']);
 
 //APPROVAL FOR BANK//
 Route::get('/status/{id}/{type}',['as'=>'approve.status','uses'=>'ClientApprovalController@status']);

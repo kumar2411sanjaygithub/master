@@ -9,7 +9,7 @@
 }
 </style>
  <section class="content-header">
-            <h5><label  class="control-label">BANK DETAILS <small> pvt. ltd</small></label></h5>
+            <h5><label  class="control-label">BANK DETAILS <small>{{$client_details[0]['company_name']}}/{{$client_details[0]['crn_no']}}/{{$client_details[0]['iex_portfolio']}}/{{$client_details[0]['pxil_portfolio']}}</small></label></h5>
     </section>
     <section class="content">
       @if(session()->has('message'))

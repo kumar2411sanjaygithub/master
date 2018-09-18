@@ -10,6 +10,7 @@ use DB;
 use App\ServiseAlert;
 use Validator;
 use File;
+use App\Client;
 
 
 class ExchangeController extends Controller
@@ -17,8 +18,8 @@ class ExchangeController extends Controller
    public function edit_exchangedetails($id='',$eid=''){
         $exchange_id=$eid;
         $client_id=$id;
-        $get_exchange_details = Exchange::where('id',$exchange_id)->where('status',1)->first();
-        $exchangedetails = Exchange::where('client_id',$client_id)->where('status',1)->get();
+        $get_exchange_details = Exchange::where('id',$exchange_id)->where('status',1)->withTrashed()->first();
+        $exchangedetails = Exchange::where('client_id',$client_id)->where('status',1)->withTrashed()->get();
 
         return view('ManageClient.exchangedetails',compact('exchangedetails','client_id','get_exchange_details'));
     }
@@ -28,10 +29,10 @@ class ExchangeController extends Controller
         $client_id=$id;
         //$exchangedetails = Exchange::where('client_id',$id)->where('status',1)->get();
         $exchangedetails = DB::table('exchange')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',2); })->where('client_id',$id)->where('status',1)->get();
-
+        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
          //dd($exchangedetails);
 
-        return view('ManageClient.exchangedetails',compact('exchangedetails','client_id'));
+        return view('ManageClient.exchangedetails',compact('exchangedetails','client_id','client_details'));
     }
     public function add_exchangedetails(Request $request){
         
