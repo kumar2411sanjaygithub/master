@@ -6,8 +6,10 @@
 </head>
 <body class="hold-transition skin-black-light fixed sidebar-mini sidebar-mini-expand-feature">
    <div class="wrapper">
-      @include('theme.includes.navbar')
-      <!-- Content Wrapper. Contains page content -->
+       @include('theme.includes.top')
+       @include('theme.includes.navbar')
+        <!-- Content Wrapper. Contains page content -->
+        <br>
       <div class="content-wrapper">
          @yield('content')
          <!-- /.content -->

@@ -50,7 +50,8 @@
                                     <table id="example1" class="table table-bordered table-striped table-hover text-center">
                                        <thead>
                                           <tr>
-                                             <th><input type="checkbox"  class="minimal"></th>
+                                             <th><input type="checkbox" class="minimal"></th>
+                                             <th>SR. No.</th>
                                              <th>NAME</th>
                                              <th>DESIGNATION</th>
                                              <th>EMAIL</th>
@@ -65,8 +66,7 @@
                                           ?>
                                           @foreach ($AddcontactData as $key => $value)
                                           <tr>
-                                             
-                                             
+                                              <td><input type="checkbox" class="minimal"></td>
                                                <td class="text-center">{{ $i }}</td>
                                                <td class="text-center">{{ $value->name}}</td>
                                                <td class="text-center">{{ $value->designation }}</td>
@@ -100,7 +100,7 @@
                                        <thead>
                                           <tr>
                                              <th><input type="checkbox"  class="minimal">Sr.no</th>
-                                             
+
                                              <th>FIELD NAME</th>
                                              <th>CURRENT VALUE</th>
                                              <th>UPDATED VALUE</th>
@@ -108,7 +108,7 @@
                                           </tr>
                                        </thead>
                                        <tbody>
-                                          
+
                                               @isset($contactData)
                                           <?php
                                           $i=1;
@@ -116,8 +116,8 @@
                                           ?>
                                           @foreach ($contactData as $key => $value)
                                           <tr>
-                                             
-                                             
+
+
                                                <td class="text-center">{{ $i }}</td>
                                                <td class="text-center">{{ $input_lebels[$value->attribute_name]}}</td>
                                                <td class="text-center">{{ $value->old_att_value }}</td>
@@ -129,8 +129,8 @@
                                        ?>
                                        @endforeach
                                        @endisset
-                                     
-                                         
+
+
                                        </tbody>
                                     </table>
                                  </div>
@@ -167,7 +167,7 @@
                                                   ?>
                                                   @foreach ($delcontact as $key => $value)
 
-                                                  
+
                                                 <tr>
                                                     <td class="text-center">{{ $i }}</td>
                                                     <td class="text-center">{{ $value->name}}</td>
@@ -175,21 +175,21 @@
                                                     <td class="text-center">{{ $value->email }}</td>
                                                     <td class="text-center">{{ $value->mob_num }}</td>
                                                     <td class="text-center">
-                                                       
+
                                                           <a href="/delete_contact/{{ $value->id }}/approved/contact"><button type="button" class="btn  btn-info btn-xs">Approve</button></a>
-                            
+
                                                           <a href="/delete_contact/{{ $value->id }}/rejected/contact"><button type="button" class="btn  btn-danger btn-xs">Reject</button></a>
-                                                     
+
                                                     </td>
                                                 </tr>
                                                 <?php
                                                 $i++;
                                                 ?>
-                                              
+
                                             @endforeach
                                           @endisset
                                           </tr>
-                                          
+
                                        </tbody>
                                     </table>
                                  </div>
@@ -227,4 +227,30 @@
  }
 }
 </script>
-            @endsection
+<script>
+$(function () {
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+    checkboxClass: 'icheckbox_minimal-blue',
+    radioClass   : 'iradio_minimal-blue'
+  })
+  //Red color scheme for iCheck
+  $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+    checkboxClass: 'icheckbox_minimal-red',
+    radioClass   : 'iradio_minimal-red'
+  })
+  //Flat red color scheme for iCheck
+  $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+    checkboxClass: 'icheckbox_flat-blue',
+    radioClass   : 'iradio_flat-blue'
+  })
+
+})
+
+$(function () {
+$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+checkboxClass: 'icheckbox_flat-green',
+radioClass   : 'iradio_flat-green'
+})
+});
+</script>
+@endsection
