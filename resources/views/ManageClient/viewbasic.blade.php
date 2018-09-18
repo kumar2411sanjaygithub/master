@@ -10,21 +10,21 @@
       </ol>
     </section>
     <section class="content">
+       <!-- success msg -->
+          @if(session()->has('message'))
+            <div class="alert alert-success mt10">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                {{ session()->get('message') }}
+            </div>
+          @endif
       <div class="row">
         <div class="col-xs-12">
-          <div class="row">
-          <div class="col-md-10"></div>
-          <div class="col-md-1 text-right" style="margin-top:-38px;">
-                 <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
-               
-              </div>
-              <div class="col-md-2 text-right" style="margin-top:-38px;">
-                 <a href=""><input type="button"  class="btn btn-info btn-xs enable_edit" value=" EDIT"></a>
-               
-              </div>
-
-       </div>
-
+          <div class="pull-right">
+             <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>               
+             <a href=""><input type="button"  class="btn btn-info btn-xs enable_edit" value=" EDIT"></a>
+              </div>               
+          </div>
+        </div>
          <form method="post" action="/client/updateclient/{{$id}}">
           {{ csrf_field() }}
             <div class="box" >
@@ -34,22 +34,22 @@
             <div class="row">
               <div class="col-md-3">
               <label  class="control-label">COMPANY NAME</label><span class="text-danger"><strong>*</strong></span>
-              <input class="form-control input-sm disabled-class" disabled type="text" placeholder="ENTER COMPANY NAME" name="company_name" id="company_name" value="{{ $clientdata->company_name}}">
+              <input class="form-control input-sm " disabled type="text" placeholder="ENTER COMPANY NAME" name="company_name" id="company_name" value="{{ $clientdata->company_name}}">
                
               </div>
               <div class="col-md-3">
               <label  class="control-label">GSTIN</label><span class="text-danger"><strong>*</strong></span>
-              <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER GSTIN" name="gstin" id="gstin" value="{{ $clientdata->gstin}}">
+              <input class="form-control input-sm "  disabled type="text" placeholder="ENTER GSTIN" name="gstin" id="gstin" value="{{ $clientdata->gstin}}">
                
               </div>
               <div class="col-md-3">
             <label  class="control-label">PAN</label><span class="text-danger"><strong>*</strong></span>
-              <input class="form-control input-sm disabled-class" disabled type="text" placeholder="ENTER PAN NUMBER" name="pan" id="pan" value="{{ $clientdata->pan}}">
+              <input class="form-control input-sm " disabled type="text" placeholder="ENTER PAN NUMBER" name="pan" id="pan" value="{{ $clientdata->pan}}">
               
               </div>
               <div class="col-md-3">
             <label  class="control-label">CIN</label>
-              <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER CIN NUMBER" name="cin" id="cin"value="{{ $clientdata->cin}}">
+              <input class="form-control input-sm"  disabled type="text" placeholder="ENTER CIN NUMBER" name="cin" id="cin"value="{{ $clientdata->cin}}">
                
               </div>
             </div>
@@ -57,31 +57,31 @@
             <div class="row">
               <div class="col-md-3">
             <label  class="control-label">PRIMARY CONTACT NUMBER</label>
-              <input class="form-control input-sm disabled-class" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" disabled  value="{{ $clientdata->cin}}">
+              <input class="form-control input-sm" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" disabled  value="{{ $clientdata->cin}}">
               
               </div>
               <div class="col-md-3 ">
             <label  class="control-label">PRIMARY EMAIL ID</label>
-              <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER PRIMARY MAIL ID"name="email" id="email" value="{{ $clientdata->email}}">
+              <input class="form-control input-sm" type="text"  disabled placeholder="ENTER PRIMARY MAIL ID"name="email" id="email" value="{{ $clientdata->email}}">
               
               </div>
               <div class="col-md-3">
               <label  class="control-label">SHORT ID</label>
-            <input class="form-control input-sm disabled-class"  type="text"  disabled placeholder="ENTER SHORT ID" name="short_id" id="short_id" value="{{ $clientdata->short_id}}">
+            <input class="form-control input-sm"  type="text"  disabled placeholder="ENTER SHORT ID" name="short_id" id="short_id" value="{{ $clientdata->short_id}}">
               </div>
               <div class="col-md-3">
               <label  class="control-label">OLD SAP CODE</label>
-              <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER OLD SAP CODE" name="old_sap" id="old_sap" value="{{ $clientdata->old_sap}}" >
+              <input class="form-control input-sm" type="text"  disabled placeholder="ENTER OLD SAP CODE" name="old_sap" id="old_sap" value="{{ $clientdata->old_sap}}" >
               </div>
             </div>
             <div class="row">
               <div class="col-md-3">
             <label  class="control-label">SAP CODE</label>
-              <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER SAP CODE" name="new_sap" id="new_sap" value="{{ $clientdata->new_sap}}">
+              <input class="form-control input-sm" type="text"  disabled placeholder="ENTER SAP CODE" name="new_sap" id="new_sap" value="{{ $clientdata->new_sap}}">
               </div>
               <div class="col-md-3">
             <label  class="control-label">CRN</label>
-              <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER CRN NUMBER" name="crn_no" id="crn_no" value="{{ $clientdata->crn_no}}">
+              <input class="form-control input-sm" type="text"  disabled placeholder="ENTER CRN NUMBER" name="crn_no" id="crn_no" value="{{ $clientdata->crn_no}}">
               </div>
             </div>
           <hr>
@@ -99,8 +99,8 @@
               <div class="col-md-3 {{ $errors->has('reg_country') ? 'has-error' : '' }}">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm disabled-class"   disabled style="width: 100%;" id="reg_country" name="reg_country" value="{{ $clientdata->reg_country}}">
-                  <option selected="selected"> SELECT COUNTRY</option>
-                 <option>INDIA</option>
+                  
+                 <option value="india">INDIA</option>
 
                 </select>
               </div>
@@ -108,12 +108,12 @@
               <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm disabled-class"  disabled  style="width: 100%;"id="reg_state" name="reg_state" value="{{ $clientdata->reg_state}}">
 
-                  <option value="">SELECT STATE</option>
+                  <option value=" ">SELECT STATE</option>
           <?php
           $state_list = \App\Common\StateList::get_states();
           ?>
           @foreach($state_list as $state_code=>$state_ar)
-           <option value="{{$state_code}}" {{ isset($clientData) && $clientData->reg_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
+           <option value="{{$state_code}}" {{ isset($clientdata) && $clientdata->reg_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
           @endforeach
 
 
@@ -161,8 +161,8 @@
               </div>
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
-              <select class="form-control input-sm disabled-class" style="width: 100%;" id="bill_country" name="bill_country"value="{{ $clientdata->bill_country}}" >
-                  <option selected="selected">India</option>
+              <select class="form-control input-sm disabled-class" style="width: 100%;" id="bill_country" name="bill_country" value="{{ $clientdata->bill_country}}" >
+                  <option value="India">India</option>
 
 
                 </select>
@@ -170,12 +170,12 @@
               <div class="col-md-3">
               <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm disabled-class"   disabled style="width: 100%;" id="bill_state" name="bill_state" value="{{ $clientdata->bill_state}}">
-                  <option selected="selected">PLEASE SELECT</option>
+                  <option value="">PLEASE SELECT</option>
                   <?php
           $state_list = \App\Common\StateList::get_states();
           ?>
           @foreach($state_list as $state_code=>$state_ar)
-           <option value="{{$state_code}}" {{ isset($clientData) && $clientData->reg_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
+           <option value="{{$state_code}}" {{ isset($clientdata) && $clientdata->bill_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
           @endforeach
                 </select>
               </div>
@@ -219,12 +219,12 @@
               </div>
               <div class="col-md-3">
               <label  class="control-label">LINE-2</label>
-                <input class="form-control input-sm" disabled-class  disabled type="text" placeholder="ENTER ADDRESS2" id="del_lin2" name="del_lin2" value="{{ $clientdata->del_lin2}}">
+                <input class="form-control input-sm disabled-class"   disabled type="text" placeholder="ENTER ADDRESS2" id="del_lin2" name="del_lin2" value="{{ $clientdata->del_lin2}}">
               </div>
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="del_country" name="del_country" value="{{ $clientdata->del_country}}">
-                  <option selected="selected">India</option>
+                  <option value=" ">India</option>
 
 
                 </select>
@@ -232,13 +232,13 @@
               <div class="col-md-3">
               <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="del_state" name="del_state" value="{{ $clientdata->del_state}}">
-                  <option selected="selected">PLEASE SELECT</option>
+                  <option value=" ">PLEASE SELECT</option>
 
                   <?php
           $state_list = \App\Common\StateList::get_states();
           ?>
           @foreach($state_list as $state_code=>$state_ar)
-           <option value="{{$state_code}}" {{ isset($clientData) && $clientData->reg_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
+           <option value="{{$state_code}}" {{ isset($clientdata) && $clientdata->del_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
           @endforeach
                 </select>
               </div>
@@ -277,10 +277,10 @@
               <div class="col-md-3">
               <label  class="control-label">IEX STATUS</label>
               <select class="form-control input-sm disabled-class"  disabled style="width: 100%;"  id="iex_status" name="iex_status" value="{{ $clientdata->iex_status}}">
-                  <option value="">Select</option>
-                              <option value="Active" {{ isset($basicInformation) && $basicInformation->iex_status == 'Active' ? 'selected="selected"' : '' }}>Active</option>
-                              <option value="Inactive" {{ isset($basicInformation) && $basicInformation->iex_status == 'Inactive' ? 'selected="selected"' : '' }}>Inactive</option>
-                              <option value="Suspended" {{ isset($basicInformation) && $basicInformation->iex_status == 'Suspended' ? 'selected="selected"' : '' }}>Suspended</option>
+                  <option value=" ">Select</option>
+                              <option value="Active" {{ isset($clientdata) && $clientdata->iex_status == 'Active' ? 'selected="selected"' : '' }}>Active</option>
+                              <option value="Inactive" {{ isset($clientdata) && $clientdata->iex_status == 'Inactive' ? 'selected="selected"' : '' }}>Inactive</option>
+                              <option value="Suspended" {{ isset($clientdata) && $clientdata->iex_status == 'Suspended' ? 'selected="selected"' : '' }}>Suspended</option>
 
                 </select>
               </div>
@@ -298,10 +298,10 @@
               <div class="col-md-3">
             <label  class="control-label">PXIL STATUS</label>
             <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="pxil_status" name="pxil_status" value="{{old('pxil_status')}}">
-                <option value="">Select</option>
-                              <option value="Active" {{ isset($basicInformation) && $basicInformation->iex_status == 'Active' ? 'selected="selected"' : '' }}>Active</option>
-                              <option value="Inactive" {{ isset($basicInformation) && $basicInformation->iex_status == 'Inactive' ? 'selected="selected"' : '' }}>Inactive</option>
-                              <option value="Suspended" {{ isset($basicInformation) && $basicInformation->iex_status == 'Suspended' ? 'selected="selected"' : '' }}>Suspended</option>
+                <option value=" ">Select</option>
+                              <option value="Active" {{ isset($clientdata) && $clientdata->iex_status == 'Active' ? 'selected="selected"' : '' }}>Active</option>
+                              <option value="Inactive" {{ isset($clientdata) && $clientdata->iex_status == 'Inactive' ? 'selected="selected"' : '' }}>Inactive</option>
+                              <option value="Suspended" {{ isset($clientdata) && $clientdata->iex_status == 'Suspended' ? 'selected="selected"' : '' }}>Suspended</option>
 
               </select>
               </div>
@@ -309,7 +309,7 @@
             <label  class="control-label">IEX REGION</label>
             <select class="form-control input-sm disabled-class"  disabled style="width: 100%;"id="iex_region" name="iex_region" value="{{ $clientdata->iex_region}}">
                
-                <option value="">Select Region</option>
+                <option value=" ">Select Region</option>
                     <option value="A1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A1") ? 'selected' : '' }}>A1(Tripura, Mainpur, Mizoram, Nagaland)</option>
                     <option value="A2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A2") ? 'selected' : '' }}>A2(Assam, Arunachal Pradesh, Meghalaya)</option>
                     <option value="E1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="E1") ? 'selected' : '' }}>E1(West Bengal, Sikkim, Bihar, Jharkhand)</option>
@@ -328,7 +328,7 @@
               <div class="col-md-3">
             <label  class="control-label">PXIL REGION</label>
             <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="pxil_region" name="pxil_region" value="{{ $clientdata->pxil_region}}">
-                 <option value="">Select Region</option>
+                 <option value=" ">Select Region</option>
                     <option value="A1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A1") ? 'selected' : '' }}>A1(Tripura, Mainpur, Mizoram, Nagaland)</option>
                     <option value="A2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A2") ? 'selected' : '' }}>A2(Assam, Arunachal Pradesh, Meghalaya)</option>
                     <option value="E1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="E1") ? 'selected' : '' }}>E1(West Bengal, Sikkim, Bihar, Jharkhand)</option>
@@ -351,34 +351,34 @@
               <div class="col-md-3">
               <label  class="control-label">STATE TYPE</label>
               <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="state_type" name="state_type" value="{{ $clientdata->state_type}}">
-                  <option selected="selected">PLEASE SELECT</option>
-                  <option>intra state </option>
-                  <option>inter state</option>
+                  <option value=" ">PLEASE SELECT</option>
+                  <option value="intra state">Intra State </option>
+                  <option value="inter state">Inter State</option>
 
                 </select>
               </div>
                <div class="col-md-3">
             <label  class="control-label">STATE(For NOC)</label>
             <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" name="conn_state" id="conn_state" value="{{ $clientdata->conn_state}}">
-                <option selected="selected">PLEASE SELECT</option>
+                <option value=' '></option>
                 <?php
           $state_list = \App\Common\StateList::get_states();
           ?>
           @foreach($state_list as $state_code=>$state_ar)
-           <option value="{{$state_code}}" {{ isset($clientData) && $clientData->reg_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
+           <option value="{{$state_code}}" {{ isset($clientdata) && $clientdata->conn_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
           @endforeach
               </select>
               </div>
               <div class="col-md-3">
               <label  class="control-label">DISCOM</label>
               <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="discom" name="discom" value="{{ $clientdata->discom}}">
-                  <option value=''>PLEASE SELECT</option>
+                  <option value=' '></option>
                 </select>
               </div>
               <div class="col-md-3">
               <label  class="control-label">VOLTAGE LEVEL</label>
               <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="voltage" name="voltage" value="{{ $clientdata->voltage}}">
-                  <option value=''>PLEASE SELECT</option>
+                  <option value=' '></option>
                 </select>
               </div>
             </div>
@@ -445,7 +445,7 @@
               <div class="col-md-3">
               <label  class="control-label">PAYMENT OBLIGATION</label>
               <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" name="obligation" id="obligation">
-                  <option selected="selected">PLEASE SELECT</option>
+                  <option value=' '>PLEASE SELECT</option>
 
                 </select>
               </div>

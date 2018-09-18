@@ -214,7 +214,7 @@ a.disabled {
                      @foreach ($noc_data as $k=>$noc_list)    
                      <tr>
                         <td class="vertical-align">{{$i}}</td>
-                        <td class="vertical-align">{{@$noc_list->client->name}}</a></td>
+                        <td class="vertical-align">{{@$noc_list->client->company_name}}</a></td>
                         <td class="vertical-align">
                           @if($noc_list->exchange_type=='iex')
                           {{isset($noc_list->client->iex_portfolio)?$noc_list->client->iex_portfolio:'-' }}

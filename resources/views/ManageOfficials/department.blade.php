@@ -50,11 +50,11 @@
                 </div>
              @endforeach
           @endif
-          <form method="post" action="{{ route('departments_create') }}">
+            <form method="post" action="{{ route('departments_create') }}">
              {{ csrf_field() }}
              <div class="row">
                 <div class="col-xs-12">
-                   <div class="box adddeportment hidden">
+                   <div class="adddeportment hidden box">
                       <div class="box-body">
                         <div class="row">
                             <div class="col-md-3">
@@ -65,26 +65,28 @@
                                <label  class="control-label">DESCRIPTION</label>
                                <input class="form-control input-sm" type="text" placeholder="Enter DESCRIPTION" id="description" name="description">
                             </div>
-                        </div>
-                        <div class="row">&nbsp;</div>
-                        <div class="row">
-                            <div class="col-md-5"></div>
-                            <div class="col-md-1">
-                               <button type="submit" id= "submitdepartment" class="btn btn-block btn-info btn-xs">SAVE</button>
+                            <div class="col-md-3">
+                              <div class="col-md-6">
+                                <lable>&nbsp;</lable>
+                                 <button type="submit" id= "submitdepartment" class="btn btn-block btn-info btn-xs">SAVE</button>
+                              </div>
+                              <div class="col-md-6">
+                                <lable>&nbsp;</lable>
+
+                                  <a href="{{ route('departments') }}"><input type="button"  class="btn btn-danger btn-block  btn-xs pull-right"value="Cancel"></a>
+                              </div>
                             </div>
-                            <div class="col-md-1">
-                                <a href="{{ route('departments') }}"><input type="button"  class="btn btn-danger btn-block  btn-xs pull-right"value="Cancel"></a>
-                            </div>
-                            <div class="col-md-5"></div>
                         </div>
+
                       </div>
                     </div>
                 </div>
              </div>
              <div class="row">
-                <div class="col-md-10"></div>
-                <div class="col-md-2">
+                <div class="col-md-12">
+                  <div class="pull-right mb5">
                     <button type="button" class="btn btn-info btn-xs btn-block adddeportmentbtn"> <span class="glyphicon glyphicon-plus"> </span>Add Department</button>
+                  </div>
                 </div>
              </div>
              <div class="box">

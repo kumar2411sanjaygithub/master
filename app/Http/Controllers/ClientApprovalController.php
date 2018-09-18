@@ -68,7 +68,7 @@ class ClientApprovalController extends Controller
                 foreach ($client_mail as $key => $user) {
                    $message->to($user['email'], $user['company_name']);
                  }
-                   $message->subject('PETS Login Details ');
+                   $message->subject('CRM Login Details ');
                      foreach($trader_mail as $key => $email){
                        $message->cc($email['email_cc']);
                        $message->bcc($email['email_bcc']);
@@ -94,6 +94,15 @@ class ClientApprovalController extends Controller
         return view('ApprovalRequest.client.viewclient',compact('clientdata'));
         //return view('ApprovalRequest.client.existing')
     	
+    }
+     public function clientapproval(Request $request,$id)
+    {
+        $user_id = $request['id'];
+        $client_id  =  $user_id;
+        $clientData = Approvalrequest::select('id','updated_attribute_value','attribute_name','approval_type','client_id','created_at','old_att_value','updated_by')->where('approval_type','client')->where('client_id',$request['id'])->where('status', 0)->orderBy('created_at','desc')->get();
+        $state_data = array_keys(\App\Common\StateList::get_states());
+        //dd(array_keys($state_data));
+        return view('ApprovalRequest.client.client_existing',compact('clientData','Addclientdata','deletedclientData','state_data'));
     }
     public function bankapproval(Request $request)
     {

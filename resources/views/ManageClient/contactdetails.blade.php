@@ -9,7 +9,7 @@
 }
 </style>
      <section class="content-header">
-          <h5><label  class="control-label"><u>CONTACT DETAILS</u>&nbsp <small>lakhan pvt. ltd</small></label></h5>
+          <h5><label  class="control-label"><u>CONTACT DETAILS</u>&nbsp <small>{{$client_details[0]['company_name']}}/{{$client_details[0]['crn_no']}}/{{$client_details[0]['iex_portfolio']}}/{{$client_details[0]['pxil_portfolio']}}</small></label></h5>
     </section>
 
     <!-- Main content -->
@@ -30,21 +30,24 @@
     </div>
 @endif -->
 
+
           <div class="row">
            <div class="col-xs-12">
-            <div class="row">
-               <div class="col-md-10"></div>
+              <div class="pull-right">
                 <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
+                <button class="btn btn-info btn-xs" id="add"><span class="glyphicon glyphicon-plus"></span>&nbspADD</button>
               </div>
             </div>
+          </div>
+
+
       <form method ="post" action="{{isset($get_contact_details)?url('contact_edit/'.$get_contact_details->id):route('contact_create')}}">
       {{ csrf_field() }}
       <div class="row {{(isset($get_contact_details)||!$errors->isEmpty())?'':'divhide'}}" id="contactbox">
         <div class="col-xs-12">
-          <div class="box" id="cbox">
+        <div class="box" id="cbox">
            <div class="box-body">
-               <div class="row">
-                  
+      <div class="row ">
       <div class="col-md-3 {{ $errors->has('name') ? 'has-error' : '' }}">
       <label  class="control-label">FULL NAME</label><span class="text-danger"><strong>*</strong></span>
       <input type="hidden" valid name="client_id" value="{{@$client_id}}" id="client">
@@ -79,24 +82,26 @@
         <div class="col-md-5"></div>
       </div>
       </div>
-    </div>
-    </div>
-  </div>
-  </form>
+    </div></div></div>
+    </form>
+
 
    
+
+
                <div class="row">
                   <div class="col-xs-12">
-                     
                      <div class="row">
-                        <div class="col-md-11"></div>
-                        <div class="col-md-1 text-right"><button class="btn btn-info btn-xs"  id="add">
-      <span class="glyphicon glyphicon-plus"></span>&nbspADD
-    </button></div>
+                        <div class="col-md-9"></div>
+                        <div class="col-md-3 text-right"><button class="btn btn-info btn-xs"  id="add">
+                          <span class="glyphicon glyphicon-plus"></span>&nbspADD
+                        </button>
+                       </div>
                      </div>
+
                      <div class="box">
                         <div class="box-body table-responsive">
-                           <table class="table table-bordered text-center">
+                           <table class="table table-bordered text-center table-striped table-hover table-condensed">
                               <thead>
                                  <tr>
                                     <th>SR.NO</th>
@@ -129,10 +134,10 @@
                         <td class="text-center">{{ $value->designation }}</td>
                         <td class="text-center">{{ $value->email }}</td>
                         <td class="text-center">{{ $value->mob_num }}</td>
-                        <td class="text-center" ><a href="/service/contact/{{$value->client_id}}" class="btn">Set</a></td>
+                        <td class="text-center" ><a href="/service/contact/{{$value->client_id}}" ><u>Set</u></a></td>
                         <td class="text-center">
                           <a href="{{url('/editcontactdetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-bank-detail" contact_detail_id="{{ $value->id }}"></span></a>
-                          <a href="/delete/contact/{{$value->id}}"><span class="glyphicon glyphicon-trash" id="remove-bank-detail" contact_detail_id="{{ $value->id }}"></span></a>
+                          <a href="/delete/contact/{{$value->id}}"><span class="glyphicon glyphicon-trash text-danger" id="remove-bank-detail" contact_detail_id="{{ $value->id }}"></span></a>
                         </td>
                       </tr>
                       <?php
@@ -140,20 +145,20 @@
                     ?>
                     @endforeach
                     @endisset
-                                
+
                               </tbody>
                            </table>
                         </div>
                      </div>
                   </div>
                </div>
-            </div>
-          
+
+
           </section>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
      <script>
-    
+
      $(document).ready(function(){
       $('#add').on('click', function(){
       $('#contactbox').removeClass('divhide').addClass('divshow');
@@ -180,5 +185,5 @@
   // }
   </script>
 
-  
+
             @endsection

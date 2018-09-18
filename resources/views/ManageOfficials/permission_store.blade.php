@@ -24,18 +24,18 @@
       <div class="col-md-3 {{ $errors->has('permission_name') ? 'has-error' : '' }}">
          <label  class="control-label">PERMISSION NAME</label>
          <input class="form-control input-sm" type="text" placeholder="ENTER PERMISSION NAME" name="permission_name" value="{{(isset($permissions->id)&& $permissions->permission_name)?$permissions->permission_name:old('permission_name')}}">
-          <span class="text-danger">{{ $errors->first('permission_name') }}</span>       
+          <span class="text-danger">{{ $errors->first('permission_name') }}</span>
     </div>
   <div class="col-md-3 {{ $errors->has('slug') ? 'has-error' : '' }}">
      <label  class="control-label">SLAG</label>
      <input class="form-control input-sm" type="text" placeholder="ENTER SLAG" name="slug" value="{{(isset($permissions->id)&& $permissions->slug)?$permissions->slug:old('slug')}}">
-      <span class="text-danger">{{ $errors->first('slug') }}</span>       
+      <span class="text-danger">{{ $errors->first('slug') }}</span>
   </div>
   <div class="col-md-3">
      <label  class="control-label">DESCRIPTION</label>
      <input class="form-control input-sm" type="text" placeholder="ENTER DESCRIPTION" name="description" value="{{(isset($permissions->id)&& $permissions->description)?$permissions->description:old('description')}}">
   </div>
-<div class="col-md-1" style="margin-top:8px;">
+<div class="col-md-1 mt3">
    <label  class="control-label"></label>
    <button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
 </div>
