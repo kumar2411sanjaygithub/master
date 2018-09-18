@@ -8,11 +8,11 @@
 @section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-   <h5><label  class="control-label">ADD PPA DETAILS</label></h5>
+   <h5><label  class="control-label"><u>ADD PPA DETAILS</u></label></h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">PPA Details</a></li>
-      <li><a href="active">ADD PPA DETAILS</a></li>
+      <li><a href="active"><u>ADD PPA DETAILS</u></a></li>
    </ol>
 </section>
 <!-- Main content -->
@@ -43,10 +43,11 @@
      </div>
    @endif
 
-   <div class="box">
+
      <form method="post" action="{{ route('ppadetails') }}" enctype="multipart/form-data">
         {{ csrf_field() }}
-      <div class="box-body hidden" id="apd-tab">
+     <div class="box  hidden" id="apd-tab">
+      <div class="box-body" >
          <div class="row">
             <div class="col-md-12 {{ $errors->has('') ? 'has-error' : '' }}">
               <select class="form-control input-sm select2" id="client" name="client" style="width: 100%;">
@@ -93,8 +94,7 @@
             <div class="col-md-1"><button type="reset" id="cancel" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
             <div class="col-md-5"></div>
          </div>
-         <div class="row">&nbsp;</div>
-      </div>
+        </div>
    </div>
    <div class="row">
       <div class="col-md-2">
@@ -135,7 +135,7 @@
                   <td class="text-center">
                     <a href="/ppa/editppa/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
                     &nbsp;&nbsp;&nbsp;
-                    <a href="/ppa/deleteppa/{{$value->id}}"><span class="glyphicon glyphicon-trash"></span></a>
+                    <a href="/ppa/deleteppa/{{$value->id}}"><span class="glyphicon glyphicon-trash text-danger"></span></a>
                   </td>
                  </tr>
                <?php $i++; ?>

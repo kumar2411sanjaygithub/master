@@ -10,11 +10,11 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-   <h5><label  class="control-label">BID SETTING</label></h5>
+   <h5><label  class="control-label"><u>BID SETTING</u></label></h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">PPA & BId Setting</a></li>
-      <li><a href="active">Bid Setting</a></li>
+      <li><a href="active"><u>Bid Setting</u></a></li>
    </ol>
 </section>
   <div class="clearfix"></div>
@@ -60,7 +60,7 @@
                  </div>
                  <div class="col-md-3 {{ $errors->has('trader_type') ? 'has-error' : '' }}">
                     <label  class="control-label">POWER TRADE TYPE</label><span class="text-danger"><strong>*</strong></span>
-                    <select class="form-control input-sm select2" id="trader_type" name="trader_type" style="width: 100%;">
+                    <select class="form-control input-sm" id="trader_type" name="trader_type" style="width: 100%;">
                        <option value="">PLEASE SELECT</option>
                        <option>Buy</option>
                        <option>Sell</option>
@@ -68,16 +68,11 @@
                     </select>
                     <span class="text-danger">{{ $errors->first('trader_type') }}</span>
                  </div>
+
+                  <div class="col-md-1" style="margin-top:19px;"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
+                  <div class="col-md-1" style="margin-top:19px;"><button type="button" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
               </div>
-              <div class="row">&nbsp;</div>
-              <div class="row">
-                 <div class="col-md-5"></div>
-                 <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                 <div class="col-md-1"><button type="button" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
-                 <div class="col-md-5"></div>
-              </div>
-              <div class="row">&nbsp;</div>
-           </div>
+             </div>
         </div>
      </div>
   </div>

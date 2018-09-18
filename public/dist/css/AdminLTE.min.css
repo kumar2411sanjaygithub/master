@@ -3068,13 +3068,13 @@ border: 1px solid #f4f4f4;
 }
 .table tbody tr td
 {
-	border:1px solid  #a08d8d!important;
+	border:1px solid  #d2d6de!important;
 	margin:3px!important;
-	padding:3px!important;
+	padding:2px!important;
 }
 .table thead th
 {
-		border:1px solid  #a08d8d!important;
+		border:1px solid  #d2d6de!important;
 }
 
 
@@ -3084,7 +3084,7 @@ border: 1px solid #f4f4f4;
 .table-bordered>thead>tr>td,
 .table-bordered>tbody>tr>td,
 .table-bordered>tfoot>tr>td {
-	border: 1px solid #f4f4f4
+	border: 1px solid #f4f4f4;
 }
 
 .table-bordered>thead>tr>th,
