@@ -12,7 +12,6 @@
             <span class="glyphicon glyphicon-plus"> </span>&nbsp BACK TO LIST</a>
           </div>
           </div>
-<!----------------------------------------->
           <form method="post" action="{{ route('lead.store') }}">
             {{csrf_field()}}
           <div class="box">
@@ -78,6 +77,7 @@
                   <option value="">CHOOSE LEAD OWNER</option>
                   @if(count($user)>0)
                     @foreach($user as $user_data)
+
                     <option value="{{ $user_data->id }}" @if(old('lead_owner') == $user_data->id) {{ 'selected' }} @endif>{{ $user_data->name }}</option>
                     @endforeach
                   @else
@@ -203,10 +203,6 @@
               </div>
               <form>
 
-<!------------new table start--->
-
-<!---------------new table closed-->
-      <!-- /.row -->
     </div>
   </div>
 </section>

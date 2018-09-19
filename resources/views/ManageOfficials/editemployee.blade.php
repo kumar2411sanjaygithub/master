@@ -65,13 +65,13 @@
 </div>
 <div class="col-md-3">
   <label  class="control-label">NEW PASSWORD</label>
-<input class="form-control input-sm" type="text" name="password"  id="password"   value="{{ $officialstData->password }}">
+<input class="form-control input-sm" type="password" name="password"  id="password"   value="{{ $officialstData->password }}">
 </div>
 </div>
 <div class="row">
     <div class="col-md-3">
    <label  class="control-label">CONFIRM PASSWORD</label>
-     <input class="form-control input-sm" type="text" name="confirmed"id="confirmed" value="{{ $officialstData->password }}">
+     <input class="form-control input-sm" type="password" name="confirmed"id="confirmed" value="{{ $officialstData->password }}">
   </div>
 <div class="col-md-3">
   <label  class="control-label">DEPARTMENT NAME</label>
@@ -182,5 +182,5 @@ function ValidateAlpha(evt)
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-{{ Html::script('js/employee/empvalidate.js') }}
+
     @endsection

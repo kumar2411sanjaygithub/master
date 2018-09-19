@@ -34,7 +34,7 @@
           </ul>
       </div>
   @endif
-         <!----------------------------------------->
+       
           <form method="post" action="{{ url('/lead/'.$leads->id) }}">
             {{csrf_field()}}
             {{method_field('PATCH')}}
@@ -49,7 +49,7 @@
                   </div>
                   <div class="col-md-3 {{ $errors->has('product') ? 'has-error' : '' }}">
                      <label  class="control-label">PRODUCT</label><span class="text-danger"><strong>*</strong></span>
-                      <select class="form-control" disabled='disabled' id="product"  name="product">
+                      <select class="form-control disabled-class" disabled='disabled' id="product"  name="product">
                         <option value="">CHOOSE PRODUCT</option>
                         @if(count($product)>0)
                           @foreach($product as $product_data)
@@ -259,7 +259,7 @@
             <div class="row">&nbsp;</div>
          </div>
        </form>
-         <!------------new table start--->
+      
          <div class="row">
             <div class="col-md-1"><label  class="control-label"><u>ACTIVITIES</u></label></div>
             <div class="col-md-10"></div>
@@ -621,7 +621,7 @@
          <div class="input-group-addon">
          <i class="fa fa-calendar"></i>
          </div>
-         <input type="text" class="form-control pull-right input-sm" id="datepicker" name="due_date" placeholder="DD/MM/YYYY" required="required">
+         <input type="text" class="form-control pull-right input-sm" id="datetimepicker1" name="due_date" placeholder="DD/MM/YYYY" required="required">
          </div>
          </div>
          <div class="col-md-6">
@@ -748,5 +748,13 @@
          document.getElementById("error_areaa1").style.display = ret ? "none" : "inline";
          return ret;
       }
+      </script>
+      <script>
+      $(function() {
+  $('#datetimepicker1').datepicker({
+    language: 'pt-BR'
+  });
+});
+
       </script>
 @endsection
