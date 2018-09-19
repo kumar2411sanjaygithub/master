@@ -99,7 +99,6 @@
               <div class="col-md-3 {{ $errors->has('reg_state') ? 'has-error' : '' }}">
               <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;"id="reg_state" name="reg_state" value="{{old('reg_state')}}">
-
                   <option value="">SELECT STATE</option>
           <?php
           $state_list = \App\Common\StateList::get_states();
