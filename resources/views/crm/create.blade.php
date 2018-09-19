@@ -14,7 +14,6 @@
             <span class="glyphicon glyphicon-plus"> </span>&nbsp BACK TO LIST</a>
           </div>
           </div>
-<!----------------------------------------->
           <form method="post" action="{{ route('lead.store') }}">
             {{csrf_field()}}
           <div class="box">
@@ -201,10 +200,6 @@
               </div>
               <form>
 
-<!------------new table start--->
-
-<!---------------new table closed-->
-      <!-- /.row -->
     </div>
   </div>
 </section>

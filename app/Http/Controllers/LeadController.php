@@ -65,6 +65,7 @@ class LeadController extends Controller
         $this->validate($request, [
             'company_name' => 'required|regex:/^[a-zA-Z ]+$/u|min:1|max:50',
             'contact_person' => 'nullable|regex:/^[a-zA-Z ]+$/u|max:50',
+            'contact_number'=>'required|regex:/^[0-9]{10}$/',
             'add_line1' => 'required|max:200',
             'add_line2' => 'nullable|max:200',
             'quantum' => 'nullable|regex:/^[0-9]+$/',
@@ -72,7 +73,7 @@ class LeadController extends Controller
             'add_state' => 'required',
             'add_city' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
             'add_pincode' => 'required|min:4|max:8|not_in:0',
-            'contact_number' => 'nullable|digits:10',
+            //'contact_number' => 'nullable|digits:10',
         ]);
 
         $last = Lead::orderBy('id', 'desc')->get();        
@@ -151,6 +152,7 @@ class LeadController extends Controller
         $this->validate($request, [
             'company_name' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
             'contact_person' => 'nullable|regex:/^[a-zA-Z ]+$/u|max:50',
+            'contact_number'=>'required|regex:/^[0-9]{10}$/',
             'add_line1' => 'required|max:200',
             'add_line2' => 'nullable|max:200',
             'add_country' => 'required',
