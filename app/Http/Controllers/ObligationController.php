@@ -21,17 +21,18 @@ use App\FtpDatePickUp;
 class ObligationController extends Controller
 {
     public function home(Request $request, $exchange='', $year='', $month_o='', $day=''){
-    	if($exchange==''){
+    	 $d = strtotime(date('d-m-Y') . ' + 1 days');
+        if($exchange==''){
             $exchange='IEX';
         }
         if($year==''){
-            $year=date('Y');
+            $year=date('Y',$d);
         }
         if($month_o==''){
-            $month_o =  "".date('m')."";
+            $month_o =  "".date('m',$d)."";
         }
         if($day==''){
-            $day = "".date('d')."";
+            $day = "".date('d',$d)."";
         }
 
         $iex_portfolio =  $this->getAllPortfolioArray();
@@ -48,8 +49,10 @@ class ObligationController extends Controller
        // dd($obl_ftp);
        
         if(isset($request->status)){
+            
             return view('dam.import.obligation',['obligations' => $obl_ftp, 'dilivery_date' => array($year,$month_o,$day),'status' => $request->status]);
         }
+
         return view('dam.import.obligation',['obligations' => $obl_ftp, 'dilivery_date' => array($year,$month_o,$day)]);
 
     

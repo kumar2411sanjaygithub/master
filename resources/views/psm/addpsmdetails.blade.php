@@ -57,7 +57,7 @@ a.disabled {
            <form method="post" enctype="multipart/form-data" action="{{ url('psm/psmdetails/'.$id) }}" class="apd hidden">
              {{ csrf_field()}}
             <section class="content-header">
-              <h5><label  class="control-label"><u>ADD PSM DETAILS</u> &nbsp; <small>{{@$clientData->company_name}}</small></label></h5>
+              <h5 style="margin-left:-12px;"><label  class="control-label"><u>ADD PSM DETAILS</u> &nbsp; {{@$clientData->company_name}}</label></h5>
             </section>
                       <div class="row">
                  <div class="col-xs-12">
@@ -126,7 +126,7 @@ a.disabled {
                              </div>
                              <div class="col-md-3 {{ $errors->has('document') ? 'has-error' : '' }}">
                                 <label  class="control-label">UPLOAD DOCUMENT</label><span class="text-danger"><strong>*</strong></span>
-                                <input class="form-control input-sm" type="file" value="{{old('document')}}" name="document" id="upload" placeholder="ENTER POC LOSSES" disabled="disabled">
+                                <input class="form-control input-sm" type="file" value="{{old('document')}}" name="document" id="upload" placeholder="ENTER POC LOSSES" disabled="disabled" style="padding:4px 4px;">
                                 <span class="text-danger">{{ $errors->first('document') }}</span>
                              </div>
                           </div>
@@ -135,6 +135,7 @@ a.disabled {
                                 <label  class="control-label">DESCRIPTION</label>
                                 <input class="form-control input-sm" type="text" value="{{old('description')}}" name="description" placeholder="ENTER DESCRIPTION">
                              </div>
+
                           </div>
                           <div class="row">&nbsp;</div>
                           <div class="row">
@@ -221,7 +222,7 @@ a.disabled {
             <form method="post" enctype="multipart/form-data" action="{{ url('addpsmexposure/'.@$last_id->id)}}" class="aped hidden">
               {{ csrf_field()}}
             <section class="content-header">
-              <h5><label  class="control-label"><u>ADD PSM EXPOSURE DETAILS</u> &nbsp; <small>{{$clientData->company_name}}</small></label></h5>
+              <h5 style="margin-left:-12px;"><label  class="control-label"><u>ADD PSM EXPOSURE DETAILS</u> &nbsp; {{$clientData->company_name}}</label></h5>
             </section>
               <div class="row">
                <div class="col-xs-12">
@@ -240,14 +241,10 @@ a.disabled {
                               <label  class="control-label">PSM Exposure (Auto-Calculate)</label>
                               <input class="form-control input-sm" value="{{@$last_id->exposure}}" name="exposure" id="exposure" type="text" placeholder="Auto Calculate">
                            </div>
+                           <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" style="margin-top:20px;">SAVE</button></div>
+                           <div class="col-md-1"><input type="reset" class="btn btn-block btn-danger btn-xs" value="CANCEL" id="cancel"  style="margin-top:20px;"></div>
                         </div>
-                        <div class="row">&nbsp;</div>
-                        <div class="row">
-                           <div class="col-md-5"></div>
-                           <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                           <div class="col-md-1"><input type="reset" class="btn btn-block btn-danger btn-xs" value="CANCEL" id="cancel"></div>
-                           <div class="col-md-5"></div>
-                        </div>
+
                      </div>
                   </div>
                </div>

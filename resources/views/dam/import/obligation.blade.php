@@ -85,35 +85,35 @@
                                     <?php if(count($obligation->oblDetails) > 0){
                                     ?>
                                      <td class="text-center">
-                                      <a href="{{ URL('/obligation/import/'.$obligation->id) }}">Import<span class="glyphicon glyphicon-upload"></span></a>
+                                      <a  class= "btn btn-success  btn-xs" href="{{ URL('/obligation/import/'.$obligation->id) }}"><span class="glyphicon glyphicon-upload"></span>&nbsp;Revise</a>
                                     </td>
 
                                     <?php } else{ ?>
                                     <td class="text-center">
-                                      <a href="{{ URL('/obligation/import/'.$obligation->id) }}">Imported<span class="glyphicon glyphicon-upload"></span></a>
+                                      <a class= "btn btn-warning  btn-xs" href="{{ URL('/obligation/import/'.$obligation->id) }}"><span class="glyphicon glyphicon-upload"></span>&nbsp;Import</a>
                                     </td>
                                     <?php } ?>
                                     <?php
                                     if($obligation->status=='FOUND'){?>
                                      <td class="text-center">
-                                      <a href = "{{URL('/obligation/download/'.$obligation->id)}}"><span class="glyphicon glyphicon-download-alt">Revise</span></a>
+                                      <a class= "btn btn-primary  btn-xs" href = "{{URL('/obligation/download/'.$obligation->id)}}"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;Download</a>
                                     </td>
                                     </td>
                                     <?php } else{ ?>
-                                    <td class="text-center">
-                                      <a href = "{{URL('/obligation/download/'.$obligation->id)}}"><span class="glyphicon glyphicon-download-alt">Download</span></a>
+                                       <td class="text-center">
                                     </td>
                                     <?php } ?>
+
                                     <?php
                                     if($obligation->mail_status== 0){?>
                                     <td class="text-center">
 
-                                      <a href="{{ URL('service/mailobligation/'.$obligation->client_id.'/'.$obligation->id) }}" id ="foo"><span class="glyphicon glyphicon-send"  data-toggle="tooltip" title="Sendmail" ></span></a>
+                                      <a  class= "btn btn-primary  btn-xs"  href="{{ URL('service/mailobligation/'.$obligation->client_id.'/'.$obligation->id) }}" id ="foo"><span class="glyphicon glyphicon-send"  data-toggle="tooltip" title="Sendmail" ></span>&nbsp;Send</a>
                                     </td>
                                      <?php } else{ ?>
                                      <td class="text-center">
 
-                                      <a href="{{ URL('service/mailobligation/'.$obligation->client_id.'/'.$obligation->id) }}" id ="foo"><span class="glyphicon glyphicon-send"  data-toggle="tooltip" title="Re-Sendmail" >Re-Send Mail</span></a>
+                                      <a class= "btn btn-warning  btn-xs"   href="{{ URL('service/mailobligation/'.$obligation->client_id.'/'.$obligation->id) }}" id ="foo"><span class="glyphicon glyphicon-send"  data-toggle="tooltip" title="Re-Sendmail" ></span>&nbsp;Re-Send</a>
                                     </td>
                                      <?php } ?>
                                   </tr>
