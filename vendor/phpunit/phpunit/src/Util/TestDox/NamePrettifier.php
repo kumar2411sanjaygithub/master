@@ -10,7 +10,6 @@
 namespace PHPUnit\Util\TestDox;
 
 use PHPUnit\Framework\TestCase;
-use SebastianBergmann\Exporter\Exporter;
 
 /**
  * Prettifies class and method names for use in TestDox documentation.
@@ -55,9 +54,6 @@ final class NamePrettifier
         return $result;
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function prettifyTestCase(TestCase $test): string
     {
         $annotations                = $test->getAnnotations();
@@ -67,16 +63,20 @@ final class NamePrettifier
             $result = $annotations['method']['testdox'][0];
 
             if (\strpos($result, '$') !== false) {
-                $annotation   = $annotations['method']['testdox'][0];
+                $annotation = $annotations['method']['testdox'][0];
+                $result     = '';
+
                 $providedData = $this->mapTestMethodParameterNamesToProvidedDataValues($test);
 
-                $result = \trim(
-                    \str_replace(
-                        \array_keys($providedData),
-                        $providedData,
-                        $annotation
-                    )
-                );
+                foreach (\explode(' ', $annotation) as $word) {
+                    if (\strpos($word, '$') === 0) {
+                        $result .= $providedData[$word] . ' ';
+                    } else {
+                        $result .= $word . ' ';
+                    }
+                }
+
+                $result = \trim($result);
 
                 $annotationWithPlaceholders = true;
             }
@@ -151,9 +151,6 @@ final class NamePrettifier
         return $buffer;
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     private function mapTestMethodParameterNamesToProvidedDataValues(TestCase $test): array
     {
         $reflector          = new \ReflectionMethod(\get_class($test), $test->getName(false));
@@ -162,27 +159,7 @@ final class NamePrettifier
         $i                  = 0;
 
         foreach ($reflector->getParameters() as $parameter) {
-            $value = $providedDataValues[$i++];
-
-            if (\is_object($value)) {
-                $reflector = new \ReflectionObject($value);
-
-                if ($reflector->hasMethod('__toString')) {
-                    $value = (string) $value;
-                }
-            }
-
-            if (!\is_scalar($value)) {
-                $value = \gettype($value);
-            }
-
-            if (\is_bool($value) || \is_numeric($value)) {
-                $exporter = new Exporter;
-
-                $value = $exporter->export($value);
-            }
-
-            $providedData['$' . $parameter->getName()] = $value;
+            $providedData['$' . $parameter->getName()] = $providedDataValues[$i++];
         }
 
         return $providedData;

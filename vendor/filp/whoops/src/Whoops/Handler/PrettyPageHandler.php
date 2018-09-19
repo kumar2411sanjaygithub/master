@@ -507,10 +507,6 @@ class PrettyPageHandler extends Handler
                 $callback = call_user_func($this->editors[$this->editor], $filePath, $line);
             }
 
-            if (empty($callback)) {
-                return [];
-            }
-
             if (is_string($callback)) {
                 return [
                     'ajax' => false,

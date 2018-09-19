@@ -157,7 +157,7 @@ class Mailable implements MailableContract, Renderable
      */
     public function queue(Queue $queue)
     {
-        if (isset($this->delay)) {
+        if (property_exists($this, 'delay')) {
             return $this->later($this->delay, $queue);
         }
 

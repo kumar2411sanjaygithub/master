@@ -75,23 +75,37 @@ class StringMatchesFormatDescription extends RegularExpression
 
     private function createPatternFromFormat(string $string): string
     {
-        $string = \strtr(
-            \preg_quote($string, '/'),
+        $string = \preg_replace(
             [
-                '%%' => '%',
-                '%e' => '\\' . \DIRECTORY_SEPARATOR,
-                '%s' => '[^\r\n]+',
-                '%S' => '[^\r\n]*',
-                '%a' => '.+',
-                '%A' => '.*',
-                '%w' => '\s*',
-                '%i' => '[+-]?\d+',
-                '%d' => '\d+',
-                '%x' => '[0-9a-fA-F]+',
-                '%f' => '[+-]?\.?\d+\.?\d*(?:[Ee][+-]?\d+)?',
-                '%c' => '.'
-            ]
+                '/(?<!%)%e/',
+                '/(?<!%)%s/',
+                '/(?<!%)%S/',
+                '/(?<!%)%a/',
+                '/(?<!%)%A/',
+                '/(?<!%)%w/',
+                '/(?<!%)%i/',
+                '/(?<!%)%d/',
+                '/(?<!%)%x/',
+                '/(?<!%)%f/',
+                '/(?<!%)%c/'
+            ],
+            [
+                \str_replace('\\', '\\\\', '\\' . \DIRECTORY_SEPARATOR),
+                '[^\r\n]+',
+                '[^\r\n]*',
+                '.+',
+                '.*',
+                '\s*',
+                '[+-]?\d+',
+                '\d+',
+                '[0-9a-fA-F]+',
+                '[+-]?\.?\d+\.?\d*(?:[Ee][+-]?\d+)?',
+                '.'
+            ],
+            \preg_quote($string, '/')
         );
+
+        $string = \str_replace('%%', '%', $string);
 
         return '/^' . $string . '$/s';
     }

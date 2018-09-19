@@ -249,21 +249,6 @@ class ValidClassNamePass extends NamespaceAwarePass
     }
 
     /**
-     * Ensure that a referenced class _or trait_ exists.
-     *
-     * @throws FatalErrorException
-     *
-     * @param string $name
-     * @param Stmt   $stmt
-     */
-    protected function ensureClassOrTraitExists($name, $stmt)
-    {
-        if (!$this->classExists($name) && !$this->traitExists($name)) {
-            throw $this->createError(\sprintf('Class \'%s\' not found', $name), $stmt);
-        }
-    }
-
-    /**
      * Ensure that a statically called method exists.
      *
      * @throws FatalErrorException
@@ -274,7 +259,7 @@ class ValidClassNamePass extends NamespaceAwarePass
      */
     protected function ensureMethodExists($class, $name, $stmt)
     {
-        $this->ensureClassOrTraitExists($class, $stmt);
+        $this->ensureClassExists($class, $stmt);
 
         // let's pretend all calls to self, parent and static are valid
         if (\in_array(\strtolower($class), ['self', 'parent', 'static'])) {

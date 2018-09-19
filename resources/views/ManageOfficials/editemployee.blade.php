@@ -34,7 +34,7 @@
   <div class="box-body">
   <div class="row">
       <div class="col-md-3">
-     <label  class="control-label">EMPLOYEE NAME</label>
+     <label  class="control-label">EMPLOYEE</label>
        <input class="form-control input-sm" type="text" name="name" onKeyPress="return ValidateAlpha(event);" id="name"   value="{{ $officialstData->name }}">
     </div>
   <div class="col-md-3">
@@ -61,11 +61,11 @@
 </div>
 <div class="col-md-3">
   <label  class="control-label">USER NAME</label>
-<input class="form-control input-sm" type="password" name="username"  id="username"   value="{{ $officialstData->username }}">
+<input class="form-control input-sm" type="text" name="username"  id="username"   value="{{ $officialstData->username }}">
 </div>
 <div class="col-md-3">
   <label  class="control-label">NEW PASSWORD</label>
-<input class="form-control input-sm" type="password" name="password"  id="password"   value="{{ $officialstData->password }}">
+<input class="form-control input-sm" type="text" name="password"  id="password"   value="{{ $officialstData->password }}">
 </div>
 </div>
 <div class="row">
@@ -182,5 +182,5 @@ function ValidateAlpha(evt)
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-
+{{ Html::script('js/employee/empvalidate.js') }}
     @endsection
