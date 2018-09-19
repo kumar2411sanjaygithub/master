@@ -9,6 +9,7 @@
 }
 </style>
 
+
     <!-- Main content -->
     <section class="content">
        @if(session()->has('message'))
@@ -55,7 +56,7 @@
       </div>
       <div class="col-md-3 {{ $errors->has('designation') ? 'has-error' : '' }}">
        <label  class="control-label">DESIGNATION</label>
-      <input class="form-control input-sm" type="text" placeholder="ENTER DESIGNATION" id="designation" name="designation" value="{{isset($get_contact_details)?$get_contact_details->designation:old('designation')}}">
+      <input class="form-control input-sm alphanum" type="text" placeholder="ENTER DESIGNATION" id="designation" name="designation" value="{{isset($get_contact_details)?$get_contact_details->designation:old('designation')}}">
       <span class="text-danger">{{ $errors->first('designation') }}</span>
       </div>
       <div class="col-md-3 {{ $errors->has('email') ? 'has-error' : '' }}">
@@ -90,7 +91,6 @@
 
                <div class="row">
                   <div class="col-xs-12">
-
                      <div class="box">
                         <div class="box-body table-responsive">
                            <table class="table table-bordered text-center table-striped table-hover table-condensed">
@@ -154,6 +154,7 @@
      $(document).ready(function(){
       $('#add').on('click', function(){
       $('#contactbox').removeClass('divhide').addClass('divshow');
+      $("#add").hide();
       });
       });
      </script>
@@ -177,5 +178,4 @@
   // }
   </script>
 
-
-            @endsection
+@endsection

@@ -41,20 +41,20 @@
                <span class="text-danger">{{ $errors->first('pan') }}</span>
               </div>
               <div class="col-md-3 {{ $errors->has('cin') ? 'has-error' : '' }}">
-            <label  class="control-label">CIN</label>
-              <input class="form-control input-sm" type="text" placeholder="ENTER CIN NUMBER" name="cin" id="cin"value="{{old('cin')}}">
+            <label  class="control-label">CIN</label><span class="text-danger"><strong>*</strong></span>
+              <input class="form-control input-sm" type="text" placeholder="ENTER CIN NUMBER" name="cin" id="cin" value="{{old('cin')}}">
                <span class="text-danger">{{ $errors->first('cin') }}</span>
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-3  {{ $errors->has('pri_contact_no') ? 'has-error' : '' }}">
-            <label  class="control-label">PRIMARY CONTACT NUMBER</label>
+            <label  class="control-label">PRIMARY CONTACT NUMBER</label><span class="text-danger"><strong>*</strong></span>
               <input class="form-control input-sm" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" value="{{old('pri_contact_no')}}">
                <span class="text-danger">{{ $errors->first('pri_contact_no') }}</span>
               </div>
               <div class="col-md-3 {{ $errors->has('email') ? 'has-error' : '' }}">
-            <label  class="control-label">PRIMARY EMAIL ID</label>
+            <label  class="control-label">PRIMARY EMAIL ID</label><span class="text-danger"><strong>*</strong></span>
               <input class="form-control input-sm" type="text" placeholder="ENTER PRIMARY MAIL ID"name="email" id="email" value="{{old('email')}}">
                <span class="text-danger">{{ $errors->first('email') }}</span>
               </div>
@@ -72,17 +72,17 @@
             <label  class="control-label">SAP CODE</label>
               <input class="form-control input-sm" type="text" placeholder="ENTER SAP CODE" name="new_sap" id="new_sap" value="{{old('new_sap')}}">
               </div>
-              <div class="col-md-3">
-            <label  class="control-label">CRN</label>
-              <input class="form-control input-sm" type="text" placeholder="ENTER CRN NUMBER" name="crn_no" id="crn_no" value="{{old('crn_no')}}">
-              </div>
+              <!-- <div class="col-md-3">
+                <label  class="control-label">CRN</label>
+                <input class="form-control input-sm" type="text" placeholder="ENTER CRN NUMBER" name="crn_no" id="crn_no" value="{{old('crn_no')}}">
+              </div> -->
             </div>
 
           <h5><label  class="control-label"><u>REGISTERED OFFICE ADDRESS</u></label></h5>  <hr>
             <div class="row">
               <div class="col-md-3 {{ $errors->has('reg_line1') ? 'has-error' : '' }}">
               <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
-              <input class="form-control input-sm" type="text" placeholder=".ENTER ADDRESS1" name="reg_line1" id="reg_line1" value="{{old('reg_line1')}}">
+              <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS1" name="reg_line1" id="reg_line1" value="{{old('reg_line1')}}">
               <span class="text-danger">{{ $errors->first('reg_line1') }}</span>
               </div>
               <div class="col-md-3">
@@ -92,8 +92,7 @@
               <div class="col-md-3 {{ $errors->has('reg_country') ? 'has-error' : '' }}">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="reg_country" name="reg_country" value="{{old('reg_country')}}">
-                  <option value=""> SELECT COUNTRY</option>
-                 <option>INDIA</option>
+                 <option>India</option>
 
                 </select>
               </div>
@@ -121,18 +120,18 @@
               <span class="text-danger">{{ $errors->first('reg_city') }}</span>
               </div>
               <div class="col-md-3 {{ $errors->has('reg_pin') ? 'has-error' : '' }}">
-            <label  class="control-label">PIN CODE</label>
-                <input class="form-control input-sm" type="text" placeholder="ENTER PIN CODE" id="reg_pin" name="reg_pin" value="{{old('reg_pin')}}">
+            <label  class="control-label">PIN CODE</label><span class="text-danger"><strong>*</strong></span>
+                <input class="form-control input-sm num" maxlength="6" type="text" placeholder="ENTER PIN CODE" id="reg_pin" name="reg_pin" value="{{old('reg_pin')}}">
                 <span class="text-danger">{{ $errors->first('reg_pin') }}</span>
               </div>
               <div class="col-md-3 {{ $errors->has('reg_mob') ? 'has-error' : '' }}">
             <label  class="control-label">MOBILE NUMBER</label><span class="text-danger"><strong>*</strong></span>
-                <input class="form-control input-sm" type="text" placeholder="ENTER MOBILE NUMBER"  id="reg_mob" name="reg_mob" value="{{old('reg_mob')}}">
+                <input class="form-control input-sm num" maxlength="10" type="text" placeholder="ENTER MOBILE NUMBER"  id="reg_mob" name="reg_mob" value="{{old('reg_mob')}}">
                 <span class="text-danger">{{ $errors->first('reg_mob') }}</span>
               </div>
               <div class="col-md-3">
             <label  class="control-label">TELEPHONE</label>
-                <input class="form-control input-sm" type="text" placeholder="ENTER TELEPHONE NUMBER" id="reg_telephone" name="reg_telephone" value="{{old('reg_telephone')}}">
+                <input class="form-control input-sm num" maxlength="15" type="text" placeholder="ENTER TELEPHONE NUMBER" id="reg_telephone" name="reg_telephone" value="{{old('reg_telephone')}}">
               </div>
             </div>
             <div class="row">
@@ -146,15 +145,15 @@
   </div><hr>
             <div class="row">
               <div class="col-md-3">
-              <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
-              <input class="form-control input-sm" type="text" placeholder=".ENTER ADDRESS1" id="bill_line1" name="bill_line1" value="{{old('bill_line1')}}">
+              <label  class="control-label">LINE-1</label>
+              <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS1" id="bill_line1" name="bill_line1" value="{{old('bill_line1')}}">
               </div>
               <div class="col-md-3">
               <label  class="control-label">LINE-2</label>
                 <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS2" id="bill_line2" name="bill_line2">
               </div>
               <div class="col-md-3">
-              <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
+              <label  class="control-label">COUNTRY</label>
               <select class="form-control input-sm" style="width: 100%;" id="bill_country" name="bill_country"value="{{old('bill_country')}}">
                   <option value="">India</option>
 
@@ -162,7 +161,7 @@
                 </select>
               </div>
               <div class="col-md-3">
-              <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
+              <label  class="control-label">STATE</label>
               <select class="form-control input-sm" style="width: 100%;" id="bill_state" name="bill_state" value="{{old('bill_state')}}">
                   <option value="">PLEASE SELECT</option>
                   <?php
@@ -177,22 +176,22 @@
 
             <div class="row">
               <div class="col-md-3">
-              <label  class="control-label">CITY</label><span class="text-danger"><strong>*</strong></span>
+              <label  class="control-label">CITY</label>
               <input class="form-control input-sm" style="width: 100%;" id="bill_city" name="bill_city" value="{{old('bill_city')}}">
 
 
               </div>
               <div class="col-md-3">
             <label  class="control-label">PIN CODE</label>
-                <input class="form-control input-sm" type="text" placeholder="ENTER PIN CODE" id="bill_pin" name="bill_pin"value="{{old('bill_pin')}}">
+                <input class="form-control input-sm num" maxlength="6" type="text" placeholder="ENTER PIN CODE" id="bill_pin" name="bill_pin"value="{{old('bill_pin')}}">
               </div>
               <div class="col-md-3">
-            <label  class="control-label">MOBILE NUMBER</label><span class="text-danger"><strong>*</strong></span>
-                <input class="form-control input-sm" type="text" placeholder="ENTER MOBILE NUMBER" id="bill_mob" name="bill_mob"value="{{old('bill_mob')}}">
+            <label  class="control-label">MOBILE NUMBER</label>
+                <input class="form-control input-sm num" maxlength="10" type="text" placeholder="ENTER MOBILE NUMBER" id="bill_mob" name="bill_mob"value="{{old('bill_mob')}}">
               </div>
               <div class="col-md-3">
             <label  class="control-label">TELEPHONE</label>
-                <input class="form-control input-sm" type="text" placeholder="ENTER TELEPHONE NUMBER"id="bill_telephone" name="bill_telephone" value="{{old('bill_telephone')}}">
+                <input class="form-control input-sm num" maxlength="15" type="text" placeholder="ENTER TELEPHONE NUMBER"id="bill_telephone" name="bill_telephone" value="{{old('bill_telephone')}}">
               </div>
             </div>
 
@@ -208,23 +207,21 @@
       </div><hr>
             <div class="row">
               <div class="col-md-3">
-              <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
-              <input class="form-control input-sm" type="text" placeholder=".ENTER ADDRESS1" id="del_lin1" name="del_lin1" value="{{old('del_lin1')}}">
+              <label  class="control-label">LINE-1</label>
+              <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS1" id="del_lin1" name="del_lin1" value="{{old('del_lin1')}}">
               </div>
               <div class="col-md-3">
               <label  class="control-label">LINE-2</label>
                 <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS2" id="del_lin2" name="del_lin2" value="{{old('del_lin2')}}">
               </div>
               <div class="col-md-3">
-              <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
+              <label  class="control-label">COUNTRY</label>
               <select class="form-control input-sm" style="width: 100%;" id="del_country" name="del_country" value="{{old('del_country')}}">
                   <option value="">India</option>
-
-
                 </select>
               </div>
               <div class="col-md-3">
-              <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
+              <label  class="control-label">STATE</label>
               <select class="form-control input-sm" style="width: 100%;" id="del_state" name="del_state" value="{{old('del_state')}}">
                   <option value=''>PLEASE SELECT</option>
 
@@ -246,15 +243,15 @@
               </div>
               <div class="col-md-3">
             <label  class="control-label">PIN CODE</label>
-                <input class="form-control input-sm" type="text" placeholder="ENTER PIN CODE" id="del_pin" name="del_pin" value="{{old('del_pin')}}">
+                <input class="form-control input-sm num" maxlength="6" type="text" placeholder="ENTER PIN CODE" id="del_pin" name="del_pin" value="{{old('del_pin')}}">
               </div>
               <div class="col-md-3">
-            <label  class="control-label">MOBILE NUMBER</label><span class="text-danger"><strong>*</strong></span>
-                <input class="form-control input-sm" type="text" placeholder="ENTER MOBILE NUMBER" id="del_mob" name="del_mob" value="{{old('del_mob')}}">
+            <label  class="control-label">MOBILE NUMBER</label>
+                <input class="form-control input-sm num" maxlength="10" type="text" placeholder="ENTER MOBILE NUMBER" id="del_mob" name="del_mob" value="{{old('del_mob')}}">
               </div>
               <div class="col-md-3">
             <label  class="control-label">TELEPHONE</label>
-                <input class="form-control input-sm" type="text" placeholder="ENTER TELEPHONE NUMBER" id="del_telephone" name="del_telephone" value="{{old('del_telephone')}}">
+                <input class="form-control input-sm num" maxlength="15" type="text" placeholder="ENTER TELEPHONE NUMBER" id="del_telephone" name="del_telephone" value="{{old('del_telephone')}}">
               </div>
             </div>
 
@@ -426,7 +423,7 @@
               </div>
               <div class="col-md-3">
             <label  class="control-label">MAXIMUM INJECTION QUANTUM</label>
-            <input class="form-control input-sm" type="text" placeholder="ENTER INJECTION QUANTUM" name="maxm_injection" id="maxm_injection value="{{old('maxm_injection')}}"">
+            <input class="form-control input-sm" type="text" placeholder="ENTER INJECTION QUANTUM" name="maxm_injection" id="maxm_injection" value="{{old('maxm_injection')}}">
               </div>
               <div class="col-md-3">
             <label  class="control-label">MAXIMUM WITHDRAWAL QUANTUM</label>
@@ -438,13 +435,14 @@
             <div class="row">
               <div class="col-md-3">
               <label  class="control-label">LATER PAYMENT PENALTY(%)</label>
-              <input class="form-control input-sm" type="text" placeholder="ENTER DISCOM" name="payment" id="payment">
+              <input class="form-control input-sm" type="text" placeholder="ENTER DISCOM" name="payment" id="payment" value="{{old('payment')}}">
               </div>
               <div class="col-md-3">
               <label  class="control-label">PAYMENT OBLIGATION</label>
               <select class="form-control input-sm" style="width: 100%;" name="obligation" id="obligation">
                   <option value="">PLEASE SELECT</option>
-
+                  <option value="PSM" @if(old('obligation')=='PSM')selected @endif>PSM</option>
+                  <option value="Advance" @if(old('obligation')=='Advance')selected @endif>Advance</option>
                 </select>
               </div>
             </div>
@@ -461,12 +459,13 @@
             </div>
     </div>
     </section>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
  <script>
+
  $(document).ready(function(){
    $('#conn_state').on('change', function() {
 
@@ -525,5 +524,51 @@ checkboxClass: 'icheckbox_flat-green',
 radioClass   : 'iradio_flat-green'
 })
 });
+</script>
+<script type="text/javascript">
+$('input[type="checkbox"]#saroa,.saroa').click(function(){
+     if($("#saroa").prop("checked") == true){
+       $("#bill_line1").val($("#reg_line1").val());
+       $("#bill_line2").val($("#reg_line2").val());
+       $("#bill_country").val($("#reg_country").val());
+       $("#bill_state").val($("#reg_state").val());
+       $("#bill_city").val($("#reg_city").val());
+       $("#bill_pin").val($("#reg_pin").val());
+       $("#bill_mob").val($("#reg_mob").val());
+       $("#bill_telephone").val($("#reg_telephone").val());
+     }
+     else if($("#saroa").prop("checked") == false){
+       $("#bill_line1").val("");
+       $("#bill_line2").val("");
+       $("#bill_country").val("");
+       $("#bill_state").val("");
+       $("#bill_city").val("");
+       $("#bill_pin").val("");
+       $("#bill_mob").val("");
+       $("#bill_telephone").val("");
+     }
+   });
+$('input[type="checkbox"]#saba,.saba').click(function(){
+     if($("#saba").prop("checked") == true){
+       $("#del_lin1").val($("#bill_line1").val());
+       $("#del_lin2").val($("#bill_line2").val());
+       $("#del_country").val($("#bill_country").val());
+       $("#del_state").val($("#bill_state").val());
+       $("#del_city").val($("#bill_city").val());
+       $("#del_pin").val($("#bill_pin").val());
+       $("#del_mob").val($("#bill_mob").val());
+       $("#del_telephone").val($("#bill_telephone").val());
+     }
+     else if($("#saba").prop("checked") == false){
+       $("#del_lin1").val("");
+       $("#del_lin2").val("");
+       $("#del_country").val("");
+       $("#del_state").val("");
+       $("#del_city").val("");
+       $("#del_pin").val("");
+       $("#del_mob").val("");
+       $("#del_telephone").val("");
+     }
+   });
 </script>
 @endsection

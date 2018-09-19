@@ -39,12 +39,13 @@
                 </select>
               <span class="text-danger">{{ $errors->first('product') }}</span>
               </div>
-              <div class="col-md-3">
-            <label  class="control-label">CONTACT PERSON</label>
+              <div class="col-md-3 {{ $errors->has('contact_person') ? 'has-error' : '' }}">
+            <label  class="control-label">CONTACT PERSON</label><span class="text-danger"><strong>*</strong></span>
               <input class="form-control input-sm" type="text" placeholder="ENTER CONTACT PERSON" id="contact_person" name="contact_person" value="{{old('contact_person')}}">
+              <span class="text-danger">{{ $errors->first('contact_person') }}</span>
               </div>
               <div class="col-md-3 {{ $errors->has('contact_number') ? 'has-error' : '' }}">
-            <label  class="control-label">CONTACT NUMBER</label>
+            <label  class="control-label">CONTACT NUMBER</label><span class="text-danger"><strong>*</strong></span>
               <input class="form-control input-sm" type="text" placeholder="ENTER  CONTACT NUMBER" id="contact_number" name="contact_number"  value="{{old('contact_number')}}">
               <span class="text-danger">{{ $errors->first('contact_number') }}</span>
               </div>
@@ -53,9 +54,10 @@
               <div class="col-md-12"></div>
             </div>
             <div class="row">
-              <div class="col-md-3">
-            <label  class="control-label">EMAIL ID</label>
+              <div class="col-md-3 {{ $errors->has('email_id') ? 'has-error' : '' }}">
+            <label  class="control-label">EMAIL ID</label><span class="text-danger"><strong>*</strong></span>
               <input class="form-control input-sm" type="email" placeholder="ENTER EMAIL ID" id="email_id" name="email_id" value="{{old('email_id')}}">
+              <span class="text-danger">{{ $errors->first('email_id') }}</span>
               </div>
               <div class="col-md-3">
             <label  class="control-label">INDUSTRY</label>
@@ -106,7 +108,7 @@
               <div class="col-md-3">
             <label  class="control-label">STATE</label>
               <select class="form-control input-sm" style="width: 100%;" id="state" name="state">
-                  <option selected="selected">PLEASE SELECT STATE</option>
+                  <option selected="selected">SELECT STATE</option>
                    <?php
                     $state_list = \App\Common\StateList::get_states();
                         ?>
@@ -122,7 +124,7 @@
               <div class="col-md-3">
               <label  class="control-label">VOLTAGE</label>
               <select class="form-control input-sm" style="width: 100%;" id="voltage" name="voltage">
-                  <option selected="selected">PLEASE SELECT</option>
+                  <option selected="selected">SELECT VOLTAGE</option>
                   <option value="11K" {{ old('voltage')=='11K'? 'selected="selected"' : '' }}>11K</option>
                   <option value="22K" {{ old('voltage')=='22K'? 'selected="selected"' : '' }}>22K</option>
                   <option value="33k" {{ old('voltage')=='33k'? 'selected="selected"' : '' }}>33K</option>
@@ -154,7 +156,6 @@
               <div class="col-md-3 {{ $errors->has('add_country') ? 'has-error' : '' }}">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="add_country" name="add_country">
-                  <option value="">PLEASE SELECT COUNTRY</option>
                   <option {{ old('add_country')=='INDIA'? 'selected="selected"' : '' }} value="INDIA">INDIA </option>
               </select>
                <span class="text-danger">{{ $errors->first('add_country') }}</span>
@@ -162,7 +163,7 @@
               <div class="col-md-3 {{ $errors->has('add_state') ? 'has-error' : '' }}">
               <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="add_state" name="add_state">
-                  <option value="">PLEASE SELECT STATE</option>
+                  <option value="">SELECT STATE</option>
                    <?php
                     $state_list = \App\Common\StateList::get_states();
                         ?>
@@ -184,9 +185,10 @@
 
               </div>
               <div class="col-md-3 {{ $errors->has('add_pincode') ? 'has-error' : '' }}">
-            <label  class="control-label">PIN CODE</label>
-                <input class="form-control input-sm" type="text" placeholder="ENTER PIN CODE" id="add_pincode" name="add_pincode" value="{{old('add_pincode')}}">
+            <label  class="control-label">PIN CODE<span class="text-danger"><strong>*</strong></span></label>
+                <input class="form-control input-sm" type="text" placeholder="ENTER PIN CODE" id="add_pincode" onkeypress="return IsNumeric1(event);" name="add_pincode" value="{{old('add_pincode')}}">
                 <span class="text-danger">{{ $errors->first('add_pincode') }}</span>
+                <span id="error_areaa1" style="color: Red; display: none">* Input digits (0 - 9)</span>
               </div>
             </div>
             </div>
@@ -208,4 +210,14 @@
     </div>
   </div>
 </section>
+<script>
+var specialKeys = new Array();
+specialKeys.push(8); //Backspace
+function IsNumeric1(e) {
+   var keyCode = e.which ? e.which : e.keyCode
+   var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+   document.getElementById("error_areaa1").style.display = ret ? "none" : "inline";
+   return ret;
+}
+</script>
 @endsection
