@@ -42,13 +42,13 @@
             <div class="box-body">
                <div class="row">
                   <div class="col-md-3 {{ $errors->has('company_name') ? 'has-error' : '' }}">
-                     <label  class="control-label">COMPANY NAME</label>
+                     <label  class="control-label">COMPANY NAME</label><span class="text-danger"><strong>*</strong></span>
                      <input class="form-control input-sm disabled-class"  disabled='disabled' type="text" placeholder="ENTER COMPANY NAME" id="company_name" name="company_name" value="{{
         (isset($leads->company_name)) ? $leads->company_name : old('company_name') }}">
               <span class="text-danger">{{ $errors->first('company_name') }}</span>
                   </div>
                   <div class="col-md-3 {{ $errors->has('product') ? 'has-error' : '' }}">
-                     <label  class="control-label">PRODUCT</label>
+                     <label  class="control-label">PRODUCT</label><span class="text-danger"><strong>*</strong></span>
                       <select class="form-control" disabled='disabled' id="product"  name="product">
                         <option value="">CHOOSE PRODUCT</option>
                         @if(count($product)>0)
@@ -66,12 +66,12 @@
               <span class="text-danger">{{ $errors->first('product') }}</span>
                   </div>
                   <div class="col-md-3">
-                     <label  class="control-label">CONTACT PERSON</label>
+                     <label  class="control-label">CONTACT PERSON</label><span class="text-danger"><strong>*</strong></span>
                      <input class="form-control input-sm disabled-class"  disabled='disabled' type="text" placeholder="ENTER CONTACT PERSON" id="contact_person" name="contact_person" value="{{
         (isset($leads->contact_person)) ? $leads->contact_person : old('contact_person') }}">
                   </div>
                   <div class="col-md-3 {{ $errors->has('contact_number') ? 'has-error' : '' }}">
-                     <label  class="control-label">CONTACT NUMBER</label>
+                     <label  class="control-label">CONTACT NUMBER</label><span class="text-danger"><strong>*</strong></span>
                      <input class="form-control input-sm disabled-class" disabled='disabled' type="text" placeholder="ENTER CONTACT NUMBER" id="contact_number" name="contact_number" value="{{
         (isset($leads->contact_number)) ? $leads->contact_number : old('contact_number') }}">
               <span class="text-danger">{{ $errors->first('contact_number') }}</span>
@@ -82,7 +82,7 @@
                </div>
                <div class="row">
                   <div class="col-md-3">
-                     <label  class="control-label">EMAIL ID</label>
+                     <label  class="control-label">EMAIL ID</label><span class="text-danger"><strong>*</strong></span>
                      <input class="form-control input-sm disabled-class" disabled='disabled' type="text" placeholder="ENTER EMAIL ID" id="email_id" name="email_id" value="{{
         (isset($leads->email_id)) ? $leads->email_id : old('email_id') }}">
                   </div>
@@ -194,7 +194,7 @@
                </div>
                <div class="row">
                   <div class="col-md-3 {{ $errors->has('add_line1') ? 'has-error' : '' }}">
-                     <label  class="control-label">LINE-1</label>
+                     <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
                      <input class="form-control input-sm disabled-class" disabled='disabled' type="text" placeholder="ADDRESS1" id="add_line1" name="add_line1" value="{{
         (isset($leads->add_line1)) ? $leads->add_line1 : old('add_line1') }}">
                <span class="text-danger">{{ $errors->first('add_line1') }}</span>
@@ -206,15 +206,14 @@
                <span class="text-danger">{{ $errors->first('add_lin2') }}</span>
                   </div>
                   <div class="col-md-3 {{ $errors->has('add_country') ? 'has-error' : '' }}">
-                     <label  class="control-label">COUNTRY</label>
+                     <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
                      <select class="form-control input-sm disabled-class" disabled='disabled' style="width: 100%;" id="add_country" name="add_country">
-                        <option value="">PLEASE SELECT COUNTRY</option>
                         <option value="INDIA" {{ isset($leads->add_country) &&  $leads->add_country == "INDIA" ||old('add_country')=="INDIA"? 'selected="selected"' : '' }}>INDIA</option>
                    </select>
                <span class="text-danger">{{ $errors->first('add_country') }}</span>
                   </div>
                   <div class="col-md-3 {{ $errors->has('add_state') ? 'has-error' : '' }}">
-                     <label  class="control-label">STATE</label>
+                     <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
                       <select class="form-control input-sm disabled-class" disabled='disabled' style="width: 100%;" id="add_state" name="add_state">
                           <option value="">PLEASE SELECT STATE</option>
                            <?php
@@ -232,15 +231,16 @@
                </div>
                <div class="row">
                   <div class="col-md-3 {{ $errors->has('add_city') ? 'has-error' : '' }}">
-                     <label  class="control-label">CITY</label>
+                     <label  class="control-label">CITY</label><span class="text-danger"><strong>*</strong></span>
                       <input class="form-control input-sm disabled-class" disabled='disabled' type="text" placeholder="ENTER CITY" id="add_city" name="add_city" value="{{
         (isset($leads->add_city)) ? $leads->add_city : old('add_city') }}">
                <span class="text-danger">{{ $errors->first('add_city') }}</span>
                   </div>
                   <div class="col-md-3 {{ $errors->has('add_pincode') ? 'has-error' : '' }}">
-                     <label  class="control-label">PIN CODE</label>
-                     <input class="form-control input-sm disabled-class" disabled='disabled' type="text" placeholder="ENTER PIN CODE" id="add_pincode" name="add_pincode" value="{{
+                     <label  class="control-label">PIN CODE</label><span class="text-danger"><strong>*</strong></span>
+                     <input class="form-control input-sm disabled-class" onkeypress="return IsNumeric1(event);" disabled='disabled' type="text" placeholder="ENTER PIN CODE" id="add_pincode" name="add_pincode" value="{{
         (isset($leads->add_pincode)) ? $leads->add_pincode : old('add_pincode') }}">
+                <span id="error_areaa1" style="color: Red; display: none">* Input digits (0 - 9)</span>
                 <span class="text-danger">{{ $errors->first('add_pincode') }}</span>
                   </div>
                </div>
@@ -251,8 +251,10 @@
                <div class="col-md-1 saveButton" style="display: none;"><button type="submit" class="btn btn-block btn-success btn-xs">UPDATE</button></div>
                @if(!isset($getcrn_info))
                <div class="col-md-1"><a href="{{url('lead/genearet/'.$leads->id.'/crn/'.$leads->product)}}" class="btn btn-block btn-default btn-xs" name="">CONVERT</a></div>
+               @else
+               <div class="col-md-2"><a disabled class="btn btn-default btn-xs" name="">CONVERTED</a></div>
                @endif
-               <div class="col-md-4"></div>
+               <div class="col-md-3"></div>
             </div>
             <div class="row">&nbsp;</div>
          </div>
@@ -424,12 +426,12 @@
                         <td>{{$i}}</td>
                           <td>{{@$leadProduct->product_name->product_name}}</td>
                           <td>
-                            @if($leadProduct->product_converted!=1))
+                            @if($leadProduct->product_converted!=1)
                             <a href="{{url('lead/genearet/'.$leads->id.'/crn/'.$leadProduct->product_id)}}" class="btn  btn-default btn-xs" name="">CONVERT</a>&nbsp;&nbsp;
 
                             <a href="" data-toggle="modal" data-target="#deleteData{{ $leadProduct->id }}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" style="color: red;"></span>DELETE</a>
                             @else
-                            --
+                              <a  class="btn  btn-default btn-xs" disabled name="">CONVERTED</a>
                             @endif
                           </td>
                           <div id="deleteData{{ $leadProduct
@@ -537,7 +539,7 @@
                 {{ $leadEmail->links() }}
             </div>
          </div>
-         <!-----------------------------------------modal----------------------------->
+         <!---modal----------------------------->
          <div class="modal fade" id="myModalProduct" role="dialog">
          <div class="modal-dialog">
          <!-- Modal content-->
@@ -731,10 +733,20 @@
       </script>
       <script type="text/javascript">
         $('.enable_edit').click(function(){
-             $('#editMode').show();
+             $('#enable_edit').hide();
              $('.disabled-class').removeAttr("disabled");
              $('.saveButton').show();
              return false;
            });
+      </script>
+      <script>
+      var specialKeys = new Array();
+      specialKeys.push(8); //Backspace
+      function IsNumeric1(e) {
+         var keyCode = e.which ? e.which : e.keyCode
+         var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+         document.getElementById("error_areaa1").style.display = ret ? "none" : "inline";
+         return ret;
+      }
       </script>
 @endsection

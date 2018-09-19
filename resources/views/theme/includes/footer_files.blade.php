@@ -2,7 +2,7 @@
 $(document).ready(function() {
     $(".num").keydown(function (e) {
         // Allow: backspace, delete, tab, escape, enter and .
-        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110,190]) !== -1 ||
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110,190,187,189,32]) !== -1 ||
              // Allow: Ctrl+A, Command+A
             (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
              // Allow: home, end, left, right, down, up
@@ -15,6 +15,18 @@ $(document).ready(function() {
             e.preventDefault();
         }
     });
+});
+</script>
+<script>
+$('.alphanum').keypress(function (e) {
+    var regex = new RegExp("^[a-zA-Z0-9]+$");
+    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (regex.test(str)) {
+        return true;
+    }
+
+    e.preventDefault();
+    return false;
 });
 </script>
 {{ Html::script('bower_components/jquery/dist/jquery.min.js') }}
@@ -46,4 +58,3 @@ $(document).ready(function() {
       {{ Html::script('dist/js/adminlte.min.js') }}
       <!-- AdminLTE for demo purposes -->
       {{ Html::script('dist/js/demo.js') }}
-
