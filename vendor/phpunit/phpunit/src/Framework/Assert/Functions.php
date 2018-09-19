@@ -157,6 +157,8 @@ function assertAttributeNotContains($needle, string $haystackAttributeName, $hay
 /**
  * Asserts that a haystack contains only values of a given type.
  *
+ * @param null|bool $isNativeType
+ *
  * @throws Exception
  * @throws ExpectationFailedException
  * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -194,6 +196,8 @@ function assertAttributeContainsOnly(string $type, string $haystackAttributeName
 
 /**
  * Asserts that a haystack does not contain only values of a given type.
+ *
+ * @param null|bool $isNativeType
  *
  * @throws Exception
  * @throws ExpectationFailedException

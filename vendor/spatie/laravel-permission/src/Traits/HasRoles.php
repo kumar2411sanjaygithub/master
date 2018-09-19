@@ -71,9 +71,7 @@ trait HasRoles
                 return $role;
             }
 
-            $method = is_numeric($role) ? 'findById' : 'findByName';
-
-            return $this->getRoleClass()->{$method}($role, $this->getDefaultGuardName());
+            return $this->getRoleClass()->findByName($role, $this->getDefaultGuardName());
         }, $roles);
 
         return $query->whereHas('roles', function ($query) use ($roles) {

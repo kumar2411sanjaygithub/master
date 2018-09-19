@@ -141,7 +141,7 @@ class Permission extends Model implements PermissionContract
         })->first();
 
         if (! $permission) {
-            return static::query()->create(['name' => $name, 'guard_name' => $guardName]);
+            return static::create(['name' => $name, 'guard_name' => $guardName]);
         }
 
         return $permission;

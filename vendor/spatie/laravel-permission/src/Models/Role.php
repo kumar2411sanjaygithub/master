@@ -120,7 +120,7 @@ class Role extends Model implements RoleContract
         $role = static::where('name', $name)->where('guard_name', $guardName)->first();
 
         if (! $role) {
-            return static::query()->create(['name' => $name, 'guard_name' => $guardName]);
+            return static::create(['name' => $name, 'guard_name' => $guardName]);
         }
 
         return $role;
@@ -153,4 +153,14 @@ class Role extends Model implements RoleContract
 
         return $this->permissions->contains('id', $permission->id);
     }
+
+    public function getDepartment()
+    {
+        return $this->belongsTo('App\Department','department_id','id');
+    }
+    public function getuser()
+    {
+        return $this->belongsTo('App\User','created_by','id');
+    }
+
 }
