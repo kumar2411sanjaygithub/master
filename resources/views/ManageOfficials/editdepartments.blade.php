@@ -1,7 +1,7 @@
 @extends('theme.layouts.default')
 @section('content')
 <section class="content-header">
-<div class="">Edit Departments</div>
+   <h5><label  class="control-label"><u>EDIT DEPARTMENT</u></label></h5>
  </section>
  <section class="content">
   <div class="clearfix"></div>
@@ -25,10 +25,8 @@
                   <label  class="control-label">DESCRIPTION</label>
                   <input class="form-control input-sm" type="text" id="description" name="description" value="{{ $departmentData->description }}">
                 </div>
-                <div class="col-md-3">
-                  <br>
-                  <button type="submit" class="btn btn-info btn-xs mt3" id="" name="">UPDATE</button>
-                  <a href="{{ route('departments') }}"><input type="button" class="btn btn-danger btn-xs mt3" value="Cancel"></a>
+                <div class="col-md-1" style="margin-top:16px;"><button class="btn btn-info btn-xs mt3" id="" name="">UPDATE</button></div>
+                <div class="col-md-1" style="margin-top:16px;"><a href="{{ route('departments') }}"><input type="button" class="btn btn-danger btn-xs mt3" value="Cancel"></a>
                 </div>
               </div>
             </div>

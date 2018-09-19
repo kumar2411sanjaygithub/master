@@ -45,7 +45,7 @@
                      <label  class="control-label">COMPANY NAME</label>
                      <input class="form-control input-sm disabled-class"  disabled='disabled' type="text" placeholder="ENTER COMPANY NAME" id="company_name" name="company_name" value="{{
         (isset($leads->company_name)) ? $leads->company_name : old('company_name') }}">
-              <span class="text-danger">{{ $errors->first('company_name') }}</span>                      
+              <span class="text-danger">{{ $errors->first('company_name') }}</span>
                   </div>
                   <div class="col-md-3 {{ $errors->has('product') ? 'has-error' : '' }}">
                      <label  class="control-label">PRODUCT</label>
@@ -57,13 +57,13 @@
                               <option value="{{ $product_data->id }}" selected>{{ $product_data->product_name }}</option>
                             @else
                               <option value="{{ $product_data->id }}" @if(old('product') == $product_data->id) {{ 'selected' }} @endif>{{ $product_data->product_name }}</option>
-                            @endif 
+                            @endif
                           @endforeach
                         @else
                           <option value="">No Data.</option>
                         @endif
                       </select>
-              <span class="text-danger">{{ $errors->first('product') }}</span>                      
+              <span class="text-danger">{{ $errors->first('product') }}</span>
                   </div>
                   <div class="col-md-3">
                      <label  class="control-label">CONTACT PERSON</label>
@@ -74,7 +74,7 @@
                      <label  class="control-label">CONTACT NUMBER</label>
                      <input class="form-control input-sm disabled-class" disabled='disabled' type="text" placeholder="ENTER CONTACT NUMBER" id="contact_number" name="contact_number" value="{{
         (isset($leads->contact_number)) ? $leads->contact_number : old('contact_number') }}">
-              <span class="text-danger">{{ $errors->first('contact_number') }}</span>                      
+              <span class="text-danger">{{ $errors->first('contact_number') }}</span>
                   </div>
                </div>
                <div class="row">
@@ -94,7 +94,7 @@
                           @foreach($industry as $industry_data)
                             @if (isset($leads->industry) && $industry_data->id == $leads->industry )
                               <option value="{{ $industry_data->id }}" selected>{{ $industry_data->industry_name }}</option>
-                            @else                          
+                            @else
                               <option value="{{ $industry_data->id }}" @if(old('industry') == $industry_data->id) {{ 'selected' }} @endif>{{ $industry_data->industry_name }}</option>
                             @endif
                           @endforeach
@@ -111,7 +111,7 @@
                           @foreach($user as $user_data)
                             @if (isset($leads->lead_owner) && $user_data->id == $leads->lead_owner )
                               <option value="{{ $user_data->id }}" selected>{{ $user_data->name }}</option>
-                            @else                                                    
+                            @else
                               <option value="{{ $user_data->id }}" @if(old('lead_owner') == $user_data->id) {{ 'selected' }} @endif>{{ $user_data->name }}</option>
                             @endif
                           @endforeach
@@ -128,7 +128,7 @@
                           @foreach($leadsource as $leadsource_data)
                             @if (isset($leads->lead_source) && $leadsource_data->id == $leads->lead_source )
                               <option value="{{ $leadsource_data->id }}" selected>{{ $leadsource_data->name }}</option>
-                            @else                                                    
+                            @else
                               <option value="{{ $leadsource_data->id }}" @if(old('lead_source') == $leadsource_data->id) {{ 'selected' }} @endif>{{ $leadsource_data->name }}</option>
                             @endif
                           @endforeach
@@ -143,7 +143,7 @@
                 <label  class="control-label">QUANTUM</label>
                   <input class="form-control input-sm disabled-class" disabled='disabled' type="text" placeholder="ENTER QUANTUM" id="quantum" name="quantum" value="{{
         (isset($leads->quantum)) ? $leads->quantum : old('quantum') }}">
-              <span class="text-danger">{{ $errors->first('quantum') }}</span>              
+              <span class="text-danger">{{ $errors->first('quantum') }}</span>
 
                   </div>
                   <div class="col-md-3">
@@ -184,26 +184,26 @@
                   </div>
                 </div>
 
-               <hr>
+
                <div class="row">
                   <div class="col-md-2">
-                     <label  class="control-label"><u>ADDRESS INFORMATION</u></label>
+                     <label  class="control-label"><u>ADDRESS INFORMATION</u></label>   <hr>
                   </div>
                   <div class="col-md-9"></div>
-                  <div class="col-md-1 text-right"><button type="button" class="btn  btn-info btn-xs">LOCATE MAP</button></div>
+                  <div class="col-md-1 " style="margin-left:-14px;"><button type="button" class="btn  btn-info btn-xs">LOCATE MAP</button></div>
                </div>
                <div class="row">
                   <div class="col-md-3 {{ $errors->has('add_line1') ? 'has-error' : '' }}">
                      <label  class="control-label">LINE-1</label>
                      <input class="form-control input-sm disabled-class" disabled='disabled' type="text" placeholder="ADDRESS1" id="add_line1" name="add_line1" value="{{
         (isset($leads->add_line1)) ? $leads->add_line1 : old('add_line1') }}">
-               <span class="text-danger">{{ $errors->first('add_line1') }}</span>                                   
+               <span class="text-danger">{{ $errors->first('add_line1') }}</span>
                   </div>
                   <div class="col-md-3 {{ $errors->has('add_lin2') ? 'has-error' : '' }}">
                      <label  class="control-label">LINE-2</label>
                      <input class="form-control input-sm disabled-class" disabled='disabled' type="text" placeholder="ADDRESS2" id="add_lin2" name="add_lin2" value="{{
         (isset($leads->add_lin2)) ? $leads->add_lin2 : old('add_lin2') }}">
-               <span class="text-danger">{{ $errors->first('add_lin2') }}</span>                                                   
+               <span class="text-danger">{{ $errors->first('add_lin2') }}</span>
                   </div>
                   <div class="col-md-3 {{ $errors->has('add_country') ? 'has-error' : '' }}">
                      <label  class="control-label">COUNTRY</label>
@@ -211,7 +211,7 @@
                         <option value="">PLEASE SELECT COUNTRY</option>
                         <option value="INDIA" {{ isset($leads->add_country) &&  $leads->add_country == "INDIA" ||old('add_country')=="INDIA"? 'selected="selected"' : '' }}>INDIA</option>
                    </select>
-               <span class="text-danger">{{ $errors->first('add_country') }}</span>                                                                            
+               <span class="text-danger">{{ $errors->first('add_country') }}</span>
                   </div>
                   <div class="col-md-3 {{ $errors->has('add_state') ? 'has-error' : '' }}">
                      <label  class="control-label">STATE</label>
@@ -224,7 +224,7 @@
                             <option value="{{$state_code}}" {{ isset($leads->add_state) &&  $leads->add_state == $state_code ||old('add_state')==$state_code? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
                           @endforeach
                       </select>
-               <span class="text-danger">{{ $errors->first('add_state') }}</span>                                    
+               <span class="text-danger">{{ $errors->first('add_state') }}</span>
                   </div>
                </div>
                <div class="row">
@@ -235,13 +235,13 @@
                      <label  class="control-label">CITY</label>
                       <input class="form-control input-sm disabled-class" disabled='disabled' type="text" placeholder="ENTER CITY" id="add_city" name="add_city" value="{{
         (isset($leads->add_city)) ? $leads->add_city : old('add_city') }}">
-               <span class="text-danger">{{ $errors->first('add_city') }}</span>                      
+               <span class="text-danger">{{ $errors->first('add_city') }}</span>
                   </div>
                   <div class="col-md-3 {{ $errors->has('add_pincode') ? 'has-error' : '' }}">
                      <label  class="control-label">PIN CODE</label>
                      <input class="form-control input-sm disabled-class" disabled='disabled' type="text" placeholder="ENTER PIN CODE" id="add_pincode" name="add_pincode" value="{{
         (isset($leads->add_pincode)) ? $leads->add_pincode : old('add_pincode') }}">
-                <span class="text-danger">{{ $errors->first('add_pincode') }}</span>                      
+                <span class="text-danger">{{ $errors->first('add_pincode') }}</span>
                   </div>
                </div>
             </div>
@@ -261,8 +261,8 @@
          <div class="row">
             <div class="col-md-1"><label  class="control-label"><u>ACTIVITIES</u></label></div>
             <div class="col-md-10"></div>
-            <div class="col-md-1">
-               <button type="button" class="btn btn-block btn-info btn-xs" data-toggle="modal" data-target="#myModal">NEW TASK</button>
+            <div class="col-md-1" style="margin-left:-13px;">
+               <button type="button" class="btn  btn-info btn-xs" data-toggle="modal" data-target="#myModal">   <span class="glyphicon glyphicon-plus"> </span>&nbspNEW TASK</button>
             </div>
          </div>
          <div class="box " >
@@ -283,7 +283,7 @@
                   <tbody>
                   @php $i=1; @endphp
                   @if (count($tasks) > 0)
-                     @foreach ($tasks as $k=>$task)                                      
+                     @foreach ($tasks as $k=>$task)
                        <tr>
                         <td>{{$i}}</td>
                           <td>{{$task->subject}}</td>
@@ -292,7 +292,7 @@
                           <td>{{@$task->user->name}}</td>
                           <td>{{date('d/m/Y',strtotime($task->created_at))}}</td>
                           <td>
-                            <a href="" data-toggle="modal" data-target="#myModal{{ $task->id }}"><span class="glyphicon glyphicon-pencil"></span>
+                            <a href="" data-toggle="modal" data-target="#myModal{{ $task->id }}"><span class="glyphicon glyphicon-pencil"></span></a>
                             <a href="" data-toggle="modal" data-target="#deleteData{{ $task->id }}"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a>
                           </td>
                           <div id="deleteData{{ $task
@@ -315,7 +315,7 @@
                                </div>
                              </div>
                              </form>
-                           </div> 
+                           </div>
 
                            <!-- for Update Task  -->
                            <div class="modal fade" id="myModal{{ $task
@@ -361,7 +361,7 @@
                               <select class="form-control"  id="owner"  name="owner" required="required">
                                 <option value="">CHOOSE OWNER</option>
                                 @if(count($user)>0)
-                                  @foreach($user as $user_data)                                                
+                                  @foreach($user as $user_data)
                                       <option value="{{ $user_data->id }}" @if($task->owner == $user_data->id) {{ 'selected' }} @endif>{{ $user_data->name }}</option>
                                   @endforeach
                                 @else
@@ -386,7 +386,7 @@
 
                        </tr>
 
-                        @php $i++; @endphp                                   
+                        @php $i++; @endphp
                     @endforeach
                   @else
                     <tr>
@@ -401,8 +401,9 @@
 
         <div class="row">
             <div class="col-md-1"><label  class="control-label"><u>PRODUCT</u></label></div>
-            <div class="col-md-offset-10 col-md-2">
-               <button type="button" class="btn btn-block btn-info btn-xs" data-toggle="modal" data-target="#myModalProduct">NEW PRODUCT</button>
+            <div class="col-md-9"></div>
+            <div class="col-md-2 pull-right" style="margin-right:-54px;" >
+               <button type="button" class="btn  btn-info btn-xs" data-toggle="modal" data-target="#myModalProduct"> <span class="glyphicon glyphicon-plus"> </span>&nbsp NEW PRODUCT</button>
             </div>
          </div>
          <div class="box">
@@ -418,14 +419,14 @@
                   <tbody>
                   @php $i=1; @endphp
                   @if (count($leadProduct) > 0)
-                     @foreach ($leadProduct as $k=>$leadProduct)                                      
+                     @foreach ($leadProduct as $k=>$leadProduct)
                        <tr>
                         <td>{{$i}}</td>
                           <td>{{@$leadProduct->product_name->product_name}}</td>
                           <td>
                             @if($leadProduct->product_converted!=1))
                             <a href="{{url('lead/genearet/'.$leads->id.'/crn/'.$leadProduct->product_id)}}" class="btn  btn-default btn-xs" name="">CONVERT</a>&nbsp;&nbsp;
-                          
+
                             <a href="" data-toggle="modal" data-target="#deleteData{{ $leadProduct->id }}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" style="color: red;"></span>DELETE</a>
                             @else
                             --
@@ -451,11 +452,11 @@
                                </div>
                              </div>
                              </form>
-                           </div> 
+                           </div>
 
                        </tr>
 
-                        @php $i++; @endphp                                   
+                        @php $i++; @endphp
                     @endforeach
                   @else
                     <tr>
@@ -470,8 +471,8 @@
          <div class="row">
             <div class="col-md-1"><label  class="control-label"><u>EMAILS</u></label></div>
             <div class="col-md-10"></div>
-            <div class="col-md-1">
-               <button type="button" class="btn btn-block btn-info btn-xs" data-toggle="modal" data-target="#myModal1">SEND EMAIL</button>
+            <div class="col-md-1" style="margin-left:-10px;">
+               <button type="button" class="btn  btn-info btn-xs" data-toggle="modal" data-target="#myModal1">SEND EMAIL</button>
             </div>
          </div>
          <div class="box ">
@@ -490,7 +491,7 @@
                   <tbody>
                   @php $i=1; @endphp
                   @if (count($leadEmail) > 0)
-                     @foreach ($leadEmail as $k=>$leadEmails)                                      
+                     @foreach ($leadEmail as $k=>$leadEmails)
                        <tr>
                         <td>{{$i}}</td>
                         <td>{{$leadEmails->recieved_by}}</td>
@@ -520,11 +521,11 @@
                                </div>
                              </div>
                              </form>
-                           </div> 
+                           </div>
 
                        </tr>
 
-                        @php $i++; @endphp                                   
+                        @php $i++; @endphp
                     @endforeach
                   @else
                     <tr>
@@ -626,7 +627,7 @@
             <select class="form-control"  id="owner"  name="owner" required="required">
               <option value="">CHOOSE OWNER</option>
               @if(count($user)>0)
-                @foreach($user as $user_data)                                                
+                @foreach($user as $user_data)
                     <option value="{{ $user_data->id }}" @if(old('lead_owner') == $user_data->id) {{ 'selected' }} @endif>{{ $user_data->name }}</option>
                 @endforeach
               @else
