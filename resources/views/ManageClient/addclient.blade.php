@@ -22,7 +22,7 @@
           <div class="row1">
               <div class="col-md-2" style="padding-left:10px;">
               <div class="input-group input-group-sm">
-                <input type="text" class="form-control" placeholder="SEARCH">
+                <input type="text" id="search" class="form-control" placeholder="SEARCH">
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-info btn-flat"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
@@ -80,11 +80,29 @@
           </div>
         </section>
       </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
  <script>
     window.setTimeout(function() {
         $(".alert").fadeTo(500, 0).slideUp(500, function(){
             $(this).remove();
         });
     }, 5000);
+  </script>
+  <script>
+    $("#search").keyup(function () {
+        var value = this.value.toLowerCase().trim();
+
+        $("table tr").each(function (index) {
+            if (!index) return;
+            $(this).find("td").each(function () {
+                var id = $(this).text().toLowerCase().trim();
+                var not_found = (id.indexOf(value) == -1);
+                $(this).closest('tr').toggle(!not_found);
+                return not_found;
+            });
+        });
+    });
   </script>
 @endsection

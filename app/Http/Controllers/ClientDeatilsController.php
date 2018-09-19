@@ -38,7 +38,7 @@ class ClientDeatilsController extends Controller
 
 			'company_name' => 'required|max:100',
             'gstin' => 'required|regex:/^[0-9]{2}[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z][0-9A-z]{3}$/|unique:posts|unique:postsmax:15',
-            'pan' => 'required|regex:/^[A-z]{3}[KCAFHTG][A-z][0-9]{4}[A-z]$/|unique:posts|max:10',
+            'pan' => 'required|regex:/^[a-zA-Z]{3}[ABCEFGHJLTabcefghjl]{1}[a-zA-Z]{1}\d{4}[a-zA-Z]{1}$/|unique:posts|max:10',
             //'short_id' => 'required|max:15',
             'pri_contact_no'=>'required',
             'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|min:21|max:21',
@@ -121,6 +121,7 @@ class ClientDeatilsController extends Controller
         $client->maxm_withdrawal = $request->input('maxm_withdrawal');
         $client->payment = $request->input('payment');
         $client->obligation = $request->input('obligation');
+				dd($client);
         $client->save();
 
         //$lsatinsertedId = $clien->id;
@@ -134,7 +135,7 @@ class ClientDeatilsController extends Controller
         return view('ManageClient.viewbasic',compact('clientdata','id'));
     }
     public function updateclient(Request $request,$basic_id){
-       
+
         $basic = Client::find($basic_id)->toArray();
         $client_id = $basic['id'];
         $datas =array();
@@ -191,7 +192,7 @@ class ClientDeatilsController extends Controller
         $datas['rt1'] = $basic['rt1'];
 
         $dataArray =array();
-        
+
         $dataArray['reg_line1'] = $request->input('reg_line1');
         $dataArray['reg_line2'] = $request->input('reg_line2');
         $dataArray['reg_country'] = $request->input('reg_country');
