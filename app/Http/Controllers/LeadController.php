@@ -47,10 +47,12 @@ class LeadController extends Controller
      */
     public function create()
     {
-        $user = User::where('id','!=',1)->orderBy('name','asc')->get();
+        $user = User::where('id','!=',1)->where('emp_app_status',1)->orderBy('name','asc')->get();
+        //dd($user);
         $leadsource = LeadSource::orderBy('name','asc')->get();
         $industry = Industry::orderBy('industry_name','asc')->get();
-        $product = Product::orderBy('product_name','asc')->get();
+        $product = Product::select('*')->get();
+        
         return view('crm.create', compact('user','leadsource','industry','product'));
     }
 
@@ -74,8 +76,9 @@ class LeadController extends Controller
             'add_country' => 'required',
             'add_state' => 'required',
             'add_city' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
-            'add_pincode' => 'required|min:4|max:6|not_in:0',
-            'contact_number' => 'nullable|digits:10',
+            'add_pincode' => 'required|min:4|max:8|not_in:0',
+            //'contact_number' => 'nullable|digits:10',
+
         ]);
 
         // $last = Lead::orderBy('id', 'desc')->get();
@@ -88,7 +91,7 @@ class LeadController extends Controller
         //  $leadID='L-'.str_pad($lead_id, 4, '0', STR_PAD_LEFT)."";
 
         $lead = new Lead;
-        $lead->leadID = mt_rand(1000,9999);
+
         $lead->company_name = request('company_name');
         $lead->product = request('product');
         $lead->contact_person = request('contact_person');
@@ -109,9 +112,22 @@ class LeadController extends Controller
         $lead->add_city = request('add_city');
         $lead->add_pincode = request('add_pincode');
         $lead->save();
+        $num = $lead->id;
+
+        $leadId =  $this->getSequence($num);
+        
+        $lead->leadID = $leadId;
+        $lead->update();
+       
 
         return redirect()->route('lead.index')->with('success', 'Lead Added Successfully.');
     }
+
+    
+    function getSequence($num) {
+     return str_pad($num, 4, '0', STR_PAD_LEFT);
+
+   }
 
 
     /**
@@ -152,19 +168,17 @@ class LeadController extends Controller
     {
 
         $this->validate($request, [
-          'company_name' => 'required|regex:/^[a-zA-Z ]+$/u|min:1|max:50',
-          'product' => 'required',
-          'contact_person' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
-          'contact_number' => 'required|digits:10',
-          'email_id' => 'required',
-          'add_line1' => 'required|max:200',
-          'add_line2' => 'nullable|max:200',
-          'quantum' => 'nullable|regex:/^[0-9]+$/',
-          'add_country' => 'required',
-          'add_state' => 'required',
-          'add_city' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
-          'add_pincode' => 'required|min:4|max:6|not_in:0',
-          'contact_number' => 'nullable|digits:10',
+            'company_name' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
+            'contact_person' => 'nullable|regex:/^[a-zA-Z ]+$/u|max:50',
+            'contact_number'=>'required|regex:/^[0-9]{10}$/',
+            'add_line1' => 'required|max:200',
+            'add_line2' => 'nullable|max:200',
+            'add_country' => 'required',
+            'add_state' => 'required',
+            'add_city' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
+            'add_pincode' => 'required|min:4|max:8|not_in:0',
+            'contact_number' => 'nullable|digits:10',
+
         ]);
 
         $lead = Lead::find($id);
