@@ -139,7 +139,7 @@
     </div>
 
     <div class="col-md-5" style="margin-top:6px;">
-  <input type="checkbox" class="minimal">&nbsp<span>SAME AS REGISTERED OFFICE ADDRESS</span>
+  <input type="checkbox" id="saroa" class="minimal1">&nbsp<span><label for="saroa">SAME AS REGISTERED OFFICE ADDRESS</label></span>
     </div>   <div class="col-md-5"></div>
   </div><hr>
             <div class="row">
@@ -201,7 +201,7 @@
         </div>
 
         <div class="col-md-5" style="margin-top:6px;">
-      <input type="checkbox" class="minimal">&nbsp<span>SAME AS BILLING ADDRESS</span>
+      <input type="checkbox" id="saba" class="minimal1">&nbsp<span><label for="saba">SAME AS BILLING ADDRESS</label></span>
         </div>   <div class="col-md-5"></div>
       </div><hr>
             <div class="row">
