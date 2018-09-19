@@ -8,9 +8,7 @@
   display: block;
 }
 </style>
-     <section class="content-header">
-          <h5><label  class="control-label"><u>CONTACT DETAILS</u>&nbsp <small>{{$client_details[0]['company_name']}}|{{$client_details[0]['crn_no']}}|{{$client_details[0]['iex_portfolio']}}|{{$client_details[0]['pxil_portfolio']}}</small></label></h5>
-    </section>
+
 
     <!-- Main content -->
     <section class="content">
@@ -180,5 +178,4 @@
   // }
   </script>
 
-
-            @endsection
+@endsection
