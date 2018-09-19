@@ -37,7 +37,7 @@
   <div class="box-body">
   <div class="row">
       <div class="col-md-3">
-     <label  class="control-label">EMPLOYEE</label>
+     <label  class="control-label">EMPLOYEE NAME</label>
        <input class="form-control input-sm valid" type="text" name="name" id="name" value="{{ old('name') }}">
     </div>
   <div class="col-md-3">
@@ -68,13 +68,13 @@
 </div>
 <div class="col-md-3">
   <label  class="control-label">NEW PASSWORD</label>
-<input class="form-control input-sm" type="text" name="password" id="password" value="">
+<input class="form-control input-sm" type="password" name="password" id="password" value="">
 </div>
 </div>
 <div class="row">
     <div class="col-md-3">
    <label  class="control-label">CONFIRM PASSWORD</label>
-     <input class="form-control input-sm" type="text" name="confirmed" id="confirmed" value="">
+     <input class="form-control input-sm" type="password" name="confirmed" id="confirmed" value="">
   </div>
 <div class="col-md-3">
   <label  class="control-label">DEPARTMENT NAME</label>

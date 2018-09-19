@@ -113,7 +113,7 @@ class ManageOfficialsController extends Controller
     {
        //dd(1);
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:25|regex:/^[a-zA-Z ]*$/|max:50',
+            'name' => 'required|regex:/^[a-zA-Z]+$/u|max:50',
             'employee_id'=>'required|max:20',
             'email' => 'required|email|unique:users|max:80',
             'contact_number' => 'required|unique:employee_temp|max:10|min:10|regex:/^[0-9]{10}$/',
