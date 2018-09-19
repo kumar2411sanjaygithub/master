@@ -5,7 +5,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 @section('content')
 <section class="content-header">
-<div class="">Edit PPA DETAILS</div>
+<h5><label  class="control-label"><u>EDIT PPA DETAILS</u></label></h5>
  </section>
  <section class="content">
   <div class="clearfix"></div>
@@ -49,16 +49,10 @@
                         <input class="form-control input-sm" type="hidden" value="{{ $ppaData->file_path }}" name="old" placeholder="ENTER POC LOSSES">
                           <span class="text-danger">{{ $errors->first('file_path') }}</span>
                      </div>
+                     <div class="col-md-1" style="margin-top:20px;"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
+                     <div class="col-md-1" style="margin-top:20px;"><button type="reset" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
                   </div>
-                  <div class="row">&nbsp;</div>
-                  <div class="row">
-                     <div class="col-md-5"></div>
-                     <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                     <div class="col-md-1"><button type="reset" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
-                     <div class="col-md-5"></div>
-                  </div>
-                  <div class="row">&nbsp;</div>
-               </div>
+                </div>
             </div>
 </form>
  </section>

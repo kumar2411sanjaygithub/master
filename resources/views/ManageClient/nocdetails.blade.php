@@ -15,17 +15,10 @@
                 {{ session()->get('message') }}
             </div>
           @endif
-              <h5><label  class="control-label"><u>NOC DETAILS</u> <small>{{$client_details[0]['company_name']}}/{{$client_details[0]['crn_no']}}/{{$client_details[0]['iex_portfolio']}}/{{$client_details[0]['pxil_portfolio']}}</small></label></h5>
+              <h5><label  class="control-label"><u>NOC DETAILS</u>&nbsp&nbsp&nbsp&nbsp {{$client_details[0]['company_name']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['crn_no']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['iex_portfolio']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['pxil_portfolio']}}</label></h5>
       <div class="row" id="nocbox">
         <div class="col-xs-12">
-          <div class="row">
-              <div class="col-md-10"></div>
-               <div class="col-md-2 text-right" style="margin-top:-38px;">
-                 <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
-               
-              </div>
-          </div>
-          <form method ="post" action="{{isset($get_noc_details)?url('noc_edit/'.$get_noc_details->id):route('noc_create')}}" enctype="multipart/form-data">
+                <form method ="post" action="{{isset($get_noc_details)?url('noc_edit/'.$get_noc_details->id):route('noc_create')}}" enctype="multipart/form-data">
            {{ csrf_field() }}
 
       <div class="row {{(isset($get_noc_details)||!$errors->isEmpty())?'':'divhide'}}">
@@ -58,7 +51,7 @@
           <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
           </div>
-          
+
           <input type="text" class="form-control pull-right input-sm" id="validity_to" name="validity_to" value="{{isset($get_noc_details)?$get_noc_details->validity_to:old('validity_to')}}">
         </div>
         <span class="text-danger">{{ $errors->first('validity_to') }}</span>
@@ -80,11 +73,11 @@
         <label  class="control-label">NOC QUANTUM</label><span class="text-danger"><strong>*</strong></span>
         <input class="form-control input-sm" type="text" placeholder="ENTER NOC QUANTUM" id="noc_quantum" name="noc_quantum" value="{{isset($get_noc_details)?$get_noc_details->noc_quantum:old('noc_quantum')}}">
       </div>
-      
+
       <div class="col-md-3">
       <label  class="control-label">REGION</label>
       <select class="form-control input-sm " style="width: 100%;" id="region" name="region" value="{{isset($get_noc_details)?$get_noc_details->region:old('region')}}">
-         
+
           @foreach($region as $regions)
         <option value="{{$regions->id}}">{{$regions->region}}</option>
           @endForeach
@@ -95,7 +88,7 @@
     <div class="col-md-3">
     <label  class="control-label">REGION ENTITY</label>
     <select class="form-control input-sm" style="width: 100%;" id="region_entity" name="region_entity" value="{{isset($get_noc_details)?$get_noc_details->region_entity:old('region_entity')}}">
-       
+
           @foreach($regional as $regions)
         <option value="{{$regions->id}}">{{$regions->regional_entity}}</option>
           @endForeach
@@ -163,12 +156,12 @@
   </div>
     <div class="row">
         <div class="col-xs-12">
-          
+
                                 <div class="row">
-                                   <div class="col-md-1"></div>
-                                   <div class="col-md-10"></div>
-                                   <div class="col-md-1 text-right"><button class="btn btn-info btn-xs" id="add">
-                                    <span class="glyphicon glyphicon-plus"></span>&nbsp ADD</div>
+                                   <div class="col-md-9"></div>
+                                      <div class="col-md-3 text-right"><a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
+                                         <button class="btn btn-info btn-xs" id="add">
+                                            <span class="glyphicon glyphicon-plus"></span>&nbsp ADD</div>
                                 </div>
 <div class="box">
   <div class="box-body table-responsive">
@@ -191,7 +184,7 @@
     </tr>
   </thead>
   <tbody>
-  
+
         @isset($nocData)
                            <?php
                              $i=1;
@@ -200,7 +193,7 @@
                            <tr>
                               <td class="text-center">{{ $i }}</td>
                               <td class="text-center">{{ $value->noc_type }}</td>
-                              <td class="text-center">{{ $value->noc_quantum }}</td> 
+                              <td class="text-center">{{ $value->noc_quantum }}</td>
                               <td class="text-center">{{ $value->validity_from }}</td>
                               <td class="text-center">{{ $value->validity_to }}</td>
                               <td class="text-center">{{ $value->noc_periphery }}</td>
@@ -209,7 +202,7 @@
                               <td class="text-center">{{ $value->stu_losses }}</td>
                               <td class="text-center">{{ $value->final_quantum }}</td>
                               <td class="text-center">{{ $value->upload_noc }}</td>
-                              <td class="text-center">{{ $value->status }}</td>                                  
+                              <td class="text-center">{{ $value->status }}</td>
                               <td class="text-center">
                                   <a href="{{url('/editnocdetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-noc-detail" noc_detail_id="{{$value->id}}"></span></a>
                                 <a href="/delete/noc/{{$value->id}}"><span class="glyphicon glyphicon-trash " id="remove-noc-detail" noc_detail_id="{{$value->id}}"></span></a>
@@ -220,7 +213,7 @@
                            ?>
                            @endforeach
                            @endisset
-   
+
                    </tbody>
                 </table>
               </div>
@@ -231,7 +224,7 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
      <script>
-    
+
      $(document).ready(function(){
       $('#add').on('click', function(){
 

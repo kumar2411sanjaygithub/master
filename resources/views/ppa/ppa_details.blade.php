@@ -59,7 +59,7 @@
               <span class="text-danger">{{ $errors->first('client') }}</span>
             </div>
          </div>
-         <div class="row">&nbsp;</div>
+        <div style="height:4px;"></div>
          <div class="row">
             <div class="col-md-3 {{ $errors->has('validity_from') ? 'has-error' : '' }}">
                <label  class="control-label">VALIDITY START DATE</label><span class="text-danger"><strong>*</strong></span>
@@ -83,17 +83,13 @@
             </div>
             <div class="col-md-3 {{ $errors->has('file_path') ? 'has-error' : '' }}">
                <label  class="control-label">UPLOAD DOCUMENT</label><span class="text-danger"><strong>*</strong></span>
-               <input class="form-control input-sm" type="file" name="file_path" placeholder="ENTER POC LOSSES">
+               <input class="form-control input-sm" type="file" name="file_path" placeholder="ENTER POC LOSSES" style="padding:4px 4px;">
                <span class="text-danger">{{ $errors->first('file_path') }}</span>
             </div>
+            <div class="col-md-1" style="margin-top:22px;"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
+            <div class="col-md-1" style="margin-top:22px;"><button type="reset" id="cancel" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
          </div>
-         <div class="row">&nbsp;</div>
-         <div class="row">
-            <div class="col-md-5"></div>
-            <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-            <div class="col-md-1"><button type="reset" id="cancel" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
-            <div class="col-md-5"></div>
-         </div>
+
         </div>
    </div>
    <div class="row">

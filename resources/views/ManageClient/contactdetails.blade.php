@@ -8,9 +8,6 @@
   display: block;
 }
 </style>
-     <section class="content-header">
-          <h5><label  class="control-label"><u>CONTACT DETAILS</u>&nbsp <small>{{$client_details[0]['company_name']}}/{{$client_details[0]['crn_no']}}/{{$client_details[0]['iex_portfolio']}}/{{$client_details[0]['pxil_portfolio']}}</small></label></h5>
-    </section>
 
     <!-- Main content -->
     <section class="content">
@@ -32,11 +29,13 @@
 
 
           <div class="row">
-           <div class="col-xs-12">
-              <div class="pull-right">
+            <div class="col-md-5 pull-left">
+                <h5><label  class="control-label"><u>CONTACT DETAILS</u>&nbsp&nbsp &nbsp &nbsp  {{$client_details[0]['company_name']}} &nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp {{$client_details[0]['crn_no']}} &nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp {{$client_details[0]['iex_portfolio']}} &nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp {{$client_details[0]['pxil_portfolio']}}</label></h5>
+            </div>
+            <div class="col-md-5"></div>
+            <div class="col-md-2 pull-right" style="margin-right:-29px;">
                 <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
                 <button class="btn btn-info btn-xs" id="add"><span class="glyphicon glyphicon-plus"></span>&nbspADD</button>
-              </div>
             </div>
           </div>
 
@@ -86,18 +85,11 @@
     </form>
 
 
-   
+
 
 
                <div class="row">
                   <div class="col-xs-12">
-                     <div class="row">
-                        <div class="col-md-9"></div>
-                        <div class="col-md-3 text-right"><button class="btn btn-info btn-xs"  id="add">
-                          <span class="glyphicon glyphicon-plus"></span>&nbspADD
-                        </button>
-                       </div>
-                     </div>
 
                      <div class="box">
                         <div class="box-body table-responsive">
@@ -134,7 +126,7 @@
                         <td class="text-center">{{ $value->designation }}</td>
                         <td class="text-center">{{ $value->email }}</td>
                         <td class="text-center">{{ $value->mob_num }}</td>
-                        <td class="text-center" ><a href="/service/contact/{{$value->client_id}}" ><u>Set</u></a></td>
+                        <td class="text-center" style="width:9%;" ><a href="/service/contact/{{$value->client_id}}" ><u>Set</u></a></td>
                         <td class="text-center">
                           <a href="{{url('/editcontactdetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-bank-detail" contact_detail_id="{{ $value->id }}"></span></a>
                           <a href="/delete/contact/{{$value->id}}"><span class="glyphicon glyphicon-trash text-danger" id="remove-bank-detail" contact_detail_id="{{ $value->id }}"></span></a>

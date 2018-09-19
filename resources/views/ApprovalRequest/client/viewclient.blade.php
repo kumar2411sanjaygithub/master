@@ -26,7 +26,7 @@
                     </span>
               </div></div>
           <div class="col-md-8"></div>
-          
+
           </div>
 
           <div class="box">
@@ -68,7 +68,7 @@
                 </tbody>
                 </table>
             </div>
-            
+
           </div>
         </section>
  <script>

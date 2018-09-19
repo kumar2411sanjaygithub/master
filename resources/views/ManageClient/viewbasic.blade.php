@@ -20,9 +20,9 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="pull-right">
-             <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>               
+             <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
              <a href=""><input type="button"  class="btn btn-info btn-xs enable_edit" value=" EDIT"></a>
-              </div>               
+              </div>
           </div>
         </div>
          <form method="post" action="/client/updateclient/{{$id}}">
@@ -30,27 +30,27 @@
             <div class="box" >
 
             <div class="box-body">
-            <h5><label  class="control-label"><u>CLIENT DETAILS</u></label></h5>
+            <h5><label  class="control-label"><u>CLIENT DETAILS</u></label></h5><hr>
             <div class="row">
               <div class="col-md-3">
               <label  class="control-label">COMPANY NAME</label><span class="text-danger"><strong>*</strong></span>
               <input class="form-control input-sm " disabled type="text" placeholder="ENTER COMPANY NAME" name="company_name" id="company_name" value="{{ $clientdata->company_name}}">
-               
+
               </div>
               <div class="col-md-3">
               <label  class="control-label">GSTIN</label><span class="text-danger"><strong>*</strong></span>
               <input class="form-control input-sm "  disabled type="text" placeholder="ENTER GSTIN" name="gstin" id="gstin" value="{{ $clientdata->gstin}}">
-               
+
               </div>
               <div class="col-md-3">
             <label  class="control-label">PAN</label><span class="text-danger"><strong>*</strong></span>
               <input class="form-control input-sm " disabled type="text" placeholder="ENTER PAN NUMBER" name="pan" id="pan" value="{{ $clientdata->pan}}">
-              
+
               </div>
               <div class="col-md-3">
             <label  class="control-label">CIN</label>
               <input class="form-control input-sm"  disabled type="text" placeholder="ENTER CIN NUMBER" name="cin" id="cin"value="{{ $clientdata->cin}}">
-               
+
               </div>
             </div>
 
@@ -58,12 +58,12 @@
               <div class="col-md-3">
             <label  class="control-label">PRIMARY CONTACT NUMBER</label>
               <input class="form-control input-sm" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" disabled  value="{{ $clientdata->cin}}">
-              
+
               </div>
               <div class="col-md-3 ">
             <label  class="control-label">PRIMARY EMAIL ID</label>
               <input class="form-control input-sm" type="text"  disabled placeholder="ENTER PRIMARY MAIL ID"name="email" id="email" value="{{ $clientdata->email}}">
-              
+
               </div>
               <div class="col-md-3">
               <label  class="control-label">SHORT ID</label>
@@ -84,13 +84,13 @@
               <input class="form-control input-sm" type="text"  disabled placeholder="ENTER CRN NUMBER" name="crn_no" id="crn_no" value="{{ $clientdata->crn_no}}">
               </div>
             </div>
-          <hr>
-          <h5><label  class="control-label"><u>REGISTERED OFFICE ADDRESS</u></label></h5>
+
+          <h5><label  class="control-label"><u>REGISTERED OFFICE ADDRESS</u></label></h5><hr>
             <div class="row">
               <div class="col-md-3">
               <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
               <input class="form-control input-sm disabled-class" type="text"  disabled placeholder=".ENTER ADDRESS1" name="reg_line1" id="reg_line1" value="{{ $clientdata->reg_line1}}">
-              
+
               </div>
               <div class="col-md-3">
               <label  class="control-label">LINE-2</label>
@@ -99,7 +99,7 @@
               <div class="col-md-3 {{ $errors->has('reg_country') ? 'has-error' : '' }}">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm disabled-class"   disabled style="width: 100%;" id="reg_country" name="reg_country" value="{{ $clientdata->reg_country}}">
-                  
+
                  <option value="india">INDIA</option>
 
                 </select>
@@ -125,7 +125,7 @@
               <div class="col-md-3 ">
               <label  class="control-label">CITY</label><span class="text-danger"><strong>*</strong></span>
               <input class="form-control input-sm disabled-class"  disabled  type="text" name="reg_city" id="reg_city" value="{{ $clientdata->reg_city}}">
-              
+
               </div>
               <div class="col-md-3">
             <label  class="control-label">PIN CODE</label>
@@ -134,7 +134,7 @@
               <div class="col-md-3">
             <label  class="control-label">MOBILE NUMBER</label><span class="text-danger"><strong>*</strong></span>
                 <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER MOBILE NUMBER"  id="reg_mob" name="reg_mob" value="{{ $clientdata->reg_mob}}">
-               
+
               </div>
               <div class="col-md-3">
             <label  class="control-label">TELEPHONE</label>
@@ -145,10 +145,9 @@
             <div class="col-md-2">
           <h5><label  class="control-label"><u>BILLING ADDRESS</u></label></h5>
         </div>
-        <div class="col-md-5"></div>
-        <div class="col-md-5 text-right" style="margin-top:10px;">
-          <input type="checkbox" class="minimal">&nbsp<span>SAME AS REGISTERED OFFICE ADDRESS</span>
-        </div>
+        <div class="col-md-5" style="margin-top:6px;">
+      <input type="checkbox" class="minimal">&nbsp<span>SAME AS REGISTERED OFFICE ADDRESS</span>
+        </div>   <div class="col-md-5"></div>
       </div>
             <div class="row">
               <div class="col-md-3">
@@ -202,16 +201,15 @@
               </div>
             </div>
 
-        <hr>
+
           <div class="row">
             <div class="col-md-2">
         <h5><label  class="control-label"><u>DELIVERY ADDRESS</u></label></h5>
         </div>
-        <div class="col-md-5"></div>
-        <div class="col-md-5 text-right">
+        <div class="col-md-5" style="margin-top:6px;">
       <input type="checkbox" class="minimal">&nbsp<span>SAME AS BILLING ADDRESS</span>
-        </div>
-      </div>
+        </div>   <div class="col-md-5"></div>
+      </div><hr>
             <div class="row">
               <div class="col-md-3">
               <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
@@ -263,8 +261,8 @@
                 <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER TELEPHONE NUMBER" id="del_telephone" name="del_telephone" value="{{ $clientdata->del_telephone}}">
               </div>
             </div>
-            <hr>
-            <h5><label  class="control-label"><u>EXCHANGE DETAILS</u></label></h5>
+
+            <h5><label  class="control-label"><u>EXCHANGE DETAILS</u></label></h5><hr>
             <div class="row">
               <div class="col-md-3">
               <label  class="control-label">IEX CLIENT NAME</label>
@@ -308,7 +306,7 @@
               <div class="col-md-3">
             <label  class="control-label">IEX REGION</label>
             <select class="form-control input-sm disabled-class"  disabled style="width: 100%;"id="iex_region" name="iex_region" value="{{ $clientdata->iex_region}}">
-               
+
                 <option value=" ">Select Region</option>
                     <option value="A1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A1") ? 'selected' : '' }}>A1(Tripura, Mainpur, Mizoram, Nagaland)</option>
                     <option value="A2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A2") ? 'selected' : '' }}>A2(Assam, Arunachal Pradesh, Meghalaya)</option>
@@ -345,8 +343,8 @@
               </select>
               </div>
             </div>
-           <hr>
-          <h5><label  class="control-label"><u>CONNECTION DETAILS</u></label></h5>
+
+          <h5><label  class="control-label"><u>CONNECTION DETAILS</u></label></h5><hr>
             <div class="row">
               <div class="col-md-3">
               <label  class="control-label">STATE TYPE</label>
@@ -389,25 +387,28 @@
               <div class="col-md-3">
               <label  class="control-label">PART OF INTERCONNECTION</label>
               <div class="form-group">
-                <div class="col-md-4 pull-left">
-                    <input type="checkbox" class="flat-red pull-left disabled-class" id="inter_discom" name="inter_discom"  disabled  disabled value="{{old('inter_discom')}}"><span class="pull-left" >DISCOM</span>
+                <div class="col-md-1 " style="margin-left:-6px;">
+                          <input type="checkbox" class="flat-red pull-left disabled-class" id="inter_discom" name="inter_discom"  disabled  disabled value="{{old('inter_discom')}}"></div>
+                      <div class="col-md-3" style="margin-left:-7px;">DISCOM
                   </div>
-                <div class="col-md-3 pull-left">
-                    <input type="checkbox" class="flat-red disabled-class"  disabled  disabled id="inter_stu" name="inter_stu" value="{{old('inter_stu')}}"><span  class="pull-left">STU</span>
+                <div class="col-md-1 "  style="margin-left:-6px;">
+                    <input type="checkbox" class="flat-red disabled-class"  disabled  disabled id="inter_stu" name="inter_stu" value="{{old('inter_stu')}}"></div>
+                    <div class="col-md-1" style="margin-left:-7px;">STU
                 </div>
-               <div class="col-md-4 pull-Left">
-                     <input type="checkbox" class="flat-red disabled-class"  disabled  disabled id="inter_poc" name="inter_poc" value="{{old('inter_poc')}}"><span  class="pull-left">POC/CTU</span>
+               <div class="col-md-1">
+                     <input type="checkbox" class="flat-red disabled-class"  disabled  disabled id="inter_poc" name="inter_poc" value="{{old('inter_poc')}}">
                 </div>
-              </div>
+                   <div class="col-md-5" style="width:30%;margin-left:-5px;">POC/CTU</div>
+                </div>
               </div>
               <div class="col-md-3">
-            <label  class="control-label">DOES BELONG TO COMMON FEEDER</label>
+            <label  class="control-label">DOES BELONG TO COMMON FEEDER?</label>
             <div class="form-group">
               <div class="col-md-6 pull-left">
-                  <span  class="pull-left">YES</span>&nbsp&nbsp<input  disabled type="radio" class="flat-red disabled-class" name="rt" id="rt">
+                <input  disabled type="radio" class="flat-red disabled-class" name="rt" id="rt">&nbsp&nbspYES
               </div>
              <div class="col-md-6 pull-Left">
-                   <span  class="pull-left">NO</span>&nbsp&nbsp<input  disabled type="radio" class="flat-red disabled-class" name="rt" id="rt1">
+                  <input  disabled type="radio" class="flat-red disabled-class" name="rt" id="rt1">&nbsp&nbspNO
               </div>
             </div>
               </div>
@@ -435,8 +436,8 @@
             <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER WITHDRAWAL QUANTUM" name="maxm_withdrawal" id="maxm_withdrawal" value="{{old('maxm_withdrawal')}}">
               </div>
             </div>
-              <hr>
-        <h5><label  class="control-label"><u>FINANCIAL ARRANGEMENT</u></label></h5>
+
+        <h5><label  class="control-label"><u>FINANCIAL ARRANGEMENT</u></label></h5><hr>
             <div class="row">
               <div class="col-md-3">
               <label  class="control-label">LATER PAYMENT PENALTY(%)</label>
