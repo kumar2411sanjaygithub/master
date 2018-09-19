@@ -35,12 +35,12 @@
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>
       <tr>
-         <th>SR.NO</th>
+         <th class="srno">SR.NO</th>
          <th>CLIENT NAME</th>
          <th>GSTIN</th>
          <th>PAN</th>
          <th>CIN</th>
-         <th>ACTION</th>
+         <th class="act">ACTION</th>
       </tr>
       </thead>
       <tbody>
@@ -71,18 +71,18 @@
                                      @if($value->client_app_status =='0')
 
                                       <td class="text-center">
-                                        <a href="/status/{{$value->id}}/approve" class="btn  btn-info btn-xs">Approve</a>
-                                        <a href="/status/{{$value->id}}/reject" class="btn  btn-danger btn-xs">Reject</a>
+                                        <a href="/status/{{$value->id}}/approve" class="btn  btn-info btn-xs">APPROVE</a>
+                                        <a href="/status/{{$value->id}}/reject" class="btn  btn-danger btn-xs">REJECT</a>
                                       </td>
                                     @elseif($value->client_app_status =='1')
 
                                       <td class="text-center">
-                                        <span class="text-primary">Approved</span>
+                                        <span class="text-primary">APPROVED</span>
                                       </td>
                                     @elseif($value->client_app_status =='2')
 
                                       <td class="text-center">
-                                        <span class="text-danger">Rejected</span>
+                                        <span class="text-danger">REJECTED</span>
                                       </td>
                                     @endif
 
@@ -116,7 +116,7 @@ function generate_model(approveclient)
                 <td style="padding-left:5px!important;border:1px solid #ddd;width:25%;font-size:13px;" class="text-left">Company Name</td>
                 <td class="text-left" style="padding-left:5px!important;font-size:13px;border:1px solid #ddd;">`+ approveclient.company_name +`</td>
               </tr>
-              <tr>                  
+              <tr>
                 <td style="padding-left:5px!important;font-size:13px;" class="text-left">GSTIN</td>
                 <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.gstin +`</td>
               </tr>
@@ -145,21 +145,21 @@ function generate_model(approveclient)
                 <td style="padding-left:5px!important;font-size:13px;" class="text-left">Old Sap Code</td>
                 <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.old_sap +`</td>
               </tr>
-             
+
               <tr>
                 <td style="padding-left:5px!important;font-size:13px;" class="text-left">Sap Code</td>
                 <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ '-' +`</td>
               </tr>
-           
+
             </table>`;
         if(approveclient.client_app_status==0){
           $template += `<div class="text-center">
                 <a href="/status/`+approveclient.id+`/approve" class="btn  btn-info btn-xs">Approve</a>
                 <a href="/status/`+approveclient.id+`/reject" class="btn  btn-danger btn-xs">Reject</a>
-                
+
             </div>`;
         }
-        $template += `</div> 
+        $template += `</div>
       </div>
     </div>
   </div>
@@ -172,7 +172,7 @@ function generate_model(approveclient)
     <script>
   $(document).ready(function () {
   $("tr").on('click','#pop',function () {
-    $('#modaldetail').modal('show'); 
+    $('#modaldetail').modal('show');
   });
 });
 </script>
@@ -203,5 +203,31 @@ function myFunction() {
             $(this).remove();
         });
     }, 5000);
+  </script>
+  <script>
+  $(function () {
+      $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_flat-green',
+        radioClass   : 'iradio_flat-green'
+    })
+    //Red color scheme for iCheck
+    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+      checkboxClass: 'icheckbox_minimal-red',
+      radioClass   : 'iradio_minimal-red'
+    })
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-blue',
+      radioClass   : 'iradio_flat-blue'
+    })
+
+  })
+
+  $(function () {
+  $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+  checkboxClass: 'icheckbox_flat-green',
+  radioClass   : 'iradio_flat-green'
+  })
+  });
   </script>
     @endsection

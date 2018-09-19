@@ -33,23 +33,22 @@
           <div class="row">&nbsp;</div>
           <div class="row">
            <div class="col-md-8"></div>
-            <div class="col-md-4 text-right"><input type="checkbox"  class="minimal" name="ap1" id="ap1">&nbsp&nbsp<label  class="control-label">APPROVE ALL</label>
-            &nbsp&nbsp&nbsp<input type="checkbox" class="minimal" name="ra1" id="ra1">&nbsp&nbsp<label  class="control-label"  >REJECT ALL</label></div>
-          </div>
+            <div class="col-md-4 text-right"><button type="button" class="btn btn-raised btn-info btn-xs">APPROVE ALL</button>
+            &nbsp&nbsp&nbsp<button type="button" class="btn btn-raised btn-danger btn-xs mlt">REJECT ALL</button></div></div>
         <div class="box">
           <div class="box-body">
       <div class="box-body table-responsive">
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>
       <tr>
-        <th><input type="checkbox"  class="minimal" name="ane1" id="ane1"></th>
-        <th>SR.NO</th>
+        <th class="chy"><input type="checkbox"  class="minimal" name="ane1" id="ane1"></th>
+        <th class="srno">SR.NO</th>
         <th>EMPLOYEE NAME</th>
         <th>USER NAME</th>
         <th>FIELD NAME</th>
         <th>UPDATED VALUE</th>
         <th>CURRENT VALUE</th>
-        <th>ACTION</th>
+        <th class="act">ACTION</th>
       </tr>
       </thead>
       <tbody>
@@ -82,20 +81,20 @@
                               @if($value->approve_status =='0')
                               <td class="text-center">
                                 <span class="">
-                                  <a href="employee/approve/{{ $value->id }}"><button type="button" class="btn btn-raised btn-info btn-xs">Approve</button></a>
+                                  <a href="employee/approve/{{ $value->id }}"><button type="button" class="btn btn-raised btn-info btn-xs">APPROVE</button></a>
                                 </span>
 
                                 <span class="">
-                                  <a href="/employee/reject/{{ $value->id }}"><button type="button" class="btn btn-raised btn-danger btn-xs">Reject</button></a>
+                                  <a href="/employee/reject/{{ $value->id }}"><button type="button" class="btn btn-raised btn-danger btn-xs">REJECT</button></a>
                                 </span>
                               </td>
                               @elseif($value->approve_status =='1')
                               <td class="text-center">
-                                  <span class="text-primary">Approved</span>
+                                  <span class="text-primary">APPROVED</span>
                                 </td>
                                 @elseif($value->approve_status =='2')
                               <td class="text-center">
-                                  <span class="text-primary">Rejected</span>
+                                  <span class="text-primary">REJECTED</span>
                                 </td>
                               @endif
                             </tr>
@@ -124,8 +123,8 @@
   <script>
   $(function () {
       $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass   : 'iradio_minimal-blue'
+        checkboxClass: 'icheckbox_flat-green',
+        radioClass   : 'iradio_flat-green'
     })
     //Red color scheme for iCheck
     $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({

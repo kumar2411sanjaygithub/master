@@ -30,22 +30,21 @@
                     </span>
               </div></div>
           <div class="col-md-6"></div>
-            <div class="col-md-4 text-right"><input type="checkbox"  class="minimal" name="ap1" id="checkAll">&nbsp&nbsp<label  class="control-label">APPROVE ALL</label>
-            &nbsp&nbsp&nbsp<input type="checkbox" class="minimal" name="ra1" id="checkAllr">&nbsp&nbsp<label  class="control-label"  >REJECT ALL</label></div>
-          </div>
+            <div class="col-md-4 text-right"><button type="button" class="btn btn-raised btn-info btn-xs">APPROVE ALL</button>
+            &nbsp&nbsp&nbsp<button type="button" class="btn btn-raised btn-danger btn-xs mlt">REJECT ALL</button>
+          </div></div>
         <div class="box">
-          <div class="box-body">
-      <div class="box-body table-responsive">
+            <div class="box-body table-responsive">
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>
       <tr>
-        <th><input type="checkbox"  class="minimal" name="ane1" id="ane1"></th>
-        <th>SR.No</th>
+        <th class="chy"><input type="checkbox"  class="minimal" name="ane1" id="ane1"></th>
+        <th class="srno">SR.No</th>
         <th>EMPLOYEE NAME</th>
         <th>DESIGNATION</th>
         <th>ROLE NAME</th>
         <th>DEPARTMENT</th>
-        <th>ACTION</th>
+        <th class="act">ACTION</th>
       </tr>
       </thead>
       <tbody>
@@ -61,25 +60,24 @@
                              <td><div class="">{{$i}}</div></td>
                               <td class="text-center">{{ $value->name }} </td>
                               <td class="text-center">{{ $value->designation }}</td>
-                              <td class="text-center w20">{{ $value->role }}
-                              </td>
+                              <td class="text-center w20">{{ $value->role }}</td>
                               <td class="text-center">{{ $value->department['depatment_name'] }}</td>
 
                               @if($value->emp_app_status =='0')
                               <td class="text-center w15">
 
-                                  <a href="/approve/{{ $value->id }}"><button type="button" class="btn btn-raised btn-info btn-xs">Approve</button></a>
+                                  <a href="/approve/{{ $value->id }}"><button type="button" class="btn btn-raised btn-info btn-xs">APPROVE</button></a>
 
-                                  <a href="/reject/{{ $value->id }}"><button type="button" class="btn btn-raised btn-danger btn-xs">Reject</button></a>
+                                  <a href="/reject/{{ $value->id }}"><button type="button" class="btn btn-raised btn-danger btn-xs">REJECT</button></a>
 
                               </td>
                               @elseif($value->emp_app_status =='1')
                                 <td class="text-center">
-                                  <span class="text-primary">Approved</span>
+                                  <span class="text-primary">APPROVED</span>
                                 </td>
                               @elseif($value->approve_status =='2')
                               <td class="text-center">
-                                <span class="text-danger">Rejected</span>
+                                <span class="text-danger">REJECTED</span>
                               </td>
                               @endif
                             </tr>
@@ -94,6 +92,8 @@
       </table>
 
   <!-- /.box-body -->
+
+</div>
 </div>
 </div>
 </div>
@@ -141,8 +141,8 @@
   <script>
   $(function () {
       $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass   : 'iradio_minimal-blue'
+        checkboxClass: 'icheckbox_flat-green',
+        radioClass   : 'iradio_flat-green'
     })
     //Red color scheme for iCheck
     $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
