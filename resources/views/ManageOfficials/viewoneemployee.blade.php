@@ -17,7 +17,7 @@
   <div class="box-body">
   <div class="row">
       <div class="col-md-3">
-     <label  class="control-label">EMPLOYEE NAME</label>
+     <label  class="control-label">EMPLOYEE</label>
        <input class="form-control input-sm" type="text" name="name" id="name" readonly name="name" value="{{ $officialstData->name }}">
     </div>
   <div class="col-md-3">

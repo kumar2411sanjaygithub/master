@@ -287,6 +287,8 @@ abstract class Assert
     /**
      * Asserts that a haystack contains only values of a given type.
      *
+     * @param null|bool $isNativeType
+     *
      * @throws ExpectationFailedException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
@@ -346,6 +348,8 @@ abstract class Assert
 
     /**
      * Asserts that a haystack does not contain only values of a given type.
+     *
+     * @param null|bool $isNativeType
      *
      * @throws ExpectationFailedException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
