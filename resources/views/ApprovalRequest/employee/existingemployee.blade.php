@@ -1,14 +1,14 @@
 @extends('theme.layouts.default')
 @section('content')
 <section class="content-header">
-    <h5><label  class="control-label">EXISTING EMPLOYEE DETAILS MODIFICATION REQUEST</label></h5>
+    <h5><label  class="control-label"><u>EXISTING EMPLOYEE DETAILS MODIFICATION REQUEST</u></label></h5>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-        <li><a href="#">APPROVE REQUEST</a></li>
-        <li><a href="active">EMPLOYEE</a></li>
-        <li><a href="active">EXISTING</a></li>
+          <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
+          <li><a href="#">APPROVE REQUEST</a></li>
+          <li><a href="active">EMPLOYEE</a></li>
+          <li><a href="active"><u>EXISTING</u></a></li>
       </ol>
-    </section>
+</section>
 
     <!-- Main content -->
     <section class="content">
@@ -43,6 +43,7 @@
       <thead>
       <tr>
         <th><input type="checkbox"  class="minimal" name="ane1" id="ane1"></th>
+        <th>SR.NO</th>
         <th>EMPLOYEE NAME</th>
         <th>USER NAME</th>
         <th>FIELD NAME</th>
@@ -52,17 +53,14 @@
       </tr>
       </thead>
       <tbody>
-      
+
                             @isset($employeeData)
-                           
+
                             <?php $i=1; ?>
                             @foreach ($employeeData as $key => $value)
                             <tr>
-                              <td>
-                                                    
-                                  <input type="checkbox"  name="checkbox[]" value="{{ $value->id }}" class="allright">
-                                   <span class="">{{$i}}</span>
-                              </td>
+                              <td><input type="checkbox"  name="checkbox[]" value="{{ $value->id }}" class="allright minimal"></td>
+                              <td><span class="">{{$i}}</span></td>
                               <td >{{ $value->user['name'] }} </td>
                               <td class="text-center">{{ $value->user['username'] }} </td>
                               <!-- <td class="text-center">{{ $value->official_id }}</td> -->
@@ -114,11 +112,39 @@
 </div>
 </div>
     </section>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
  <script>
     window.setTimeout(function() {
         $(".alert").fadeTo(500, 0).slideUp(500, function(){
             $(this).remove();
         });
     }, 5000);
+  </script>
+  <script>
+  $(function () {
+      $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+      checkboxClass: 'icheckbox_minimal-blue',
+      radioClass   : 'iradio_minimal-blue'
+    })
+    //Red color scheme for iCheck
+    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+      checkboxClass: 'icheckbox_minimal-red',
+      radioClass   : 'iradio_minimal-red'
+    })
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-blue',
+      radioClass   : 'iradio_flat-blue'
+    })
+
+  })
+
+  $(function () {
+  $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+  checkboxClass: 'icheckbox_flat-green',
+  radioClass   : 'iradio_flat-green'
+  })
+  });
   </script>
     @endsection

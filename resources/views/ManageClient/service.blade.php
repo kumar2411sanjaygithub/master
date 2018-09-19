@@ -1,22 +1,15 @@
 @extends('theme.layouts.default')
 @section('content')
- <section class="content-header">
-          <h5><label  class="control-label"><u>SET EMAIL/SMS ALERT</u>&nbsp <small>lakhan pvt. ltd</small></label></h5>
-    </section>
-
-                       <section class="content">
+    <section class="content">
       <div class="row">
         <div class="col-xs-12">
           <div class="row">
-               <div class="col-md-1"></div>
-               <div class="col-md-9"></div>
-               <div class="col-md-2 text-right"><a href="clientbasicdetails.html" class="btn btn-info btn-xs">
+               <div class="col-md-4"><h5><label  class="control-label"><u>SET EMAIL/SMS ALERT</u>&nbsp&nbsp&nbsp&nbsp lakhan pvt. ltd</label></h5></div>
+               <div class="col-md-7"></div>
+               <div class="col-md-1 " style="margin-left:-19px;"><a href="clientbasicdetails.html" class="btn btn-info btn-xs">
             </span>&nbsp BACK TO LIST
               </a></div>
           </div>
-      
-
-
 
 <div class="box">
   <div class="box-header">
@@ -60,14 +53,14 @@
     </tr>
   </thead>
   <tbody>
-    
+
                                  @isset($alert_type)
                                   <?php
                                   $input_lebels = \App\Common\Languages\ManageClientLang::input_labels();
                                   ?>
                                   @foreach ($alert_type as $key => $value)
                                  <tr>
-                                   
+
                                     <td>{{ $input_lebels[$value->alert_type] }}</td>
                                     <td><input type="checkbox" class="minimal"></td>
                                     <td><input type="checkbox" class="minimal"></td>
@@ -86,8 +79,8 @@
                                     </tr>
                                  @endforeach
                               @endisset
-    
-   
+
+
   </tbody>
 </table>
   </div>
@@ -104,11 +97,33 @@
 
     </div>
   </div>
-    </section>            
+    </section>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-         <script>
+<script>
+$(function () {
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+    checkboxClass: 'icheckbox_minimal-blue',
+    radioClass   : 'iradio_minimal-blue'
+  })
+  //Red color scheme for iCheck
+  $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+    checkboxClass: 'icheckbox_minimal-red',
+    radioClass   : 'iradio_minimal-red'
+  })
+  //Flat red color scheme for iCheck
+  $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+    checkboxClass: 'icheckbox_flat-blue',
+    radioClass   : 'iradio_flat-blue'
+  })
 
+})
 
+$(function () {
+$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+checkboxClass: 'icheckbox_flat-green',
+radioClass   : 'iradio_flat-green'
+})
+});
 </script>
          @endsection

@@ -14,13 +14,13 @@ a.disabled {
 </style>
 <section class="content-header">
    <h5>
-      <label  class="control-label">Payment Security Mechanism(PSM) Details</label>
+      <label  class="control-label"><u>Payment Security Mechanism(PSM) Details</u></label>
    </h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">PSM Details</a></li>
       <li><a href="{{ route('psmdetials') }}">PSM Search Client</a></li>
-      <li><a href="#" class="active">PSM Add</a></li>
+      <li><a href="#" class="active"><u>PSM Add</u></a></li>
    </ol>
 </section>
 <!-- Content Header (Page header) -->
@@ -75,7 +75,7 @@ a.disabled {
                                   <span class="text-danger"></span>
                                </div>
                               </div>
-                             <div class="col-md-1"><br><button type="button" class="btn btn-block btn-info btn-xs">Go</button></div>
+                             <div class="col-md-1" style="margin-top:20px!important;"><button type="button" class="btn btn-block btn-info btn-xs">Go</button></div>
                           </div>
                        </div>
                     </div>
@@ -126,7 +126,7 @@ a.disabled {
                            <td>546546546</td>
                            <td><a>Insufficient Balance</td>
                            <td>
-                             <input type="button" class=" btn-primary btn-sm" value="Approve">
+                             <button type="button" class="btn  btn-info btn-xs" value="Approve">Approve</button>
                            </td>
                         <tr>
 
@@ -168,5 +168,4 @@ a.disabled {
 
    })
 </script>
-
 @endsection

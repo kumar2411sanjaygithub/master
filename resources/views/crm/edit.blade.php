@@ -184,13 +184,13 @@
                   </div>
                 </div>
 
-               <hr>
+
                <div class="row">
                   <div class="col-md-2">
-                     <label  class="control-label"><u>ADDRESS INFORMATION</u></label>
+                     <label  class="control-label"><u>ADDRESS INFORMATION</u></label>   <hr>
                   </div>
                   <div class="col-md-9"></div>
-                  <div class="col-md-1 text-right"><button type="button" class="btn  btn-info btn-xs">LOCATE MAP</button></div>
+                  <div class="col-md-1 " style="margin-left:-14px;"><button type="button" class="btn  btn-info btn-xs">LOCATE MAP</button></div>
                </div>
                <div class="row">
                   <div class="col-md-3 {{ $errors->has('add_line1') ? 'has-error' : '' }}">
@@ -263,8 +263,8 @@
          <div class="row">
             <div class="col-md-1"><label  class="control-label"><u>ACTIVITIES</u></label></div>
             <div class="col-md-10"></div>
-            <div class="col-md-1">
-               <button type="button" class="btn btn-block btn-info btn-xs" data-toggle="modal" data-target="#myModal">NEW TASK</button>
+            <div class="col-md-1" style="margin-left:-13px;">
+               <button type="button" class="btn  btn-info btn-xs" data-toggle="modal" data-target="#myModal">   <span class="glyphicon glyphicon-plus"> </span>&nbspNEW TASK</button>
             </div>
          </div>
          <div class="box " >
@@ -294,7 +294,7 @@
                           <td>{{@$task->user->name}}</td>
                           <td>{{date('d/m/Y',strtotime($task->created_at))}}</td>
                           <td>
-                            <a href="" data-toggle="modal" data-target="#myModal{{ $task->id }}"><span class="glyphicon glyphicon-pencil"></span>
+                            <a href="" data-toggle="modal" data-target="#myModal{{ $task->id }}"><span class="glyphicon glyphicon-pencil"></span></a>
                             <a href="" data-toggle="modal" data-target="#deleteData{{ $task->id }}"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a>
                           </td>
                           <div id="deleteData{{ $task
@@ -403,8 +403,9 @@
 
         <div class="row">
             <div class="col-md-1"><label  class="control-label"><u>PRODUCT</u></label></div>
-            <div class="col-md-offset-10 col-md-2">
-               <button type="button" class="btn btn-block btn-info btn-xs" data-toggle="modal" data-target="#myModalProduct">NEW PRODUCT</button>
+            <div class="col-md-9"></div>
+            <div class="col-md-2 pull-right" style="margin-right:-54px;" >
+               <button type="button" class="btn  btn-info btn-xs" data-toggle="modal" data-target="#myModalProduct"> <span class="glyphicon glyphicon-plus"> </span>&nbsp NEW PRODUCT</button>
             </div>
          </div>
          <div class="box">
@@ -472,8 +473,8 @@
          <div class="row">
             <div class="col-md-1"><label  class="control-label"><u>EMAILS</u></label></div>
             <div class="col-md-10"></div>
-            <div class="col-md-1">
-               <button type="button" class="btn btn-block btn-info btn-xs" data-toggle="modal" data-target="#myModal1">SEND EMAIL</button>
+            <div class="col-md-1" style="margin-left:-10px;">
+               <button type="button" class="btn  btn-info btn-xs" data-toggle="modal" data-target="#myModal1">SEND EMAIL</button>
             </div>
          </div>
          <div class="box ">

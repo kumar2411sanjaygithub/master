@@ -1,14 +1,12 @@
 @extends('theme.layouts.default')
 @section('content')
 
-<section class="content-header">
-  <h5><label  class="control-label"><u>CREATE LEAD</u></label></h5>
-    </section>
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
           <div class="row">
-          <div class="col-md-10"></div>
+          <div class="col-md-2 pull-left"><h5><label  class="control-label"><u>CREATE LEAD</u></label></h5></div>
+          <div class="col-md-8"></div>
           <div class="col-md-2">
             <a href="{{ route('lead.index') }}" class="btn btn-info btn-xs pull-right"  id="ram" name="">
             <span class="glyphicon glyphicon-plus"> </span>&nbsp BACK TO LIST</a>
@@ -19,6 +17,8 @@
             {{csrf_field()}}
           <div class="box">
               <div class="box-body">
+
+          <h5><label  class="control-label">LEAD INFORMATION</label></h5><hr>
               <div class="row">
               <div class="col-md-3 {{ $errors->has('company_name') ? 'has-error' : '' }}">
               <label  class="control-label">COMPANY NAME</label><span class="text-danger"><strong>*</strong></span>
@@ -140,8 +140,8 @@
               <input class="form-control input-sm" type="text" placeholder="ENTER REMARKS" id="remarks" name="remarks" value="{{old('remarks')}}">
               </div>
             </div>
-                  <hr>
-            <h5><label  class="control-label"><u>ADDRESS INFORMATION</u></label></h5>
+
+            <h5 style="margin-top:10px!important;"><label  class="control-label">ADDRESS INFORMATION</label></h5><hr>
               <div class="row">
               <div class="col-md-3 {{ $errors->has('add_line1') ? 'has-error' : '' }}">
               <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>

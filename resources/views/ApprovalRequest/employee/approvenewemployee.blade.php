@@ -1,12 +1,12 @@
 @extends('theme.layouts.default')
 @section('content')
 <section class="content-header">
-    <h5><label  class="control-label">APPROVE NEW EMPLOYEE</label></h5>
+    <h5><label  class="control-label"><u>APPROVE NEW EMPLOYEE</u></label></h5>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
         <li><a href="#">APPROVE REQUEST</a></li>
         <li><a href="active">EMPLOYEE</a></li>
-        <li><a href="active">NEW</a></li>
+        <li><a href="active"><u>NEW</u></a></li>
       </ol>
     </section>
 
@@ -40,6 +40,7 @@
       <thead>
       <tr>
         <th><input type="checkbox"  class="minimal" name="ane1" id="ane1"></th>
+        <th>SR.No</th>
         <th>EMPLOYEE NAME</th>
         <th>DESIGNATION</th>
         <th>ROLE NAME</th>
@@ -54,28 +55,23 @@
            ?>
       @foreach ($employeeData as $key => $value)
       <tr>
-            <td>
-            <div class="checkbox c-checkbox">
-            <label>
-               <input type="checkbox" name="checkbox[]" value="{{ $value->id }}" class=""><span class=""></span>
-            </label>
-            </div>
-            <div class="">{{$i}}</div>
-
-             </td>
+                           <td>
+                             <input type="checkbox" name="checkbox[]" value="{{ $value->id }}" class="minimal"><span class=""></span>
+                             </td>
+                             <td><div class="">{{$i}}</div></td>
                               <td class="text-center">{{ $value->name }} </td>
                               <td class="text-center">{{ $value->designation }}</td>
                               <td class="text-center w20">{{ $value->role }}
                               </td>
                               <td class="text-center">{{ $value->department['depatment_name'] }}</td>
-                              
+
                               @if($value->emp_app_status =='0')
                               <td class="text-center w15">
-                                
+
                                   <a href="/approve/{{ $value->id }}"><button type="button" class="btn btn-raised btn-info btn-xs">Approve</button></a>
-                                
+
                                   <a href="/reject/{{ $value->id }}"><button type="button" class="btn btn-raised btn-danger btn-xs">Reject</button></a>
-                                
+
                               </td>
                               @elseif($value->emp_app_status =='1')
                                 <td class="text-center">
@@ -93,7 +89,7 @@
                               @endforeach
                               @endisset
 
-      
+
       </tbody>
       </table>
 
@@ -142,5 +138,30 @@
         });
     }, 5000);
   </script>
+  <script>
+  $(function () {
+      $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+      checkboxClass: 'icheckbox_minimal-blue',
+      radioClass   : 'iradio_minimal-blue'
+    })
+    //Red color scheme for iCheck
+    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+      checkboxClass: 'icheckbox_minimal-red',
+      radioClass   : 'iradio_minimal-red'
+    })
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-blue',
+      radioClass   : 'iradio_flat-blue'
+    })
 
+  })
+
+  $(function () {
+  $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+  checkboxClass: 'icheckbox_flat-green',
+  radioClass   : 'iradio_flat-green'
+  })
+  });
+  </script>
     @endsection

@@ -2,14 +2,14 @@
 @section('content')
          <!-- Content Header (Page header) -->
          <section class="content-header">
-            <h4>
-               ACCOUNT GROUP SETTING
-               <small></small>
-            </h4>
+            <h5>
+               <label  class="control-label"><u>ACCOUNT GROUP SETTING</u></label>
+
+            </h5>
             <ol class="breadcrumb">
                <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
                <li><a href="#">MANAGE CLIENT</a></li>
-               <li><a href="#">ACCOUNT GROUP SETTING</a></li>
+               <li><a href="#"><u>ACCOUNT GROUP SETTING</u></a></li>
             </ol>
          </section>
          <!-- Main content -->
@@ -26,18 +26,21 @@
                                       @if(!in_array($aa['id'],$role_off) )
                                  <option value="<?php echo $aa['id']; ?>" data-tokens="<?php echo $aa['company_name']; ?>" @if(isset($client_id) && $aa['id'] == $client_id) selected @endif> <?php echo $aa['company_name']; ?></option>
                                       @endif
-                                    
+
                                  @endforeach
                                </select>
                            </div>
                         </div>
                         <div class="row">&nbsp;</div>
                         <div class="row">
-                           <div class="col-md-3 pull-left">
-                              <div class="input-group input-group-sm">
-                                 <input type="text" class="form-control" placeholder="SEARCH.." id="search">
-                              </div>
-                           </div>
+                          <div class="col-md-2">
+                             <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="SEARCH">
+                                <span class="input-group-btn">
+                                <button type="button" class="btn btn-info btn-flat" id="vg8" name="vg8"><span class="glyphicon glyphicon-search"></span></button>
+                                </span>
+                             </div>
+                          </div>
                            <div class="col-md-1 pull-right">
                               <button type="button" class="btn btn-xs btn-info pull-right addvalidationsettingbtn"><span class="glyphicon glyphicon-plus"> </span> Add Group</button>
                            </div>
@@ -83,15 +86,15 @@
                                       <div class="modal-body">
                                   <form method="post" action="">
                                       {{ csrf_field() }}
-                                      
+
                                     <div class="row">
                                       <div class="col-md-12">
                                         <div class="mda-form-group float-label rel-wrapper">
                                             <div class="mda-form-control bb0">
                                               <input type="hidden" name="group_id" class="group_id" value="{{ $groupdata['client_id']}}">
                                       <input type="hidden" name="group_name" class="group_name" value="{{ $groupdata['group_name']}}">
-                                             <select class="form-control selectpicker select-client-modal" 
-                                             name="client_id" 
+                                             <select class="form-control selectpicker select-client-modal"
+                                             name="client_id"
                                               data-live-search="true">
                                                <option value="">Search User</option>
                                                 @foreach ($Clientsdetails as $aa)
@@ -226,7 +229,7 @@
                                   swal('Sorry!', 'Group can not be deleted. Before that make sure all users are deleted or not respectively this group.', 'error');
                                   setTimeout(function() {
                                     window.location.href='usergroupsetting';
-                                    }, 5000); 
+                                    }, 5000);
                               }
                               else
                               {
