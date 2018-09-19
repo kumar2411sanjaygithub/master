@@ -8,3 +8,29 @@
 .mb5{margin-bottom:5px;}
 .glyphicon-trash{color:red;}
 .glyphicon-eye-open{color:blue;}
+.chy
+{
+  width:2%;
+}
+.srno
+{
+  width:5%;
+}
+.act
+{
+  width:12%!important;
+}
+.mlt
+{
+  margin-right:15px!important;
+}
+.vl
+{
+  vertical-align:middle!important;
+}
+span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
+.mlt1
+{
+  margin-left: 9px;
+}
+.select2{width:100%!important;}
