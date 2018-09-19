@@ -8,9 +8,8 @@
 @section('content')
 
 <section class="content-header">
-   <h5>
-      <label  class="control-label">Payment Security Mechanism(PSM) Details</label>
-   </h5>
+       <h5><label  class="control-label">PAYMENT SECURITY MECHANISM(PSM) DETAILS &nbsp&nbsp&nbsp&nbsp {{$client_details[0]['company_name']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['crn_no']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['iex_portfolio']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['pxil_portfolio']}} </label></h5>
+     </section>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">PSM Details</a></li>
