@@ -32,14 +32,14 @@ class NocController extends Controller
     public function add_nocdetails(Request $request){
 
     	 $this->validate($request, [
-            'final_quantum' => 'required',
+            //'final_quantum' => 'required',
             'noc_periphery' => 'required',
             'noc_quantum' => 'required',
             'noc_type' => 'required',
             // 'poc_losses' => 'required',
             'validity_from' => 'required',
             'validity_to' => 'required',
-            'upload_noc_doc' => 'required',
+            //'upload_noc_doc' => 'required',
         ]);
          if($validator->fails())
         {

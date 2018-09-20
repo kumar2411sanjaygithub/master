@@ -75,6 +75,26 @@ a.disabled {
 <section class="content">
    <div class="row">
       <div class="col-xs-12">
+         <div class="box">
+            <div class="box-body">
+               <div class="row">
+                  <div class="col-md-12">
+                  <select class="" name="client_id" id="select-client" data-live-search="true">
+                      <option>Search Client</option>
+                       @foreach ($clientData as $key => $value)
+                       <option value="{{ $value->id }}" data-tokens="{{ $value->id }}.{{ $value->id }}.{{ $value->id }};?>" @if($client_id==$value->id) selected  @endif> [{{$value->company_name}}] [{{$value->short_id}}] [{{$value->crn_no}}]</option>
+                      @endforeach
+
+                    </select>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col-xs-12">
          <div class="box @if($errors->isEmpty())hidediv @else  @endif"  id="divStatus">
             <div class="box-body">
                <div class="row">&nbsp;</div>
@@ -168,7 +188,7 @@ a.disabled {
                <div class="row">&nbsp;</div>
                <div class="row">
                   <div class="col-md-5"></div>
-                  <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs">SUBMIT</button></div>
+                  <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs">INITIATE</button></div>
                   <div class="col-md-5"></div>
                </div>
              </form>
@@ -475,7 +495,16 @@ a.disabled {
     <!-- /.content -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script>
+$(document).ready(function() {
+     $("#select-client").change(function(e) {
+           var id = this.value;
+           var url = "{{url('/getclientData')}}/"+id;
 
+           window.location = url;
+     });
+ });
+</script>
 <script type="text/javascript">
  setTimeout(function() {
    $('#successMessage').fadeOut('fast');
@@ -576,17 +605,12 @@ a.disabled {
   }
 </script>
 
-      <script type="text/javascript">
-      // $("#datepicker").datepicker({
-      //     dateFormat: "dd/mm/yy",
-      //     onSelect: function(date){
-      //         var date1 = $('#datepicker').datepicker('getDate');
-      //         var date = new Date( Date.parse( date1 ) );
-      //         date.setDate( date.getDate() + 1 );
-      //         var newDate = date.toDateString();
-      //         newDate = new Date( Date.parse( newDate ) );
-      //         $('#datepicker1').datepicker("option","minDate",newDate);
-      //     }
-      // });
-    </script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+   $('#select-client').select2();
+});
+</script>
+
   @endsection
+

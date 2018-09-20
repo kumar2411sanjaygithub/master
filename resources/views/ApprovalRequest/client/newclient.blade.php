@@ -117,34 +117,71 @@ function generate_model(approveclient)
                 <td class="text-left" style="padding-left:5px!important;font-size:13px;border:1px solid #ddd;">`+ approveclient.company_name +`</td>
               </tr>
               <tr>
-                <td style="padding-left:5px!important;font-size:13px;" class="text-left">GSTIN</td>
-                <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.gstin +`</td>
-              </tr>
+                <td style="padding-left:5px!important;font-size:13px;" class="text-left">GSTIN</td>`;
+                if(approveclient.gstin!=null){
+            $template += `<td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.gstin +`</td>`;
+              }else
+              {
+                $template += `<td class="text-left" style="padding-left:5px!important;font-size:13px;">-</td>`;
+              }
+            $template+= ` </tr>
               <tr>
-                <td style="padding-left:5px!important;font-size:13px;" class="text-left">PAN</td>
-                <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.pan +`</td>
-              </tr>
+                <td style="padding-left:5px!important;font-size:13px;" class="text-left">PAN</td>`;
+                 if(approveclient.pan!=null){
+                $template+= `<td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.pan +`</td>`;
+                }else
+              {
+                $template += `<td class="text-left" style="padding-left:5px!important;font-size:13px;">-</td>`;
+              }
+              $template+= `</tr>
               <tr>
-                <td style="padding-left:5px!important;font-size:13px;" class="text-left">CIN</td>
-                <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.cin +`</td>
-              </tr>
+                <td style="padding-left:5px!important;font-size:13px;" class="text-left">CIN</td>`;
+              if(approveclient.cin!=null){
+                $template+= `<td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.cin +`</td>`;
+              }
+              else
+              {
+                $template+= `<td class="text-left" style="padding-left:5px!important;font-size:13px;">-</td>`;
+              }
+
+              $template+= `</tr>
               <tr>
               <tr>
                 <td style="padding-left:5px!important;font-size:13px;" class="text-left"> Primary Email Id</td>
                 <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.email +`</td>
               </tr>
-                <td style="padding-left:5px!important;font-size:13px;" class="text-left">Primary Contact No.</td>
-                <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.pri_contact_no +`</td>
-              </tr>
+                <td style="padding-left:5px!important;font-size:13px;" class="text-left">Primary Contact No.</td>`;
+                if(approveclient.pri_contact_no!=null){
+                 $template+= `<td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.pri_contact_no +`</td>`;
+                  }
+                  else
+                  {
+                    $template+= `<td class="text-left" style="padding-left:5px!important;font-size:13px;">-</td>`;
+                  }
+
+               $template+= `</tr>
 
               <tr>
-                <td style="padding-left:5px!important;font-size:13px;" class="text-left">Short Id</td>
-                <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.short_id +`</td>
-              </tr>
+                <td style="padding-left:5px!important;font-size:13px;" class="text-left">Short Id</td>`;
+                if(approveclient.short_id!=null){
+                $template+= `<td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.short_id +`</td>`;
+                  }
+                  else
+                  {
+                    $template+= `<td class="text-left" style="padding-left:5px!important;font-size:13px;">-</td>`;
+                  }
+
+              $template+= `</tr>
               <tr>
-                <td style="padding-left:5px!important;font-size:13px;" class="text-left">Old Sap Code</td>
-                <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.old_sap +`</td>
-              </tr>
+                <td style="padding-left:5px!important;font-size:13px;" class="text-left">Old Sap Code</td>`;
+                 if(approveclient.old_sap!=null){
+                $template+= `<td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.old_sap +`</td>`;
+                }
+                  else
+                  {
+                    $template+= `<td class="text-left" style="padding-left:5px!important;font-size:13px;">-</td>`;
+                  }
+              $template+= `</tr>
 
               <tr>
                 <td style="padding-left:5px!important;font-size:13px;" class="text-left">Sap Code</td>

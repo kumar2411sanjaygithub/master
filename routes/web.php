@@ -189,7 +189,8 @@ Route::post('/rec/exchange/store',['as'=>'rec-exchange.exchangeStore','uses'=>'R
 
 Route::get('/rec/bidding-setting/search',['as'=>'rec-bidding.biddingSearchindex','uses'=>'RecSettingController@biddingSearchindex']);
 Route::post('/rec/bidding-setting',['as'=>'rec-bidding.biddingViewindex','uses'=>'RecSettingController@biddingViewindex']);
-
+Route::any('/rec/bidding/store',['as'=>'rec-bidding.biddingStore','uses'=>'RecSettingController@biddingStore']);
+Route::get('/rec/bidding-setting/{id}',['as'=>'biddingViewID','uses'=>'RecSettingController@biddingViewindex']);
 
 
 Route::get('/escerts',['as'=>'escerts','uses'=>'ClientDeatilsController@escertsdetails']);
@@ -234,9 +235,22 @@ Route::get('/noc/modified/{id}/{type}/',['as'=>'modifiednoc.approve','uses'=>'No
 Route::get('/delete_noc/{id}/{type}/{type2}',['as'=>'deletenoc.approve','uses'=>'NocApprovalController@delete_noc']);
 
 
-
-
-
+Route::get('downloads/{filename}', function($filename)
+{
+    // Check if file exists in app/storage/file folder
+    $file_path = storage_path() .'/files/client/exreg/'. $filename;
+    if (file_exists($file_path))
+    {
+        // Send Download
+        return Response::download($file_path, $filename, [
+            'Content-Length: '. filesize($file_path)
+        ]);
+    }
+    else
+    {
+         exit('Requested file does not exist on our server!');
+    }
+});
 
 
 //Noc Application & Bill Setting & Approval

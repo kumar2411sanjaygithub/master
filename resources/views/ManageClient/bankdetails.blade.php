@@ -17,13 +17,15 @@
           @endif
       <div class="row">
         <div class="col-xs-12">
+
           <div class="row">
             <div class="col-md-5">  <h5><label  class="control-label">BANK DETAILS &nbsp&nbsp&nbsp&nbsp {{$client_details[0]['company_name']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['crn_no']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['iex_portfolio']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['pxil_portfolio']}} </label></h5></div>
             <div class="col-md-5"></div>
-             <div class="col-md-2 text-right"><button class="btn btn-info btn-xs mt7"  id="add" >
+             <div class="col-md-2 text-right"><button class="btn btn-info btn-xs mt7"  id="add" {{(isset($get_bank_details)||!$errors->isEmpty())?'divhide':''}}">
                 <span class="glyphicon glyphicon-plus"></span>&nbspADD
               </button>&nbsp;<a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a></div>
           </div>
+
         <form method ="post" action="{{isset($get_bank_details)?url('bank_edit/'.$get_bank_details->id):route('bank_create')}}">
       {{ csrf_field() }}
   <div class="row {{(isset($get_bank_details)||!$errors->isEmpty())?'':'divhide'}}" id="bankbox">
@@ -32,14 +34,14 @@
   <div class="box-body">
     <div class="row">
       <div class="col-md-3 {{ $errors->has('bank_name') ? 'has-error' : '' }}">
-      <label  class="control-label">BANK NAME</label>
+      <label  class="control-label">BANK NAME<span class="text-danger"><strong>*</strong></span></label>
 
       <input type="hidden"  name="client_id" value="{{@$client_id}}" id="client">
        <input class="form-control input-sm" type="text" placeholder="ENTERE BANK NAME" id="bank_name" name="bank_name" value="{{isset($get_bank_details)?$get_bank_details->bank_name:old('bank_name')}}">
        <span class="text-danger">{{ $errors->first('bank_name') }}</span>
       </div>
       <div class="col-md-3 {{ $errors->has('branch_name') ? 'has-error' : '' }}">
-       <label  class="control-label">BRANCH NAME</label>
+       <label  class="control-label">BRANCH NAME<span class="text-danger"><strong>*</strong></span></label>
         <input class="form-control input-sm" type="text" placeholder="ENTER BRANCH NAME" id="branch_name" name="branch_name" value="{{isset($get_bank_details)?$get_bank_details->branch_name:old('branch_name')}}">
         <span class="text-danger">{{ $errors->first('branch_name') }}</span>
       </div>
@@ -49,15 +51,16 @@
         <span class="text-danger">{{ $errors->first('account_number') }}</span>
       </div>
       <div class="col-md-3 {{ $errors->has('ifsc') ? 'has-error' : '' }}">
-        <label  class="control-label">IFSC CODE</label>
+        <label  class="control-label">IFSC CODE<span class="text-danger"><strong>*</strong></span></label>
         <input class="form-control input-sm" type="text" placeholder="ENTER IFSC CODE" id="ifsc" name="ifsc" value="{{isset($get_bank_details)?$get_bank_details->ifsc:old('ifsc')}}">
                 <span class="text-danger">{{ $errors->first('ifsc') }}</span>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-3 {{ $errors->has('virtual_account_number') ? 'has-error' : '' }}">
         <label  class="control-label">VIRTUAL ACCOUNT NUMBER</label>
         <input class="form-control input-sm" type="text" placeholder="ENTER ACCOUNT NUMBER" id="virtual_account_number" name="virtual_account_number" value="{{isset($get_bank_details)?$get_bank_details->virtual_account_number:old('virtual_account_number')}}">
+                <span class="text-danger">{{ $errors->first('virtual_account_number') }}</span>
 
       </div>
     </div>
@@ -69,7 +72,7 @@
           @else
           <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs" id="save" name="save">SAVE</button></div>
           @endif
-          <div class="col-md-1"><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="Cancel" onclick="myFunction()"></div>
+          <div class="col-md-1"><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="CANCEL" onclick="myFunction()"></div>
         <div class="col-md-5"></div>
       </div>
     </div>
@@ -132,6 +135,7 @@
      $(document).ready(function(){
       $('#add').on('click', function(){
       $('#bankbox').removeClass('divhide').addClass('divshow');
+      $('#add').hide();
       });
       });
      </script>
@@ -139,6 +143,7 @@
   function myFunction(){
     //alert(1);
     $('#bankbox').addClass('divhide').removeClass('divshow');
+    $('#add').show();
   }
   </script>
      <script>

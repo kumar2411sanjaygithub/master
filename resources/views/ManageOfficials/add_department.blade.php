@@ -18,12 +18,12 @@
                   <div class="box-body">
                      <div class="row">
                         <div class="col-md-3">
-                           <label  class="control-label">DEPARTMENT NAME</label>
-                           <input class="form-control input-sm" type="text" placeholder="Enter DEPARTMENT NAME">
+                           <label  class="control-label">DEPARTMENT NAME<span class="text-danger"><strong>*</strong></span></label>
+                           <input class="form-control input-sm" type="text" placeholder="ENTER DEPARTMENT NAME">
                         </div>
                         <div class="col-md-3">
                            <label  class="control-label">DESCRIPTION</label>
-                           <input class="form-control input-sm" type="text" placeholder="Enter DESCRIPTION">
+                           <input class="form-control input-sm" type="text" placeholder="ENTER DESCRIPTION">
                         </div>
                         <div class="col-md-1" style="margin-top:19px!important;">
                            <label  class="control-label"></label>

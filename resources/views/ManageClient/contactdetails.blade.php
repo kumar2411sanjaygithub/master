@@ -55,7 +55,7 @@
     <span class="text-danger">{{ $errors->first('name') }}</span>
       </div>
       <div class="col-md-3 {{ $errors->has('designation') ? 'has-error' : '' }}">
-       <label  class="control-label">DESIGNATION</label>
+       <label  class="control-label">DESIGNATION<span class="text-danger"><strong>*</strong></span></label>
       <input class="form-control input-sm alphanum" type="text" placeholder="ENTER DESIGNATION" id="designation" name="designation" value="{{isset($get_contact_details)?$get_contact_details->designation:old('designation')}}">
       <span class="text-danger">{{ $errors->first('designation') }}</span>
       </div>
@@ -78,7 +78,7 @@
           @else
           <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs" id="save" name="save">SAVE</button></div>
           @endif
-          <div class="col-md-1"><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="Cancel" onclick="myFunction()"></div>
+          <div class="col-md-1"><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="CANCEL" onclick="myFunction()"></div>
         <div class="col-md-5"></div>
       </div>
       </div>
@@ -169,6 +169,7 @@
   function myFunction(){
     //alert(1);
     $('#contactbox').addClass('divhide').removeClass('divshow');
+     $("#add").show();
   }
   </script>
   <script>
