@@ -34,17 +34,13 @@ class ManageOfficialsController extends Controller
     $validator = Validator::make($request->all(), [
            'depatment_name' => 'required|regex:/^[a-zA-Z ]*$/|min:1|unique:department,depatment_name,NULL,id,deleted_at,NULL',
 
-       ],
-       [
-           'depatment_name' => 'Please Enter Deparment Name|Please Unique Name',
-           'description' => 'Please Enter Description',
        ]);
 
-       // if($validator->fails())
-       // {
-       //     // dd($validator);
-       //     return Redirect::back()->withErrors($validator);
-       // }
+       if($validator->fails())
+       {
+           // dd($validator);
+           return Redirect::back()->withErrors($validator);
+       }
        //date_default_timezone_set('Asia/Calcutta');
 
        $department = new Department();
@@ -68,11 +64,7 @@ class ManageOfficialsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'depatment_name' => 'required|max:50',
-            'description' => 'required|max:100',
-        ],
-        [
-            'depatment_name' => 'Please Enter Deparment Name',
-            'description' => 'Please Enter Description',
+
         ]);
         if($validator->fails())
         {

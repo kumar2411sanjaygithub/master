@@ -423,7 +423,7 @@
                         <td>{{$i}}</td>
                           <td>{{@$leadProduct->product_name->product_name}}</td>
                           <td>
-                            @if($leadProduct->product_converted!=1))
+                            @if($leadProduct->product_converted!=1)
                             <a href="{{url('lead/genearet/'.$leads->id.'/crn/'.$leadProduct->product_id)}}" class="btn  btn-default btn-xs" name="">CONVERT</a>&nbsp;&nbsp;
                           
                             <a href="" data-toggle="modal" data-target="#deleteData{{ $leadProduct->id }}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" style="color: red;"></span>DELETE</a>

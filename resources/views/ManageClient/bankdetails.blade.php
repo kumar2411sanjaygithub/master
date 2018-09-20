@@ -47,6 +47,7 @@
       <div class="col-md-3 {{ $errors->has('ifsc') ? 'has-error' : '' }}">
         <label  class="control-label">IFSC CODE</label>
         <input class="form-control input-sm" type="text" placeholder="ENTER IFSC CODE" id="ifsc" name="ifsc" value="{{isset($get_bank_details)?$get_bank_details->ifsc:old('ifsc')}}">
+                <span class="text-danger">{{ $errors->first('ifsc') }}</span>
       </div>
     </div>
     <div class="row">

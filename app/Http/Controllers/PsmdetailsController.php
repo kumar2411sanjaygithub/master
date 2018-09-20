@@ -100,8 +100,17 @@ class PsmdetailsController extends Controller
         "expiry_date"=>"required",
       ]);
      //  $var1 = $request['received_date'];
-     //  $date1 = str_replace('/', '-', $var1);
-     //  $received_date = date('Y-m-d', strtotime($date1));
+      $chg_received_date = strtr($request['received_date'], '/', '-');
+      $received_date = date("Y-m-d", strtotime($chg_received_date));
+
+      $chg_issue_date = strtr($request['issue_date'], '/', '-');
+      $issue_date = date("Y-m-d", strtotime($chg_issue_date));
+
+      $chg_expiry_date = strtr($request['expiry_date'], '/', '-');
+      $expiry_date = date("Y-m-d", strtotime($chg_expiry_date));
+
+      $chg_revocable_date = strtr($request['revocable_date'], '/', '-');
+      $revocable_date = date("Y-m-d", strtotime($chg_revocable_date));
      //
      //  $var2 = $request['issue_date'];
      //  $date2 = strtr( $var2,'/', '-');
@@ -135,13 +144,13 @@ class PsmdetailsController extends Controller
         $psm->document = $imageName;
       }
       $psm->type = $request['type'];
-      $psm->received_date = $request['received_date'];
+      $psm->received_date = $received_date;
       $psm->document_no = $request['document_no'];
       $psm->amount = $request['amount'];
 
-      $psm->issue_date = $request['issue_date'];
-      $psm->expiry_date = $request['expiry_date'];
-      $psm->revocable_date = $request['revocable_date'];
+      $psm->issue_date = $issue_date;
+      $psm->expiry_date = $expiry_date;
+      $psm->revocable_date = $revocable_date;
       $psm->description = $request['description'];
       $psm->client_id = $id;
       $psm->save();
@@ -190,23 +199,17 @@ class PsmdetailsController extends Controller
         // "client_id"=>"required",
       ]);
 
-     //  $var = $request['received_date'];
-     //  $date = str_replace('/', '-', $var);
-     //  $request['received_date'] = date('Y-m-d', strtotime($date));
-     //  $var = $request['issue_date'];
-     //  $date = str_replace('/', '-', $var);
-     //  $request['issue_date'] = date('Y-m-d', strtotime($date));
-     //  $var =$request['expiry_date'];
-     //  $date = str_replace('/', '-', $var);
-     //  $request['expiry_date'] = date('Y-m-d', strtotime($date));
-     //  $var = $request['Revocable_date'];
-     //  $date = str_replace('/', '-', $var);
-     //  $request['Revocable_date'] = date('Y-m-d', strtotime($date));
-     //  $validator = Validator::make([], []);
-     //  if(strtotime($request['issue_date'])>strtotime($request['expiry_date'])){
-     //  $validator->getMessageBag()->add('Date', 'Issue date cannot be greater than Expiry date');
-     //  return redirect()->back()->withErrors($validator->getMessageBag());
-     // }
+      $chg_received_date = strtr($request['received_date'], '/', '-');
+      $received_date = date("Y-m-d", strtotime($chg_received_date));
+
+      $chg_issue_date = strtr($request['issue_date'], '/', '-');
+      $issue_date = date("Y-m-d", strtotime($chg_issue_date));
+
+      $chg_expiry_date = strtr($request['expiry_date'], '/', '-');
+      $expiry_date = date("Y-m-d", strtotime($chg_expiry_date));
+
+      $chg_revocable_date = strtr($request['revocable_date'], '/', '-');
+      $revocable_date = date("Y-m-d", strtotime($chg_revocable_date));
 
       $psm = Psmdetails::find($id);
       if($request['type'] == 2 || $request['type'] == 3)
@@ -225,12 +228,12 @@ class PsmdetailsController extends Controller
         $psm->document = $imageName;
       }
       $psm->type = $request['type'];
-      $psm->received_date = $request['received_date'];
+      $psm->received_date = $received_date;
       $psm->document_no = $request['document_no'];
       $psm->amount = $request['amount'];
-      $psm->issue_date = $request['issue_date'];
-      $psm->expiry_date = $request['expiry_date'];
-      $psm->revocable_date = $request['revocable_date'];
+      $psm->issue_date = $issue_date;
+      $psm->expiry_date = $expiry_date;
+      $psm->revocable_date = $revocable_date;
       $psm->description = $request['description'];
       $psm->client_id = $request['client_id'];
       $psm->save();

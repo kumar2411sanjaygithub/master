@@ -157,11 +157,11 @@
               </div>
               <div class="col-md-3">
               <label  class="control-label">LINE-2</label>
-                <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS2" id="bill_line2" name="bill_line2" value="{{ $clientdata->reg_line1}}">
+                <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS2" id="bill_line2" name="bill_line2" value="{{ $clientdata->bill_line2}}">
               </div>
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
-              <select class="form-control input-sm disabled-class" style="width: 100%;" id="bill_country" name="bill_country" value="{{ $clientdata->bill_country}}" >
+              <select class="form-control input-sm disabled-class" style="width: 100%;" id="bill_country" name="bill_country" value="{{ $clientdata->bill_country}}" disabled>
                   <option value="India">India</option>
 
 

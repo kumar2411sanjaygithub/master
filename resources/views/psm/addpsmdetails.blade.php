@@ -328,19 +328,24 @@ a.disabled {
 
      //Date picker
      $('#datepicker').datepicker({
-       autoclose: true
+       autoclose: true,
+       format: 'dd/mm/yyyy',
      })
      $('#issue_date').datepicker({
-       autoclose: true
+       autoclose: true,
+       format: 'dd/mm/yyyy',
      })
      $(".datepicker").datepicker({
-       autoclose: true
+       autoclose: true,
+       format: 'dd/mm/yyyy',
      })
      $('#datepicker2').datepicker({
-       autoclose: true
+       autoclose: true,
+       format: 'dd/mm/yyyy',
      })
      $('#revocable_date').datepicker({
-       autoclose: true
+       autoclose: true,
+       format: 'dd/mm/yyyy',
      })
 
    })
