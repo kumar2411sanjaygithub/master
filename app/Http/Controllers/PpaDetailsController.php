@@ -51,7 +51,7 @@ public function findppa($id)
        $ppadetails->validity_to = $request->input('validity_to');
        $ppadetails->client_id = $request->input('client');
        $ppadetails->file_path = $imageName;
-       
+
        $ppadetails->save();
        return redirect()->back()->with('message', 'Data Save Successfully!');
   }
