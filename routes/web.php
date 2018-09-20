@@ -272,7 +272,7 @@ Route::post('/noc-billing-update/{id}',['as'=>'noc_billing.nocbillingupdate','us
 
 
 /*******************************************************
-    Shalu Gupta----IMPORT(DAM)
+    Shalu Gupta----IMPORT(DAM)--OBLIGATION
 /*******************************************************/
 
 Route::get('/obligation',['as'=>'obligation','uses'=>'ObligationController@home']);
@@ -281,6 +281,20 @@ Route::get('/update_ftp_list/{exchange}/{year}/{month}/{day}',['as'=>'obligation
 Route::get('/obligation/download/{id}',['as'=>'download.obligation','uses'=>'ObligationController@downloadObligation']);
 Route::get('/obligation/import/{id}',['as'=>'obligation.import','uses'=>'ObligationController@importObligation']);
 Route::get('/service/mailobligation/{client_id}/{ftp_id}',['as'=>'service.mail','uses'=>'EmailController@mail_obligation']);
+
+/*******************************************************
+  IMPORT(DAM)--SCHEDULING
+/*******************************************************/
+
+Route::get('/scheduling',['as'=>'scheduling','uses'=>'SchedulingController@index']);
+Route::get('/scheduling/{exchange}/{year}/{month}/{day}',['as'=>'scheduling.index','uses'=>'SchedulingController@index']);
+Route::get('/update_ftp_list/{exchange}/{year}/{month}/{day}',['as'=>'scheduling.ftp_db','uses'=>'SchedulingController@updateFtpDetails']);
+Route::get('/scheduling/download/{id}',['as'=>'download.scheduling','uses'=>'SchedulingController@downloadScheduling']);
+Route::get('/scheduling/import/{id}',['as'=>'scheduling.import','uses'=>'SchedulingController@importScheduling']);
+Route::get('/service/mailobligation/{client_id}/{ftp_id}',['as'=>'service.mail','uses'=>'EmailController@mail_scheduling']);
+Route::get('/scheduling/downloadA/{id}','SchedulingController@downloadAmbScheduling');
+
+ 
 
 
 
