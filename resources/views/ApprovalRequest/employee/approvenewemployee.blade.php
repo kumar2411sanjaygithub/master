@@ -9,8 +9,6 @@
         <li><a href="active"><u>NEW</u></a></li>
       </ol>
     </section>
-
-    <!-- Main content -->
     <section class="content">
       @if(session()->has('updatemsg'))
           <div class="alert alert-success mt10">

@@ -40,7 +40,7 @@
               <table id="example1" class="table table-bordered table-striped table-hover text-center">
                 <thead>
                 <tr>
-                  <th>SR.NO</th>
+                  <th class="srno">SR.NO</th>
                   <th>LEAD NO</th>
                   <th>COMPANY NAME</th>
                   <th>EMAIL ID</th>
@@ -52,7 +52,7 @@
                 <tbody>
                   @php $i=1; @endphp
                   @if (count($leads) > 0)
-                     @foreach ($leads as $k=>$lead)                  
+                     @foreach ($leads as $k=>$lead)
                       <tr>
                         <td>{{$i}}</td>
                         <td>{{$lead->leadID}}</td>
@@ -62,7 +62,7 @@
                         <td>{{@$lead->leadsource->name}}</td>
                         <td>{{@$lead->leadowner->name}}</td>
                       </tr>
-                        @php $i++; @endphp                                   
+                        @php $i++; @endphp
                     @endforeach
                   @else
                     <tr>
@@ -79,7 +79,7 @@
     </section>
     <!-- /.content -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>    
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <script type="text/javascript">
      setTimeout(function() {
        $('#successMessage').fadeOut('fast');

@@ -9,8 +9,8 @@
                <h5><label  class="control-label"><u>SET EMAIL/SMS ALERT</u>&nbsp&nbsp&nbsp&nbsp lakhan pvt. ltd</label></h5>
             </div>
             <div class="col-md-7"></div>
-            <div class="col-md-1 " style="margin-left:-19px;"><a href="/contactdetails/{{$client_id}}" class="btn btn-info btn-xs">
-               </span>&nbsp BACK TO LIST
+            <div class="col-md-1" style="margin-left:-30px;"><a href="/contactdetails/{{$client_id}}" class="btn btn-info btn-xs mt7">
+               </span><span class="glyphicon glyphicon-forward"></span>&nbsp; BACK TO LIST
                </a>
             </div>
          </div>
