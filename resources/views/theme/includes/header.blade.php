@@ -10,6 +10,8 @@
    {{ Html::style('bower_components/Ionicons/css/ionicons.min.css') }}
    <!-- DataTables -->
    {{ Html::style('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}
+   {{ Html::style('plugins/select2/select2.css') }}
+   {{ Html::style('plugins/select2/select2.min.css') }}
    <!-- Theme style -->
    {{ Html::style('dist/css/AdminLTE.min.css') }}
    <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -32,3 +34,25 @@
    <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
+<style type="text/css">
+  .alert-success {
+    color: #3c763d !important;
+    background-color: #dff0d8 !important;
+    border-color: #d6e9c6 !important;
+}
+.alert-info {
+    color: #31708f !important;
+    background-color: #d9edf7 !important;
+    border-color: #bce8f1 !important;
+}
+.alert-warning {
+    color: #8a6d3b !important;
+    background-color: #fcf8e3 !important;
+    border-color: #faebcc !important;
+}
+.alert-danger {
+    color: #a94442 !important;
+    background-color: #f2dede !important;
+    border-color: #ebccd1 !important;
+}
+</style>

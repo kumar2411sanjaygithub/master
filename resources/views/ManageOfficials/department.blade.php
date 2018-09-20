@@ -42,28 +42,21 @@
                 {{ session()->get('delmsg') }}
             </div>
           @endif
-          @if($errors->any())
-             @foreach ($errors->all() as $error)
-                <div class="alert alert-danger mt10 ">
-                <a href="#" class="close mb5" style="margin-bottom:5px;" data-dismiss="alert" aria-label="close">×</a>
-                  {{$error}}
-                </div>
-             @endforeach
-          @endif
             <form method="post" action="{{ route('departments_create') }}">
              {{ csrf_field() }}
              <div class="row">
                 <div class="col-xs-12">
-                   <div class="adddeportment hidden box">
+                   <div class="adddeportment box @if($errors->isEmpty())hidden @else  @endif">
                       <div class="box-body">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-3  {{ $errors->has('depatment_name') ? 'has-error' : '' }}">
                                <label  class="control-label">DEPARTMENT NAME</label>
-                               <input class="form-control input-sm" type="text" placeholder="Enter DEPARTMENT NAME" id="depatment_name" name="depatment_name">
+                               <input class="form-control input-sm" type="text" placeholder="DEPARTMENT NAME" id="depatment_name" name="depatment_name">
+                                <span class="text-danger">{{ $errors->first('depatment_name') }}</span>
                             </div>
                             <div class="col-md-3">
                                <label  class="control-label">DESCRIPTION</label>
-                               <input class="form-control input-sm" type="text" placeholder="Enter DESCRIPTION" id="description" name="description">
+                               <input class="form-control input-sm" type="text" placeholder="DESCRIPTION" id="description" name="description">
                             </div>
                             <div class="col-md-3">
                               <div class="col-md-6">
@@ -94,7 +87,7 @@
                    <table id="example1" class="table table-bordered table-striped table-hover text-center">
                       <thead class="tablehead">
                             <tr>
-                              <th class="text-center ">Sr.No
+                              <th class="text-center fs14">SR.NO
                               </th>
                               <th class="text-center ">DEPARTMENT NAME
                               </th>
@@ -142,19 +135,7 @@
     });
   </script>
   <script>
-  $(document).ready(function() {
-    $(document).on('click', '#submitdepartment', function(event) {
-    // validation start
-    var depatment_name = $('#depatment_name').val();
-       if(depatment_name == "")
-         {
 
-           swal('Error!', 'Please Enter Department Name !!!.', 'error');
-           $('#depatment_name').focus();
-           return false;
-         }
-         });
-    });
          </script>
           <script>
     window.setTimeout(function() {

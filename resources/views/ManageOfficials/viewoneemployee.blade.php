@@ -17,33 +17,33 @@
   <div class="box-body">
   <div class="row">
       <div class="col-md-3">
-     <label  class="control-label">EMPLOYEE</label>
+     <label  class="control-label">EMPLOYEE</label><span class="text-danger"><strong>*</strong></span>
        <input class="form-control input-sm" type="text" name="name" id="name" readonly name="name" value="{{ $officialstData->name }}">
     </div>
   <div class="col-md-3">
-    <label  class="control-label">EMPLOYEE ID</label>
+    <label  class="control-label">EMPLOYEE ID</label><span class="text-danger"><strong>*</strong></span>
   <input class="form-control input-sm" type="text"  name="employee_id" id="employee_id" readonly name="employee_idemployee_id" value="{{ $officialstData->employee_id }}">
   </div>
   <div class="col-md-3">
-    <label  class="control-label">DESIGNATION</label>
+    <label  class="control-label">DESIGNATION</label><span class="text-danger"><strong>*</strong></span>
   <input class="form-control input-sm" type="text" name="designation" id="designation" readonly name="designation" value="{{ $officialstData->designation }}">
   </div>
   <div class="col-md-3">
-    <label  class="control-label">EMAIL ID</label>
+    <label  class="control-label">EMAIL ID</label><span class="text-danger"><strong>*</strong></span>
   <input class="form-control input-sm" type="text" name="email" id="email" readonly name="email" value="{{ $officialstData->email }}">
   </div>
 </div>
 <div class="row">
     <div class="col-md-3">
-   <label  class="control-label">CONTACT NUMBER</label>
+   <label  class="control-label">CONTACT NUMBER</label><span class="text-danger"><strong>*</strong></span>
      <input class="form-control input-sm" type="text" name="contact_number" id="contact_number" readonly name="contact_number" value="{{ $officialstData->contact_number }}">
   </div>
 <div class="col-md-3">
-  <label  class="control-label">TELEPHONE NUMBER</label>
+  <label  class="control-label">TELEPHONE NUMBER</label><span class="text-danger"><strong>*</strong></span>
 <input class="form-control input-sm" type="text" name="telephone_number" id="telephone_number" readonly name="telephone_number" value="{{ $officialstData->telephone_number }}">
 </div>
 <div class="col-md-3">
-  <label  class="control-label">USER NAME</label>
+  <label  class="control-label">USER NAME</label><span class="text-danger"><strong>*</strong></span>
 <input class="form-control input-sm" type="text" name="username" id="username" readonly name="username" value="{{ $officialstData->username }}">
 </div>
 <!-- <div class="col-md-3">
@@ -57,7 +57,7 @@
      <input class="form-control input-sm" type="text" name="confirmed" id="confirmed" readonly name="confirmed" value="{{ $officialstData->confirmed }}">
   </div> -->
 <div class="col-md-3">
-  <label  class="control-label">DEPARTMENT NAME</label>
+  <label  class="control-label">DEPARTMENT NAME</label><span class="text-danger"><strong>*</strong></span>
    <select class="form-control valid" readonly name="department_id" id="department_id" value="">
               <option value='0'>Please Select Department</option>
               @foreach($department as $departmentuser)
@@ -66,7 +66,7 @@
                 </select>
 </div>
 <div class="col-md-3">
-  <label  class="control-label">ROLE</label>
+  <label  class="control-label">ROLE</label><span class="text-danger"><strong>*</strong></span>
    <input class="form-control input-sm" type="text" name="role_idrole_id" id="role_id" readonly name="role_id" value="{{ $officialstData->role_id }}">
 </div>
 </div>
@@ -81,7 +81,7 @@
        <input class="form-control input-sm" type="text" name="line1 " id=" line1" readonly name="line1" value="{{ $officialstData->line1 }}">
     </div>
   <div class="col-md-3">
-    <label  class="control-label">LINE2</label>
+    <label  class="control-label">LINE2</label><span class="text-danger"><strong>*</strong></span>
   <input class="form-control input-sm" type="text" name="line2" id="line2" readonly name="line2" value="{{ $officialstData->line2 }}">
   </div>
   <div class="col-md-3">
@@ -106,7 +106,7 @@
    <input class="form-control input-sm" type="text" name="line2" id="line2" readonly name="line2" value="{{ $officialstData->line2 }}">
   </div>
 <div class="col-md-3">
-  <label  class="control-label">PIN CODE</label>
+  <label  class="control-label">PIN CODE</label><span class="text-danger"><strong>*</strong></span>
 <input class="form-control input-sm" type="text" name="pin_code" id="pin_code" readonly name="pin_code" value="{{ $officialstData->pin_code }}">
 </div>
 <div class="col-md-3">
@@ -114,7 +114,7 @@
 <input class="form-control input-sm" type="text" name="comm_mob" id="comm_mob" readonly name="comm_mob" value="{{ $officialstData->comm_mob }}">
 </div>
 <div class="col-md-3">
-  <label  class="control-label">TELEPHONE NUMBER</label>
+  <label  class="control-label">TELEPHONE NUMBER</label><span class="text-danger"><strong>*</strong></span>
 <input class="form-control input-sm" type="text" name="comm_telephone" id="comm_telephone" readonly name="comm_telephone" value="{{ $officialstData->comm_telephone }}">
 </div>
 </div>

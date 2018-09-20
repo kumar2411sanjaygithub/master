@@ -34,47 +34,47 @@
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label">COMPANY NAME</label><span class="text-danger"><strong>*</strong></span>
-                  <input class="form-control input-sm " disabled type="text" placeholder="ENTER COMPANY NAME" name="company_name" id="company_name" value="{{ $clientdata->company_name}}">
+                  <input class="form-control input-sm  disabled-class" disabled type="text" placeholder="ENTER COMPANY NAME" name="company_name" id="company_name" value="{{ $clientdata->company_name}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">GSTIN</label><span class="text-danger"><strong>*</strong></span>
-                  <input class="form-control input-sm "  disabled type="text" placeholder="ENTER GSTIN" name="gstin" id="gstin" value="{{ $clientdata->gstin}}">
+                  <input class="form-control input-sm  disabled-class"  disabled type="text" placeholder="ENTER GSTIN" name="gstin" id="gstin" value="{{ $clientdata->gstin}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">PAN</label><span class="text-danger"><strong>*</strong></span>
-                  <input class="form-control input-sm " disabled type="text" placeholder="ENTER PAN NUMBER" name="pan" id="pan" value="{{ $clientdata->pan}}">
+                  <input class="form-control input-sm  disabled-class" disabled type="text" placeholder="ENTER PAN NUMBER" name="pan" id="pan" value="{{ $clientdata->pan}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">CIN</label>
-                  <input class="form-control input-sm"  disabled type="text" placeholder="ENTER CIN NUMBER" name="cin" id="cin"value="{{ $clientdata->cin}}">
+                  <input class="form-control input-sm  disabled-class"  disabled type="text" placeholder="ENTER CIN NUMBER" name="cin" id="cin"value="{{ $clientdata->cin}}">
                </div>
             </div>
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label">PRIMARY CONTACT NUMBER</label>
-                  <input class="form-control input-sm" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" disabled  value="{{ $clientdata->cin}}">
+                  <input class="form-control input-sm disabled-class" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" disabled  value="{{ $clientdata->cin}}">
                </div>
                <div class="col-md-3 ">
                   <label  class="control-label">PRIMARY EMAIL ID</label>
-                  <input class="form-control input-sm" type="text"  disabled placeholder="ENTER PRIMARY MAIL ID"name="email" id="email" value="{{ $clientdata->email}}">
+                  <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER PRIMARY MAIL ID"name="email" id="email" value="{{ $clientdata->email}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">SHORT ID</label>
-                  <input class="form-control input-sm"  type="text"  disabled placeholder="ENTER SHORT ID" name="short_id" id="short_id" value="{{ $clientdata->short_id}}">
+                  <input class="form-control input-sm disabled-class"  type="text"  disabled placeholder="ENTER SHORT ID" name="short_id" id="short_id" value="{{ $clientdata->short_id}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">OLD SAP CODE</label>
-                  <input class="form-control input-sm" type="text"  disabled placeholder="ENTER OLD SAP CODE" name="old_sap" id="old_sap" value="{{ $clientdata->old_sap}}" >
+                  <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER OLD SAP CODE" name="old_sap" id="old_sap" value="{{ $clientdata->old_sap}}" >
                </div>
             </div>
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label">SAP CODE</label>
-                  <input class="form-control input-sm" type="text"  disabled placeholder="ENTER SAP CODE" name="new_sap" id="new_sap" value="{{ $clientdata->new_sap}}">
+                  <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER SAP CODE" name="new_sap" id="new_sap" value="{{ $clientdata->new_sap}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">CRN</label>
-                  <input class="form-control input-sm" type="text"  disabled placeholder="ENTER CRN NUMBER" name="crn_no" id="crn_no" value="{{ $clientdata->crn_no}}">
+                  <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER CRN NUMBER" name="crn_no" id="crn_no" value="{{ $clientdata->crn_no}}">
                </div>
             </div>
             <h5><label  class="control-label"><u>REGISTERED OFFICE ADDRESS</u></label></h5>
@@ -138,11 +138,11 @@
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder=".ENTER ADDRESS1" id="bill_line1" name="bill_line1" value="{{ $clientdata->bill_line2}}">
+                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder=".ENTER ADDRESS1" id="bill_line1" name="bill_line1" value="{{ $clientdata->bill_line1}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">LINE-2</label>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS2" id="bill_line2" name="bill_line2" value="{{ $clientdata->reg_line1}}">
+                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS2" id="bill_line2" name="bill_line2" value="{{ $clientdata->bill_line2}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>

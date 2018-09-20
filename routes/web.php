@@ -61,7 +61,8 @@ Route::group(['middleware' => 'auth'], function ()
 
 
 		// PPA Bid Setting
-  Route::post('/ppa/ppadetails',['as'=>'ppadetails','uses'=>'PpaDetailsController@saveppa']);
+    Route::get('/addppadetailsfind/{id}',['as'=>'addppadetailsfind','uses'=>'PpaDetailsController@findppa']);
+    Route::post('/ppa/ppadetails',['as'=>'ppadetails','uses'=>'PpaDetailsController@saveppa']);
  	Route::get('/ppa/addppadetails',['as'=>'addppadetailss','uses'=>'PpaDetailsController@ppadetails']);
   Route::get('/ppa/editppa/{id}',['as'=>'ppa.editppa','uses'=>'PpaDetailsController@editppa']);
   Route::post('/ppa/updateppadata/{id}',['as'=>'ppa.updateppadata','uses'=>'PpaDetailsController@updateppadata']);
@@ -168,6 +169,8 @@ Route::get('/editcontactdetail/{id}/eid/{eid}',['as'=>'editcontactdetail','uses'
 Route::post('/contact_edit/{id}',['as'=>'contact_edit','uses'=>'ContactController@update_contactdetails']);
 Route::get('/delete/contact/{id}',['as'=>'contactdelete','uses'=>'ContactController@delete_contactdetails']);
 Route::get('/service/contact/{id}',['as'=>'service','uses'=>'ContactController@sevices']);
+Route::post('/addservices/{id}',['as'=>'addservices','uses'=>'ContactController@addservices']);
+
 
 //NOC----SHALU//
 Route::get('/nocdetails/{id}',['as'=>'nocdetails','uses'=>'NocController@nocdetails']);
@@ -176,19 +179,19 @@ Route::get('/editnocdetail/{id}/eid/{eid}',['as'=>'editnocdetail','uses'=>'NocCo
 Route::post('/noc_edit/{id}',['as'=>'noc_edit','uses'=>'NocController@update_nocdetails']);
 Route::get('/delete/noc/{id}',['as'=>'nocdelete','uses'=>'NocController@delete_nocdetails']);
 
-
-
-
-
-
-
-
-
-
-
 Route::get('/dam',['as'=>'dam','uses'=>'ClientDeatilsController@damdetails']);
 Route::get('/tem',['as'=>'tem','uses'=>'ClientDeatilsController@temdetails']);
-Route::get('/rec',['as'=>'rec','uses'=>'ClientDeatilsController@recdetails']);
+Route::get('/rec/price',['as'=>'rec-price.priceViewindex','uses'=>'RecSettingController@priceViewindex']);
+Route::post('/rec/price/store',['as'=>'rec-price.priceStore','uses'=>'RecSettingController@priceStore']);
+
+Route::get('/rec/exchange-ratio',['as'=>'rec-exchange.exchangeViewindex','uses'=>'RecSettingController@exchangeViewindex']);
+Route::post('/rec/exchange/store',['as'=>'rec-exchange.exchangeStore','uses'=>'RecSettingController@exchangeStore']);
+
+Route::get('/rec/bidding-setting/search',['as'=>'rec-bidding.biddingSearchindex','uses'=>'RecSettingController@biddingSearchindex']);
+Route::post('/rec/bidding-setting',['as'=>'rec-bidding.biddingViewindex','uses'=>'RecSettingController@biddingViewindex']);
+
+
+
 Route::get('/escerts',['as'=>'escerts','uses'=>'ClientDeatilsController@escertsdetails']);
 Route::get('/agsetting',['as'=>'agsetting','uses'=>'ClientDeatilsController@accountGroupDetails']);
 Route::any('/creategroup','ClientDeatilsController@creategroup')->name('creategroups');
@@ -199,32 +202,32 @@ Route::any('/deletegroup','ClientDeatilsController@deletegroup')->name('deletegr
 
 Route::get('/barred',['as'=>'bared.barreddetails','uses'=>'ClientDeatilsController@barreddetails']);
 Route::get('/client-status/{c_id}/status/{status_id}',['as'=>'bared.barredstatus','uses'=>'ClientDeatilsController@barredChangeStatus']);
-//APPROVAL FOR CLIENT//
+//APPROVAL FOR CLIENT--SHALU///
 Route::get('/client/new',['as'=>'approve.newclient','uses'=>'ClientApprovalController@approvenew']);
 
 Route::get('/client/existing',['as'=>'approve.existingclient','uses'=>'ClientApprovalController@approveexisting']);
 Route::get('/basic/approval/{id}',['as'=>'approve.client','uses'=>'ClientApprovalController@clientapproval']);
 
-//APPROVAL FOR BANK//
+//APPROVAL FOR BANK--SHALU///
 Route::get('/status/{id}/{type}',['as'=>'approve.status','uses'=>'ClientApprovalController@status']);
 Route::get('/bankapproval/{id}',['as'=>'bankapproval','uses'=>'ClientApprovalController@bankapproval']);
 Route::get('/add/{id}/{type}/{type2}',['as'=>'add.approve','uses'=>'ClientApprovalController@addapprove']);
 Route::get('/modified/{id}/{type}/',['as'=>'modified.approve','uses'=>'ClientApprovalController@modified']);
 Route::get('/deletebank/{id}/{type}/{type2}',['as'=>'deletebank.approve','uses'=>'ClientApprovalController@deletebank']);
 
-//APPROVAL FOR EXCHANGE//
+//APPROVAL FOR EXCHANGE--SHALU///
 Route::get('/exchangeapproval/{id}',['as'=>'exchangeapproval','uses'=>'ExchangeApprovalController@exchangeapproval']);
 Route::get('/addexchange/{id}/{type}/{type2}',['as'=>'addexchange.approve','uses'=>'ExchangeApprovalController@addapprove']);
 Route::get('/exchange/modified/{id}/{type}/',['as'=>'modifiedexchange.approve','uses'=>'ExchangeApprovalController@modified']);
 Route::get('/delete_exchange/{id}/{type}/{type2}',['as'=>'deleteexchange.approve','uses'=>'ExchangeApprovalController@delete_exchange']);
 
-//APPROVAL FOR CONTACT//
+//APPROVAL FOR CONTACT--SHALU///
 Route::get('/contact/approval/{id}',['as'=>'contactapproval','uses'=>'ContactApprovalController@contactapproval']);
 Route::get('/addcontact/{id}/{type}/{type2}',['as'=>'addcontact.approve','uses'=>'ContactApprovalController@addapprove']);
 Route::get('/contact/modified/{id}/{type}/',['as'=>'modifiedcontact.approve','uses'=>'ContactApprovalController@modified']);
 Route::get('/delete_contact/{id}/{type}/{type2}',['as'=>'deletecontact.approve','uses'=>'ContactApprovalController@delete_contact']);
 
-//APPROVAL FOR NOC//
+//APPROVAL FOR NOC--SHALU///
 Route::get('/nocapproval/{id}',['as'=>'nocapproval','uses'=>'NocApprovalController@nocapproval']);
 Route::get('/addnoc/{id}/{type}/{type2}',['as'=>'addnoc.approve','uses'=>'NocApprovalController@addapprove']);
 Route::get('/noc/modified/{id}/{type}/',['as'=>'modifiednoc.approve','uses'=>'NocApprovalController@modified']);
@@ -265,6 +268,23 @@ Route::post('/noc-billing/create',['as'=>'noc_billing.nocbillingcreate','uses'=>
 Route::delete('/noc-billing-setting/{id}',['as'=>'noc-billing-setting.nocbillingdelete','uses'=>'NocAppController@nocbillingdelete']);
 Route::get('/noc-billing/edit/{id}',['as'=>'noc_billing.nocbillingedit','uses'=>'NocAppController@nocbillingedit']);
 Route::post('/noc-billing-update/{id}',['as'=>'noc_billing.nocbillingupdate','uses'=>'NocAppController@nocbillingupdate']);
+
+
+
+/*******************************************************
+    Shalu Gupta----IMPORT(DAM)
+/*******************************************************/
+
+Route::get('/obligation',['as'=>'obligation','uses'=>'ObligationController@home']);
+Route::get('/obligation/{exchange}/{year}/{month}/{day}',['as'=>'obligation.index','uses'=>'ObligationController@home']);
+Route::get('/update_ftp_list/{exchange}/{year}/{month}/{day}',['as'=>'obligation.ftp_db','uses'=>'ObligationController@updateFtpDetails']);
+Route::get('/obligation/download/{id}',['as'=>'download.obligation','uses'=>'ObligationController@downloadObligation']);
+Route::get('/obligation/import/{id}',['as'=>'obligation.import','uses'=>'ObligationController@importObligation']);
+Route::get('/service/mailobligation/{client_id}/{ftp_id}',['as'=>'service.mail','uses'=>'EmailController@mail_obligation']);
+
+
+
+
 
 });
 
