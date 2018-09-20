@@ -99,7 +99,6 @@
               <div class="col-md-3 {{ $errors->has('reg_state') ? 'has-error' : '' }}">
               <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;"id="reg_state" name="reg_state" value="{{old('reg_state')}}">
-
                   <option value="">SELECT STATE</option>
           <?php
           $state_list = \App\Common\StateList::get_states();
@@ -140,7 +139,7 @@
     </div>
 
     <div class="col-md-5" style="margin-top:6px;">
-  <input type="checkbox" class="minimal">&nbsp<span>SAME AS REGISTERED OFFICE ADDRESS</span>
+  <input type="checkbox" id="saroa" class="minimal1">&nbsp<span><label for="saroa">SAME AS REGISTERED OFFICE ADDRESS</label></span>
     </div>   <div class="col-md-5"></div>
   </div><hr>
             <div class="row">
@@ -202,7 +201,7 @@
         </div>
 
         <div class="col-md-5" style="margin-top:6px;">
-      <input type="checkbox" class="minimal">&nbsp<span>SAME AS BILLING ADDRESS</span>
+      <input type="checkbox" id="saba" class="minimal1">&nbsp<span><label for="saba">SAME AS BILLING ADDRESS</label></span>
         </div>   <div class="col-md-5"></div>
       </div><hr>
             <div class="row">

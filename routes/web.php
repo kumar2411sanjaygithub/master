@@ -61,7 +61,8 @@ Route::group(['middleware' => 'auth'], function ()
 
 
 		// PPA Bid Setting
-  Route::post('/ppa/ppadetails',['as'=>'ppadetails','uses'=>'PpaDetailsController@saveppa']);
+    Route::get('/addppadetailsfind/{id}',['as'=>'addppadetailsfind','uses'=>'PpaDetailsController@findppa']);
+    Route::post('/ppa/ppadetails',['as'=>'ppadetails','uses'=>'PpaDetailsController@saveppa']);
  	Route::get('/ppa/addppadetails',['as'=>'addppadetailss','uses'=>'PpaDetailsController@ppadetails']);
   Route::get('/ppa/editppa/{id}',['as'=>'ppa.editppa','uses'=>'PpaDetailsController@editppa']);
   Route::post('/ppa/updateppadata/{id}',['as'=>'ppa.updateppadata','uses'=>'PpaDetailsController@updateppadata']);
@@ -168,6 +169,8 @@ Route::get('/editcontactdetail/{id}/eid/{eid}',['as'=>'editcontactdetail','uses'
 Route::post('/contact_edit/{id}',['as'=>'contact_edit','uses'=>'ContactController@update_contactdetails']);
 Route::get('/delete/contact/{id}',['as'=>'contactdelete','uses'=>'ContactController@delete_contactdetails']);
 Route::get('/service/contact/{id}',['as'=>'service','uses'=>'ContactController@sevices']);
+Route::post('/addservices/{id}',['as'=>'addservices','uses'=>'ContactController@addservices']);
+
 
 //NOC----SHALU//
 Route::get('/nocdetails/{id}',['as'=>'nocdetails','uses'=>'NocController@nocdetails']);
@@ -175,9 +178,6 @@ Route::post('/noc_create',['as'=>'noc_create','uses'=>'NocController@add_nocdeta
 Route::get('/editnocdetail/{id}/eid/{eid}',['as'=>'editnocdetail','uses'=>'NocController@edit_nocdetails']);
 Route::post('/noc_edit/{id}',['as'=>'noc_edit','uses'=>'NocController@update_nocdetails']);
 Route::get('/delete/noc/{id}',['as'=>'nocdelete','uses'=>'NocController@delete_nocdetails']);
-
-
-    Route::get('/service/mailobligation/{client_id}/{ftp_id}',['as'=>'service.mail','uses'=>'EmailController@mail_obligation']);
 
 
 
@@ -280,6 +280,7 @@ Route::get('/obligation/{exchange}/{year}/{month}/{day}',['as'=>'obligation.inde
 Route::get('/update_ftp_list/{exchange}/{year}/{month}/{day}',['as'=>'obligation.ftp_db','uses'=>'ObligationController@updateFtpDetails']);
 Route::get('/obligation/download/{id}',['as'=>'download.obligation','uses'=>'ObligationController@downloadObligation']);
 Route::get('/obligation/import/{id}',['as'=>'obligation.import','uses'=>'ObligationController@importObligation']);
+Route::get('/service/mailobligation/{client_id}/{ftp_id}',['as'=>'service.mail','uses'=>'EmailController@mail_obligation']);
 
 
 

@@ -12,6 +12,7 @@ use DB;
 use App\ServiseAlert;
 use Validator;
 use App\Client;
+use App\service;
 use Illuminate\Support\Facades\Redirect;
 
 class ContactController extends Controller
@@ -51,9 +52,6 @@ class ContactController extends Controller
         {
             return Redirect::back()->withErrors($validator);
         }
-         
-        
-       
         $contactdetail = new ContactTemp();
         $contactdetail->client_id = $request->client_id;
         $contactdetail->name = $request->input('name');
@@ -61,12 +59,34 @@ class ContactController extends Controller
         $contactdetail->email = $request->input('email');
         $contactdetail->mob_num = $request->input('mob_num');
         $contactdetail->status = 0;
-        //dd(3);
         $contactdetail->save();
         return redirect()->back()->with('message','Detail added successfully and sent to Approver');
-        
     }
+    public function addservices(Request $request, $id)
+    {
+      dd($id);
+        $client_id=$id;
+        $service = new service();
+        $service->alert_type = $request->input('alert_type');
+        $service->client_id = $client_id;
+        $service->dam_iex_sms = $request->input('dam_iex_sms');
+        $service->dam_iex_email = $request->input('dam_iex_email');
+        $service->dam_pxil_sms = $request->input('dam_pxil_sms');
+        $service->dam_pxil_email = $request->input('dam_pxil_email');
+        $service->tam_iex_sms = $request->input('tam_iex_sms');
+        $service->tam_iex_email = $request->input('tam_iex_email');
+        $service->tam_pxil_sms = $request->input('tam_pxil_sms');
+        $service->tam_pxil_email = $request->input('tam_pxil_email');
+        $service->rec_iex_sms = $request->input('rec_iex_sms');
+        $service->rec_iex_email = $request->input('rec_iex_email');
+        $service->rec_pxil_sms = $request->input('rec_pxil_sms');
+        $service->rec_pxil_email = $request->input('rec_pxil_email');
+        $service->ec_iex_sms = $request->input('ec_iex_sms');
+        $service->ec_iex_email = $request->input('ec_iex_email');
+        $service->save();
+        return view('ManageClient.service',compact('client_id','alert_type'));
 
+    }
     public function update_contactdetails(Request $request ,$contact_detail_id)
     {
         //  $this->validate($request, [
@@ -83,17 +103,17 @@ class ContactController extends Controller
         $datas['designation'] = $contactdetail['designation'];
         $datas['email'] = $contactdetail['email'];
         $datas['mob_num'] = $contactdetail['mob_num'];
-        
+
         $dataArray =array();
         $dataArray['name'] = $request->input('name');
         $dataArray['designation'] = $request->input('designation');
         $dataArray['email'] = $request->input('email');
         $dataArray['mob_num'] = $request->input('mob_num');
-        
-       
+
+
         $result=array_diff($dataArray,$datas);
         $this->generateApprovalrequest($result,'contact',$client_id,$contact_detail_id,$datas);
-        return redirect()->route('contactdetails', ['id' => $client_id])->with('message','Detail added successfully and sent to Approver'); 
+        return redirect()->route('contactdetails', ['id' => $client_id])->with('message','Detail added successfully and sent to Approver');
     }
 
 
@@ -112,6 +132,7 @@ class ContactController extends Controller
         return view('ManageClient.service',compact('client_id','alert_type'));
 
     }
+
     function generateApprovalrequest($data, $type, $client_id, $reference_id='',$datas){
         $arrayKey = array_keys($data);
 

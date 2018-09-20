@@ -37,8 +37,8 @@ class ClientDeatilsController extends Controller
 		$validator = validator::make($request->all(),[
 
 			'company_name' => 'required|max:100',
-            'gstin' => 'required|regex:/^[0-9]{2}[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z][0-9A-z]{3}$/|unique:posts|unique:postsmax:15',
-            'pan' => 'required|regex:/^[a-zA-Z]{3}[ABCEFGHJLTabcefghjl]{1}[a-zA-Z]{1}\d{4}[a-zA-Z]{1}$/|unique:posts|max:10',
+            'gstin' => 'required|regex:/^[0-9]{2}[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z][0-9A-z]{3}$/|unique:clients|max:15',
+            'pan' => 'required|regex:/^[a-zA-Z]{3}[ABCEFGHJLTabcefghjl]{1}[a-zA-Z]{1}\d{4}[a-zA-Z]{1}$/|unique:clients|max:10',
             //'short_id' => 'required|max:15',
             'pri_contact_no'=>'required',
             'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|min:21|max:21',
@@ -289,7 +289,7 @@ class ClientDeatilsController extends Controller
             'account_number' => 'required|regex:/^[\w-]*$/|max:20',
             'bank_name' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
             'branch_name' => 'required|regex:/^[a-z\d\-_\s]+$/i|max:50',
-            'ifsc' => 'required|max:11',
+            'ifsc' => 'required|max:11'
         ]);
 
         if($validator->fails())
@@ -344,7 +344,7 @@ class ClientDeatilsController extends Controller
         $dataArray['account_number'] = $request->input('account_number');
         $dataArray['bank_name'] = $request->input('bank_name');
         $dataArray['branch_name'] = $request->input('branch_name');
-        $dataArray['ifsc_code'] = $request->input('ifsc_code');
+        $dataArray['ifsc'] = $request->input('ifsc');
         $dataArray['virtual_account_number'] = $request->input('virtual_account_number');
         $result=array_diff($dataArray,$bankdetailtemp);
 

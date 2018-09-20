@@ -44,6 +44,9 @@ $('.alphanum').keypress(function (e) {
       {{ Html::script('bower_components/bootstrap-daterangepicker/daterangepicker.js') }}
       <!-- bootstrap datepicker -->
       {{ Html::script('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}
+      {{ Html::script('plugins/select2/select2.js') }}
+      {{ Html::script('plugins/select2/select2.min.js') }}
+
       <!-- bootstrap color picker -->
       {{ Html::script('bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}
       <!-- bootstrap time picker -->
