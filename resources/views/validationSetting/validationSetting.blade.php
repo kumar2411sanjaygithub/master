@@ -73,7 +73,7 @@
                           <span class="text-danger">{{ $errors->first('user_id') }}</span>
                        </div>
                    </div>
-               <div class="col-md-6">
+               <div class="col-md-6" style="margin-top:2px;">
                       <div class="row">
                       <div class="col-md-3"><span><input type="checkbox" class="minimal" value="NOC" name="noc" id="noc"></span> <label class="control-label" for="noc">NOC</label></div>
 
@@ -130,16 +130,16 @@
                <?php $i=1; ?>
                @foreach ($validationsettingData as $key => $value)
                <tr>
-                 <td class="text-center">{{ $i }}</td>
-                 <td class="text-center">{{$value->client_master['company_name']}}</td>
-                 <td class="text-center">{{ isset($value->noc) && $value->noc == 'NOC' ? 'Yes' : 'No'}}</td>
-                 <td class="text-center">{{ isset($value->ppa) && $value->ppa == 'PPA' ? 'Yes' : 'No'}}</td>
-                 <td class="text-center">{{ isset($value->exchange) && $value->exchange == 'Exchange' ? 'Yes' : 'No'}}</td>
-                 <td class="text-center">{{ isset($value->psm) && $value->psm == 'PSM' ? 'Yes' : 'No'}}</td>
+                 <td class="text-center" style="width:4%;">{{ $i }}</td>
+                 <td class="text-center" style="width:45%;">{{$value->client_master['company_name']}}</td>
+                 <td class="text-center" style="width:10%;">{{ isset($value->noc) && $value->noc == 'NOC' ? 'Yes' : 'No'}}</td>
+                 <td class="text-center" style="width:10%;">{{ isset($value->ppa) && $value->ppa == 'PPA' ? 'Yes' : 'No'}}</td>
+                 <td class="text-center" style="width:10%;">{{ isset($value->exchange) && $value->exchange == 'Exchange' ? 'Yes' : 'No'}}</td>
+                 <td class="text-center" style="width:10%;">{{ isset($value->psm) && $value->psm == 'PSM' ? 'Yes' : 'No'}}</td>
                  <!-- <td class="text-center">
                    <a href="/editvalidationsetting/{{$value->id}}"><img src="{{ asset('img/assets/edit.svg')}}" height="22" width="22"></a>
                 </td> -->
-                <td class="text-center">
+                <td class="text-center" style="width:10%;">
                   <a href="/editvalidationsetting/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
                   &nbsp;&nbsp;&nbsp;
                   <a href="/deleteeditvalidationsetting/{{$value->id}}"><span class="glyphicon glyphicon-trash text-danger"></span></a>

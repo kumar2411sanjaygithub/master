@@ -8,11 +8,11 @@
 @section('content')
       <!-- Content Header (Page header) -->
       <section class="content-header">
-         <h5><label  class="control-label">DEPARTMENT LIST</label></h5>
+         <h5><label  class="control-label"><u>DEPARTMENT LIST</u></label></h5>
          <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
             <li><a href="#">MANAGE EMPLOYEE</a></li>
-            <li><a href="active">DEPARTMENT</a></li>
+            <li><a href="active"><u>DEPARTMENT</u></a></li>
          </ol>
       </section>
       <!-- Main content -->
@@ -89,12 +89,12 @@
                             <tr>
                               <th class="text-center fs14">SR.NO
                               </th>
-                              <th class="text-center fs14">DEPARTMENT NAME
+                              <th class="text-center ">DEPARTMENT NAME
                               </th>
-                              <th class="text-center fs14">DESCRIPTION</th>
-                              <th class="text-center fs14">CREATED BY</th>
-                              <th class="text-center fs14">CREATED DATE</th>
-                              <th class="text-center fs14">ACTION</th>
+                              <th class="text-center ">DESCRIPTION</th>
+                              <th class="text-center ">CREATED BY</th>
+                              <th class="text-center">CREATED DATE</th>
+                              <th class="text-center ">ACTION</th>
                             </tr>
                           </thead>
                           <tbody>

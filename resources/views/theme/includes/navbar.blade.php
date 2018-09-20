@@ -256,7 +256,7 @@
                         </span>
                       </a>
                       <ul class="treeview-menu" style="display: none;">
-                        <li><a href="#"><i class="fa fa-circle-o"></i>Obligation</a></li>
+                        <li><a href="{{route('obligation')}}"><i class="fa fa-circle-o"></i>Obligation</a></li>
                         <li><a href="#"><i class="fa fa-circle-o"></i>Scheduling</a></li>
                         <li><a href="#"><i class="fa fa-circle-o"></i>Rate Sheet</a></li>
                         <li><a href="#"><i class="fa fa-circle-o"></i>Rate Sheet Graph</a></li>

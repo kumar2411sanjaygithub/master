@@ -147,7 +147,7 @@ class ManageOfficialsController extends Controller
         
         $employees = new User();
         $employees->name = $request->input('name');
-        $employees->employee = $request->input('employee');
+        
 
         $employees->employee_id = $request->input('employee_id');
         $employees->email = $request->input('email');

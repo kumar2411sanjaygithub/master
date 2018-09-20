@@ -1,15 +1,7 @@
 @extends('theme.layouts.default')
 @section('content')
-<style type="text/css">
-.divhide{
-  display: none;
-}
-.divshow{
-  display: block;
-}
-</style>
  <section class="content-header">
-      <h5><label  class="control-label"><u>Upload Exchange File</u>&nbsp <small>{{$client_details[0]['company_name']}}/{{$client_details[0]['crn_no']}}/{{$client_details[0]['iex_portfolio']}}/{{$client_details[0]['pxil_portfolio']}}</small></label></h5>
+      <h5><label  class="control-label"><u>Upload Exchange File</u>&nbsp&nbsp&nbsp&nbsp    {{$client_details[0]['company_name']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['crn_no']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['iex_portfolio']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['pxil_portfolio']}}</label></h5>
     </section>
     <section class="content">
        @if(session()->has('message'))
@@ -19,24 +11,17 @@
             </div>
           @endif
 
-           <div class="row">
-              <div class="col-md-10"></div>
-               <div class="col-md-2 text-right">
-                 <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
-               
-              </div>
-          </div>
-
           <form method ="post" action="{{isset($get_exchange_details)?url('exchange_edit/'.$get_exchange_details->id):route('exchange_create')}}" enctype="multipart/form-data">
            {{ csrf_field() }}
            <div class="row{{isset($get_bank_details)?'':'divhide'}}" id="exchangebox">
 
           <div class="box">
-          <div class="box-body">
+          <div class="box-body addtab hidden">
           <div class="row">
               <div class="col-md-3 {{ $errors->has('ex_type') ? 'has-error' : '' }}">
                 <input type="hidden"  name="client_id" value="{{@$client_id}}" id="client">
               <label  class="control-label">EXCHANGE TYPE<span class="text-danger"><strong>*</strong></label>
+
               <select class="form-control input-sm " style="width: 100%;" id="ex_type" name="ex_type" >
                   <option value="">SELECT EXCHANGE</option>
                   <option value="iex" {{(isset($get_exchange_details)&& $get_exchange_details->ex_type=='iex')||old('ex_type')=='iex'?'selected':''}}>IEX</option>
@@ -68,7 +53,7 @@
       </div>
       <div class="col-md-3 {{ $errors->has('file_upload') ? 'has-error' : '' }}">
         <label  class="control-label">REGISTRATION CERTIFICATE</label><span class="text-danger"><strong>*</strong></span>
-        <input class="form-control input-sm" type="file" placeholder="" id="file_upload" name="file_upload">
+        <input class="form-control input-sm" type="file" placeholder="" id="file_upload" name="file_upload" style="padding:4px 4px;">
          <span class="text-danger">{{ $errors->first('file_upload') }}</span>
       </div>
     </div>
@@ -80,7 +65,7 @@
           @else
           <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs" id="save" name="save">SAVE</button></div>
           @endif
-          <div class="col-md-1"><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="Cancel"  onclick="myFunction()"></div>
+          <div class="col-md-1"><input type="button" class="btn btn-block btn-danger btn-xs cancel" id="bn7" name="bn7" value="Cancel"  onclick="myFunction()"></div>
 
         <div class="col-md-5"></div>
       </div>
@@ -147,8 +132,12 @@
 
      $(document).ready(function(){
       $('#add').on('click', function(){
-      $('#exchangebox').removeClass('divhide').addClass('divshow');
-      });
+          $(".addtab").removeClass("hidden");
+          $("#add").hide();
+        });
+        $(".cancel").click(function(){
+          $(".addtab").addClass("hidden");
+        });
       });
      </script>
      <script>

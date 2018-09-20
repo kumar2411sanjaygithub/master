@@ -34,7 +34,7 @@ class LeadController extends Controller
      */
     public function index()
     {
-       
+
         $leads = Lead::paginate(10);
 
         return view('crm.index', compact('leads'));
@@ -47,10 +47,12 @@ class LeadController extends Controller
      */
     public function create()
     {
-        $user = User::where('id','!=',1)->orderBy('name','asc')->get();
+        $user = User::where('id','!=',1)->where('emp_app_status',1)->orderBy('name','asc')->get();
+        //dd($user);
         $leadsource = LeadSource::orderBy('name','asc')->get();
         $industry = Industry::orderBy('industry_name','asc')->get();
-        $product = Product::orderBy('product_name','asc')->get();
+        $product = Product::select('*')->get();
+        
         return view('crm.create', compact('user','leadsource','industry','product'));
     }
 
@@ -64,7 +66,10 @@ class LeadController extends Controller
     {
         $this->validate($request, [
             'company_name' => 'required|regex:/^[a-zA-Z ]+$/u|min:1|max:50',
-            'contact_person' => 'nullable|regex:/^[a-zA-Z ]+$/u|max:50',
+            'product' => 'required',
+            'contact_person' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
+            'contact_number' => 'required|digits:10',
+            'email_id' => 'required',
             'add_line1' => 'required|max:200',
             'add_line2' => 'nullable|max:200',
             'quantum' => 'nullable|regex:/^[0-9]+$/',
@@ -72,20 +77,21 @@ class LeadController extends Controller
             'add_state' => 'required',
             'add_city' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
             'add_pincode' => 'required|min:4|max:8|not_in:0',
-            'contact_number' => 'nullable|digits:10',
+            //'contact_number' => 'nullable|digits:10',
+
         ]);
 
-        $last = Lead::orderBy('id', 'desc')->get();        
-        if ($last) {
-            $lead_id=count($last)+1;
-        }else{
-            $lead_id = 1;
-        }
-
-         $leadID='L-'.str_pad($lead_id, 4, '0', STR_PAD_LEFT)."";
+        // $last = Lead::orderBy('id', 'desc')->get();
+        // if ($last) {
+        //     $lead_id=count($last)+1;
+        // }else{
+        //     $lead_id = 1;
+        // }
+        //
+        //  $leadID='L-'.str_pad($lead_id, 4, '0', STR_PAD_LEFT)."";
 
         $lead = new Lead;
-        $lead->leadID = $leadID;
+
         $lead->company_name = request('company_name');
         $lead->product = request('product');
         $lead->contact_person = request('contact_person');
@@ -100,15 +106,28 @@ class LeadController extends Controller
         $lead->voltage = request('voltage');
         $lead->remarks = request('remarks');
         $lead->add_line1 = request('add_line1');
-        $lead->add_lin2 = request('add_lin2');   
+        $lead->add_lin2 = request('add_lin2');
         $lead->add_country = request('add_country');
         $lead->add_state = request('add_state');
         $lead->add_city = request('add_city');
-        $lead->add_pincode = request('add_pincode');                                
-        $lead->save();  
+        $lead->add_pincode = request('add_pincode');
+        $lead->save();
+        $num = $lead->id;
+
+        $leadId =  $this->getSequence($num);
+        
+        $lead->leadID = $leadId;
+        $lead->update();
+       
 
         return redirect()->route('lead.index')->with('success', 'Lead Added Successfully.');
     }
+
+    
+    function getSequence($num) {
+     return str_pad($num, 4, '0', STR_PAD_LEFT);
+
+   }
 
 
     /**
@@ -123,7 +142,7 @@ class LeadController extends Controller
         $user = User::where('id','!=',1)->orderBy('name','asc')->get();
         $leadsource = LeadSource::orderBy('name','asc')->get();
         $industry = Industry::orderBy('industry_name','asc')->get();
-        $product = Product::orderBy('product_name','asc')->get();
+        $product = Product::orderBy('id','asc')->get();
         $tasks = Task::orderBy('id','desc')->where('lead_id',$id)->paginate(10);
         $leadProduct = LeadProduct::orderBy('id','desc')->where('lead_id',$id)->paginate(10);
         $leadProduct_arr = LeadProduct::where('lead_id',$id)->get()->toArray();
@@ -147,10 +166,11 @@ class LeadController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $this->validate($request, [
             'company_name' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
             'contact_person' => 'nullable|regex:/^[a-zA-Z ]+$/u|max:50',
+            'contact_number'=>'required|regex:/^[0-9]{10}$/',
             'add_line1' => 'required|max:200',
             'add_line2' => 'nullable|max:200',
             'add_country' => 'required',
@@ -158,6 +178,7 @@ class LeadController extends Controller
             'add_city' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
             'add_pincode' => 'required|min:4|max:8|not_in:0',
             'contact_number' => 'nullable|digits:10',
+
         ]);
 
         $lead = Lead::find($id);
@@ -175,12 +196,12 @@ class LeadController extends Controller
         $lead->voltage = request('voltage');
         $lead->remarks = request('remarks');
         $lead->add_line1 = request('add_line1');
-        $lead->add_lin2 = request('add_lin2');   
+        $lead->add_lin2 = request('add_lin2');
         $lead->add_country = request('add_country');
         $lead->add_state = request('add_state');
         $lead->add_city = request('add_city');
-        $lead->add_pincode = request('add_pincode');                                
-        $lead->save();  
+        $lead->add_pincode = request('add_pincode');
+        $lead->save();
 
         return redirect()->route('lead.index')->with('success', 'Lead Updated Successfully.');
     }
@@ -194,7 +215,7 @@ class LeadController extends Controller
      */
     public function destroy($id)
     {
-        
+
         $permission = PermissionList::findOrFail($id);
         $permission->delete();
 
@@ -217,14 +238,14 @@ class LeadController extends Controller
         $task->subject = request('subject');
         $task->status = request('status');
         $task->due_date = $new_commerce_date;
-        $task->owner = request('owner');                             
-        $task->save();  
+        $task->owner = request('owner');
+        $task->save();
 
         return Redirect::back()->with('success', 'Task added successfully.');
     }
     public function taskdelete($id)
     {
-        
+
         $task = Task::findOrFail($id);
         $task->delete();
 
@@ -240,24 +261,24 @@ class LeadController extends Controller
         $task->subject = request('subject');
         $task->status = request('status');
         $task->due_date = $new_commerce_date;
-        $task->owner = request('owner');                             
-        $task->save();  
+        $task->owner = request('owner');
+        $task->save();
 
         return Redirect::back()->with('success', 'Task updated successfully.');
     }
     public function productadd(Request $request)
     {
-        
+
         $product = new LeadProduct;
         $product->lead_id = request('lead_id');
         $product->product_id = request('product_id');
-        $product->save();  
+        $product->save();
 
         return Redirect::back()->with('success', 'Product added successfully.');
     }
     public function leadproduct_delete($id)
     {
-        
+
         $product = LeadProduct::findOrFail($id);
         $product->delete();
 
@@ -270,7 +291,7 @@ class LeadController extends Controller
       if(isset(request()->attached))
         {
             $imageName = time().'.'.request()->attached->getClientOriginalName();
-            request()->attached->move(public_path('files/'), $imageName);           
+            request()->attached->move(public_path('files/'), $imageName);
         }
         else
         {
@@ -282,15 +303,15 @@ class LeadController extends Controller
         $email->send_by = $login_user['email'];
         $email->recieved_by = request('recieved_by');
         $email->subject = request('subject');
-        $email->message = request('editor1');   
-        $email->attached = $imageName;                           
-        $email->save();  
+        $email->message = request('editor1');
+        $email->attached = $imageName;
+        $email->save();
 
         return Redirect::back()->with('success', 'Email Send successfully.');
     }
     public function lead_email_delete($id)
     {
-        
+
         $email = LeadEmail::findOrFail($id);
         $email->delete();
 
@@ -298,8 +319,8 @@ class LeadController extends Controller
     }
     public function generateCrn($id='',$c_id='')
     {
-        
-        $lead_info = Lead::findOrFail($id);              
+
+        $lead_info = Lead::findOrFail($id);
         $password = str_random(10);
 
         if($lead_info->product==$c_id)
@@ -354,9 +375,9 @@ class LeadController extends Controller
         else
         {
             $convert=LeadProduct::where(['lead_id'=>$id,'product_id'=>$c_id])->update(['product_converted' => 1]);
-            
+
         }
-        return redirect()->route('lead.index')->with('success', 'Client CRN information generate Successfully.');       
+        return redirect()->route('lead.index')->with('success', 'Client CRN information generate Successfully.');
 
     }
 

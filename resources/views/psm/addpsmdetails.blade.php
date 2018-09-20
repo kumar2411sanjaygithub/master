@@ -11,10 +11,12 @@ a.disabled {
   pointer-events: none;
   cursor: default;
 }
+span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
 </style>
 <section class="content-header">
-   <h5>
-      <label  class="control-label">Payment Security Mechanism(PSM) Details</label>
+   <h5 class="hid">
+      <label  class="control-label"><u>Payment Security Mechanism(PSM) Details</u></label>
+      &nbsp; {{@$clientData->company_name}}<span class="hifan">|</span>{{@$clientData->crn_no}}<span class="hifan">|</span>{{@$clientData->iex_portfolio}}<span class="hifan">|</span>{{@$clientData->pxil_portfolio}}
    </h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
@@ -57,7 +59,7 @@ a.disabled {
            <form method="post" enctype="multipart/form-data" action="{{ url('psm/psmdetails/'.$id) }}" class="apd hidden">
              {{ csrf_field()}}
             <section class="content-header">
-              <h5><label  class="control-label"><u>ADD PSM DETAILS</u> &nbsp; <small>{{@$clientData->company_name}}</small></label></h5>
+              <span style="margin-left:-12px;"><label  class="control-label"><u>ADD PSM DETAILS</u></label></span> &nbsp; &nbsp; {{@$clientData->company_name}}<span class="hifan">|</span>{{@$clientData->crn_no}}<span class="hifan">|</span>{{@$clientData->iex_portfolio}}<span class="hifan">|</span>{{@$clientData->pxil_portfolio}}
             </section>
                       <div class="row">
                  <div class="col-xs-12">
@@ -126,7 +128,7 @@ a.disabled {
                              </div>
                              <div class="col-md-3 {{ $errors->has('document') ? 'has-error' : '' }}">
                                 <label  class="control-label">UPLOAD DOCUMENT</label><span class="text-danger"><strong>*</strong></span>
-                                <input class="form-control input-sm" type="file" value="{{old('document')}}" name="document" id="upload" placeholder="ENTER POC LOSSES" disabled="disabled">
+                                <input class="form-control input-sm" type="file" value="{{old('document')}}" name="document" id="upload" placeholder="ENTER POC LOSSES" disabled="disabled" style="padding:4px 4px;">
                                 <span class="text-danger">{{ $errors->first('document') }}</span>
                              </div>
                           </div>
@@ -135,6 +137,7 @@ a.disabled {
                                 <label  class="control-label">DESCRIPTION</label>
                                 <input class="form-control input-sm" type="text" value="{{old('description')}}" name="description" placeholder="ENTER DESCRIPTION">
                              </div>
+
                           </div>
                           <div class="row">&nbsp;</div>
                           <div class="row">
@@ -159,7 +162,7 @@ a.disabled {
                </div>
                <div class="col-md-8"></div>
                <div class="col-md-2">
-                  <a class="btn btn-info btn-xs pull-right apdbtn">
+                  <a class="btn btn-info btn-xs pull-right apdbtn hid">
                   <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PSM</a>
                </div>
             </div>
@@ -221,7 +224,8 @@ a.disabled {
             <form method="post" enctype="multipart/form-data" action="{{ url('addpsmexposure/'.@$last_id->id)}}" class="aped hidden">
               {{ csrf_field()}}
             <section class="content-header">
-              <h5><label  class="control-label"><u>ADD PSM EXPOSURE DETAILS</u> &nbsp; <small>{{$clientData->company_name}}</small></label></h5>
+              <span style="margin-left:-12px;"><label  class="control-label"><u>ADD PSM EXPOSURE DETAILS</u></label></span>
+                &nbsp; {{@$clientData->company_name}}<span class="hifan">|</span>{{@$clientData->crn_no}}<span class="hifan">|</span>{{@$clientData->iex_portfolio}}<span class="hifan">|</span>{{@$clientData->pxil_portfolio}}
             </section>
               <div class="row">
                <div class="col-xs-12">
@@ -240,14 +244,10 @@ a.disabled {
                               <label  class="control-label">PSM Exposure (Auto-Calculate)</label>
                               <input class="form-control input-sm" value="{{@$last_id->exposure}}" name="exposure" id="exposure" type="text" placeholder="Auto Calculate">
                            </div>
+                           <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" style="margin-top:20px;">SAVE</button></div>
+                           <div class="col-md-1"><input type="reset" class="btn btn-block btn-danger btn-xs" value="CANCEL" id="cancel"  style="margin-top:20px;"></div>
                         </div>
-                        <div class="row">&nbsp;</div>
-                        <div class="row">
-                           <div class="col-md-5"></div>
-                           <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                           <div class="col-md-1"><input type="reset" class="btn btn-block btn-danger btn-xs" value="CANCEL" id="cancel"></div>
-                           <div class="col-md-5"></div>
-                        </div>
+
                      </div>
                   </div>
                </div>
@@ -354,12 +354,15 @@ a.disabled {
 $(document).ready(function(){
     $(".apdbtn").click(function(){
         $(".apd").removeClass("hidden");
+        $(".hid").addClass("hidden");
     });
     $(".apedbtn").click(function(){
         $(".aped").removeClass("hidden");
     });
     $("#cancel").click(function(){
       $(".aped").addClass("hidden")
+      $(".hid").removeClass("hidden");
+
     });
     $("#cancel1").click(function(){
       $(".apd").addClass("hidden")
