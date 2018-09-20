@@ -50,7 +50,7 @@
             <div class="row">
               <div class="col-md-3  {{ $errors->has('pri_contact_no') ? 'has-error' : '' }}">
             <label  class="control-label">PRIMARY CONTACT NUMBER</label><span class="text-danger"><strong>*</strong></span>
-              <input class="form-control input-sm" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" value="{{old('pri_contact_no')}}">
+              <input class="form-control input-sm num" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" value="{{old('pri_contact_no')}}">
                <span class="text-danger">{{ $errors->first('pri_contact_no') }}</span>
               </div>
               <div class="col-md-3 {{ $errors->has('email') ? 'has-error' : '' }}">
@@ -139,7 +139,7 @@
     </div>
 
     <div class="col-md-5" style="margin-top:6px;">
-  <input type="checkbox" id="saroa" class="minimal">&nbsp<span><label for="saroa">SAME AS REGISTERED OFFICE ADDRESS</label></span>
+  <input type="checkbox" id="saroa" class="minimal1">&nbsp<span><label for="saroa">SAME AS REGISTERED OFFICE ADDRESS</label></span>
     </div>   <div class="col-md-5"></div>
   </div><hr>
             <div class="row">
@@ -201,7 +201,7 @@
         </div>
 
         <div class="col-md-5" style="margin-top:6px;">
-      <input type="checkbox" id="saba" class="minimal">&nbsp<span><label for="saba">SAME AS BILLING ADDRESS</label></span>
+      <input type="checkbox" id="saba" class="minimal1">&nbsp<span><label for="saba">SAME AS BILLING ADDRESS</label></span>
         </div>   <div class="col-md-5"></div>
       </div><hr>
             <div class="row">

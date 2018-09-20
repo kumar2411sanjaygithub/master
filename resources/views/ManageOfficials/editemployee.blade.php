@@ -18,13 +18,7 @@
             </div>
           @endif
           <!-- query validater     -->
-          @if($errors->any())
-           @foreach ($errors->all() as $error)
-              <div class="alert alert-danger">
-                {{$error}}
-              </div>
-           @endforeach
-          @endif
+
       <div class="row">
         <div class="col-xs-12">
 
@@ -33,45 +27,54 @@
 <div class="box">
   <div class="box-body">
   <div class="row">
-      <div class="col-md-3">
-     <label  class="control-label">EMPLOYEE NAME</label>
+      <div class="col-md-3 {{ $errors->has('name') ? 'has-error' : '' }}">
+     <label  class="control-label">EMPLOYEE</label>
        <input class="form-control input-sm" type="text" name="name" onKeyPress="return ValidateAlpha(event);" id="name"   value="{{ $officialstData->name }}">
+       <span class="text-danger">{{ $errors->first('name') }}</span>
     </div>
-  <div class="col-md-3">
+  <div class="col-md-3 {{ $errors->has('employee_id') ? 'has-error' : '' }}">
     <label  class="control-label">EMPLOYEE ID</label>
   <input class="form-control input-sm" type="text"  name="employee_id"  id="employee_id"   value="{{ $officialstData->employee_id }}">
+  <span class="text-danger">{{ $errors->first('employee_id') }}</span>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 {{ $errors->has('designation') ? 'has-error' : '' }}">
     <label  class="control-label">DESIGNATION</label>
-  <input class="form-control input-sm" type="text" name="designation"  id="designation"   value="{{ $officialstData->designation }}">
+  <input class="form-control input-sm alphanum" type="text" name="designation"  id="designation"   value="{{ $officialstData->designation }}">
+  <span class="text-danger">{{ $errors->first('designation') }}</span>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 {{ $errors->has('email') ? 'has-error' : '' }}">
     <label  class="control-label">EMAIL ID</label>
   <input class="form-control input-sm" type="text" name="email"  value="{{ $officialstData->email }}">
+  <span class="text-danger">{{ $errors->first('email') }}</span>
   </div>
 </div>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 {{ $errors->has('contact_number') ? 'has-error' : '' }}">
    <label  class="control-label">CONTACT NUMBER</label>
-     <input class="form-control input-sm" type="text" name="contact_number" id="contact_number"   value="{{ $officialstData->contact_number }}">
+     <input class="form-control input-sm mobile" maxlength="10" type="text" name="contact_number" id="contact_number"   value="{{ $officialstData->contact_number }}">
+     <span class="text-danger">{{ $errors->first('contact_number') }}</span>
   </div>
-<div class="col-md-3">
+<div class="col-md-3 {{ $errors->has('telephone_number') ? 'has-error' : '' }}">
   <label  class="control-label">TELEPHONE NUMBER</label>
-<input class="form-control input-sm" type="text" name="telephone_number"  id="telephone_number"   value="{{ $officialstData->telephone_number }}">
+<input class="form-control input-sm num" maxlength="15" type="text" name="telephone_number"  id="telephone_number"   value="{{ $officialstData->telephone_number }}">
+<span class="text-danger">{{ $errors->first('telephone_number') }}</span>
 </div>
-<div class="col-md-3">
+<div class="col-md-3 {{ $errors->has('username') ? 'has-error' : '' }}">
   <label  class="control-label">USER NAME</label>
 <input class="form-control input-sm" type="text" name="username"  id="username"   value="{{ $officialstData->username }}">
+<span class="text-danger">{{ $errors->first('username') }}</span>
 </div>
-<div class="col-md-3">
+<div class="col-md-3 {{ $errors->has('password') ? 'has-error' : '' }}">
   <label  class="control-label">NEW PASSWORD</label>
 <input class="form-control input-sm" type="password" name="password"  id="password"   value="{{ $officialstData->password }}">
+<span class="text-danger">{{ $errors->first('password') }}</span>
 </div>
 </div>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 {{ $errors->has('confirmed') ? 'has-error' : '' }}">
    <label  class="control-label">CONFIRM PASSWORD</label>
      <input class="form-control input-sm" type="password" name="confirmed"id="confirmed" value="{{ $officialstData->password }}">
+     <span class="text-danger">{{ $errors->first('confirmed') }}</span>
   </div>
 <div class="col-md-3">
   <label  class="control-label">DEPARTMENT NAME</label>
@@ -82,7 +85,7 @@
 
   </select>
 </div>
-<div class="col-md-3">
+<div class="col-md-3 {{ $errors->has('role_id') ? 'has-error' : '' }}">
   <label  class="control-label">ROLE</label>
   <select class="form-control input-sm" name="role_id" id="role_id" style="width: 100%;">
 
@@ -91,6 +94,7 @@
       @endForeach
 
   </select>
+  <span class="text-danger">{{ $errors->first('role_id') }}</span>
 </div>
 
 </div>
@@ -103,23 +107,26 @@
 <div class="box">
   <div class="box-body">
   <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-3 {{ $errors->has('line1') ? 'has-error' : '' }}">
      <label  class="control-label">LINE1</label><span class="text-danger"><strong>*</strong></span>
        <input class="form-control input-sm" type="text" name="line1"  id="line1"   value="{{ $officialstData->line1 }}">
+       <span class="text-danger">{{ $errors->first('line1') }}</span>
     </div>
-  <div class="col-md-3">
+  <div class="col-md-3 {{ $errors->has('line2') ? 'has-error' : '' }}">
     <label  class="control-label">LINE2</label>
   <input class="form-control input-sm" type="text" name="line2"  id="line2"   value="{{ $officialstData->line2 }}">
+  <span class="text-danger">{{ $errors->first('line2') }}</span>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 {{ $errors->has('country') ? 'has-error' : '' }}">
     <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
     <select class="form-control input-sm select2" name="country" id="country" style="width: 100%;">
 
         <option value="India" {{ isset($officialstData) && $officialstData->country == 'India' ? 'selected="selected"' : '' }}>India</option>
 
     </select>
+    <span class="text-danger">{{ $errors->first('country') }}</span>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 {{ $errors->has('state') ? 'has-error' : '' }}">
     <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
     <select class="form-control input-sm select2" name="state" id="state" style="width: 100%;">
 
@@ -130,24 +137,29 @@
           <option value="{{$state_code}}" {{ isset($officialstData) && $officialstData->state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
         @endforeach
     </select>
+    <span class="text-danger">{{ $errors->first('state') }}</span>
   </div>
 </div>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 {{ $errors->has('city') ? 'has-error' : '' }}">
    <label  class="control-label">CITY/TOWN</label><span class="text-danger"><strong>*</strong></span>
    <input class="form-control input-sm" type="text" name="city"  id="city"   value="{{ $officialstData->city }}">
+   <span class="text-danger">{{ $errors->first('city') }}</span>
   </div>
-<div class="col-md-3">
+<div class="col-md-3 {{ $errors->has('pin_code') ? 'has-error' : '' }}">
   <label  class="control-label">PIN CODE</label>
-<input class="form-control input-sm" type="text" name="pin_code" id="pin_code" value="{{ $officialstData->pin_code }}">
+<input class="form-control input-sm mobile" maxlength="6" type="text" name="pin_code" id="pin_code" value="{{ $officialstData->pin_code }}">
+<span class="text-danger">{{ $errors->first('pin_code') }}</span>
 </div>
-<div class="col-md-3">
+<div class="col-md-3 {{ $errors->has('comm_mob') ? 'has-error' : '' }}">
   <label  class="control-label">MOBILE NUMBER</label><span class="text-danger"><strong>*</strong></span>
-<input class="form-control input-sm" type="text" name="comm_mob" id="comm_mob" value="{{ $officialstData->comm_mob }}">
+<input class="form-control input-sm mobile" maxlength="10" type="text" name="comm_mob" id="comm_mob" value="{{ $officialstData->comm_mob }}">
+<span class="text-danger">{{ $errors->first('comm_mob') }}</span>
 </div>
-<div class="col-md-3">
+<div class="col-md-3 {{ $errors->has('comm_telephone') ? 'has-error' : '' }}">
   <label  class="control-label">TELEPHONE NUMBER</label>
-<input class="form-control input-sm" type="text" name="comm_telephone" id="comm_telephone" value="{{ $officialstData->comm_telephone }}">
+<input class="form-control input-sm num" maxlength="15" type="text" name="comm_telephone" id="comm_telephone" value="{{ $officialstData->comm_telephone }}">
+<span class="text-danger">{{ $errors->first('comm_telephone') }}</span>
 </div>
 </div>
 <div class="row">&nbsp;</div>

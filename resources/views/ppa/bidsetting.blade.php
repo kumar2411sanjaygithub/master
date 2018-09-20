@@ -35,20 +35,24 @@
         <div class="box">
            <div class="box-body">
               <div class="row">
-                 <div class="col-md-12 {{ $errors->has('client') ? 'has-error' : '' }}">
-                    <!-- <div class="input-group input-group-sm">
-                       <input type="text" class="form-control" placeholder="SEARCH CLIENT.......................">
-                       <span class="input-group-btn">
-                       <button type="button" class="btn btn-info btn-flat"><span class="glyphicon glyphicon-search"></span></button>
-                       </span>
-                    </div> -->
-                    <select class="form-control input-sm select2" id="client" name="client" style="width: 100%;">
-                       <option value="">SELECT CLIENT</option>
-                       @foreach ($clientData as $key => $value)
-                        <option value="{{ $value->id }}">{{ $value->name }}</option>
-                        @endforeach
-                    </select>
-                    <span class="text-danger">{{ $errors->first('client') }}</span>
+                 <div class="col-md-12">
+                  <select class="" name="client_id" id="select-client" data-live-search="true">
+                    <option>Search Client</option>
+                     @foreach ($clientData as $key => $value)
+                     <option value="{{ $value->id }}" data-tokens="{{ $value->company_name }}.{{ $value->id }}.{{ $value->crn_no }};?>">  [{{$value->company_name}}] [{{$value->short_id}}] [{{$value->crn_no}}]</option>
+                    @endforeach
+
+                  </select>
+                  <!-- <script>
+                  $(document).ready(function() {
+                       $("#select-client").change(function(e) {
+                             var id = this.value;
+                             var url = '{{url('addppadetailsfind')}}/'+id;
+
+                             window.location = url;
+                       });
+                   });
+                  </script> -->
                  </div>
               </div>
               <div class="row">&nbsp;</div>
@@ -70,7 +74,7 @@
                  </div>
 
                   <div class="col-md-1" style="margin-top:19px;"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                  <div class="col-md-1" style="margin-top:19px;"><button type="button" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
+                  <!-- <div class="col-md-1" style="margin-top:19px;"><button type="button" class="btn btn-block btn-danger btn-xs">CANCEL</button></div> -->
               </div>
              </div>
         </div>
@@ -106,8 +110,8 @@
    </script>
    <script>
    $(document).ready(function(){
-     $("#client").change(function(){
-          var id = $("#client").val();
+     $("#select-client").change(function(){
+          var id = $("#select-client").val();
            $.ajax({    //create an ajax request to display.php
              type: "GET",
              url: "{{url('/ppa/biddata')}}",
@@ -120,6 +124,9 @@
 
          });
      });
+   });
+   $(document).ready(function() {
+       $('#select-client').select2();
    });
    </script>
 @endsection
