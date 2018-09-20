@@ -10,6 +10,8 @@
    {{ Html::style('bower_components/Ionicons/css/ionicons.min.css') }}
    <!-- DataTables -->
    {{ Html::style('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}
+   {{ Html::style('plugins/select2/select2.css') }}
+   {{ Html::style('plugins/select2/select2.min.css') }}
    <!-- Theme style -->
    {{ Html::style('dist/css/AdminLTE.min.css') }}
    <!-- AdminLTE Skins. Choose a skin from the css/skins

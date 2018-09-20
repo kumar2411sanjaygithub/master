@@ -1,13 +1,5 @@
 @extends('theme.layouts.default')
 @section('content')
-<style type="text/css">
-.divhide{
-  display: none;
-}
-.divshow{
-  display: block;
-}
-</style>
  <section class="content-header">
       <h5><label  class="control-label"><u>Upload Exchange File</u>&nbsp&nbsp&nbsp&nbsp    {{$client_details[0]['company_name']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['crn_no']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['iex_portfolio']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['pxil_portfolio']}}</label></h5>
     </section>
@@ -24,7 +16,7 @@
            <div class="row{{isset($get_bank_details)?'':'divhide'}}" id="exchangebox">
 
           <div class="box">
-          <div class="box-body">
+          <div class="box-body addtab hidden">
           <div class="row">
               <div class="col-md-3 {{ $errors->has('ex_type') ? 'has-error' : '' }}">
                 <input type="hidden"  name="client_id" value="{{@$client_id}}" id="client">
@@ -72,7 +64,7 @@
           @else
           <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs" id="save" name="save">SAVE</button></div>
           @endif
-          <div class="col-md-1"><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="Cancel"  onclick="myFunction()"></div>
+          <div class="col-md-1"><input type="button" class="btn btn-block btn-danger btn-xs cancel" id="bn7" name="bn7" value="Cancel"  onclick="myFunction()"></div>
 
         <div class="col-md-5"></div>
       </div>
@@ -139,16 +131,14 @@
 
      $(document).ready(function(){
       $('#add').on('click', function(){
-      $('#exchangebox').removeClass('divhide').addClass('divshow');
-      });
+          $(".addtab").removeClass("hidden");
+          $("#add").hide();
+        });
+        $(".cancel").click(function(){
+          $(".addtab").addClass("hidden");
+        });
       });
      </script>
-     <script>
-  function myFunction(){
-    //alert(1);
-    $('#exchangebox').addClass('divhide').removeClass('divshow');
-  }
-  </script>
      <script>
         $(function () {
 
