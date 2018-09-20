@@ -9,17 +9,16 @@
           @endif
 
                     <div class="row">
-                         <div class="col-xs-12">
-                                      <div class="col-md-5 pull-left">
-                <h5><label  class="control-label"><u>Upload Exchange File</u>&nbsp&nbsp&nbsp&nbsp    {{$client_details[0]['company_name']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['crn_no']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['iex_portfolio']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['pxil_portfolio']}}</label></h5>
-            </div>
+                      <div class="col-xs-12">
                                 <div class="row">
-                                   <div class="col-md-9"></div>
-                                   <div class="col-md-3 text-right">
-                                    <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
-                                    <button class="btn btn-info btn-xs" id="add">
-                                    <span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
-                                  </div></div>
+                                  <div class="col-md-6 pull-left">
+                                      <h5 class="pull-left"><label class="control-label pull-right mt-1"><u>Upload Exchange File</u></h5> &nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
+                                  </div>
+                                  <div class="col-md-6 pull-right">
+                                      <button class="btn btn-info btn-xs pull-right" id="add"><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
+                                      <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mr5"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+                                  </div>
+                                </div>
                                   <form method ="post" action="{{isset($get_exchange_details)?url('exchange_edit/'.$get_exchange_details->id):route('exchange_create')}}" enctype="multipart/form-data">
                                    {{ csrf_field() }}
                                    <div class="row{{isset($get_bank_details)?'':'divhide'}}" id="exchangebox">

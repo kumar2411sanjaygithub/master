@@ -30,13 +30,12 @@
 
 
           <div class="row">
-            <div class="col-md-5 pull-left">
-                <h5><label  class="control-label"><u>CONTACT DETAILS</u>&nbsp&nbsp &nbsp &nbsp  {{$client_details[0]['company_name']}} &nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp {{$client_details[0]['crn_no']}} &nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp {{$client_details[0]['iex_portfolio']}} &nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp {{$client_details[0]['pxil_portfolio']}}</label></h5>
+            <div class="col-md-6 pull-left">
+                <h5 class="pull-left"><label class="control-label pull-right mt-1"><u>CONTACT DETAILS</u></h5> &nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
             </div>
-            <div class="col-md-5"></div>
-            <div class="col-md-2 pull-right" style="margin-right:-13px;">
-                <button class="btn btn-info btn-xs mt7" id="add"><span class="glyphicon glyphicon-plus"></span>&nbspADD</button>
-                <a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
+            <div class="col-md-6 pull-right">
+                <button class="btn btn-info btn-xs mt7 pull-right" id="add"><span class="glyphicon glyphicon-plus"></span>&nbspADD</button>
+                <a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7 pull-right mr5" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
             </div>
           </div>
 
