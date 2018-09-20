@@ -303,12 +303,12 @@ class NocAppController extends Controller
     
     public function clientSearch(Request $request)
     {
-        $client=Client::where('name','LIKE','%'.$request['term'].'%')->get();
+        $client=Client::where('company_name','LIKE','%'.$request['term'].'%')->get();
         
         $results = array();
         foreach ($client as $query)
         {
-            $results[] = [ 'id' => $query->id, 'value' => $query->name.' ['.$query->id.']'];
+            $results[] = [ 'id' => $query->id, 'value' => $query->company_name.' ['.$query->id.']'];
         }
         if(count($results))
         {

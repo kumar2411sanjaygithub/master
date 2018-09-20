@@ -7,7 +7,7 @@
   display: inline-block;
   width: 40px;
   height: 13px;
-
+  margin-top:-3px;
 }
 
 .switch input {display:none;}
@@ -76,7 +76,7 @@ input:checked + .slider:before {
              <li>{!! \Session::get('success') !!}</li>
          </ul>
       </div>
-   @endif    
+   @endif
 
 <!-- Main content -->
 <section class="content">
@@ -99,13 +99,13 @@ input:checked + .slider:before {
    <tbody>
       @php $i=1; @endphp
       @if (count($client_list) > 0)
-         @foreach ($client_list as $k=>$client_data)                  
+         @foreach ($client_list as $k=>$client_data)
           <tr>
             <td>{{$i}}</td>
             <td>{{@$client_data->name}}</td>
             <td>{{$client_data->iex_portfolio}}</td>
             <td>{{$client_data->pxil_portfolio}}</td>
-            <td><label class="switch"><input type="checkbox" {{ $client_data->barred_status===1 ? 'checked data-toggle=modal data-target=#clientDeactivate'.$client_data->id :  'data-toggle=modal data-target=#clientActivate'.$client_data->id }}><span class="slider round"></span></label></td>
+            <td>ACTIVE<label class="switch"><input type="checkbox" {{ $client_data->barred_status===1 ? 'checked data-toggle=modal data-target=#clientDeactivate'.$client_data->id :  'data-toggle=modal data-target=#clientActivate'.$client_data->id }}><span class="slider round"></span></label>BLOCK</td>
 
           </tr>
           <div id="{{ $client_data->barred_status===1 ? 'clientDeactivate'.$client_data->id : 'clientActivate'.$client_data->id }}" class="modal fade" role="dialog">
@@ -130,13 +130,13 @@ input:checked + .slider:before {
            </div>
           </div>
 
-            @php $i++; @endphp                                   
+            @php $i++; @endphp
         @endforeach
       @else
         <tr>
             <td colspan="8" style="background-color: #c74343a6;"><b>No Data Found.</b></td>
         </tr>
-      @endif    
+      @endif
      </tbody>
  </table>
  {{ $client_list->links() }}
@@ -145,4 +145,3 @@ input:checked + .slider:before {
 </section>
 
 @endsection
-

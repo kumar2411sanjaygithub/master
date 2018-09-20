@@ -9,12 +9,12 @@
 
 <section class="content-header">
    <h5>
-      <label  class="control-label">Validation Setting</label>
+      <label  class="control-label"><u>Validation Setting</u></label>
    </h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">PPA & Bid</a></li>
-      <li><a href="#" class="active">Validation Setting</a></li>
+      <li><a href="#" class="active"><u>Validation Setting</u></a></li>
    </ol>
 </section>
 <!-- Content Header (Page header) -->
@@ -52,16 +52,17 @@
             {{ csrf_field()}}
           <div class="box">
              <div class="box-body">
-                <div class="row">
-                   <div class="col-md-12">
+               <div class="well well-sm">
+                <div class="row " >
+                   <div class="col-md-6">
                       <!-- <div class="input-group input-group-sm">
                          <input type="text" class="form-control" placeholder="SEARCH CLIENT...........">
                          <span class="input-group-btn">
                          <button type="button" class="btn btn-info btn-flat" id="se1" name="se1"><span class="glyphicon glyphicon-search"></span></button>
                          </span>
                       </div> -->
-                      <div class="mda-form-control bb0 mt10  {{ $errors->has('user_id') ? 'has-error' : '' }}">
-                          <select class="form-control selectpicker" name="user_id" id="select-client" data-live-search="true">
+                      <div class="  {{ $errors->has('user_id') ? 'has-error' : '' }}">
+                          <select class="form-control input-sm selectpicker" name="user_id" id="select-client" data-live-search="true">
                             <option value="">Search Client</option>
                              <?php foreach ($users as $aa) {
                             ?>
@@ -72,24 +73,18 @@
                           <span class="text-danger">{{ $errors->first('user_id') }}</span>
                        </div>
                    </div>
-                </div>
-                <div class="row">&nbsp;</div>
-                <!-- <div class="row ">
-                   <div class="col-md-2"><label class="control-label">VALIDATIONS</label></div>
-                   <div class="col-md-8"></div>
-                   <div class="col-md-2 text-right"><span ><input type="checkbox" class="minimal" id="vg1" name="vg1"></span> <label class="control-label" for="vg1">SELLECT ALL</label></div>
-                </div> -->
-                <div class="well well-sm">
-                   <div class="row">
-                      <div class="col-md-2"></div>
-                      <div class="col-md-1"><span><input type="checkbox" class="minimal" value="NOC" name="noc" id="noc"></span> <label class="control-label" for="noc">NOC</label></div>
-                      <div class="col-md-1"></div>
-                      <div class="col-md-1"><span><input type="checkbox" value="PPA" name="ppa" id="ppa"></span> <label class="control-label" for="ppa">PPA</label></div>
-                      <div class="col-md-1"></div>
-                      <div class="col-md-2"><span><input type="checkbox" value="Exchange" name="exchange" id="exchange"></span> <label class="control-label" for="exchange">EXCHANGE</label></div>
-                      <div class="col-md-1" ><span><input type="checkbox" value="PSM" name="psm" id="psm"></span> <label class="control-label" for="psm">PSM</label></div>
+               <div class="col-md-6" style="margin-top:2px;">
+                      <div class="row">
+                      <div class="col-md-3"><span><input type="checkbox" class="minimal" value="NOC" name="noc" id="noc"></span> <label class="control-label" for="noc">NOC</label></div>
+
+                      <div class="col-md-3"><span><input type="checkbox" class="minimal" value="PPA" name="ppa" id="ppa"></span> <label class="control-label" for="ppa">PPA</label></div>
+
+                      <div class="col-md-3"><span><input type="checkbox" class="minimal" value="Exchange" name="exchange" id="exchange"></span> <label class="control-label" for="exchange">EXCHANGE</label></div>
+                      <div class="col-md-3" ><span><input type="checkbox"  class="minimal" value="PSM" name="psm" id="psm"></span> <label class="control-label" for="psm">PSM</label></div>
                    </div>
                 </div>
+              </div></div>
+
                 <div class="row">
                    <div class="col-md-5"></div>
                    <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" id="vg6" name="vg6">SAVE</button></div>
@@ -135,19 +130,19 @@
                <?php $i=1; ?>
                @foreach ($validationsettingData as $key => $value)
                <tr>
-                 <td class="text-center">{{ $i }}</td>
-                 <td class="text-center">{{$value->client_master['company_name']}}</td>
-                 <td class="text-center">{{ isset($value->noc) && $value->noc == 'NOC' ? 'Yes' : 'No'}}</td>
-                 <td class="text-center">{{ isset($value->ppa) && $value->ppa == 'PPA' ? 'Yes' : 'No'}}</td>
-                 <td class="text-center">{{ isset($value->exchange) && $value->exchange == 'Exchange' ? 'Yes' : 'No'}}</td>
-                 <td class="text-center">{{ isset($value->psm) && $value->psm == 'PSM' ? 'Yes' : 'No'}}</td>
+                 <td class="text-center" style="width:4%;">{{ $i }}</td>
+                 <td class="text-center" style="width:45%;">{{$value->client_master['company_name']}}</td>
+                 <td class="text-center" style="width:10%;">{{ isset($value->noc) && $value->noc == 'NOC' ? 'Yes' : 'No'}}</td>
+                 <td class="text-center" style="width:10%;">{{ isset($value->ppa) && $value->ppa == 'PPA' ? 'Yes' : 'No'}}</td>
+                 <td class="text-center" style="width:10%;">{{ isset($value->exchange) && $value->exchange == 'Exchange' ? 'Yes' : 'No'}}</td>
+                 <td class="text-center" style="width:10%;">{{ isset($value->psm) && $value->psm == 'PSM' ? 'Yes' : 'No'}}</td>
                  <!-- <td class="text-center">
                    <a href="/editvalidationsetting/{{$value->id}}"><img src="{{ asset('img/assets/edit.svg')}}" height="22" width="22"></a>
                 </td> -->
-                <td class="text-center">
+                <td class="text-center" style="width:10%;">
                   <a href="/editvalidationsetting/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
                   &nbsp;&nbsp;&nbsp;
-                  <a href="/deleteeditvalidationsetting/{{$value->id}}"><span class="glyphicon glyphicon-trash"></span></a>
+                  <a href="/deleteeditvalidationsetting/{{$value->id}}"><span class="glyphicon glyphicon-trash text-danger"></span></a>
                 </td>
                </tr>
              <?php $i++; ?>
@@ -183,5 +178,31 @@
      })
 
    })
+</script>
+<script>
+$(function () {
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+    checkboxClass: 'icheckbox_minimal-blue',
+    radioClass   : 'iradio_minimal-blue'
+  })
+  //Red color scheme for iCheck
+  $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+    checkboxClass: 'icheckbox_minimal-red',
+    radioClass   : 'iradio_minimal-red'
+  })
+  //Flat red color scheme for iCheck
+  $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+    checkboxClass: 'icheckbox_flat-blue',
+    radioClass   : 'iradio_flat-blue'
+  })
+
+})
+
+$(function () {
+$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+checkboxClass: 'icheckbox_flat-green',
+radioClass   : 'iradio_flat-green'
+})
+});
 </script>
 @endsection

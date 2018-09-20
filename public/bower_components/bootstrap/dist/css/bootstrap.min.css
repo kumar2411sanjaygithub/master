@@ -12,6 +12,20 @@ html {
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%
 }
+label
+{
+	margin-top:2px!important;
+}
+h5
+{
+	margin-top:5px!important;
+	margin-bottom: 5px!important;
+}
+hr
+{
+    margin-top: 5px!important;
+		margin-bottom:10px!important;
+}
 
 body {
 	margin: 0
@@ -2882,7 +2896,7 @@ th {
 }
 
 .table-striped>tbody>tr:nth-of-type(odd) {
-	background-color: #f9f9f9
+	background-color: #3c8dbc1f;
 }
 
 .table-hover>tbody>tr:hover {
@@ -3139,9 +3153,9 @@ output {
 .form-control {
 	display: block;
 	width: 100%;
-	height: 34px;
-	padding: 6px 12px;
-	font-size: 14px;
+	height: 27px;
+	padding: 1px 12px;
+	font-size: 11px;
 	line-height: 1.42857143;
 	color: #555;
 	background-color: #fff;
@@ -4605,7 +4619,8 @@ tbody.collapse.in {
 .input-group {
 	position: relative;
 	display: table;
-	border-collapse: separate
+	border-collapse: separate;
+
 }
 
 .input-group[class*=col-] {
@@ -4655,8 +4670,8 @@ textarea.input-group-lg>.input-group-btn>.btn {
 .input-group-sm>.form-control,
 .input-group-sm>.input-group-addon,
 .input-group-sm>.input-group-btn>.btn {
-	height: 30px;
-	padding: 5px 10px;
+	height: 22px;
+	padding: 2px 13px;
 	font-size: 12px;
 	line-height: 1.5;
 	border-radius: 3px

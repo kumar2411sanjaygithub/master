@@ -41,7 +41,7 @@
                           @endif
                         @endforeach
                     </select>
-                    <span class="text-danger">{{ $errors->first('state') }}</span>                           
+                    <span class="text-danger">{{ $errors->first('state') }}</span>
                 </div>
               <div class="col-md-3">
                  <div class="col-sm-12 col-md-12" id='TextBoxesGroup2'>
@@ -61,19 +61,21 @@
                     {
                       if($sldc_data!='')
                       {
-                @endphp                 
+                @endphp
                      <div class="col-sm-12 col-md-12" id=>
                        <div id="">
                           <input class="form-control input-sm" type="text" placeholder="ENTER SLDC 1" name="sldc[]" value="{{$sldc_data}}">
                     </div>
                      <a href="{{url('discom-sldc-state/delsldc/'.$get_state_discom->id.'/e_del/'.$sk)}}" class="btn btn-danger btn-xs" style="margin-left:103%;margin-top:-50px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
                    </div>
-              @php   
+              @php
                       }
-                    }  
+                    }
                   }
                 }
               @endphp
+              <div class="col-sm-12 col-md-12" id='TextBoxesGroup22'>
+              </div>
             </div>
               <div class="col-md-3">
                  <div class="col-md-12" id='TextBoxesGroup'>
@@ -93,20 +95,21 @@
                     {
                       if($discom_data!='')
                       {
-                @endphp                 
+                @endphp
                      <div class="col-sm-12 col-md-12" id=>
                        <div id="">
                           <input class="form-control input-sm" type="text" placeholder="ENTER DISCOM 1" name="discom[]" value="{{$discom_data}}">
                     </div>
                      <a href="{{url('discom-sldc-state/deldiscom/'.$get_state_discom->id.'/e_del/'.$dk)}}" class="btn btn-danger btn-xs" style="margin-left:103%;margin-top:-50px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
                    </div>
-              @php    
+              @php
                       }
-                    } 
+                    }
                   }
                 }
               @endphp
-
+              <div class="col-md-12" id='TextBoxesGroup11'>
+              </div>
             </div>
 
               <div class="col-md-3">
@@ -127,20 +130,21 @@
                     {
                       if($voltage_data!='')
                       {
-                @endphp                 
+                @endphp
                      <div class="col-sm-12 col-md-12" id=>
                        <div id="">
                           <input class="form-control input-sm" type="text" placeholder="ENTER VOLTAGE 1" name="voltage[]" value="{{$voltage_data}}">
                     </div>
                      <a href="{{url('discom-sldc-state/delvoltage/'.$get_state_discom->id.'/e_del/'.$vk)}}" class="btn btn-danger btn-xs" style="margin-left:103%;margin-top:-50px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
                    </div>
-              @php   
+              @php
                       }
-                    }  
+                    }
                   }
                 }
               @endphp
-
+              <div class="col-md-12" id='TextBoxesGroup33'>
+              </div>
             </div>
 
             </div>
@@ -152,7 +156,8 @@
                 <div class="col-md-5"></div>
               </div>
           </form>
-          </div>
+        </div>
+      </div>
           <div class="box">
             <div class="box-body table-responsive">
               <table id="example1" class="table table-bordered table-striped table-hover text-center">
@@ -169,7 +174,7 @@
                 <tbody>
                   @php $i=1; @endphp
                   @if (count($stateDiscomData) > 0)
-                     @foreach ($stateDiscomData as $k=>$stateDiscom)                  
+                     @foreach ($stateDiscomData as $k=>$stateDiscom)
                       <tr>
                         <td>{{$i}}</td>
                         <td>
@@ -198,8 +203,8 @@
                                 else
                                 {
                                   echo $sldc_data;
-                                }   
-                              }                           
+                                }
+                              }
                             }
                           @endphp
                         </td>
@@ -268,9 +273,9 @@
                            </div>
                          </div>
                          </form>
-                       </div>  
+                       </div>
                       </tr>
-                        @php $i++; @endphp                                   
+                        @php $i++; @endphp
                     @endforeach
                   @else
                     <tr>
@@ -295,7 +300,7 @@
 
   var a=2;var b=2;var c=2;
   $(document).delegate("#addButton","click",function(){
-  $("#TextBoxesGroup").append('<div class=" extra-discom-container"><input type="text" class="form-control input-sm" placeholder="ENTER DISCOM '+a+'" id="fx'+a+'" name="discom[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="discom-subtract" style="margin-left:103%;margin-top:-50px;"></i></span></div>');
+  $("#TextBoxesGroup11").append('<div class=" extra-discom-container"><input type="text" class="form-control input-sm" placeholder="ENTER DISCOM '+a+'" id="fx'+a+'" name="discom[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="discom-subtract" style="margin-left:103%;margin-top:-50px;"></i></span></div>');
   $('#fx'+a).focus();
   count_row();
   a+=1;
@@ -310,7 +315,7 @@ $(document).delegate("#discom-subtract","click",function(){
 });
 
   $(document).delegate("#addButton2","click",function(){
-  $("#TextBoxesGroup2").append('<div class=" extra-sldc-container"><input type="text" class="form-control input-sm" placeholder="ENTER SLDC '+b+'" id="fx1'+b+'" name="sldc[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="sldc-subtract" style="margin-left:103%;margin-top:-50px;"></i></span></div>');
+  $("#TextBoxesGroup22").append('<div class=" extra-sldc-container"><input type="text" class="form-control input-sm" placeholder="ENTER SLDC '+b+'" id="fx1'+b+'" name="sldc[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="sldc-subtract" style="margin-left:103%;margin-top:-50px;"></i></span></div>');
   $('#fx1'+b).focus();
   count_row();
   b+=1;
@@ -325,7 +330,7 @@ $(document).delegate("#sldc-subtract","click",function(){
 });
 
   $(document).delegate("#addButton3","click",function(){
-  $("#TextBoxesGroup3").append('<div class=" extra-voltage-container"><input type="text" class="form-control input-sm" placeholder="ENTER VOLTAGE '+c+'" id="fx2'+c+'" name="voltage[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="voltage-subtract" style="margin-left:103%;margin-top:-50px;"></i></span></div>');
+  $("#TextBoxesGroup33").append('<div class=" extra-voltage-container"><input type="text" class="form-control input-sm" placeholder="ENTER VOLTAGE '+c+'" id="fx2'+c+'" name="voltage[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="voltage-subtract" style="margin-left:103%;margin-top:-50px;"></i></span></div>');
   $('#fx2'+c).focus();
   count_row();
   c+=1;

@@ -1,6 +1,6 @@
 @extends('theme.layouts.default')
 @section('content')
-  
+
     <!-- Content Header (Page header) -->
     <section class="content-header">
     <h5><label  class="control-label">EMPLOYEE LIST</label></h5>
@@ -47,7 +47,7 @@
 <div class="col-md-8"></div>
 <div class="col-md-2">
   <a href="{{ ('officialsadd')}}" class="btn btn-info btn-xs pull-right"  id="ram">
-    <button type="button" class="glyphicon glyphicon-plus adddeportmentbtn">ADD EMPLOYEE</button></a>
+    <span type="button" class="glyphicon glyphicon-plus adddeportmentbtn"></span> ADD EMPLOYEE</a>
 </div>
 </div>
 <div class="box">
@@ -64,7 +64,7 @@
         <th>ACTION</th>
       </tr>
       </thead>
-      
+
        <tbody>
                               @isset($employeeData)
                               <?php
@@ -155,5 +155,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-  {{ Html::script('js/employee/empvalidate.js') }}
+
 @endsection

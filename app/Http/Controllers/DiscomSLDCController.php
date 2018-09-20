@@ -113,29 +113,45 @@ class DiscomSLDCController extends Controller
     public function update(Request $request, $id)
     {
         $blk_sldc=array();
+        $i1=0;$i2=0;$i3=0;
         foreach(request('sldc') as $k=>$sldc_name)
         {
-            $kk=$k+1;
-            $new_array=array($kk=>$sldc_name);
-            array_push($blk_sldc,$new_array);
+            if($sldc_name!='')
+            {
+                $kk=$i1+1;
+                echo $kk;
+                $new_array=array($kk=>$sldc_name);
+                array_push($blk_sldc,$new_array);
+                $i1++;
+            }
         }
         $json_sldc=json_encode($blk_sldc);
-
+        
         $blk_discom=array();
         foreach(request('discom') as $key=>$discom_name)
-        {
-            $kkey=$key+1;
-            $discom_array=array($kkey=>$discom_name);
-            array_push($blk_discom,$discom_array);
+        {   
+            if($discom_name!='')
+            {
+                $kkey=$i2+1;
+                $discom_array=array($kkey=>$discom_name);
+                array_push($blk_discom,$discom_array);
+                $i2++;
+            }    
+            
         }
         $json_discom=json_encode($blk_discom);
 
         $blk_voltage=array();
         foreach(request('voltage') as $keys=>$voltage_name)
         {
-            $kkeys=$keys+1;
-            $vol_array=array($kkeys=>$voltage_name);
-            array_push($blk_voltage,$vol_array);
+            if($voltage_name!='')
+            {
+                $kkeys=$i3+1;
+                $vol_array=array($kkeys=>$voltage_name);
+                array_push($blk_voltage,$vol_array);
+                $i3++;
+            }
+            
         }
         $json_voltage=json_encode($blk_voltage);
 

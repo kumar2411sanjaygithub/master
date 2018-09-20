@@ -2,7 +2,11 @@
 jQuery(document).ready(function() {
     jQuery(".num").keydown(function (e) {
         // Allow: backspace, delete, tab, escape, enter and .
+<<<<<<< HEAD
         if (jQuery.inArray(e.keyCode, [46, 8, 9, 27, 13, 110,190]) !== -1 ||
+=======
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110,190,187,189,32]) !== -1 ||
+>>>>>>> 34714d85a2ba0fde41dd40de7f52bf4da9f34793
              // Allow: Ctrl+A, Command+A
             (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
              // Allow: home, end, left, right, down, up
@@ -15,6 +19,18 @@ jQuery(document).ready(function() {
             e.preventDefault();
         }
     });
+});
+</script>
+<script>
+$('.alphanum').keypress(function (e) {
+    var regex = new RegExp("^[a-zA-Z0-9]+$");
+    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (regex.test(str)) {
+        return true;
+    }
+
+    e.preventDefault();
+    return false;
 });
 </script>
 {{ Html::script('bower_components/jquery/dist/jquery.min.js') }}
@@ -32,6 +48,9 @@ jQuery(document).ready(function() {
       {{ Html::script('bower_components/bootstrap-daterangepicker/daterangepicker.js') }}
       <!-- bootstrap datepicker -->
       {{ Html::script('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}
+      {{ Html::script('plugins/select2/select2.js') }}
+      {{ Html::script('plugins/select2/select2.min.js') }}
+
       <!-- bootstrap color picker -->
       {{ Html::script('bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}
       <!-- bootstrap time picker -->

@@ -11,6 +11,8 @@ use App\Approvalrequest;
 use DB;
 use App\ServiseAlert;
 use Validator;
+use App\Client;
+use App\service;
 use Illuminate\Support\Facades\Redirect;
 
 class ContactController extends Controller
@@ -18,20 +20,25 @@ class ContactController extends Controller
     public function edit_contactdetails($id='',$eid=''){
         $contact_id=$eid;
         $client_id=$id;
-        $get_contact_details = Contact::where('id',$contact_id)->where('status',1)->first();
-        $contactdetails = Contact::where('client_id',$client_id)->where('status',1)->get();
+        $get_contact_details = Contact::where('id',$contact_id)->where('status',1)->withTrashed()->first();
+        $contactdetails = Contact::where('client_id',$client_id)->where('status',1)->withTrashed()->get();
+ // dd($client_id);
+        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
+        return view('ManageClient.contactdetails',compact('contactdetails','client_id','get_contact_details','client_details'));
 
-        return view('ManageClient.contactdetails',compact('contactdetails','client_id','get_contact_details'));
     }
 
     public function contactdetails($id){
 
         $client_id=$id;
         //$contactdetails = Exchange::where('client_id',$id)->where('status',1)->get();
-        $contactdetails = DB::table('contact')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',2); })->where('client_id',$id)->where('status',1)->get();
+        // $contactdetails = DB::table('contact')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',2); })->where('client_id',$id)->where('status',1)->get();
+        $contactdetails = Contact::select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',2); })->where('client_id',$id)->where('status',1)->withTrashed()->get();
         $alert_type = ServiseAlert::select('*')->where('client_id',$id)->get();
-        //dd($alert_type);
-        return view('ManageClient.contactdetails',compact('contactdetails','client_id','alert_type'));
+        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
+        //dd($client_details[0]['company_name']);
+     //dd($client_id);
+        return view('ManageClient.contactdetails',compact('contactdetails','client_id','alert_type','client_details'));
     }
     public function add_contactdetails(Request $request){
         $validator = Validator::make($request->all(), [
@@ -45,9 +52,6 @@ class ContactController extends Controller
         {
             return Redirect::back()->withErrors($validator);
         }
-         
-        
-       
         $contactdetail = new ContactTemp();
         $contactdetail->client_id = $request->client_id;
         $contactdetail->name = $request->input('name');
@@ -55,12 +59,34 @@ class ContactController extends Controller
         $contactdetail->email = $request->input('email');
         $contactdetail->mob_num = $request->input('mob_num');
         $contactdetail->status = 0;
-        //dd(3);
         $contactdetail->save();
         return redirect()->back()->with('message','Detail added successfully and sent to Approver');
-        
     }
+    public function addservices(Request $request, $id)
+    {
+      dd($id);
+        $client_id=$id;
+        $service = new service();
+        $service->alert_type = $request->input('alert_type');
+        $service->client_id = $client_id;
+        $service->dam_iex_sms = $request->input('dam_iex_sms');
+        $service->dam_iex_email = $request->input('dam_iex_email');
+        $service->dam_pxil_sms = $request->input('dam_pxil_sms');
+        $service->dam_pxil_email = $request->input('dam_pxil_email');
+        $service->tam_iex_sms = $request->input('tam_iex_sms');
+        $service->tam_iex_email = $request->input('tam_iex_email');
+        $service->tam_pxil_sms = $request->input('tam_pxil_sms');
+        $service->tam_pxil_email = $request->input('tam_pxil_email');
+        $service->rec_iex_sms = $request->input('rec_iex_sms');
+        $service->rec_iex_email = $request->input('rec_iex_email');
+        $service->rec_pxil_sms = $request->input('rec_pxil_sms');
+        $service->rec_pxil_email = $request->input('rec_pxil_email');
+        $service->ec_iex_sms = $request->input('ec_iex_sms');
+        $service->ec_iex_email = $request->input('ec_iex_email');
+        $service->save();
+        return view('ManageClient.service',compact('client_id','alert_type'));
 
+    }
     public function update_contactdetails(Request $request ,$contact_detail_id)
     {
         //  $this->validate($request, [
@@ -77,17 +103,17 @@ class ContactController extends Controller
         $datas['designation'] = $contactdetail['designation'];
         $datas['email'] = $contactdetail['email'];
         $datas['mob_num'] = $contactdetail['mob_num'];
-        
+
         $dataArray =array();
         $dataArray['name'] = $request->input('name');
         $dataArray['designation'] = $request->input('designation');
         $dataArray['email'] = $request->input('email');
         $dataArray['mob_num'] = $request->input('mob_num');
-        
-       
+
+
         $result=array_diff($dataArray,$datas);
         $this->generateApprovalrequest($result,'contact',$client_id,$contact_detail_id,$datas);
-        return redirect()->route('contactdetails', ['id' => $client_id])->with('message','Detail added successfully and sent to Approver'); 
+        return redirect()->route('contactdetails', ['id' => $client_id])->with('message','Detail added successfully and sent to Approver');
     }
 
 
@@ -106,6 +132,7 @@ class ContactController extends Controller
         return view('ManageClient.service',compact('client_id','alert_type'));
 
     }
+
     function generateApprovalrequest($data, $type, $client_id, $reference_id='',$datas){
         $arrayKey = array_keys($data);
 

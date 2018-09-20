@@ -28,8 +28,8 @@ class ClientDeatilsController extends Controller
 
 	public function addclient()
 	{
-        
-        
+
+
 		return view('ManageClient.basicdetails');
 	}
 	public function saveclient(Request $request){
@@ -37,8 +37,8 @@ class ClientDeatilsController extends Controller
 		$validator = validator::make($request->all(),[
 
 			'company_name' => 'required|max:100',
-            'gstin' => 'required|regex:/^[0-9]{2}[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z][0-9A-z]{3}$/|max:15',
-            'pan' => 'required|regex:/^[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z]$/|max:10',
+            'gstin' => 'required|regex:/^[0-9]{2}[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z][0-9A-z]{3}$/|unique:clients|max:15',
+            'pan' => 'required|regex:/^[a-zA-Z]{3}[ABCEFGHJLTabcefghjl]{1}[a-zA-Z]{1}\d{4}[a-zA-Z]{1}$/|unique:clients|max:10',
             //'short_id' => 'required|max:15',
             'pri_contact_no'=>'required',
             'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|min:21|max:21',
@@ -55,10 +55,10 @@ class ClientDeatilsController extends Controller
 			]);
 		 if($validator->fails())
         {
-            
+
             return redirect()->back()->withInput($request->input())->withErrors($validator);
         }
-
+        //dd($request->input('bill_state'));
         $client = new Client;
         $client->company_name = $request->input('company_name');
         $client->gstin = $request->input('gstin');
@@ -121,8 +121,9 @@ class ClientDeatilsController extends Controller
         $client->maxm_withdrawal = $request->input('maxm_withdrawal');
         $client->payment = $request->input('payment');
         $client->obligation = $request->input('obligation');
+				dd($client);
         $client->save();
-       
+
         //$lsatinsertedId = $clien->id;
 		return redirect('basicdetails')->with('message', 'Data Save Successfully!');
 	}
@@ -133,7 +134,123 @@ class ClientDeatilsController extends Controller
 //dd($clientdata);
         return view('ManageClient.viewbasic',compact('clientdata','id'));
     }
-    public function updateclient($id){
+    public function updateclient(Request $request,$basic_id){
+
+        $basic = Client::find($basic_id)->toArray();
+        $client_id = $basic['id'];
+        $datas =array();
+        $datas['reg_line1'] = $basic['reg_line1'];
+        $datas['reg_line2'] = $basic['reg_line2'];
+        $datas['reg_country'] = $basic['reg_country'];
+        $datas['reg_state'] = $basic['reg_state'];
+        $datas['reg_city'] = $basic['reg_city'];
+        $datas['reg_pin'] = $basic['reg_pin'];
+        $datas['reg_mob'] = $basic['reg_mob'];
+        $datas['reg_telephone'] = $basic['reg_telephone'];
+
+        $datas['bill_line1'] = $basic['bill_line1'];
+        $datas['bill_line2'] = $basic['bill_line2'];
+        $datas['bill_country'] = $basic['bill_country'];
+        $datas['bill_city'] = $basic['bill_city'];
+        $datas['bill_mob'] = $basic['bill_mob'];
+        $datas['bill_telephone'] = $basic['bill_telephone'];
+
+        $datas['del_lin1'] = $basic['del_lin1'];
+        $datas['del_lin2'] = $basic['del_lin2'];
+        $datas['del_country'] = $basic['del_country'];
+        $datas['del_state'] = $basic['del_state'];
+        $datas['del_city'] = $basic['del_city'];
+        $datas['del_pin'] = $basic['del_pin'];
+        $datas['del_mob'] = $basic['del_mob'];
+        $datas['del_telephone'] = $basic['del_telephone'];
+        $datas['iex_client_name'] = $basic['iex_client_name'];
+
+        $datas['iex_portfolio'] = $basic['iex_portfolio'];
+        $datas['iex_status'] = $basic['iex_status'];
+        $datas['pxil_client_name'] = $basic['pxil_client_name'];
+        $datas['pxil_portfolio'] = $basic['pxil_portfolio'];
+        $datas['pxil_status'] = $basic['pxil_status'];
+        $datas['iex_region'] = $basic['iex_region'];
+        $datas['pxil_region'] = $basic['pxil_region'];
+        $datas['discom'] = $basic['discom'];
+
+        $datas['voltage'] = $basic['voltage'];
+        $datas['state_type'] = $basic['state_type'];
+        $datas['name_of_substation'] = $basic['name_of_substation'];
+
+        $datas['inter_connection'] = $basic['inter_connection'];
+        $datas['rt'] = $basic['rt'];
+        $datas['feeder_name'] = $basic['feeder_name'];
+        $datas['feeder_code'] = $basic['feeder_code'];
+        $datas['conn_state'] = $basic['conn_state'];
+        $datas['maxm_injection'] = $basic['maxm_injection'];
+        $datas['maxm_withdrawal'] = $basic['maxm_withdrawal'];
+        $datas['payment'] = $basic['payment'];
+        $datas['inter_poc'] = $basic['inter_poc'];
+        $datas['inter_stu'] = $basic['inter_stu'];
+        $datas['inter_discom'] = $basic['inter_discom'];
+        $datas['rt1'] = $basic['rt1'];
+
+        $dataArray =array();
+
+        $dataArray['reg_line1'] = $request->input('reg_line1');
+        $dataArray['reg_line2'] = $request->input('reg_line2');
+        $dataArray['reg_country'] = $request->input('reg_country');
+        $dataArray['reg_state'] = $request->input('reg_state');
+        $dataArray['reg_city'] = $request->input('reg_city');
+        $dataArray['reg_pin'] = $request->input('reg_pin');
+        $dataArray['reg_mob'] = $request->input('reg_mob');
+        $dataArray['reg_telephone'] = $request->input('reg_telephone');
+
+        $dataArray['bill_line1'] = $request->input('bill_line1');
+        $dataArray['bill_line2'] = $request->input('bill_line2');
+        $dataArray['bill_country'] = $request->input('bill_country');
+        $dataArray['bill_city'] = $request->input('bill_city');
+        $dataArray['bill_mob'] = $request->input('bill_mob');
+        $dataArray['bill_telephone'] = $request->input('bill_telephone');
+
+        $dataArray['del_lin1'] = $request->input('del_lin1');
+        $dataArray['del_lin2'] = $request->input('del_lin2');
+        $dataArray['del_country'] = $request->input('del_country');
+        $dataArray['del_state'] = $request->input('del_state');
+        $dataArray['del_city'] = $request->input('del_city');
+        $dataArray['del_pin'] = $request->input('del_pin');
+        $dataArray['del_mob'] = $request->input('del_mob');
+        $dataArray['del_telephone'] = $request->input('del_telephone');
+        $dataArray['iex_client_name'] = $request->input('iex_client_name');
+
+        $dataArray['iex_portfolio'] = $request->input('iex_portfolio');
+        $dataArray['iex_status'] = $request->input('iex_status');
+        $dataArray['pxil_client_name'] = $request->input('pxil_client_name');
+        $dataArray['pxil_portfolio'] = $request->input('pxil_portfolio');
+        $dataArray['pxil_status'] = $request->input('pxil_status');
+        $dataArray['iex_region'] = $request->input('iex_region');
+        $dataArray['pxil_region'] = $request->input('pxil_region');
+        $dataArray['discom'] = $request->input('discom');
+
+        $dataArray['voltage'] = $request->input('voltage');
+        $dataArray['state_type'] = $request->input('state_type');
+        $dataArray['name_of_substation'] = $request->input('name_of_substation');
+
+        $dataArray['inter_connection'] = $request->input('inter_connection');
+        $dataArray['rt'] = $request->input('rt');
+        $dataArray['feeder_name'] = $request->input('feeder_name');
+        $dataArray['feeder_code'] = $request->input('feeder_code');
+        $dataArray['conn_state'] = $request->input('conn_state');
+        $dataArray['maxm_injection'] = $request->input('maxm_injection');
+        $dataArray['maxm_withdrawal'] = $request->input('maxm_withdrawal');
+        $dataArray['payment'] = $request->input('payment');
+        $dataArray['inter_poc'] = $request->input('inter_poc');
+        $dataArray['inter_stu'] = $request->input('inter_stu');
+        $dataArray['inter_discom'] = $request->input('inter_discom');
+        $dataArray['rt1'] = $request->input('rt1');
+
+        $result=array_diff($dataArray,$basic);
+        $this->generateApprovalrequest($result, 'client', $client_id, $basic_id,$datas);
+
+        //return redirect()->route('basicdetails')->with('message','Detail added successfully and sent to Approver');
+        return Redirect::back()->with('message', 'User Successfully.');
+
 
     }
 
@@ -150,19 +267,20 @@ class ClientDeatilsController extends Controller
     public function edit_bankdetails($id='',$eid=''){
         $bank_id=$eid;
         $client_id=$id;
-        $get_bank_details = Bank::where('id',$bank_id)->where('status',1)->first();
-        $bankdetails = Bank::where('client_id',$client_id)->where('status',1)->get();
+        $get_bank_details = Bank::where('id',$bank_id)->where('status',1)->withTrashed()->first();
+        $bankdetails = Bank::where('client_id',$client_id)->where('status',1)->withTrashed()->get();
+        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
 
-        return view('ManageClient.bankdetails',compact('bankdetails','client_id','get_bank_details'));
+        return view('ManageClient.bankdetails',compact('bankdetails','client_id','get_bank_details','client_details'));
     }
 
     public function bankdetails($id){
         $client_id=$id;
        // $bankdetails = Bank::where('client_id',$id)->where('status',1)->get();
         $bankdetails = DB::table('bank')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',2); })->where('client_id',$id)->where('status',1)->get();
+   $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
 
-
-        return view('ManageClient.bankdetails',compact('bankdetails','client_id'));
+        return view('ManageClient.bankdetails',compact('bankdetails','client_id','client_details'));
     }
     public function add_bankdetails(Request $request){
         // dd();
@@ -171,14 +289,14 @@ class ClientDeatilsController extends Controller
             'account_number' => 'required|regex:/^[\w-]*$/|max:20',
             'bank_name' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
             'branch_name' => 'required|regex:/^[a-z\d\-_\s]+$/i|max:50',
-            'ifsc' => 'required|max:11',
+            'ifsc' => 'required|regex:/^[A-Za-z]{4}[a-zA-Z0-9]{7}$/|max:11',
         ]);
         
-        if($validator->fails())
-        {
+        // if($validator->fails())
+        // {
             
-            return redirect()->back()->withInput($request->input())->withErrors($validator);
-        }
+        //     return redirect()->back()->withInput($request->input())->withErrors($validator);
+        // }
         
         $bankdetail = new BankTemp();
        $bankdetail->client_id = $request->client_id;
@@ -190,7 +308,7 @@ class ClientDeatilsController extends Controller
         //dd(3);
         $bankdetail->save();
         return redirect()->back()->with('message','Detail added successfully and sent to Approver');
-        
+
     }
 
     public function update_bankdetails(Request $request ,$bank_detail_id)
@@ -226,7 +344,7 @@ class ClientDeatilsController extends Controller
         $dataArray['account_number'] = $request->input('account_number');
         $dataArray['bank_name'] = $request->input('bank_name');
         $dataArray['branch_name'] = $request->input('branch_name');
-        $dataArray['ifsc_code'] = $request->input('ifsc_code');
+        $dataArray['ifsc'] = $request->input('ifsc');
         $dataArray['virtual_account_number'] = $request->input('virtual_account_number');
         $result=array_diff($dataArray,$bankdetailtemp);
 
@@ -258,7 +376,7 @@ class ClientDeatilsController extends Controller
                }
 
            }
-           
+
        }
 
        $discom_array=array();
@@ -271,7 +389,7 @@ class ClientDeatilsController extends Controller
                    array_push($discom_array,$discom_value);
                }
            }
-           
+
        }
       return response()->json(['voltage' => $voltage_array, 'discom' => $discom_array],200);
     }
@@ -280,6 +398,7 @@ class ClientDeatilsController extends Controller
 
         $arrayValue = array_values($data);
         //$keys = array('bill_address_line_2'=>'Address Line 1');
+
          foreach($data as $key=>$value){
           //dd($key);
            $approvalRequest = New Approvalrequest();
@@ -300,7 +419,7 @@ class ClientDeatilsController extends Controller
     public function barreddetails()
     {
         $client_list=Client::orderBy('id','DESC')->paginate(10);
-        
+
         return view('ManageClient.barred_client',compact('client_list'));
     }
     public function barredChangeStatus($c_id='',$status_id='')
@@ -324,7 +443,7 @@ class ClientDeatilsController extends Controller
         $Groupuserdetails = Groupusersetting::where('status',0)->get()->toArray();
             //dd($Groupuserdetails);
         return view('ManageClient.account_group',compact('Clientsdetails','role_off','Groupuserdetails'));
-    }    
+    }
     public function creategroup(Request $request)
     {
         $clientid = $request->input('clientid');
@@ -345,7 +464,7 @@ class ClientDeatilsController extends Controller
             $usergroupsetting->status = '0';
             $usergroupsetting->update();
         }
-        
+
 
         $clientmaster_newusermapping = Client::where('id',$clientid)->first();
         $clientmaster_newusermapping->group_id = $clientid;
@@ -372,7 +491,7 @@ class ClientDeatilsController extends Controller
         $clientmaster_newusermapping->group_role = "Member";
         $clientmaster_newusermapping->save();
 
-        
+
         return redirect()->back()->with('success', 'your data saved');
     }
 
@@ -383,7 +502,7 @@ class ClientDeatilsController extends Controller
         $clientmaster_newusermapping->group_id = "Null";
         $clientmaster_newusermapping->group_role = "Null";
         $clientmaster_newusermapping->save();
-        }   
+        }
         return redirect('/agsetting')->with('deletesuccess', 'User Deleted Successfully');
     }
 

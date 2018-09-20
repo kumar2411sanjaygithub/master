@@ -30,51 +30,51 @@
               </div>
            @endforeach
           @endif
-     
+
 <form method="post" action="/manageofficials/saveofficialsdata">
   {{ csrf_field() }}
 <div class="box">
   <div class="box-body">
   <div class="row">
       <div class="col-md-3">
-     <label  class="control-label">EMPLOYEE</label>
+     <label  class="control-label">EMPLOYEE</label><span class="text-danger"><strong>*</strong></span>
        <input class="form-control input-sm valid" type="text" name="name" id="name" value="{{ old('name') }}">
     </div>
   <div class="col-md-3">
-    <label  class="control-label">EMPLOYEE ID</label>
+    <label  class="control-label">EMPLOYEE ID</label><span class="text-danger"><strong>*</strong></span>
   <input class="form-control input-sm" type="text"  name="employee_id" id="employee_id" value="{{ old('employee_id') }}">
   </div>
   <div class="col-md-3">
-    <label  class="control-label">DESIGNATION</label>
+    <label  class="control-label">DESIGNATION</label><span class="text-danger"><strong>*</strong></span>
   <input class="form-control input-sm" type="text" name="designation" id="designation" value="{{ old('designation') }}">
   </div>
   <div class="col-md-3">
-    <label  class="control-label">EMAIL ID</label>
+    <label  class="control-label">EMAIL ID</label><span class="text-danger"><strong>*</strong></span>
   <input class="form-control input-sm" type="text" name="email" id="email" value="{{ old('email') }}">
   </div>
 </div>
 <div class="row">
     <div class="col-md-3">
-   <label  class="control-label">CONTACT NUMBER</label>
+   <label  class="control-label">CONTACT NUMBER</label><span class="text-danger"><strong>*</strong></span>
      <input class="form-control input-sm" type="text" name="contact_number" id="contact_number" value="{{ old('contact_number') }}">
   </div>
 <div class="col-md-3">
-  <label  class="control-label">TELEPHONE NUMBER</label>
+  <label  class="control-label">TELEPHONE NUMBER</label><span class="text-danger"><strong>*</strong></span>
 <input class="form-control input-sm" type="text" name="telephone_number" id="telephone_number" value="{{ old('telephone_number') }}">
 </div>
 <div class="col-md-3">
-  <label  class="control-label">USER NAME</label>
+  <label  class="control-label">USER NAME</label><span class="text-danger"><strong>*</strong></span>
 <input class="form-control input-sm" type="text" name="username" id="username" value="{{ old('username') }}">
 </div>
 <div class="col-md-3">
-  <label  class="control-label">NEW PASSWORD</label>
-<input class="form-control input-sm" type="text" name="password" id="password" value="">
+  <label  class="control-label">NEW PASSWORD</label><span class="text-danger"><strong>*</strong></span>
+<input class="form-control input-sm" type="password" name="password" id="password" value="">
 </div>
 </div>
 <div class="row">
     <div class="col-md-3">
-   <label  class="control-label">CONFIRM PASSWORD</label>
-     <input class="form-control input-sm" type="text" name="confirmed" id="confirmed" value="">
+   <label  class="control-label">CONFIRM PASSWORD</label><span class="text-danger"><strong>*</strong></span>
+     <input class="form-control input-sm" type="password" name="confirmed" id="confirmed" value="">
   </div>
 <div class="col-md-3">
   <label  class="control-label">DEPARTMENT NAME</label>
@@ -85,16 +85,16 @@
         </select>
         <div class="mda-form-control-line"></div>
 
-   </div>    
+   </div>
 <div class="col-md-3">
-  <label  class="control-label">ROLE</label>
+  <label  class="control-label">ROLE</label><span class="text-danger"><strong>*</strong></span>
   <select class="form-control input-sm" name="role_id" id="role_id" style="width: 100%;">
      @foreach($role as $roleuser)
         <option value="{{$roleuser->id}}">{{$roleuser->name}}</option>
           @endForeach
         </select>
-        <div class="mda-form-control-line"></div> 
-  
+        <div class="mda-form-control-line"></div>
+
 </div>
 
 </div>
@@ -112,7 +112,7 @@
        <input class="form-control input-sm" type="text" name="line1" id="line1" value="{{ old('line1') }}">
     </div>
   <div class="col-md-3">
-    <label  class="control-label">LINE2</label>
+    <label  class="control-label">LINE2</label><span class="text-danger"><strong>*</strong></span>
   <input class="form-control input-sm" type="text" name="line2" id="line2" value="{{ old('line2') }}">
   </div>
   <div class="col-md-3">
@@ -120,7 +120,7 @@
     <select class="form-control input-sm select2" name="country" id="country" style="width: 100%;">
         <option selected="selected"> SELECT COUNTRY</option>
         <option>INDIA</option>
-        
+
     </select>
   </div>
   <div class="col-md-3">
@@ -133,7 +133,7 @@
           @foreach($state_list as $state_code=>$state_ar)
            <option value="{{$state_code}}" {{ isset($clientData) && $clientData->reg_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
           @endforeach
-        
+
     </select>
   </div>
 </div>
@@ -143,7 +143,7 @@
    <input class="form-control input-sm" type="text" name="city" id="city" value="{{ old('city') }}">
   </div>
 <div class="col-md-3">
-  <label  class="control-label">PIN CODE</label>
+  <label  class="control-label">PIN CODE</label><span class="text-danger"><strong>*</strong></span>
 <input class="form-control input-sm" type="text" name="pin_code" id="pin_code" value="{{ old('pin_code') }}">
 </div>
 <div class="col-md-3">
@@ -151,17 +151,16 @@
 <input class="form-control input-sm" type="text" name="comm_mob" id="comm_mob" value="{{ old('comm_mob') }}">
 </div>
 <div class="col-md-3">
-  <label  class="control-label">TELEPHONE NUMBER</label>
+  <label  class="control-label">TELEPHONE NUMBER</label><span class="text-danger"><strong>*</strong></span>
 <input class="form-control input-sm" type="text" name="comm_telephone" id="comm_telephone" value="{{ old('comm_telephone') }}">
 </div>
 </div>
 <div class="row">&nbsp;</div>
  <div class="row">
-    <div class="col-md-5"></div>
-     <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" id="save_officials">SAVE</button></div>
-     <div class="col-md-1">
-     <a href="{{ route('employee') }}"><input type="button" class="btn btn-block btn-danger btn-xs" value="Cancel"></a></div>
-   <div class="col-md-5"></div>
+    <div class="col-md-12 text-center">
+     <button type="submit" class="btn btn-info btn-xs" id="save_officials">SAVE</button>
+     <a href="{{ route('employee') }}"><input type="button" class="btn btn-danger btn-xs" value="Cancel"></a>
+   </div>
  </div>
 </div>
 </div>
@@ -173,5 +172,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-    {{ Html::script('js/employee/empvalidate.js') }}
+   
   @endsection

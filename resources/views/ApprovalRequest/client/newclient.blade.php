@@ -35,12 +35,12 @@
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>
       <tr>
-         <th>SR.NO</th>
+         <th class="srno">SR.NO</th>
          <th>CLIENT NAME</th>
          <th>GSTIN</th>
          <th>PAN</th>
          <th>CIN</th>
-         <th>ACTION</th>
+         <th class="act">ACTION</th>
       </tr>
       </thead>
       <tbody>
@@ -56,13 +56,14 @@
       </tr> -->
                                 <?php $i=1; ?>
                                 @foreach ($approveclient as $key => $value)
+                                <?php $val = @json_encode($value,true); ?>
 
                                   <tr>
                                     <td>
 
                                       <div class="text-center">{{$i}}</div>
                                       </td>
-                                    <td class="text-center tr_1">{{$value->company_name}}</td>
+                                    <td class="text-center"><a href="javascript:void(0)" onclick="generate_model({{ $value }})" id="pop">{{$value->company_name}}</a></td>
                                     <td class="text-center">{{$value->gstin}}</td>
                                     <td class="text-center">{{$value->pan}}</td>
                                     <td class="text-center">{{$value->cin}}</td>
@@ -70,32 +71,113 @@
                                      @if($value->client_app_status =='0')
 
                                       <td class="text-center">
-                                        <a href="/status/{{$value->id}}/approve" class="btn  btn-info btn-xs">Approve</a>
-                                        <a href="/status/{{$value->id}}/reject" class="btn  btn-danger btn-xs">Reject</a>
+                                        <a href="/status/{{$value->id}}/approve" class="btn  btn-info btn-xs">APPROVE</a>
+                                        <a href="/status/{{$value->id}}/reject" class="btn  btn-danger btn-xs">REJECT</a>
                                       </td>
                                     @elseif($value->client_app_status =='1')
 
                                       <td class="text-center">
-                                        <span class="text-primary">Approved</span>
+                                        <span class="text-primary">APPROVED</span>
                                       </td>
                                     @elseif($value->client_app_status =='2')
 
                                       <td class="text-center">
-                                        <span class="text-danger">Rejected</span>
+                                        <span class="text-danger">REJECTED</span>
                                       </td>
                                     @endif
 
                                   </tr>
                                 <?php $i++; ?>
                                 @endforeach
-    </tbody>
-      </table>
-  </div>
-
-</div>
+                    </tbody>
+                 </table>
+              </div>
+          </div>
     </section>
+    <div class="model_contaier"></div>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
-    function myFunction() {
+
+function generate_model(approveclient)
+{
+
+  $template = `<div class="modal fade " id="modaldetail" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <!-- Modal content-->
+      <div class="modal-content" >
+        <div class="modal-header np m5">
+          <button type="button" class="mt5 mr5 close" data-dismiss="modal" style="margin-top:5px;margin-right:5px; color:red;">&times;</button>
+          <h4 class="modal-title topheading">View Details</h4>
+        </div>
+        <div class="modal-body np ml5 mr5 mb5">
+            <table class="table table-responsive">
+              <tr>
+                <td style="padding-left:5px!important;border:1px solid #ddd;width:25%;font-size:13px;" class="text-left">Company Name</td>
+                <td class="text-left" style="padding-left:5px!important;font-size:13px;border:1px solid #ddd;">`+ approveclient.company_name +`</td>
+              </tr>
+              <tr>
+                <td style="padding-left:5px!important;font-size:13px;" class="text-left">GSTIN</td>
+                <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.gstin +`</td>
+              </tr>
+              <tr>
+                <td style="padding-left:5px!important;font-size:13px;" class="text-left">PAN</td>
+                <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.pan +`</td>
+              </tr>
+              <tr>
+                <td style="padding-left:5px!important;font-size:13px;" class="text-left">CIN</td>
+                <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.cin +`</td>
+              </tr>
+              <tr>
+              <tr>
+                <td style="padding-left:5px!important;font-size:13px;" class="text-left"> Primary Email Id</td>
+                <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.email +`</td>
+              </tr>
+                <td style="padding-left:5px!important;font-size:13px;" class="text-left">Primary Contact No.</td>
+                <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.pri_contact_no +`</td>
+              </tr>
+
+              <tr>
+                <td style="padding-left:5px!important;font-size:13px;" class="text-left">Short Id</td>
+                <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.short_id +`</td>
+              </tr>
+              <tr>
+                <td style="padding-left:5px!important;font-size:13px;" class="text-left">Old Sap Code</td>
+                <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ approveclient.old_sap +`</td>
+              </tr>
+
+              <tr>
+                <td style="padding-left:5px!important;font-size:13px;" class="text-left">Sap Code</td>
+                <td class="text-left" style="padding-left:5px!important;font-size:13px;">`+ '-' +`</td>
+              </tr>
+
+            </table>`;
+        if(approveclient.client_app_status==0){
+          $template += `<div class="text-center">
+                <a href="/status/`+approveclient.id+`/approve" class="btn  btn-info btn-xs">Approve</a>
+                <a href="/status/`+approveclient.id+`/reject" class="btn  btn-danger btn-xs">Reject</a>
+
+            </div>`;
+        }
+        $template += `</div>
+      </div>
+    </div>
+  </div>
+  `;
+          $('.model_contaier').html($template);
+          $('#modaldetail').modal('show')
+}
+
+    </script>
+    <script>
+  $(document).ready(function () {
+  $("tr").on('click','#pop',function () {
+    $('#modaldetail').modal('show');
+  });
+});
+</script>
+    <script>
+function myFunction() {
   //alert(1);
  var input, filter, table, tr, td, i;
  input = document.getElementById("input");
@@ -121,5 +203,31 @@
             $(this).remove();
         });
     }, 5000);
+  </script>
+  <script>
+  $(function () {
+      $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_flat-green',
+        radioClass   : 'iradio_flat-green'
+    })
+    //Red color scheme for iCheck
+    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+      checkboxClass: 'icheckbox_minimal-red',
+      radioClass   : 'iradio_minimal-red'
+    })
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-blue',
+      radioClass   : 'iradio_flat-blue'
+    })
+
+  })
+
+  $(function () {
+  $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+  checkboxClass: 'icheckbox_flat-green',
+  radioClass   : 'iradio_flat-green'
+  })
+  });
   </script>
     @endsection
