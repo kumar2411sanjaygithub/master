@@ -16,18 +16,29 @@
             </div>
           @endif
               <h5><label  class="control-label"><u>NOC DETAILS</u>&nbsp&nbsp&nbsp&nbsp {{$client_details[0]['company_name']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['crn_no']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['iex_portfolio']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['pxil_portfolio']}}</label></h5>
-      <div class="row" id="nocbox">
+    <div class="row">
+        <div class="col-xs-12">
+
+                                <div class="row">
+                                   <div class="col-md-9"></div>
+                                      <div class="col-md-3 text-right"><a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
+                                         <button type="button" class="btn btn-info btn-xs" id="add">
+                                            <span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button></div>
+                                </div>
+
+
+      <div class="row">
         <div class="col-xs-12">
                 <form method ="post" action="{{isset($get_noc_details)?url('noc_edit/'.$get_noc_details->id):route('noc_create')}}" enctype="multipart/form-data">
            {{ csrf_field() }}
 
-      <div class="row {{(isset($get_noc_details)||!$errors->isEmpty())?'':'divhide'}}">
+      <div class="row {{(isset($get_noc_details)||!$errors->isEmpty())?'':'divhide'}}" id="nocbox">
         <div class="col-xs-12">
      <div class="box" id="noccbox">
     <div class="box-body">
     <div class="row {{ $errors->has('noc_type') ? 'has-error' : '' }}">
       <div class="col-md-3">
-      <label  class="control-label">NOC TYPE</label>
+      <label  class="control-label">NOC TYPE<span class="text-danger"><strong>*</strong></label>
       <input type="hidden"  name="client_id" value="{{@$client_id}}" id="client">
       <select class="form-control input-sm " style="width: 100%;" id="noc_type" name="noc_type" value="{{isset($get_noc_details)?$get_noc_details->noc_type:old('noc_type')}}">
           <option value="">Select</option>
@@ -36,7 +47,7 @@
       </select>
       </div>
       <div class="col-md-3 {{ $errors->has('validity_from') ? 'has-error' : '' }}">
-       <label  class="control-label">VALIDITY START DATE</label>
+       <label  class="control-label">VALIDITY START DATE<span class="text-danger"><strong>*</strong></label>
        <div class="input-group date"  id="datepicker" name="sde">
          <div class="input-group-addon">
            <i class="fa fa-calendar"></i>
@@ -46,7 +57,7 @@
        <span class="text-danger">{{ $errors->first('validity_from') }}</span>
       </div>
       <div class="col-md-3 {{ $errors->has('validity_to') ? 'has-error' : '' }}">
-        <label  class="control-label">VALIDITY END START</label>
+        <label  class="control-label">VALIDITY END START<span class="text-danger"><strong>*</strong></label>
         <div class="input-group date" id="datepicker" name="mkl">
           <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
@@ -57,7 +68,7 @@
         <span class="text-danger">{{ $errors->first('validity_to') }}</span>
       </div>
         <div class="col-md-3 {{ $errors->has('noc_periphery') ? 'has-error' : '' }}">
-      <label  class="control-label">NOC PERIPHERY</label>
+      <label  class="control-label">NOC PERIPHERY<span class="text-danger"><strong>*</strong></label>
       <select class="form-control input-sm" style="width: 100%;" id="noc_periphery" name="noc_periphery" value="{{isset($get_noc_details)?$get_noc_details->noc_periphery:old('noc_periphery')}}">
          <option value="">Select</option>
                               <option value="Regional" {{(isset($get_noc_details)&& $get_noc_details->ex_type=='Regional')||old('noc_periphery')=='Regional'?'selected':''}}>Regional</option>
@@ -69,9 +80,10 @@
     </div>
 
     <div class="row">
-       <div class="col-md-3">
+       <div class="col-md-3 {{ $errors->has('noc_quantum') ? 'has-error' : '' }}">
         <label  class="control-label">NOC QUANTUM</label><span class="text-danger"><strong>*</strong></span>
         <input class="form-control input-sm" type="text" placeholder="ENTER NOC QUANTUM" id="noc_quantum" name="noc_quantum" value="{{isset($get_noc_details)?$get_noc_details->noc_quantum:old('noc_quantum')}}">
+         <span class="text-danger">{{ $errors->first('noc_quantum') }}</span>
       </div>
 
       <div class="col-md-3">
@@ -148,21 +160,15 @@
           @else
           <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs" id="save" name="save">SAVE</button></div>
           @endif
-          <div class="col-md-1"><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="Cancel" onclick="myFunction()"></div>
+          <div class="col-md-1"><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="CANCEL" onclick="myFunction()"></div>
       </div>
       </div>
     </div>
     </div>
+    </form>
   </div>
-    <div class="row">
-        <div class="col-xs-12">
 
-                                <div class="row">
-                                   <div class="col-md-9"></div>
-                                      <div class="col-md-3 text-right"><a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
-                                         <button class="btn btn-info btn-xs" id="add">
-                                            <span class="glyphicon glyphicon-plus"></span>&nbsp ADD</div>
-                                </div>
+
 <div class="box">
   <div class="box-body table-responsive">
     <table class="table table-bordered text-center">
@@ -227,15 +233,16 @@
 
      $(document).ready(function(){
       $('#add').on('click', function(){
-
       $('#nocbox').removeClass('divhide').addClass('divshow');
+       $('#add').hide();
       });
       });
      </script>
      <script>
   function myFunction(){
     //alert(1);
-    $('#noccbox').addClass('divhide').removeClass('divshow');
+    $('#nocbox').addClass('divhide').removeClass('divshow');
+    $('#add').show();
   }
   </script>
     <script>

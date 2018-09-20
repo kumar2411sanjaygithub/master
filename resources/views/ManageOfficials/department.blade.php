@@ -50,13 +50,13 @@
                       <div class="box-body">
                         <div class="row">
                             <div class="col-md-3  {{ $errors->has('depatment_name') ? 'has-error' : '' }}">
-                               <label  class="control-label">DEPARTMENT NAME</label>
-                               <input class="form-control input-sm" type="text" placeholder="DEPARTMENT NAME" id="depatment_name" name="depatment_name">
+                               <label  class="control-label">DEPARTMENT NAME<span class="text-danger"><strong>*</strong></span></label>
+                               <input class="form-control input-sm" type="text" placeholder="ENTER DEPARTMENT NAME" id="depatment_name" name="depatment_name">
                                 <span class="text-danger">{{ $errors->first('depatment_name') }}</span>
                             </div>
                             <div class="col-md-3">
                                <label  class="control-label">DESCRIPTION</label>
-                               <input class="form-control input-sm" type="text" placeholder="DESCRIPTION" id="description" name="description">
+                               <input class="form-control input-sm" type="text" placeholder="ENTER DESCRIPTION" id="description" name="description">
                             </div>
                             <div class="col-md-3">
                               <div class="col-md-6">

@@ -50,7 +50,7 @@ class ContactController extends Controller
         ]);
         if($validator->fails())
         {
-            return Redirect::back()->withErrors($validator);
+            return Redirect::back()->withErrors($validator)->withInput();
         }
         $contactdetail = new ContactTemp();
         $contactdetail->client_id = $request->client_id;
@@ -64,7 +64,6 @@ class ContactController extends Controller
     }
     public function addservices(Request $request, $id)
     {
-      dd($id);
         $client_id=$id;
         $service = new service();
         $service->alert_type = $request->input('alert_type');

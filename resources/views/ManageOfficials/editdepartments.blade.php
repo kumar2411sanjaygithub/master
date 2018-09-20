@@ -18,7 +18,7 @@
             <div class="box-body box">
               <div class="row">
                 <div class="col-md-3">
-                  <label  class="control-label">DEPARTMENT NAME</label>
+                  <label  class="control-label">DEPARTMENT NAME<span class="text-danger"><strong>*</strong></span></label>
                    <input class="form-control input-sm" type="text" id="depatment_name" name="depatment_name"value="{{ $departmentData->depatment_name }}">
                 </div>
                 <div class="col-md-3">

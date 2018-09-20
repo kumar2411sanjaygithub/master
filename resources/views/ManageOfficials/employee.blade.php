@@ -159,7 +159,7 @@
  <div class="row">
     <div class="col-md-12 text-center">
      <button type="submit" class="btn btn-info btn-xs" id="save_officials">SAVE</button>
-     <a href="{{ route('employee') }}"><input type="button" class="btn btn-danger btn-xs" value="Cancel"></a>
+     <a href="{{ route('employee') }}"><input type="button" class="btn btn-danger btn-xs" value="CANCEL"></a>
    </div>
  </div>
 </div>
