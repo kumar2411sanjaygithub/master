@@ -7,7 +7,7 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
         <li><a href="#">MANAGE OFFICIALS</a></li>
-        <li><a href="#">ROLE & PERMISION</a></li>
+        <li><a href="#"><u>ROLE & PERMISION</u></a></li>
       </ol>
     </section>
 
@@ -24,9 +24,9 @@
       </div>
    @endif
 <div class="col-md-10"></div>
-<div class="col-md-2 mb10">
-  <a href="{{ route('roles.create') }}" class="btn btn-info btn-xs pull-right">
-  <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD ROLE</a>
+<div class="col-md-2 ">
+  <a href="{{ route('roles.create') }}"><button class="btn btn-info btn-xs pull-right mt7">
+  <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD ROLE</button></a>
 </div>
 </div>
 <div class="box">
@@ -34,13 +34,13 @@
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>
       <tr>
-        <th>SR.NO</th>
+        <th class="srno">SR.NO</th>
         <th>DEPARTMENT NAME</th>
         <th>ROLE NAME</th>
         <th>ACCES PERMISIONS</th>
         <th>CREATED BY</th>
         <th>CREATED DATE</th>
-        <th>ACTION</th>
+        <th class="act1">ACTION</th>
       </tr>
       </thead>
       <tbody>
@@ -51,12 +51,12 @@
                  <td>{{$i}}</td>
                  <td>{{@$role->getDepartment->depatment_name}}</td>
                  <td>{{$role->name}}</td>
-                 <td><a href="{{ url('assignpermission/'.$role->id) }}">Assign Permissions</a></td>
+                 <td><a href="{{ url('assignpermission/'.$role->id) }}"><u>ASSIGN PERMISIONS</u></a></td>
                  <td>{{@$role->getuser->name}}</td>
                  <td>{{ date('d/m/Y',strtotime($role->created_at))}}</td>
                  <td>
-                  <a href="{{ route('roles.edit',[$role->id]) }}"><span class="glyphicon glyphicon-pencil"></span>
-                  <a href="" data-toggle="modal" data-target="#deleteData{{ $role->id }}"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a>
+                  <a href="{{ route('roles.edit',[$role->id]) }}"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="" data-toggle="modal" data-target="#deleteData{{ $role->id }}"><span class="glyphicon glyphicon-trash text-danger" ></span></a>
 
                  </td>
                 <div id="deleteData{{ $role

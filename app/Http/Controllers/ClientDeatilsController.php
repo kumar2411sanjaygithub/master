@@ -121,7 +121,7 @@ class ClientDeatilsController extends Controller
         $client->maxm_withdrawal = $request->input('maxm_withdrawal');
         $client->payment = $request->input('payment');
         $client->obligation = $request->input('obligation');
-				dd($client);
+			
         $client->save();
 
         //$lsatinsertedId = $clien->id;

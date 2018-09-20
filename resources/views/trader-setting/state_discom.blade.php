@@ -163,12 +163,12 @@
               <table id="example1" class="table table-bordered table-striped table-hover text-center">
                 <thead>
                 <tr>
-                  <th>SR.NO</th>
+                  <th class="srno">SR.NO</th>
                   <th>STATE</th>
                   <th>SLDC</th>
                   <th>DISCOM</th>
                   <th>VOLTAGE</th>
-                  <th>ACTION</th>
+                  <th class="act1">ACTION</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -249,8 +249,8 @@
                           @endphp
                         </td>
                        <td>
-                        <a href="{{ route('discom-sldc-state.edit',[$stateDiscom->id]) }}"><span class="glyphicon glyphicon-pencil"></span>
-                        <a href="" data-toggle="modal" data-target="#deleteData{{ $stateDiscom->id }}"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a>
+                        <a href="{{ route('discom-sldc-state.edit',[$stateDiscom->id]) }}"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="" data-toggle="modal" data-target="#deleteData{{ $stateDiscom->id }}"><span class="glyphicon glyphicon-trash text-danger" ></span></a>
 
                        </td>
                       <div id="deleteData{{ $stateDiscom

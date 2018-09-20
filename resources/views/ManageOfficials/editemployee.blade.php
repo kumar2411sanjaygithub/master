@@ -34,7 +34,7 @@
   <div class="box-body">
   <div class="row">
       <div class="col-md-3">
-     <label  class="control-label">EMPLOYEE</label>
+     <label  class="control-label">EMPLOYEE NAME</label>
        <input class="form-control input-sm" type="text" name="name" onKeyPress="return ValidateAlpha(event);" id="name"   value="{{ $officialstData->name }}">
     </div>
   <div class="col-md-3">
@@ -79,7 +79,7 @@
        @foreach($department as $departmentuser)
         <option value="{{$departmentuser->id}}" {{isset($officialstData) && $officialstData->department_id == $departmentuser->id ? 'selected="selected"' : ''}}>{{$departmentuser->depatment_name}}</option>
       @endForeach
-      
+
   </select>
 </div>
 <div class="col-md-3">
@@ -89,7 +89,7 @@
       @foreach($role as $roleuser)
       <option value="{{$roleuser->id}}" {{isset($officialstData) && $officialstData->id == $roleuser->id ? 'selected="selected"' : ''}}>{{$roleuser->name}}</option>
       @endForeach
-      
+
   </select>
 </div>
 
@@ -114,15 +114,15 @@
   <div class="col-md-3">
     <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
     <select class="form-control input-sm select2" name="country" id="country" style="width: 100%;">
-        
+
         <option value="India" {{ isset($officialstData) && $officialstData->country == 'India' ? 'selected="selected"' : '' }}>India</option>
-     
+
     </select>
   </div>
   <div class="col-md-3">
     <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
     <select class="form-control input-sm select2" name="state" id="state" style="width: 100%;">
-        
+
          <?php
           $state_list = \App\Common\StateList::get_states();
               ?>
@@ -154,8 +154,8 @@
  <div class="row">
     <div class="col-md-5"></div>
     <input type="hidden" value="{{ $officialstData->approve_status }}" name="approve_status">
-     <div class="col-md-1"><input type="submit" class="btn btn-block btn-info btn-xs" id="update_officials" value="Update"></button></div>
-     <div class="col-md-1"><a href="{{ route('employee') }}"><input type="button" class="btn btn-block btn-danger btn-xs" value="Cancel"></button></a></div>
+     <div class="col-md-1"><input type="submit" class="btn btn-block btn-info btn-xs" id="update_officials" value="UPDATE"></button></div>
+     <div class="col-md-1"><a href="{{ route('employee') }}"><input type="button" class="btn btn-block btn-danger btn-xs" value="CANCEL"></button></a></div>
    <div class="col-md-5"></div>
  </div>
 
@@ -167,7 +167,7 @@
 
 </form>
     </section>
-    
+
 <script type="text/javascript">
 function ValidateAlpha(evt)
    {

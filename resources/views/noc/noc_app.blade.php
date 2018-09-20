@@ -110,7 +110,7 @@ a.disabled {
                      <label  class="control-label">SDLC</label>
                     <select class="form-control input-sm" style="width: 100%;" id="sldc" name="sldc">
                         <option value="">PLEASE SELECT SLDC</option>
-                        @if (count($sldc_array) > 0)                        
+                        @if (count($sldc_array) > 0)
                           @foreach($sldc_array as $sldc)
                               <option value="{{$sldc}}" {{ isset($get_state_discom) && $get_state_discom->state == $state_code ? 'selected="selected"' : '' }}>{{$sldc}}</option>
                           @endforeach
@@ -118,7 +118,7 @@ a.disabled {
                           <option value="">No data.</option>
                         @endif
                     </select>
-                    <span class="text-danger">{{ $errors->first('sldc') }}</span>                                              
+                    <span class="text-danger">{{ $errors->first('sldc') }}</span>
                   </div>
                   <div class="col-md-3 {{ $errors->has('noc_type') ? 'has-error' : '' }}">
                      <label  class="control-label">NOC TYPE</label>
@@ -127,7 +127,7 @@ a.disabled {
                         <option value="buy">BUY</option>
                         <option value="sell">SELL</option>
                      </select>
-                    <span class="text-danger">{{ $errors->first('noc_type') }}</span>                                               
+                    <span class="text-danger">{{ $errors->first('noc_type') }}</span>
                   </div>
                   <div class="col-md-3 {{ $errors->has('exchange_type') ? 'has-error' : '' }}">
                      <label  class="control-label">EXCHANGE TYPE</label>
@@ -137,12 +137,12 @@ a.disabled {
                         <option value="pxil">PXIL</option>
                         <option value="both">BOTH</option>
                      </select>
-                    <span class="text-danger">{{ $errors->first('exchange_type') }}</span>                                               
+                    <span class="text-danger">{{ $errors->first('exchange_type') }}</span>
                   </div>
                   <div class="col-md-3 {{ $errors->has('quantum') ? 'has-error' : '' }}">
                      <label  class="control-label">QUANTUM</label>
                      <input class="form-control input-sm" type="text" placeholder="VALUE" id="quantum" name="quantum">
-                    <span class="text-danger">{{ $errors->first('quantum') }}</span>                                              
+                    <span class="text-danger">{{ $errors->first('quantum') }}</span>
                   </div>
                </div>
                <div class="row">
@@ -154,14 +154,14 @@ a.disabled {
                         </div>
                         <input type="text" class="form-control pull-right input-sm" id="datepicker"  name="start_date" autocomplete="off" placeholder="DD/MM/YYYY">
                      </div>
-                    <span class="text-danger">{{ $errors->first('start_date') }}</span>                                               
+                    <span class="text-danger">{{ $errors->first('start_date') }}</span>
                   </div>
                   <div class="col-md-1 {{ $errors->has('start_time') ? 'has-error' : '' }}">
                      <label  class="control-label">TIME</label>
                      <div class="input-group">
                         <input type="text" class="form-control timepicker" name="start_time">
                      </div>
-                    <span class="text-danger">{{ $errors->first('start_time') }}</span>                                    
+                    <span class="text-danger">{{ $errors->first('start_time') }}</span>
                   </div>
                   <div class="col-md-2 {{ $errors->has('end_date') ? 'has-error' : '' }}">
                      <label  class="control-label">VALIDITY END DATE</label>
@@ -171,18 +171,18 @@ a.disabled {
                         </div>
                         <input type="text" class="form-control pull-right input-sm" id="datepicker1"  name="end_date" autocomplete="off" placeholder="DD/MM/YYYY">
                      </div>
-                      <span class="text-danger">{{ $errors->first('end_date') }}</span>                          
+                      <span class="text-danger">{{ $errors->first('end_date') }}</span>
                   </div>
                   <div class="col-md-1 {{ $errors->has('end_time') ? 'has-error' : '' }}">
                      <label  class="control-label">TIME</label>
                      <div class="input-group">
                         <input type="text" class="form-control timepicker" name="end_time">
                      </div>
-                      <span class="text-danger">{{ $errors->first('end_time') }}</span>                          
+                      <span class="text-danger">{{ $errors->first('end_time') }}</span>
                   </div>
                   <div class="col-md-3">
                      <label  class="control-label">ATTACH NOC REQUEST</label>
-                     <input class="form-control input-sm" type="file" placeholder="" id="noc_file" name="noc_file">
+                     <input class="form-control input-sm" type="file" placeholder="" id="noc_file" name="noc_file" style="padding:4px 4px;">
                   </div>
                </div>
                <div class="row">&nbsp;</div>
@@ -199,7 +199,7 @@ a.disabled {
           <div class="col-md-10"></div>
           <div class="col-md-2">
             <a href="#" class="btn btn-info btn-xs pull-right"  id="punch_app" name=" ">
-            <span class="glyphicon glyphicon-plus"> </span>&nbsp;Punch Applicaton</a>
+            <span class="glyphicon glyphicon-plus"> </span>&nbsp;PUNCH APPLICATION</a>
           </div>
           </div>
 
@@ -208,19 +208,19 @@ a.disabled {
                <table id="example1" class="table table-bordered table-striped table-hover text-center">
                   <thead>
                      <tr>
-                        <th rowspan="2" style="width:3%;" class="vertical-align">SR.NO</th>
-                        <th rowspan="2" class="vertical-align">CLIENT NAME</th>
-                        <th rowspan="2" class="vertical-align">PORTFOLIO ID</th>
-                        <th rowspan="2" class="vertical-align">APPLICATON NO.</th>
-                        <th rowspan="2" class="vertical-align" >VALIDITY START DATE</th>
-                        <th rowspan="2" class="vertical-align">VALIDITY END DATE</th>
-                        <th rowspan="2" class="vertical-align">NOC REQUEST</th>
-                        <th rowspan="2" class="vertical-align">STATUS</th>
-                        <th rowspan="2" class="vertical-align">PAYMENT ENTRY</th>
-                        <th rowspan="2" class="vertical-align">NOC APPLICATON</th>
-                        <th rowspan="2" class="vertical-align">ACTION</th>
+                        <th rowspan="2" style="width:3%;" class="vl">SR.NO</th>
+                        <th rowspan="2" class="vl">CLIENT NAME</th>
+                        <th rowspan="2" class="vl">PORTFOLIO ID</th>
+                        <th rowspan="2" class="vl">APPLICATON NO.</th>
+                        <th rowspan="2" class="vl" >VALIDITY START DATE</th>
+                        <th rowspan="2" class="vl">VALIDITY END DATE</th>
+                        <th rowspan="2" class="vl">NOC REQUEST</th>
+                        <th rowspan="2" class="vl">STATUS</th>
+                        <th rowspan="2" class="vl">PAYMENT ENTRY</th>
+                        <th rowspan="2" class="vl">NOC APPLICATON</th>
+                        <th rowspan="2" class="vl">ACTION</th>
                         <th colspan="3" >DEBIT NOTE</th>
-                        <th rowspan="2" class="vertical-align">SDLC<br> ACTION<br> STATUS</th>
+                        <th rowspan="2" class="vl">SDLC<br> ACTION<br> STATUS</th>
                      </tr>
                      <tr>
                         <th>SDLC</th>
@@ -231,11 +231,11 @@ a.disabled {
                   <tbody>
                   @php $i=1; @endphp
                   @if (count($noc_data) > 0)
-                     @foreach ($noc_data as $k=>$noc_list)    
+                     @foreach ($noc_data as $k=>$noc_list)
                      <tr>
-                        <td class="vertical-align">{{$i}}</td>
-                        <td class="vertical-align">{{@$noc_list->client->company_name}}</a></td>
-                        <td class="vertical-align">
+                        <td class="vl">{{$i}}</td>
+                        <td class="vl">{{@$noc_list->client->company_name}}</a></td>
+                        <td class="vl">
                           @if($noc_list->exchange_type=='iex')
                           {{isset($noc_list->client->iex_portfolio)?$noc_list->client->iex_portfolio:'-' }}
                           @endif
@@ -243,41 +243,41 @@ a.disabled {
                           {{isset($noc_list->client->pxil_portfolio)?$noc_list->client->pxil_portfolio:'-' }}
                           @endif
                         </td>
-                        <td class="vertical-align">{{$noc_list->application_no}}</td>
-                        <td class="vertical-align">{{date('d/m/Y',strtotime($noc_list->start_date))}}</td>
-                        <td class="vertical-align">{{date('d/m/Y',strtotime($noc_list->end_date))}}</td>
-                        <td class="vertical-align">{{isset($noc_list->noc_file)?'YES':'NO' }}</td>
-                        <td>
+                        <td class="vl">{{$noc_list->application_no}}</td>
+                        <td class="vl">{{date('d/m/Y',strtotime($noc_list->start_date))}}</td>
+                        <td class="vl">{{date('d/m/Y',strtotime($noc_list->end_date))}}</td>
+                        <td class="vl">{{isset($noc_list->noc_file)?'YES':'NO' }}</td>
+                        <td class="vl">
                           @if($noc_list->status==1)
-                            <a class="btn btn-info aks_warning btn-xs" style="width: 60px ! important;">INITIATED</a>
+                             <a href="#"><u>INITIATED</u></a>
                           @elseif($noc_list->status==2)
-                            <a class="btn btn-success aks_success btn-xs" style="width: 65px ! important;">APPROVED</a>
+                              <a href="#"><u>APPROVED</u></a>
                           @elseif($noc_list->status==3)
-                            <a class="btn btn-success aks_success btn-xs" style="width: 70px ! important;">SUBMITTED</a>
+                             <a href="#"><u>SUBMITTED</u></a>
                           @else
-                            <a class="btn btn-success aks_success btn-xs" style="width: 82px ! important;">NOC RECEIVED</a>
+                             <a href="#"><u>NOC RECEIVED</u></a>
                           @endif
                         </td>
-                        <td class="vertical-align">
+                        <td class="vl">
                           @if($noc_list->payment_challan_number!='' && $noc_list->bank_name!='' && $noc_list->transcation_date!='' && $noc_list->amount!='')
-                            <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_list->id }}" class="btn  btn-info btn-xs">EDIT</a> 
+                            <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_list->id }}" ><span class="label edited">EDIT</span></a>
 
                           @else
-                            <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_list->id }}" class="btn  btn-default btn-xs @if(($noc_list->status==2 ||$noc_list->status==3)) @else disabled @endif">ADD</a> 
+                            <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_list->id }}" class="btn  btn-default btn-xs @if(($noc_list->status==2 ||$noc_list->status==3)) @else disabled @endif">ADD</a>
                           @endif
                         </td>
-                        <td class="vertical-align">
-                         
+                        <td class="vl">
+
                           <a href="/generateNocPDF/{{$noc_list->id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application=='') @else class="disabled" @endif><span class="label edited">GENERATE</span></a>
 
                            <a href="{{url('/noc-application/generate_noc_application/'.$noc_list->generate_noc_application)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application!='') @else class="disabled" @endif><span class="label success">DOWNLOAD</span></a>
                             <a href="#" data-toggle="modal" data-target="#deletegererateBill{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application!='') @else class="disabled" @endif><span class="label danger">DELETE</span></a>
                         </td>
-                        <td class="vertical-align">
-                          <a href="/noc/edit/{{$noc_list->id}}" @if($noc_list->generate_noc_application=='')  @else class="disabled" @endif><span class="label warning">EDIT</span></a></br>
+                        <td class="vl">
+                          <a href="/noc/edit/{{$noc_list->id}}" @if($noc_list->generate_noc_application=='')  @else class="disabled" @endif><span class="label edited" >EDIT</span></a></br>
                           <a href="/noc/email/{{$noc_list->id}}/client/{{$client_id}}" @if($noc_list->generate_noc_application=='')  @else class="disabled" @endif><span class="label success">SEND EMAIL</span></a>
                         </td>
-                        <td class="vertical-align">
+                        <td class="vl">
                           @if(@$noc_list['client']['nocbilling']['noc_application_for']=='both' || @$noc_list['client']['nocbilling']['noc_application_for']=='sldc')
                             <a href="/generatesldcPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit=='') @else class="disabled" @endif><span class="label edited">GENERATE</span></a>
                             <a href="{{url('/noc-application/bill/'.$noc_list->generate_sldc_debit)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit!='') @else class="disabled" @endif><span class="label success">DOWNLOAD</span></a>
@@ -286,7 +286,7 @@ a.disabled {
 
                           @endif
                         </td>
-                        <td class="vertical-align" >
+                        <td class="vl" >
                           @if(@$noc_list['client']['nocbilling']['noc_application_for']=='both' || @$noc_list['client']['nocbilling']['noc_application_for']=='discom')
                             <a href="/generatediscomPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit=='') @else class="disabled" @endif><span class="label edited">GENERATE</span></a>
                             <a href="{{url('/noc-application/bill/'.$noc_list->generate_discom_debit)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit!='') @else class="disabled" @endif><span class="label success">DOWNLOAD</span></a>
@@ -295,12 +295,12 @@ a.disabled {
 
                           @endif
                         </td>
-                        <td class="vertical-align">
+                        <td class="vl">
                            <a href="/noc/email-debit/{{$noc_list->id}}/client/{{$client_id}}"><span class="label success">SEND EMAIL</span></a>
                         </td>
                         <td class="vertical-align">
-                            <a href="" data-toggle="modal" data-target="#approveData{{ $noc_list->id }}" class="btn  btn-info btn-xs">ACCEPTED</a>
-                            <a href="" data-toggle="modal" data-target="#rejectedData{{ $noc_list->id }}" class="btn  btn-danger btn-xs">REJECTED</a>              
+                            <a href="" data-toggle="modal" data-target="#approveData{{ $noc_list->id }}" ><span class="label edited">ACCEPTED</span></a>
+                            <a href="" data-toggle="modal" data-target="#rejectedData{{ $noc_list->id }}" ><span class="label danger">REJECTED</span></a>
 
                         </td>
                         <div id="deleteData{{ $noc_list->id }}" class="modal fade" role="dialog">
@@ -351,7 +351,7 @@ a.disabled {
                                   <div class="col-md-6">
                                      <label  class="control-label">AMOUNT</label>
                                      <input class="form-control input-sm" type="text" placeholder="AMOUNT" id="amount" name="amount" onkeypress="return IsNumeric1(event);"  value="{{isset($noc_list->amount)?$noc_list->amount:''}}" required>
-                                      <span id="error_areaa1" style="color: Red; display: none">* Input digits (0 - 9)</span>                                   
+                                      <span id="error_areaa1" style="color: Red; display: none">* Input digits (0 - 9)</span>
                                   </div>
                                </div>
 
@@ -367,7 +367,7 @@ a.disabled {
                              </div>
                            </div>
                            </form>
-                         </div> 
+                         </div>
                         <div id="deletegererateBill{{ $noc_list
                        ->id }}" class="modal fade" role="dialog">
                            <form method="POST"  action="{{url('noc-pdf-delete/'.$noc_list->id)}}">
@@ -390,7 +390,7 @@ a.disabled {
                              </div>
                            </div>
                            </form>
-                         </div>  
+                         </div>
                         <div id="deletesldcDebit{{ $noc_list
                        ->id }}" class="modal fade" role="dialog">
                            <form method="POST"  action="{{url('noc-pdf-delete/'.$noc_list->id)}}">
@@ -413,7 +413,7 @@ a.disabled {
                              </div>
                            </div>
                            </form>
-                         </div> 
+                         </div>
                         <div id="deletediscomDebit{{ $noc_list
                        ->id }}" class="modal fade" role="dialog">
                            <form method="POST"  action="{{url('noc-pdf-delete/'.$noc_list->id)}}">
@@ -436,7 +436,7 @@ a.disabled {
                              </div>
                            </div>
                            </form>
-                         </div> 
+                         </div>
                           <div id="rejectedData{{ $noc_list->id }}" class="modal fade" role="dialog">
                              <form method="POST"  action="{{url('noc-request/'.$noc_list->id.'/status/5')}}">
                               {{ csrf_field() }}
@@ -456,7 +456,7 @@ a.disabled {
                                </div>
                              </div>
                              </form>
-                           </div>  
+                           </div>
                           <div id="approveData{{ $noc_list->id }}" class="modal fade" role="dialog">
                              <form method="POST"  action="{{url('noc-request/'.$noc_list->id.'/status/4')}}">
                               {{ csrf_field() }}
@@ -476,10 +476,10 @@ a.disabled {
                                </div>
                              </div>
                              </form>
-                           </div> 
+                           </div>
 
                      </tr>
-                            @php $i++; @endphp                                   
+                            @php $i++; @endphp
                         @endforeach
                       @else
                         <tr>
@@ -605,6 +605,7 @@ $(document).ready(function() {
   }
 </script>
 
+
 <script type="text/javascript">
     $(document).ready(function() {
    $('#select-client').select2();
@@ -612,3 +613,4 @@ $(document).ready(function() {
 </script>
 
   @endsection
+

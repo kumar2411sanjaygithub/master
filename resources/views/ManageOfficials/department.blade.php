@@ -59,13 +59,10 @@
                                <input class="form-control input-sm" type="text" placeholder="ENTER DESCRIPTION" id="description" name="description">
                             </div>
                             <div class="col-md-3">
-                              <div class="col-md-6">
-                                <lable>&nbsp;</lable>
-                                 <button type="submit" id= "submitdepartment" class="btn btn-block btn-info btn-xs">SAVE</button>
+                              <div class="col-md-6" style="margin-top:22px;">
+                                  <button type="submit" id= "submitdepartment" class="btn btn-block btn-info btn-xs">SAVE</button>
                               </div>
-                              <div class="col-md-6">
-                                <lable>&nbsp;</lable>
-
+                              <div class="col-md-6" style="margin-top:22px;">
                                   <a href="{{ route('departments') }}"><input type="button"  class="btn btn-danger btn-block  btn-xs pull-right"value="Cancel"></a>
                               </div>
                             </div>
@@ -77,8 +74,8 @@
              </div>
              <div class="row">
                 <div class="col-md-12">
-                  <div class="pull-right mb5">
-                    <button type="button" class="btn btn-info btn-xs btn-block adddeportmentbtn"> <span class="glyphicon glyphicon-plus"> </span>Add Department</button>
+                  <div class="pull-right mt7">
+                    <button type="button" class="btn btn-info btn-xs btn-block adddeportmentbtn "> <span class="glyphicon glyphicon-plus"></span>&nbsp; Add Department</button>
                   </div>
                 </div>
              </div>
@@ -87,14 +84,14 @@
                    <table id="example1" class="table table-bordered table-striped table-hover text-center">
                       <thead class="tablehead">
                             <tr>
-                              <th class="text-center fs14">SR.NO
+                              <th class="text-center srno">SR.NO
                               </th>
                               <th class="text-center ">DEPARTMENT NAME
                               </th>
                               <th class="text-center ">DESCRIPTION</th>
                               <th class="text-center ">CREATED BY</th>
                               <th class="text-center">CREATED DATE</th>
-                              <th class="text-center ">ACTION</th>
+                              <th class="text-center act1">ACTION</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -109,7 +106,7 @@
 
                               <td class="text-center">
                                 <a href="/manageofficials/editdepartments/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
-                                &nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;
                                 <a href="/manageofficials/deletedepartments/{{$value->id}}"><span class="glyphicon glyphicon-trash"></span></a>
                               </td>
                             </tr>
