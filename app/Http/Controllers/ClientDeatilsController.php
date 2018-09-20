@@ -289,15 +289,15 @@ class ClientDeatilsController extends Controller
             'account_number' => 'required|regex:/^[\w-]*$/|max:20',
             'bank_name' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
             'branch_name' => 'required|regex:/^[a-z\d\-_\s]+$/i|max:50',
-            'ifsc' => 'required|max:11'
+            'ifsc' => 'required|regex:/^[A-Za-z]{4}[a-zA-Z0-9]{7}$/|max:11',
         ]);
-
-        if($validator->fails())
-        {
-
-            return redirect()->back()->withInput($request->input())->withErrors($validator);
-        }
-
+        
+        // if($validator->fails())
+        // {
+            
+        //     return redirect()->back()->withInput($request->input())->withErrors($validator);
+        // }
+        
         $bankdetail = new BankTemp();
        $bankdetail->client_id = $request->client_id;
         $bankdetail->account_number = $request->input('account_number');

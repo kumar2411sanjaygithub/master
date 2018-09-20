@@ -20,7 +20,8 @@
           <div class="row">
               <div class="col-md-3 {{ $errors->has('ex_type') ? 'has-error' : '' }}">
                 <input type="hidden"  name="client_id" value="{{@$client_id}}" id="client">
-              <label  class="control-label">EXCHANGE TYPE</label><span class="text-danger"><strong>*</strong></span>
+              <label  class="control-label">EXCHANGE TYPE<span class="text-danger"><strong>*</strong></label>
+
               <select class="form-control input-sm " style="width: 100%;" id="ex_type" name="ex_type" >
                   <option value="">SELECT EXCHANGE</option>
                   <option value="iex" {{(isset($get_exchange_details)&& $get_exchange_details->ex_type=='iex')||old('ex_type')=='iex'?'selected':''}}>IEX</option>
@@ -29,7 +30,7 @@
       <span class="text-danger">{{ $errors->first('ex_type') }}</span>
       </div>
       <div class="col-md-3 {{ $errors->has('validity_from') ? 'has-error' : '' }}">
-       <label  class="control-label">VALIDITY START DATE</label><span class="text-danger"><strong>*</strong></span>
+       <label  class="control-label">VALIDITY START DATE<span class="text-danger"><strong>*</strong></label>
        <div class="input-group date" id="datepicker" >
          <div class="input-group-addon">
            <i class="fa fa-calendar"></i>
@@ -37,10 +38,10 @@
          <input type="text" class="form-control pull-right input-sm"  id="validity_from" name="validity_from" value="{{isset($get_exchange_details)?$get_exchange_details->validity_from:old('validity_from')}}">
 
        </div>
-       <span class="text-danger">{{ $errors->first('validity_from') }}</span>
+       <span class="text-danger">{{ $errors->first('validity_to') }}</span>
       </div>
-      <div class="col-md-3 ">
-        <label  class="control-label">VALIDITY END START</label><span class="text-danger"><strong>*</strong></span>
+      <div class="col-md-3 {{ $errors->has('file_upload') ? 'has-error' : '' }}">
+        <label  class="control-label">VALIDITY END START<span class="text-danger"><strong>*</strong></label>
         <div class="input-group date" id="datepicker1">
           <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
@@ -140,38 +141,44 @@
       });
      </script>
      <script>
-        $(function () {
+  function myFunction(){
+    //alert(1);
+    $('#exchangebox').addClass('divhide').removeClass('divshow');
+  }
+  </script>
+ <script>
+    $(function () {
 
-          //Date picker
-$('#datepicker').datepicker({
-            autoclose: true,
-            format: 'dd/mm/yyyy',
-          }).on('changeDate', function (selected) {
-             var startDate = new Date(selected.date.valueOf());
-             $('#datepicker1').datepicker('setStartDate', startDate);
-           }).on('clearDate', function (selected) {
-               $('#datepicker1').datepicker('setStartDate', null);
-           });
-          $('#datepicker1').datepicker({
-            autoclose: true,
-             format: 'dd/mm/yyyy'
-          }).on('changeDate', function (selected) {
-               var endDate = new Date(selected.date.valueOf());
-               $('#datepicker').datepicker('setEndDate', endDate);
-           }).on('clearDate', function (selected) {
-               $('#datepicker').datepicker('setEndDate', null);
-           });
-          $('#datepicker2').datepicker({
-            autoclose: true
-          })
-          $('#datepicker3').datepicker({
-            autoclose: true
-          })
-       $('.timepicker').timepicker({
-            showInputs: false
-          })
-        })
-     </script>
+      //Date picker
+      $('#datepicker').datepicker({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+      }).on('changeDate', function (selected) {
+         var startDate = new Date(selected.date.valueOf());
+         $('#datepicker1').datepicker('setStartDate', startDate);
+       }).on('clearDate', function (selected) {
+           $('#datepicker1').datepicker('setStartDate', null);
+       });
+      $('#datepicker1').datepicker({
+        autoclose: true,
+         format: 'dd/mm/yyyy'
+      }).on('changeDate', function (selected) {
+           var endDate = new Date(selected.date.valueOf());
+           $('#datepicker').datepicker('setEndDate', endDate);
+       }).on('clearDate', function (selected) {
+           $('#datepicker').datepicker('setEndDate', null);
+       });
+      $('#datepicker2').datepicker({
+        autoclose: true
+      })
+      $('#datepicker3').datepicker({
+        autoclose: true
+      })
+   $('.timepicker').timepicker({
+        showInputs: false
+      })
+    })
+ </script>
    <script>
     window.setTimeout(function() {
         $(".alert").fadeTo(500, 0).slideUp(500, function(){
@@ -179,4 +186,4 @@ $('#datepicker').datepicker({
         });
     }, 5000);
   </script>
-     @endsection
+@endsection

@@ -138,11 +138,11 @@
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder=".ENTER ADDRESS1" id="bill_line1" name="bill_line1" value="{{ $clientdata->bill_line2}}">
+                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder=".ENTER ADDRESS1" id="bill_line1" name="bill_line1" value="{{ $clientdata->bill_line1}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">LINE-2</label>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS2" id="bill_line2" name="bill_line2" value="{{ $clientdata->reg_line1}}">
+                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS2" id="bill_line2" name="bill_line2" value="{{ $clientdata->bill_line2}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
