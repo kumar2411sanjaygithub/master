@@ -40,7 +40,7 @@
               <table id="example1" class="table table-bordered table-striped table-hover text-center">
                 <thead>
                 <tr>
-                  <th>SR.NO</th>
+                  <th class="srno">SR.NO</th>
                   <th>CLIENT NAME</th>
                   <th>IEX PORTFOLIO ID</th>
                   <th>PXIL PORTFOLIO ID</th>
@@ -56,11 +56,11 @@
                               @foreach ($clientdata as $key => $value)
                               <tr>
                                 <td class="text-center">{{ $i }}</td>
-                                <td class="text-center" style="width:40%;">{{ $value->company_name }} </td>
+                                <td class="text-center" style="width:30%;">{{ $value->company_name }} </td>
                                 <td class="text-center">{{ $value->iex_portfolio }}</td>
                                 <td class="text-center">{{ $value->pxil_portfolio }}</td>
                                 <td class="text-center">{{ $value->crn_no }}</td>
-                                <td class="text-center "style= "width:30%;">
+                                <td class="text-center " style= "width:35%;">
 
 
 

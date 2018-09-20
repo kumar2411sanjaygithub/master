@@ -116,11 +116,11 @@
                 </span>
               </a>
               <ul class="treeview-menu" style="display: none;">
-                <li><a href="#"><i class="fa fa-circle-o"></i>Bid Setting</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i>Price Setting</a></li>
+                <li><a href="{{route('rec-bidding.biddingSearchindex')}}"><i class="fa fa-circle-o"></i>Bid Setting</a></li>
+                <li><a href="{{route('rec-price.priceViewindex')}}"><i class="fa fa-circle-o"></i>Price Setting</a></li>
                 <li><a href="#"><i class="fa fa-circle-o"></i>Due Days</a></li>
                 <li><a href="#"><i class="fa fa-circle-o"></i>Success Fee</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i>Exchange Ratio</a></li>
+                <li><a href="{{route('rec-exchange.exchangeViewindex')}}"><i class="fa fa-circle-o"></i>Exchange Ratio</a></li>
               </ul>
             </li>
             <li class="treeview">
