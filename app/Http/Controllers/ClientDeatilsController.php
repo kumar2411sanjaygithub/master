@@ -322,8 +322,8 @@ class ClientDeatilsController extends Controller
     public function add_bankdetails(Request $request){
         // dd();
         $this->validate($request, [
-            // 'account_holder_name' => 'required|max:100',
-            'account_number' => 'required|regex:/^[\w-]*$/|max:20',
+             'virtual_account_number' => 'nullable|alpha_num|max:20',
+            'account_number' => 'required|alpha_num|max:20',
             'bank_name' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
             'branch_name' => 'required|regex:/^[a-z\d\-_\s]+$/i|max:50',
             'ifsc' => 'required|regex:/^[A-Za-z]{4}[a-zA-Z0-9]{7}$/|max:11',

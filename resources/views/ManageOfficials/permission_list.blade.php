@@ -20,7 +20,7 @@
       </div>
     @endif
       <div class="row">
-        <div class="col-md-12 mb5">
+        <div class="col-md-12 mt7">
           <a href="{{ route('permissionlist.create') }}" class="btn btn-info btn-xs pull-right">
           <span class="glyphicon glyphicon-plus"> </span>&nbsp CREATE PERMISSION</a>
         </div>
@@ -30,12 +30,12 @@
           <table id="example1" class="table table-bordered table-striped table-hover text-center">
             <thead>
             <tr>
-              <th>SR.NO</th>
+              <th class="srno">SR.NO</th>
               <th>PERMISSION NAME</th>
               <th>SLAG</th>
               <th>DESCRIPTION</th>
               <th>CREATED DATE</th>
-              <th>ACTION</th>
+              <th class="act1">ACTION</th>
             </tr>
             </thead>
             <tbody>
@@ -49,7 +49,7 @@
                        <td>{{$permission->description}}</td>
                        <td>{{ date('d/m/Y',strtotime($permission->created_at))}}</td>
                        <td>
-                        <a href="{{ route('permissionlist.edit',[$permission->id]) }}"><span class="glyphicon glyphicon-pencil"></span>
+                        <a href="{{ route('permissionlist.edit',[$permission->id]) }}"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;&nbsp;
                         <a href="" data-toggle="modal" data-target="#deleteData{{ $permission->id }}"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a>
 
                        </td>

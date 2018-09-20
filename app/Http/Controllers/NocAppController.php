@@ -30,7 +30,9 @@ class NocAppController extends Controller
      */
     public function index()
     {
-        return view('noc.noc_search');
+        $clientData = Client::all();
+        $approved_noc=NocApp::orderBy('id','desc')->where('status',2)->paginate(10);
+        return view('noc.noc_search',compact('clientData','approved_noc'));
     }
 
     /**
@@ -368,8 +370,8 @@ class NocAppController extends Controller
 
 
             $noc_data=NocApp::with(['client'=>function($query){$query->with('nocbilling');}])->orderBy('id','desc')->where('client_id',$client_id)->where('status','!=',5)->paginate(10);
-
-            return view('noc.noc_app',compact('client_id','sldc_array','str','noc_data'));
+            $clientData = Client::all();
+            return view('noc.noc_app',compact('client_id','sldc_array','str','noc_data','clientData'));
                 
         }
         else

@@ -100,7 +100,7 @@ class AssignPermissionController extends Controller
                 }
             }         
         }
-        return Redirect::back()->with('success', 'Permission assign successfully.');
+        return Redirect::route('roles.index')->with('success', 'Permission assign successfully.');
     }
 
     public function all_roles(Request $request)

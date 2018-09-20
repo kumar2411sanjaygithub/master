@@ -14,7 +14,7 @@
         <div class="col-xs-12">
           <div class="row">
                <div class="col-md-11"></div>
-               <div class="col-md-1 " style="margin-left:-18px!important;"><a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs" value=" BACK TO LIST">BACK TO LIST</button></a></div>
+               <div class="col-md-1 " style="margin-left:-29px!important;"><a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a></div>
           </div>
 
 
@@ -139,7 +139,7 @@
     </div>
 
     <div class="col-md-5" style="margin-top:6px;">
-  <input type="checkbox" id="saroa" class="minimal1">&nbsp<span><label for="saroa">SAME AS REGISTERED OFFICE ADDRESS</label></span>
+  <input type="checkbox" id="saroa" class="minimal">&nbsp<span><label for="saroa">SAME AS REGISTERED OFFICE ADDRESS</label></span>
     </div>   <div class="col-md-5"></div>
   </div><hr>
             <div class="row">
@@ -201,7 +201,7 @@
         </div>
 
         <div class="col-md-5" style="margin-top:6px;">
-      <input type="checkbox" id="saba" class="minimal1">&nbsp<span><label for="saba">SAME AS BILLING ADDRESS</label></span>
+      <input type="checkbox" id="saba" class="minimal">&nbsp<span><label for="saba">SAME AS BILLING ADDRESS</label></span>
         </div>   <div class="col-md-5"></div>
       </div><hr>
             <div class="row">
@@ -382,26 +382,26 @@
               <div class="form-group">
                 <div class="col-md-1 " style="margin-left:-6px;">
                     <input type="checkbox" class="flat-red pull-left" id="inter_discom" name="inter_discom" value="{{old('inter_discom')}}"></div>
-                      <div class="col-md-3" style="margin-left:-7px;">DISCOM
+                      <div class="col-md-3" style="margin-left:-7px;"><label for="inter_discom">DISCOM</label>
                   </div>
                 <div class="col-md-1 "  style="margin-left:-6px;">
                     <input type="checkbox" class="flat-red" id="inter_stu" name="inter_stu" value="{{old('inter_stu')}}"></div>
-                    <div class="col-md-1" style="margin-left:-7px;">STU
+                    <div class="col-md-1" style="margin-left:-7px;"><label for="inter_stu">STU</label>
                 </div>
                <div class="col-md-1">
                      <input type="checkbox" class="flat-red" id="inter_poc" name="inter_poc" value="{{old('inter_poc')}}">
                 </div>
-                   <div class="col-md-5" style="width:30%;margin-left:-5px;">POC/CTU</div>
+                   <div class="col-md-5" style="width:30%;margin-left:-5px;"><label for="inter_poc">POC/CTU</label></div>
                 </div>
               </div>
               <div class="col-md-3">
             <label  class="control-label">DOES BELONG TO COMMON FEEDER?</label>
             <div class="form-group">
               <div class="col-md-6 pull-left">
-                  <input type="radio" class="flat-red" name="rt" id="rt">&nbsp&nbspYES
+                  <input type="radio" class="flat-red" name="rt" id="rt">&nbsp&nbsp<label for="rt">YES</label>
               </div>
              <div class="col-md-6 pull-Left">
-                   <input type="radio" class="flat-red" name="rt" id="rt1">&nbsp&nbspNO
+                   <input type="radio" class="flat-red" name="rt" id="rt1">&nbsp&nbsp<label for="rt1">NO</label>
               </div>
             </div>
               </div>
@@ -501,8 +501,8 @@
 <script>
 $(function () {
     $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-    checkboxClass: 'icheckbox_minimal-blue',
-    radioClass   : 'iradio_minimal-blue'
+      checkboxClass: 'icheckbox_flat-green',
+      radioClass   : 'iradio_flat-green'
   })
   //Red color scheme for iCheck
   $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({

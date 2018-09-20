@@ -166,8 +166,8 @@
  <div class="row">
     <div class="col-md-5"></div>
     <input type="hidden" value="{{ $officialstData->approve_status }}" name="approve_status">
-     <div class="col-md-1"><input type="submit" class="btn btn-block btn-info btn-xs" id="update_officials" value="Update"></button></div>
-     <div class="col-md-1"><a href="{{ route('employee') }}"><input type="button" class="btn btn-block btn-danger btn-xs" value="Cancel"></button></a></div>
+     <div class="col-md-1"><input type="submit" class="btn btn-block btn-info btn-xs" id="update_officials" value="UPDATE"></button></div>
+     <div class="col-md-1"><a href="{{ route('employee') }}"><input type="button" class="btn btn-block btn-danger btn-xs" value="CANCEL"></button></a></div>
    <div class="col-md-5"></div>
  </div>
 

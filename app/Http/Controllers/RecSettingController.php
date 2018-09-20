@@ -9,7 +9,10 @@ use App\ExcExchangeRatio;
 use Carbon\Carbon;
 use DB;
 use Validator;
+use App\Client;
+use App\RecBiddingSetting;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Input;
 
 
 class RecSettingController extends Controller
@@ -117,13 +120,73 @@ class RecSettingController extends Controller
 
   public function biddingSearchindex()
   {
-    return view('rec.rec_bidding');
+    $clientData = Client::all();
+    return view('rec.rec_bidding',compact('clientData'));
   }
-  public function biddingViewindex(Request $request)
+  public function biddingViewindex(Request $request,$id='')
+  {
+    if($id!='')
+    {
+      $client_id=$id;
+    }
+    else
+    {
+      $client_id=$request->client_id;
+    }
+
+    $bidding_sett=RecBiddingSetting::where('client_id',$client_id)->first();
+    $clientData = Client::all();
+    return view('rec.create_rec_bidding',compact('bidding_sett','client_id','clientData'));
+  }
+  public function biddingStore(Request $request,$id='')
   {
 
-    $exchange_setting=ExcExchangeRatio::first();
-    return view('rec.create_rec_bidding',compact('exchange_setting'));
-  }
+        $validator = Validator::make(Input::all(), [
+            'bidding_cut_off_time' => 'required',
+            'iex_ca_client_id' => 'required',
+            'pxil_ca_client_id' => 'required',
+            'rec_exchange_type' => 'required',
+            'rec_energy_type' => 'required',
+            'red_bid_type' => 'required',
+            'rec_pxil_status' => 'required',
+            'rec_iex_status' => 'required',
+        ]);
+
+        if ( $validator->fails()) 
+        {
+        return redirect()->route('biddingViewID', ['id' => $request->client_id])->withErrors($validator)->withInput();
+        }
+    
+    if($request->bidding_id!='')
+    {
+      $bidding_sett = RecBiddingSetting::find($request->bidding_id);
+    }
+    else
+    {
+      $bidding_sett = new RecBiddingSetting();
+      $bidding_sett->client_id = $request->client_id;
+    }
+    
+    $bidding_sett->bidding_cut_off_time = $request->bidding_cut_off_time;
+    $bidding_sett->iex_ca_client_id = $request->iex_ca_client_id;
+    $bidding_sett->pxil_ca_client_id = $request->pxil_ca_client_id;
+    $bidding_sett->rec_exchange_type = $request->rec_exchange_type;
+    $bidding_sett->rec_energy_type = $request->rec_energy_type;
+    $bidding_sett->red_bid_type = $request->red_bid_type;
+    $bidding_sett->rec_but_category = $request->rec_but_category;
+    $bidding_sett->rec_iex_status = $request->rec_iex_status;
+    $bidding_sett->rec_pxil_status = $request->rec_pxil_status;
+    $bidding_sett->save();
+
+    if($request->bidding_id!='')
+    {
+        return redirect()->route('biddingViewID', ['id' => $request->client_id])->with('success','Bidding updated successfully.');
+    }
+    else
+    {
+        return redirect()->route('biddingViewID', ['id' => $request->client_id])->with('success','Bidding added successfully.');
+    }
+  }  
+
 
 }

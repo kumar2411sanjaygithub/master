@@ -90,6 +90,16 @@ class LeadController extends Controller
         //
         //  $leadID='L-'.str_pad($lead_id, 4, '0', STR_PAD_LEFT)."";
 
+        if(request('lead_owner')!='')
+        {
+            $lead_owner=request('lead_owner');
+        }
+        else
+        {
+            $user = auth()->user();
+            $lead_owner=$user->id;
+        }
+
         $lead = new Lead;
 
         $lead->company_name = request('company_name');
@@ -98,7 +108,7 @@ class LeadController extends Controller
         $lead->contact_number = request('contact_number');
         $lead->email_id = request('email_id');
         $lead->industry = request('industry');
-        $lead->lead_owner = request('lead_owner');
+        $lead->lead_owner = $lead_owner;
         $lead->lead_source = request('lead_source');
         $lead->quantum = request('quantum');
         $lead->state = request('state');
@@ -125,7 +135,7 @@ class LeadController extends Controller
 
     
     function getSequence($num) {
-     return str_pad($num, 4, '0', STR_PAD_LEFT);
+     return str_pad($num, 4, '1000', STR_PAD_LEFT);
 
    }
 
@@ -139,7 +149,7 @@ class LeadController extends Controller
     public function edit($id)
     {
         $leads = Lead::where('id',$id)->first();
-        $user = User::where('id','!=',1)->orderBy('name','asc')->get();
+        $user = User::where('id','!=',1)->where('emp_app_status',1)->orderBy('name','asc')->get();
         $leadsource = LeadSource::orderBy('name','asc')->get();
         $industry = Industry::orderBy('industry_name','asc')->get();
         $product = Product::orderBy('id','asc')->get();
@@ -180,7 +190,15 @@ class LeadController extends Controller
             'contact_number' => 'nullable|digits:10',
 
         ]);
-
+        if(request('lead_owner')!='')
+        {
+            $lead_owner=request('lead_owner');
+        }
+        else
+        {
+            $user = auth()->user();
+            $lead_owner=$user->id;
+        }
         $lead = Lead::find($id);
         $lead->company_name = request('company_name');
         //$lead->product = request('product');
@@ -188,7 +206,7 @@ class LeadController extends Controller
         $lead->contact_number = request('contact_number');
         $lead->email_id = request('email_id');
         $lead->industry = request('industry');
-        $lead->lead_owner = request('lead_owner');
+        $lead->lead_owner = $lead_owner;
         $lead->lead_source = request('lead_source');
         $lead->quantum = request('quantum');
         $lead->state = request('state');

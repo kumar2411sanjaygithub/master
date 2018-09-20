@@ -8,6 +8,7 @@
 .mb5{margin-bottom:5px;}
 .glyphicon-trash{color:red;}
 .glyphicon-eye-open{color:blue;}
+.mt7{margin-top:7px;}
 .chy
 {
   width:2%;
@@ -15,11 +16,15 @@
 .btn{text-transform: uppercase;}
 .srno
 {
-  width:5%;
+  width:4%;
 }
 .act
 {
   width:12%!important;
+}
+.act1
+{
+    width:6%!important;
 }
 .mlt
 {
