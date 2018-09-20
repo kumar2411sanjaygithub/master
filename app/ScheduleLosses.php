@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Scheduling extends Model
+class ScheduleLosses extends Model
 {
-   protected $table = 'exc_moneyclearence_detail';
+   protected $table = 'exc_temporary_iex_losses';
 
     public $fillable = ['*'];
-}
 
+}
