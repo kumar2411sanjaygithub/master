@@ -6,18 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 use App\Placebid;
-use App\Placebiddetails;
+// use App\Placebiddetails;
 use DB;
 use App\Client;
 // use Carbon\Carbon;
-// use App\Exchangeuser;
+use App\Exchange;
 // use App\Bill;
 // use App\AccountStatement;
 // use App\PsmApproval;
 // use Auth;
-// use App\Nocregistration;
+use App\Noc;
 // use App\Basicinformation;
-// use App\Validationsetting;
+use App\Validationsetting;
 
 class PlacebidController extends Controller
 {
@@ -138,7 +138,7 @@ class PlacebidController extends Controller
     // }
 
     function getLastBidSubmisstionTime($clientID) {
-        $bidSubmissionTime = DB::table('basic_information')->select('submission_time')->where('client_id',$clientID)->get();
+        $bidSubmissionTime = DB::table('clients')->select('bid_cut_off_time as submission_time')->where('id',$clientID)->get();
         // $str = "SELECT `bidtime` FROM `exc_client_details` WHERE id='$clientID'";
         // $g->selectQuerySingleRow($str);
         if (count($bidSubmissionTime) > 0) {
@@ -180,26 +180,26 @@ class PlacebidController extends Controller
         $var = $request->input('bid_date');
         $date = str_replace('/', '-', $var);
         $biddate = date('Y-m-d', strtotime($date));
-
-        $exchangeusertemp = Exchangeuser::with(['validationsetting'=>function($query){
-          $query->with(['client_master'=>function($query){
-            $query->selectRaw("id,bid_submission_time");
-          }]);
-        }])->where("client_id",$request->input('client_id'))->get()->first();
-
-        $blocked = Clientmaster::selectRaw("blocked,block_warning")->where("id",$request->input('client_id'))->first();
+        
+            $exchangeusertemp = Exchange::with(['validationsetting'=>function($query){
+              $query->with(['clients'=>function($query){
+                $query->selectRaw("id,bid_cut_off_time as bid_submission_time");
+              }]);
+            }])->where("client_id",$request->input('client_id'))->get()->first();
+        
+        //$blocked = Client::selectRaw("blocked,block_warning")->where("id",$request->input('client_id'))->first();
 
         $validationSetting = Validationsetting::where('user_id',$request->input('client_id'))->get()->first();
 
 
 
-        if($blocked->blocked){
-              $msg = 'Your account is blocked';
-              return response()->json(['status' => '1', 'msg'=>$msg],400);
-        }else if($blocked->block_warning){
-          $msg = 'You have a block warning';
-          return response()->json(['status' => '1', 'msg'=>$msg],400);
-        }
+        // if($blocked->blocked){
+        //       $msg = 'Your account is blocked';
+        //       return response()->json(['status' => '1', 'msg'=>$msg],400);
+        // }else if($blocked->block_warning){
+        //   $msg = 'You have a block warning';
+        //   return response()->json(['status' => '1', 'msg'=>$msg],400);
+        // }
 
         $portfolio_id = (@$exchangeusertemp['portfolio_id'])?$exchangeusertemp['portfolio_id']:'0';
 
@@ -229,10 +229,10 @@ class PlacebidController extends Controller
             $msg = 'You Cant change/place bid for previous days.';
             return response()->json(['status' => '1', 'msg'=>$msg],400);
         }
-        $basicinfo = Basicinformation::selectRaw("power_trade_type")->where("client_id",$request->input('client_id'))->first();
+        $basicinfo = Client::selectRaw("trader_type")->where("id",$request->input('client_id'))->first();
 
-        if((strtoupper($basicinfo->power_trade_type) != strtoupper($request->input('bid_action')))&&(strtoupper($basicinfo->power_trade_type) != 'BOTH')){
-            $msg = 'Your power trade type is set to '.strtolower($basicinfo->power_trade_type);
+        if((strtoupper($basicinfo->trader_type) != strtoupper($request->input('bid_action')))&&(strtoupper($basicinfo->trader_type) != 'BOTH')){
+            $msg = 'Your trade type is set to '.strtolower($basicinfo->trader_type);
             return response()->json(['status' => '1', 'msg'=>$msg],400);
         }
 
@@ -278,7 +278,7 @@ class PlacebidController extends Controller
         }else{
             // $sign = "<=";
             $action_final  = "sell";
-        }
+        } 
 
         // echo $action_final.'~'.$sign.'~'.$request->input('bid_price').'~'.$request->input('bid_type').'~'.$request->input('bid_date').'~'.$request->input('exchange');
         $sameTimeSlotPrice = DB::table('place_bid')
@@ -366,32 +366,38 @@ class PlacebidController extends Controller
 
         // echo $totalMwFinal;
         // exit();
-
-        $exchangeData = DB::table('exchange_user')
-        ->join('exchange_registration', 'exchange_user.id', '=', 'exchange_registration.exchange_id')
-        ->select('exchange_user.*', 'exchange_registration.validitiy_from', 'exchange_registration.validitiy_to')
-        ->where('exchange_user.client_id',$request->input('client_id'))
-        ->where('exchange_user.exchange_type',$request->input('exchange'))
-        ->whereRaw("exchange_registration.validitiy_from <="."'".date('Y-m-d',strtotime('-1 day', strtotime($biddate)))."'")
-        ->whereRaw("exchange_registration.validitiy_to >="."'".date('Y-m-d',strtotime('-1 day', strtotime($biddate)))."'")
-        ->first();
-
-        if(!empty($exchangeData)||!($validationSetting->exchange)){
-
-                $nocData = Nocregistration::selectRaw('*,MAX(final_noc_quantum)')
+        // DB::enableQueryLog();
+        $exchangeData = DB::table('exchange')
+          ->select('exchange.*')
+          ->where('exchange.client_id',$request->input('client_id'))
+          ->where('exchange.ex_type',$request->input('exchange'))
+          ->whereRaw("exchange.validity_from <="."'".date('Y-m-d',strtotime('-1 day', strtotime($biddate)))."'")
+          ->whereRaw("exchange.validity_to >="."'".date('Y-m-d',strtotime('-1 day', strtotime($biddate)))."'")
+          ->first();
+          // echo $request->input('exchange');
+          // print_r(DB::getQueryLog());
+          // print_r($exchangeData);
+          // die();
+        // if(!empty($exchangeData)||!($validationSetting->exchange)){
+          if(empty($exchangeData)||$validationSetting->exchange){
+                // DB::enableQueryLog();
+                $nocData = Noc::selectRaw('*')
                 ->where('client_id',$request->input('client_id'))
-                ->where('exchange',$request->input('exchange'))
                 ->whereRaw("validity_from <="."'".$biddate."'")
                 ->whereRaw("validity_to >="."'".$biddate."'")
                 ->where('noc_type',$request->input('bid_action'))
                 ->first();
+                // print_r(DB::getQueryLog());
+                // die();
+                // ->where('exchange',$request->input('exchange'))
 
                 //check for NOC
-                if($nocData->noc_type||!($validationSetting->noc)){
+                
+                if($nocData||!($validationSetting->noc)){
 
-                    $nocData = Nocregistration::select('*')
+                    $nocData = Noc::select('*')
                                 ->where('client_id',$request->input('client_id'))
-                                ->where('exchange',$request->input('exchange'))
+                                // ->where('exchange',$request->input('exchange'))
                                 ->where('noc_type',$request->input('bid_action'))
                                 ->whereRaw("validity_from <="."'".$biddate."'")
                                 ->whereRaw("validity_to >="."'".$biddate."'")
@@ -568,23 +574,23 @@ class PlacebidController extends Controller
           $date = str_replace('/', '-', $var);
           $biddate = date('Y-m-d', strtotime($date));
 
-          $exchangeusertemp = Exchangeuser::with(['validationsetting'=>function($query){
-            $query->with(['client_master'=>function($query){
-              $query->selectRaw("id,bid_submission_time");
-            }]);
-          }])->where("client_id",$request->input('client_id'))->get()->first();
+          $exchangeusertemp = Exchange::with(['validationsetting'=>function($query){
+              $query->with(['clients'=>function($query){
+                $query->selectRaw("id,bid_cut_off_time as bid_submission_time");
+              }]);
+            }])->where("client_id",$request->input('client_id'))->get()->first();
 
-          $blocked = Clientmaster::selectRaw("blocked,block_warning")->where("id",$request->input('client_id'))->first();
+          // $blocked = Clientmaster::selectRaw("blocked,block_warning")->where("id",$request->input('client_id'))->first();
 
           $validationSetting = Validationsetting::where('user_id',$request->input('client_id'))->get()->first();
 
-          if($blocked->blocked){
-                $msg = 'Your account is blocked';
-                return response()->json(['status' => '1', 'msg'=>$msg],400);
-          }else if($blocked->block_warning){
-            $msg = 'You have a block warning';
-            return response()->json(['status' => '1', 'msg'=>$msg],400);
-          }
+          // if($blocked->blocked){
+          //       $msg = 'Your account is blocked';
+          //       return response()->json(['status' => '1', 'msg'=>$msg],400);
+          // }else if($blocked->block_warning){
+          //   $msg = 'You have a block warning';
+          //   return response()->json(['status' => '1', 'msg'=>$msg],400);
+          // }
 
           $portfolio_id = (@$exchangeusertemp['portfolio_id'])?$exchangeusertemp['portfolio_id']:'0';
 
@@ -614,10 +620,10 @@ class PlacebidController extends Controller
               $msg = 'You Cant change/place bid for previous days.';
               return response()->json(['status' => '1', 'msg'=>$msg],400);
           }
-          $basicinfo = Basicinformation::selectRaw("power_trade_type")->where("client_id",$request->input('client_id'))->first();
+          $basicinfo = Client::selectRaw("trader_type")->where("id",$request->input('client_id'))->first();
 
-          if((strtoupper($basicinfo->power_trade_type) != strtoupper($request->input('bid_action')))&&(strtoupper($basicinfo->power_trade_type) != 'BOTH')){
-              $msg = 'Your power trade type is set to '.strtolower($basicinfo->power_trade_type);
+          if((strtoupper($basicinfo->trader_type) != strtoupper($request->input('bid_action')))&&(strtoupper($basicinfo->trader_type) != 'BOTH')){
+              $msg = 'Your power trade type is set to '.strtolower($basicinfo->trader_type);
               return response()->json(['status' => '1', 'msg'=>$msg],400);
           }
 
@@ -749,20 +755,19 @@ class PlacebidController extends Controller
           // echo $totalMwFinal;
           // exit();
 
-          $exchangeData = DB::table('exchange_user')
-          ->join('exchange_registration', 'exchange_user.id', '=', 'exchange_registration.exchange_id')
-          ->select('exchange_user.*', 'exchange_registration.validitiy_from', 'exchange_registration.validitiy_to')
-          ->where('exchange_user.client_id',$request->input('client_id'))
-          ->where('exchange_user.exchange_type',$request->input('exchange'))
-          ->whereRaw("exchange_registration.validitiy_from <="."'".date('Y-m-d',strtotime('-1 day', strtotime($biddate)))."'")
-          ->whereRaw("exchange_registration.validitiy_to >="."'".date('Y-m-d',strtotime('-1 day', strtotime($biddate)))."'")
+          $exchangeData = DB::table('exchange')
+          ->select('exchange.*')
+          ->where('exchange.client_id',$request->input('client_id'))
+          ->where('exchange.ex_type',$request->input('exchange'))
+          ->whereRaw("exchange.validity_from <="."'".date('Y-m-d',strtotime('-1 day', strtotime($biddate)))."'")
+          ->whereRaw("exchange.validity_to >="."'".date('Y-m-d',strtotime('-1 day', strtotime($biddate)))."'")
           ->first();
 
-          if(!empty($exchangeData)||!($validationSetting->exchange)){
+          if(empty($exchangeData)|| ($validationSetting->exchange)){
 
-                  $nocData = Nocregistration::selectRaw('*,MAX(final_noc_quantum)')
+                  $nocData = Noc::selectRaw('*')
                   ->where('client_id',$request->input('client_id'))
-                  ->where('exchange',$request->input('exchange'))
+                  // ->where('exchange',$request->input('exchange'))
                   ->whereRaw("validity_from <="."'".$biddate."'")
                   ->whereRaw("validity_to >="."'".$biddate."'")
                   ->where('noc_type',$request->input('bid_action'))
@@ -771,9 +776,9 @@ class PlacebidController extends Controller
                   //check for NOC
                   if($nocData->noc_type||!($validationSetting->noc)){
 
-                      $nocData = Nocregistration::select('*')
+                      $nocData = Noc::select('*')
                                   ->where('client_id',$request->input('client_id'))
-                                  ->where('exchange',$request->input('exchange'))
+                                  // ->where('exchange',$request->input('exchange'))
                                   ->where('noc_type',$request->input('bid_action'))
                                   ->whereRaw("validity_from <="."'".$biddate."'")
                                   ->whereRaw("validity_to >="."'".$biddate."'")
@@ -961,14 +966,7 @@ class PlacebidController extends Controller
     public function validate_user_status($client_id,$exchange){
 
       if($exchange=='iex'){
-           $data = Basicinformation::where(['client_id'=>$client_id,'iex_status'=>'Active'])->get()->first();
-           if($data){
-             return 0;
-           }else{
-             return 1;
-           }
-      }else{
-           $data = Basicinformation::where(['client_id'=>$client_id,'pxil_status'=>'Active'])->get()->first();
+           $data = Client::where(['id'=>$client_id,'iex_status'=>'Active'])->get()->first();
            if($data){
              return 0;
            }else{
@@ -1183,7 +1181,7 @@ class PlacebidController extends Controller
                       // DB::enableQueryLog();
                       $singlebidarray=array();
                       $bidData = DB::table('place_bid')
-                          ->join('client_master', 'place_bid.client_id', '=', 'client_master.id')
+                          ->join('clients', 'place_bid.client_id', '=', 'clients.id')
                           ->select('place_bid.*')
                           ->where('place_bid.status', '1')
                           ->where('place_bid.bid_type', $bid_type)
@@ -1195,7 +1193,7 @@ class PlacebidController extends Controller
                           ->get();
 
                           $bidPrice = DB::table('place_bid')
-                              ->join('client_master', 'place_bid.client_id', '=', 'client_master.id')
+                              ->join('clients', 'place_bid.client_id', '=', 'clients.id')
                               ->select('place_bid.*')
                               ->where('place_bid.status', '1')
                               ->where('place_bid.bid_type', $bid_type)
@@ -1233,7 +1231,7 @@ class PlacebidController extends Controller
 
               // DB::enableQueryLog();
               $bidData = DB::table('place_bid')
-                  ->join('client_master', 'place_bid.client_id', '=', 'client_master.id')
+                  ->join('clients', 'place_bid.client_id', '=', 'clients.id')
                   ->selectRaw('place_bid.*')
                   ->where('place_bid.status', '1')
                   ->where('place_bid.bid_date','=', $date)
@@ -1684,29 +1682,29 @@ class PlacebidController extends Controller
         $date = str_replace('/', '-', $var);
         $biddate = date('Y-m-d', strtotime($date));
 
-        $validationSetting = Validationsetting::where('user_id',$request->input('client_id'))->get()->first();
-        if($validationSetting->exchange){
-        $exchangeData = DB::table('exchange_user')
-        ->join('exchange_registration', 'exchange_user.id', '=', 'exchange_registration.exchange_id')
-        ->select('exchange_user.*', 'exchange_registration.validitiy_from', 'exchange_registration.validitiy_to')
-        ->where('exchange_user.client_id',$request->input('client_id'))
-        ->whereRaw("exchange_registration.validitiy_from <="."'".date('Y-m-d', strtotime('-1 day', strtotime($biddate)))."'")
-        ->whereRaw("exchange_registration.validitiy_to >="."'".date('Y-m-d', strtotime('-1 day', strtotime($biddate)))."'")
-        ->first();
+        // $validationSetting = Validationsetting::where('user_id',$request->input('client_id'))->get()->first();
+        // if($validationSetting->exchange){
+        // $exchangeData = DB::table('exchange_user')
+        // ->join('exchange_registration', 'exchange_user.id', '=', 'exchange_registration.exchange_id')
+        // ->select('exchange_user.*', 'exchange_registration.validitiy_from', 'exchange_registration.validitiy_to')
+        // ->where('exchange_user.client_id',$request->input('client_id'))
+        // ->whereRaw("exchange_registration.validitiy_from <="."'".date('Y-m-d', strtotime('-1 day', strtotime($biddate)))."'")
+        // ->whereRaw("exchange_registration.validitiy_to >="."'".date('Y-m-d', strtotime('-1 day', strtotime($biddate)))."'")
+        // ->first();
 
-        if(!$exchangeData){
-            return response()->json(['msg' => 'user exchange expired', 'status' => '0']);
-        }
-        }
+        // if(!$exchangeData){
+        //     return response()->json(['msg' => 'user exchange expired', 'status' => '0']);
+        // }
+        // }
 
-        $blocked = Clientmaster::selectRaw("blocked,block_warning")->where("id",$request->input('client_id'))->first();
-        if(($blocked->blocked)&&($blocked->block_warning)){
-          $blocked = Clientmaster::where("id",$request->input('client_id'))->first();
-          $blocked->block_warning = 0;
-          $blocked->save();
-        }else if($blocked->blocked){
-            return response()->json(['msg' => 'Your account is blocked', 'status' => '3']);
-        }
+        // $blocked = Client::selectRaw("blocked,block_warning")->where("id",$request->input('client_id'))->first();
+        // if(($blocked->blocked)&&($blocked->block_warning)){
+        //   $blocked = Clientmaster::where("id",$request->input('client_id'))->first();
+        //   $blocked->block_warning = 0;
+        //   $blocked->save();
+        // }else if($blocked->blocked){
+        //     return response()->json(['msg' => 'Your account is blocked', 'status' => '3']);
+        // }
 
 
 

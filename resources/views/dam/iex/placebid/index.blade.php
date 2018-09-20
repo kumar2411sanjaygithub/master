@@ -83,8 +83,8 @@
                 <button type="button"  class="btn btn-raised btn-info pull-right mr5 delete-all-bid">
                   <span class="rows_selected" id="delete_all">Delete</span>
                 </button>
-                <button type="button" class="btn btn-raised btn-info pull-right mr5 submit-all-bid">
-                  <span class="" id="confirm_place_bid">Submit All Bid</span>
+                <button type="button" class="btn btn-raised btn-info pull-right mr5 submit-all-bid" id="confirm_place_bid">
+                  <span class="" >Submit All Bid</span>
                 </button>
 
               </div>
@@ -353,42 +353,43 @@
 
   <div class="clearfix"></div>
 </section>
+{{ Html::script('js/newbid/newbid.js') }}
 <script>
 
-$(document).ready(function(){
-  $("#message").fadeOut(6000);
+jQuery(document).ready(function(){
+  jQuery("#message").fadeOut(6000);
 });
 
-$(document).delegate("#submitexceltemplateform",'click',function(){
-   $("#downloadtemplteform").submit();
+jQuery(document).delegate("#submitexceltemplateform",'click',function(){
+   jQuery("#downloadtemplteform").submit();
 });
 
-$("#downloadtemplteform").submit(function(){
-  if($("#exchange_iex").prop("checked")==true){
-      $("#exchange_type").val('iex');
+jQuery("#downloadtemplteform").submit(function(){
+  if(jQuery("#exchange_iex").prop("checked")==true){
+      jQuery("#exchange_type").val('iex');
   }
-  if($("#exchange_pxil").prop("checked")==true){
-      $("#exchange_type").val('pxil');
+  if(jQuery("#exchange_pxil").prop("checked")==true){
+      jQuery("#exchange_type").val('pxil');
   }
-    if($("#userselected").val()=='Null'||$("#userselected").val()==''){
+    if(jQuery("#userselected").val()=='Null'||jQuery("#userselected").val()==''){
         swal('Error!', 'Please select user before proceed', 'error');
         return false;
-    }else if($("#deliverydate").val()=='Null'||$("#deliverydate").val()==''){
+    }else if(jQuery("#deliverydate").val()=='Null'||jQuery("#deliverydate").val()==''){
         swal('Error!', 'Please select delivery date before proceed', 'error');
       return false;
     }
 });
-$(document).delegate('.piyush_datepicker','change',function(){
-  if($(this).val()){
+jQuery(document).delegate('.piyush_datepicker','change',function(){
+  if(jQuery(this).val()){
 
-    $('#deliverydate').val($(this).val());
+    jQuery('#deliverydate').val(jQuery(this).val());
   }
 });
 
         src = "{{ route('searchajax') }}";
-         $(".search_text").autocomplete({
+         jQuery(".search_text").autocomplete({
             source: function(request, response) {
-                $.ajax({
+                jQuery.ajax({
                     url: src,
                     dataType: "json",
                     data: {
@@ -401,14 +402,14 @@ $(document).delegate('.piyush_datepicker','change',function(){
             },
             select: function (event, ui) {
               //console.log(ui.item.id);
-              $("#client_id").val(ui.item.id); // display the selected text
+              jQuery("#client_id").val(ui.item.id); // display the selected text
 
-              $('#userselected').val(ui.item.id);
+              jQuery('#userselected').val(ui.item.id);
               $("#piyush_datepicker").datepicker('destroy');
               $("#earlierdate").datepicker('destroy');
-              $.ajax({
+              jQuery.ajax({
                     type: 'get',
-                    url: '/placebid/getbidsubmissiontime/'+$('#client_id').val(),
+                    url: '/placebid/getbidsubmissiontime/'+jQuery('#client_id').val(),
                     success: function(data) {
                       var currentdate = new Date();
                       var currHours = currentdate.getHours();
@@ -455,15 +456,15 @@ $(document).delegate('.piyush_datepicker','change',function(){
                       var valHtml = '<div class="alert alert-danger alert-dismissable" style="margin-top:5px">'+
                                 '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
                                   if(response.responseJSON.errors){
-                                      $.each( response.responseJSON.errors , function(key, value){
+                                      jQuery.each( response.responseJSON.errors , function(key, value){
                                         valHtml+= '<li>'+value+'</li>';
                                       });
                                     }else{
                                       valHtml+= '<li>Serve error occurred !!!</li>';
                                     }
                         valHtml += '</div>';
-                      $("#message").html(valHtml);
-                      $("#message").FadeIn(2000);
+                      jQuery("#message").html(valHtml);
+                      jQuery("#message").FadeIn(2000);
                     }
 
                   });
@@ -473,29 +474,29 @@ $(document).delegate('.piyush_datepicker','change',function(){
         });
     </script>
 <script type="text/javascript">
-  $(document).ready(function() {
-  $(".bidaction").change(function(){
-    if($(".bidaction").val() == "buy")
+  jQuery(document).ready(function() {
+  jQuery(".bidaction").change(function(){
+    if(jQuery(".bidaction").val() == "buy")
       {
-        $(".navsb-s.bdclr,.deleteob,.addbtns").css('border-color','#388838cc');
+        jQuery(".navsb-s.bdclr,.deleteob,.addbtns").css('border-color','#388838cc');
       }
-      if($(".bidaction").val() == "sell")
+      if(jQuery(".bidaction").val() == "sell")
       {
-        $(".navsb-s.bdclr,.deleteob,.addbtns").css('border-color','#88385fad');
+        jQuery(".navsb-s.bdclr,.deleteob,.addbtns").css('border-color','#88385fad');
       }
   });
 });
-  $(document).ready(function(){
-    $(document).on("click",".addbtns",function(){
-      $(".mainPlaceBidTab").append('<div><div class="placeBidSecond"> <div class="tab-content navsb-s bdclr"> <div class="tab-pane active" role="tabpanel"> <div class="row"> <img src="img/assets/delete.svg" height="34" width="55" class="pull-right deleteob"> </div><div class="row"> <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}"> <div class="col-md-3"> <div class="mda-form-group float-label"> <div class="mda-form-control"> <select class="form-control" type="text" name="bid_type" id="bid_type"> <option value="single">Single</option> <option value="block">Block</option> </select> <div class="mda-form-control-line"></div><label>Bidding Type</label> </div></div></div><div class="col-md-3"> <div class="mda-form-group float-label"> <div class="mda-form-control"> <input class="form-control" type="text" name="bid_mw" id="bid_mw"> <div class="mda-form-control-line"></div><label>Bid (MW)</label> </div></div></div><div class="col-md-3"> <div class="mda-form-group float-label"> <div class="mda-form-control"> <input class="form-control" type="text" name="bid_price" id="bid_price"> <div class="mda-form-control-line"></div><label>Price (Rs)</label> </div></div></div><div class="col-md-3"> <div class="mda-form-group float-label"> <div class="mda-form-control"> <select class="form-control bidaction" type="text" name="bid_action" id="bid_action"> <option value="buy">Buy</option> <option value="sell">Sell</option> </select> <div class="mda-form-control-line"></div><label>Action</label> </div></div></div><div class="col-md-3"> <div class="mda-form-group float-label"> <div class="mda-form-control"> <select class="form-control" type="text" name="time_slot_from" id="time_slot_from"> <option>00:00</option> </select> <div class="mda-form-control-line"></div><label>Time Slot(from)</label> </div></div></div><div class="col-md-3"> <div class="mda-form-group float-label"> <div class="mda-form-control"> <select class="form-control" type="text" name="time_slot_to" id="time_slot_to"> <option>00:15</option> </select> <div class="mda-form-control-line"></div><label>Time Slot(to)</label> </div></div></div><div class="col-md-3" id="no_of_block_div" style="display:none"> <div class="mda-form-group float-label"> <div class="mda-form-control"> <input class="form-control" type="text" name="no_of_block" id="no_of_block"> <div class="mda-form-control-line"></div><label>No. of Block</label> </div></div></div><div class="col-md-3"> </div><div class="col-md-3"> <div class="pull-left"> <button type="button" class="savebtnr mt20 btn btn-raised btn-info pull-right mr5">Save</button> </div><div class="addbtnb"> <input type="button" class="addbtns btn btn-raised btn-info pull-right" value="Add"> </div></div></div></div></div><br></div>');
+  jQuery(document).ready(function(){
+    jQuery(document).on("click",".addbtns",function(){
+      jQuery(".mainPlaceBidTab").append('<div><div class="placeBidSecond"> <div class="tab-content navsb-s bdclr"> <div class="tab-pane active" role="tabpanel"> <div class="row"> <img src="img/assets/delete.svg" height="34" width="55" class="pull-right deleteob"> </div><div class="row"> <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}"> <div class="col-md-3"> <div class="mda-form-group float-label"> <div class="mda-form-control"> <select class="form-control" type="text" name="bid_type" id="bid_type"> <option value="single">Single</option> <option value="block">Block</option> </select> <div class="mda-form-control-line"></div><label>Bidding Type</label> </div></div></div><div class="col-md-3"> <div class="mda-form-group float-label"> <div class="mda-form-control"> <input class="form-control" type="text" name="bid_mw" id="bid_mw"> <div class="mda-form-control-line"></div><label>Bid (MW)</label> </div></div></div><div class="col-md-3"> <div class="mda-form-group float-label"> <div class="mda-form-control"> <input class="form-control" type="text" name="bid_price" id="bid_price"> <div class="mda-form-control-line"></div><label>Price (Rs)</label> </div></div></div><div class="col-md-3"> <div class="mda-form-group float-label"> <div class="mda-form-control"> <select class="form-control bidaction" type="text" name="bid_action" id="bid_action"> <option value="buy">Buy</option> <option value="sell">Sell</option> </select> <div class="mda-form-control-line"></div><label>Action</label> </div></div></div><div class="col-md-3"> <div class="mda-form-group float-label"> <div class="mda-form-control"> <select class="form-control" type="text" name="time_slot_from" id="time_slot_from"> <option>00:00</option> </select> <div class="mda-form-control-line"></div><label>Time Slot(from)</label> </div></div></div><div class="col-md-3"> <div class="mda-form-group float-label"> <div class="mda-form-control"> <select class="form-control" type="text" name="time_slot_to" id="time_slot_to"> <option>00:15</option> </select> <div class="mda-form-control-line"></div><label>Time Slot(to)</label> </div></div></div><div class="col-md-3" id="no_of_block_div" style="display:none"> <div class="mda-form-group float-label"> <div class="mda-form-control"> <input class="form-control" type="text" name="no_of_block" id="no_of_block"> <div class="mda-form-control-line"></div><label>No. of Block</label> </div></div></div><div class="col-md-3"> </div><div class="col-md-3"> <div class="pull-left"> <button type="button" class="savebtnr mt20 btn btn-raised btn-info pull-right mr5">Save</button> </div><div class="addbtnb"> <input type="button" class="addbtns btn btn-raised btn-info pull-right" value="Add"> </div></div></div></div></div><br></div>');
     });
   });
 
 // <!-- remove place bid code start -->
 
- $(document).ready(function(){
-  $(document).on("click",".deleteob", function(e) {
-    $(this).parents("div.placeBidSecond").remove();
+ jQuery(document).ready(function(){
+  jQuery(document).on("click",".deleteob", function(e) {
+    jQuery(this).parents("div.placeBidSecond").remove();
   });
 });
 
@@ -505,7 +506,7 @@ $(document).delegate('.piyush_datepicker','change',function(){
 <script>
 
 
-var dt = $("#day-left").html().trim() +" "+$("#time-left").html().trim();
+var dt = jQuery("#day-left").html().trim() +" "+jQuery("#time-left").html().trim();
 
 
 var countDownDate = new Date(dt).getTime();
@@ -541,6 +542,4 @@ var x = setInterval(function() {
   }
 }, 1000);
 </script>
-
- {{ Html::script('js/newbid/newbid.js') }}
 @endsection

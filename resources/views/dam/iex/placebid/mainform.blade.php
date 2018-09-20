@@ -1,18 +1,17 @@
 <div class="tab-pane active" id="home1" role="tabpanel">
   <div class="form-group">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-      <label class="radio-inline c-radio">
+      <label class="radio-inline c-radio" style="display: none;">
         <input id="exchange_iex" class="iex_radio checkbox_check1m" name="exchange"  type="radio" value="yes" checked="checked"><span class="ion-record"></span> IEX
       </label>
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+    <!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
       <label class="radio-inline c-radio">
         <input id="exchange_pxil" disabled="disabled" name="exchange" class="pxil_radio checkbox_check2" type="radio" value="yes"><span class="ion-record"></span> PXIL
       </label>
-    </div>
+    </div> -->
   </div></br></br>
   <div class="row">
-    @if(\Auth::user()->member_type!='CLIENT')
     <div class="col-sm-8">
     <input type="hidden" name="client_id" id="client_id" value="">
       <div class="mda-form-group float-label">
@@ -27,10 +26,6 @@
         </div>
       </div>
     </div>
-    @else
-    <input type="hidden" class="form-control search_text valid" autocomplete="off"  name="client" id="client" value="{{ \Auth::user()->client_id }}">
-    <input type="hidden" name="client_id" id="client_id" value="{{ \Auth::user()->client_id }}">
-    @endif
     <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
     <div class="col-sm-4">
       <div class="mda-form-group float-label rel-wrapper ui-datepicker-popup dp-theme-primary" id="example-datepicker-container-4">
