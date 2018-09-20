@@ -19,13 +19,13 @@ class PpaDetailsController extends Controller
     $ppaData = Ppadetails::where('status','0')->paginate(10);
     $clientData = Client::all();
     return view('ppa.ppa_details',compact('ppaData','clientData'));
-    // return view('ppa.ppa_details',compact('ppaData'));
   }
 public function findppa($id)
 {
-
+  $id = $id;
   $ppaData = Ppadetails::where('client_id',$id)->paginate(10);
-  return view('ppa.addppa',compact('ppaData','id'));
+  $clientData = Client::all();
+  return view('ppa.addppa',compact('ppaData','id','clientData'));
 }
   public function saveppa(Request $request)
   {

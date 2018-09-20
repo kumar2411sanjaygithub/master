@@ -50,7 +50,7 @@
             <div class="row">
               <div class="col-md-3  {{ $errors->has('pri_contact_no') ? 'has-error' : '' }}">
             <label  class="control-label">PRIMARY CONTACT NUMBER</label><span class="text-danger"><strong>*</strong></span>
-              <input class="form-control input-sm" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" value="{{old('pri_contact_no')}}">
+              <input class="form-control input-sm num" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" value="{{old('pri_contact_no')}}">
                <span class="text-danger">{{ $errors->first('pri_contact_no') }}</span>
               </div>
               <div class="col-md-3 {{ $errors->has('email') ? 'has-error' : '' }}">

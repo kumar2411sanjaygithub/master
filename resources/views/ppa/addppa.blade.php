@@ -46,7 +46,28 @@
      </div>
    @endif
 
+   <div class="row">
+      <div class="col-md-12">
+       <select class="" name="client_id" id="select-client" data-live-search="true">
+         <option>Search Client</option>
+          @foreach ($clientData as $key => $value)
+          <option value="{{ $value->id }}" data-tokens="{{ $value->id }}.{{ $value->id }}.{{ $value->id }};?>"  @if($id==$value->id) selected  @endif> [{{$value->company_name}}] [{{$value->short_id}}] [{{$value->crn_no}}]</option>
+         @endforeach
 
+       </select>
+       <script>
+       $(document).ready(function() {
+            $("#select-client").change(function(e) {
+                  var id = this.value;
+                  var url = '{{url('addppadetailsfind')}}/'+id;
+
+                  window.location = url;
+            });
+        });
+       </script>
+      </div>
+   </div>
+   <hr>
      <form method="post" action="{{ route('ppadetails') }}" enctype="multipart/form-data">
         {{ csrf_field() }}
      <div class="box  hidden" id="apd-tab">
@@ -115,7 +136,7 @@
             </thead>
             <tbody>
               <?php $i=1; ?>
-              @foreach ($ppaData as $key => $value)
+              @forelse ($ppaData as $key => $value)
                <tr>
                   <td>{{ $i }}</td>
                   <td>{{$value->validity_from}}</td>
@@ -128,7 +149,9 @@
                   </td>
                  </tr>
                <?php $i++; ?>
-                 @endforeach
+                 @empty
+                 <tr><td colspan="5">Record Nont Found</td></tr>
+                 @endforelse
             </tbody>
          </table>
           {{ $ppaData->links() }}

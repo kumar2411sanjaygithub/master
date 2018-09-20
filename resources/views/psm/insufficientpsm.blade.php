@@ -13,9 +13,8 @@ a.disabled {
 }
 </style>
 <section class="content-header">
-   <h5>
-      <label  class="control-label"><u>Payment Security Mechanism(PSM) Details</u></label>
-   </h5>
+  <h5><label  class="control-label"><u>Insufficient PSM Client Details</u></label></h5>
+
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">PSM Details</a></li>
@@ -55,9 +54,9 @@ a.disabled {
       <div class="row">
          <div class="col-xs-12">
 
-            <section class="content-header">
-              <h5><label  class="control-label"><u>Insufficient PSM</u></label></h5>
-            </section>
+            <!-- <section class="content-header">
+              <h5><label  class="control-label"><u>Insufficient PSM Client Details</u></label></h5>
+            </section> -->
             <form method="post" enctype="multipart/form-data" action="">
               {{ csrf_field()}}
               <div class="row">
@@ -71,7 +70,7 @@ a.disabled {
                                   <div class="input-group-addon">
                                      <i class="fa fa-calendar"></i>
                                   </div>
-                                  <input type="text" class="form-control pull-right input-sm" id="datepicker" name="validity_from">
+                                  <input type="text" class="form-control pull-right input-sm" autocomplete="off" id="datepicker" name="validity_from">
                                   <span class="text-danger"></span>
                                </div>
                               </div>
@@ -92,10 +91,7 @@ a.disabled {
                   </div>
                </div>
                <div class="col-md-8"></div>
-               <div class="col-md-2">
-                  <a class="btn btn-info btn-xs pull-right apdbtn">
-                  <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PSM</a>
-               </div>
+
             </div>
             <div class="box">
                <div class="box-body table-responsive">
@@ -147,6 +143,7 @@ a.disabled {
  setTimeout(function() {
    $('.alert-success').fadeOut('fast');
    }, 2000); // <-
+
 </script>
 
 <script>

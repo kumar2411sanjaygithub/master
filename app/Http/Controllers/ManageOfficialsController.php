@@ -105,49 +105,35 @@ class ManageOfficialsController extends Controller
     {
        //dd(1);
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:25|regex:/^[a-zA-Z ]*$/|max:50',
-            'employee_id'=>'required|max:20',
-            'email' => 'required|email|unique:users|max:80',
-            'contact_number' => 'required|unique:employee_temp|max:10|min:10|regex:/^[0-9]{10}$/',
-            //'telephone_number'=>'max:20|min:10|regex:/(01)[0-9]{9}/',
-            'username' => 'required|max:20',
-            'password' => 'max:20|required',
-            'confirmed' => 'max:20|same:password',
-            'role_id' => 'required',
-            'designation' => 'required|max:20|regex:/^[a-zA-Z ]*$/|max:50',
-            'department_id' => 'required',
-            'line1' => 'required|max:100',
-            'country' => 'required',
-            'state' => 'required',
-            'city' => 'required|regex:/^[a-zA-Z]+$/u|max:25',
-            'pin_code' => 'required|max:6|min:6',
-        ],
-        [
-            'name' => 'Please Enter  Name',
-            'email' => 'Please Enter Email',
-            'contact_number' => 'Please Enter Mobile No.',
-           // 'telephone_number' => 'Please Enter valid landline No.',
-            'username' => 'Please Enter User Name',
-            'password' => 'Please Enter Password',
-            'role_id' => 'Please Select Role',
-            'designation' => 'Please Enter Designation',
-            'department_id' => 'Please Department',
-            'line1' => 'Please Enter Address Line 1',
-            'country' => 'Please Select Country',
-            'state' => 'Please Select State',
-            'city' => 'Please Enter City',
-            'pin_code' => 'Please Enter Pin Code',
+          'name' => 'required|max:25|regex:/^[a-zA-Z ]*$/|max:50',
+          'employee_id'=>'required|max:20',
+
+          'contact_number' => 'required|unique:users|max:10|min:10|regex:/^[0-9]{10}$/',
+          'telephone_number'=>'max:20|digits_between:4,15/',
+          'username' => 'required|max:20',
+          //'password' => 'max:20|required',
+          'password' => 'required|min:6',
+          'confirmed' => 'required|same:password',
+          'email' => 'required',
+          'role_id' => 'required',
+          'designation' => 'required|max:20|regex:/^[a-zA-Z ]*$/|max:50',
+          'department_id' => 'required',
+          'line1' => 'required|max:100',
+          'country' => 'required',
+          'state' => 'required',
+          'city' => 'required|regex:/^[a-zA-Z]+$/u|max:25',
+          'pin_code' => 'required|max:6|min:6',
+          'line2' => 'nullable|max:100',
+          'country' => 'required',
+          'comm_mob' => 'required|digits:10',
+          'comm_telephone' => 'required|digits_between:4,15',
         ]);
-        if($validator->fails())
-        {
 
-            return redirect()->back()->withInput($request->input())->withErrors($validator);
-        }
 
-        
+
         $employees = new User();
         $employees->name = $request->input('name');
-        
+
 
         $employees->employee_id = $request->input('employee_id');
         $employees->email = $request->input('email');
@@ -220,48 +206,35 @@ class ManageOfficialsController extends Controller
     {
 
 
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|max:25|regex:/^[a-zA-Z ]*$/|max:50',
-            'employee_id'=>'required|max:20',
-            
-            'contact_number' => 'required|unique:users|max:10|min:10|regex:/^[0-9]{10}$/',
-            //'telephone_number'=>'max:20|min:10|regex:/(01)[0-9]{9}/',
-            'username' => 'required|max:20',
-            'password' => 'max:20|required',
-            'confirmed' => 'max:20|same:password',
-            'role_id' => 'required',
-            'designation' => 'required|max:20|regex:/^[a-zA-Z ]*$/|max:50',
-            'department_id' => 'required',
-            'line1' => 'required|max:100',
-            'country' => 'required',
-            'state' => 'required',
-            'city' => 'required|regex:/^[a-zA-Z]+$/u|max:25',
-            'pin_code' => 'required|max:6|min:6',
-        ],
-        [
-            'name' => 'Please Enter  Name',
-            'email' => 'Please Enter Email',
-            'contact_number' => 'Please Enter Mobile No.',
-           // 'telephone_number' => 'Please Enter valid landline No.',
-            'user_name' => 'Please Enter User Name',
-            'password' => 'Please Enter Password',
-            'role_id' => 'Please Select Role',
-            'designation' => 'Please Enter Designation',
-            'department_id' => 'Please Department',
-            'line1' => 'Please Enter Address Line 1',
-            'country' => 'Please Select Country',
-            'state' => 'Please Select State',
-            'city' => 'Please Enter City',
-            'pin_code' => 'Please Enter Pin Code',
+        $this->validate($request, [
+          'name' => 'required|max:25|regex:/^[a-zA-Z ]*$/|max:50',
+          'employee_id'=>'required|max:20',
+
+          'contact_number' => 'required|max:10|min:10|regex:/^[0-9]{10}$/',
+          'telephone_number'=>'max:20|digits_between:4,15/',
+          'username' => 'required|max:20',
+          //'password' => 'max:20|required',
+          'password' => 'required|min:6',
+          'confirmed' => 'required|same:password',
+          //'confirmed' => 'max:20|same:password',
+          'role_id' => 'required',
+          'designation' => 'required|max:20|regex:/^[a-zA-Z ]*$/|max:50',
+          'department_id' => 'required',
+          'line1' => 'required|max:100',
+          'country' => 'required',
+          'state' => 'required',
+          'city' => 'required|regex:/^[a-zA-Z]+$/u|max:25',
+          'pin_code' => 'required|max:6|min:6',
+          'line2' => 'nullable|max:100',
+          'country' => 'required',
+          'comm_mob' => 'required|digits:10',
+          'comm_telephone' => 'required|digits_between:4,15',
+
         ]);
-        if($validator->fails())
-        {
 
-            return redirect()->back()->withInput($request->input())->withErrors($validator);
-        }
 
-        
-       
+
+
         $employees =  User::find($id);
         $employees->name = $request->input('name');
 
