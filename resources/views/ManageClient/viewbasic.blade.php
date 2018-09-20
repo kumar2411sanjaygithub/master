@@ -20,9 +20,9 @@
    <div class="row">
       <div class="col-xs-12">
          <div class="pull-right">
-            <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
-            <a href=""><input type="button"  class="btn btn-info btn-xs enable_edit" value=" EDIT"></a>
-         </div>
+             <a href=""><button class="btn btn-info btn-xs enable_edit mt7" value=" EDIT">  <span class="glyphicon glyphicon-pencil"></span>&nbsp;EDIT</button></a>
+            <a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
+           </div>
       </div>
    </div>
    <form method="post" action="/client/updateclient/{{$id}}">
@@ -138,11 +138,11 @@
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder=".ENTER ADDRESS1" id="bill_line1" name="bill_line1" value="{{ $clientdata->bill_line2}}">
+                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder=".ENTER ADDRESS1" id="bill_line1" name="bill_line1" value="{{ $clientdata->bill_line1}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">LINE-2</label>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS2" id="bill_line2" name="bill_line2" value="{{ $clientdata->reg_line1}}">
+                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS2" id="bill_line2" name="bill_line2" value="{{ $clientdata->bill_line2}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
@@ -359,29 +359,29 @@
                   <label  class="control-label">PART OF INTERCONNECTION</label>
                   <div class="form-group">
                      <div class="col-md-1 " style="margin-left:-6px;">
-                        <input type="checkbox" class="flat-red pull-left disabled-class" id="inter_discom" name="inter_discom"  disabled  disabled value="{{old('inter_discom')}}">
+                        <input type="checkbox" class="minimal pull-left disabled-class" id="inter_discom" name="inter_discom"  disabled  disabled value="{{old('inter_discom')}}">
                      </div>
-                     <div class="col-md-3" style="margin-left:-7px;">DISCOM
+                     <div class="col-md-3" style="margin-left:-7px;"><label for="inter_discom">DISCOM</label>
                      </div>
                      <div class="col-md-1 "  style="margin-left:-6px;">
-                        <input type="checkbox" class="flat-red disabled-class"  disabled  disabled id="inter_stu" name="inter_stu" value="{{old('inter_stu')}}">
+                        <input type="checkbox" class="minimal disabled-class"  disabled  disabled id="inter_stu" name="inter_stu" value="{{old('inter_stu')}}">
                      </div>
-                     <div class="col-md-1" style="margin-left:-7px;">STU
+                     <div class="col-md-1" style="margin-left:-7px;"><label for="inter_stu">STU</label>
                      </div>
                      <div class="col-md-1">
-                        <input type="checkbox" class="flat-red disabled-class"  disabled  disabled id="inter_poc" name="inter_poc" value="{{old('inter_poc')}}">
+                        <input type="checkbox" class="minimal disabled-class"  disabled  disabled id="inter_poc" name="inter_poc" value="{{old('inter_poc')}}">
                      </div>
-                     <div class="col-md-5" style="width:30%;margin-left:-5px;">POC/CTU</div>
+                     <div class="col-md-5" style="width:30%;margin-left:-5px;"><label for="inter_poc">POC/CTU</label></div>
                   </div>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">DOES BELONG TO COMMON FEEDER?</label>
                   <div class="form-group">
                      <div class="col-md-6 pull-left">
-                        <input  disabled type="radio" class="flat-red disabled-class" name="rt" id="rt">&nbsp&nbspYES
+                        <input  disabled type="radio" class="minimal disabled-class" name="rt" id="rt">&nbsp&nbsp<label for="rt">YES</label>
                      </div>
                      <div class="col-md-6 pull-Left">
-                        <input  disabled type="radio" class="flat-red disabled-class" name="rt" id="rt1">&nbsp&nbspNO
+                        <input  disabled type="radio" class="minimal disabled-class" name="rt" id="rt1">&nbsp&nbsp<label for="rt1">NO</label>
                      </div>
                   </div>
                </div>
@@ -486,8 +486,8 @@
 <script>
    $(function () {
        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-       checkboxClass: 'icheckbox_minimal-blue',
-       radioClass   : 'iradio_minimal-blue'
+         checkboxClass: 'icheckbox_flat-green',
+         radioClass   : 'iradio_flat-green'
      })
      //Red color scheme for iCheck
      $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({

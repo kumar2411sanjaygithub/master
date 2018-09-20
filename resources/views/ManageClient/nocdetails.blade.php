@@ -8,20 +8,30 @@
   display: block;
 }
 </style>
-<section class="content-header">
+<section class="content">
    @if(session()->has('message'))
             <div class="alert alert-success mt10">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                 {{ session()->get('message') }}
             </div>
           @endif
-              <h5><label  class="control-label"><u>NOC DETAILS</u>&nbsp&nbsp&nbsp&nbsp {{$client_details[0]['company_name']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['crn_no']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['iex_portfolio']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['pxil_portfolio']}}</label></h5>
-      <div class="row" id="nocbox">
+
+      <div class="row" >
         <div class="col-xs-12">
-                <form method ="post" action="{{isset($get_noc_details)?url('noc_edit/'.$get_noc_details->id):route('noc_create')}}" enctype="multipart/form-data">
+          <div class="row">
+            <div class="col-md-5 pull-left">
+                <h5><label  class="control-label"><u>NOC DETAILS</u>&nbsp&nbsp&nbsp&nbsp {{$client_details[0]['company_name']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['crn_no']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['iex_portfolio']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['pxil_portfolio']}}</label></h5>
+            </div>
+            <div class="col-md-5"></div>
+            <div class="col-md-2 text-right"><button class="btn btn-info btn-xs mt7" id="add">  <span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
+                <a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
+            </div>
+          </div>
+
+        <form method ="post" action="{{isset($get_noc_details)?url('noc_edit/'.$get_noc_details->id):route('noc_create')}}" enctype="multipart/form-data">
            {{ csrf_field() }}
 
-      <div class="row {{(isset($get_noc_details)||!$errors->isEmpty())?'':'divhide'}}">
+      <div class="row {{(isset($get_noc_details)||!$errors->isEmpty())?'':'divhide'}}" id="nocbox">
         <div class="col-xs-12">
      <div class="box" id="noccbox">
     <div class="box-body">
@@ -157,18 +167,12 @@
     <div class="row">
         <div class="col-xs-12">
 
-                                <div class="row">
-                                   <div class="col-md-9"></div>
-                                      <div class="col-md-3 text-right"><a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
-                                         <button class="btn btn-info btn-xs" id="add">
-                                            <span class="glyphicon glyphicon-plus"></span>&nbsp ADD</div>
-                                </div>
 <div class="box">
   <div class="box-body table-responsive">
     <table class="table table-bordered text-center">
   <thead>
     <tr>
-      <th>SR.NO</th>
+      <th >SR.NO</th>
       <th>NOC TYPE</th>
       <th>NOC QUANTUM</th>
       <th>VALIDITY START DATE</th>
@@ -180,7 +184,7 @@
       <th>FINAL NOC QUANTUM</th>
       <th>FILE</th>
       <th>STATUS</th>
-      <th>ACTION</th>
+      <th >ACTION</th>
     </tr>
   </thead>
   <tbody>
@@ -204,7 +208,7 @@
                               <td class="text-center">{{ $value->upload_noc }}</td>
                               <td class="text-center">{{ $value->status }}</td>
                               <td class="text-center">
-                                  <a href="{{url('/editnocdetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-noc-detail" noc_detail_id="{{$value->id}}"></span></a>
+                                  <a href="{{url('/editnocdetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-noc-detail" noc_detail_id="{{$value->id}}"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a href="/delete/noc/{{$value->id}}"><span class="glyphicon glyphicon-trash " id="remove-noc-detail" noc_detail_id="{{$value->id}}"></span></a>
                               </td>
                            </tr>

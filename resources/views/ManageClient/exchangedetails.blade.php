@@ -1,26 +1,32 @@
 @extends('theme.layouts.default')
 @section('content')
- <section class="content-header">
-      <h5><label  class="control-label"><u>Upload Exchange File</u>&nbsp&nbsp&nbsp&nbsp    {{$client_details[0]['company_name']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['crn_no']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['iex_portfolio']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['pxil_portfolio']}}</label></h5>
-    </section>
-    <section class="content">
+     <section class="content">
        @if(session()->has('message'))
             <div class="alert alert-success mt10">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                 {{ session()->get('message') }}
             </div>
           @endif
-
+          <div class="row">
+            <div class="col-md-5 pull-left">
+                <h5><label  class="control-label"><u>Upload Exchange File</u>&nbsp&nbsp&nbsp&nbsp    {{$client_details[0]['company_name']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['crn_no']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['iex_portfolio']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['pxil_portfolio']}}</label></h5>
+            </div>
+            <div class="col-md-5"></div>
+            <div class="col-md-2 text-right"><button class="btn btn-info btn-xs mt7" id="add">
+             <span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
+             <a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
+           </div>
+          </div>
           <form method ="post" action="{{isset($get_exchange_details)?url('exchange_edit/'.$get_exchange_details->id):route('exchange_create')}}" enctype="multipart/form-data">
            {{ csrf_field() }}
            <div class="row{{isset($get_bank_details)?'':'divhide'}}" id="exchangebox">
-
-          <div class="box">
-          <div class="box-body addtab hidden">
+          <div class="box addtab hidden">
+          <div class="box-body ">
           <div class="row">
               <div class="col-md-3 {{ $errors->has('ex_type') ? 'has-error' : '' }}">
                 <input type="hidden"  name="client_id" value="{{@$client_id}}" id="client">
-              <label  class="control-label">EXCHANGE TYPE</label><span class="text-danger"><strong>*</strong></span>
+              <label  class="control-label">EXCHANGE TYPE<span class="text-danger"><strong>*</strong></label>
+
               <select class="form-control input-sm " style="width: 100%;" id="ex_type" name="ex_type" >
                   <option value="">SELECT EXCHANGE</option>
                   <option value="iex" {{(isset($get_exchange_details)&& $get_exchange_details->ex_type=='iex')||old('ex_type')=='iex'?'selected':''}}>IEX</option>
@@ -29,7 +35,7 @@
       <span class="text-danger">{{ $errors->first('ex_type') }}</span>
       </div>
       <div class="col-md-3 {{ $errors->has('validity_from') ? 'has-error' : '' }}">
-       <label  class="control-label">VALIDITY START DATE</label><span class="text-danger"><strong>*</strong></span>
+       <label  class="control-label">VALIDITY START DATE<span class="text-danger"><strong>*</strong></label>
        <div class="input-group date" id="datepicker" >
          <div class="input-group-addon">
            <i class="fa fa-calendar"></i>
@@ -37,10 +43,10 @@
          <input type="text" class="form-control pull-right input-sm"  id="validity_from" name="validity_from" value="{{isset($get_exchange_details)?$get_exchange_details->validity_from:old('validity_from')}}">
 
        </div>
-       <span class="text-danger">{{ $errors->first('validity_from') }}</span>
+       <span class="text-danger">{{ $errors->first('validity_to') }}</span>
       </div>
-      <div class="col-md-3 ">
-        <label  class="control-label">VALIDITY END START</label><span class="text-danger"><strong>*</strong></span>
+      <div class="col-md-3 {{ $errors->has('file_upload') ? 'has-error' : '' }}">
+        <label  class="control-label">VALIDITY END START<span class="text-danger"><strong>*</strong></label>
         <div class="input-group date" id="datepicker1">
           <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
@@ -75,24 +81,17 @@
 </form>
                     <div class="row">
                          <div class="col-xs-12">
-                                <div class="row">
-                                   <div class="col-md-9"></div>
-                                   <div class="col-md-3 text-right"><button class="btn btn-info btn-xs" id="add">
-                                    <span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
-                                    <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
-                                  </div></div>
-                                <div class="box">
+                              <div class="box">
                                 <div class="box-body table-responsive">
                                   <table class="table table-bordered text-center">
                                 <thead>
                                   <tr>
-                                    <th>SR.NO</th>
+                                    <th class="srno">SR.NO</th>
                                     <th>TYPE</th>
                                     <th>VALIDITY START DATE</th>
                                     <th>VALIDITY END DATE</th>
                                     <th>FILE</th>
-
-                                    <th>ACTION</th>
+                                    <th class="act1">ACTION</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -109,7 +108,7 @@
                                   <td class="text-center">{{ $value->file_upload }}</td>
 
                                   <td class="text-center">
-                                    <a href="{{url('/editexchangedetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>
+                                    <a href="{{url('/editexchangedetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
                                     <a href="/delete/exchange/{{$value->id}}"><span class="glyphicon glyphicon-trash text-danger" id="remove-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>
                                   </td>
                               </tr>
@@ -140,38 +139,44 @@
       });
      </script>
      <script>
-        $(function () {
+  function myFunction(){
+    //alert(1);
+    $('#exchangebox').addClass('divhide').removeClass('divshow');
+  }
+  </script>
+ <script>
+    $(function () {
 
-          //Date picker
-$('#datepicker').datepicker({
-            autoclose: true,
-            format: 'dd/mm/yyyy',
-          }).on('changeDate', function (selected) {
-             var startDate = new Date(selected.date.valueOf());
-             $('#datepicker1').datepicker('setStartDate', startDate);
-           }).on('clearDate', function (selected) {
-               $('#datepicker1').datepicker('setStartDate', null);
-           });
-          $('#datepicker1').datepicker({
-            autoclose: true,
-             format: 'dd/mm/yyyy'
-          }).on('changeDate', function (selected) {
-               var endDate = new Date(selected.date.valueOf());
-               $('#datepicker').datepicker('setEndDate', endDate);
-           }).on('clearDate', function (selected) {
-               $('#datepicker').datepicker('setEndDate', null);
-           });
-          $('#datepicker2').datepicker({
-            autoclose: true
-          })
-          $('#datepicker3').datepicker({
-            autoclose: true
-          })
-       $('.timepicker').timepicker({
-            showInputs: false
-          })
-        })
-     </script>
+      //Date picker
+      $('#datepicker').datepicker({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+      }).on('changeDate', function (selected) {
+         var startDate = new Date(selected.date.valueOf());
+         $('#datepicker1').datepicker('setStartDate', startDate);
+       }).on('clearDate', function (selected) {
+           $('#datepicker1').datepicker('setStartDate', null);
+       });
+      $('#datepicker1').datepicker({
+        autoclose: true,
+         format: 'dd/mm/yyyy'
+      }).on('changeDate', function (selected) {
+           var endDate = new Date(selected.date.valueOf());
+           $('#datepicker').datepicker('setEndDate', endDate);
+       }).on('clearDate', function (selected) {
+           $('#datepicker').datepicker('setEndDate', null);
+       });
+      $('#datepicker2').datepicker({
+        autoclose: true
+      })
+      $('#datepicker3').datepicker({
+        autoclose: true
+      })
+   $('.timepicker').timepicker({
+        showInputs: false
+      })
+    })
+ </script>
    <script>
     window.setTimeout(function() {
         $(".alert").fadeTo(500, 0).slideUp(500, function(){
@@ -179,4 +184,4 @@ $('#datepicker').datepicker({
         });
     }, 5000);
   </script>
-     @endsection
+@endsection

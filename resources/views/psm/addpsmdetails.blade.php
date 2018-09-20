@@ -171,7 +171,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                   <table id="example1" class="table table-bordered table-striped table-hover text-center">
                      <thead>
                         <tr>
-                           <th>SR.NO</th>
+                           <th class="srno">SR.NO</th>
                            <th>Type</th>
                            <th>RECVIED DATE</th>
                            <th>AMOUNT</th>
@@ -181,7 +181,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                            <th>REVOCABLE DATE</th>
                            <th>FILE</th>
                            <th>DESCRIPTION</th>
-                           <th>ACTION</th>
+                           <th class="act1">ACTION</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -209,7 +209,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                            <td><a href="{{url('documents/psm/'.$value->document)}}" download="download">{{$value->document}}</a></td>
                            <td>{{$value->description}}</td>
                            <td>
-                             <a href="/editpsmdetails/{{$value->id}}/{{$value->client_id}}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp
+                             <a href="/editpsmdetails/{{$value->id}}/{{$value->client_id}}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
                              <a href="/deletepsmdetails/{{$value->id}}" class="text-danger"><span class="glyphicon glyphicon-trash "></span></a>
                            </td>
                         </tr>
@@ -273,11 +273,11 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                   <table id="example2" class="table table-bordered table-striped table-hover text-center">
                      <thead>
                         <tr>
-                           <th>SR.NO</th>
+                           <th class="srno">SR.NO</th>
                            <th>PSM AMOUNT</th>
                            <th>EXPOSURE(%)</th>
                            <th>ADDED DATE</th>
-                           <th>ACTION</th>
+                           <th class="act1">ACTION</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -328,19 +328,24 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
 
      //Date picker
      $('#datepicker').datepicker({
-       autoclose: true
+       autoclose: true,
+       format: 'dd/mm/yyyy',
      })
      $('#issue_date').datepicker({
-       autoclose: true
+       autoclose: true,
+       format: 'dd/mm/yyyy',
      })
      $(".datepicker").datepicker({
-       autoclose: true
+       autoclose: true,
+       format: 'dd/mm/yyyy',
      })
      $('#datepicker2').datepicker({
-       autoclose: true
+       autoclose: true,
+       format: 'dd/mm/yyyy',
      })
      $('#revocable_date').datepicker({
-       autoclose: true
+       autoclose: true,
+       format: 'dd/mm/yyyy',
      })
 
    })
