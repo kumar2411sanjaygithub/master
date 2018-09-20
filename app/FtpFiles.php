@@ -27,7 +27,7 @@ class FtpFiles extends Model
     public function oblDetails(){
         return $this->hasMany('App\Obligation','portfolio_id','portfolio_id');
     }
-    // public function ScheduleDetails(){
-    //    return $this->hasMany('App\ScheduleLosses','portfolioid','portfolio_id'); 
-    // }
+    public function ScheduleDetails(){
+       return $this->hasMany('App\ScheduleLosses','portfolioid','portfolio_id'); 
+    }
 }

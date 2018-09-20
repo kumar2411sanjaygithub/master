@@ -21,10 +21,10 @@ use App\Obligations;
 use App\OblComponents;
 use App\FtpFiles;
 use App\FtpDatePickUp;
-use App\Schedule;
+use App\Scheduling;
 use Illuminate\Support\Facades\Redirect;
 use App\ScheduleLosses;
-use App\Exchangeuser;
+use App\Client;
 
 class SchedulingController extends Controller
 {
@@ -50,23 +50,15 @@ class SchedulingController extends Controller
         $iex_portfolio =  $this->getAllPortfolioArray();
         $bidding_dt = date("Y-m-d",strtotime($year."-".$month_o."-".$day));
         $month = date("m_M",strtotime($year."-".$month_o."-".$day));
-        $directory = storage_path("files/04/".$exchange."/obl_sch_xls/".$year."/".$month."/".$day);
+        $directory = storage_path("files/dam/import/".$exchange."/obl_sch_xls/".$year."/".$month."/".$day);
         
         $dt = date('Y-m-d', strtotime($bidding_dt));
-        $dtBack = date('Y-m-d', strtotime($dt . ' - 1 days'));
-        // echo $dt;
-        
-         if(\Auth::user()->member_type=='ADMIN'){
-       $sedul_ftp = FtpFiles::all()->where('type','SCH')->where('date',$dt);
-        } else{
-        $sedul_ftp = FtpFiles::all()->where('type','SCH')->where('date',$dt)->where('client_id',\Auth::user()->client_id);    
-        //dd($obl_ftp);
-        }
-       
+        $dtBack = date('Y-m-d', strtotime($dt . ' - 1 days'));       
+        $sedul_ftp = FtpFiles::all()->where('type','SCH')->where('date',$dt);
         if(isset($request->status)){
-            return view('import.dam.schedule',['schedule' => $sedul_ftp, 'dilivery_date' => array($year,$month_o,$day),'status' => $request->status]);
+            return view('dam.import.schedule',['schedule' => $sedul_ftp, 'dilivery_date' => array($year,$month_o,$day),'status' => $request->status]);
         }  
-        return view('import.dam.schedule',['schedule' => $sedul_ftp, 'dilivery_date' => array($year,$month_o,$day)]);
+        return view('dam.import.schedule',['schedule' => $sedul_ftp, 'dilivery_date' => array($year,$month_o,$day)]);
     }
 
     public function downloadScheduling(Request $request, $id){
@@ -85,10 +77,14 @@ class SchedulingController extends Controller
     }
 
     public function downloadAmbScheduling(Request $request, $id){
+    	//dd(1);
         try{
             $sedul_ftp_path = FtpFiles::findOrFail($id);
-            $path_fol = explode('files/04/iex/obl_sch_xls/', $sedul_ftp_path->filepath);
-            $path = storage_path('app/public/generate/scheduling/iex/'.$path_fol[1].'/');
+            
+            $path_fol = explode('files/dam/import/iex/obl_sch_xls/', $sedul_ftp_path->filepath);
+            // dd($path_fol); 
+            $path = storage_path('app/public/generate/IEX/scheduling/'.$path_fol.'/');
+           
             $file_name = explode(".",$sedul_ftp_path->filename);
 
             $path = $path.$file_name[0]."_d.".$file_name[1];
@@ -128,9 +124,7 @@ class SchedulingController extends Controller
     }
 
     function generateArraySchedule($sheetData,$dt,$portfolio_id,$fileName='text.xlsx',$entryBy = 1){
-dd($sheetData);
-            //\Excel::create('ambendent_file', function($objPHPExcel) {
-            //assumed
+
             // make a duplicate excel of schedule scheduling
             $dtBack = date('Y-m-d', strtotime($dt . ' - 1 days'));
             $year = date('Y',strtotime($dtBack));
@@ -139,7 +133,7 @@ dd($sheetData);
             // dd(storage_path('generate/scheduling/iex/$year/$month/$date/').$fileName);
             // \Storage::disk('local')->put($fileName, $objWriter);
             $file_name = explode('.',$fileName);
-            $path = storage_path('app/public/generate/scheduling/iex/'.$year.'/'.$month.'/'.$day.'/');
+            $path = storage_path('files/dam/generate/IEX/scheduling/'.$year.'/'.$month.'/'.$day.'/');
             File::isDirectory($path) or \File::makeDirectory($path,'0777', true);
             $csvFileName = $path.str_replace(".xlsx", "_d.xlsx", $fileName);
            
@@ -374,8 +368,9 @@ dd($sheetData);
                 $clientId = $this->getclientidfromportfolioid($portfolio_id);
               
 
+               
                 $deleteRecSechVoulme = Scheduling::where('client_id',$clientId)->where('type','IEX')->where('date',$dt)->delete();
-                $data = array(
+                 $data = array(
                     array('client_id'=> $clientId,'date'=>$dt,'type'=>'IEX','buy_qty'=>$totalRecSchVolumedBuy,'sell_qty'=>$totalRecSchVolumedSell,'ttlamnt'=>$ttlsch,'entry_by'=>'-1')
                     );
                 $resScheduleInsert = Scheduling::insert($data);
@@ -392,11 +387,6 @@ dd($sheetData);
                 $objPHPExcel->getActiveSheet()->setTitle("Sheet1");
                 $objPHPExcel->setActiveSheetIndex(0);
                 $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
-                // echo $csvFileName;
-                // die();
-                // dd($dt);
-
-         
                 $objWriter->save($path.$file_name[0].'_d.'.$file_name[1]);
        // $objWriter->download('xlsx');
 
@@ -419,17 +409,19 @@ dd($sheetData);
         return $port = array_column($portfolio_id,'iex_portfolio');
     }
         
-    }
+    
     function getclientidfromportfolioid($portfolio_id){
        
         $client_id = Client::where('iex_portfolio',$portfolio_id)->pluck('id')->toArray();
+        //dd($client_id);
         return $string = implode(' ', $client_id);
         // return $client_id = Client::where('iex_portfolio',$portfolio_id)->pluck('id')->toArray();
 
        
     }
+}
     // shalu ends here//
    
-}
+
 
   
