@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-//use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -12,7 +12,7 @@ use App\Http\Requests\Admin\UpdateRolesRequest;
 use App\Department;
 use Illuminate\Support\Facades\Auth;
 use App\PermissionList;
-use App\Role;
+use App\Roles;
 
 class RolesController extends Controller
 {
@@ -24,9 +24,9 @@ class RolesController extends Controller
     public function index()
     {
 
-        $roles = Role::all();
-
-        return view('ManageOfficials.role_list', compact('roles'));
+        $roles = Roles::all();
+        $department = Department::orderBy('depatment_name','Desc')->get();
+        return view('ManageOfficials.role_list', compact('roles','department'));
     }
 
     /**
@@ -85,7 +85,7 @@ class RolesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|unique:roles,name',
+            'name' => 'required',
             'department' => 'required',
         ]);
         

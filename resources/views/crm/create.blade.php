@@ -34,7 +34,7 @@
                     <option value="{{ $product_data->id }}" @if(old('product') == $product_data->id) {{ 'selected' }} @endif>{{ $product_data->product_name }}</option>
                     @endforeach
                   @else
-                    <option value="">No Data.</option>
+                    <option value="">No Data Found.</option>
                   @endif
                 </select>
               <span class="text-danger">{{ $errors->first('product') }}</span>

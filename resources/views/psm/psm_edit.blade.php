@@ -53,8 +53,8 @@
                              <i class="fa fa-calendar"></i>
                           </div>
                           <input autocomplete="off" type="text" value="{{date('d/m/Y',strtotime($psmData->received_date))}}" class="form-control pull-right input-sm" name="received_date" id="datepicker">
-                          <span class="text-danger">{{ $errors->first('received_date') }}</span>
                        </div>
+                          <span class="text-danger">{{ $errors->first('received_date') }}</span>                      
                     </div>
                     <div class="col-md-3">
                        <label  class="control-label">DOCUMENT NO.</label>
@@ -74,8 +74,8 @@
                              <i class="fa fa-calendar"></i>
                           </div>
                           <input autocomplete="off" type="text" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif value="{{date('d/m/Y',strtotime($psmData->issue_date))}}" name="issue_date" class="form-control pull-right input-sm" id="issue_date">
-                          <span class="text-danger">{{ $errors->first('issue_date') }}</span>
                        </div>
+                          <span class="text-danger">{{ $errors->first('issue_date') }}</span>                       
                     </div>
                     <div class="col-md-3 {{ $errors->has('expiry_date') ? 'has-error' : '' }}">
                        <label  class="control-label">EXPIRY DATE</label><span class="text-danger"><strong>*</strong></span>
@@ -84,8 +84,8 @@
                              <i class="fa fa-calendar"></i>
                           </div>
                           <input autocomplete="off" type="text" class="form-control pull-right input-sm" value="{{date('d/m/Y',strtotime($psmData->expiry_date))}}" name="expiry_date" id="datepicker2">
-                          <span class="text-danger">{{ $errors->first('expiry_date') }}</span>
                        </div>
+                          <span class="text-danger">{{ $errors->first('expiry_date') }}</span>                       
                     </div>
                     <div class="col-md-3">
                        <label  class="control-label">REVOCABLE DATE</label>

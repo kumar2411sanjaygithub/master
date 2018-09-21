@@ -72,7 +72,14 @@
                   <tr>
                     <td>{{$i}}</td>
                     <td><a href="{{url('/getclientData/'.$noc_approved->client_id)}}">{{@$noc_approved->client->company_name}}</a></td>
-                    <td></td>
+                    <td>
+                      @if($noc_approved->exchange_type=='pxil')
+                      {{@$noc_approved->client->pxil_portfolio}}
+                      @elseif($noc_approved->exchange_type=='iex')
+                      {{@$noc_approved->client->iex_portfolio}}
+                      @endif
+
+                    </td>
                     <td>{{$noc_approved->application_no}}</td>
                     <td>{{date('d/m/Y',strtotime($noc_approved->start_date))}}</td>
                     <td>{{date('d/m/Y',strtotime($noc_approved->end_date))}}</td>

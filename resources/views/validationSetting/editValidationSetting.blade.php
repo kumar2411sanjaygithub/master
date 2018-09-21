@@ -13,8 +13,10 @@
    </h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">PPA & Bid</a></li>
-      <li><a href="#" class="active">Validation Setting</a></li>
+      <li><a href="#">MANAGE CLIENT</a></li>
+      <li><a href="#">DAM</a></li>
+      <li><a href="#">IEX</a></li>
+      <li><a href="#"><u> EDIT VALIDATION SETTING</u></a></li>
    </ol>
 </section>
 <!-- Content Header (Page header) -->
@@ -36,14 +38,15 @@
                 <div class="row">
                    <div class="col-md-12">
                       <div class="mda-form-control bb0 mt10  {{ $errors->has('user_id') ? 'has-error' : '' }}">
-                          <select class="form-control selectpicker" name="user_id" id="select-client" data-live-search="true">
-                            <option value="">Search Client</option>
-                             <?php foreach ($users as $aa) {
-                            ?>
-                            <option value="<?php echo $aa['id']; ?>" data-tokens="<?php echo $aa['company_name']; ?>" @if((isset($validationsettingData->user_id)&&$validationsettingData->user_id==$aa['id'])) selected @endif> <?php echo $aa['company_name']; ?></option>
-                              <?php
-                            }?>
-                          </select>
+
+                          <select class="" name="user_id" id="select-client" data-live-search="true">
+                              <option>Search Client</option>
+                               @foreach ($users as $key => $aa)
+                               <option value="{{ $aa['id'] }}" data-tokens="{{ $aa['id'] }}.{{ $aa['id'] }}.{{ $aa['id'] }};?>" @if((isset($validationsettingData->user_id)&&$validationsettingData->user_id==$aa['id'])) selected @endif> [{{$aa['company_name']}}] [{{$aa['short_id']}}] [{{$aa['crn_no']}}]</option>
+                              @endforeach
+
+                            </select>
+
                           <span class="text-danger">{{ $errors->first('user_id') }}</span>
                        </div>
                    </div>
@@ -101,5 +104,10 @@
      })
 
    })
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+   $('#select-client').select2();
+});
 </script>
 @endsection

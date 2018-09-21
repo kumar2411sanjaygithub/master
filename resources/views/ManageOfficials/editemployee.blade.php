@@ -6,7 +6,7 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
         <li><a href="#">MANAGE EMPLOYEE</a></li>
-        <li><a href="active"><u>EDIT EMPLOYEE</u></a></li>
+        <li><a href="#"><u>EDIT EMPLOYEE</u></a></li>
       </ol>
     </section>
 

@@ -22,7 +22,7 @@
 
   <div class="row">
       <div class="col-md-3 {{ $errors->has('permission_name') ? 'has-error' : '' }}">
-         <label  class="control-label">PERMISSION NAME</label>
+         <label  class="control-label">PERMISSION NAME<span class="text-danger"><strong>*</strong></span></label>
          <input class="form-control input-sm" type="text" placeholder="ENTER PERMISSION NAME" name="permission_name" value="{{(isset($permissions->id)&& $permissions->permission_name)?$permissions->permission_name:old('permission_name')}}">
           <span class="text-danger">{{ $errors->first('permission_name') }}</span>
     </div>
