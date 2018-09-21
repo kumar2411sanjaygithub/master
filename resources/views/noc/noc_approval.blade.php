@@ -23,7 +23,7 @@
             <div class="col-xs-12">
              <ul class="nav nav-tabs">
                  <li class="active" style="height:5px!important;"><a data-toggle="tab" href="#tab1" >INITIATED</a></li>
-                 <li><a data-toggle="tab" href="#tab2">APPROVAL</a></li>
+                 <li><a data-toggle="tab" href="#tab2">APPROVED</a></li>
                  <li><a data-toggle="tab" href="#tab3">REJECTED</a></li>
              </ul>
               <div class="box">
@@ -50,7 +50,7 @@
          @foreach ($noc_for_approval as $k=>$noc_initiated)                  
           <tr>
             <td>{{$i}}</td>
-            <td>{{@$noc_initiated->client->name}}</td>
+            <td>{{@$noc_initiated->client->company_name}}</td>
             <td></td>
             <td>{{$noc_initiated->application_no}}</td>
             <td>{{date('d/m/Y',strtotime($noc_initiated->start_date))}}</td>
@@ -132,14 +132,14 @@
          @foreach ($approved_noc as $k=>$noc_approved)                  
           <tr>
             <td>{{$i}}</td>
-            <td>{{@$noc_approved->client->name}}</td>
+            <td>{{@$noc_approved->client->company_name}}</td>
             <td></td>
             <td>{{$noc_approved->application_no}}</td>
             <td>{{date('d/m/Y',strtotime($noc_approved->start_date))}}</td>
             <td>{{date('d/m/Y',strtotime($noc_approved->end_date))}}</td>
             <td>{{isset($noc_approved->noc_file)?'YES':'NO' }}</td>
             <td>
-              <a href="#" class="btn  btn-info btn-xs">APPROVE</a>
+              <a href="#" class="btn  btn-info btn-xs">APPROVED</a>
             </td>
           </tr>
             @php $i++; @endphp                                   
@@ -173,14 +173,14 @@
          @foreach ($rejected_noc as $k=>$noc_rejected)                  
           <tr>
             <td>{{$i}}</td>
-            <td>{{@$noc_rejected->client->name}}</td>
+            <td>{{@$noc_rejected->client->company_name}}</td>
             <td></td>
             <td>{{$noc_rejected->application_no}}</td>
             <td>{{date('d/m/Y',strtotime($noc_rejected->start_date))}}</td>
             <td>{{date('d/m/Y',strtotime($noc_rejected->end_date))}}</td>
             <td>{{isset($noc_rejected->noc_file)?'YES':'NO' }}</td>
             <td>
-              <a href="#" data-toggle="modal" data-target="#deleteData" class="btn  btn-danger btn-xs">REJECT</a>              
+              <a href="#" data-toggle="modal" data-target="#deleteData" class="btn  btn-danger btn-xs">REJECTED</a>              
             </td>
           </tr>
             @php $i++; @endphp                                   

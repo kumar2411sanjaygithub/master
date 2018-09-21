@@ -17,20 +17,17 @@
       <div class="col-xs-12">
          <div class="box">
             <div class="box-body">
-              <form method="post" action="{{url('/rec/bidding-setting')}}">
-                {{csrf_field()}}
                <div class="row">
                   <div class="col-md-12">
-                     <div class="input-group input-group-sm">
-                        <input type="text" class="form-control client_search" placeholder="SEARCH CLIENT" name='client_name'>
-                        <input type="hidden" class="form-control" id="client_id" name="client_id">
-                        <span class="input-group-btn">
-                        <button type="button" class="btn btn-info btn-flat"><span class="glyphicon glyphicon-search"></span></button>
-                        </span>
-                     </div>
+                  <select class="" name="client_id" id="select-client" data-live-search="true">
+                      <option>Search Client</option>
+                       @foreach ($clientData as $key => $value)
+                       <option value="{{ $value->id }}" data-tokens="{{ $value->id }}.{{ $value->id }}.{{ $value->id }};?>"> [{{$value->company_name}}] [{{$value->short_id}}] [{{$value->crn_no}}]</option>
+                      @endforeach
+
+                    </select>
                   </div>
                </div>
-             </form>
             </div>
          </div>
       </div>
@@ -39,7 +36,16 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script>
+$(document).ready(function() {
+     $("#select-client").change(function(e) {
+           var id = this.value;
+           var url = "{{url('/rec/bidding-setting')}}/"+id;
 
+           window.location = url;
+     });
+ });
+</script>
 <script type="text/javascript">
  setTimeout(function() {
    $('#successMessage').fadeOut('fast');
@@ -59,5 +65,11 @@
       }
       });                
   }(jQuery));
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+   $('#select-client').select2();
+});
 </script>
   @endsection

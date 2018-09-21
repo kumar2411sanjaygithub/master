@@ -251,7 +251,8 @@ Route::post('/rec/exchange/store',['as'=>'rec-exchange.exchangeStore','uses'=>'R
 
 Route::get('/rec/bidding-setting/search',['as'=>'rec-bidding.biddingSearchindex','uses'=>'RecSettingController@biddingSearchindex']);
 Route::post('/rec/bidding-setting',['as'=>'rec-bidding.biddingViewindex','uses'=>'RecSettingController@biddingViewindex']);
-
+Route::any('/rec/bidding/store',['as'=>'rec-bidding.biddingStore','uses'=>'RecSettingController@biddingStore']);
+Route::get('/rec/bidding-setting/{id}',['as'=>'biddingViewID','uses'=>'RecSettingController@biddingViewindex']);
 
 
 Route::get('/escerts',['as'=>'escerts','uses'=>'ClientDeatilsController@escertsdetails']);
@@ -296,9 +297,22 @@ Route::get('/noc/modified/{id}/{type}/',['as'=>'modifiednoc.approve','uses'=>'No
 Route::get('/delete_noc/{id}/{type}/{type2}',['as'=>'deletenoc.approve','uses'=>'NocApprovalController@delete_noc']);
 
 
-
-
-
+Route::get('downloads/{filename}', function($filename)
+{
+    // Check if file exists in app/storage/file folder
+    $file_path = storage_path() .'/files/client/exreg/'. $filename;
+    if (file_exists($file_path))
+    {
+        // Send Download
+        return Response::download($file_path, $filename, [
+            'Content-Length: '. filesize($file_path)
+        ]);
+    }
+    else
+    {
+         exit('Requested file does not exist on our server!');
+    }
+});
 
 
 //Noc Application & Bill Setting & Approval
@@ -334,7 +348,7 @@ Route::post('/noc-billing-update/{id}',['as'=>'noc_billing.nocbillingupdate','us
 
 
 /*******************************************************
-    Shalu Gupta----IMPORT(DAM)
+    Shalu Gupta----IMPORT(DAM)--OBLIGATION
 /*******************************************************/
 
 Route::get('/obligation',['as'=>'obligation','uses'=>'ObligationController@home']);
@@ -343,6 +357,20 @@ Route::get('/update_ftp_list/{exchange}/{year}/{month}/{day}',['as'=>'obligation
 Route::get('/obligation/download/{id}',['as'=>'download.obligation','uses'=>'ObligationController@downloadObligation']);
 Route::get('/obligation/import/{id}',['as'=>'obligation.import','uses'=>'ObligationController@importObligation']);
 Route::get('/service/mailobligation/{client_id}/{ftp_id}',['as'=>'service.mail','uses'=>'EmailController@mail_obligation']);
+
+/*******************************************************
+  IMPORT(DAM)--SCHEDULING
+/*******************************************************/
+
+Route::get('/scheduling',['as'=>'scheduling','uses'=>'SchedulingController@index']);
+Route::get('/scheduling/{exchange}/{year}/{month}/{day}',['as'=>'scheduling.index','uses'=>'SchedulingController@index']);
+Route::get('/update_ftp_list/{exchange}/{year}/{month}/{day}',['as'=>'scheduling.ftp_db','uses'=>'SchedulingController@updateFtpDetails']);
+Route::get('/scheduling/download/{id}',['as'=>'download.scheduling','uses'=>'SchedulingController@downloadScheduling']);
+Route::get('/scheduling/import/{id}',['as'=>'scheduling.import','uses'=>'SchedulingController@importScheduling']);
+Route::get('/service/mailobligation/{client_id}/{ftp_id}',['as'=>'service.mail','uses'=>'EmailController@mail_scheduling']);
+Route::get('/scheduling/downloadA/{id}','SchedulingController@downloadAmbScheduling');
+
+ 
 
 
 
