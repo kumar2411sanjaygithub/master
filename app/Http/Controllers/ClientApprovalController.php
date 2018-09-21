@@ -168,7 +168,34 @@ class ClientApprovalController extends Controller
             return Redirect::back()->with('success', 'User Successfully Rejected.');
         }
     }
+     public function multipleApprove(Request $request,$tag='')
+    {
+        $approvalstatus_id=$request['selected_status'];
+        $array=explode(',',$approvalstatus_id);
+        if($tag=='Approved'){
+          foreach($array as $v){
+            $model = array('bank'=> 'Bank',
+                      'client'=>'Client');
+            $updatestemp = Approvalrequest::find($v); 
+            $selectedmodel= '\\App\\'.$model[$updatestemp->approval_type];
+            $banktemp = $selectedmodel::find($updatestemp->reference_id); 
+            $attribute_name = $updatestemp->attribute_name;
+            $banktemp->$attribute_name = $updatestemp->updated_attribute_value;
+            $banktemp->update();
+            $updatestemp->status = 1;
+            $updatestemp->update(); 
+            }         
+            return Redirect::back()->with('success', 'User Successfully Approved.');
+          }
+          elseif ($tag=='Rejected') {
+            foreach($array as $v){
+            Approvalrequest::where('id', $v)->update(['status'=> '2']);
+            }
+            return Redirect::back()->with('success', 'User Successfully Rejected.');
+        }
 
+        
+    }
      public function deletebank($id,$type,$type2){
 
         $newmodel = array('bank'=> 'Bank',

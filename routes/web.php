@@ -370,8 +370,22 @@ Route::get('/scheduling/import/{id}',['as'=>'scheduling.import','uses'=>'Schedul
 Route::get('/service/mailobligation/{client_id}/{ftp_id}',['as'=>'service.mail','uses'=>'EmailController@mail_scheduling']);
 Route::get('/scheduling/downloadA/{id}','SchedulingController@downloadAmbScheduling');
 
- 
 
+ Route::post('/multiple-approve/{tag}','ClientApprovalController@multipleApprove');
+ Route::post('/new-employee-approve/{tag}','EmployeeApprovalController@newEmployeeApp');
+ Route::post('/exists-employee-approve/{tag}','EmployeeApprovalController@existsEmployeeApp');
+
+ /*******************************************************
+  IMPORT(DAM)--RATESHEET AND RATESHEET GRAPH
+/*******************************************************/
+Route::get('/rate_sheet','RatesheetController@index')->name('rate_sheet');
+Route::post('/rate_sheet/upload','RatesheetController@upload')->name('upload-ratesheet');
+Route::get('/rate_sheet/download/{exchange}/{fileName}','RatesheetController@download')->name('download-ratesheet');
+Route::get('/download-ratesheet-graph/download/{id}/{exchange}/{row_id}',['uses'=>'RatesheetGraphController@downloadgraph'])->name('download-ratesheet-graph/download');
+Route::get('/rate_sheet_graph/{exchange}/{year}/{month}/{day}','RatesheetGraphController@graphindex')->name('rate_sheet_graph');
+Route::get('/rate_sheet_graph','RatesheetGraphController@graphindex')->name('rate_sheet_graph');
+
+Route::get('download-ratesheet/{filename}','RatesheetController@download');
 
 
 

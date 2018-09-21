@@ -7,7 +7,7 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
         <li><a href="#">MANAGE EMPLOYEE</a></li>
-        <li><a href="active"><u>ADD EMPLOYEE</u></a></li>
+        <li><a href="#"><u>ADD EMPLOYEE</u></a></li>
       </ol>
     </section>
 
@@ -49,7 +49,7 @@
      <span class="text-danger">{{ $errors->first('contact_number') }}</span>
   </div>
 <div class="col-md-3 {{ $errors->has('telephone_number') ? 'has-error' : '' }}">
-  <label  class="control-label">TELEPHONE NUMBER</label><span class="text-danger"><strong>*</strong></span>
+  <label  class="control-label">TELEPHONE NUMBER</label>
 <input class="form-control input-sm num" maxlength="15" type="text" name="telephone_number" id="telephone_number" value="{{ old('telephone_number') }}">
 <span class="text-danger">{{ $errors->first('telephone_number') }}</span>
 </div>
@@ -116,8 +116,7 @@
   <div class="col-md-3 {{ $errors->has('country') ? 'has-error' : '' }}">
     <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
     <select class="form-control input-sm select2" name="country" id="country" style="width: 100%;">
-        <option value=""> SELECT COUNTRY</option>
-        <option>INDIA</option>
+        <option value="INDIA">INDIA</option>
     </select>
     <span class="text-danger">{{ $errors->first('country') }}</span>
   </div>
@@ -152,7 +151,7 @@
 <span class="text-danger">{{ $errors->first('comm_mob') }}</span>
 </div>
 <div class="col-md-3 {{ $errors->has('comm_telephone') ? 'has-error' : '' }}">
-  <label  class="control-label">TELEPHONE NUMBER</label><span class="text-danger"><strong>*</strong></span>
+  <label  class="control-label">TELEPHONE NUMBER</label>
 <input class="form-control input-sm num" maxlength="15" type="text" name="comm_telephone" id="comm_telephone" value="{{ old('comm_telephone') }}">
 <span class="text-danger">{{ $errors->first('comm_telephone') }}</span>
 </div>
@@ -162,7 +161,7 @@
 
       <div class="col-md-5"></div>
       <div class="col-md-1 "><button type="submit" class="btn btn-info btn-block btn-xs" id="save_officials">SAVE</button></div>
-      <div class="col-md-1 "><a href="{{ route('employee') }}"><button class="btn btn-danger btn-block btn-xs" value="Cancel">CANCEL</button></a></div>
+      <div class="col-md-1 "><a href="{{ route('employee') }}" class="btn btn-danger btn-block btn-xs" value="Cancel">CANCEL</a></div>
       <div class="col-md-5"></div>
 
    </div>

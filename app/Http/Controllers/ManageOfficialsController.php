@@ -104,12 +104,12 @@ class ManageOfficialsController extends Controller
     public function saveemployeesdata(Request $request)
     {
        //dd(1);
-        $validator = Validator::make($request->all(), [
-          'name' => 'required|max:25|regex:/^[a-zA-Z ]*$/|max:50',
+        $this->validate($request,[
+          'name' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
           'employee_id'=>'required|max:20',
 
           'contact_number' => 'required|unique:users|max:10|min:10|regex:/^[0-9]{10}$/',
-          'telephone_number'=>'max:20|digits_between:4,15/',
+          'telephone_number'=>'nullable|digits_between:4,15/',
           'username' => 'required|max:20',
           //'password' => 'max:20|required',
           'password' => 'required|min:6',
@@ -126,7 +126,7 @@ class ManageOfficialsController extends Controller
           'line2' => 'nullable|max:100',
           'country' => 'required',
           'comm_mob' => 'required|digits:10',
-          'comm_telephone' => 'required|digits_between:4,15',
+          'comm_telephone' => 'nullable|digits_between:4,15',
         ]);
 
 
@@ -206,12 +206,13 @@ class ManageOfficialsController extends Controller
     {
 
 
-        $this->validate($request, [
-          'name' => 'required|max:25|regex:/^[a-zA-Z ]*$/|max:50',
+        // $this->validate($request, [
+      $validator = Validator::make($request->all(), [
+          'name' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
           'employee_id'=>'required|max:20',
 
           'contact_number' => 'required|max:10|min:10|regex:/^[0-9]{10}$/',
-          'telephone_number'=>'max:20|digits_between:4,15/',
+          'telephone_number'=>'nullable|digits_between:4,15/',
           'username' => 'required|max:20',
           //'password' => 'max:20|required',
           'password' => 'required|min:6',
@@ -228,12 +229,13 @@ class ManageOfficialsController extends Controller
           'line2' => 'nullable|max:100',
           'country' => 'required',
           'comm_mob' => 'required|digits:10',
-          'comm_telephone' => 'required|digits_between:4,15',
+          'comm_telephone' => 'nullable|digits_between:4,15',
 
         ]);
 
-
-
+       if ($validator->fails()) {
+            return redirect()->back()->withInput();
+       }
 
         $employees =  User::find($id);
         $employees->name = $request->input('name');
@@ -241,7 +243,7 @@ class ManageOfficialsController extends Controller
         $employees->employee_id = $request->input('employee_id');
         $employees->email = $request->input('email');
 
-        $employees->mob_number = $request->input('contact_number');
+        $employees->contact_number = $request->input('contact_number');
         $employees->telephone_number = $request->input('telephone_number');
         $employees->username = $request->input('username');
         $employees->password = $request->input('password');
@@ -278,7 +280,7 @@ class ManageOfficialsController extends Controller
             'comm_country' => 'Country',
             'comm_state' => 'State',
             'comm_city' => 'City',
-            'comm_pin_code' => 'Pin Code',
+            'pin_code' => 'Pin Code',
         );
         if(count($pendding)>0)
         {

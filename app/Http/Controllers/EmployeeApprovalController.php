@@ -39,9 +39,33 @@ class EmployeeApprovalController extends Controller
          $employee->update();
          return redirect()->back()->with('updatemsg', 'Rejected Successfully!');
 	}
+     public function newEmployeeApp(Request $request,$tag='')
+    {
+        $approvalstatus_id=$request['selected_status'];
+        $array=explode(',',$approvalstatus_id);
+        if($tag=='Approved'){
+          foreach($array as $id){
+             $employee = User::find($id);
+            $employee->emp_app_status = '1';
+            $employee->update();
+            }         
+            return Redirect::back()->with('success', 'Approved Successfully!');
+          }
+          elseif ($tag=='Rejected') {
+            foreach($array as $id){
+              $employee = User::find($id);
+              $employee->emp_app_status = '2';
+              $employee->update();
+            }
+            return Redirect::back()->with('success', 'Rejected Successfully.');
+        }
+        
+    }
+
+
 	 public function viewexistingemployee()
         {
-          $keys=array('name'=>'Employee Name','email'=>'Email','contact_number'=>'Contact No.','username'=>'User Name','password'=>'Password','role_id'=>'Role','designation'=>'Designation','department_id'=>'Department','line1'=>'Address Line 1','line2'=>'Address Line 2','country'=>'Country','state'=>'State','city'=>'City','pin_code'=>'Pin Code','comm_mob'=>'Communication Number','comm_telephone'=>'Telephones');
+          $keys=array('mob_number'=>'Mobile Number','employee_id'=>'Employee Id','name'=>'Employee Name','email'=>'Email','contact_number'=>'Contact No.','username'=>'User Name','password'=>'Password','role_id'=>'Role','designation'=>'Designation','department_id'=>'Department','line1'=>'Address Line 1','line2'=>'Address Line 2','country'=>'Country','state'=>'State','city'=>'City','pin_code'=>'Pin Code','comm_mob'=>'Communication Number','comm_telephone'=>'Telephones');
             $employeeData = Employeeupdatestatus::whereIn('approve_status',array(0,1,2))->get();
             // $role = Role::all()->pluck('role_name','id')->toArray();
             
@@ -72,10 +96,6 @@ class EmployeeApprovalController extends Controller
                 }
             }
         }
-        
-
-        
-
         //dd($updates->value);
         $user->$keyname = $updates->value;
         $user->update();
@@ -89,9 +109,58 @@ class EmployeeApprovalController extends Controller
     	 $updates = Employeeupdatestatus::find($id);
          $updates->approve_status = '2';
          $updates->update();
-         return redirect('existemployeeclient')->with('updatemsg', 'Rejected Successfully!');
+         return redirect('existemployeeclients')->with('updatemsg', 'Rejected Successfully!');
     }
 
+    public function existsEmployeeApp(Request $request,$tag='')
+    {
+        $approvalstatus_id=$request['selected_status'];
+        $array=explode(',',$approvalstatus_id);
+        if($tag=='Approved'){
+          foreach($array as $id){
+                  $updates = Employeeupdatestatus::find($id);
+
+                  $user = User::find($updates->employee_id);
+
+                  $keyname = $updates->keyname;
+
+                 
+                  if($keyname == 'department_id'){
+
+                    $updates->value = Department::where('depatment_name', $updates->value)->pluck('id');
+                    $updates->value=$updates->value[0];
+                  }
+                   if($keyname == 'state'){
+                    $valueble = $updates->value;
+
+                      $state_list = \App\Common\StateList::get_states();
+                      foreach ($state_list as $key => $value) {
+                        if($value['name'] == $valueble){
+                          $updates->value = $key;
+                          
+                          }
+                      }
+                  }
+                  // dd($keyname);
+                  if($updates->value!=''){
+                  $user->$keyname = @$updates->value;
+                  $user->update();
+                  }
+                  $updates->approve_status = '1';
+                  $updates->update();
+            }         
+            return Redirect::back()->with('success', 'Approved Successfully!');
+          }
+          elseif ($tag=='Rejected') {
+            foreach($array as $id){
+              $updates = Employeeupdatestatus::find($id);
+             $updates->approve_status = '2';
+             $updates->update();
+            }
+            return Redirect::back()->with('success', 'Rejected Successfully.');
+        }
+        
+    }
    
     
 }
