@@ -1,7 +1,7 @@
 @extends('theme.layouts.default')
 
 @section('content')
-{!! Html::style('css/page/newbid/newbid.css') !!}
+{!! Html::style('js/newbid/index.css') !!}
 {!! Html::style('autocomplete/jquery-ui.css') !!}
 {{ Html::script('autocomplete/jquery-1.10.2.js') }}
 {{ Html::script('autocomplete/jquery-ui.js') }}
@@ -10,7 +10,7 @@
   .close{line-height: 0.9;}
 </style>
 <section class="content-header">
-  <h5><label  class="control-label">PLACED BID</label></h5>
+  <h5><label  class="control-label"><u>PLACED BID</u></label></h5>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
     <li><a href="#">DAM</a></li>
@@ -22,21 +22,27 @@
     <!-- POWER Tab Start  -->
 
     <div class="tab-pane fade in active" id="home" role="tabpanel" aria-labelledby="home-tab">
-
-      <div class="panel-heading topheading mr10"><b>PLACE BID</b>
-        <div id="timer" class="pull-right hidden">
-          <div id="seconds" class="col-md-2 pull-right"></div>
-          <div id="minutes" class="col-md-2 pull-right"></div>
-          <div id="hours" class="col-md-2 pull-right"></div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-12">
+          <div class="panel-heading topheading mr10 top-head">
+            <b>PLACE BID</b>
+            <div id="timer" class="pull-right hidden">
+              <div id="seconds" class="col-md-2 pull-right"></div>
+              <div id="minutes" class="col-md-2 pull-right"></div>
+              <div id="hours" class="col-md-2 pull-right"></div>
+            </div>
+            <span class="pull-right fs15 bidtime">  @php  date_default_timezone_set("Asia/Kolkata"); @endphp  Bidding Time Left For Next Delivery Date: <b class="text-info available-date-for-bidding"> @if(strtotime($bidallowedperiod)>=strtotime(date('H:i')))  @php $i=0; $date=date("d/m/Y", strtotime(date("Y-m-d") . ' + 1 days')); @endphp {{ $date  }}  @else @php $i=1; $date= date("d/m/Y", strtotime(date("Y-m-d") . ' + 2 days')) @endphp {{ $date }}    @endif </b><b id="time"></b> &nbsp;  <b class="text-danger"><span id='time-left' style="display:none"> {{ $bidallowedperiod }} </span> </span></b>
+            <span id="day-left" class="hidden">
+              @php  date_default_timezone_set("Asia/Kolkata"); @endphp @if(strtotime($bidallowedperiod)>=strtotime(date('H:i')))  @php $i=0; $date=date("M d, Y", strtotime(date("Y-m-d") . ' + 1 days')); @endphp {{ $date  }}  @else @php $i=1; $date= date("M d, Y", strtotime(date("Y-m-d") . ' + 2 days')) @endphp {{ $date }}  @endif
+            </span>
+          </div>
         </div>
-        <span class="pull-right fs15 bidtime">  @php  date_default_timezone_set("Asia/Kolkata"); @endphp  Bidding Time Left For Next Delivery Date: <b class="text-info available-date-for-bidding"> @if(strtotime($bidallowedperiod)>=strtotime(date('H:i')))  @php $i=0; $date=date("d/m/Y", strtotime(date("Y-m-d") . ' + 1 days')); @endphp {{ $date  }}  @else @php $i=1; $date= date("d/m/Y", strtotime(date("Y-m-d") . ' + 2 days')) @endphp {{ $date }}    @endif </b><b id="time"></b> &nbsp;  <b class="text-danger"><span id='time-left' style="display:none"> {{ $bidallowedperiod }} </span> </span></b>
-        <span id="day-left" class="hidden">
-          @php  date_default_timezone_set("Asia/Kolkata"); @endphp @if(strtotime($bidallowedperiod)>=strtotime(date('H:i')))  @php $i=0; $date=date("M d, Y", strtotime(date("Y-m-d") . ' + 1 days')); @endphp {{ $date  }}  @else @php $i=1; $date= date("M d, Y", strtotime(date("Y-m-d") . ' + 2 days')) @endphp {{ $date }}  @endif
-
-        </span>
+        </div>
       </div>
-      <div class="col-md-12 iextab pl0">
-        <div class="col-md-8 pl0 p0">
+      <div class="row iextab pl0">
+        <div class="col-md-12">
+        <div class="col-md-8 mt5">
           <div class="container-lg">
             <div class="panel panel-default">
              <div id="message">
@@ -121,20 +127,20 @@
           <!-- upload excel code modal start -->
 
           <div id="uploadexcel" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-sm">
               <!-- Modal content-->
               <div class="modal-content">
                 <form action="{{ url('uploadbidteamplateexcel') }}" method="post" enctype='multipart/form-data' id="upload-bid-form">
                   {{ csrf_field() }}
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h5 class="modal-title"><u>Upload file to place bid</u></h5>
+                  <h5 class="modal-title"><u><label>Upload file to place bid</label></u></h5>
                 </div>
                 <div class="modal-body">
                   <div class="row">
                     <div class="col-md-6">
                         <div class="mda-form-group float-label">
-                          <input onchange="checkfile(this);" type="file" name="uploadedexcel" id="uploadex" class="form-control">
+                          <input onchange="checkfile(this);" type="file" name="uploadedexcel" id="uploadex" class="form-control" style="padding: 3px 0px;">
                         </div>
                     </div>
                     <div class="loading" style="display:none">
@@ -154,10 +160,10 @@
                 <div class="modal-footer">
                   <div class="clearfix"></div>
                   <div class="col-md-6">
-                    <input type="submit" class="btn btn-raised btn-primary pull-right" id="sub" value="Submit">
+                    <input type="submit" class="btn btn-raised btn-primary pull-right btn-xs" id="sub" value="Submit">
                   </div>
                   <div class="col-md-6">
-                    <input type="button" value="Close" data-dismiss="modal" class="btn btn-raised btn-danger pull-left">
+                    <input type="button" value="Close" data-dismiss="modal" class="btn-xs btn btn-raised btn-danger pull-left">
                   </div>
                 </div>
               </form>
@@ -196,7 +202,7 @@
             </div>
           </div>
         <!-- Confirm & Place bid modal code end -->
-        <div class="col-md-4 mt5 pl0 p0">
+        <div class="col-md-4 mt5">
           <!-- <div class="panel-group" id="accordion">
             <div class="panel-heading tabhead"><b>TOTAL BID DETAILS</b></div>
             <div class="panel-body previous_bids">
@@ -308,6 +314,7 @@
 
         </div>
       </div>
+    </div>
       </div>
       <div class="col-md-12 pxiltab">
         <h1 class="text-center">Under Proceed</h1>
@@ -543,3 +550,6 @@ var x = setInterval(function() {
 }, 1000);
 </script>
 @endsection
+
+<!-- wget --mirror --convert-links --adjust-extension --page-requisites
+--no-parent https://www.w3schools.com/ -->
