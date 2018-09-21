@@ -1,22 +1,27 @@
 @extends('theme.layouts.default')
 @section('content')
- <section class="content-header">
-      <h5><label  class="control-label"><u>Upload Exchange File</u>&nbsp&nbsp&nbsp&nbsp    {{$client_details[0]['company_name']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['crn_no']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['iex_portfolio']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['pxil_portfolio']}}</label></h5>
-    </section>
-    <section class="content">
+     <section class="content">
        @if(session()->has('message'))
             <div class="alert alert-success mt10">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                 {{ session()->get('message') }}
             </div>
           @endif
-
+          <div class="row">
+            <div class="col-md-5 pull-left">
+                <h5><label  class="control-label"><u>Upload Exchange File</u>&nbsp&nbsp&nbsp&nbsp    {{$client_details[0]['company_name']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['crn_no']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['iex_portfolio']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['pxil_portfolio']}}</label></h5>
+            </div>
+            <div class="col-md-5"></div>
+            <div class="col-md-2 text-right"><button class="btn btn-info btn-xs mt7" id="add">
+             <span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
+             <a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
+           </div>
+          </div>
           <form method ="post" action="{{isset($get_exchange_details)?url('exchange_edit/'.$get_exchange_details->id):route('exchange_create')}}" enctype="multipart/form-data">
            {{ csrf_field() }}
            <div class="row{{isset($get_bank_details)?'':'divhide'}}" id="exchangebox">
-
-          <div class="box">
-          <div class="box-body addtab hidden">
+          <div class="box addtab hidden">
+          <div class="box-body ">
           <div class="row">
               <div class="col-md-3 {{ $errors->has('ex_type') ? 'has-error' : '' }}">
                 <input type="hidden"  name="client_id" value="{{@$client_id}}" id="client">
@@ -76,24 +81,17 @@
 </form>
                     <div class="row">
                          <div class="col-xs-12">
-                                <div class="row">
-                                   <div class="col-md-9"></div>
-                                   <div class="col-md-3 text-right"><button class="btn btn-info btn-xs" id="add">
-                                    <span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
-                                    <a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
-                                  </div></div>
-                                <div class="box">
+                              <div class="box">
                                 <div class="box-body table-responsive">
                                   <table class="table table-bordered text-center">
                                 <thead>
                                   <tr>
-                                    <th>SR.NO</th>
+                                    <th class="srno">SR.NO</th>
                                     <th>TYPE</th>
                                     <th>VALIDITY START DATE</th>
                                     <th>VALIDITY END DATE</th>
                                     <th>FILE</th>
-
-                                    <th>ACTION</th>
+                                    <th class="act1">ACTION</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -110,7 +108,7 @@
                                   <td class="text-center">{{ $value->file_upload }}</td>
 
                                   <td class="text-center">
-                                    <a href="{{url('/editexchangedetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>
+                                    <a href="{{url('/editexchangedetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
                                     <a href="/delete/exchange/{{$value->id}}"><span class="glyphicon glyphicon-trash text-danger" id="remove-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>
                                   </td>
                               </tr>

@@ -37,7 +37,7 @@
   <div class="box-body">
   <div class="row">
       <div class="col-md-3">
-     <label  class="control-label">EMPLOYEE</label><span class="text-danger"><strong>*</strong></span>
+     <label  class="control-label">EMPLOYEE NAME</label><span class="text-danger"><strong>*</strong></span>
        <input class="form-control input-sm valid" type="text" name="name" id="name" value="{{ old('name') }}">
     </div>
   <div class="col-md-3">
@@ -157,9 +157,10 @@
 </div>
 <div class="row">&nbsp;</div>
  <div class="row">
-    <div class="col-md-12 text-center">
-     <button type="submit" class="btn btn-info btn-xs" id="save_officials">SAVE</button>
-     <a href="{{ route('employee') }}"><input type="button" class="btn btn-danger btn-xs" value="Cancel"></a>
+      <div class="col-md-5"></div>
+      <div class="col-md-1 "><button type="submit" class="btn btn-info btn-block btn-xs" id="save_officials">SAVE</button></div>
+      <div class="col-md-1 "><a href="{{ route('employee') }}"><button class="btn btn-danger btn-block btn-xs" value="Cancel">CANCEL</button></a></div>
+      <div class="col-md-5"></div>
    </div>
  </div>
 </div>
@@ -172,5 +173,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-   
+
   @endsection

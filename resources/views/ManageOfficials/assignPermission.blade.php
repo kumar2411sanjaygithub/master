@@ -2,11 +2,11 @@
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h5><label  class="control-label"> ASSIGN PERMISSION</label></h5>
+      <h5><label  class="control-label"> <u>ASSIGN PERMISSION</u></label></h5>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
         <li><a href="#">MANAGE EMPLOYEE</a></li>
-        <li><a href="{{ route('roles.index') }}">ROLE & PERMISSION</a></li>
+        <li><a href="{{ route('roles.index') }}"><u>ROLE & PERMISSION</u></a></li>
       </ol>
     </section>
 
@@ -29,15 +29,15 @@
   <div class="box-body table-responsive">
     <table class="table table-bordered text-center">
   <thead>
-    <th>SR.NO</th>
-    <th>PERMISSION NAME</th>
-    <th>SLUG</th>
-    <th>ADD </br><input type="checkbox" id="add-checkbox"></th>
-    <th>VIEW </br><input type="checkbox" id="view-checkbox"></th>
-    <th>EDIT </br><input type="checkbox" id="edit-checkbox"></th>
-    <th>DELETE </br><input type="checkbox" id="delete-checkbox"></th>
-    <th>VERIFIER </br><input type="checkbox" id="verifier-checkbox"></th>
-    <th>APPROVER </br><input type="checkbox" id="approver-checkbox"></th>
+    <th class="vl">SR.NO</th>
+    <th class="vl">PERMISSION NAME</th>
+    <th class="vl">SLUG</th>
+    <th>ADD </br><input type="checkbox" id="add-checkbox" class="minimal"></th>
+    <th>VIEW </br><input type="checkbox" id="view-checkbox" class="minimal"></th>
+    <th>EDIT </br><input type="checkbox" id="edit-checkbox"  class="minimal"></th>
+    <th>DELETE </br><input type="checkbox" id="delete-checkbox" class="minimal"></th>
+    <th>VERIFIER </br><input type="checkbox" id="verifier-checkbox" class="minimal"></th>
+    <th>APPROVER </br><input type="checkbox" id="approver-checkbox" class="minimal"></th>
   </thead>
   <tbody>
 
@@ -163,5 +163,31 @@
         }
     });
 
+   </script>
+   <script>
+   $(function () {
+       $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+         checkboxClass: 'icheckbox_flat-green',
+         radioClass   : 'iradio_flat-green'
+     })
+     //Red color scheme for iCheck
+     $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+       checkboxClass: 'icheckbox_minimal-red',
+       radioClass   : 'iradio_minimal-red'
+     })
+     //Flat red color scheme for iCheck
+     $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+       checkboxClass: 'icheckbox_flat-blue',
+       radioClass   : 'iradio_flat-blue'
+     })
+
+   })
+
+   $(function () {
+   $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+   checkboxClass: 'icheckbox_flat-green',
+   radioClass   : 'iradio_flat-green'
+   })
+   });
    </script>
 @endsection

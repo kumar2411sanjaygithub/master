@@ -118,7 +118,7 @@
         <table class="table table-bordered text-center">
           <thead class="tablehead">
             <tr>
-              <th class="text-center"><u>S.No</u></th>
+              <th class="text-center "><u>S.No</u></th>
               <th class="text-center"><u>Application From Date</u></th>
               <th class="text-center"><u>Application To Date</u></th>
               <th class="text-center"><u>Region</u></th>
