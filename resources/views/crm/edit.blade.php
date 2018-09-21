@@ -186,9 +186,10 @@
 
 
                <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-md-2">
                      <label  class="control-label"><u>ADDRESS INFORMATION</u></label>   <hr>
                   </div>
+                  <div class="col-md-9"></div>
                   <div class="col-md-1 " style="margin-left:-14px;"><button type="button" class="btn  btn-info btn-xs">LOCATE MAP</button></div>
                </div>
                <div class="row">
