@@ -1,8 +1,10 @@
 <script>
-$(document).ready(function() {
-    $(".num").keydown(function (e) {
+jQuery(document).ready(function() {
+    jQuery(".num").keydown(function (e) {
         // Allow: backspace, delete, tab, escape, enter and .
-        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110,190,187,189,32]) !== -1 ||
+
+        if (jQuery.inArray(e.keyCode, [46, 8, 9, 27, 13, 110,190]) !== -1 ||
+
              // Allow: Ctrl+A, Command+A
             (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
              // Allow: home, end, left, right, down, up

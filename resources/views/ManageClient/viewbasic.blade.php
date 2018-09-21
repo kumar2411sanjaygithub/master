@@ -82,11 +82,11 @@
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER ADDRESS1" name="reg_line1" id="reg_line1" value="{{ $clientdata->reg_line1}}">
+                  <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER ADDRESS LINE-1" name="reg_line1" id="reg_line1" value="{{ $clientdata->reg_line1}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">LINE-2</label>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER ADDRESS2"  name="reg_line2" id="reg_line2" value="{{ $clientdata->reg_line2}}">
+                  <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER ADDRESS  LINE-2"  name="reg_line2" id="reg_line2" value="{{ $clientdata->reg_line2}}">
                </div>
                <div class="col-md-3 {{ $errors->has('reg_country') ? 'has-error' : '' }}">
                   <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
@@ -138,11 +138,11 @@
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label">LINE-1</label>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS1" id="bill_line1" name="bill_line1" value="{{ $clientdata->bill_line1}}">
+                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS LINE-1" id="bill_line1" name="bill_line1" value="{{ $clientdata->bill_line1}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">LINE-2</label>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS2" id="bill_line2" name="bill_line2" value="{{ $clientdata->bill_line2}}">
+                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS LINE-2" id="bill_line2" name="bill_line2" value="{{ $clientdata->bill_line2}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">COUNTRY</label>
@@ -186,7 +186,7 @@
                   <h5><label  class="control-label"><u>DELIVERY ADDRESS</u></label></h5>
                </div>
                <div class="col-md-5">
-                  <input type="checkbox" class="minimal1 disabled-clas" disabled id="saba" style="position:relative; top:3px;">&nbsp<span><label for="saba">SAME AS BILLING ADDRESS</label></span>
+                  <input type="checkbox" class="minimal1 disabled-class" disabled id="saba" style="position:relative; top:3px;">&nbsp<span><label for="saba">SAME AS BILLING ADDRESS</label></span>
                </div>
                <div class="col-md-5"></div>
             </div>
@@ -194,11 +194,11 @@
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label">LINE-1</label>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER ADDRESS1" id="del_lin1" name="del_lin1" value="{{ $clientdata->del_lin1}}">
+                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER ADDRESS LINE-1" id="del_lin1" name="del_lin1" value="{{ $clientdata->del_lin1}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">LINE-2</label>
-                  <input class="form-control input-sm disabled-class"   disabled type="text" placeholder="ENTER ADDRESS2" id="del_lin2" name="del_lin2" value="{{ $clientdata->del_lin2}}">
+                  <input class="form-control input-sm disabled-class"   disabled type="text" placeholder="ENTER ADDRESS LINE-2" id="del_lin2" name="del_lin2" value="{{ $clientdata->del_lin2}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">COUNTRY</label>

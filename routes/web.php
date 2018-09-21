@@ -122,10 +122,72 @@ Route::get('/psm/insufficientpsm',['as'=>'insufficientpsm','uses'=>'PsmdetailsCo
 	 Route::get('/leadproduct-delete/{id}','LeadController@leadproduct_delete');
 	 Route::post('/lead-email-add','LeadController@lead_email_add');
 	 Route::get('/lead-email-delete/{id}','LeadController@lead_email_delete');
-	 Route::resource('discom-sldc-state', 'DiscomSLDCController');
-	 Route::get('/discom-sldc-state/delsldc/{id}/e_del/{eid}','DiscomSLDCController@delsldc');
-	 Route::get('/discom-sldc-state/deldiscom/{id}/e_del/{eid}','DiscomSLDCController@deldiscom');
-	 Route::get('/discom-sldc-state/delvoltage/{id}/e_del/{eid}','DiscomSLDCController@delvoltage');
+
+
+	 /*
+    |--------------------------------------------------------------------------
+    | Action     : Place Bid Routes
+    | Created By : Piyush Kr Shukla <php11@cybuzzsc.com>
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/placebid/{trading}',['as'=>'placebid.index','uses'=>'PlacebidController@index']);
+    Route::post('/placebid/addnewbid/{trading}',['as'=>'placebid.addnewbid','uses'=>'PlacebidController@addnewbid']);
+    Route::post('/placebid/getallbid/{trading}',['as'=>'placebid.getallbid','uses'=>'PlacebidController@getallbid']);
+    Route::get('/placebid/deletebid/{bid_id}',['as'=>'placebid.deletebid','uses'=>'PlacebidController@deletebid']);
+    Route::post('/placebid/deleteallselectedbid',['as'=>'placebid.deleteallselectedbid','uses'=>'PlacebidController@deleteallselectedbid']);
+    Route::post('/placebid/confirmplacebid',['as'=>'placebid.confirmplacebid','uses'=>'PlacebidController@confirmplacebid']);
+    Route::get('/placebid/getbidsubmissiontime/{id}',['as'=>'placebid.getbidsubmissiontime','uses'=>'PlacebidController@getbidsubmissiontime']);
+    Route::post('/placebid/getbiddetailsbybidtype/{trading}',['as'=>'placebid.getbiddetailsbybidtype','uses'=>'PlacebidController@getbiddetailsbybidtype']);
+    Route::get('/placebid/getbiddetailsbyid/{id}',['as'=>'placebid.getbiddetailsbyid','uses'=>'PlacebidController@getbiddetailsbyid']);
+    Route::post('/placebid/updatebiddata/{trading}/{id}',['as'=>'placebid.updatebiddata','uses'=>'PlacebidController@updatebiddata']);
+    Route::post('/placebid/placesimilarearlierdatebid/{trading}',['as'=>'placebid.placesimilarearlierdatebid','uses'=>'PlacebidController@placesimilarearlierdatebid']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Action     : Ajax Search Routes
+    | Created By : Piyush Kr Shukla <php11@cybuzzsc.com>
+    |--------------------------------------------------------------------------
+    */
+    Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'AutoCompleteController@index'));
+    Route::get('searchajax',array('as'=>'searchajax','uses'=>'AutoCompleteController@autoComplete'));
+
+    /*
+    |--------------------------------------------------------------------------
+    | Orderbook Routes
+    | Created By : Piyush Kr Shukla <php11@cybuzzsc.com>
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/power/orderbook',['as'=>'orderbook.orderbook','uses'=>'OrderbookController@orderbook']);
+    Route::post('/orderbook/orderbookdata',['as'=>'orderbook.orderbookdata','uses'=>'OrderbookController@orderbookdata']);
+    Route::get('/orderbook/vieworderdetails/{orderno}/{bid_type}',['as'=>'orderbook.vieworderdetails','uses'=>'OrderbookController@vieworderdetails']);
+    Route::get('/orderbook/downloadExcel/{type}', ['as'=>'orderbook.downloadExcel','uses'=>'OrderbookController@downloadExcel']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Download Bid Routes
+    | Created By : Piyush Kr Shukla <php11@cybuzzsc.com>
+    |--------------------------------------------------------------------------
+    */
+    Route::post('downloadbidteamplateexcel/', ['uses'=>'DownloadbidController@downloadbidtemplateexcel']);
+    Route::post('uploadbidteamplateexcel/', ['uses'=>'DownloadbidController@uploadbidtemplateexcel']);
+    Route::get('/power/downloadbid',['as'=>'downloadbid.downloadbid','uses'=>'DownloadbidController@downloadbid']);
+    Route::get('/downloadbid/downloadbidexcel/{type}/{bid_type}/{order_no}/{date}/{client_id}', ['as'=>'power.orderbook.downloadbidexcel','uses'=>'DownloadbidController@downloadbidexcel']);
+    Route::get('/downloadbidallbids/{date}','DownloadbidController@downloadallbidexcelzip');
+
+    /*******************************************************
+    | Bidplacement Bid Routes
+    | Created By : Piyush Kr Shukla <php11@cybuzzsc.com>
+    /*******************************************************/
+      Route::get('/bidplacement/bidplacement/{id}',['uses'=>'BidRemainderController@client_list']);
+
+      Route::get('/bidplacement/bidplacement',['uses'=>'BidRemainderController@client_list']);
+      Route::get('/bidplacement/mail/{id}',['as'=>'bidplacement.bidmail','uses'=>'EmailController@bidRemainder_mail']);
+      Route::get('/bidplacement/sms/{id}',['as'=>'bidplacement.bidsms','uses'=>'SmsController@bidRemainder_msg']);
+
+    Route::resource('discom-sldc-state', 'DiscomSLDCController');
+    Route::get('/discom-sldc-state/delsldc/{id}/e_del/{eid}','DiscomSLDCController@delsldc');
+    Route::get('/discom-sldc-state/deldiscom/{id}/e_del/{eid}','DiscomSLDCController@deldiscom');
+    Route::get('/discom-sldc-state/delvoltage/{id}/e_del/{eid}','DiscomSLDCController@delvoltage');
 
 // APPROVAL FOR EMPLOYEE---SHALU //
 // Route::get('/employee/newemployeeclient',array('as'=>'approve.newemployee','uses'=>'EmployeeApprovalController@approveemployeeview'));
