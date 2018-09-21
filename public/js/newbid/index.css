@@ -2,11 +2,15 @@ a>.panel-heading{background-color: #f5f5f5;}
 .top-head{background:#d0d0d0; }
 .top-head b{font-size: 13px; color:#2b4235fa;}
 .mda-form-control,.form-group{text-align: left!important;}
+/* .bidtime{font-size:12px;} */
+.p0{padding:0px;}
+.fs12{font-size:12px;}
 .donwload{
   height:44px;
   width: 44px;
   background: url('../../img/assets/download.svg')no-repeat;
 }
+.pt0{padding-top:0px;}
 .donwload:hover{
   height:44px;
   width: 44px;
