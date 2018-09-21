@@ -98,12 +98,14 @@
                                      <td class="text-center">
                                       <a class= "btn btn-info  btn-xs" href = "{{URL('/scheduling/download/'.$scheduling->id)}}"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;Download Actual</a>
                                     </td>
-                                    </td>
+                                   <?php if(count($scheduling->ScheduleDetails) > 0){
+                                    ?>
                                        <td class="text-center">
                                         <a class= "btn btn-primary  btn-xs" href = "{{URL('/scheduling/downloadA/'.$scheduling->id)}}"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;Download Amended</a>
                                     </td>
-                                 
-
+                                  <?php }else{ ?>
+                                  <td class="text-center"></td>
+                                    <?php } ?>
                                     <?php
                                     if($scheduling->mail_status== 0){?>
                                     <td class="text-center">
@@ -113,7 +115,7 @@
                                      <?php } else{ ?>
                                      <td class="text-center">
 
-                                      <a href="{{ URL('service/mailscheduling/'.$scheduling->client_id.'/'.$scheduling->id) }}" id ="foo"><button class= "btn btn-success btn-xs"><span class="glyphicon glyphicon-send"></span>&nbsp;Re-Send</button></a>
+                                      <a href="{{ URL('service/mailscheduling/'.$scheduling->client_id.'/'.$scheduling->id) }}" id ="foo"><button class= "btn btn-success btn-xs"><span class="glyphicon glyphicon-send"></span>&nbsp;Re-Send</a>
                                     </td>
                                      <?php } ?>
                                   </tr>

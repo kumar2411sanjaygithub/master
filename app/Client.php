@@ -36,4 +36,9 @@ class Client extends Authenticatable
         return $this->belongsTo('App\NocBilling','conn_state','state');
     }
 
+     public function place_bid()
+    {
+        return $this->hasMany('App\PlaceBid','client_id','id');
+    }
+
    }

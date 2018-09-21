@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-class ServiseAlert extends Model
+class Servise extends Model
 {
     use SoftDeletes;
-    protected $table = 'services_alert';
+    protected $table = 'service';
     public $fillable = ['*'];
     protected $dates = ['deleted_at'];
 }
