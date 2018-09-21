@@ -163,7 +163,7 @@ class ClientDeatilsController extends Controller
         // }
 
 
-            ]);
+          //  ]);
         $basic = Client::find($basic_id)->toArray();
         $client_id = $basic['id'];
         $datas =array();
