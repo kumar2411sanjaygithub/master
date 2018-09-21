@@ -45,17 +45,17 @@
                   <input class="form-control input-sm  disabled-class" disabled type="text" placeholder="ENTER PAN NUMBER" name="pan" id="pan" value="{{ $clientdata->pan}}">
                </div>
                <div class="col-md-3">
-                  <label  class="control-label">CIN</label>
+                  <label  class="control-label">CIN</label><span class="text-danger"><strong>*</strong></span>
                   <input class="form-control input-sm  disabled-class"  disabled type="text" placeholder="ENTER CIN NUMBER" name="cin" id="cin"value="{{ $clientdata->cin}}">
                </div>
             </div>
             <div class="row">
                <div class="col-md-3">
-                  <label  class="control-label">PRIMARY CONTACT NUMBER</label>
-                  <input class="form-control input-sm disabled-class" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" disabled  value="{{ $clientdata->cin}}">
+                  <label  class="control-label">PRIMARY CONTACT NUMBER</label><span class="text-danger"><strong>*</strong></span>
+                  <input class="form-control input-sm disabled-class num" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" disabled  value="{{ $clientdata->cin}}">
                </div>
                <div class="col-md-3 ">
-                  <label  class="control-label">PRIMARY EMAIL ID</label>
+                  <label  class="control-label">PRIMARY EMAIL ID</label><span class="text-danger"><strong>*</strong></span>
                   <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER PRIMARY MAIL ID"name="email" id="email" value="{{ $clientdata->email}}">
                </div>
                <div class="col-md-3">
@@ -74,7 +74,7 @@
                </div>
                <div class="col-md-3">
                   <label  class="control-label">CRN</label>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER CRN NUMBER" name="crn_no" id="crn_no" value="{{ $clientdata->crn_no}}">
+                  <input class="form-control input-sm" type="text"  disabled placeholder="ENTER CRN NUMBER" name="crn_no" id="crn_no" value="{{ $clientdata->crn_no}}">
                </div>
             </div>
             <h5><label  class="control-label"><u>REGISTERED OFFICE ADDRESS</u></label></h5>
@@ -82,11 +82,11 @@
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled placeholder=".ENTER ADDRESS1" name="reg_line1" id="reg_line1" value="{{ $clientdata->reg_line1}}">
+                  <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER ADDRESS LINE-1" name="reg_line1" id="reg_line1" value="{{ $clientdata->reg_line1}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">LINE-2</label>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER ADDRESS2"  name="reg_line2" id="reg_line2" value="{{ $clientdata->reg_line2}}">
+                  <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER ADDRESS  LINE-2"  name="reg_line2" id="reg_line2" value="{{ $clientdata->reg_line2}}">
                </div>
                <div class="col-md-3 {{ $errors->has('reg_country') ? 'has-error' : '' }}">
                   <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
@@ -113,45 +113,45 @@
                   <input class="form-control input-sm disabled-class"  disabled  type="text" name="reg_city" id="reg_city" value="{{ $clientdata->reg_city}}">
                </div>
                <div class="col-md-3">
-                  <label  class="control-label">PIN CODE</label>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER PIN CODE" id="reg_pin" name="reg_pin" value="{{ $clientdata->reg_pin}}">
+                  <label  class="control-label">PIN CODE</label><span class="text-danger"><strong>*</strong></span>
+                  <input class="form-control input-sm disabled-class num" maxlength="6" type="text"  disabled  placeholder="ENTER PIN CODE" id="reg_pin" name="reg_pin" value="{{ $clientdata->reg_pin}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">MOBILE NUMBER</label><span class="text-danger"><strong>*</strong></span>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER MOBILE NUMBER"  id="reg_mob" name="reg_mob" value="{{ $clientdata->reg_mob}}">
+                  <input class="form-control input-sm disabled-class num" maxlength="10" type="text"  disabled placeholder="ENTER MOBILE NUMBER"  id="reg_mob" name="reg_mob" value="{{ $clientdata->reg_mob}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">TELEPHONE</label>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER TELEPHONE NUMBER" id="reg_telephone" name="reg_telephone" value="{{ $clientdata->reg_telephone}}">
+                  <input class="form-control input-sm disabled-class num" maxlength="15" type="text"  disabled placeholder="ENTER TELEPHONE NUMBER" id="reg_telephone" name="reg_telephone" value="{{ $clientdata->reg_telephone}}">
                </div>
             </div>
             <div class="row">
                <div class="col-md-2">
                   <h5><label  class="control-label"><u>BILLING ADDRESS</u></label></h5>
                </div>
-               <div class="col-md-5" style="margin-top:6px;">
-                  <input type="checkbox" class="minimal">&nbsp<span>SAME AS REGISTERED OFFICE ADDRESS</span>
+               <div class="col-md-5">
+                  <input type="checkbox" class="minimal1 disabled-class" id="saroa" disabled style="position:relative; top:3px;">&nbsp<span><label for="saroa">SAME AS REGISTERED OFFICE ADDRESS</label></span>
                </div>
                <div class="col-md-5"></div>
             </div>
             <hr>
             <div class="row">
                <div class="col-md-3">
-                  <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder=".ENTER ADDRESS1" id="bill_line1" name="bill_line1" value="{{ $clientdata->bill_line1}}">
+                  <label  class="control-label">LINE-1</label>
+                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS LINE-1" id="bill_line1" name="bill_line1" value="{{ $clientdata->bill_line1}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">LINE-2</label>
-                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS2" id="bill_line2" name="bill_line2" value="{{ $clientdata->bill_line2}}">
+                  <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS LINE-2" id="bill_line2" name="bill_line2" value="{{ $clientdata->bill_line2}}">
                </div>
                <div class="col-md-3">
-                  <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
-                  <select class="form-control input-sm disabled-class" style="width: 100%;" id="bill_country" name="bill_country" value="{{ $clientdata->bill_country}}" >
+                  <label  class="control-label">COUNTRY</label>
+                  <select class="form-control input-sm disabled-class" disabled style="width: 100%;" id="bill_country" name="bill_country" value="{{ $clientdata->bill_country}}" >
                      <option value="India">India</option>
                   </select>
                </div>
                <div class="col-md-3">
-                  <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
+                  <label  class="control-label">STATE</label>
                   <select class="form-control input-sm disabled-class"   disabled style="width: 100%;" id="bill_state" name="bill_state" value="{{ $clientdata->bill_state}}">
                      <option value="">PLEASE SELECT</option>
                      <?php
@@ -165,49 +165,49 @@
             </div>
             <div class="row">
                <div class="col-md-3">
-                  <label  class="control-label">CITY</label><span class="text-danger"><strong>*</strong></span>
+                  <label  class="control-label">CITY</label>
                   <input class="form-control input-sm disabled-class"   disabled style="width: 100%;" id="bill_city" name="bill_city" value="{{ $clientdata->bill_city}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">PIN CODE</label>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER PIN CODE" id="bill_pin" name="bill_pin" value="{{ $clientdata->bill_pin}}">
+                  <input class="form-control input-sm disabled-class num" maxlength="6"  disabled type="text" placeholder="ENTER PIN CODE" id="bill_pin" name="bill_pin" value="{{ $clientdata->bill_pin}}">
                </div>
                <div class="col-md-3">
-                  <label  class="control-label">MOBILE NUMBER</label><span class="text-danger"><strong>*</strong></span>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER MOBILE NUMBER" id="bill_mob" name="bill_mob" value="{{ $clientdata->bill_mob}}">
+                  <label  class="control-label">MOBILE NUMBER</label>
+                  <input class="form-control input-sm disabled-class num" maxlength="10"  disabled type="text" placeholder="ENTER MOBILE NUMBER" id="bill_mob" name="bill_mob" value="{{ $clientdata->bill_mob}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">TELEPHONE</label>
-                  <input class="form-control input-sm disabled-class" disabled  type="text" placeholder="ENTER TELEPHONE NUMBER"id="bill_telephone" name="bill_telephone" value="{{ $clientdata->bill_telephone}}">
+                  <input class="form-control input-sm disabled-class num" maxlength="15" disabled  type="text" placeholder="ENTER TELEPHONE NUMBER"id="bill_telephone" name="bill_telephone" value="{{ $clientdata->bill_telephone}}">
                </div>
             </div>
             <div class="row">
                <div class="col-md-2">
                   <h5><label  class="control-label"><u>DELIVERY ADDRESS</u></label></h5>
                </div>
-               <div class="col-md-5" style="margin-top:6px;">
-                  <input type="checkbox" class="minimal">&nbsp<span>SAME AS BILLING ADDRESS</span>
+               <div class="col-md-5">
+                  <input type="checkbox" class="minimal1 disabled-class" disabled id="saba" style="position:relative; top:3px;">&nbsp<span><label for="saba">SAME AS BILLING ADDRESS</label></span>
                </div>
                <div class="col-md-5"></div>
             </div>
             <hr>
             <div class="row">
                <div class="col-md-3">
-                  <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder=".ENTER ADDRESS1" id="del_lin1" name="del_lin1" value="{{ $clientdata->del_lin1}}">
+                  <label  class="control-label">LINE-1</label>
+                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER ADDRESS LINE-1" id="del_lin1" name="del_lin1" value="{{ $clientdata->del_lin1}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">LINE-2</label>
-                  <input class="form-control input-sm disabled-class"   disabled type="text" placeholder="ENTER ADDRESS2" id="del_lin2" name="del_lin2" value="{{ $clientdata->del_lin2}}">
+                  <input class="form-control input-sm disabled-class"   disabled type="text" placeholder="ENTER ADDRESS LINE-2" id="del_lin2" name="del_lin2" value="{{ $clientdata->del_lin2}}">
                </div>
                <div class="col-md-3">
-                  <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
+                  <label  class="control-label">COUNTRY</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="del_country" name="del_country" value="{{ $clientdata->del_country}}">
                      <option value=" ">India</option>
                   </select>
                </div>
                <div class="col-md-3">
-                  <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
+                  <label  class="control-label">STATE</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="del_state" name="del_state" value="{{ $clientdata->del_state}}">
                      <option value=" ">PLEASE SELECT</option>
                      <?php
@@ -226,15 +226,15 @@
                </div>
                <div class="col-md-3">
                   <label  class="control-label">PIN CODE</label>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER PIN CODE" id="del_pin" name="del_pin" value="{{ $clientdata->del_pin}}">
+                  <input class="form-control input-sm disabled-class num" maxlength="6"  disabled type="text" placeholder="ENTER PIN CODE" id="del_pin" name="del_pin" value="{{ $clientdata->del_pin}}">
                </div>
                <div class="col-md-3">
-                  <label  class="control-label">MOBILE NUMBER</label><span  disabled class="text-danger"><strong>*</strong></span>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER MOBILE NUMBER" id="del_mob" name="del_mob" value="{{ $clientdata->del_mob}}">
+                  <label  class="control-label">MOBILE NUMBER</label>
+                  <input class="form-control input-sm disabled-class num" maxlength="10"  disabled type="text" placeholder="ENTER MOBILE NUMBER" id="del_mob" name="del_mob" value="{{ $clientdata->del_mob}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">TELEPHONE</label>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER TELEPHONE NUMBER" id="del_telephone" name="del_telephone" value="{{ $clientdata->del_telephone}}">
+                  <input class="form-control input-sm disabled-class num" maxlength="15"  disabled type="text" placeholder="ENTER TELEPHONE NUMBER" id="del_telephone" name="del_telephone" value="{{ $clientdata->del_telephone}}">
                </div>
             </div>
             <h5><label  class="control-label"><u>EXCHANGE DETAILS</u></label></h5>
@@ -507,6 +507,52 @@
    checkboxClass: 'icheckbox_flat-green',
    radioClass   : 'iradio_flat-green'
    })
+   });
+</script>
+<script type="text/javascript">
+$('input[type="checkbox"]#saroa,.saroa').click(function(){
+     if($("#saroa").prop("checked") == true){
+       $("#bill_line1").val($("#reg_line1").val());
+       $("#bill_line2").val($("#reg_line2").val());
+       $("#bill_country").val($("#reg_country").val());
+       $("#bill_state").val($("#reg_state").val());
+       $("#bill_city").val($("#reg_city").val());
+       $("#bill_pin").val($("#reg_pin").val());
+       $("#bill_mob").val($("#reg_mob").val());
+       $("#bill_telephone").val($("#reg_telephone").val());
+     }
+     else if($("#saroa").prop("checked") == false){
+       $("#bill_line1").val("");
+       $("#bill_line2").val("");
+       $("#bill_country").val("");
+       $("#bill_state").val("");
+       $("#bill_city").val("");
+       $("#bill_pin").val("");
+       $("#bill_mob").val("");
+       $("#bill_telephone").val("");
+     }
+   });
+$('input[type="checkbox"]#saba,.saba').click(function(){
+     if($("#saba").prop("checked") == true){
+       $("#del_lin1").val($("#bill_line1").val());
+       $("#del_lin2").val($("#bill_line2").val());
+       $("#del_country").val($("#bill_country").val());
+       $("#del_state").val($("#bill_state").val());
+       $("#del_city").val($("#bill_city").val());
+       $("#del_pin").val($("#bill_pin").val());
+       $("#del_mob").val($("#bill_mob").val());
+       $("#del_telephone").val($("#bill_telephone").val());
+     }
+     else if($("#saba").prop("checked") == false){
+       $("#del_lin1").val("");
+       $("#del_lin2").val("");
+       $("#del_country").val("");
+       $("#del_state").val("");
+       $("#del_city").val("");
+       $("#del_pin").val("");
+       $("#del_mob").val("");
+       $("#del_telephone").val("");
+     }
    });
 </script>
 @endsection

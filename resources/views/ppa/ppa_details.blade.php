@@ -27,9 +27,9 @@
          <div class="row">
             <div class="col-md-12">
              <select class="" name="client_id" id="select-client" data-live-search="true">
-               <option>Search User</option>
+               <option>Search Client</option>
                 @foreach ($clientData as $key => $value)
-                <option value="{{ $value->id }} {{(old('client')==$value->id)?'selected':''}}"  data-tokens="{{ $value->id }}.{{ $value->id }}.{{ $value->id }};?>" @if(isset($value->id)) @if($value->id==$value->id) selected @endif @endif> [{{$value->company_name}}] [{{$value->short_id}}] [{{$value->crn_no}}]</option>
+                <option value="{{ $value->id }} {{(old('client')==$value->id)?'selected':''}}"  data-tokens="{{ $value->company_name }}.{{ $value->id }}.{{ $value->crn_no }};?>" > [{{$value->company_name}}] [{{$value->short_id}}] [{{$value->crn_no}}]</option>
                @endforeach
 
              </select>

@@ -98,6 +98,7 @@ class PsmdetailsController extends Controller
         "amount"=>"required",
         "issue_date"=>"after:today",
         "expiry_date"=>"required",
+        "expiry_date"=>"required",
       ]);
      //  $var1 = $request['received_date'];
       $chg_received_date = strtr($request['received_date'], '/', '-');
@@ -177,6 +178,11 @@ class PsmdetailsController extends Controller
     }
 
     public function addpsmexposure(Request $request, $id){
+      // $this->validate($request,[
+      //   "psm_amount"=>"required",
+      //   "exposure"=>"required",
+      //   "client_id"=>"required"
+      // ]);
       $psmData = Psmdetails::find($id);
       $psmData->psm_amount = $request['psm_amount'];
       $psmData->exposure_percent = $request['exposure_percent'];

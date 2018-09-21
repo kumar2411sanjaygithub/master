@@ -41,7 +41,7 @@ class ClientDeatilsController extends Controller
             'pan' => 'required|regex:/^[a-zA-Z]{3}[ABCEFGHJLTabcefghjl]{1}[a-zA-Z]{1}\d{4}[a-zA-Z]{1}$/|unique:clients|max:10',
             //'short_id' => 'required|max:15',
             'pri_contact_no'=>'required',
-            'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|min:21|max:21',
+            'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|unique:clients|min:21|max:21',
             'email'=>'required|email||max:81',
             'reg_line1' => 'required|max:100',
             'reg_line2' => 'min:0|max:100',
@@ -121,7 +121,7 @@ class ClientDeatilsController extends Controller
         $client->maxm_withdrawal = $request->input('maxm_withdrawal');
         $client->payment = $request->input('payment');
         $client->obligation = $request->input('obligation');
-			
+
         $client->save();
 
         //$lsatinsertedId = $clien->id;
@@ -136,9 +136,38 @@ class ClientDeatilsController extends Controller
     }
     public function updateclient(Request $request,$basic_id){
 
+        $validator = validator::make($request->all(),[
+
+            'company_name' => 'required|max:100',
+            'gstin' => 'required|regex:/^[0-9]{2}[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z][0-9A-z]{3}$/|unique:clients|max:15',
+            'pan' => 'required|regex:/^[a-zA-Z]{3}[ABCEFGHJLTabcefghjl]{1}[a-zA-Z]{1}\d{4}[a-zA-Z]{1}$/|unique:clients|max:10',
+            //'short_id' => 'required|max:15',
+            'pri_contact_no'=>'required',
+            // 'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|unique:clients|min:21|max:21',
+            'email'=>'required|email||max:81',
+            'reg_line1' => 'required|max:100',
+            'reg_line2' => 'min:0|max:100',
+            'reg_country' => 'required',
+            'reg_state' => 'required',
+            'reg_city' => 'required|regex:/^[A-z]+$/|max:25',
+            'reg_pin' => 'required|regex:/^[1-9][0-9]{5}$/',
+            'reg_mob' => 'required|regex:/^[0-9]{10}$/',
+            'reg_telephone' => 'min:0|max:100',
+            ]);
         $basic = Client::find($basic_id)->toArray();
         $client_id = $basic['id'];
         $datas =array();
+
+				$datas['company_name'] = $basic['company_name'];
+        $datas['gstin'] = $basic['gstin'];
+        $datas['pan'] = $basic['pan'];
+        $datas['pri_contact_no'] = $basic['pri_contact_no'];
+        $datas['email'] = $basic['email'];
+        $datas['short_id'] = $basic['short_id'];
+        $datas['old_sap'] = $basic['old_sap'];
+				$datas['new_sap'] = $basic['new_sap'];
+				$datas['crn_no'] = $basic['crn_no'];
+
         $datas['reg_line1'] = $basic['reg_line1'];
         $datas['reg_line2'] = $basic['reg_line2'];
         $datas['reg_country'] = $basic['reg_country'];
@@ -192,7 +221,15 @@ class ClientDeatilsController extends Controller
         $datas['rt1'] = $basic['rt1'];
 
         $dataArray =array();
-
+				$dataArray['company_name'] = $request->input('company_name');
+        $dataArray['gstin'] = $request->input('gstin');
+        $dataArray['pan'] = $request->input('pan');
+        $dataArray['pri_contact_no'] = $request->input('pri_contact_no');
+        $dataArray['email'] = $request->input('email');
+        $dataArray['short_id'] = $request->input('short_id');
+        $dataArray['old_sap'] = $request->input('old_sap');
+				$dataArray['new_sap'] = $request->input('new_sap');
+				$dataArray['crn_no'] = $request->input('crn_no');
         $dataArray['reg_line1'] = $request->input('reg_line1');
         $dataArray['reg_line2'] = $request->input('reg_line2');
         $dataArray['reg_country'] = $request->input('reg_country');
@@ -249,7 +286,7 @@ class ClientDeatilsController extends Controller
         $this->generateApprovalrequest($result, 'client', $client_id, $basic_id,$datas);
 
         //return redirect()->route('basicdetails')->with('message','Detail added successfully and sent to Approver');
-        return Redirect::back()->with('message', 'User Successfully.');
+        return Redirect::back()->with('message', 'Client updated successfully.');
 
 
     }
@@ -285,19 +322,19 @@ class ClientDeatilsController extends Controller
     public function add_bankdetails(Request $request){
         // dd();
         $this->validate($request, [
-            // 'account_holder_name' => 'required|max:100',
-            'account_number' => 'required|regex:/^[\w-]*$/|max:20',
+             'virtual_account_number' => 'nullable|alpha_num|max:20',
+            'account_number' => 'required|alpha_num|max:20',
             'bank_name' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
             'branch_name' => 'required|regex:/^[a-z\d\-_\s]+$/i|max:50',
             'ifsc' => 'required|regex:/^[A-Za-z]{4}[a-zA-Z0-9]{7}$/|max:11',
         ]);
-        
+
         // if($validator->fails())
         // {
-            
+
         //     return redirect()->back()->withInput($request->input())->withErrors($validator);
         // }
-        
+
         $bankdetail = new BankTemp();
        $bankdetail->client_id = $request->client_id;
         $bankdetail->account_number = $request->input('account_number');

@@ -198,7 +198,7 @@
                               {
                                 if($sk!=key($last_sldc_Element))
                                 {
-                                  echo $sldc_data.',';
+                                  echo $sldc_data.',&nbsp;';
                                 }
                                 else
                                 {
@@ -218,7 +218,7 @@
                               {
                                 if($dk!=key($last_discom_Element))
                                 {
-                                  echo $discom_data.',';
+                                  echo $discom_data.',&nbsp;';
                                 }
                                 else
                                 {
@@ -238,7 +238,7 @@
                               {
                                 if($vk!=key($lastElement))
                                 {
-                                  echo $voltage_data.',';
+                                  echo $voltage_data.',&nbsp;';
                                 }
                                 else
                                 {

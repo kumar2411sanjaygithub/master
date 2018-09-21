@@ -50,7 +50,7 @@
             <div class="row">
               <div class="col-md-3  {{ $errors->has('pri_contact_no') ? 'has-error' : '' }}">
             <label  class="control-label">PRIMARY CONTACT NUMBER</label><span class="text-danger"><strong>*</strong></span>
-              <input class="form-control input-sm" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" value="{{old('pri_contact_no')}}">
+              <input class="form-control input-sm num" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" value="{{old('pri_contact_no')}}">
                <span class="text-danger">{{ $errors->first('pri_contact_no') }}</span>
               </div>
               <div class="col-md-3 {{ $errors->has('email') ? 'has-error' : '' }}">
@@ -82,12 +82,12 @@
             <div class="row">
               <div class="col-md-3 {{ $errors->has('reg_line1') ? 'has-error' : '' }}">
               <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
-              <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS1" name="reg_line1" id="reg_line1" value="{{old('reg_line1')}}">
+              <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-1" name="reg_line1" id="reg_line1" value="{{old('reg_line1')}}">
               <span class="text-danger">{{ $errors->first('reg_line1') }}</span>
               </div>
               <div class="col-md-3">
               <label  class="control-label">LINE-2</label>
-                <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS2"  name="reg_line2" id="reg_line2" value="{{old('reg_line2')}}">
+                <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-2"  name="reg_line2" id="reg_line2" value="{{old('reg_line2')}}">
               </div>
               <div class="col-md-3 {{ $errors->has('reg_country') ? 'has-error' : '' }}">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
@@ -139,17 +139,17 @@
     </div>
 
     <div class="col-md-5" style="margin-top:6px;">
-  <input type="checkbox" id="saroa" class="minimal">&nbsp<span><label for="saroa">SAME AS REGISTERED OFFICE ADDRESS</label></span>
+  <input type="checkbox" id="saroa" class="minimal1">&nbsp<span><label for="saroa">SAME AS REGISTERED OFFICE ADDRESS</label></span>
     </div>   <div class="col-md-5"></div>
   </div><hr>
             <div class="row">
               <div class="col-md-3">
               <label  class="control-label">LINE-1</label>
-              <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS1" id="bill_line1" name="bill_line1" value="{{old('bill_line1')}}">
+              <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-1" id="bill_line1" name="bill_line1" value="{{old('bill_line1')}}">
               </div>
               <div class="col-md-3">
               <label  class="control-label">LINE-2</label>
-                <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS2" id="bill_line2" name="bill_line2">
+                <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-2" id="bill_line2" name="bill_line2">
               </div>
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label>
@@ -201,17 +201,17 @@
         </div>
 
         <div class="col-md-5" style="margin-top:6px;">
-      <input type="checkbox" id="saba" class="minimal">&nbsp<span><label for="saba">SAME AS BILLING ADDRESS</label></span>
+      <input type="checkbox" id="saba" class="minimal1">&nbsp<span><label for="saba">SAME AS BILLING ADDRESS</label></span>
         </div>   <div class="col-md-5"></div>
       </div><hr>
             <div class="row">
               <div class="col-md-3">
               <label  class="control-label">LINE-1</label>
-              <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS1" id="del_lin1" name="del_lin1" value="{{old('del_lin1')}}">
+              <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-1" id="del_lin1" name="del_lin1" value="{{old('del_lin1')}}">
               </div>
               <div class="col-md-3">
               <label  class="control-label">LINE-2</label>
-                <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS2" id="del_lin2" name="del_lin2" value="{{old('del_lin2')}}">
+                <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-2" id="del_lin2" name="del_lin2" value="{{old('del_lin2')}}">
               </div>
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label>

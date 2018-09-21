@@ -19,6 +19,7 @@
 
           <h5><label  class="control-label">LEAD INFORMATION</label></h5><hr>
               <div class="row">
+                <hr>
               <div class="col-md-3 {{ $errors->has('company_name') ? 'has-error' : '' }}">
               <label  class="control-label">COMPANY NAME</label><span class="text-danger"><strong>*</strong></span>
               <input class="form-control input-sm" type="text" placeholder="ENTER COMPANY NAME" id="company_name" name="company_name" value="{{old('company_name')}}">

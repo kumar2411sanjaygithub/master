@@ -22,7 +22,7 @@
           <div class="row">
               <div class="col-md-2">
               <div class="input-group input-group-sm">
-                <input type="text" class="form-control" placeholder="SEARCH" id="input" onkeyup="myFunction()">
+                <input type="text" class="form-control" placeholder="SEARCH" id="search">
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-info btn-flat" name="go" id="go"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
@@ -37,7 +37,7 @@
       <thead>
       <tr>
         <th class="chy"><input type="checkbox"  class="minimal" name="ane1" id="ane1"></th>
-        <th class="srno">SR.No</th>
+        <th class="srno">SR.NO</th>
         <th>EMPLOYEE NAME</th>
         <th>DESIGNATION</th>
         <th>ROLE NAME</th>
@@ -108,27 +108,21 @@
      $('input:checkbox').not(this).prop('checked', this.checked);
  });
     </script>
-    <script>
- function myFunction() {
-  //alert(1);
- var input, filter, table, tr, td, i;
- input = document.getElementById("input");
- filter = input.value.toUpperCase();
- table = document.getElementById("example1");
- tr = table.getElementsByTagName("tr");
- console.log(tr);
- for (i = 0; i < tr.length; i++) {
-   td = tr[i].getElementsByTagName("td")[1];
-   if (td) {
-     if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-       tr[i].style.display = "";
-     } else {
-       tr[i].style.display = "none";
-     }
-   }
- }
-}
-</script>
+  <script>
+   $("#search").keyup(function () {
+       var value = this.value.toLowerCase().trim();
+
+       $("table tr").each(function (index) {
+           if (!index) return;
+           $(this).find("td").each(function () {
+               var id = $(this).text().toLowerCase().trim();
+               var not_found = (id.indexOf(value) == -1);
+               $(this).closest('tr').toggle(!not_found);
+               return not_found;
+           });
+       });
+   });
+ </script>
 <script>
     window.setTimeout(function() {
         $(".alert").fadeTo(500, 0).slideUp(500, function(){

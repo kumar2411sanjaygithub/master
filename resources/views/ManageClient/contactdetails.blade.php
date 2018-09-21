@@ -30,13 +30,12 @@
 
 
           <div class="row">
-            <div class="col-md-5 pull-left">
-                <h5><label  class="control-label"><u>CONTACT DETAILS</u>&nbsp&nbsp &nbsp &nbsp  {{$client_details[0]['company_name']}} &nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp {{$client_details[0]['crn_no']}} &nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp {{$client_details[0]['iex_portfolio']}} &nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp {{$client_details[0]['pxil_portfolio']}}</label></h5>
+            <div class="col-md-6 pull-left">
+                <h5 class="pull-left"><label class="control-label pull-right mt-1"><u>CONTACT DETAILS</u></h5> &nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
             </div>
-            <div class="col-md-5"></div>
-            <div class="col-md-2 pull-right" style="margin-right:-13px;">
-                <button class="btn btn-info btn-xs mt7" id="add"><span class="glyphicon glyphicon-plus"></span>&nbspADD</button>
-                <a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
+            <div class="col-md-6 pull-right">
+                <button class="btn btn-info btn-xs mt7 pull-right" id="add"><span class="glyphicon glyphicon-plus"></span>&nbspADD</button>
+                <a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7 pull-right mr5" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
             </div>
           </div>
 
@@ -55,7 +54,7 @@
     <span class="text-danger">{{ $errors->first('name') }}</span>
       </div>
       <div class="col-md-3 {{ $errors->has('designation') ? 'has-error' : '' }}">
-       <label  class="control-label">DESIGNATION</label>
+       <label  class="control-label">DESIGNATION<span class="text-danger"><strong>*</strong></span></label>
       <input class="form-control input-sm alphanum" type="text" placeholder="ENTER DESIGNATION" id="designation" name="designation" value="{{isset($get_contact_details)?$get_contact_details->designation:old('designation')}}">
       <span class="text-danger">{{ $errors->first('designation') }}</span>
       </div>
@@ -78,7 +77,7 @@
           @else
           <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs" id="save" name="save">SAVE</button></div>
           @endif
-          <div class="col-md-1"><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="Cancel" onclick="myFunction()"></div>
+          <div class="col-md-1"><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="CANCEL" onclick="myFunction()"></div>
         <div class="col-md-5"></div>
       </div>
       </div>
@@ -169,6 +168,7 @@
   function myFunction(){
     //alert(1);
     $('#contactbox').addClass('divhide').removeClass('divshow');
+     $("#add").show();
   }
   </script>
   <script>
