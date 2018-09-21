@@ -374,7 +374,12 @@ Route::get('/scheduling/downloadA/{id}','SchedulingController@downloadAmbSchedul
  Route::post('/multiple-approve/{tag}','ClientApprovalController@multipleApprove');
  Route::post('/new-employee-approve/{tag}','EmployeeApprovalController@newEmployeeApp');
  Route::post('/exists-employee-approve/{tag}','EmployeeApprovalController@existsEmployeeApp');
-
+ Route::post('/client/contact/{tag}','ContactApprovalController@clientContactApp');
+ Route::post('/client/contact/modified/{tag}','ContactApprovalController@clientContactModApp');
+ Route::post('/client/contact/deleted/{tag}','ContactApprovalController@clientContactDelApp');
+ Route::post('/client/{tag}/bank/{bank}','ClientApprovalController@multipleApproveBank');
+ Route::post('/client/back/modified/{tag}','ClientApprovalController@clientBankModApp');
+ Route::post('/client/back/deleted/{tag}','ClientApprovalController@clientBankDelApp');
  /*******************************************************
   IMPORT(DAM)--RATESHEET AND RATESHEET GRAPH
 /*******************************************************/

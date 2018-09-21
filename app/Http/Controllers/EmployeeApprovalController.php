@@ -49,7 +49,7 @@ class EmployeeApprovalController extends Controller
             $employee->emp_app_status = '1';
             $employee->update();
             }         
-            return Redirect::back()->with('success', 'Approved Successfully!');
+            return Redirect::back()->with('updatemsg', 'Approved Successfully!');
           }
           elseif ($tag=='Rejected') {
             foreach($array as $id){
@@ -57,7 +57,7 @@ class EmployeeApprovalController extends Controller
               $employee->emp_app_status = '2';
               $employee->update();
             }
-            return Redirect::back()->with('success', 'Rejected Successfully.');
+            return Redirect::back()->with('updatemsg', 'Rejected Successfully.');
         }
         
     }
@@ -149,7 +149,7 @@ class EmployeeApprovalController extends Controller
                   $updates->approve_status = '1';
                   $updates->update();
             }         
-            return Redirect::back()->with('success', 'Approved Successfully!');
+            return Redirect::back()->with('updatemsg', 'Approved Successfully!');
           }
           elseif ($tag=='Rejected') {
             foreach($array as $id){
@@ -157,7 +157,7 @@ class EmployeeApprovalController extends Controller
              $updates->approve_status = '2';
              $updates->update();
             }
-            return Redirect::back()->with('success', 'Rejected Successfully.');
+            return Redirect::back()->with('updatemsg', 'Rejected Successfully.');
         }
         
     }
