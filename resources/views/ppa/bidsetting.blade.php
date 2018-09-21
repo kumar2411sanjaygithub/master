@@ -13,9 +13,12 @@
    <h5><label  class="control-label"><u>BID SETTING</u></label></h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">PPA & BId Setting</a></li>
-      <li><a href="active"><u>Bid Setting</u></a></li>
+      <li><a href="#">MANAGE CLIENT</a></li>
+      <li><a href="#">DAM</a></li>
+      <li><a href="#">IEX</a></li>
+      <li><a href="#"><u> BID SETTING</u></a></li>
    </ol>
+
 </section>
   <div class="clearfix"></div>
    <!-- <br> -->

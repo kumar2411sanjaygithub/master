@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models;
 //use Illuminate\Database\Eloquent\SoftDeletes;
-class Role extends Model
+class Roles extends \Spatie\Permission\Models\Role 
 {
     //use SoftDeletes;
     protected $table = 'roles';

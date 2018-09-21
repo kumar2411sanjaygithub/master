@@ -11,11 +11,13 @@
 </style>
 <!-- Content Header (Page header) -->
 <section class="content-header">
-   <h5><label  class="control-label"><u>ADD PPA DETAILS</u></label></h5>
+   <h5><label  class="control-label"><u>SEARCH PPA DETAILS</u></label></h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">PPA Details</a></li>
-      <li><a href="#"><u>ADD PPA DETAILS</u></a></li>
+      <li><a href="#">MANAGE CLIENT</a></li>
+      <li><a href="#">DAM</a></li>
+      <li><a href="#">IEX</a></li>
+      <li><a href="#"><u> PPA </u></a></li>
    </ol>
 </section>
 <!-- Main content -->

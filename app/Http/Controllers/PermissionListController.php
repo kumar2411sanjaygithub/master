@@ -44,7 +44,9 @@ class PermissionListController extends Controller
     public function store(Request $request)
     {
         
-
+        $this->validate($request, [
+            'permission_name' => 'required|unique:tbl_permissions,permission_name',
+        ]);
         $permission_exists = DB::table('tbl_permissions')->where('permission_name',$request->permission_name )->first();
 
         if($permission_exists)
@@ -86,7 +88,9 @@ class PermissionListController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        $this->validate($request, [
+            'permission_name' => 'required',
+        ]);
         $permission = PermissionList::find($id);
         $permission->permission_name = request('permission_name');
         $permission->slug = request('slug');
