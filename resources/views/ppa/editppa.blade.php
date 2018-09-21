@@ -6,6 +6,13 @@
 @section('content')
 <section class="content-header">
 <h5><label  class="control-label"><u>EDIT PPA DETAILS</u></label></h5>
+   <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
+      <li><a href="#">MANAGE CLIENT</a></li>
+      <li><a href="#">DAM</a></li>
+      <li><a href="#">IEX</a></li>
+      <li><a href="#"><u> EDIT PPA DETAILS </u></a></li>
+   </ol>
  </section>
  <section class="content">
   <div class="clearfix"></div>

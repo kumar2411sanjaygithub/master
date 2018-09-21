@@ -84,8 +84,8 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                                       <i class="fa fa-calendar"></i>
                                    </div>
                                    <input type="text" autocomplete="off" value="{{old('received_date')}}" class="form-control pull-right input-sm" name="received_date" id="datepicker">
-                                   <span class="text-danger">{{ $errors->first('received_date') }}</span>
                                 </div>
+                                   <span class="text-danger">{{ $errors->first('received_date') }}</span>                                
                              </div>
                              <div class="col-md-3">
                                 <label  class="control-label">DOCUMENT NO.</label>
@@ -105,8 +105,8 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                                       <i class="fa fa-calendar"></i>
                                    </div>
                                    <input type="text" autocomplete="off" disabled="disabled" value="{{old('issue_date')}}" name="issue_date" class="form-control pull-right input-sm" id="issue_date">
-                                   <span class="text-danger">{{ $errors->first('issue_date') }}</span>
                                 </div>
+                                <span class="text-danger">{{ $errors->first('issue_date') }}</span>
                              </div>
                              <div class="col-md-3 {{ $errors->has('expiry_date') ? 'has-error' : '' }}">
                                 <label  class="control-label">EXPIRY DATE</label><span class="text-danger"><strong>*</strong></span>
@@ -115,8 +115,8 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                                       <i class="fa fa-calendar"></i>
                                    </div>
                                    <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{old('expiry_date')}}" name="expiry_date" id="datepicker2">
-                                   <span class="text-danger">{{ $errors->first('expiry_date') }}</span>
                                 </div>
+                                   <span class="text-danger">{{ $errors->first('expiry_date') }}</span>                               
                              </div>
                              <div class="col-md-3">
                                 <label  class="control-label">REVOCABLE DATE</label>

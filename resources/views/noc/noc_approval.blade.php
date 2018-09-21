@@ -51,7 +51,13 @@
           <tr>
             <td>{{$i}}</td>
             <td>{{@$noc_initiated->client->company_name}}</td>
-            <td></td>
+            <td>
+                @if($noc_initiated->exchange_type=='pxil')
+                {{@$noc_initiated->client->pxil_portfolio}}
+                @elseif($noc_initiated->exchange_type=='iex')
+                {{@$noc_initiated->client->iex_portfolio}}
+                @endif
+            </td>
             <td>{{$noc_initiated->application_no}}</td>
             <td>{{date('d/m/Y',strtotime($noc_initiated->start_date))}}</td>
             <td>{{date('d/m/Y',strtotime($noc_initiated->end_date))}}</td>
@@ -133,7 +139,13 @@
           <tr>
             <td>{{$i}}</td>
             <td>{{@$noc_approved->client->company_name}}</td>
-            <td></td>
+            <td> 
+              @if($noc_approved->exchange_type=='pxil')
+                {{@$noc_approved->client->pxil_portfolio}}
+                @elseif($noc_approved->exchange_type=='iex')
+                {{@$noc_approved->client->iex_portfolio}}
+                @endif
+            </td>
             <td>{{$noc_approved->application_no}}</td>
             <td>{{date('d/m/Y',strtotime($noc_approved->start_date))}}</td>
             <td>{{date('d/m/Y',strtotime($noc_approved->end_date))}}</td>
@@ -174,7 +186,13 @@
           <tr>
             <td>{{$i}}</td>
             <td>{{@$noc_rejected->client->company_name}}</td>
-            <td></td>
+            <td>
+                @if($noc_rejected->exchange_type=='pxil')
+                {{@$noc_rejected->client->pxil_portfolio}}
+                @elseif($noc_rejected->exchange_type=='iex')
+                {{@$noc_rejected->client->iex_portfolio}}
+                @endif
+            </td>
             <td>{{$noc_rejected->application_no}}</td>
             <td>{{date('d/m/Y',strtotime($noc_rejected->start_date))}}</td>
             <td>{{date('d/m/Y',strtotime($noc_rejected->end_date))}}</td>
