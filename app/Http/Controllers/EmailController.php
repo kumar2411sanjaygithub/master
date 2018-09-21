@@ -79,7 +79,7 @@ class EmailController extends Controller
 
   public function mail_obligation($client_id,$ftp_id){
      try {
-      $client_mail = Contact::select('email','name')->where('client_id', $client_id)->where('obl_email','yes')->get()->toArray();
+      $client_mail = ServiseAlert::select('email','name')->where('client_id', $client_id)->where('obl_email','yes')->get()->toArray();
       $trader_mail = TraderMail::select('email_cc','email_bcc','mail_from')->get()->toArray();
       $ftp_schedule = FtpFiles::select('filename','filepath')->where('id',$ftp_id)->where('client_id',$client_id)->get()->toArray();
       $pathToAttach = realpath($ftp_schedule[0]['filepath'].'\\'.$ftp_schedule[0]['filename']);
