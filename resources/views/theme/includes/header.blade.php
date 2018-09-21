@@ -16,6 +16,8 @@
    {{ Html::style('dist/css/AdminLTE.min.css') }}
    <!-- AdminLTE Skins. Choose a skin from the css/skins
       folder instead of downloading all of them to reduce the load. -->
+      {{ Html::style('https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css') }}
+      {{ Html::script('https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js') }}
    {{ Html::style('dist/css/skins/_all-skins.min.css') }}
 
     {{ Html::style('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}

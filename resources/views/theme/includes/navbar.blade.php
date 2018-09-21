@@ -232,9 +232,9 @@
                     </span>
                   </a>
                   <ul class="treeview-menu" style="display: none;">
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Place Bid</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Order Book</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Download Bid</a></li>
+                    <li><a href="/placebid/power"><i class="fa fa-circle-o"></i>Place Bid</a></li>
+                    <li><a href="/power/orderbook"><i class="fa fa-circle-o"></i>Order Book</a></li>
+                    <li><a href="/power/downloadbid"><i class="fa fa-circle-o"></i>Download Bid</a></li>
                     <li class="treeview">
                       <a href="#"><i class="fa fa-circle-o"></i> Bid Confirmation
                         <span class="pull-right-container">
@@ -248,7 +248,7 @@
                         <li><a href="#"><i class="fa fa-circle-o"></i>No Bid</a></li>
                       </ul>
                     </li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Bid Placement Reminder</a></li>
+                    <li><a href="/bidplacement/bidplacement"><i class="fa fa-circle-o"></i>Bid Placement Reminder</a></li>
                     <li class="treeview">
                       <a href="#"><i class="fa fa-circle-o"></i> Import
                         <span class="pull-right-container">
