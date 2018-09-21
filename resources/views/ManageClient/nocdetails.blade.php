@@ -25,7 +25,7 @@
                                       <div class="col-md-3 text-right"><a href="{{ route('basic.details') }}"><input type="button"  class="btn btn-info btn-xs" value=" BACK TO LIST"></a>
                                          <button type="button" class="btn btn-info btn-xs" id="add">
                                             <span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button></div>
-                                </div>
+                                          </div>
 
 
       <div class="row">
