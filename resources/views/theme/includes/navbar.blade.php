@@ -258,8 +258,8 @@
                       <ul class="treeview-menu" style="display: none;">
                         <li><a href="{{route('obligation')}}"><i class="fa fa-circle-o"></i>Obligation</a></li>
                         <li><a href="{{route('scheduling')}}"><i class="fa fa-circle-o"></i>Scheduling</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i>Rate Sheet</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i>Rate Sheet Graph</a></li>
+                        <li><a href="{{route('rate_sheet')}}"><i class="fa fa-circle-o"></i>Rate Sheet</a></li>
+                        <li><a href="{{route('rate_sheet_graph')}}"><i class="fa fa-circle-o"></i>Rate Sheet Graph</a></li>
                       </ul>
                     </li>
                     <li class="treeview">
