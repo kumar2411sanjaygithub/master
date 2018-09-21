@@ -95,7 +95,7 @@
         <div class="tab-content navsb1">
         <!-- main bid form start -->
          <div class="tab-pane active" id="home1" role="tabpanel">
-          <div class="form-group">
+          <div class="form-group" style="display: none;">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6  text-center">
               <label class="radio-inline c-radio">
                 <input id="exchange_iex" class="iex_radio checkbox_check1" name="exchange" type="radio" value="yes" checked="checked"><span class="ion-record"></span> IEX
@@ -106,7 +106,7 @@
                 <input id="exchange_pxil" disabled="disabled" name="exchange" class="pxil_radio checkbox_check2" type="radio" value="yes"><span class="ion-record"></span> PXIL
               </label>
             </div>
-          </div><br>
+          </div>
             <!-- <h4>POWER</h4>
             <fieldset> -->
               <!-- <div class="col-md-12">
@@ -125,7 +125,7 @@
                   </div>
                 </div>
               </div> -->
-              <div class="clearfix"></div><br>
+              <!-- <div class="clearfix"></div><br> -->
               <div class="card mb0">
                 <div class="card mb0" id="loading">
                   <div class="card-body">
@@ -136,9 +136,9 @@
                       <div class="col-sm-4">
                         <div class="mda-form-group float-label">
                           <div class="mda-form-control">
-                            <input class="form-control search_text" name="search_text" id="" value="">
+                            <input class="form-control search_text" name="search_text" id="" value="" placeholder="Search Client">
                             <div class="mda-form-control-line"></div>
-                            <label>Search User</label>
+                            <!-- <label>Search User</label> -->
                           </div>
                         </div>
                       </div>

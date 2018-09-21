@@ -154,12 +154,36 @@ Route::get('/psm/insufficientpsm',['as'=>'insufficientpsm','uses'=>'PsmdetailsCo
     /*
     |--------------------------------------------------------------------------
     | Orderbook Routes
+    | Created By : Piyush Kr Shukla <php11@cybuzzsc.com>
     |--------------------------------------------------------------------------
     */
     Route::get('/power/orderbook',['as'=>'orderbook.orderbook','uses'=>'OrderbookController@orderbook']);
     Route::post('/orderbook/orderbookdata',['as'=>'orderbook.orderbookdata','uses'=>'OrderbookController@orderbookdata']);
     Route::get('/orderbook/vieworderdetails/{orderno}/{bid_type}',['as'=>'orderbook.vieworderdetails','uses'=>'OrderbookController@vieworderdetails']);
     Route::get('/orderbook/downloadExcel/{type}', ['as'=>'orderbook.downloadExcel','uses'=>'OrderbookController@downloadExcel']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Download Bid Routes
+    | Created By : Piyush Kr Shukla <php11@cybuzzsc.com>
+    |--------------------------------------------------------------------------
+    */
+    Route::post('downloadbidteamplateexcel/', ['uses'=>'DownloadbidController@downloadbidtemplateexcel']);
+    Route::post('uploadbidteamplateexcel/', ['uses'=>'DownloadbidController@uploadbidtemplateexcel']);
+    Route::get('/power/downloadbid',['as'=>'downloadbid.downloadbid','uses'=>'DownloadbidController@downloadbid']);
+    Route::get('/downloadbid/downloadbidexcel/{type}/{bid_type}/{order_no}/{date}/{client_id}', ['as'=>'power.orderbook.downloadbidexcel','uses'=>'DownloadbidController@downloadbidexcel']);
+    Route::get('/downloadbidallbids/{date}','DownloadbidController@downloadallbidexcelzip');
+
+    /*******************************************************
+    | Bidplacement Bid Routes
+    | Created By : Piyush Kr Shukla <php11@cybuzzsc.com>
+    /*******************************************************/
+      Route::get('/bidplacement/bidplacement/{id}',['uses'=>'BidRemainderController@client_list']);
+
+      Route::get('/bidplacement/bidplacement',['uses'=>'BidRemainderController@client_list']);
+      Route::get('/bidplacement/mail/{id}',['as'=>'bidplacement.bidmail','uses'=>'EmailController@bidRemainder_mail']);
+      Route::get('/bidplacement/sms/{id}',['as'=>'bidplacement.bidsms','uses'=>'SmsController@bidRemainder_msg']);
+
     Route::resource('discom-sldc-state', 'DiscomSLDCController');
     Route::get('/discom-sldc-state/delsldc/{id}/e_del/{eid}','DiscomSLDCController@delsldc');
     Route::get('/discom-sldc-state/deldiscom/{id}/e_del/{eid}','DiscomSLDCController@deldiscom');
