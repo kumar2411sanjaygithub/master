@@ -9,8 +9,8 @@
                <h5><label  class="control-label"><u>SET EMAIL/SMS ALERT</u>&nbsp&nbsp&nbsp&nbsp lakhan pvt. ltd</label></h5>
             </div>
             <div class="col-md-7"></div>
-            <div class="col-md-1 " style="margin-left:-19px;"><a href="/contactdetails/{{$client_id}}" class="btn btn-info btn-xs">
-               </span>&nbsp BACK TO LIST
+            <div class="col-md-1" style="margin-left:-30px;"><a href="/contactdetails/{{$client_id}}" class="btn btn-info btn-xs mt7">
+               </span><span class="glyphicon glyphicon-forward"></span>&nbsp; BACK TO LIST
                </a>
             </div>
          </div>
@@ -81,15 +81,12 @@
                   </tbody>
                </table>
             </div>
-            <div class="row">&nbsp;</div>
             <div class="row">
-               <div class="col-md-5"></div>
-               <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-               <div class="col-md-1"><button type="button" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
-               <div class="col-md-5"></div>
-            </div>
+               <div class="col-md-12">
+                 <div class="text-center"><button type="submit" class="btn btn-info btn-xs">SAVE</button></div>
+               </div>
+          </div>
             <div class="row">&nbsp;</div>
-         </div>
       </div>
    </div>
 </form>

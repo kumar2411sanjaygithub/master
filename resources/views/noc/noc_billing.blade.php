@@ -10,12 +10,10 @@
       </ol>
     </section>
 
-    <!-- Main content -->
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
 
-  <!------------------------------------bank details start--->
    @if (\Session::has('success'))
       <div class="alert alert-success" id="successMessage">
          <ul>
@@ -56,7 +54,7 @@
   </div>
   </div>
     <div class="row">&nbsp;</div>
-<div class="row">
+<div class="row"><hr>
   <div class="col-md-3">
     <label  class="control-label">DISCOM</label>
     <select class="form-control input-sm" style="width: 100%;" name="discom" id="discom">
@@ -77,13 +75,13 @@
        <option value="NO" {{ isset($edit_nocBilling) && $edit_nocBilling->discom_gst_applicabale == 'NO' || old('discom_gst_applicabale')==  'NO'? 'selected="selected"' : '' }}>NO</option>
   </select>
   </div>
-  </div>
-  <div class="row">
+
   <div class="col-md-3">
     <label  class="control-label">CGST AMOUNT</label>
     <input class="form-control input-sm num" type="text" placeholder="VALUE" id="discom_cgst_value" name="discom_cgst_value" value="{{ isset($edit_nocBilling->discom_cgst_value) ? $edit_nocBilling->discom_cgst_value : old('discom_cgst_value') }}">
   </div>
-
+</div>
+<div class="row">
   <div class="col-md-3">
     <label  class="control-label">SGST AMOUNT</label>
     <input class="form-control input-sm num" type="text" placeholder="VALUE" id="discom_sgst_value" name="discom_sgst_value" value="{{ isset($edit_nocBilling->discom_sgst_value) ? $edit_nocBilling->discom_sgst_value : old('discom_sgst_value') }}">
@@ -96,10 +94,9 @@
     <label  class="control-label">IGST AMOUNT</label>
 
     <input class="form-control input-sm num" type="text" placeholder="VALUE" id="discom_igst_value" name="discom_igst_value" value="{{ isset($edit_nocBilling->discom_igst_value) ? $edit_nocBilling->discom_igst_value : old('discom_igst_value') }}">
-  </div>    
   </div>
-
-  <div class="row">&nbsp;</div>
+  </div>
+<hr>
   <div class="row">
     <div class="col-md-3">
       <label  class="control-label">SLDC</label>
@@ -122,13 +119,13 @@
          <option value="NO" {{ isset($edit_nocBilling) && $edit_nocBilling->sldc_gst_applicable == 'NO' || old('sldc_gst_applicable')==  'NO'? 'selected="selected"' : '' }}>NO</option>
     </select>
     </div>
-    </div>
-  <div class="row">
+
     <div class="col-md-3">
       <label  class="control-label">CGST AMOUNT</label>
       <input class="form-control input-sm num" type="text" placeholder="VALUE" id="sldc_cgst_amt" name="sldc_cgst_amt"  value="{{ isset($edit_nocBilling->sldc_cgst_amt) ?$edit_nocBilling->sldc_cgst_amt  : old('sldc_cgst_amt') }}">
-    </div>    
-
+    </div>
+  </div>
+<div class="row">
   <div class="col-md-3">
     <label  class="control-label">SGST AMOUNT</label>
     <input class="form-control input-sm num" type="text" placeholder="VALUE" id="sldc_sgst_amt" name="sldc_sgst_amt" value="{{ isset($edit_nocBilling->sldc_sgst_amt) ? $edit_nocBilling->sldc_sgst_amt : old('sldc_sgst_amt') }}">
@@ -140,7 +137,7 @@
   <div class="col-md-3">
     <label  class="control-label">IGST AMOUNT</label>
     <input class="form-control input-sm num" type="text" placeholder="VALUE" id="sldc_igst_amt" name="sldc_igst_amt" value="{{ isset($edit_nocBilling->sldc_igst_amt) ? $edit_nocBilling->sldc_igst_amt : old('sldc_igst_amt') }}">
-  </div>    
+  </div>
 
   </div>
 
@@ -158,18 +155,16 @@
 </form>
 </div>
 
-
-<!------------new table start--->
 <div class="box">
   <div class="box-body table-responsive">
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>
       <tr>
-        <th rowspan="2" style="width:3%;vertical-align: middle;" >SR.NO</th>
-        <th rowspan="2"  style="vertical-align: middle;">STATE1</th>
+        <th rowspan="2" class="srno vl" >SR.NO</th>
+        <th rowspan="2"  class="vl">STATE1</th>
         <th colspan="7">DISCOM</th>
         <th colspan="7">SDLC</th>
-        <th rowspan="2" style="vertical-align: middle;">ACTION</th>
+        <th rowspan="2" class="act1 vl">ACTION</th>
       </tr>
       <tr>
         <th>NAME</th>
@@ -218,8 +213,8 @@
             <td>{{($nocBilling->sldc_utgst_amt)?$nocBilling->sldc_utgst_amt:'-'}}</td>
             <td>{{($nocBilling->sldc_igst_amt)?$nocBilling->sldc_igst_amt:'-'}}</td>
             <td>
-              <a href="{{ route('noc_billing.nocbillingedit',[$nocBilling->id]) }}"><span class="glyphicon glyphicon-pencil"></span>
-              <a href="" data-toggle="modal" data-target="#deleteData{{ $nocBilling->id }}"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a>
+              <a href="{{ route('noc_billing.nocbillingedit',[$nocBilling->id]) }}"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+              <a href="" data-toggle="modal" data-target="#deleteData{{ $nocBilling->id }}"><span class="glyphicon glyphicon-trash text-danger" ></span></a>
             </td>
             <div id="deleteData{{ $nocBilling
            ->id }}" class="modal fade" role="dialog">
@@ -257,15 +252,11 @@
       </tbody>
       </table>
   </div>
-  <!-- /.box-body -->
+
 </div>
-<!-----------------------------------------modal----------------------------->
 </section>
-    <!-- /.content -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
 <script>
   $(document).ready(function(){
     $('#noc_application_for').on('click', function() {

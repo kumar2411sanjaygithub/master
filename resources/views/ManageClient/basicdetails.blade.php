@@ -14,7 +14,7 @@
         <div class="col-xs-12">
           <div class="row">
                <div class="col-md-11"></div>
-               <div class="col-md-1 " style="margin-left:-18px!important;"><a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs" value=" BACK TO LIST">BACK TO LIST</button></a></div>
+               <div class="col-md-1 " style="margin-left:-29px!important;"><a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a></div>
           </div>
 
 
@@ -50,7 +50,7 @@
             <div class="row">
               <div class="col-md-3  {{ $errors->has('pri_contact_no') ? 'has-error' : '' }}">
             <label  class="control-label">PRIMARY CONTACT NUMBER</label><span class="text-danger"><strong>*</strong></span>
-              <input class="form-control input-sm" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" value="{{old('pri_contact_no')}}">
+              <input class="form-control input-sm num" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" value="{{old('pri_contact_no')}}">
                <span class="text-danger">{{ $errors->first('pri_contact_no') }}</span>
               </div>
               <div class="col-md-3 {{ $errors->has('email') ? 'has-error' : '' }}">
@@ -82,12 +82,12 @@
             <div class="row">
               <div class="col-md-3 {{ $errors->has('reg_line1') ? 'has-error' : '' }}">
               <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
-              <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS1" name="reg_line1" id="reg_line1" value="{{old('reg_line1')}}">
+              <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-1" name="reg_line1" id="reg_line1" value="{{old('reg_line1')}}">
               <span class="text-danger">{{ $errors->first('reg_line1') }}</span>
               </div>
               <div class="col-md-3">
               <label  class="control-label">LINE-2</label>
-                <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS2"  name="reg_line2" id="reg_line2" value="{{old('reg_line2')}}">
+                <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-2"  name="reg_line2" id="reg_line2" value="{{old('reg_line2')}}">
               </div>
               <div class="col-md-3 {{ $errors->has('reg_country') ? 'has-error' : '' }}">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
@@ -145,11 +145,11 @@
             <div class="row">
               <div class="col-md-3">
               <label  class="control-label">LINE-1</label>
-              <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS1" id="bill_line1" name="bill_line1" value="{{old('bill_line1')}}">
+              <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-1" id="bill_line1" name="bill_line1" value="{{old('bill_line1')}}">
               </div>
               <div class="col-md-3">
               <label  class="control-label">LINE-2</label>
-                <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS2" id="bill_line2" name="bill_line2">
+                <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-2" id="bill_line2" name="bill_line2">
               </div>
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label>
@@ -207,11 +207,11 @@
             <div class="row">
               <div class="col-md-3">
               <label  class="control-label">LINE-1</label>
-              <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS1" id="del_lin1" name="del_lin1" value="{{old('del_lin1')}}">
+              <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-1" id="del_lin1" name="del_lin1" value="{{old('del_lin1')}}">
               </div>
               <div class="col-md-3">
               <label  class="control-label">LINE-2</label>
-                <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS2" id="del_lin2" name="del_lin2" value="{{old('del_lin2')}}">
+                <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-2" id="del_lin2" name="del_lin2" value="{{old('del_lin2')}}">
               </div>
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label>
@@ -382,26 +382,26 @@
               <div class="form-group">
                 <div class="col-md-1 " style="margin-left:-6px;">
                     <input type="checkbox" class="flat-red pull-left" id="inter_discom" name="inter_discom" value="{{old('inter_discom')}}"></div>
-                      <div class="col-md-3" style="margin-left:-7px;">DISCOM
+                      <div class="col-md-3" style="margin-left:-7px;"><label for="inter_discom">DISCOM</label>
                   </div>
                 <div class="col-md-1 "  style="margin-left:-6px;">
                     <input type="checkbox" class="flat-red" id="inter_stu" name="inter_stu" value="{{old('inter_stu')}}"></div>
-                    <div class="col-md-1" style="margin-left:-7px;">STU
+                    <div class="col-md-1" style="margin-left:-7px;"><label for="inter_stu">STU</label>
                 </div>
                <div class="col-md-1">
                      <input type="checkbox" class="flat-red" id="inter_poc" name="inter_poc" value="{{old('inter_poc')}}">
                 </div>
-                   <div class="col-md-5" style="width:30%;margin-left:-5px;">POC/CTU</div>
+                   <div class="col-md-5" style="width:30%;margin-left:-5px;"><label for="inter_poc">POC/CTU</label></div>
                 </div>
               </div>
               <div class="col-md-3">
             <label  class="control-label">DOES BELONG TO COMMON FEEDER?</label>
             <div class="form-group">
               <div class="col-md-6 pull-left">
-                  <input type="radio" class="flat-red" name="rt" id="rt">&nbsp&nbspYES
+                  <input type="radio" class="flat-red" name="rt" id="rt">&nbsp&nbsp<label for="rt">YES</label>
               </div>
              <div class="col-md-6 pull-Left">
-                   <input type="radio" class="flat-red" name="rt" id="rt1">&nbsp&nbspNO
+                   <input type="radio" class="flat-red" name="rt" id="rt1">&nbsp&nbsp<label for="rt1">NO</label>
               </div>
             </div>
               </div>
@@ -501,8 +501,8 @@
 <script>
 $(function () {
     $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-    checkboxClass: 'icheckbox_minimal-blue',
-    radioClass   : 'iradio_minimal-blue'
+      checkboxClass: 'icheckbox_flat-green',
+      radioClass   : 'iradio_flat-green'
   })
   //Red color scheme for iCheck
   $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({

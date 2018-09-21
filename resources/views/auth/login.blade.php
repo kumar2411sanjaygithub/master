@@ -16,12 +16,9 @@
    </div>
    @if (count($errors) > 0)
    <div class="alert alert-danger">
-      <strong>Whoops!</strong> There were problems with input:
-      <ul>
-         @foreach ($errors->all() as $error)
-         <li>{{ $error }}</li>
-         @endforeach
-      </ul>
+      @foreach ($errors->all() as $error)
+         <span class="glyphicon glyphicon-alert"></span>  {{ $error }}
+      @endforeach
    </div>
    @endif
    @if (\Session::has('error'))

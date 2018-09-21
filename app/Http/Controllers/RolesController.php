@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Spatie\Permission\Models\Role;
+//use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -12,6 +12,7 @@ use App\Http\Requests\Admin\UpdateRolesRequest;
 use App\Department;
 use Illuminate\Support\Facades\Auth;
 use App\PermissionList;
+use App\Role;
 
 class RolesController extends Controller
 {

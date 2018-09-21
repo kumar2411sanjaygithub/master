@@ -2,23 +2,32 @@
 .fs14{font-size:14px;}
 .fs15{font-size:15px;}
 .mt10{margin-top:10px;}
-.mt5{margin-top:5px;}
-.mt3{margin-top:3px;}
+.mt5{margin-top:5px!important;}
+.mb5{margin-bottom:5px!important;}
+.mt3{margin-top:3px!important;}
 .mb10{margin-bottom:10px;}
 .mb5{margin-bottom:5px;}
 .glyphicon-trash{color:red;}
 .glyphicon-eye-open{color:blue;}
+.mt7{margin-top:7px;}
 .chy
 {
   width:2%;
 }
+.mr5{margin-right:5px!important;}
+.mt-1{margin-top:-1px!important;}
+.btn{text-transform: uppercase;}
 .srno
 {
-  width:5%;
+  width:4%;
 }
 .act
 {
   width:12%!important;
+}
+.act1
+{
+    width:6%!important;
 }
 .mlt
 {

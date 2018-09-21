@@ -34,7 +34,7 @@
           </ul>
       </div>
   @endif
-       
+
           <form method="post" action="{{ url('/lead/'.$leads->id) }}">
             {{csrf_field()}}
             {{method_field('PATCH')}}
@@ -187,11 +187,12 @@
 
                <div class="row">
                   <div class="col-md-2">
-                     <label  class="control-label"><u>ADDRESS INFORMATION</u></label>   <hr>
+                     <label  class="control-label"><u>ADDRESS INFORMATION</u></label>
                   </div>
                   <div class="col-md-9"></div>
                   <div class="col-md-1 " style="margin-left:-14px;"><button type="button" class="btn  btn-info btn-xs">LOCATE MAP</button></div>
                </div>
+               <hr>
                <div class="row">
                   <div class="col-md-3 {{ $errors->has('add_line1') ? 'has-error' : '' }}">
                      <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
@@ -247,7 +248,7 @@
             </div>
             <div class="row">
                <div class="col-md-5"></div>
-                <div class="col-md-1"><a href="#" class="btn btn-block btn-info btn-xs enable_edit" id="enable_edit" name="">EDIT</a></div>
+                <div class="col-md-1"  id="enable_edit"><a href="#" class="btn btn-block btn-info btn-xs enable_edit" name="">EDIT</a></div>
                <div class="col-md-1 saveButton" style="display: none;"><button type="submit" class="btn btn-block btn-success btn-xs">UPDATE</button></div>
                @if(!isset($getcrn_info))
                <div class="col-md-1"><a href="{{url('lead/genearet/'.$leads->id.'/crn/'.$leads->product)}}" class="btn btn-block btn-default btn-xs" name="">CONVERT</a></div>
@@ -259,7 +260,7 @@
             <div class="row">&nbsp;</div>
          </div>
        </form>
-      
+
          <div class="row">
             <div class="col-md-1"><label  class="control-label"><u>ACTIVITIES</u></label></div>
             <div class="col-md-10"></div>

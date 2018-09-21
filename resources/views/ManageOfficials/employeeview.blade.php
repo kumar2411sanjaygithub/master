@@ -3,11 +3,11 @@
 
     <!-- Content Header (Page header) -->
     <section class="content-header">
-    <h5><label  class="control-label">EMPLOYEE LIST</label></h5>
+    <h5><label  class="control-label"><u>EMPLOYEE LIST</u></label></h5>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
         <li><a href="#">MANAGE EMPLOYEE</a></li>
-        <li><a href="active">EMPLOYEE</a></li>
+        <li><a href="active"><u>EMPLOYEE</u></a></li>
       </ol>
     </section>
 
@@ -55,13 +55,13 @@
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>
       <tr>
-        <th>SR.NO</th>
+        <th class="srno">SR.NO</th>
         <th>EMPLOYEE NAME</th>
         <th>DESIGNATION</th>
         <th>ROLE NAME</th>
         <th>DEPARTMENT</th>
         <th>CREATED DATE</th>
-        <th>ACTION</th>
+        <th class="act">ACTION</th>
       </tr>
       </thead>
 
@@ -80,9 +80,9 @@
                                 <td class="text-center">{{ @date('d/m/Y',strtotime($value->created_at)) }}</td>
                                 <td class="text-center">
                                   <a href="/manageofficials/viewoneoffiicals/{{ $value->id }}"><span class="glyphicon glyphicon-eye-open" officials_detail_id="{{ $value->id }}"></span></a>
-                                  &nbsp;&nbsp;&nbsp;
+                                  &nbsp;&nbsp;&nbsp;&nbsp;
                                   <a href="/manageofficials/editofficials/{{ $value->id }}"> <span class="glyphicon glyphicon-pencil" officials_detail_id="{{ $value->id }}"></span></a>
-                                  &nbsp;&nbsp;&nbsp;
+                                  &nbsp;&nbsp;&nbsp;&nbsp;
                                   <a href="/manageofficials/deleteofficialsdetail/{{ $value->id }}">
                                       <span class="glyphicon glyphicon-trash" id="remove-detail" officials_detail_id="{{ $value->id }}"></span></a>
                                 </td>

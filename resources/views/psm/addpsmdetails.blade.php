@@ -14,14 +14,14 @@ a.disabled {
 span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
 </style>
 <section class="content-header">
-   <h5 class="hid">
+   <h5 class="hid @if($errors->isEmpty()) @else hidden  @endif">
       <label  class="control-label"><u>Payment Security Mechanism(PSM) Details</u></label>
       &nbsp; {{@$clientData->company_name}}<span class="hifan">|</span>{{@$clientData->crn_no}}<span class="hifan">|</span>{{@$clientData->iex_portfolio}}<span class="hifan">|</span>{{@$clientData->pxil_portfolio}}
    </h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">PSM Details</a></li>
-      <li><a href="{{ route('psmdetials') }}">PSM Search Client</a></li>
+      <li><a href="{{ route('basic.details') }}">PSM Search Client</a></li>
       <li><a href="#" class="active">PSM Add</a></li>
    </ol>
 </section>
@@ -56,12 +56,13 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
 
       <div class="row">
          <div class="col-xs-12">
-           <form method="post" enctype="multipart/form-data" action="{{ url('psm/psmdetails/'.$id) }}" class="apd hidden">
+           <form method="post" enctype="multipart/form-data" action="{{ url('psm/psmdetails/'.$id) }}" class="apd @if($errors->isEmpty())hidden @else  @endif">
              {{ csrf_field()}}
             <section class="content-header">
               <span style="margin-left:-12px;"><label  class="control-label"><u>ADD PSM DETAILS</u></label></span> &nbsp; &nbsp; {{@$clientData->company_name}}<span class="hifan">|</span>{{@$clientData->crn_no}}<span class="hifan">|</span>{{@$clientData->iex_portfolio}}<span class="hifan">|</span>{{@$clientData->pxil_portfolio}}
             </section>
-                      <div class="row">
+            <br>
+            <div class="row">
                  <div class="col-xs-12">
                     <div class="box">
                        <div class="box-body">
@@ -143,7 +144,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                           <div class="row">
                              <div class="col-md-5"></div>
                              <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                             <div class="col-md-1"><button type="button" id="cancel1" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
+                             <div class="col-md-1"><button type="button" id="cancel1" class="btn btn-block btn-danger btn-xs cancel">CANCEL</button></div>
                              <div class="col-md-5"></div>
                           </div>
                        </div>
@@ -162,7 +163,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                </div>
                <div class="col-md-8"></div>
                <div class="col-md-2">
-                  <a class="btn btn-info btn-xs pull-right apdbtn hid">
+                  <a class="btn btn-info btn-xs pull-right apdbtn hid @if($errors->isEmpty()) @else hidden  @endif">
                   <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PSM</a>
                </div>
             </div>
@@ -171,7 +172,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                   <table id="example1" class="table table-bordered table-striped table-hover text-center">
                      <thead>
                         <tr>
-                           <th>SR.NO</th>
+                           <th class="srno">SR.NO</th>
                            <th>Type</th>
                            <th>RECVIED DATE</th>
                            <th>AMOUNT</th>
@@ -181,12 +182,12 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                            <th>REVOCABLE DATE</th>
                            <th>FILE</th>
                            <th>DESCRIPTION</th>
-                           <th>ACTION</th>
+                           <th class="act1">ACTION</th>
                         </tr>
                      </thead>
                      <tbody>
                        <?php $i=1; ?>
-                       @foreach($psmData as $key => $value)
+                       @forelse($psmData as $key => $value)
                         <tr>
                            <td>{{ $i}}</td>
                            <td>
@@ -209,19 +210,30 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                            <td><a href="{{url('documents/psm/'.$value->document)}}" download="download">{{$value->document}}</a></td>
                            <td>{{$value->description}}</td>
                            <td>
-                             <a href="/editpsmdetails/{{$value->id}}/{{$value->client_id}}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp
+                             <a href="/editpsmdetails/{{$value->id}}/{{$value->client_id}}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
                              <a href="/deletepsmdetails/{{$value->id}}" class="text-danger"><span class="glyphicon glyphicon-trash "></span></a>
                            </td>
                         </tr>
                           <?php $i++; ?>
-                        @endforeach
+                        @empty
+                        <tr>
+                          <td colspan="11">Record Not Found</td>
+                        </tr>
+                        @endforelse
                      </tbody>
                   </table>
                   {{ $psmData->links() }}
                </div>
                <!-- /.box-body -->
             </div>
-            <form method="post" enctype="multipart/form-data" action="{{ url('addpsmexposure/'.@$last_id->id)}}" class="aped hidden">
+            @php
+            if(isset($last_id->id)&& $last_id->id!='')
+            {
+              $path=url('addpsmexposure/'.@$last_id->id);
+            }
+
+            @endphp
+            <form method="post" enctype="multipart/form-data" action="{{ @$path}}" class="aped  @if($errors->isEmpty()) hidden @else   @endif">
               {{ csrf_field()}}
             <section class="content-header">
               <span style="margin-left:-12px;"><label  class="control-label"><u>ADD PSM EXPOSURE DETAILS</u></label></span>
@@ -232,19 +244,21 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                   <div class="box">
                      <div class="box-body">
                         <div class="row">
-                          <div class="col-md-3">
+                          <div class="col-md-3 {{ $errors->has('psm_amount') ? 'has-error' : '' }}">
                              <label  class="control-label">PSM Amount</label>
                              <input class="form-control input-sm" readonly value="{{@$last_id->amount}}" name="psm_amount" id="psm_amount" type="text">
+                             <span class="text-danger">{{ $errors->first('exposure_percent') }}</span>
                           </div>
-                           <div class="col-md-3">
+                           <div class="col-md-3 {{ $errors->has('psm_amount') ? 'has-error' : '' }}">
                               <label  class="control-label">Exposure(%)</label>
-                              <input class="form-control input-sm" value="{{@$last_id->exposure_percent}}" name="exposure_percent" id="exposure_percent" type="text" placeholder="Enter Percent">
+                              <input class="form-control input-sm num" value="{{@$last_id->exposure_percent}}" name="exposure_percent" id="exposure_percent" type="text" placeholder="Enter Percent">
+                              <span class="text-danger">{{ $errors->first('exposure_percent') }}</span>
                            </div>
                            <div class="col-md-3">
                               <label  class="control-label">PSM Exposure (Auto-Calculate)</label>
                               <input class="form-control input-sm" value="{{@$last_id->exposure}}" name="exposure" id="exposure" type="text" placeholder="Auto Calculate">
                            </div>
-                           <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" style="margin-top:20px;">SAVE</button></div>
+                           <div class="col-md-1"><button type="submit" @if(empty($path))disabled @endif class="btn btn-block btn-info btn-xs" style="margin-top:20px;">SAVE</button></div>
                            <div class="col-md-1"><input type="reset" class="btn btn-block btn-danger btn-xs" value="CANCEL" id="cancel"  style="margin-top:20px;"></div>
                         </div>
 
@@ -273,17 +287,19 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                   <table id="example2" class="table table-bordered table-striped table-hover text-center">
                      <thead>
                         <tr>
-                           <th>SR.NO</th>
+                           <th class="srno">SR.NO</th>
                            <th>PSM AMOUNT</th>
                            <th>EXPOSURE(%)</th>
+                           <th>PSM EXPOSURE</th>
                            <th>ADDED DATE</th>
-                           <th>ACTION</th>
+                           <th class="act1">ACTION</th>
                         </tr>
                      </thead>
                      <tbody>
                         <tr>
                            <td>1</td>
                            <td>{{isset($last_id->psm_amount)?@$last_id->psm_amount:'-'}}</td>
+                           <td>{{isset($last_id->exposure_percent)?@$last_id->exposure_percent:'-'}}</td>
                            <td>{{isset($last_id->exposure)?@$last_id->exposure:'-'}}</td>
                            <td>{{(isset($last_id->psm_added_date))?@$last_id->psm_added_date:'-'}}</td>
                            <td><a href="/editexposure/{{@$last_id->id}}/{{$clientData->id}}" class="{{ isset($last_id->exposure)? '':'apedbtn disabled'}}"><span class="glyphicon glyphicon-pencil"></span></a></td>
@@ -359,7 +375,7 @@ $(document).ready(function(){
     $(".apedbtn").click(function(){
         $(".aped").removeClass("hidden");
     });
-    $("#cancel").click(function(){
+    $("#cancel,.cancel").click(function(){
       $(".aped").addClass("hidden")
       $(".hid").removeClass("hidden");
 

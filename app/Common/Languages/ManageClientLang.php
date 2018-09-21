@@ -39,7 +39,7 @@ class ManageClientLang
             'connection_type'=>'Connection Type',
             'payment'=>'Payment',
             'discom'=>'Discom',
-            'voltate'=>'Voltage Level',
+            'voltage'=>'Voltage Level',
             'iex_client_name'=> 'Client Iex Name',
             'pxil_client_name'=> 'Client Pxil Name',
             'state_type'=>'State Type',
@@ -103,7 +103,15 @@ class ManageClientLang
             'poc_losses'=>'Poc Losses',
             'discom_losses'=>'Discom Losses',
             'region'=>'Region',
-            'region_entity'=>'Region Entity'
+            'region_entity'=>'Region Entity',
+            'company_name'=> 'Company Name',
+            'gstin'=> 'Gstin',
+            'pan'=> 'Pan',
+            'cin'=> 'Cin',
+            'short_id'=> 'Short Id',
+            'email'=> 'Email',
+            'new_sap'=> 'New Sap',
+            'crn_no'=> 'CRN No'
         );
    }
 }
