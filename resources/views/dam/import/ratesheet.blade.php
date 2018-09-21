@@ -48,16 +48,15 @@
       <tbody>
        <?php $i=1; ?>
            
-            @foreach($date_list as $date)
+            @foreach($date_list as $date=>$fileName)
                 <tr date="{{$date}}" type="IEX">
                   <td class="text-center">{{$i}}</td>
                   <td class="text-center">{{@date('d/m/Y',strtotime($date)) }}</td>
                   <td class="text-center">
-                      <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#upload{{$i}}" date="{{$date}}"><span class="glyphicon glyphicon-upload"></span>&nbsp;UPLOAD</button>
+                      <button type="button" class="btn @if($fileName <> '') btn-success @else btn-warning @endif  btn-xs" data-toggle="modal" data-target="#upload{{$i}}" date="{{$date}}"><span class="glyphicon glyphicon-upload"></span>&nbsp;UPLOAD</button>
                   </td>
-                  <td class="text-center">@php $fileName='rate'.$date.'.'.'csv'; @endphp
-                      
-                      @if(File::exists(storage_path($directory_path['IEX'].$fileName)))
+                  <td class="text-center">
+                      @if($fileName <> '')
                           <a href="{{url('download-ratesheet/'.$fileName)}}" target="_blank"><button type="button" class="btn btn-info btn-xs" file_path="{{$directory_path['IEX'].'/'.$date.'.csv'}}" id="download" date={{$date}}><span class="glyphicon glyphicon-download-alt"></span>&nbsp;DOWNLOAD</button></a>
                       @endif
                   </td>

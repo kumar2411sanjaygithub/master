@@ -28,6 +28,7 @@ use PHPExcel_Chart;
 use PHPExcel_IOFactory;
 use App\Excelgraph;
 use Excel;
+use App\Ratesheetlog;
 
 class RatesheetController extends Controller
 {
@@ -37,10 +38,12 @@ class RatesheetController extends Controller
     	$start = "01";
 		$end = date("d",strtotime("now"));
 		$append=date("-m-Y",strtotime("now"));
+		$prepend=date("Y-m-",strtotime("now"));
 		if(($end==date("t",strtotime("now"))) && (strtotime("now") <= strtotime("12:00:00")))
 		{
 		    $end = date("d",strtotime("now +1 day"));
 		    $append=date("-m-Y",strtotime("now +1 day"));
+		    $prepend=date("Y-m-",strtotime("now +1 day"));
 		}
 		if(strtotime("now") <= strtotime("12:00:00"))
 		{
@@ -48,11 +51,20 @@ class RatesheetController extends Controller
 		}
 		$date = array_map(function($item){ return str_pad($item,2,'0',STR_PAD_LEFT);}, range($start,$end));
 		rsort($date);
-		$date_list = preg_filter('/$/', $append, $date);
+		$rst_log = Ratesheetlog::whereDate('date', 'LIKE', date("Y-m").'-%')->get()->toArray();
+		$date_list = array();
+		foreach($date as $list){
+			$key=null;
+			$key = array_search($prepend.$list, array_column($rst_log, 'date'));
+			if(gettype($key) == "integer"){ 
+				$date_list[$list.$append]=$rst_log[$key]['filename'];
+			}
+			else{ $date_list[$list.$append]=''; }
+		}
+		$date=$rst_log=null;
 		$year = date('Y',strtotime("now"));
         $month = date('m_M',strtotime("now"));
 		$directory_path['IEX'] = 'files/dam/uploads/IEX/ratesheet/';
-		//dd($directory_path['IEX']);
 		$directory_path['PXIL'] = 'files/dam/uploads/PXIL/ratesheet/'.$year.'/'.$month;
        	return view('dam.import.ratesheet',compact('date_list','directory_path'));
     }
@@ -84,12 +96,15 @@ class RatesheetController extends Controller
 
         //$month = date('m_M',strtotime($request->date));
         $ratesheet = 'rate'.$request->date.'.'.request()->fileToUpload->getClientOriginalExtension();
-        // if(file_exists($ratesheet)){
-        // 	$ratesheet = 'rate'.$request->date.'.'.request()->fileToUpload->getClientOriginalExtension();
-        // }
+        $date_ratesheet = Ratesheetlog::where(array('date'=>date('Y-m-d', strtotime($request->date))))->get();
+        if($date_ratesheet->count()>0){
+        	$ratesheet = 'rate'.$request->date.'_'.time().''.request()->fileToUpload->getClientOriginalExtension();
+        	$old_filename = $date_ratesheet[0]->filename;
+        }
 		//$request->fileToUpload->storeAs('storage/files/dam/uploads/IEX/ratesheet',$ratesheet);
 		request()->fileToUpload->move(storage_path('files/dam/uploads/IEX/ratesheet'), $ratesheet); 
 		if($this->import( $ratesheet,$request->date)){
+			@unlink(storage_path('files/dam/uploads/IEX/ratesheet')."/".$old_filename);
 	        return back()
 	            ->with('success','You have successfully uploaded the ratesheet.')
 	            ->with('fileToUpload',$ratesheet);
@@ -110,6 +125,7 @@ class RatesheetController extends Controller
      */
     protected function import($filename,$dt)
     {
+    	$dt=date('Y-m-d',strtotime($dt));
 		$filePath = storage_path('files/dam/uploads/IEX/ratesheet/'. $filename);
 		if(file_exists($filePath))
 		{
@@ -128,7 +144,7 @@ class RatesheetController extends Controller
 			    	$result = false;
 			        for ($i = 1; isset($myArray[0][$i]); $i++) {
 			            $money_clearence = array(
-			            	'date'=>date('Y-m-d',strtotime($dt)),
+			            	'date'=>$dt,
 				            'region'=>trim(str_replace("-Price", "", $myArray[0][$i])), 
 				            'type'=>'IEX', 
 				            'min'=>$myArray[97][$i], 
@@ -148,11 +164,16 @@ class RatesheetController extends Controller
 					            	'entry_by'=>'1'
 				                );
 				            }
-				            $result = \App\MoneyRelationDetails::insert($money_relation_details);
+				             $result = \App\MoneyRelationDetails::insert($money_relation_details);
 				        }
 			        }
+			       
 			    }
 		        if ($result) {
+		            $rsl = Ratesheetlog::firstOrNew(array('date'=>$dt));
+			        $rsl->date = $dt;
+			        $rsl->filename = $filename;
+			        $rsl->save();
 					return true;
 		        } else {
 					return false;
