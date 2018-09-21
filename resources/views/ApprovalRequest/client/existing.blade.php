@@ -31,15 +31,73 @@
                                  <div class="row">
                                     <div class="col-md-2"><label  class="control-label mlt1">BANK DETAILS</label></div>
                                     <div class="col-md-6"></div>
-                                    <div class="col-md-4 text-right"><button type="button" class="btn  btn-info btn-xs" name="cdv4" id="cdv4">APPROVE ALL</button>
-                                       &nbsp&nbsp&nbsp<button type="button" class="btn  btn-danger btn-xs mlt" name="cdn4" id="cdn4">REJECT ALL</button>
+                                    <div class="col-md-4 text-right">
+              @if (count($Addbankdata) > 0)
+                  <form class="pull-right" action="{{ url()->to('/client/Approved/bank/bank_temp') }}" method="post" id="approve_data">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="selected_status" class="selected_status">
+                    <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted" name="cdw5" id="cdw5">APPROVE ALL</button>
+
+                    <a data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info btn-xs">APPROVE ALL</a>
+                  </form>
+                  @endif
+
+                  @if (count($Addbankdata) > 0)
+                  <form class="pull-right" action="{{ url()->to('/client/Rejected/bank/bank_temp') }}" method="post" id="approve_data">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="selected_status" class="selected_status">
+                    <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted-rej" name="cdw5" id="cdw5">REJECT ALL</button>
+
+                    <a data-toggle="modal" data-target="#myModalRej" class="btn btn-danger btn-xs mlt">REJECT ALL</a>
+                  </form>
+                  @endif
+
+                     
+                      <div id="myModal" class="modal fade" style="display: none;">
+                        <div class="modal-dialog modal-confirm">
+                          <div class="modal-content">
+                            <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                              <h4 class="modal-title text-center">ARE YOU SURE?</h4>
+                            </div>
+                            <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                              <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" href="#"   class="btn btn-danger">
+                                <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
+                              </button>        
+                              <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="myModalRej" class="modal fade" style="display: none;">
+                        <div class="modal-dialog modal-confirm">
+                          <div class="modal-content">
+                            <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                              <h4 class="modal-title text-center">ARE YOU SURE?</h4>
+                            </div>
+                            <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                              <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECTED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" href="#"   class="btn btn-danger">
+                                <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rej">Yes</a>
+                              </button>        
+                              <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                                     </div>
                                  </div>
                                  <div class="box-body table-responsive">
                                     <table id="example1" class="table table-bordered table-striped table-hover text-center">
                                        <thead>
                                           <tr>
-                                             <th class="chy"><input type="checkbox"  class="minimal"></th>
+                                             <th class="chy"><input type="checkbox" class="minimal1 deleteallbutton" name="select_all"></th>
                                              <th class="srno">SR.NO</th>
                                              <th>BANK NAME</th>
                                              <th>BRANCH NAME</th>
@@ -57,7 +115,7 @@
                                           @foreach ($Addbankdata as $key => $value)
                                           <tr>
 
-                                               <td class="vl"><input type="checkbox"  class="minimal"></td>
+                                               <td class="vl"><input type="checkbox"  name="select_all" value="{{ $value->id }}" class="minimal1 deletedbutton"></td>
                                                <td class="text-center vl">{{ $i }}</td>
                                                <td class="text-center vl">{{ $value->bank_name }}</td>
                                                <td class="text-center vl">{{ $value->branch_name }}</td>
@@ -83,15 +141,74 @@
                                  <div class="row">
                                     <div class="col-md-2"><label  class="control-label mlt1"> BANK DETAILS</label></div>
                                     <div class="col-md-6"></div>
-                                    <div class="col-md-4 text-right"><button type="button" class="btn  btn-info btn-xs" name="cdq4" id="cdq4">APPROVE ALL</button>
-                                       &nbsp&nbsp&nbsp<button type="button" class="btn  btn-danger btn-xs mlt" name="cdw4" id="cdw4">REJECT ALL</button>
+                                    <div class="col-md-4 text-right">
+        @if (count($bankData) > 0)
+            <form class="pull-right" action="{{ url()->to('client/back/modified/Approved') }}" method="post" id="approve_data">
+              {{ csrf_field() }}
+              <input type="hidden" name="selected_status" class="selected_statusM">
+              <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deletedM" name="cdw5" id="cdw5">APPROVE ALL</button>
+
+              <a data-toggle="modal" data-target="#myModalM" class="btn btn-sm btn-info btn-xs">APPROVE ALL</a>
+            </form>
+            @endif
+
+            @if (count($bankData) > 0)
+            <form class="pull-right" action="{{ url()->to('client/back/modified/Rejected') }}" method="post" id="approve_data">
+              {{ csrf_field() }}
+              <input type="hidden" name="selected_status" class="selected_statusM">
+              <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted-rejM" name="cdw5" id="cdw5">REJECT ALL</button>
+
+              <a data-toggle="modal" data-target="#myModalRejM" class="btn btn-danger btn-xs mlt">REJECT ALL</a>
+            </form>
+            @endif
+
+               
+                <div id="myModalM" class="modal fade" style="display: none;">
+                  <div class="modal-dialog modal-confirm">
+                    <div class="modal-content">
+                      <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                        <h4 class="modal-title text-center">ARE YOU SURE?</h4>
+                      </div>
+                      <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                        <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" href="#"   class="btn btn-danger">
+                          <a href="" style="color:#fff;text-decoration:none" id="delete-button-modalM">Yes</a>
+                        </button>        
+                        <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="myModalRejM" class="modal fade" style="display: none;">
+                  <div class="modal-dialog modal-confirm">
+                    <div class="modal-content">
+                      <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                        <h4 class="modal-title text-center">ARE YOU SURE?</h4>
+                      </div>
+                      <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                        <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECTED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" href="#"   class="btn btn-danger">
+                          <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rejM">Yes</a>
+                        </button>        
+                        <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                                     </div>
                                  </div>
                                  <div class="box-body table-responsive">
                                     <table id="example1" class="table table-bordered table-striped table-hover text-center">
                                        <thead>
                                           <tr>
-                                             <th class="chy"><input type="checkbox"  class="minimal"></th>
+                                             <th class="chy"><input type="checkbox"  class="minimal1 deleteallbuttonM" name="select_allM"></th>
                                              <th class="srno">SR.NO</th>
                                              <th>FIELD NAME</th>
                                              <th>CURRENT VALUE</th>
@@ -109,7 +226,7 @@
                                           @foreach ($bankData as $key => $value)
                                           <tr>
 
-                                                <td class="vl"><input type="checkbox"  class="minimal"></td>
+                                                <td class="vl"><input type="checkbox" class="minimal1 deletedbuttonM" name="select_allM" value="{{ $value->id }}"></td>
                                                <td class="text-center vl">{{ $i }}</td>
                                                <td class="text-center vl">{{ $input_lebels[$value->attribute_name]}}</td>
                                                <td class="text-center vl">{{ $value->old_att_value }}</td>
@@ -135,15 +252,75 @@
                                  <div class="row">
                                     <div class="col-md-2"><label  class="control-label mlt1"> BANK DETAILS</label></div>
                                     <div class="col-md-6"></div>
-                                    <div class="col-md-4 text-right"><button type="button" class="btn  btn-info btn-xs">APPROVE ALL</button>
-                                       &nbsp&nbsp&nbsp<button type="button" class="btn  btn-danger btn-xs mlt">REJECT ALL</button>
+                                    <div class="col-md-4 text-right">
+                                @if (count($deletedbnkData) > 0)
+                                    <form class="pull-right" action="{{ url()->to('client/contact/deleted/Approved') }}" method="post" id="approve_data">
+                                      {{ csrf_field() }}
+                                      <input type="hidden" name="selected_status" class="selected_statusD">
+                                      <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deletedD" name="cdw5" id="cdw5">APPROVE ALL</button>
+
+                                      <a data-toggle="modal" data-target="#myModalD" class="btn btn-sm btn-info btn-xs">APPROVE ALL</a>
+                                    </form>
+                                    @endif
+
+                                    @if (count($deletedbnkData) > 0)
+                                    <form class="pull-right" action="{{ url()->to('client/contact/deleted/Rejected') }}" method="post" id="approve_data">
+                                      {{ csrf_field() }}
+                                      <input type="hidden" name="selected_status" class="selected_statusD">
+                                      <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted-rejD" name="cdw5" id="cdw5">REJECT ALL</button>
+
+                                      <a data-toggle="modal" data-target="#myModalRejD" class="btn btn-danger btn-xs mlt">REJECT ALL</a>
+                                    </form>
+                                    @endif
+
+                                       
+                                        <div id="myModalD" class="modal fade" style="display: none;">
+                                          <div class="modal-dialog modal-confirm">
+                                            <div class="modal-content">
+                                              <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                                                <h4 class="modal-title text-center">ARE YOU SURE?</h4>
+                                              </div>
+                                              <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                                                <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" href="#"   class="btn btn-danger">
+                                                  <a href="" style="color:#fff;text-decoration:none" id="delete-button-modalM">Yes</a>
+                                                </button>        
+                                                <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div id="myModalRejD" class="modal fade" style="display: none;">
+                                          <div class="modal-dialog modal-confirm">
+                                            <div class="modal-content">
+                                              <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                                                <h4 class="modal-title text-center">ARE YOU SURE?</h4>
+                                              </div>
+                                              <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                                                <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECTED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" href="#"   class="btn btn-danger">
+                                                  <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rejM">Yes</a>
+                                                </button>        
+                                                <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                      
                                     </div>
                                  </div>
                                  <div class="box-body table-responsive">
                                     <table id="example1" class="table table-bordered table-striped table-hover text-center">
                                        <thead>
                                           <tr>
-                                              <th class="chy"><input type="checkbox"  class="minimal"></th>
+                                              <th class="chy"><input type="checkbox"  class="minimal1 deleteallbuttonD" name="select_allD"></th>
                                               <th class="srno">SR.NO</th>
                                              <th>BANK NAME</th>
                                              <th>BRANCH NAME</th>
@@ -162,7 +339,7 @@
                                              @foreach ($deletedbnkData as $key => $value)
 
                                              <tr>
-                                               <td class="vl"><input type="checkbox"  class="minimal"></td>
+                                               <td class="vl"><input type="checkbox" class="minimal1 deletedbuttonD" name="select_allD" value="{{ $value->id }}"></td>
                                                <td class="text-center vl">{{ $i }}</td>
                                                <td class="text-center vl">{{ $value->bank_name }}</td>
                                                <td class="text-center vl">{{ $value->branch_name }}</td>
@@ -202,6 +379,142 @@
   </script>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript">
+            $('.deletedbutton').click(function(){
+              var array = [];
+              $('.deletedbutton').each(function(){
+                if($(this).prop('checked')){
+                  array.push($(this).val());
+              }
+              });
+              $('.selected_status').val(array);
+            });
+      $(document).delegate('#delete-button-modal','click',function(){
+        if(!$(".selected_status").val()){
+          alert('please check some status to proceed');
+
+        }else{
+        $(".submit-all-deleted").trigger('click');
+         return false;
+      }
+      });
+      $(document).delegate('#delete-button-modal-rej','click',function(){
+        if(!$(".selected_status").val()){
+          alert('please check some status to proceed');
+
+        }else{
+        $(".submit-all-deleted-rej").trigger('click');
+         return false;
+      }
+      });
+
+            $(".deleteallbutton").click(function(){
+                  if($(this).prop('checked')){
+                    $(".deletedbutton").prop("checked",true);
+                    var array = [];
+                    $('.deletedbutton').each(function(){
+                      if($(this).prop('checked')){
+                        array.push($(this).val());
+                    }
+                    });
+                    $('.selected_status').val(array);
+                  }else{
+                      $('.selected_status').val('');
+                    $(".deletedbutton").prop("checked",false);
+                  }
+            });
+    </script>
+    <script type="text/javascript">
+            $('.deletedbuttonM').click(function(){
+              var array = [];
+              $('.deletedbuttonM').each(function(){
+                if($(this).prop('checked')){
+                  array.push($(this).val());
+              }
+              });
+              $('.selected_statusM').val(array);
+            });
+      $(document).delegate('#delete-button-modalM','click',function(){
+        if(!$(".selected_statusM").val()){
+          alert('please check some status to proceed');
+
+        }else{
+        $(".submit-all-deletedM").trigger('click');
+         return false;
+      }
+      });
+      $(document).delegate('#delete-button-modal-rejM','click',function(){
+        if(!$(".selected_statusM").val()){
+          alert('please check some status to proceed');
+
+        }else{
+        $(".submit-all-deleted-rejM").trigger('click');
+         return false;
+      }
+      });
+
+            $(".deleteallbuttonM").click(function(){
+                  if($(this).prop('checked')){
+                    $(".deletedbuttonM").prop("checked",true);
+                    var array = [];
+                    $('.deletedbuttonM').each(function(){
+                      if($(this).prop('checked')){
+                        array.push($(this).val());
+                    }
+                    });
+                    $('.selected_statusM').val(array);
+                  }else{
+                      $('.selected_statusM').val('');
+                    $(".deletedbuttonM").prop("checked",false);
+                  }
+            });
+    </script>
+    <script type="text/javascript">
+            $('.deletedbuttonD').click(function(){
+              var array = [];
+              $('.deletedbuttonD').each(function(){
+                if($(this).prop('checked')){
+                  array.push($(this).val());
+              }
+              });
+              $('.selected_statusD').val(array);
+            });
+      $(document).delegate('#delete-button-modalD','click',function(){
+        if(!$(".selected_statusD").val()){
+          alert('please check some status to proceed');
+
+        }else{
+        $(".submit-all-deletedD").trigger('click');
+         return false;
+      }
+      });
+      $(document).delegate('#delete-button-modal-rejD','click',function(){
+        if(!$(".selected_statusD").val()){
+          alert('please check some status to proceed');
+
+        }else{
+        $(".submit-all-deleted-rejD").trigger('click');
+         return false;
+      }
+      });
+
+            $(".deleteallbuttonD").click(function(){
+                  if($(this).prop('checked')){
+                    $(".deletedbuttonD").prop("checked",true);
+                    var array = [];
+                    $('.deletedbuttonD').each(function(){
+                      if($(this).prop('checked')){
+                        array.push($(this).val());
+                    }
+                    });
+                    $('.selected_statusD').val(array);
+                  }else{
+                      $('.selected_statusD').val('');
+                    $(".deletedbuttonD").prop("checked",false);
+                  }
+            });
+    </script>
+
   <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
    <script>

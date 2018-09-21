@@ -71,19 +71,23 @@
      <input class="form-control input-sm" type="password" name="confirmed" id="confirmed" value="">
      <span class="text-danger">{{ $errors->first('confirmed') }}</span>
   </div>
-<div class="col-md-3">
-  <label  class="control-label">DEPARTMENT NAME</label>
+<div class="col-md-3 {{ $errors->has('department_id') ? 'has-error' : '' }}">
+  <label  class="control-label">DEPARTMENT NAME<span class="text-danger"><strong>*</strong></span></label>
   <select class="form-control input-sm" name="department_id" id="department_id">
+     <option value="">Select</option>
          @foreach($department as $departmentuser)
-        <option value="{{$departmentuser->id}}">{{$departmentuser->depatment_name}}</option>
+        <option value="{{$departmentuser->id}}">{{$departmentuser->department_id}}</option>
           @endForeach
         </select>
+        <span class="text-danger">{{ $errors->first('role_id') }}</span>
+        
         <div class="mda-form-control-line"></div>
 
    </div>
 <div class="col-md-3 {{ $errors->has('role_id') ? 'has-error' : '' }}">
   <label  class="control-label">ROLE</label><span class="text-danger"><strong>*</strong></span>
   <select class="form-control input-sm" name="role_id" id="role_id" style="width: 100%;">
+    <option value="">Select</option>
      @foreach($role as $roleuser)
         <option value="{{$roleuser->id}}">{{$roleuser->name}}</option>
           @endForeach
