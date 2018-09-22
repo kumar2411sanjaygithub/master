@@ -33,7 +33,7 @@
             {{ (@$role->id!='')?method_field('PATCH'):method_field('POST')}}
   <div class="row">
       <div class="col-md-3 {{ $errors->has('department') ? 'has-error' : '' }}">
-     <label  class="control-label">DEPARTMENT NAME</label>
+     <label  class="control-label">DEPARTMENT NAME<span class="text-danger"><strong>*</strong></span></label>
        <select class="form-control input-sm" name="department">
          <option value="">SELECT DEPARTMENT</option>
          @if(count($department) > 0)
@@ -48,7 +48,7 @@
         <span class="text-danger">{{ $errors->first('department') }}</span>
     </div>
   <div class="col-md-3 {{ $errors->has('name') ? 'has-error' : '' }}">
-    <label  class="control-label">ROLE</label>
+    <label  class="control-label">ROLE<span class="text-danger"><strong>*</strong></span></label>
   <input class="form-control input-sm" type="text" placeholder="ENTER ROLE" name="name" value="{{(isset($role->id)&& $role->name)?$role->name:old('name')}}">
     <span class="text-danger">{{ $errors->first('name') }}</span>
   </div>

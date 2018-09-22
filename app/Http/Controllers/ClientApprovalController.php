@@ -88,6 +88,73 @@ class ClientApprovalController extends Controller
         }
        
     }
+  public function multipleClientstatus($id, $tag)
+    {
+        $approvalstatus_id=$request['selected_status'];
+        $array=explode(',',$approvalstatus_id);
+
+        if($tag=='approve'){
+          foreach($array as $id){
+            $clientData = Client::findOrFail($id);
+
+            // $Clientmaster = new Client();
+            if($clientData->count() > 0){
+                
+                //$clientData->client_app_status = 1;
+                // $Clientmaster->company_name  =  $clientData->company_name;
+                // $Clientmaster->gstin  =  $clientData->gstin;
+                // $Clientmaster->pan           =  $clientData->pan;
+                // $Clientmaster->short_id      =  $clientData->short_id;
+                // $Clientmaster->email    =  $clientData->email;
+                // $Clientmaster->new_sap    =  $clientData->new_sap;
+                $clientData->save();
+                $cid = $clientData->id;
+              
+                $crn_no = 'CRN00000'.$cid;
+
+                //$hasing_password = Hash::make(str_random(10));
+                $password = str_random(10);
+                
+                Client::where('id', $cid)->update(['client_app_status'=>1,'crn_no'=>$crn_no]);
+                
+               $data = array('name'=>$clientData->company_name,'email'=>$crn_no,'password'=>Hash::make($password),'id'=>$cid);
+                Credential::insert($data);
+                $dateName = date('d-M-Y');
+                $client_mail = Client::select('email','company_name')->where('id', $cid)->get()->toArray();
+                
+                $trader_mail = TraderMail::select('email_cc','email_bcc','mail_from')->get()->toArray();
+                $headers  = "MIME-Version: 1.0\r\n";
+                $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+                $clientname = $client_mail[0]['company_name'];
+                //dd($clientname);
+                $out = Mail::send('email.credential',array('crn_no'=>$crn_no,'password'=>$password,'dateName'=> $dateName,'clientname' => $clientname) , function($message) use ($client_mail,$trader_mail,$headers) {
+                foreach ($client_mail as $key => $user) {
+                   $message->to($user['email'], $user['company_name']);
+                 }
+                   $message->subject('CRM Login Details ');
+                     foreach($trader_mail as $key => $email){
+                       $message->cc($email['email_cc']);
+                       $message->bcc($email['email_bcc']);
+                       $message->from($email['mail_from']);
+                     }
+           });
+              }
+                //dd($clientData);
+                return Redirect::back()->with('success', 'User Successfully Approved.');
+                // return view('approvalrequest.client.approved',compact('clientData'));
+            }
+
+        }elseif ($tag=='reject') {
+            foreach($array as $id){
+            Client::where('id', $id)->update(['client_app_status'=>2]);
+          }
+            return Redirect::back()->with('success', 'User Successfully Rejected.');
+        }
+       
+    }
+
+
+
     public function approveexisting(){
         $clientdata = Client::all()->where('client_app_status','1');
 
@@ -101,8 +168,10 @@ class ClientApprovalController extends Controller
         $client_id  =  $user_id;
         $clientData = Approvalrequest::select('id','updated_attribute_value','attribute_name','approval_type','client_id','created_at','old_att_value','updated_by')->where('approval_type','client')->where('client_id',$request['id'])->where('status', 0)->orderBy('created_at','desc')->get();
         $state_data = array_keys(\App\Common\StateList::get_states());
+        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$request['id'])->get();
+
         //dd(array_keys($state_data));
-        return view('ApprovalRequest.client.client_existing',compact('clientData','Addclientdata','deletedclientData','state_data'));
+        return view('ApprovalRequest.client.client_existing',compact('clientData','Addclientdata','deletedclientData','state_data','client_details'));
     }
     public function bankapproval(Request $request)
     {
@@ -110,8 +179,14 @@ class ClientApprovalController extends Controller
         $client_id  =  $user_id;
         $bankData = Approvalrequest::select('id','updated_attribute_value','attribute_name','approval_type','client_id','created_at','old_att_value','updated_by')->where('approval_type','bank')->where('client_id',$request['id'])->where('status', 0)->orderBy('created_at','desc')->get();
         $Addbankdata = BankTemp::select('*')->where('client_id',$request['id'])->where('status', 0)->orderBy('created_at','desc')->get();
+
         $deletedbnkData = Bank::select('*')->where(function($q) { $q->where('del_status',1); })->where('client_id',$request['id'])->orderBy('created_at','desc')->withTrashed()->get();
         return view('ApprovalRequest.client.existing',compact('bankData','Addbankdata','deletedbnkData'));
+
+        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$request['id'])->get();
+
+        return view('ApprovalRequest.client.existing',compact('bankData','Addbankdata','deletedbnkData','client_details'));
+
     }
     
         public function addapprove($id,$type,$type2)

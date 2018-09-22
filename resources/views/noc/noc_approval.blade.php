@@ -17,7 +17,7 @@
              <li>{!! \Session::get('success') !!}</li>
          </ul>
       </div>
-   @endif      
+   @endif
       <section class="content">
          <div class="row">
             <div class="col-xs-12">
@@ -34,20 +34,20 @@
       <table class="table table-bordered text-center">
     <thead>
       <tr>
-        <th>SR.NO</th>
-        <th>CLIENT NAME</th>
-        <th>PORTFOLIO ID</th>
+        <th class="srno">SR.NO</th>
+        <th class="cn">CLIENT NAME</th>
+        <th class="act">PORTFOLIO ID</th>
         <th>APPLICATON NO.</th>
         <th>VALIDITY START DATE</th>
         <th>VALIDITY END DATE</th>
         <th>NOC REQUEST</th>
-        <th>ACTION</th>
+        <th class="act">ACTION</th>
       </tr>
     </thead>
     <tbody>
       @php $i=1; @endphp
       @if (count($noc_for_approval) > 0)
-         @foreach ($noc_for_approval as $k=>$noc_initiated)                  
+         @foreach ($noc_for_approval as $k=>$noc_initiated)
           <tr>
             <td>{{$i}}</td>
             <td>{{@$noc_initiated->client->company_name}}</td>
@@ -64,7 +64,7 @@
             <td>{{isset($noc_initiated->noc_file)?'YES':'NO' }}</td>
             <td>
               <a href="" data-toggle="modal" data-target="#approveData{{ $noc_initiated->id }}" class="btn  btn-info btn-xs">APPROVE</a>
-              <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_initiated->id }}" class="btn  btn-danger btn-xs">REJECT</a>              
+              <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_initiated->id }}" class="btn  btn-danger btn-xs">REJECT</a>
             </td>
             <div id="deleteData{{ $noc_initiated->id }}" class="modal fade" role="dialog">
                <form method="POST"  action="{{url('noc-approval-request/'.$noc_initiated->id.'/status/5')}}">
@@ -85,7 +85,7 @@
                  </div>
                </div>
                </form>
-             </div>  
+             </div>
             <div id="approveData{{ $noc_initiated->id }}" class="modal fade" role="dialog">
                <form method="POST"  action="{{url('noc-approval-request/'.$noc_initiated->id.'/status/2')}}">
                 {{ csrf_field() }}
@@ -105,9 +105,9 @@
                  </div>
                </div>
                </form>
-             </div> 
+             </div>
           </tr>
-            @php $i++; @endphp                                   
+            @php $i++; @endphp
         @endforeach
       @else
         <tr>
@@ -122,24 +122,24 @@
       <table class="table table-bordered text-center">
     <thead>
       <tr>
-        <th>SR.NO</th>
-        <th>CLIENT NAME</th>
-        <th>PORTFOLIO ID</th>
+        <th class="srno">SR.NO</th>
+        <th class="cn">CLIENT NAME</th>
+        <th class="act">PORTFOLIO ID</th>
         <th>APPLICATON NO.</th>
         <th>VALIDITY START DATE</th>
         <th>VALIDITY END DATE</th>
         <th>NOC REQUEST</th>
-        <th>ACTION</th>
+        <th class="act">ACTION</th>
       </tr>
     </thead>
     <tbody>
       @php $i=1; @endphp
       @if (count($approved_noc) > 0)
-         @foreach ($approved_noc as $k=>$noc_approved)                  
+         @foreach ($approved_noc as $k=>$noc_approved)
           <tr>
             <td>{{$i}}</td>
             <td>{{@$noc_approved->client->company_name}}</td>
-            <td> 
+            <td>
               @if($noc_approved->exchange_type=='pxil')
                 {{@$noc_approved->client->pxil_portfolio}}
                 @elseif($noc_approved->exchange_type=='iex')
@@ -154,7 +154,7 @@
               <a href="#" class="btn  btn-info btn-xs">APPROVED</a>
             </td>
           </tr>
-            @php $i++; @endphp                                   
+            @php $i++; @endphp
         @endforeach
       @else
         <tr>
@@ -169,20 +169,20 @@
       <table class="table table-bordered text-center">
     <thead>
       <tr>
-        <th>SR.NO</th>
-        <th>CLIENT NAME</th>
-        <th>PORTFOLIO ID</th>
+        <th class="srno">SR.NO</th>
+        <th class="cn">CLIENT NAME</th>
+        <th class="act">PORTFOLIO ID</th>
         <th>APPLICATON NO.</th>
         <th>VALIDITY START DATE</th>
         <th>VALIDITY END DATE</th>
         <th>NOC REQUEST</th>
-        <th>ACTION</th>
+        <th class="act">ACTION</th>
       </tr>
     </thead>
     <tbody>
       @php $i=1; @endphp
       @if (count($rejected_noc) > 0)
-         @foreach ($rejected_noc as $k=>$noc_rejected)                  
+         @foreach ($rejected_noc as $k=>$noc_rejected)
           <tr>
             <td>{{$i}}</td>
             <td>{{@$noc_rejected->client->company_name}}</td>
@@ -198,10 +198,10 @@
             <td>{{date('d/m/Y',strtotime($noc_rejected->end_date))}}</td>
             <td>{{isset($noc_rejected->noc_file)?'YES':'NO' }}</td>
             <td>
-              <a href="#" data-toggle="modal" data-target="#deleteData" class="btn  btn-danger btn-xs">REJECTED</a>              
+              <a href="#" data-toggle="modal" data-target="#deleteData" class="btn  btn-danger btn-xs">REJECTED</a>
             </td>
           </tr>
-            @php $i++; @endphp                                   
+            @php $i++; @endphp
         @endforeach
       @else
         <tr>

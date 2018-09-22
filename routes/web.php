@@ -380,7 +380,10 @@ Route::get('/scheduling/downloadA/{id}','SchedulingController@downloadAmbSchedul
  Route::post('/client/{tag}/bank/{bank}','ClientApprovalController@multipleApproveBank');
  Route::post('/client/back/modified/{tag}','ClientApprovalController@clientBankModApp');
  Route::post('/client/back/deleted/{tag}','ClientApprovalController@clientBankDelApp');
-  Route::post('/client/exchange/{tag}','ExchangeApprovalController@clientExchangeApp');
+ Route::post('/client/exchange/{tag}','ExchangeApprovalController@clientExchangeApp');
+ Route::post('/client/exchange/modified/{tag}','ExchangeApprovalController@clientExchangeMode');
+ Route::post('/client/exchange/deleted/{tag}','ExchangeApprovalController@clientExchangeDel');
+ Route::post('/new-client-approve/{tag}','ClientApprovalController@multipleClientstatus');
  /*******************************************************
   IMPORT(DAM)--RATESHEET AND RATESHEET GRAPH
 /*******************************************************/

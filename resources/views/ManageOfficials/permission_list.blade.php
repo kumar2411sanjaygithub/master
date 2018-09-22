@@ -19,10 +19,45 @@
          </ul>
       </div>
     @endif
+  <div class="row">
+  <div class="col-xs-12">
+<div class="box adddeportment box @if($errors->isEmpty())hidden @else  @endif">
+  <div class="box-body">
+  <form method="post" action="{{route('permissionlist.store')}}">
+            {{ csrf_field() }}
+
+  <div class="row">
+      <div class="col-md-3 {{ $errors->has('permission_name') ? 'has-error' : '' }}">
+         <label  class="control-label">PERMISSION NAME<span class="text-danger"><strong>*</strong></span></label>
+         <input class="form-control input-sm" type="text" placeholder="ENTER PERMISSION NAME" name="permission_name" value="{{(isset($permissions->id)&& $permissions->permission_name)?$permissions->permission_name:old('permission_name')}}">
+          <span class="text-danger">{{ $errors->first('permission_name') }}</span>
+    </div>
+  <div class="col-md-3 {{ $errors->has('slug') ? 'has-error' : '' }}">
+     <label  class="control-label">SLAG</label>
+     <input class="form-control input-sm" type="text" placeholder="ENTER SLAG" name="slug" value="{{(isset($permissions->id)&& $permissions->slug)?$permissions->slug:old('slug')}}">
+      <span class="text-danger">{{ $errors->first('slug') }}</span>
+  </div>
+  <div class="col-md-3">
+     <label  class="control-label">DESCRIPTION</label>
+     <input class="form-control input-sm" type="text" placeholder="ENTER DESCRIPTION" name="description" value="{{(isset($permissions->id)&& $permissions->description)?$permissions->description:old('description')}}">
+  </div>
+<div class="col-md-1 mt3">
+   <label  class="control-label"></label>
+   <button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
+ <div class="col-md-1" style="margin-top:21px;">
+    <a href="{{ route('permissionlist.index') }}"><input type="button"  class="btn btn-danger btn-block  btn-xs pull-right"value="Cancel"></a>
+</div>   
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+
       <div class="row">
         <div class="col-md-12 mt7">
-          <a href="{{ route('permissionlist.create') }}" class="btn btn-info btn-xs pull-right">
-          <span class="glyphicon glyphicon-plus"> </span>&nbsp CREATE PERMISSION</a>
+          <a href="#" class="btn btn-info btn-xs pull-right adddeportmentbtn @if($errors->isEmpty()) @else hidden @endif">
+          <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PERMISSION</a>
         </div>
       </div>
       <div class="box">
@@ -96,11 +131,22 @@
       <!-- /.row -->
 
     </section>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <!-- /.content -->
    <script type="text/javascript">
      setTimeout(function() {
        $('#successMessage').fadeOut('fast');
        }, 2000); // <-
    </script>
+  <script>
+    $(document).ready(function(){
+      $(".adddeportmentbtn").click(function(){
+        $(".adddeportment").removeClass("hidden");
+        $(".adddeportmentbtn").hide();
+      });
+      $(".card").css("margin-bottom","1px");
+    });
+  </script>
+
   @endsection
