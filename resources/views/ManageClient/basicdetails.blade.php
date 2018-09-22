@@ -92,6 +92,7 @@
               <div class="col-md-3 {{ $errors->has('reg_country') ? 'has-error' : '' }}">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="reg_country" name="reg_country" value="{{old('reg_country')}}">
+                 <option value="">SELECT</option>
                  <option value="India">India</option>
 
                 </select>
@@ -135,11 +136,11 @@
             </div>
             <div class="row">
         <div class="col-md-2">
-    <h5><label  class="control-label" ><u>BILLING ADDRESS</u></label></h5>
+    <h5><label  class="control-label mt5" ><u>BILLING ADDRESS</u></label></h5>
     </div>
 
-    <div class="col-md-5" style="margin-top:6px;">
-  <input type="checkbox" id="saroa" class="minimal1">&nbsp<span><label for="saroa">SAME AS REGISTERED OFFICE ADDRESS</label></span>
+    <div class="col-md-5" style="margin-top:7px;" >
+  <input type="checkbox" id="saroa"  class="minimal " style="width:30px!important;height:30px!important;">&nbsp<span><label for="saroa" >SAME AS REGISTERED OFFICE ADDRESS</label></span>
     </div>   <div class="col-md-5"></div>
   </div><hr>
             <div class="row">
@@ -154,6 +155,7 @@
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label>
               <select class="form-control input-sm" style="width: 100%;" id="bill_country" name="bill_country"value="{{old('bill_country')}}">
+                  <option value="">SELECT</option>
                   <option value="India">India</option>
 
 
@@ -162,7 +164,7 @@
               <div class="col-md-3">
               <label  class="control-label">STATE</label>
               <select class="form-control input-sm" style="width: 100%;" id="bill_state" name="bill_state" value="{{old('bill_state')}}">
-                  <option value="">PLEASE SELECT</option>
+                  <option value="">SELECT</option>
                   <?php
           $state_list = \App\Common\StateList::get_states();
           ?>
@@ -197,11 +199,10 @@
 
           <div class="row">
             <div class="col-md-2">
-        <h5><label  class="control-label" ><u>DELIVERY ADDRESS</u></label></h5>
+        <h5><label  class="control-label mt5" ><u>DELIVERY ADDRESS</u></label></h5>
         </div>
-
-        <div class="col-md-5" style="margin-top:6px;">
-      <input type="checkbox" id="saba" class="minimal1">&nbsp<span><label for="saba">SAME AS BILLING ADDRESS</label></span>
+        <div class="col-md-5" style="margin-top:7px;">
+      <input type="checkbox" id="saba" class="minimal">&nbsp<span><label for="saba">SAME AS BILLING ADDRESS</label></span>
         </div>   <div class="col-md-5"></div>
       </div><hr>
             <div class="row">
@@ -216,13 +217,14 @@
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label>
               <select class="form-control input-sm" style="width: 100%;" id="del_country" name="del_country" value="{{old('del_country')}}">
+                  <option value="">SELECT</option>
                   <option value="India">India</option>
                 </select>
               </div>
               <div class="col-md-3">
               <label  class="control-label">STATE</label>
               <select class="form-control input-sm" style="width: 100%;" id="del_state" name="del_state" value="{{old('del_state')}}">
-                  <option value=''>PLEASE SELECT</option>
+                  <option value=''>SELECT</option>
 
                   <?php
           $state_list = \App\Common\StateList::get_states();
@@ -377,21 +379,21 @@
             </div>
             <div class="row">
               <div class="col-md-3">
-              <label  class="control-label">PART OF INTERCONNECTION</label>
+              <label  class="control-label">POINT OF INTERCONNECTION</label>
 
-              <div class="form-group">
-                <div class="col-md-1 " style="margin-left:-6px;">
-                    <input type="checkbox" class="flat-red pull-left" id="inter_discom" name="inter_discom" value="{{old('inter_discom')}}"></div>
-                      <div class="col-md-3" style="margin-left:-7px;"><label for="inter_discom">DISCOM</label>
+              <div class="form-group mt5">
+                <div class="col-md-1" >
+                    <input type="checkbox"  id="inter_discom" name="inter_discom" value="{{old('inter_discom')}}" class=" minimal "></div>
+                      <div class="col-md-3 " ><label for="inter_discom">DISCOM</label>
                   </div>
-                <div class="col-md-1 "  style="margin-left:-6px;">
-                    <input type="checkbox" class="flat-red" id="inter_stu" name="inter_stu" value="{{old('inter_stu')}}"></div>
-                    <div class="col-md-1" style="margin-left:-7px;"><label for="inter_stu">STU</label>
+                <div class="col-md-1 "  >
+                    <input type="checkbox"  id="inter_stu" name="inter_stu" value="{{old('inter_stu')}}" class=" minimal"></div>
+                    <div class="col-md-1 " ><label for="inter_stu">STU</label>
                 </div>
-               <div class="col-md-1">
-                     <input type="checkbox" class="flat-red" id="inter_poc" name="inter_poc" value="{{old('inter_poc')}}">
+               <div class="col-md-1 ">
+                     <input type="checkbox"  id="inter_poc" name="inter_poc" value="{{old('inter_poc')}}" class=" minimal ">
                 </div>
-                   <div class="col-md-5" style="width:30%;margin-left:-5px;"><label for="inter_poc">POC/CTU</label></div>
+                   <div class="col-md-5 " style="width:20%;margin-left:-3px;"><label for="inter_poc">POC/CTU</label></div>
                 </div>
               </div>
               <div class="col-md-3">
@@ -462,7 +464,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-
  <script>
 
  $(document).ready(function(){
@@ -501,8 +502,8 @@
 <script>
 $(function () {
     $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass   : 'iradio_flat-green'
+      checkboxClass: 'icheckbox_flat-blue',
+      radioClass   : 'iradio_flat-blue'
   })
   //Red color scheme for iCheck
   $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
@@ -517,12 +518,6 @@ $(function () {
 
 })
 
-$(function () {
-$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-checkboxClass: 'icheckbox_flat-green',
-radioClass   : 'iradio_flat-green'
-})
-});
 </script>
 <script type="text/javascript">
 $('input[type="checkbox"]#saroa,.saroa').click(function(){

@@ -15,6 +15,7 @@
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">MANAGE CLIENT</a></li>
       <li><a href="#">DAM</a></li>
+
       <li><a href="#">IEX</a></li>
       <li><a href="#"><u> VALIDATION SETTING</u></a></li>
    </ol>
@@ -91,7 +92,7 @@
                 <div class="row">
                    <div class="col-md-5"></div>
                    <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" id="vg6" name="vg6">SAVE</button></div>
-                   <div class="col-md-1"><button type="button" class="btn btn-block btn-danger btn-xs" id="vg7" name="vg7">CANCEL</button></div>
+
                    <div class="col-md-5"></div>
                 </div>
              </div>
@@ -185,8 +186,8 @@
 <script>
 $(function () {
     $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-    checkboxClass: 'icheckbox_minimal-blue',
-    radioClass   : 'iradio_minimal-blue'
+      checkboxClass: 'icheckbox_flat-blue',
+      radioClass   : 'iradio_flat-blue'
   })
   //Red color scheme for iCheck
   $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
@@ -199,14 +200,9 @@ $(function () {
     radioClass   : 'iradio_flat-blue'
   })
 
-})
-
-$(function () {
-$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-checkboxClass: 'icheckbox_flat-green',
-radioClass   : 'iradio_flat-green'
-})
 });
+
+
 </script>
 <script type="text/javascript">
     $(document).ready(function() {

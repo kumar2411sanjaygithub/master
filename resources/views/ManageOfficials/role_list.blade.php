@@ -6,7 +6,7 @@
     <h5><label  class="control-label"><u>ROLE LIST</u></label></h5>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-        <li><a href="#">MANAGE OFFICIALS</a></li>
+        <li><a href="#">MANAGE EMPLOYEE</a></li>
         <li><a href="#"><u>ROLE & PERMISION</u></a></li>
       </ol>
     </section>
@@ -33,7 +33,7 @@
             {{ (@$role->id!='')?method_field('PATCH'):method_field('POST')}}
   <div class="row">
       <div class="col-md-3 {{ $errors->has('department') ? 'has-error' : '' }}">
-     <label  class="control-label">DEPARTMENT NAME</label>
+     <label  class="control-label">DEPARTMENT NAME<span class="text-danger"><strong>*</strong></span></label>
        <select class="form-control input-sm" name="department">
          <option value="">SELECT DEPARTMENT</option>
          @if(count($department) > 0)
@@ -48,7 +48,7 @@
         <span class="text-danger">{{ $errors->first('department') }}</span>
     </div>
   <div class="col-md-3 {{ $errors->has('name') ? 'has-error' : '' }}">
-    <label  class="control-label">ROLE</label>
+    <label  class="control-label">ROLE<span class="text-danger"><strong>*</strong></span></label>
   <input class="form-control input-sm" type="text" placeholder="ENTER ROLE" name="name" value="{{(isset($role->id)&& $role->name)?$role->name:old('name')}}">
     <span class="text-danger">{{ $errors->first('name') }}</span>
   </div>
@@ -107,10 +107,10 @@
                    <div class="modal-dialog modal-confirm">
                      <div class="modal-content">
                        <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
-                         <h4 class="modal-title text-center">ARE YOU SURE?</h4>
+                         <h4 class="modal-title text-center"></h4>
                        </div>
                        <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                         <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO DELETE THESE RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                         <p style="font-size: 18px;font-weight: 500;color:black!important;text-align:center">Are you sure you want to delete this record?</p>
                        </div>
                        <div class="modal-footer">
                          <button type="submit" class="btn btn-danger">Yes</button>

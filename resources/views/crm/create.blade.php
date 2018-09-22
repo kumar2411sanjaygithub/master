@@ -8,8 +8,8 @@
           <div class="col-md-2 pull-left"><h5><label  class="control-label"><u>CREATE LEAD</u></label></h5></div>
           <div class="col-md-8"></div>
           <div class="col-md-2">
-            <a href="{{ route('lead.index') }}" class="btn btn-info btn-xs pull-right"  id="ram" name="">
-            <span class="glyphicon glyphicon-plus"> </span>&nbsp BACK TO LIST</a>
+            <a href="{{ route('lead.index') }}" class="btn btn-info btn-xs pull-right mt7"  id="ram" name="">
+           <span class="glyphicon glyphicon-forward"></span>&nbsp BACK TO LIST</a>
           </div>
           </div>
           <form method="post" action="{{ route('lead.store') }}">
@@ -19,7 +19,6 @@
 
           <h5><label  class="control-label">LEAD INFORMATION</label></h5><hr>
               <div class="row">
-                <hr>
               <div class="col-md-3 {{ $errors->has('company_name') ? 'has-error' : '' }}">
               <label  class="control-label">COMPANY NAME</label><span class="text-danger"><strong>*</strong></span>
               <input class="form-control input-sm" type="text" placeholder="ENTER COMPANY NAME" id="company_name" name="company_name" value="{{old('company_name')}}">

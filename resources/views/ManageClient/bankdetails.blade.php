@@ -19,11 +19,13 @@
         <div class="col-xs-12">
 
           <div class="row">
-            <div class="col-md-5">  <h5><label  class="control-label">BANK DETAILS &nbsp&nbsp&nbsp&nbsp {{$client_details[0]['company_name']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['crn_no']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['iex_portfolio']}}&nbsp<span style="color:#51c0f0;font-size:15px;">|</span> &nbsp{{$client_details[0]['pxil_portfolio']}} </label></h5></div>
-            <div class="col-md-5"></div>
-             <div class="col-md-2 text-right"><button class="btn btn-info btn-xs mt7"  id="add" {{(isset($get_bank_details)||!$errors->isEmpty())?'divhide':''}}">
-                <span class="glyphicon glyphicon-plus"></span>&nbspADD
-              </button>&nbsp;<a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a></div>
+            <div class="col-md-6 pull-left">
+                <h5 class="pull-left"><label class="control-label pull-right mt-1"><u>BANK DETAILS</u></h5> &nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
+            </div>
+            <div class="col-md-6 pull-right">
+                    <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mt7"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+                    <button class="btn btn-info btn-xs pull-right mr5 mt7 {{(isset($get_bank_details)||!$errors->isEmpty())?'divhide':''}} " id="add"><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
+            </div>
           </div>
 
         <form method ="post" action="{{isset($get_bank_details)?url('bank_edit/'.$get_bank_details->id):route('bank_create')}}">
@@ -72,7 +74,7 @@
           @else
           <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs" id="save" name="save">SAVE</button></div>
           @endif
-          <div class="col-md-1"><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="CANCEL" onclick="myFunction()"></div>
+          <div class="col-md-1"><a href="{{ URL('/bankdetails/'.$client_id) }}" ><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="CANCEL" ></a></div>
         <div class="col-md-5"></div>
       </div>
     </div>

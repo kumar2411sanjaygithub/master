@@ -28,29 +28,29 @@
   <div class="box-body">
   <div class="row">
       <div class="col-md-3 {{ $errors->has('name') ? 'has-error' : '' }}">
-     <label  class="control-label">EMPLOYEE</label>
+     <label  class="control-label">EMPLOYEE NAME<span class="text-danger"><strong>*</strong></span></label>
        <input class="form-control input-sm" type="text" name="name" onKeyPress="return ValidateAlpha(event);" id="name"   value="{{ $officialstData->name }}">
        <span class="text-danger">{{ $errors->first('name') }}</span>
     </div>
   <div class="col-md-3 {{ $errors->has('employee_id') ? 'has-error' : '' }}">
-    <label  class="control-label">EMPLOYEE ID</label>
+    <label  class="control-label">EMPLOYEE ID<span class="text-danger"><strong>*</strong></span></label>
   <input class="form-control input-sm" type="text"  name="employee_id"  id="employee_id"   value="{{ $officialstData->employee_id }}">
   <span class="text-danger">{{ $errors->first('employee_id') }}</span>
   </div>
   <div class="col-md-3 {{ $errors->has('designation') ? 'has-error' : '' }}">
-    <label  class="control-label">DESIGNATION</label>
+    <label  class="control-label">DESIGNATION<span class="text-danger"><strong>*</strong></span></label>
   <input class="form-control input-sm alphanum" type="text" name="designation"  id="designation"   value="{{ $officialstData->designation }}">
   <span class="text-danger">{{ $errors->first('designation') }}</span>
   </div>
   <div class="col-md-3 {{ $errors->has('email') ? 'has-error' : '' }}">
-    <label  class="control-label">EMAIL ID</label>
+    <label  class="control-label">EMAIL ID<span class="text-danger"><strong>*</strong></span></label>
   <input class="form-control input-sm" type="text" name="email"  value="{{ $officialstData->email }}">
   <span class="text-danger">{{ $errors->first('email') }}</span>
   </div>
 </div>
 <div class="row">
     <div class="col-md-3 {{ $errors->has('contact_number') ? 'has-error' : '' }}">
-   <label  class="control-label">CONTACT NUMBER</label>
+   <label  class="control-label">CONTACT NUMBER<span class="text-danger"><strong>*</strong></span></label>
      <input class="form-control input-sm mobile" maxlength="10" type="text" name="contact_number" id="contact_number"   value="{{ $officialstData->contact_number }}">
      <span class="text-danger">{{ $errors->first('contact_number') }}</span>
   </div>
@@ -60,24 +60,24 @@
 <span class="text-danger">{{ $errors->first('telephone_number') }}</span>
 </div>
 <div class="col-md-3 {{ $errors->has('username') ? 'has-error' : '' }}">
-  <label  class="control-label">USER NAME</label>
+  <label  class="control-label">USER NAME<span class="text-danger"><strong>*</strong></span></label>
 <input class="form-control input-sm" type="text" name="username"  id="username"   value="{{ $officialstData->username }}">
 <span class="text-danger">{{ $errors->first('username') }}</span>
 </div>
 <div class="col-md-3 {{ $errors->has('password') ? 'has-error' : '' }}">
-  <label  class="control-label">NEW PASSWORD</label>
+  <label  class="control-label">NEW PASSWORD<span class="text-danger"><strong>*</strong></span></label>
 <input class="form-control input-sm" type="password" name="password"  id="password"   value="{{ $officialstData->password }}">
 <span class="text-danger">{{ $errors->first('password') }}</span>
 </div>
 </div>
 <div class="row">
     <div class="col-md-3 {{ $errors->has('confirmed') ? 'has-error' : '' }}">
-   <label  class="control-label">CONFIRM PASSWORD</label>
+   <label  class="control-label">CONFIRM PASSWORD<span class="text-danger"><strong>*</strong></span></label>
      <input class="form-control input-sm" type="password" name="confirmed"id="confirmed" value="{{ $officialstData->password }}">
      <span class="text-danger">{{ $errors->first('confirmed') }}</span>
   </div>
 <div class="col-md-3">
-  <label  class="control-label">DEPARTMENT NAME</label>
+  <label  class="control-label">DEPARTMENT NAME<span class="text-danger"><strong>*</strong></span></label>
   <select class="form-control input-sm" name="department_id" id="department_id" style="width: 100%;">
        @foreach($department as $departmentuser)
         <option value="{{$departmentuser->id}}" {{isset($officialstData) && $officialstData->department_id == $departmentuser->id ? 'selected="selected"' : ''}}>{{$departmentuser->depatment_name}}</option>
@@ -86,7 +86,7 @@
   </select>
 </div>
 <div class="col-md-3 {{ $errors->has('role_id') ? 'has-error' : '' }}">
-  <label  class="control-label">ROLE</label>
+  <label  class="control-label">ROLE<span class="text-danger"><strong>*</strong></span></label>
   <select class="form-control input-sm" name="role_id" id="role_id" style="width: 100%;">
 
       @foreach($role as $roleuser)

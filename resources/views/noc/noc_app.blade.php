@@ -41,11 +41,53 @@ a.disabled {
     font-size: 9px;
 }
 
+
 .success {background-color: #4CAF50;} /* Green */
 .edited {background-color: #2196F3;} /* Green */
 .danger {background-color: #f44336;} /* Green */
 .warning {background-color: #ff9800;} /* Green */
 
+</style>
+<style>
+.scroll-table-container {
+height:auto;
+overflow: scroll;
+}
+.scroll-table1
+{
+border-collapse:collapse;
+min-width:260px;
+}
+.scroll-table4
+{
+border-collapse:collapse;
+min-width:130px;
+}
+.scroll-table5
+{
+border-collapse:collapse;
+min-width:160px;
+}
+.scroll-table2
+{
+border-collapse:collapse;
+min-width:50px;
+}
+.scroll-table3
+{
+border-collapse:collapse;
+min-width:100px;
+}
+.fnt
+{
+  font-size:11px!important;
+  padding-left:10px!important;
+  padding-right: 10px!important;
+  padding-bottom:0px!important;
+  padding-top:0px!important;
+  font-weight:600!important;
+
+}
 </style>
 <section class="content-header">
    <h5>
@@ -90,11 +132,7 @@ a.disabled {
                </div>
             </div>
          </div>
-      </div>
-   </div>
 
-   <div class="row">
-      <div class="col-xs-12">
          <div class="box @if($errors->isEmpty())hidediv @else  @endif"  id="divStatus">
             <div class="box-body">
                <div class="row">&nbsp;</div>
@@ -203,29 +241,29 @@ a.disabled {
           </div>
           </div>
 
-         <div class="box">
-            <div class="box-body table-responsive">
-               <table id="example1" class="table table-bordered table-striped table-hover text-center">
+         <div class="box" >
+            <div class="box-body table-responsive  scroll-table-container">
+               <table id="example1" class="table table-bordered table-striped table-hover text-center ">
                   <thead>
                      <tr>
-                        <th rowspan="2" style="width:3%;" class="vl">SR.NO</th>
-                        <th rowspan="2" class="vl">CLIENT NAME</th>
-                        <th rowspan="2" class="vl">PORTFOLIO ID</th>
-                        <th rowspan="2" class="vl">APPLICATON NO.</th>
-                        <th rowspan="2" class="vl" >VALIDITY START DATE</th>
-                        <th rowspan="2" class="vl">VALIDITY END DATE</th>
-                        <th rowspan="2" class="vl">NOC REQUEST</th>
-                        <th rowspan="2" class="vl">STATUS</th>
-                        <th rowspan="2" class="vl">PAYMENT ENTRY</th>
-                        <th rowspan="2" class="vl">NOC APPLICATON</th>
-                        <th rowspan="2" class="vl">ACTION</th>
-                        <th colspan="3" >DEBIT NOTE</th>
-                        <th rowspan="2" class="vl">SDLC<br> ACTION<br> STATUS</th>
+                        <th rowspan="2" class="vl scroll-table2" >SR.NO</th>
+                        <th rowspan="2" class="vl scroll-table1" >CLIENT NAME</th>
+                        <th rowspan="2" class="vl scroll-table3" >PORTFOLIO ID</th>
+                        <th rowspan="2" class="vl scroll-table4" >APPLICATON NO.</th>
+                        <th rowspan="2" class="vl scroll-table4" >VALIDITY START DATE</th>
+                        <th rowspan="2" class="vl scroll-table4" >VALIDITY END DATE</th>
+                        <th rowspan="2" class="vl scroll-table3" >NOC REQUEST</th>
+                        <th rowspan="2" class="vl scroll-table3">STATUS</th>
+                        <th rowspan="2" class="vl scroll-table3" >PAYMENT ENTRY</th>
+                        <th rowspan="2" class="vl scroll-table5" >NOC APPLICATON</th>
+                        <th rowspan="2" class="vl scroll-table5" >ACTION</th>
+                        <th colspan="3" class="vl scroll-table4">DEBIT NOTE</th>
+                        <th rowspan="2" class="vl scroll-table5" >SDLC &nbsp;ACTION&nbsp; STATUS</th>
                      </tr>
                      <tr>
-                        <th>SDLC</th>
-                        <th>DISCOM</th>
-                        <th>EMAIL</th>
+                        <th class="vl scroll-table3">SDLC</th>
+                        <th class="vl scroll-table3">DISCOM</th>
+                        <th class="vl scroll-table3">EMAIL</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -253,14 +291,14 @@ a.disabled {
                           @elseif($noc_list->status==2)
                               <a href="#"><u>APPROVED</u></a>
                           @elseif($noc_list->status==3)
-                             <a href="#"><u>SUBMITTED</u></a>
+                            SUBMITTED
                           @else
                              <a href="#"><u>NOC RECEIVED</u></a>
                           @endif
                         </td>
                         <td class="vl">
                           @if($noc_list->payment_challan_number!='' && $noc_list->bank_name!='' && $noc_list->transcation_date!='' && $noc_list->amount!='')
-                            <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_list->id }}" ><span class="label edited">EDIT</span></a>
+                            <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_list->id }}" ><span class="label edited fnt " >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
 
                           @else
                             <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_list->id }}" class="btn  btn-default btn-xs @if(($noc_list->status==2 ||$noc_list->status==3)) @else disabled @endif">ADD</a>
@@ -268,39 +306,39 @@ a.disabled {
                         </td>
                         <td class="vl">
 
-                          <a href="/generateNocPDF/{{$noc_list->id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application=='') @else class="disabled hidediv" @endif><span class="label edited">GENERATE</span></a>
+                          <a href="/generateNocPDF/{{$noc_list->id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application=='') @else class="disabled hidediv" @endif><span class="label edited fnt">GENERATE</span></a>
 
-                           <a href="{{url('/noc-application/generate_noc_application/'.$noc_list->generate_noc_application)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application!='') @else class="disabled hidediv" @endif><span class="label success">DOWNLOAD</span></a>
-                            <a href="#" data-toggle="modal" data-target="#deletegererateBill{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application!='') @else class="disabled hidediv" @endif><span class="label danger">DELETE</span></a>
+                           <a href="{{url('/noc-application/generate_noc_application/'.$noc_list->generate_noc_application)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application!='') @else class="disabled hidediv" @endif><span class="label success fnt">DOWNLOAD</span></a>
+                            <a href="#" data-toggle="modal" data-target="#deletegererateBill{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application!='') @else class="disabled hidediv" @endif><span class="label danger fnt">DELETE</span></a>
                         </td>
                         <td class="vl">
-                          <a href="/noc/edit/{{$noc_list->id}}" @if($noc_list->generate_noc_application=='')  @else class="disabled" @endif><span class="label edited" >EDIT</span></a></br>
-                          <a href="/noc/email/{{$noc_list->id}}/client/{{$client_id}}" @if($noc_list->generate_noc_application=='')  @else class="disabled" @endif><span class="label success">SEND EMAIL</span></a>
+                          <a href="/noc/edit/{{$noc_list->id}}" @if($noc_list->generate_noc_application=='')  @else class="disabled" @endif><span class="label edited fnt" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                          <a href="/noc/email/{{$noc_list->id}}/client/{{$client_id}}" @if($noc_list->generate_noc_application=='')  @else class="disabled" @endif><span class="label success fnt">SEND EMAIL</span></a>
                         </td>
                         <td class="vl">
                           @if(@$noc_list['client']['nocbilling']['noc_application_for']=='both' || @$noc_list['client']['nocbilling']['noc_application_for']=='sldc')
-                            <a href="/generatesldcPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit=='') @else class="disabled hidediv" @endif><span class="label edited">GENERATE</span></a>
-                            <a href="{{url('/noc-application/bill/'.$noc_list->generate_sldc_debit)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit!='') @else class="disabled hidediv" @endif><span class="label success">DOWNLOAD</span></a>
+                            <a href="/generatesldcPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit=='') @else class="disabled hidediv" @endif><span class="label edited fnt">GENERATE</span></a>
+                            <a href="{{url('/noc-application/bill/'.$noc_list->generate_sldc_debit)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit!='') @else class="disabled hidediv" @endif><span class="label success fnt">DOWNLOAD</span></a>
 
-                            <a href="#" data-toggle="modal" data-target="#deletesldcDebit{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit!='') @else class="disabled hidediv" @endif><span class="label danger">DELETE</span></a>
+                            <a href="#" data-toggle="modal" data-target="#deletesldcDebit{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit!='') @else class="disabled hidediv" @endif><span class="label danger fnt">DELETE</span></a>
 
                           @endif
                         </td>
                         <td class="vl" >
                           @if(@$noc_list['client']['nocbilling']['noc_application_for']=='both' || @$noc_list['client']['nocbilling']['noc_application_for']=='discom')
-                            <a href="/generatediscomPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit=='') @else class="disabled hidediv" @endif><span class="label edited">GENERATE</span></a>
-                            <a href="{{url('/noc-application/bill/'.$noc_list->generate_discom_debit)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit!='') @else class="disabled hidediv" @endif><span class="label success">DOWNLOAD</span></a>
+                            <a href="/generatediscomPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit=='') @else class="disabled hidediv" @endif><span class="label edited fnt">GENERATE</span></a>
+                            <a href="{{url('/noc-application/bill/'.$noc_list->generate_discom_debit)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit!='') @else class="disabled hidediv" @endif><span class="label success fnt">DOWNLOAD</span></a>
 
-                            <a href="#" data-toggle="modal" data-target="#deletediscomDebit{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit!='') @else class="disabled hidediv" @endif><span class="label danger">DELETE</span></a>
+                            <a href="#" data-toggle="modal" data-target="#deletediscomDebit{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit!='') @else class="disabled hidediv" @endif><span class="label danger fnt">DELETE</span></a>
 
                           @endif
                         </td>
                         <td class="vl">
-                           <a href="/noc/email-debit/{{$noc_list->id}}/client/{{$client_id}}"><span class="label success">SEND EMAIL</span></a>
+                           <a href="/noc/email-debit/{{$noc_list->id}}/client/{{$client_id}}"><span class="label success fnt">SEND EMAIL</span></a>
                         </td>
                         <td class="vertical-align">
-                            <a href="" data-toggle="modal" data-target="#approveData{{ $noc_list->id }}" ><span class="label edited">ACCEPTED</span></a>
-                            <a href="" data-toggle="modal" data-target="#rejectedData{{ $noc_list->id }}" ><span class="label danger">REJECTED</span></a>
+                            <a href="" data-toggle="modal" data-target="#approveData{{ $noc_list->id }}" ><span class="label edited fnt">ACCEPTED</span></a>
+                            <a href="" data-toggle="modal" data-target="#rejectedData{{ $noc_list->id }}" ><span class="label danger fnt">REJECTED</span></a>
 
                         </td>
                         <div id="deleteData{{ $noc_list->id }}" class="modal fade" role="dialog">
@@ -491,6 +529,8 @@ a.disabled {
                {{ $noc_data->links() }}
             </div>
            </div>
+         </div>
+       </div>
     </section>
     <!-- /.content -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -613,4 +653,3 @@ $(document).ready(function() {
 </script>
 
   @endsection
-
