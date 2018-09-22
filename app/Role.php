@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Models;
 //use Illuminate\Database\Eloquent\SoftDeletes;
 class Role extends Model
 {
@@ -11,7 +12,8 @@ class Role extends Model
     public $fillable = ['*'];
     //protected $dates = ['deleted_at'];
     public $timestamps = false;
-        public function getDepartment()
+    
+    public function getDepartment()
     {
         return $this->belongsTo('App\Department','department_id','id');
     }

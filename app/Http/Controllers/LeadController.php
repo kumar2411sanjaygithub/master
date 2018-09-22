@@ -65,7 +65,7 @@ class LeadController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'company_name' => 'required|regex:/^[a-zA-Z ]+$/u|min:1|max:50',
+            'company_name' => 'required|min:1|max:50',
             'product' => 'required',
             'contact_person' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
             'contact_number' => 'required|digits:10',
@@ -178,7 +178,7 @@ class LeadController extends Controller
     {
 
         $this->validate($request, [
-            'company_name' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
+            'company_name' => 'required|max:50',
             'contact_person' => 'nullable|regex:/^[a-zA-Z ]+$/u|max:50',
             'contact_number'=>'required|regex:/^[0-9]{10}$/',
             'add_line1' => 'required|max:200',

@@ -16,8 +16,9 @@
       <li><a href="#">MANAGE CLIENT</a></li>
       <li><a href="#">DAM</a></li>
       <li><a href="#">IEX</a></li>
-      <li><a href="active"><u>Bid Setting</u></a></li>
+      <li><a href="#"><u> BID SETTING</u></a></li>
    </ol>
+
 </section>
   <div class="clearfix"></div>
    <!-- <br> -->

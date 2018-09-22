@@ -60,7 +60,7 @@
                             @endif
                           @endforeach
                         @else
-                          <option value="">No Data.</option>
+                          <option value="">No Data Found.</option>
                         @endif
                       </select>
               <span class="text-danger">{{ $errors->first('product') }}</span>
@@ -251,7 +251,7 @@
                 <div class="col-md-1"  id="enable_edit"><a href="#" class="btn btn-block btn-info btn-xs enable_edit" name="">EDIT</a></div>
                <div class="col-md-1 saveButton" style="display: none;"><button type="submit" class="btn btn-block btn-success btn-xs">UPDATE</button></div>
                @if(!isset($getcrn_info))
-               <div class="col-md-1"><a href="{{url('lead/genearet/'.$leads->id.'/crn/'.$leads->product)}}" class="btn btn-block btn-default btn-xs" name="">CONVERT</a></div>
+               <div class="col-md-1"><a href="" data-toggle="modal" data-target="#ConvertData{{ $leads->id }}" class="btn btn-block btn-default btn-xs" name="" id="convert-disabled">CONVERT</a></div>
                @else
                <div class="col-md-2"><a disabled class="btn btn-default btn-xs" name="">CONVERTED</a></div>
                @endif
@@ -260,7 +260,28 @@
             <div class="row">&nbsp;</div>
          </div>
        </form>
-
+       <!--*************** Converted Model Start ***************-->
+        <div id="ConvertData{{ $leads
+       ->id }}" class="modal fade" role="dialog">
+           <form method="GET"  action="{{url('lead/genearet/'.$leads->id.'/crn/'.$leads->product)}}">
+            {{ csrf_field() }}
+           <div class="modal-dialog modal-confirm">
+             <div class="modal-content">
+               <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                 <h4 class="modal-title text-center">ARE YOU SURE?</h4>
+               </div>
+               <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                 <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO CONVERTED THESE LEAD? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+               </div>
+               <div class="modal-footer">
+                 <button type="submit" class="btn btn-danger">Yes</button>
+                 <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+               </div>
+             </div>
+           </div>
+           </form>
+         </div>
+         <!--*************** Converted Model End***************-->
          <div class="row">
             <div class="col-md-1"><label  class="control-label"><u>ACTIVITIES</u></label></div>
             <div class="col-md-10"></div>
@@ -737,6 +758,7 @@
              $('#enable_edit').hide();
              $('.disabled-class').removeAttr("disabled");
              $('.saveButton').show();
+              $("#convert-disabled").addClass('disabled').removeAttr("href"); 
              return false;
            });
       </script>

@@ -26,23 +26,88 @@
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-info btn-flat" name="go" id="go"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
-              </div></div>
+              </div>
+            </div>
           <div class="col-md-6"></div>
-            <div class="col-md-4 text-right"><button type="button" class="btn btn-raised btn-info btn-xs">APPROVE ALL</button>
-            &nbsp&nbsp&nbsp<button type="button" class="btn btn-raised btn-danger btn-xs ">REJECT ALL</button>
-          </div></div>
+
+            <div class="col-md-4">
+        @if (count($employeeData) > 0)
+            <form class="pull-right" action="{{ url()->to('new-employee-approve/Approved') }}" method="post" id="approve_data">
+              {{ csrf_field() }}
+              <input type="hidden" name="selected_status" class="selected_status">
+              <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted" name="cdw5" id="cdw5">APPROVE ALL</button>
+
+              <a data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info btn-xs">APPROVE ALL</a>
+            </form>
+            @endif
+
+            @if (count($employeeData) > 0)
+            <form class="pull-right" action="{{ url()->to('new-employee-approve/Rejected') }}" method="post" id="approve_data">
+              {{ csrf_field() }}
+              <input type="hidden" name="selected_status" class="selected_status">
+              <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted-rej" name="cdw5" id="cdw5">REJECT ALL</button>
+
+              <a data-toggle="modal" data-target="#myModalRej" class="btn btn-danger btn-xs mlt">REJECT ALL</a>
+            </form>
+            @endif
+
+
+                <div id="myModal" class="modal fade" style="display: none;">
+                  <div class="modal-dialog modal-confirm">
+                    <div class="modal-content">
+                      <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                        <h4 class="modal-title text-center">ARE YOU SURE?</h4>
+                      </div>
+                      <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                        <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" href="#"   class="btn btn-danger">
+                          <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
+                        </button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="myModalRej" class="modal fade" style="display: none;">
+                  <div class="modal-dialog modal-confirm">
+                    <div class="modal-content">
+                      <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                        <h4 class="modal-title text-center">ARE YOU SURE?</h4>
+                      </div>
+                      <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                        <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" href="#"   class="btn btn-danger">
+                          <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rej">Yes</a>
+                        </button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          </div>
+
+        </div>
+
         <div class="box">
             <div class="box-body table-responsive">
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>
       <tr>
-        <th class="chy" style="padding:5px!important;"><input type="checkbox"  class="minimal" name="ane1" id="ane1"></th>
+
+        <th class="chy" style="padding:5px!important;"><input type="checkbox" class="minimal1 deleteallbutton" name="select_all"></th>
         <th class="srno vl">SR.NO</th>
         <th class="vl">EMPLOYEE NAME</th>
         <th class="vl">DESIGNATION</th>
         <th class="vl">ROLE NAME</th>
         <th class="vl">DEPARTMENT</th>
         <th class="act vl">ACTION</th>
+
       </tr>
       </thead>
       <tbody>
@@ -53,7 +118,7 @@
       @foreach ($employeeData as $key => $value)
       <tr>
                            <td>
-                             <input type="checkbox" name="checkbox[]" value="{{ $value->id }}" class="minimal"><span class=""></span>
+                             <input type="checkbox" name="select_all" value="{{ $value->id }}" class="minimal1 @if($value->emp_app_status =='1' ||$value->emp_app_status =='2') @else deletedbutton @endif" @if($value->emp_app_status =='1' ||$value->emp_app_status =='2') disabled @endif><span class=""></span>
                              </td>
                              <td><div class="">{{$i}}</div></td>
                               <td class="text-center">{{ $value->name }} </td>
@@ -73,7 +138,7 @@
                                 <td class="text-center">
                                   <span class="text-primary">APPROVED</span>
                                 </td>
-                              @elseif($value->approve_status =='2')
+                              @elseif($value->emp_app_status =='2')
                               <td class="text-center">
                                 <span class="text-danger">REJECTED</span>
                               </td>
@@ -98,6 +163,52 @@
     </section>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript">
+            $('.deletedbutton').click(function(){
+              var array = [];
+              $('.deletedbutton').each(function(){
+                if($(this).prop('checked')){
+                  array.push($(this).val());
+              }
+              });
+              $('.selected_status').val(array);
+            });
+      $(document).delegate('#delete-button-modal','click',function(){
+        if(!$(".selected_status").val()){
+          alert('please check some status to proceed');
+
+        }else{
+        $(".submit-all-deleted").trigger('click');
+         return false;
+      }
+      });
+      $(document).delegate('#delete-button-modal-rej','click',function(){
+        if(!$(".selected_status").val()){
+          alert('please check some status to proceed');
+
+        }else{
+        $(".submit-all-deleted-rej").trigger('click');
+         return false;
+      }
+      });
+
+            $(".deleteallbutton").click(function(){
+                  if($(this).prop('checked')){
+                    $(".deletedbutton").prop("checked",true);
+                    var array = [];
+                    $('.deletedbutton').each(function(){
+                      if($(this).prop('checked')){
+                        array.push($(this).val());
+                    }
+                    });
+                    $('.selected_status').val(array);
+                  }else{
+                      $('.selected_status').val('');
+                    $(".deletedbutton").prop("checked",false);
+                  }
+            });
+    </script>
+
     <script>
     $("#checkAll").click(function () {
      $('input:checkbox').not(this).prop('checked', this.checked);

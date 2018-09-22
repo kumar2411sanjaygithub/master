@@ -63,7 +63,7 @@ class ValidationSettingController extends Controller
     public function validationsettingview()
     {
         $validationsettingData = Validationsetting::all();
-        $users = Client::select('id','company_name')->get();
+        $users = Client::select('id','company_name','short_id','crn_no')->get();
         // print_r($users->toArray());
         return view('validationSetting.validationSetting',compact('validationsettingData','users'));
     }
@@ -78,7 +78,7 @@ class ValidationSettingController extends Controller
         // $validationsettingData = Validationsetting::select('*')->where('id', $id)->first();
         $validationsettingData = Validationsetting::find($id);
         // dd($validationsettingData->client_master_temp['company_name']);
-        $users = Client::select('id','company_name')->get();
+        $users = Client::select('id','company_name','short_id','crn_no')->get();
         return view('validationSetting.editValidationSetting',compact('validationsettingData','users'));
     }
     /**

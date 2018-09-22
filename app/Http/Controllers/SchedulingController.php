@@ -78,13 +78,12 @@ class SchedulingController extends Controller
 
     public function downloadAmbScheduling(Request $request, $id){
     	//dd(1);
-        try{
+         try{
             $sedul_ftp_path = FtpFiles::findOrFail($id);
             
-            $path_fol = explode('files/dam/import/iex/obl_sch_xls/', $sedul_ftp_path->filepath);
-            // dd($path_fol); 
-            $path = storage_path('app/public/generate/IEX/scheduling/'.$path_fol.'/');
-           
+            $path_fol = explode('files/dam/import/IEX/obl_sch_xls', $sedul_ftp_path->filepath);
+    	
+            $path = storage_path('files/dam/generate/IEX/scheduling/'.$path_fol[1].'/');
             $file_name = explode(".",$sedul_ftp_path->filename);
 
             $path = $path.$file_name[0]."_d.".$file_name[1];

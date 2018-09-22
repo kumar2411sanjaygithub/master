@@ -13,9 +13,11 @@
 
     <!-- Main content -->
     <section class="content">
+      <div class="clearfix"></div>
       <div class="row">
         <div class="col-xs-12">
 <div class="row">
+  <div class="col-xs-12">
    @if (\Session::has('success'))
       <div class="alert alert-success" id="successMessage">
          <ul>
@@ -23,10 +25,48 @@
          </ul>
       </div>
    @endif
+<div class="box adddeportment box @if($errors->isEmpty())hidden @else  @endif">
+  <div class="box-body">
+
+  <form method="post" action="{{ (@$role->id!='')?url('/roles/'.$role->id):route('roles.store')}}">
+            {{ csrf_field() }}
+            {{ (@$role->id!='')?method_field('PATCH'):method_field('POST')}}
+  <div class="row">
+      <div class="col-md-3 {{ $errors->has('department') ? 'has-error' : '' }}">
+     <label  class="control-label">DEPARTMENT NAME</label>
+       <select class="form-control input-sm" name="department">
+         <option value="">SELECT DEPARTMENT</option>
+         @if(count($department) > 0)
+          @foreach($department as $department_data)
+            <option value="{{ $department_data->id }}" @if((isset($role->id)&& $role->department_id==$department_data->id)||old('department')==$department_data->id)selected='selected' @endif>{{ $department_data->depatment_name }}</option>
+          @endforeach
+          @else
+           <option value="">NO DATA FOUND.</option>
+         @endif
+
+       </select>
+        <span class="text-danger">{{ $errors->first('department') }}</span>
+    </div>
+  <div class="col-md-3 {{ $errors->has('name') ? 'has-error' : '' }}">
+    <label  class="control-label">ROLE</label>
+  <input class="form-control input-sm" type="text" placeholder="ENTER ROLE" name="name" value="{{(isset($role->id)&& $role->name)?$role->name:old('name')}}">
+    <span class="text-danger">{{ $errors->first('name') }}</span>
+  </div>
+<div class="col-md-1 mt3">
+  <label  class="control-label"></label>
+  <button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
+  <div class="col-md-1" style="margin-top:21px;">
+    <a href="{{ route('roles.index') }}"><input type="button"  class="btn btn-danger btn-block  btn-xs pull-right"value="Cancel"></a>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
 <div class="col-md-10"></div>
 <div class="col-md-2 ">
-  <a href="{{ route('roles.create') }}"><button class="btn btn-info btn-xs pull-right mt7">
-  <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD ROLE</button></a>
+ <button class="btn btn-info btn-xs pull-right mt7 adddeportmentbtn @if($errors->isEmpty()) @else hidden @endif" >
+  <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD ROLE</button>
 </div>
 </div>
 <div class="box">
@@ -97,9 +137,21 @@
 
     </section>
     <!-- /.content -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
    <script type="text/javascript">
      setTimeout(function() {
        $('#successMessage').fadeOut('fast');
        }, 2000); // <-
    </script>
+  <script>
+    $(document).ready(function(){
+      $(".adddeportmentbtn").click(function(){
+        $(".adddeportment").removeClass("hidden");
+        $(".adddeportmentbtn").hide();
+      });
+      $(".card").css("margin-bottom","1px");
+    });
+  </script>
+
   @endsection

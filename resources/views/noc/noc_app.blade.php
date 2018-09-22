@@ -268,10 +268,10 @@ a.disabled {
                         </td>
                         <td class="vl">
 
-                          <a href="/generateNocPDF/{{$noc_list->id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application=='') @else class="disabled" @endif><span class="label edited">GENERATE</span></a>
+                          <a href="/generateNocPDF/{{$noc_list->id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application=='') @else class="disabled hidediv" @endif><span class="label edited">GENERATE</span></a>
 
-                           <a href="{{url('/noc-application/generate_noc_application/'.$noc_list->generate_noc_application)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application!='') @else class="disabled" @endif><span class="label success">DOWNLOAD</span></a>
-                            <a href="#" data-toggle="modal" data-target="#deletegererateBill{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application!='') @else class="disabled" @endif><span class="label danger">DELETE</span></a>
+                           <a href="{{url('/noc-application/generate_noc_application/'.$noc_list->generate_noc_application)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application!='') @else class="disabled hidediv" @endif><span class="label success">DOWNLOAD</span></a>
+                            <a href="#" data-toggle="modal" data-target="#deletegererateBill{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application!='') @else class="disabled hidediv" @endif><span class="label danger">DELETE</span></a>
                         </td>
                         <td class="vl">
                           <a href="/noc/edit/{{$noc_list->id}}" @if($noc_list->generate_noc_application=='')  @else class="disabled" @endif><span class="label edited" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a></br>
@@ -279,19 +279,19 @@ a.disabled {
                         </td>
                         <td class="vl">
                           @if(@$noc_list['client']['nocbilling']['noc_application_for']=='both' || @$noc_list['client']['nocbilling']['noc_application_for']=='sldc')
-                            <a href="/generatesldcPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit=='') @else class="disabled" @endif><span class="label edited">GENERATE</span></a>
-                            <a href="{{url('/noc-application/bill/'.$noc_list->generate_sldc_debit)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit!='') @else class="disabled" @endif><span class="label success">DOWNLOAD</span></a>
+                            <a href="/generatesldcPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit=='') @else class="disabled hidediv" @endif><span class="label edited">GENERATE</span></a>
+                            <a href="{{url('/noc-application/bill/'.$noc_list->generate_sldc_debit)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit!='') @else class="disabled hidediv" @endif><span class="label success">DOWNLOAD</span></a>
 
-                            <a href="#" data-toggle="modal" data-target="#deletesldcDebit{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit!='') @else class="disabled" @endif><span class="label danger">DELETE</span></a>
+                            <a href="#" data-toggle="modal" data-target="#deletesldcDebit{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit!='') @else class="disabled hidediv" @endif><span class="label danger">DELETE</span></a>
 
                           @endif
                         </td>
                         <td class="vl" >
                           @if(@$noc_list['client']['nocbilling']['noc_application_for']=='both' || @$noc_list['client']['nocbilling']['noc_application_for']=='discom')
-                            <a href="/generatediscomPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit=='') @else class="disabled" @endif><span class="label edited">GENERATE</span></a>
-                            <a href="{{url('/noc-application/bill/'.$noc_list->generate_discom_debit)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit!='') @else class="disabled" @endif><span class="label success">DOWNLOAD</span></a>
+                            <a href="/generatediscomPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit=='') @else class="disabled hidediv" @endif><span class="label edited">GENERATE</span></a>
+                            <a href="{{url('/noc-application/bill/'.$noc_list->generate_discom_debit)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit!='') @else class="disabled hidediv" @endif><span class="label success">DOWNLOAD</span></a>
 
-                            <a href="#" data-toggle="modal" data-target="#deletediscomDebit{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit!='') @else class="disabled" @endif><span class="label danger">DELETE</span></a>
+                            <a href="#" data-toggle="modal" data-target="#deletediscomDebit{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit!='') @else class="disabled hidediv" @endif><span class="label danger">DELETE</span></a>
 
                           @endif
                         </td>

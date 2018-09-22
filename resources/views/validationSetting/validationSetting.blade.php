@@ -15,9 +15,11 @@
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">MANAGE CLIENT</a></li>
       <li><a href="#">DAM</a></li>
-        <li><a href="#">IEX</a></li>
-      <li><a href="#" class="active"><u>Validation Setting</u></a></li>
+
+      <li><a href="#">IEX</a></li>
+      <li><a href="#"><u> VALIDATION SETTING</u></a></li>
    </ol>
+
 </section>
 <!-- Content Header (Page header) -->
 <!-- Main content -->
@@ -64,14 +66,14 @@
                          </span>
                       </div> -->
                       <div class="  {{ $errors->has('user_id') ? 'has-error' : '' }}">
-                          <select class="form-control input-sm selectpicker" name="user_id" id="select-client" data-live-search="true">
-                            <option value="">Search Client</option>
-                             <?php foreach ($users as $aa) {
-                            ?>
-                            <option value="<?php echo $aa['id']; ?>" data-tokens="<?php echo $aa['company_name']; ?>" @if(isset($client_id) && $aa['id'] == $client_id) selected @endif> <?php echo $aa['company_name']; ?></option>
-                              <?php
-                            } ?>
-                          </select>
+                          <select class="" name="user_id" id="select-client" data-live-search="true">
+                              <option>Search Client</option>
+                               @foreach ($users as $key => $aa)
+                               <option value="{{ $aa['id'] }}" data-tokens="{{ $aa['id'] }}.{{ $aa['id'] }}.{{ $aa['id'] }};?>" @if(isset($client_id) && $aa['id'] == $client_id) selected @endif> [{{$aa['company_name']}}] [{{$aa['short_id']}}] [{{$aa['crn_no']}}]</option>
+                              @endforeach
+
+                            </select>
+
                           <span class="text-danger">{{ $errors->first('user_id') }}</span>
                        </div>
                    </div>
@@ -120,7 +122,7 @@
              <thead>
                 <tr>
                    <th>SR.NO</th>
-                   <th>Client NAME</th>
+                   <th>CLIENT NAME</th>
                    <th>NOC</th>
                    <th>PPA</th>
                    <th>EXCHANGE</th>
@@ -201,5 +203,10 @@ $(function () {
 });
 
 
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+   $('#select-client').select2();
+});
 </script>
 @endsection

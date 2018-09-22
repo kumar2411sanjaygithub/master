@@ -92,7 +92,7 @@
               <div class="col-md-3 {{ $errors->has('reg_country') ? 'has-error' : '' }}">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="reg_country" name="reg_country" value="{{old('reg_country')}}">
-                 <option>India</option>
+                 <option value="India">India</option>
 
                 </select>
               </div>
@@ -154,7 +154,7 @@
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label>
               <select class="form-control input-sm" style="width: 100%;" id="bill_country" name="bill_country"value="{{old('bill_country')}}">
-                  <option value="">India</option>
+                  <option value="India">India</option>
 
 
                 </select>
@@ -215,7 +215,7 @@
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label>
               <select class="form-control input-sm" style="width: 100%;" id="del_country" name="del_country" value="{{old('del_country')}}">
-                  <option value="">India</option>
+                  <option value="India">India</option>
                 </select>
               </div>
               <div class="col-md-3">

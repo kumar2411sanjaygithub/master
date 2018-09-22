@@ -21,9 +21,9 @@
                                 </div>
                                   <form method ="post" action="{{isset($get_exchange_details)?url('exchange_edit/'.$get_exchange_details->id):route('exchange_create')}}" enctype="multipart/form-data">
                                    {{ csrf_field() }}
-                                   <div class="row{{isset($get_bank_details)?'':'divhide'}}" id="exchangebox">
+                                   <div class="row{{isset($get_exchange_details)?'':'divhide'}}" id="exchangebox">
 
-                                  <div class="box  {{(isset($get_bank_details)||!$errors->isEmpty())?'':'hidden'}} addtab">
+                                  <div class="box  {{(isset($get_exchange_details)||!$errors->isEmpty())?'':'hidden'}} addtab">
                                   <div class="box-body">
                                   <div class="row">
                                       <div class="col-md-3 {{ $errors->has('ex_type') ? 'has-error' : '' }}">
