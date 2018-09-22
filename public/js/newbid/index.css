@@ -8,6 +8,7 @@ a>.panel-heading{background-color: #f5f5f5;}
 .donwload{
   height:44px;
   width: 44px;
+  cursor: pointer;
   background: url('../../img/assets/download.svg')no-repeat;
 }
 .pt0{padding-top:0px;}
@@ -19,6 +20,7 @@ a>.panel-heading{background-color: #f5f5f5;}
 .iconsetex{
   height:44px;
   width: 44px;
+  cursor: pointer;
   background: url('../../img/assets/upload.svg')no-repeat;
 }
 
@@ -42,3 +44,13 @@ a>.panel-heading{background-color: #f5f5f5;}
   width: 44px;
   background: url('../../img/assets/bid_desc.svg')no-repeat;
 }
+.zoom{height:20px;width:18px;cursor: pointer;}
+.bidtest{font-weight:600;font-size:13px;}
+.panel-heading{padding: 5px 15px;}
+.panel-body{padding-top:5px; padding-bottom:2px;}
+.edit-bid-data{padding-bottom:3px; padding-left:3px;}
+.dashed-borderd-table>table{margin-bottom:5px;}
+.mt7{margin-top:7px;}
+#time-left{margin-right:12%;}
+.plr0{padding-left:0px;padding-right:0px;}
+.pr0{padding-right:0px;}

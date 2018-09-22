@@ -793,9 +793,9 @@ jQuery(document).ready(function() {
                         header += '<div class="panel-body">';
                         header += '<label class="text-info">IEX || Single</label>';
                         if (dateindex >= current_date) {
-                            header += '<img style="cursor: pointer;" src="/img/assets/edit.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="18px" width="22px">';
+                            header += '<img style="cursor: pointer;" src="/img/assets/edit.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="15px" width="19px">';
                         } else {
-                            header += '<img style="cursor: pointer;" src="/img/assets/view.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="18px" width="22px">';
+                            header += '<img style="cursor: pointer;" src="/img/assets/view.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="15px" width="19px">';
                         }
                         header += '<div class="dashed-borderd-table">';
                         header += '<table class="table table-striped table-sm bid-status">';
@@ -860,9 +860,9 @@ jQuery(document).ready(function() {
                         }
                         header += singleBid + '</tbody></table></div>  <label class="text-info">IEX || Block</label>';
                         if (dateindex >= current_date) {
-                            header += '<img style="cursor: pointer;" src="/img/assets/edit.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="18px" width="22px">';
+                            header += '<img style="cursor: pointer;" src="/img/assets/edit.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="15px" width="19px">';
                         } else {
-                            header += '<img style="cursor: pointer;" src="/img/assets/view.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="18px" width="22px">';
+                            header += '<img style="cursor: pointer;" src="/img/assets/view.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="15px" width="19px">';
                         }
                         header += '<div class="dashed-borderd-table"><table class="table table-striped table-sm bid-status"><thead class="tablehead"><tr><th class="text-center">From</th><th class="text-center">To</th><th class="text-center">Quantum</th><th class="text-center">Rate</th></tr></thead><tbody id="block-bid-data">';
                         header += blockBid + "</tbody></table></div></div></div></div>";
@@ -1187,9 +1187,9 @@ jQuery(document).ready(function() {
                             header += '<div class="panel-body">';
                             header += '<label class="text-info">IEX || Single</label>';
                             if (dateindex >= current_date) {
-                                header += '<img style="cursor: pointer;" src="/img/assets/edit.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="18px" width="22px">';
+                                header += '<img style="cursor: pointer;" src="/img/assets/edit.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="15px" width="19px">';
                             } else {
-                                header += '<img style="cursor: pointer;" src="/img/assets/view.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="18px" width="22px">';
+                                header += '<img style="cursor: pointer;" src="/img/assets/view.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="15px" width="19px">';
                             }
                             header += '<div class="dashed-borderd-table">';
                             header += '<table class="table table-striped table-sm bid-status">';
@@ -1254,9 +1254,9 @@ jQuery(document).ready(function() {
                             }
                             header += singleBid + '</tbody></table></div>  <label class="text-info">IEX || Block</label>';
                             if (dateindex >= current_date) {
-                                header += '<img style="cursor: pointer;" src="/img/assets/edit.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="18px" width="22px">';
+                                header += '<img style="cursor: pointer;" src="/img/assets/edit.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="15px" width="19px">';
                             } else {
-                                header += '<img style="cursor: pointer;" src="/img/assets/view.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="18px" width="22px">';
+                                header += '<img style="cursor: pointer;" src="/img/assets/view.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="15px" width="19px">';
                             }
                             header += '<div class="dashed-borderd-table"><table class="table table-striped table-sm bid-status"><thead class="tablehead"><tr><th class="text-center">From</th><th class="text-center">To</th><th class="text-center">Quantum</th><th class="text-center">Rate</th></tr></thead><tbody id="block-bid-data">';
                             header += blockBid + "</tbody></table></div></div></div></div></div>";
@@ -2034,9 +2034,9 @@ jQuery(document).delegate('.ui-menu-item', 'click', function() {
                     header += '<div class="panel-body">';
                     header += '<label class="text-info">IEX || Single</label>';
                     if (current_date <= date) {
-                        header += '<img style="cursor: pointer;" src="/img/assets/edit.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="18px" width="22px">';
+                        header += '<img style="cursor: pointer;" src="/img/assets/edit.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="15px" width="19px">';
                     } else {
-                        header += '<img style="cursor: pointer;" src="/img/assets/view.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="18px" width="22px">';
+                        header += '<img style="cursor: pointer;" src="/img/assets/view.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="15px" width="19px">';
                     }
                     header += '<div class="dashed-borderd-table">';
                     header += '<table class="table table-striped table-sm bid-status">';
@@ -2101,9 +2101,9 @@ jQuery(document).delegate('.ui-menu-item', 'click', function() {
                     }
                     header += singleBid + '</tbody></table></div>  <label class="text-info">IEX || Block</label>';
                     if (current_date <= date) {
-                        header += '<img style="cursor: pointer;" src="/img/assets/edit.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="18px" width="22px">';
+                        header += '<img style="cursor: pointer;" src="/img/assets/edit.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="15px" width="19px">';
                     } else {
-                        header += '<img style="cursor: pointer;" src="/img/assets/view.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="18px" width="22px">';
+                        header += '<img style="cursor: pointer;" src="/img/assets/view.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="15px" width="19px">';
                     }
                     header += '<div class="dashed-borderd-table"><table class="table table-striped table-sm bid-status"><thead class="tablehead"><tr><th class="text-center">From</th><th class="text-center">To</th><th class="text-center">Quantum</th><th class="text-center">Rate</th></tr></thead><tbody id="block-bid-data">';
                     header += blockBid + "</tbody></table></div></div></div></div>";
@@ -2302,9 +2302,9 @@ jQuery(document).ready(function() {
                         header += '<div class="panel-body">';
                         header += '<label class="text-info">IEX || Single</label>';
                         if (current_date <= date) {
-                            header += '<img style="cursor: pointer;" src="/img/assets/edit.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="18px" width="22px">';
+                            header += '<img style="cursor: pointer;" src="/img/assets/edit.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="15px" width="19px">';
                         } else {
-                            header += '<img style="cursor: pointer;" src="/img/assets/view.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="18px" width="22px">';
+                            header += '<img style="cursor: pointer;" src="/img/assets/view.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="15px" width="19px">';
                         }
                         header += '<div class="dashed-borderd-table">';
                         header += '<table class="table table-striped table-sm bid-status">';
@@ -2369,9 +2369,9 @@ jQuery(document).ready(function() {
                         }
                         header += singleBid + '</tbody></table></div>  <label class="text-info">IEX || Block</label>';
                         if (current_date <= date) {
-                            header += '<img style="cursor: pointer;" src="/img/assets/edit.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="18px" width="22px">';
+                            header += '<img style="cursor: pointer;" src="/img/assets/edit.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="15px" width="19px">';
                         } else {
-                            header += '<img style="cursor: pointer;" src="/img/assets/view.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="18px" width="22px">';
+                            header += '<img style="cursor: pointer;" src="/img/assets/view.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="15px" width="19px">';
                         }
                         header += '<div class="dashed-borderd-table"><table class="table table-striped table-sm bid-status"><thead class="tablehead"><tr><th class="text-center">From</th><th class="text-center">To</th><th class="text-center">Quantum</th><th class="text-center">Rate</th></tr></thead><tbody id="block-bid-data">';
                         header += blockBid + "</tbody></table></div></div></div></div>";
