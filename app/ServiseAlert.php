@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-class Servise extends Model
+class ServiseAlert extends Model
 {
     use SoftDeletes;
     protected $table = 'service';

@@ -83,9 +83,28 @@
                                   &nbsp;&nbsp;&nbsp;&nbsp;
                                   <a href="/manageofficials/editofficials/{{ $value->id }}"> <span class="glyphicon glyphicon-pencil" officials_detail_id="{{ $value->id }}"></span></a>
                                   &nbsp;&nbsp;&nbsp;&nbsp;
-                                  <a href="/manageofficials/deleteofficialsdetail/{{ $value->id }}">
+                                  <a href="" data-toggle="modal" data-target="#ConvertData{{ $value->id }}" name="" id="convert-disabled">
                                       <span class="glyphicon glyphicon-trash" id="remove-detail" officials_detail_id="{{ $value->id }}"></span></a>
                                 </td>
+                                <div id="ConvertData{{ $value->id }}" class="modal fade" role="dialog">
+           <form method="GET"  action="{{url('/manageofficials/deleteofficialsdetail/'.$value->id)}}">
+            {{ csrf_field() }}
+           <div class="modal-dialog modal-confirm">
+             <div class="modal-content">
+               <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                 <h4 class="modal-title text-center"></h4>
+               </div>
+               <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                 <p style="font-size: 18px;font-weight:400;color:black!important; text-align:center;">Are you sure you want to delete this record?</p>
+               </div>
+               <div class="modal-footer">
+                 <button type="submit" class="btn btn-danger">Yes</button>
+                 <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+               </div>
+             </div>
+           </div>
+           </form>
+         </div>
                               </tr>
                             <?php
                               $i++;

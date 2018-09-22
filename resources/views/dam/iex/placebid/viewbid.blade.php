@@ -11,25 +11,25 @@
                   <td id="set_delivery_date"></td>
                   <th>Exchange</th>
                   <td>IEX</td>
-                </tr>        
+                </tr>
               </table>
-            </div> 
+            </div>
           </div>
-        </div>                            
+        </div>
         <label>Bidding Type <span class="text-info">Single</span></label>
         <div class="panel-collapse collapse in" id="collapseOne" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body np nm">
             <div class="dashed-borderd-table">
               <table class="table table-striped table-sm bid-status">
                 <thead>
-                  <tr> 
+                  <tr>
                     <th class="text-center">Form</th>
                     <th class="text-center">To</th>
                     <th class="text-center">Quantum</th>
                     <th class="text-center">Rate</th>
                   </tr>
                 </thead>
-                <tbody id="single-bid-data">                  
+                <tbody id="single-bid-data">
                 </tbody>
               </table>
             </div>
@@ -48,12 +48,12 @@
                     <th class="text-center">Rate</th>
                   </tr>
                 </thead>
-                <tbody id="block-bid-data">                  
+                <tbody id="block-bid-data">
                 </tbody>
               </table>
             </div>
           </div>
-        </div>                            
+        </div>
     </div><br>
     <div class="row">
       <div class="col-md-12">
@@ -64,5 +64,5 @@
         </div>
       </div>
     </div>
-  </div>                          
+  </div>
 </div>

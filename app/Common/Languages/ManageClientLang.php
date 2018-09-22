@@ -114,7 +114,7 @@ class ManageClientLang
             'new_sap'=> 'New Sap',
             'bid_cut_off_time'=>'Bid Cut Off Time',
             'trader_type'=>'Trader Type',
-            'pri_contact_no'=>'Primary Contact No'
+            'pri_contact_no'=>'Primary Contact No',
             'crn_no'=> 'CRN No'
         );
    }

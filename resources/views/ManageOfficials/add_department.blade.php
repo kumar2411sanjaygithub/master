@@ -13,7 +13,7 @@
       <section class="content">
          <div class="row">
             <div class="col-xs-12">
-              
+
                <div class="box">
                   <div class="box-body">
                      <div class="row">
@@ -32,10 +32,10 @@
                      </div>
                   </div>
                </div>
-              
+
              </div>
           </div>
-              
+
       </section>
      <script>
     window.setTimeout(function() {
@@ -44,5 +44,5 @@
         });
     }, 5000);
   </script>
-      
+
   @endsection

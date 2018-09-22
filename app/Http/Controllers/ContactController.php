@@ -33,7 +33,8 @@ class ContactController extends Controller
         $client_id=$id;
         //$contactdetails = Exchange::where('client_id',$id)->where('status',1)->get();
         // $contactdetails = DB::table('contact')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',2); })->where('client_id',$id)->where('status',1)->get();
-        $contactdetails = Contact::select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',2); })->where('client_id',$id)->where('status',1)->withTrashed()->get();
+        $contactdetails = Contact::select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',1)->orwhere('del_status',4); })->where('client_id',$id)->where('status',1)->get();
+
         $alert_type = ServiseAlert::select('*')->where('client_id',$id)->get();
         $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
         //dd($client_details[0]['company_name']);
@@ -119,7 +120,11 @@ class ContactController extends Controller
     public function delete_contactdetails(Request $request ,$contact_detail_id)
     {
         $client_id=$request->input('client_id');
-        Contact::destroy($contact_detail_id);
+        $contact = Contact::find($contact_detail_id);
+        $contact->del_status = 1;
+        $contact->update();
+       
+
 
         return redirect()->back()->with('message','contact detail request successfully and sent to approver');
     }

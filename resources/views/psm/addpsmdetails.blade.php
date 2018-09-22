@@ -13,18 +13,7 @@ a.disabled {
 }
 span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
 </style>
-<section class="content-header">
-   <h5 class="hid @if($errors->isEmpty()) @else hidden  @endif">
-      <label  class="control-label"><u>Payment Security Mechanism(PSM) Details</u></label>
-      &nbsp; {{@$clientData->company_name}}<span class="hifan">|</span>{{@$clientData->crn_no}}<span class="hifan">|</span>{{@$clientData->iex_portfolio}}<span class="hifan">|</span>{{@$clientData->pxil_portfolio}}
-   </h5>
-   <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">PSM Details</a></li>
-      <li><a href="{{ route('basic.details') }}">PSM Search Client</a></li>
-      <li><a href="#" class="active">PSM Add</a></li>
-   </ol>
-</section>
+
 <!-- Content Header (Page header) -->
 <!-- Main content -->
   <section class="content">
@@ -56,12 +45,22 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
 
       <div class="row">
          <div class="col-xs-12">
+           <div class="row">
+             <div class="col-md-7 pull-left">
+               <h5 class="hid">
+                  <label  class="control-label"><u class="setword">Payment Security Mechanism(PSM) Details</u></label>
+                  &nbsp; {{@$clientData->company_name}}<span class="hifan">|</span>{{@$clientData->crn_no}}<span class="hifan">|</span>{{@$clientData->iex_portfolio}}<span class="hifan">|</span>{{@$clientData->pxil_portfolio}}
+               </h5>
+             </div>
+             <div class="col-md-5 pull-right">
+                     <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mt7 "><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+                      <a class="mt7 mr5 btn btn-info btn-xs pull-right apdbtn hid @if($errors->isEmpty()) @else hidden  @endif">
+                        <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PSM</a>
+
+             </div>
+           </div>
            <form method="post" enctype="multipart/form-data" action="{{ url('psm/psmdetails/'.$id) }}" class="apd @if($errors->isEmpty())hidden @else  @endif">
              {{ csrf_field()}}
-            <section class="content-header">
-              <span style="margin-left:-12px;"><label  class="control-label"><u>ADD PSM DETAILS</u></label></span> &nbsp; &nbsp; {{@$clientData->company_name}}<span class="hifan">|</span>{{@$clientData->crn_no}}<span class="hifan">|</span>{{@$clientData->iex_portfolio}}<span class="hifan">|</span>{{@$clientData->pxil_portfolio}}
-            </section>
-            <br>
             <div class="row">
                  <div class="col-xs-12">
                     <div class="box">
@@ -152,28 +151,14 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                  </div>
               </div>
             </form>
-            <div class="row">
-               <div class="col-md-2">
-                  <div class="input-group input-group-sm">
-                     <input type="text" class="form-control" placeholder="SEARCH">
-                     <span class="input-group-btn">
-                     <button type="button" class="btn btn-info btn-flat"><span class="glyphicon glyphicon-search"></span></button>
-                     </span>
-                  </div>
-               </div>
-               <div class="col-md-8"></div>
-               <div class="col-md-2">
-                  <a class="btn btn-info btn-xs pull-right apdbtn hid @if($errors->isEmpty()) @else hidden  @endif">
-                  <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PSM</a>
-               </div>
-            </div>
+
             <div class="box">
                <div class="box-body table-responsive">
                   <table id="example1" class="table table-bordered table-striped table-hover text-center">
                      <thead>
                         <tr>
                            <th class="srno">SR.NO</th>
-                           <th>Type</th>
+                           <th>TYPE</th>
                            <th>RECVIED DATE</th>
                            <th>AMOUNT</th>
                            <th>DOCUMENT NO.</th>
@@ -233,12 +218,20 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
             }
 
             @endphp
+            <div class="row">
+              <div class="col-md-6">
+            <section class="content-header exposuredetails">
+              <span style="margin-left:-12px;"><label class="control-label"><u class="psmexp-test"> PSM EXPOSURE DETAILS</u></label></span>
+            </section>
+          </div>
+          <div class="col-md-6">
+            <a class="btn btn-info btn-xs pull-right apedbtn">
+            <span class="glyphicon glyphicon-plus"> </span> SET PSM EXPOSURE</a>
+          </div>
+          </div>
             <form method="post" enctype="multipart/form-data" action="{{ @$path}}" class="aped  @if($errors->isEmpty()) hidden @else   @endif">
               {{ csrf_field()}}
-            <section class="content-header">
-              <span style="margin-left:-12px;"><label  class="control-label"><u>ADD PSM EXPOSURE DETAILS</u></label></span>
-                &nbsp; {{@$clientData->company_name}}<span class="hifan">|</span>{{@$clientData->crn_no}}<span class="hifan">|</span>{{@$clientData->iex_portfolio}}<span class="hifan">|</span>{{@$clientData->pxil_portfolio}}
-            </section>
+
               <div class="row">
                <div class="col-xs-12">
                   <div class="box">
@@ -267,21 +260,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                </div>
             </div>
             </form>
-            <div class="row">
-               <div class="col-md-2">
-                  <div class="input-group input-group-sm">
-                     <input type="text" class="form-control" placeholder="SEARCH">
-                     <span class="input-group-btn">
-                     <button type="button" class="btn btn-info btn-flat"><span class="glyphicon glyphicon-search"></span></button>
-                     </span>
-                  </div>
-               </div>
-               <div class="col-md-8"></div>
-               <div class="col-md-2">
-                  <a class="btn btn-info btn-xs pull-right apedbtn">
-                  <span class="glyphicon glyphicon-plus"> </span> SET PSM EXPOSURE</a>
-               </div>
-            </div>
+
             <div class="box">
                <div class="box-body table-responsive">
                   <table id="example2" class="table table-bordered table-striped table-hover text-center">
@@ -370,15 +349,22 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
 $(document).ready(function(){
     $(".apdbtn").click(function(){
         $(".apd").removeClass("hidden");
-        $(".hid").addClass("hidden");
+        $(".apdbtn").addClass("hidden");
+        $(".setword").text("Add PSM Details");
     });
     $(".apedbtn").click(function(){
         $(".aped").removeClass("hidden");
+        $(".psmexp-test").text("Add PSM Exposure Details");
+        $(".apedbtn").hide();
     });
-    $("#cancel,.cancel").click(function(){
-      $(".aped").addClass("hidden")
-      $(".hid").removeClass("hidden");
-
+    $("#cancel").click(function(){
+      $(".aped").addClass("hidden");
+      $(".psmexp-test").text("PSM Exposure Details");
+      $(".apedbtn").show();
+    });
+    $(".cancel").click(function(){
+      $(".apdbtn").removeClass("hidden");
+      $(".setword").text("Payment Security Mechanism(PSM) Details");
     });
     $("#cancel1").click(function(){
       $(".apd").addClass("hidden")
