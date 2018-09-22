@@ -82,107 +82,30 @@
   </div>
 
     </section>
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
     <!-- /.content -->
-       <script type="text/javascript">
+@endsection
+@section('content_foot')
+<script>
      setTimeout(function() {
        $('#successMessage').fadeOut('fast');
-       }, 2000); // <-
-   </script>
+       }, 2000);
 
-   <script type="text/javascript">
-     $("#add-checkbox").change(function(){
-        $(".add-checkbox").prop("checked", $(this).prop("checked"))
-      });
-    $(".add-checkbox").change(function(){
-        if($(this).prop("checked") == false){
-            $("#add-checkbox").prop("checked", false)
-        }
-        if($(".add-checkbox:checked").length == $(".add-checkbox").length){
-            $("#add-checkbox").prop("checked", true)
-        }
+    // For Select All checkbox
+    $('#add-checkbox, #edit-checkbox, #delete-checkbox, #view-checkbox, #verifier-checkbox, #approver-checkbox').on('ifChecked', function(event) {
+        var id = $(this).prop('id');
+        $("."+id).iCheck('check');
+    });
+    $('#add-checkbox, #edit-checkbox, #delete-checkbox, #view-checkbox, #verifier-checkbox, #approver-checkbox').on('ifUnchecked', function(event) {
+        var id = $(this).prop('id');
+        $("."+id).iCheck('uncheck');
     });
 
-     $("#edit-checkbox").change(function(){
-        $(".edit-checkbox").prop("checked", $(this).prop("checked"))
-      });
-    $(".edit-checkbox").change(function(){
-        if($(this).prop("checked") == false){
-            $("#edit-checkbox").prop("checked", false)
-        }
-        if($(".edit-checkbox:checked").length == $(".edit-checkbox").length){
-            $("#edit-checkbox").prop("checked", true)
-        }
-    });
-
-     $("#delete-checkbox").change(function(){
-        $(".delete-checkbox").prop("checked", $(this).prop("checked"))
-      });
-    $(".delete-checkbox").change(function(){
-        if($(this).prop("checked") == false){
-            $("#delete-checkbox").prop("checked", false)
-        }
-        if($(".delete-checkbox:checked").length == $(".delete-checkbox").length){
-            $("#delete-checkbox").prop("checked", true)
-        }
-    });
-
-     $("#view-checkbox").change(function(){
-        $(".view-checkbox").prop("checked", $(this).prop("checked"))
-      });
-    $(".view-checkbox").change(function(){
-        if($(this).prop("checked") == false){
-            $("#view-checkbox").prop("checked", false)
-        }
-        if($(".view-checkbox:checked").length == $(".view-checkbox").length){
-            $("#view-checkbox").prop("checked", true)
-        }
-    });
-
-     $("#verifier-checkbox").change(function(){
-        $(".verifier-checkbox").prop("checked", $(this).prop("checked"))
-      });
-    $(".verifier-checkbox").change(function(){
-        if($(this).prop("checked") == false){
-            $("#verifier-checkbox").prop("checked", false)
-        }
-        if($(".verifier-checkbox:checked").length == $(".verifier-checkbox").length){
-            $("#verifier-checkbox").prop("checked", true)
-        }
-    });
-
-     $("#approver-checkbox").change(function(){
-        $(".approver-checkbox").prop("checked", $(this).prop("checked"))
-      });
-    $(".approver-checkbox").change(function(){
-        if($(this).prop("checked") == false){
-            $("#approver-checkbox").prop("checked", false)
-        }
-        if($(".approver-checkbox:checked").length == $(".approver-checkbox").length){
-            $("#approver-checkbox").prop("checked", true)
-        }
-    });
-
-   </script>
-   <script>
    $(function () {
        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
          checkboxClass: 'icheckbox_flat-blue',
          radioClass   : 'iradio_flat-blue'
-     })
-     //Red color scheme for iCheck
-     $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-       checkboxClass: 'icheckbox_minimal-red',
-       radioClass   : 'iradio_minimal-red'
-     })
-     //Flat red color scheme for iCheck
-     $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-       checkboxClass: 'icheckbox_flat-blue',
-       radioClass   : 'iradio_flat-blue'
-     })
-
-   })
-
-
+     });
+   });
    </script>
 @endsection

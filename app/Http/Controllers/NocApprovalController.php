@@ -8,7 +8,7 @@ use App\NocTemp;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
 use DB;
-
+use App\Client;
 use App\Noc;
 
 
@@ -23,8 +23,8 @@ class NocApprovalController extends Controller
         $Addnocdata = NocTemp::select('*')->where('client_id',$request['id'])->where('status', 0)->orderBy('created_at','desc')->get();
         $delnocData = Noc::select('*')->where('client_id',$request['id'])->where('del_status',0)->where('deleted_at', '!=' ,'NULL')->orderBy('created_at','desc')->withTrashed()->get();
         //dd($delexcgData);
-
-        return view('ApprovalRequest.client.noc_existing',compact('nocData','Addnocdata','delnocData'));
+        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$request['id'])->get();
+        return view('ApprovalRequest.client.noc_existing',compact('nocData','Addnocdata','delnocData','client_details'));
     }
      public function addapprove($id,$type,$type2)
        {
