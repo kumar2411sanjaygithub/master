@@ -68,7 +68,7 @@
             <tbody>
               @php $i=1; @endphp
               @if (count($approved_noc) > 0)
-                 @foreach ($approved_noc as $k=>$noc_approved)                  
+                 @foreach ($approved_noc as $k=>$noc_approved)
                   <tr>
                     <td>{{$i}}</td>
                     <td><a href="{{url('/getclientData/'.$noc_approved->client_id)}}">{{@$noc_approved->client->company_name}}</a></td>
@@ -88,7 +88,7 @@
                       <a href="#" class="btn  btn-info btn-xs">APPROVED</a>
                     </td>
                   </tr>
-                    @php $i++; @endphp                                   
+                    @php $i++; @endphp
                 @endforeach
               @else
                 <tr>
@@ -132,7 +132,7 @@ $(document).ready(function() {
         $('.candidate_auto_search').val(ui.item.value);
         $(event.target.form).submit();
       }
-      });                
+      });
   }(jQuery));
 
 

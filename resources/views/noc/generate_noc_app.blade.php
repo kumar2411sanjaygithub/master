@@ -3,11 +3,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
  		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-     
+
    </head>
    <body>
       <div id="target">
-         <div style="background:#f0f0f0;width:100vw;display:flex;justify-content:center;         padding:20px;">
+         <div style="background:#f0f0f0;width:100vw;display:flex;justify-content:center;padding:20px;">
             <div style="width:100%;height:60%;background:#fff;padding:30px 40px;">
                <div style="text-align: center;" ><img src="<?php echo public_path();?>/img/Tata_logo.svg" style="width:90px!important;height:90px!important;"></div>
                <span style="margin-left:40px;">{{$date}}</span><span style="float:right;">{{$application_no}}</span>
@@ -56,4 +56,4 @@
          </div>
       </div>
    </body>
-</html> 
+</html>
