@@ -125,7 +125,7 @@ class ClientDeatilsController extends Controller
         $client->save();
 
         //$lsatinsertedId = $clien->id;
-		return redirect('basicdetails')->with('message', 'Data Save Successfully!');
+		return redirect('basicdetails')->with('message', '.Client details saved successfully and submitted for approval.!');
 	}
 
     public function viewclient($id){
@@ -296,7 +296,7 @@ class ClientDeatilsController extends Controller
         $this->generateApprovalrequest($result, 'client', $client_id, $basic_id,$datas);
 
         //return redirect()->route('basicdetails')->with('message','Detail added successfully and sent to Approver');
-        return Redirect::back()->with('message', 'Client updated successfully.');
+        return Redirect::back()->with('message', 'Your update request has been successfully submitted for approval..');
 
 
     }
@@ -324,8 +324,9 @@ class ClientDeatilsController extends Controller
     public function bankdetails($id){
         $client_id=$id;
        // $bankdetails = Bank::where('client_id',$id)->where('status',1)->get();
-        $bankdetails = DB::table('bank')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',2); })->where('client_id',$id)->where('status',1)->get();
-   $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
+        $bankdetails = DB::table('bank')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',1)->orwhere('del_status',4); })->where('client_id',$id)->where('status',1)->get();
+
+       $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
 
         return view('ManageClient.bankdetails',compact('bankdetails','client_id','client_details'));
     }
@@ -404,9 +405,11 @@ class ClientDeatilsController extends Controller
     public function delete_bankdetails(Request $request ,$bank_detail_id)
     {
         $client_id=$request->input('client_id');
-        Bank::destroy($bank_detail_id);
+        $contact = Bank::find($bank_detail_id);
+        $contact->del_status = 1;
+        $contact->update();
 
-        return redirect()->back()->with('Bank detail request successfully and sent to approver');
+        return redirect()->back()->with('message','Delete Request has been submitted successfully for approval');
     }
     public function search_discom(Request $request)
     {

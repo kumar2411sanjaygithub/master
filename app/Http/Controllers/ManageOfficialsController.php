@@ -75,7 +75,7 @@ class ManageOfficialsController extends Controller
         $department->description = $request->input('description');
         // $v = $department->getDirty();
         $department->update();
-        return redirect('/departments')->with('updatemsg', 'Data Update Successfully!');
+        return redirect('/departments')->with('updatemsg', 'Record Updated Successfully!');
     }
 
     public function deletedepartments($id)
@@ -86,7 +86,7 @@ class ManageOfficialsController extends Controller
         //dd($department);
         $department->destroy($id);
         //$deletedRows = Department::where('id',$id)->delete();
-        return redirect()->back()->with('delmsg', 'Data Deleted Successfully!');
+        return redirect()->back()->with('delmsg', 'Record Deleted Successfully!');
     }
 
     public function employeeview(){

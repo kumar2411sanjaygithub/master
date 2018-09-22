@@ -271,7 +271,7 @@
                  <h4 class="modal-title text-center">ARE YOU SURE?</h4>
                </div>
                <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                 <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO CONVERTED THESE LEAD? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                 <p style="font-size: 18px;font-weight: 400;color:black!important; text-align:center;">Are you sure you want to convert lead?</p>
                </div>
                <div class="modal-footer">
                  <button type="submit" class="btn btn-danger">Yes</button>
