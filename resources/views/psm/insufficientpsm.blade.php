@@ -17,9 +17,9 @@ a.disabled {
 
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">PSM Details</a></li>
-      <li><a href="{{ route('psmdetials') }}">PSM Search Client</a></li>
-      <li><a href="#" class="active"><u>PSM Add</u></a></li>
+      <li><a href="#">APPROVE REQUEST</a></li>
+      <li><a href="{{ route('psmdetials') }}" class="active">INSUFFICIENT PSM</a></li>
+    
    </ol>
 </section>
 <!-- Content Header (Page header) -->

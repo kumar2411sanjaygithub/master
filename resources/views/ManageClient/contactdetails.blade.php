@@ -34,8 +34,9 @@
                 <h5 class="pull-left"><label class="control-label pull-right mt-1"><u>CONTACT DETAILS</u></h5> &nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
             </div>
             <div class="col-md-6 pull-right">
-                <button class="btn btn-info btn-xs mt7 pull-right" id="add"><span class="glyphicon glyphicon-plus"></span>&nbspADD</button>
-                <a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7 pull-right mr5" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
+                <a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7 pull-right" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
+                <button class="btn btn-info btn-xs mt7 pull-right mr5" id="add"><span class="glyphicon glyphicon-plus"></span>&nbspADD</button>
+
             </div>
           </div>
 

@@ -29,9 +29,11 @@
                            <div class="box">
                               <div class="box-body">
                                  <div class="row">
-                                    <div class="col-md-2"><label class="control-label mlt1">EXCHANGE DETAILS</label></div>
+                                    <div class="col-md-2"></div>
                                     <div class="col-md-6"></div>
-                                    <div class="col-md-4 text-right"><button type="button" class="btn  btn-info btn-xs" >APPROVE ALL</button>
+                                    <div class="col-md-4 text-right">
+                                          <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right mr"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+                                      <button type="button" class="btn  btn-info btn-xs" >APPROVE ALL</button>
                                        &nbsp&nbsp&nbsp&nbsp&nbsp<button type="button" class="btn  btn-danger btn-xs mlt" for="rejectall">REJECT ALL</button>
                                     </div>
                                  </div>
@@ -39,13 +41,13 @@
                                     <table id="example1" class="table table-bordered table-striped table-hover text-center">
                                        <thead>
                                           <tr>
-                                             <th class="chy"><input type="checkbox"  class="minimal"></th>
-                                             <th class="srno">SR. No.</th>
-                                             <th>EXCHANGE TYPE</th>
-                                             <th>VALIDITY FROM</th>
-                                             <th>VALIDITY TO</th>
-                                             <th>FILE NAME</th>
-                                             <th class="act">ACTION</th>
+                                             <th class="chy" style="padding:5px!important;"><input type="checkbox"  class="minimal"></th>
+                                             <th class="srno vl">SR. No.</th>
+                                             <th class="vl">EXCHANGE TYPE</th>
+                                             <th class="vl">VALIDITY FROM</th>
+                                             <th class="vl">VALIDITY TO</th>
+                                             <th class="vl">FILE NAME</th>
+                                             <th class="act vl">ACTION</th>
                                           </tr>
                                        </thead>
                                        <tbody>
@@ -63,7 +65,7 @@
                                                <td class="text-center vl">{{ $value->validity_from }}</td>
                                                <td class="text-center vl">{{ $value->validity_to }}</td>
                                                <td class="text-center vl">{{ $value->file_upload }}</td>
-                                             <td><a href="/addexchange/{{ $value->id }}/approved/exchange_temp"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/addexchange/{{ $value->id }}/rejected/exchange_temp"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
+                                             <td class="vl"  style="padding:5px!important;"><a href="/addexchange/{{ $value->id }}/approved/exchange_temp"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/addexchange/{{ $value->id }}/rejected/exchange_temp"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
                                           </tr>
                                         <?php
                                        $i++;
@@ -80,7 +82,7 @@
                            <div class="box">
                               <div class="box-body">
                                  <div class="row">
-                                    <div class="col-md-2"><label  class="control-label mlt1"> EXCHANGE DETAILS</label></div>
+                                    <div class="col-md-2"></div>
                                     <div class="col-md-6"></div>
                                     <div class="col-md-4 text-right"><button type="button" class="btn  btn-info btn-xs">APPROVE ALL</button>
                                        &nbsp&nbsp&nbsp&nbsp&nbsp<button type="button" class="btn  btn-danger btn-xs mlt">REJECT ALL</button>
@@ -90,11 +92,11 @@
                                     <table id="example1" class="table table-bordered table-striped table-hover text-center">
                                        <thead>
                                           <tr>
-                                             <th class="chy"><input type="checkbox"  class="minimal"></th>
-                                             <th class="srno">SR.NO</th>
-                                             <th>FIELD NAME</th>
-                                             <th>CURRENT VALUE</th>
-                                             <th>UPDATED VALUE</th>
+                                             <th class="chy"  style="padding:5px!important;"><input type="checkbox"  class="minimal"></th>
+                                             <th class="srno vl">SR.NO</th>
+                                             <th class="vl">FIELD NAME</th>
+                                             <th class="vl">CURRENT VALUE</th>
+                                             <th class="vl">UPDATED VALUE</th>
                                              <th class="act">ACTION</th>
                                           </tr>
                                        </thead>
@@ -108,12 +110,12 @@
                                           @foreach ($exchangeData as $key => $value)
                                           <tr>
 
-                                               <td><input type="checkbox"  class="minimal"></td>
-                                               <td class="text-center">{{ $i }}</td>
-                                               <td class="text-center">{{ $input_lebels[$value->attribute_name]}}</td>
-                                               <td class="text-center">{{ $value->old_att_value }}</td>
-                                               <td class="text-center">{{ $value->updated_attribute_value }}</td>
-                                             <td><a href="/exchange/modified/{{ $value->id }}/approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/exchange/modified/{{ $value->id }}/rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
+                                               <td style="padding:5px!important;"><input type="checkbox"  class="minimal"></td>
+                                               <td class="text-center vl">{{ $i }}</td>
+                                               <td class="text-center vl">{{ $input_lebels[$value->attribute_name]}}</td>
+                                               <td class="text-center vl">{{ $value->old_att_value }}</td>
+                                               <td class="text-center vl">{{ $value->updated_attribute_value }}</td>
+                                             <td  class="vl"><a href="/exchange/modified/{{ $value->id }}/approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/exchange/modified/{{ $value->id }}/rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
                                           </tr>
                                         <?php
                                        $i++;
@@ -132,7 +134,7 @@
                            <div class="box">
                               <div class="box-body">
                                  <div class="row">
-                                    <div class="col-md-2"><label  class="control-label mlt1"> EXCHANGE DETAILS</label></div>
+                                    <div class="col-md-2"></div>
                                     <div class="col-md-6"></div>
                                     <div class="col-md-4 text-right"><button type="button" class="btn  btn-info btn-xs">APPROVE ALL</button>
                                        &nbsp&nbsp&nbsp&nbsp&nbsp<button type="button" class="btn  btn-danger btn-xs mlt">REJECT ALL</button>
@@ -142,13 +144,13 @@
                                     <table id="example1" class="table table-bordered table-striped table-hover text-center">
                                        <thead>
                                           <tr>
-                                              <th class="chy"><input type="checkbox"  class="minimal"></th>
-                                              <th class="srno">SR.NO</th>
-                                             <th>EXCHANGE TYPE</th>
-                                             <th>VALIDITY FROM</th>
-                                             <th>VALIDITY TO</th>
-                                             <th>FILE NAME</th>
-                                             <th class="act">ACTION</th>
+                                              <th class="chy" style="padding:5px!important;"><input type="checkbox"  class="minimal"></th>
+                                              <th class="srno vl">SR.NO</th>
+                                             <th class="vl">EXCHANGE TYPE</th>
+                                             <th class="vl">VALIDITY FROM</th>
+                                             <th class="vl">VALIDITY TO</th>
+                                             <th class="vl">FILE NAME</th>
+                                             <th class="act vl">ACTION</th>
                                           </tr>
                                        </thead>
                                        <tbody>
@@ -161,13 +163,13 @@
 
 
                                                 <tr>
-                                                    <td><input type="checkbox"  class="minimal"></td>
+                                                    <td style="padding:5px!important;"><input type="checkbox"  class="minimal"></td>
                                                     <td class="text-center">{{ $i }}</td>
                                                     <td class="text-center">{{ $value->ex_type}}</td>
                                                     <td class="text-center">{{ $value->validity_from }}</td>
                                                     <td class="text-center">{{ $value->validity_to }}</td>
                                                     <td class="text-center">{{ $value->file_upload }}</td>
-                                                    <td class="text-center">
+                                                    <td class="text-center vl">
 
                                                           <a href="/delete_exchange/{{ $value->id }}/approved/exchange"><button type="button" class="btn  btn-info btn-xs">APPROVE</button></a>
 
@@ -227,8 +229,8 @@
 <script>
 $(function () {
     $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass   : 'iradio_flat-green'
+      checkboxClass: 'icheckbox_flat-blue',
+      radioClass   : 'iradio_flat-blue'
   })
   //Red color scheme for iCheck
   $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
@@ -241,13 +243,7 @@ $(function () {
     radioClass   : 'iradio_flat-blue'
   })
 
-})
-
-$(function () {
-$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-checkboxClass: 'icheckbox_flat-green',
-radioClass   : 'iradio_flat-green'
-})
 });
+
 </script>
             @endsection
