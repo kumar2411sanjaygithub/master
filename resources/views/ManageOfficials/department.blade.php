@@ -72,6 +72,7 @@
                     </div>
                 </div>
              </div>
+                       </form>
              <div class="row">
                 <div class="col-md-12">
                   <div class="pull-right mt7">
@@ -107,8 +108,27 @@
                               <td class="text-center">
                                 <a href="/manageofficials/editdepartments/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="/manageofficials/deletedepartments/{{$value->id}}"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a href="" data-toggle="modal" data-target="#ConvertData{{ $value->id }}" name="" id="convert-disabled"><span class="glyphicon glyphicon-trash"></span></a>
                               </td>
+                              <div id="ConvertData{{ $value->id }}" class="modal fade" role="dialog">
+           <form method="GET"  action="{{url('/manageofficials/deletedepartments/'.$value->id)}}">
+            {{ csrf_field() }}
+           <div class="modal-dialog modal-confirm">
+             <div class="modal-content">
+               <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                 <h4 class="modal-title text-center"></h4>
+               </div>
+               <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                 <p style="font-size: 18px;font-weight:400;color:black!important; text-align:center;">Are you sure you want to delete this record?</p>
+               </div>
+               <div class="modal-footer">
+                 <button type="submit" class="btn btn-danger">Yes</button>
+                 <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+               </div>
+             </div>
+           </div>
+           </form>
+         </div>
                             </tr>
                           <?php $i++; ?>
                             @endforeach
@@ -117,11 +137,13 @@
                 </div>
                 <!-- /.box-body -->
              </div>
-          </form>
-      </section>
-      <!-- /.content -->
-@endsection
-@section('content_foot')
+
+
+      
+       
+     </section>
+
+
   <script>
     $(document).ready(function(){
       $(".adddeportmentbtn").click(function(){

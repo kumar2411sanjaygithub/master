@@ -92,6 +92,7 @@
               <div class="col-md-3 {{ $errors->has('reg_country') ? 'has-error' : '' }}">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="reg_country" name="reg_country" value="{{old('reg_country')}}">
+                 <option value="">SELECT</option>
                  <option value="India">India</option>
 
                 </select>
@@ -154,6 +155,7 @@
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label>
               <select class="form-control input-sm" style="width: 100%;" id="bill_country" name="bill_country"value="{{old('bill_country')}}">
+                  <option value="">SELECT</option>
                   <option value="India">India</option>
 
 
@@ -162,7 +164,7 @@
               <div class="col-md-3">
               <label  class="control-label">STATE</label>
               <select class="form-control input-sm" style="width: 100%;" id="bill_state" name="bill_state" value="{{old('bill_state')}}">
-                  <option value="">PLEASE SELECT</option>
+                  <option value="">SELECT</option>
                   <?php
           $state_list = \App\Common\StateList::get_states();
           ?>
@@ -215,13 +217,14 @@
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label>
               <select class="form-control input-sm" style="width: 100%;" id="del_country" name="del_country" value="{{old('del_country')}}">
+                  <option value="">SELECT</option>
                   <option value="India">India</option>
                 </select>
               </div>
               <div class="col-md-3">
               <label  class="control-label">STATE</label>
               <select class="form-control input-sm" style="width: 100%;" id="del_state" name="del_state" value="{{old('del_state')}}">
-                  <option value=''>PLEASE SELECT</option>
+                  <option value=''>SELECT</option>
 
                   <?php
           $state_list = \App\Common\StateList::get_states();

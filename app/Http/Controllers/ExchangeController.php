@@ -29,7 +29,7 @@ class ExchangeController extends Controller
 
         $client_id=$id;
         //$exchangedetails = Exchange::where('client_id',$id)->where('status',1)->get();
-        $exchangedetails = DB::table('exchange')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',2); })->where('client_id',$id)->where('status',1)->get();
+        $exchangedetails = DB::table('exchange')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',1)->orwhere('del_status',4); })->where('client_id',$id)->where('status',1)->get();
         $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
          //dd($exchangedetails);
 
@@ -103,9 +103,11 @@ class ExchangeController extends Controller
     public function delete_exchangedetails(Request $request ,$exchange_detail_id)
     {
         $client_id=$request->input('client_id');
-        Exchange::destroy($exchange_detail_id);
+        $exchange = Exchange::find($exchange_detail_id);
+        $exchange->del_status = 1;
+        $exchange->update();
 
-        return redirect()->back()->with('exchange detail request successfully and sent to approver');
+        return redirect()->back()->with('message','Delete Request has been submitted successfully  for approval.');
     }
     function generateApprovalrequest($data, $type, $client_id, $reference_id='',$datas){
         $arrayKey = array_keys($data);

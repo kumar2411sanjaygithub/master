@@ -179,10 +179,14 @@ class ClientApprovalController extends Controller
         $client_id  =  $user_id;
         $bankData = Approvalrequest::select('id','updated_attribute_value','attribute_name','approval_type','client_id','created_at','old_att_value','updated_by')->where('approval_type','bank')->where('client_id',$request['id'])->where('status', 0)->orderBy('created_at','desc')->get();
         $Addbankdata = BankTemp::select('*')->where('client_id',$request['id'])->where('status', 0)->orderBy('created_at','desc')->get();
-        $deletedbnkData = DB::table('bank')->select('*')->where('client_id',$request['id'])->where('del_status',0)->where('deleted_at', '!=' ,'NULL')->orderBy('created_at','desc')->get();
+
+        $deletedbnkData = Bank::select('*')->where(function($q) { $q->where('del_status',1); })->where('client_id',$request['id'])->orderBy('created_at','desc')->withTrashed()->get();
+        return view('ApprovalRequest.client.existing',compact('bankData','Addbankdata','deletedbnkData'));
+
         $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$request['id'])->get();
 
         return view('ApprovalRequest.client.existing',compact('bankData','Addbankdata','deletedbnkData','client_details'));
+
     }
     
         public function addapprove($id,$type,$type2)
@@ -348,7 +352,8 @@ class ClientApprovalController extends Controller
 
                   $new_bnc = '\\App\\'.$newmodel[$type2];
                   $new =  $new_bnc::withTrashed()->find($id);
-                  $new->del_status = 1;
+                  $new_bnc::destroy($id);
+                  $new->del_status = 2;
                   $new->update();
 
             return Redirect::back()->with('success', 'User Successfully Approved.');
@@ -356,7 +361,7 @@ class ClientApprovalController extends Controller
             
                   $new_bnc = '\\App\\'.$newmodel[$type2];
                   $new =  $new_bnc::withTrashed()->find($id);
-                  $new->del_status = 2;
+                  $new->del_status = 4;
                   $new->update();
                   return Redirect::back()->with('success', 'User Successfully Rejected.');
         }

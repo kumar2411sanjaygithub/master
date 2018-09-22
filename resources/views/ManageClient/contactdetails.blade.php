@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-6 pull-right">
                 <a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7 pull-right" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
-                <button class="btn btn-info btn-xs mt7 pull-right mr5" id="add"><span class="glyphicon glyphicon-plus"></span>&nbspADD</button>
+                <button class="btn btn-info btn-xs mt7 pull-right mr5 {{(isset($get_contact_details)||!$errors->isEmpty())?'divhide':''}}" id="add"><span class="glyphicon glyphicon-plus"></span>&nbspADD</button>
 
             </div>
           </div>
@@ -78,7 +78,7 @@
           @else
           <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs" id="save" name="save">SAVE</button></div>
           @endif
-          <div class="col-md-1"><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="CANCEL" onclick="myFunction()"></div>
+          <div class="col-md-1"><a href="{{ URL('/contactdetails/'.$client_id) }}" ><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="CANCEL"></a></div>
         <div class="col-md-5"></div>
       </div>
       </div>
