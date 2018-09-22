@@ -29,7 +29,6 @@
               </div>
             </div>
           <div class="col-md-6"></div>
-
             <div class="col-md-4">
         @if (count($employeeData) > 0)
             <form class="pull-right" action="{{ url()->to('new-employee-approve/Approved') }}" method="post" id="approve_data">
