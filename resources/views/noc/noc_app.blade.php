@@ -40,6 +40,18 @@ a.disabled {
     color: white;
     font-size: 9px;
 }
+.scroll-table-container {
+height:auto;
+overflow: scroll;
+
+
+}
+.scroll-table,th,td
+{
+border-collapse:collapse;
+min-width:180px;
+
+}
 
 .success {background-color: #4CAF50;} /* Green */
 .edited {background-color: #2196F3;} /* Green */
@@ -203,24 +215,24 @@ a.disabled {
           </div>
           </div>
 
-         <div class="box">
-            <div class="box-body table-responsive">
+         <div class="box" >
+            <div class="box-body table-responsive scroll-table-container  scroll-table">
                <table id="example1" class="table table-bordered table-striped table-hover text-center">
                   <thead>
                      <tr>
-                        <th rowspan="2" style="width:3%;" class="vl">SR.NO</th>
-                        <th rowspan="2" class="vl">CLIENT NAME</th>
-                        <th rowspan="2" class="vl">PORTFOLIO ID</th>
-                        <th rowspan="2" class="vl">APPLICATON NO.</th>
+                        <th rowspan="2" class="vl scroll-table" style="width:2%!important">SR.NO</th>
+                        <th rowspan="2" class="vl" >CLIENT NAME</th>
+                        <th rowspan="2" class="vl" >PORTFOLIO ID</th>
+                        <th rowspan="2" class="vl" >APPLICATON NO.</th>
                         <th rowspan="2" class="vl" >VALIDITY START DATE</th>
-                        <th rowspan="2" class="vl">VALIDITY END DATE</th>
-                        <th rowspan="2" class="vl">NOC REQUEST</th>
+                        <th rowspan="2" class="vl" >VALIDITY END DATE</th>
+                        <th rowspan="2" class="vl" >NOC REQUEST</th>
                         <th rowspan="2" class="vl">STATUS</th>
-                        <th rowspan="2" class="vl">PAYMENT ENTRY</th>
-                        <th rowspan="2" class="vl">NOC APPLICATON</th>
-                        <th rowspan="2" class="vl">ACTION</th>
+                        <th rowspan="2" class="vl" >PAYMENT ENTRY</th>
+                        <th rowspan="2" class="vl" >NOC APPLICATON</th>
+                        <th rowspan="2" class="vl" >ACTION</th>
                         <th colspan="3" >DEBIT NOTE</th>
-                        <th rowspan="2" class="vl">SDLC<br> ACTION<br> STATUS</th>
+                        <th rowspan="2" class="vl" >SDLC &nbsp;ACTION&nbsp; STATUS</th>
                      </tr>
                      <tr>
                         <th>SDLC</th>
@@ -274,7 +286,7 @@ a.disabled {
                             <a href="#" data-toggle="modal" data-target="#deletegererateBill{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application!='') @else class="disabled hidediv" @endif><span class="label danger">DELETE</span></a>
                         </td>
                         <td class="vl">
-                          <a href="/noc/edit/{{$noc_list->id}}" @if($noc_list->generate_noc_application=='')  @else class="disabled" @endif><span class="label edited" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a></br>
+                          <a href="/noc/edit/{{$noc_list->id}}" @if($noc_list->generate_noc_application=='')  @else class="disabled" @endif><span class="label edited" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
                           <a href="/noc/email/{{$noc_list->id}}/client/{{$client_id}}" @if($noc_list->generate_noc_application=='')  @else class="disabled" @endif><span class="label success">SEND EMAIL</span></a>
                         </td>
                         <td class="vl">
