@@ -1,11 +1,5 @@
 @extends('theme.layouts.default')
 @section('content')
-<style type="text/css">
-  .modal-body {
-  overflow-flow: auto !important;
-}
-
-</style>
 <section class="content-header">
     <h5><label  class="control-label"><u>APPROVE NEW EMPLOYEE</u></label></h5>
       <ol class="breadcrumb">

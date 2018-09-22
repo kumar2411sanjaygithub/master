@@ -67,10 +67,10 @@ class AssignPermissionController extends Controller
         {
             return Redirect::back();
         }
-        $total_permission=count($request->get);
+        @$total_permission=count($request->get);
         for($i=1;$i<=$total_permission;$i++)
         {
-            $permissions = $request->get[$i] ? $request->get[$i] : [];
+            $permissions = @$request->get[$i] ? @$request->get[$i] : [];
             //print_r($permissions);
             foreach($permissions as $permission)
             {
