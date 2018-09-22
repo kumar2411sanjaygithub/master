@@ -35,8 +35,8 @@
     <thead>
       <tr>
         <th class="srno">SR.NO</th>
-        <th>CLIENT NAME</th>
-        <th>PORTFOLIO ID</th>
+        <th class="cn">CLIENT NAME</th>
+        <th class="act">PORTFOLIO ID</th>
         <th>APPLICATON NO.</th>
         <th>VALIDITY START DATE</th>
         <th>VALIDITY END DATE</th>
@@ -122,14 +122,14 @@
       <table class="table table-bordered text-center">
     <thead>
       <tr>
-        <th>SR.NO</th>
-        <th>CLIENT NAME</th>
-        <th>PORTFOLIO ID</th>
+        <th class="srno">SR.NO</th>
+        <th class="cn">CLIENT NAME</th>
+        <th class="act">PORTFOLIO ID</th>
         <th>APPLICATON NO.</th>
         <th>VALIDITY START DATE</th>
         <th>VALIDITY END DATE</th>
         <th>NOC REQUEST</th>
-        <th>ACTION</th>
+        <th class="act">ACTION</th>
       </tr>
     </thead>
     <tbody>
@@ -169,14 +169,14 @@
       <table class="table table-bordered text-center">
     <thead>
       <tr>
-        <th>SR.NO</th>
-        <th>CLIENT NAME</th>
-        <th>PORTFOLIO ID</th>
+        <th class="srno">SR.NO</th>
+        <th class="cn">CLIENT NAME</th>
+        <th class="act">PORTFOLIO ID</th>
         <th>APPLICATON NO.</th>
         <th>VALIDITY START DATE</th>
         <th>VALIDITY END DATE</th>
         <th>NOC REQUEST</th>
-        <th>ACTION</th>
+        <th class="act">ACTION</th>
       </tr>
     </thead>
     <tbody>

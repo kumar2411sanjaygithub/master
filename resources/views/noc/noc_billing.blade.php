@@ -1,12 +1,34 @@
 @extends('theme.layouts.default')
 @section('content')
+
+<style>
+.scroll-table-container {
+height:auto;
+overflow: scroll;
+}
+.scroll-table1
+{
+border-collapse:collapse;
+min-width:170px;
+}
+.scroll-table2
+{
+border-collapse:collapse;
+min-width:50px;
+}
+.scroll-table3
+{
+border-collapse:collapse;
+min-width:100px;
+}
+</style>
     <section class="content-header">
       <h5>
-    <label  class="control-label">NOC BILLING SETTING</label>
+    <label  class="control-label"><u>NOC BILLING SETTING</u></label>
      </h5>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-        <li><a href="{{route('billsetting.nocbilllist')}}">NOC APPLICATION</a></li>
+        <li><a href="{{route('billsetting.nocbilllist')}}"><u>NOC APPLICATION</u></a></li>
       </ol>
     </section>
 
@@ -156,31 +178,31 @@
 </div>
 
 <div class="box">
-  <div class="box-body table-responsive">
-    <table id="example1" class="table table-bordered table-striped table-hover text-center">
+  <div class="box-body table-responsive ">
+    <table id="example1" class="table table-bordered table-striped table-hover text-center " >
       <thead>
       <tr>
-        <th rowspan="2" class="srno vl" >SR.NO</th>
-        <th rowspan="2"  class="vl">STATE1</th>
-        <th colspan="7">DISCOM</th>
+        <th rowspan="2" class="scroll-table2 vl" >SR.NO</th>
+        <th rowspan="2"  class="vl " >STATE</th>
+        <th colspan="7" >DISCOM</th>
         <th colspan="7">SDLC</th>
-        <th rowspan="2" class="act1 vl">ACTION</th>
+        <th rowspan="2" class="scroll-table3 vl" >ACTION</th>
       </tr>
       <tr>
-        <th>NAME</th>
-        <th>AMOUNT</th>
-        <th>GST APPLIED</th>
-        <th>CGST AMOUNT</th>
-        <th>SGST AMOUNT</th>
-        <th>UTGST AMOUNT</th>
-        <th>IGST AMOUNT</th>
-        <th>NAME</th>
-        <th>AMOUNT</th>
-        <th>GST APPLIED</th>
-        <th>CGST AMOUNT</th>
-        <th>SGST AMOUNT</th>
-        <th>UTGST AMOUNT</th>
-        <th>IGST AMOUNT</th>
+        <th class="scroll-table1">NAME</th>
+        <th class="scroll-table3">AMOUNT</th>
+        <th class="scroll-table3">GST APPLIED</th>
+        <th class="scroll-table3">CGST AMOUNT</th>
+        <th class="scroll-table3">SGST AMOUNT</th>
+        <th class="scroll-table3">UTGST AMOUNT</th>
+        <th class="scroll-table3">IGST AMOUNT</th>
+        <th class="scroll-table1">NAME</th>
+        <th class="scroll-table3">AMOUNT</th>
+        <th class="scroll-table3">GST APPLIED</th>
+        <th class="scroll-table3">CGST AMOUNT</th>
+        <th class="scroll-table3">SGST AMOUNT</th>
+        <th class="scroll-table3">UTGST AMOUNT</th>
+        <th class="scroll-table3">IGST AMOUNT</th>
       </tr>
       </thead>
       <tbody>
@@ -189,7 +211,7 @@
          @foreach ($nocBillingList as $k=>$nocBilling)
           <tr>
             <td>{{$i}}</td>
-            <td>
+            <td class="scroll-table1">
               @php
                 $state_list = \App\Common\StateList::get_states();
               @endphp
