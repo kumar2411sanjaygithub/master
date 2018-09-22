@@ -29,7 +29,7 @@
               </div>
             </div>
           <div class="col-md-6"></div>
-            <div class="col-md-4">                                    
+            <div class="col-md-4">
         @if (count($employeeData) > 0)
             <form class="pull-right" action="{{ url()->to('new-employee-approve/Approved') }}" method="post" id="approve_data">
               {{ csrf_field() }}
@@ -50,7 +50,7 @@
             </form>
             @endif
 
-               
+
                 <div id="myModal" class="modal fade" style="display: none;">
                   <div class="modal-dialog modal-confirm">
                     <div class="modal-content">
@@ -63,7 +63,7 @@
                       <div class="modal-footer">
                         <button type="button" href="#"   class="btn btn-danger">
                           <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
-                        </button>        
+                        </button>
                         <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
 
                       </div>
@@ -82,7 +82,7 @@
                       <div class="modal-footer">
                         <button type="button" href="#"   class="btn btn-danger">
                           <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rej">Yes</a>
-                        </button>        
+                        </button>
                         <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
 
                       </div>
@@ -92,18 +92,21 @@
           </div>
 
         </div>
+
         <div class="box">
             <div class="box-body table-responsive">
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>
       <tr>
-        <th class="chy"><input type="checkbox" class="minimal1 deleteallbutton" name="select_all"></th>
-        <th class="srno">SR.NO</th>
-        <th>EMPLOYEE NAME</th>
-        <th>DESIGNATION</th>
-        <th>ROLE NAME</th>
-        <th>DEPARTMENT</th>
-        <th class="act">ACTION</th>
+
+        <th class="chy" style="padding:5px!important;"><input type="checkbox" class="minimal1 deleteallbutton" name="select_all"></th>
+        <th class="srno vl">SR.NO</th>
+        <th class="vl">EMPLOYEE NAME</th>
+        <th class="vl">DESIGNATION</th>
+        <th class="vl">ROLE NAME</th>
+        <th class="vl">DEPARTMENT</th>
+        <th class="act vl">ACTION</th>
+
       </tr>
       </thead>
       <tbody>

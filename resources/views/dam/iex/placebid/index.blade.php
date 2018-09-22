@@ -9,8 +9,15 @@
 <style>
   .close{line-height: 0.9;}
 </style>
-<section class="content-header">
-  <h5><label  class="control-label"><u>PLACED BID</u></label></h5>
+  <div class="col-md-12">
+    <div class="col-md-3 mt10">
+  <h5><label  class="control-label"><u>PLACE BID</u></label></h5>
+</div>
+<div class="col-md-5 mt10">
+  <span class="fs15 bidtime">  @php  date_default_timezone_set("Asia/Kolkata"); @endphp  Bidding Time Left For Delivery Date: <b class="text-info available-date-for-bidding"> @if(strtotime($bidallowedperiod)>=strtotime(date('H:i')))  @php $i=0; $date=date("d/m/Y", strtotime(date("Y-m-d") . ' + 1 days')); @endphp {{ $date  }}  @else @php $i=1; $date= date("d/m/Y", strtotime(date("Y-m-d") . ' + 2 days')) @endphp {{ $date }}    @endif </b><b id="time"></b> &nbsp;  <b class="text-danger"><span id='time-left' style="display:none"> {{ $bidallowedperiod }} </span> </span></b>
+</div>
+<div class="col-md-4">
+  <section class="content-header">
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
     <li><a href="#">DAM</a></li>
@@ -18,6 +25,9 @@
     <li><a href="active">PLACE BID</a></li>
   </ol>
 </section>
+</div>
+</div>
+
   <div class="tab-content text-center placebidtab" id="myTabContent">
     <!-- POWER Tab Start  -->
 
@@ -25,14 +35,14 @@
       <div class="row">
         <div class="col-md-12">
           <div class="col-md-12">
-          <div class="panel-heading topheading mr10 top-head">
-            <b>PLACE BID</b>
+          <div class="panel-heading topheading mr10 top-head1 p0">
+            <!-- <b>PLACE BID</b> -->
             <div id="timer" class="pull-right hidden">
               <div id="seconds" class="col-md-2 pull-right"></div>
               <div id="minutes" class="col-md-2 pull-right"></div>
               <div id="hours" class="col-md-2 pull-right"></div>
             </div>
-            <span class="pull-right fs15 bidtime">  @php  date_default_timezone_set("Asia/Kolkata"); @endphp  Bidding Time Left For Next Delivery Date: <b class="text-info available-date-for-bidding"> @if(strtotime($bidallowedperiod)>=strtotime(date('H:i')))  @php $i=0; $date=date("d/m/Y", strtotime(date("Y-m-d") . ' + 1 days')); @endphp {{ $date  }}  @else @php $i=1; $date= date("d/m/Y", strtotime(date("Y-m-d") . ' + 2 days')) @endphp {{ $date }}    @endif </b><b id="time"></b> &nbsp;  <b class="text-danger"><span id='time-left' style="display:none"> {{ $bidallowedperiod }} </span> </span></b>
+            <!-- <span class="pull-right fs15 bidtime">  @php  date_default_timezone_set("Asia/Kolkata"); @endphp  Bidding Time Left For Delivery Date: <b class="text-info available-date-for-bidding"> @if(strtotime($bidallowedperiod)>=strtotime(date('H:i')))  @php $i=0; $date=date("d/m/Y", strtotime(date("Y-m-d") . ' + 1 days')); @endphp {{ $date  }}  @else @php $i=1; $date= date("d/m/Y", strtotime(date("Y-m-d") . ' + 2 days')) @endphp {{ $date }}    @endif </b><b id="time"></b> &nbsp;  <b class="text-danger"><span id='time-left' style="display:none"> {{ $bidallowedperiod }} </span> </span></b> -->
             <span id="day-left" class="hidden">
               @php  date_default_timezone_set("Asia/Kolkata"); @endphp @if(strtotime($bidallowedperiod)>=strtotime(date('H:i')))  @php $i=0; $date=date("M d, Y", strtotime(date("Y-m-d") . ' + 1 days')); @endphp {{ $date  }}  @else @php $i=1; $date= date("M d, Y", strtotime(date("Y-m-d") . ' + 2 days')) @endphp {{ $date }}  @endif
             </span>
@@ -40,8 +50,8 @@
         </div>
         </div>
       </div>
-      <div class="row iextab pl0">
-        <div class="col-md-12">
+      <div class="col-md-12 iextab pl0">
+        <div class="col-md-12 box">
         <div class="col-md-8 mt5">
           <div class="container-lg">
             <div class="panel panel-default">
@@ -132,7 +142,7 @@
               <div class="modal-content">
                 <form action="{{ url('uploadbidteamplateexcel') }}" method="post" enctype='multipart/form-data' id="upload-bid-form">
                   {{ csrf_field() }}
-                <div class="modal-header">
+                <div class="modal-header bg-basic">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                   <h5 class="modal-title"><u><label>Upload file to place bid</label></u></h5>
                 </div>
@@ -259,14 +269,14 @@
             </div>
           </div> -->
 
-        <div class="panel bds navsbs" id="panelDemo13">
+        <div class="panel bds navsbs" id="panelDemo13" style="border:1px solid #ddd">
             <div class="panel-heading tabhead text-center" style="text-align:center"><b class="text-center">TOTAL BID DETAILS</b></div>
-            <div class="panel-body previous_bids">
+            <div class="panel-body previous_bids pt0">
               <div class="panel-group" id="accordion">
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">DELIVERY DATE</a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="fs12">DELIVERY DATE</a>
                   </h4>
                 </div>
                 <div id="collapse1" class="panel-collapse collapse in">
@@ -313,9 +323,9 @@
 
 
         </div>
-      </div>
     </div>
       </div>
+    </div>
       <div class="col-md-12 pxiltab">
         <h1 class="text-center">Under Proceed</h1>
       </div>

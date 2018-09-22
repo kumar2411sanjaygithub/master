@@ -32,12 +32,12 @@
     <th class="vl">SR.NO</th>
     <th class="vl">PERMISSION NAME</th>
     <th class="vl">SLUG</th>
-    <th>ADD </br><input type="checkbox" id="add-checkbox" class="minimal"></th>
-    <th>VIEW </br><input type="checkbox" id="view-checkbox" class="minimal"></th>
-    <th>EDIT </br><input type="checkbox" id="edit-checkbox"  class="minimal"></th>
-    <th>DELETE </br><input type="checkbox" id="delete-checkbox" class="minimal"></th>
-    <th>VERIFIER </br><input type="checkbox" id="verifier-checkbox" class="minimal"></th>
-    <th>APPROVER </br><input type="checkbox" id="approver-checkbox" class="minimal"></th>
+    <th style="padding-top:5px!important;padding-bottom:5px!important;">ADD </br><input type="checkbox" id="add-checkbox" class="minimal"></th>
+    <th style="padding-top:5px!important;padding-bottom:5px!important;">VIEW </br><input type="checkbox" id="view-checkbox" class="minimal"></th>
+    <th style="padding-top:5px!important;padding-bottom:5px!important;">EDIT </br><input type="checkbox" id="edit-checkbox"  class="minimal"></th>
+    <th style="padding-top:5px!important;padding-bottom:5px!important;">DELETE </br><input type="checkbox" id="delete-checkbox" class="minimal"></th>
+    <th style="padding-top:5px!important;padding-bottom:5px!important;">VERIFIER </br><input type="checkbox" id="verifier-checkbox" class="minimal"></th>
+    <th style="padding-top:5px!important;padding-bottom:5px!important;">APPROVER </br><input type="checkbox" id="approver-checkbox" class="minimal"></th>
   </thead>
   <tbody>
 
@@ -46,15 +46,15 @@
     @foreach ($permission_list as $k=>$permission)
     <tr>
 
-      <td>{{$i}}</td>
-      <td>{{$permission->permission_name}}</td>
-      <td>{{$permission->slug}}</td>
-      <td><input type="checkbox" class="minimal add-checkbox" name="get[{{$i}}][]" value="{{$permission->permission_name.'_add-'.$permission->id}}" @if(in_array($permission->id,$all_permission_id) && in_array($permission->permission_name.'_add',$permission_name)) checked="checked" @endif ></td>
-      <td><input type="checkbox" class="minimal view-checkbox" name="get[{{$i}}][]" value="{{$permission->permission_name.'_view-'.$permission->id}}" @if(in_array($permission->id,$all_permission_id) && in_array($permission->permission_name.'_view',$permission_name)) checked="checked" @endif></td>
-      <td><input type="checkbox" class="minimal edit-checkbox" name="get[{{$i}}][]" value="{{$permission->permission_name.'_edit-'.$permission->id}}" @if(in_array($permission->id,$all_permission_id) && in_array($permission->permission_name.'_edit',$permission_name)) checked="checked" @endif></td>
-      <td><input type="checkbox" class="minimal delete-checkbox" name="get[{{$i}}][]" value="{{$permission->permission_name.'_delete-'.$permission->id}}" @if(in_array($permission->id,$all_permission_id) && in_array($permission->permission_name.'_delete',$permission_name)) checked="checked" @endif></td>
-      <td><input type="checkbox" class="minimal verifier-checkbox" name="get[{{$i}}][]" value="{{$permission->permission_name.'_verifier-'.$permission->id}}" @if(in_array($permission->id,$all_permission_id) && in_array($permission->permission_name.'_verifier',$permission_name)) checked="checked" @endif></td>
-      <td><input type="checkbox" class="minimal approver-checkbox" name="get[{{$i}}][]" value="{{$permission->permission_name.'_approver-'.$permission->id}}" @if(in_array($permission->id,$all_permission_id) && in_array($permission->permission_name.'_approver',$permission_name)) checked="checked" @endif></td>
+      <td style="padding-top:5px!important;padding-bottom:5px!important;">{{$i}}</td>
+      <td style="padding-top:5px!important;padding-bottom:5px!important;">{{$permission->permission_name}}</td>
+      <td style="padding-top:5px!important;padding-bottom:5px!important;">{{$permission->slug}}</td>
+      <td style="padding-top:5px!important;padding-bottom:5px!important;"><input type="checkbox" class="minimal add-checkbox" name="get[{{$i}}][]" value="{{$permission->permission_name.'_add-'.$permission->id}}" @if(in_array($permission->id,$all_permission_id) && in_array($permission->permission_name.'_add',$permission_name)) checked="checked" @endif ></td>
+      <td style="padding-top:5px!important;padding-bottom:5px!important;"><input type="checkbox" class="minimal view-checkbox" name="get[{{$i}}][]" value="{{$permission->permission_name.'_view-'.$permission->id}}" @if(in_array($permission->id,$all_permission_id) && in_array($permission->permission_name.'_view',$permission_name)) checked="checked" @endif></td>
+      <td style="padding-top:5px!important;padding-bottom:5px!important;"><input type="checkbox" class="minimal edit-checkbox" name="get[{{$i}}][]" value="{{$permission->permission_name.'_edit-'.$permission->id}}" @if(in_array($permission->id,$all_permission_id) && in_array($permission->permission_name.'_edit',$permission_name)) checked="checked" @endif></td>
+      <td style="padding-top:5px!important;padding-bottom:5px!important;"><input type="checkbox" class="minimal delete-checkbox" name="get[{{$i}}][]" value="{{$permission->permission_name.'_delete-'.$permission->id}}" @if(in_array($permission->id,$all_permission_id) && in_array($permission->permission_name.'_delete',$permission_name)) checked="checked" @endif></td>
+      <td style="padding-top:5px!important;padding-bottom:5px!important;"><input type="checkbox" class="minimal verifier-checkbox" name="get[{{$i}}][]" value="{{$permission->permission_name.'_verifier-'.$permission->id}}" @if(in_array($permission->id,$all_permission_id) && in_array($permission->permission_name.'_verifier',$permission_name)) checked="checked" @endif></td>
+      <td style="padding-top:5px!important;padding-bottom:5px!important;"><input type="checkbox" class="minimal approver-checkbox" name="get[{{$i}}][]" value="{{$permission->permission_name.'_approver-'.$permission->id}}" @if(in_array($permission->id,$all_permission_id) && in_array($permission->permission_name.'_approver',$permission_name)) checked="checked" @endif></td>
     </tr>
        @php $i++; @endphp
    @endforeach
@@ -167,8 +167,8 @@
    <script>
    $(function () {
        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-         checkboxClass: 'icheckbox_flat-green',
-         radioClass   : 'iradio_flat-green'
+         checkboxClass: 'icheckbox_flat-blue',
+         radioClass   : 'iradio_flat-blue'
      })
      //Red color scheme for iCheck
      $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
@@ -183,11 +183,6 @@
 
    })
 
-   $(function () {
-   $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-   checkboxClass: 'icheckbox_flat-green',
-   radioClass   : 'iradio_flat-green'
-   })
-   });
+
    </script>
 @endsection

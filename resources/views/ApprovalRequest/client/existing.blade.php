@@ -1,7 +1,7 @@
 @extends('theme.layouts.default')
 @section('content')
 <section class="content-header">
-               <h5><label  class="control-label"><u>APPROVE EXISTING CLIENT REQUEST</u></label></h5>
+               <h5><label  class="control-label"><u>APPROVE BANK DETAILS</u></label></h5>
                <ol class="breadcrumb">
                   <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
                   <li><a href="#">APPROVE REQUEST</a></li>
@@ -29,9 +29,10 @@
                            <div class="box">
                               <div class="box-body">
                                  <div class="row">
-                                    <div class="col-md-2"><label  class="control-label mlt1">BANK DETAILS</label></div>
+                                    <div class="col-md-2"></div>
                                     <div class="col-md-6"></div>
                                     <div class="col-md-4 text-right">
+
               @if (count($Addbankdata) > 0)
                   <form class="pull-right" action="{{ url()->to('/client/Approved/bank/bank_temp') }}" method="post" id="approve_data">
                     {{ csrf_field() }}
@@ -51,8 +52,8 @@
                     <a data-toggle="modal" data-target="#myModalRej" class="btn btn-danger btn-xs mlt">REJECT ALL</a>
                   </form>
                   @endif
+  <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right mr"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
 
-                     
                       <div id="myModal" class="modal fade" style="display: none;">
                         <div class="modal-dialog modal-confirm">
                           <div class="modal-content">
@@ -65,7 +66,7 @@
                             <div class="modal-footer">
                               <button type="button" href="#"   class="btn btn-danger">
                                 <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
-                              </button>        
+                              </button>
                               <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
 
                             </div>
@@ -84,27 +85,30 @@
                             <div class="modal-footer">
                               <button type="button" href="#"   class="btn btn-danger">
                                 <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rej">Yes</a>
-                              </button>        
+                              </button>
                               <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
 
                             </div>
                           </div>
                         </div>
                       </div>
+
                                     </div>
                                  </div>
                                  <div class="box-body table-responsive">
                                     <table id="example1" class="table table-bordered table-striped table-hover text-center">
                                        <thead>
                                           <tr>
-                                             <th class="chy"><input type="checkbox" class="minimal1 deleteallbutton" name="select_all"></th>
-                                             <th class="srno">SR.NO</th>
-                                             <th>BANK NAME</th>
-                                             <th>BRANCH NAME</th>
-                                             <th>ACCOUNT NUMBER</th>
-                                             <th>IFSC CODE</th>
-                                             <th>VIRTUAL ACCOUNT NUMBER</th>
-                                             <th class="act">ACTION</th>
+
+                                             <th class="chy" style="padding:5px!important;"><input type="checkbox" class="minimal1 deleteallbutton" name="select_all"></th>
+                                             <th class="srno vl">SR.NO</th>
+                                             <th class="vl">BANK NAME</th>
+                                             <th class="vl">BRANCH NAME</th>
+                                             <th class="vl">ACCOUNT NUMBER</th>
+                                             <th class="vl">IFSC CODE</th>
+                                             <th class="vl">VIRTUAL ACCOUNT NUMBER</th>
+                                             <th class="act vl">ACTION</th>
+
                                           </tr>
                                        </thead>
                                        <tbody>
@@ -115,14 +119,16 @@
                                           @foreach ($Addbankdata as $key => $value)
                                           <tr>
 
-                                               <td class="vl"><input type="checkbox"  name="select_all" value="{{ $value->id }}" class="minimal1 deletedbutton"></td>
+
+                                               <td class="vl" style="padding:5px!important;"><input type="checkbox"  name="select_all" value="{{ $value->id }}" class="minimal1 deletedbutton"></td>
+
                                                <td class="text-center vl">{{ $i }}</td>
                                                <td class="text-center vl">{{ $value->bank_name }}</td>
                                                <td class="text-center vl">{{ $value->branch_name }}</td>
                                                <td class="text-center vl">{{ $value->account_number }}</td>
                                                <td class="text-center vl">{{ $value->ifsc}}</td>
                                                <td class="text-center vl">{{ $value->virtual_account_number }}</td>
-                                             <td><a href="/add/{{ $value->id }}/approved/bank_temp"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/add/{{ $value->id }}/rejected/bank_temp"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
+                                             <td class="vl"><a href="/add/{{ $value->id }}/approved/bank_temp"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/add/{{ $value->id }}/rejected/bank_temp"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
                                           </tr>
                                         <?php
                                        $i++;
@@ -139,7 +145,7 @@
                            <div class="box">
                               <div class="box-body">
                                  <div class="row">
-                                    <div class="col-md-2"><label  class="control-label mlt1"> BANK DETAILS</label></div>
+                                    <div class="col-md-2"></div>
                                     <div class="col-md-6"></div>
                                     <div class="col-md-4 text-right">
         @if (count($bankData) > 0)
@@ -162,7 +168,7 @@
             </form>
             @endif
 
-               
+
                 <div id="myModalM" class="modal fade" style="display: none;">
                   <div class="modal-dialog modal-confirm">
                     <div class="modal-content">
@@ -175,7 +181,7 @@
                       <div class="modal-footer">
                         <button type="button" href="#"   class="btn btn-danger">
                           <a href="" style="color:#fff;text-decoration:none" id="delete-button-modalM">Yes</a>
-                        </button>        
+                        </button>
                         <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
 
                       </div>
@@ -194,7 +200,7 @@
                       <div class="modal-footer">
                         <button type="button" href="#"   class="btn btn-danger">
                           <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rejM">Yes</a>
-                        </button>        
+                        </button>
                         <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
 
                       </div>
@@ -208,12 +214,14 @@
                                     <table id="example1" class="table table-bordered table-striped table-hover text-center">
                                        <thead>
                                           <tr>
-                                             <th class="chy"><input type="checkbox"  class="minimal1 deleteallbuttonM" name="select_allM"></th>
-                                             <th class="srno">SR.NO</th>
-                                             <th>FIELD NAME</th>
-                                             <th>CURRENT VALUE</th>
-                                             <th>UPDATED VALUE</th>
-                                             <th class="act">ACTION</th>
+
+                                             <th class="chy" style="padding:5px!important;"><input type="checkbox"  class="minimal1 deleteallbuttonM" name="select_allM"></th>
+                                             <th class="srno vl">SR.NO</th>
+                                             <th class="vl">FIELD NAME</th>
+                                             <th class="vl">CURRENT VALUE</th>
+                                             <th class="vl">UPDATED VALUE</th>
+                                             <th class="act vl">ACTION</th>
+
                                           </tr>
                                        </thead>
                                        <tbody>
@@ -226,12 +234,14 @@
                                           @foreach ($bankData as $key => $value)
                                           <tr>
 
-                                                <td class="vl"><input type="checkbox" class="minimal1 deletedbuttonM" name="select_allM" value="{{ $value->id }}"></td>
+
+                                                <td class="vl" style="padding:5px!important;"><input type="checkbox" class="minimal1 deletedbuttonM" name="select_allM" value="{{ $value->id }}"></td>
+
                                                <td class="text-center vl">{{ $i }}</td>
                                                <td class="text-center vl">{{ $input_lebels[$value->attribute_name]}}</td>
                                                <td class="text-center vl">{{ $value->old_att_value }}</td>
                                                <td class="text-center vl">{{ $value->updated_attribute_value }}</td>
-                                             <td><a href="/modified/{{ $value->id }}/approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/modified/{{ $value->id }}/rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
+                                             <td class="vl"><a href="/modified/{{ $value->id }}/approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/modified/{{ $value->id }}/rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
                                           </tr>
                                         <?php
                                        $i++;
@@ -250,7 +260,7 @@
                            <div class="box">
                               <div class="box-body">
                                  <div class="row">
-                                    <div class="col-md-2"><label  class="control-label mlt1"> BANK DETAILS</label></div>
+                                    <div class="col-md-2"></div>
                                     <div class="col-md-6"></div>
                                     <div class="col-md-4 text-right">
                                 @if (count($deletedbnkData) > 0)
@@ -273,7 +283,7 @@
                                     </form>
                                     @endif
 
-                                       
+
                                         <div id="myModalD" class="modal fade" style="display: none;">
                                           <div class="modal-dialog modal-confirm">
                                             <div class="modal-content">
@@ -286,7 +296,7 @@
                                               <div class="modal-footer">
                                                 <button type="button" href="#"   class="btn btn-danger">
                                                   <a href="" style="color:#fff;text-decoration:none" id="delete-button-modalM">Yes</a>
-                                                </button>        
+                                                </button>
                                                 <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
 
                                               </div>
@@ -305,7 +315,7 @@
                                               <div class="modal-footer">
                                                 <button type="button" href="#"   class="btn btn-danger">
                                                   <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rejM">Yes</a>
-                                                </button>        
+                                                </button>
                                                 <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
 
                                               </div>
@@ -313,21 +323,23 @@
                                           </div>
                                         </div>
 
-                                      
+
                                     </div>
                                  </div>
                                  <div class="box-body table-responsive">
                                     <table id="example1" class="table table-bordered table-striped table-hover text-center">
                                        <thead>
                                           <tr>
-                                              <th class="chy"><input type="checkbox"  class="minimal1 deleteallbuttonD" name="select_allD"></th>
-                                              <th class="srno">SR.NO</th>
-                                             <th>BANK NAME</th>
-                                             <th>BRANCH NAME</th>
-                                             <th>ACCOUNT NUMBER</th>
-                                             <th>IFSC CODE</th>
-                                             <th>VIRTUAL ACCOUNT NUMBER</th>
-                                             <th class="act">ACTION</th>
+
+                                              <th class="chy" style="padding:5px!important;"><input type="checkbox"  class="minimal1 deleteallbuttonD" name="select_allD"></th>
+                                              <th class="srno vl">SR.NO</th>
+                                             <th class="vl">BANK NAME</th>
+                                             <th class="vl">BRANCH NAME</th>
+                                             <th class="vl">ACCOUNT NUMBER</th>
+                                             <th class="vl">IFSC CODE</th>
+                                             <th class="vl">VIRTUAL ACCOUNT NUMBER</th>
+                                             <th class="act vl">ACTION</th>
+
                                           </tr>
                                        </thead>
                                        <tbody>
@@ -339,14 +351,16 @@
                                              @foreach ($deletedbnkData as $key => $value)
 
                                              <tr>
-                                               <td class="vl"><input type="checkbox" class="minimal1 deletedbuttonD" name="select_allD" value="{{ $value->id }}"></td>
+
+                                               <td class="vl"  style="padding:5px!important;"><input type="checkbox" class="minimal1 deletedbuttonD" name="select_allD" value="{{ $value->id }}"></td>
+
                                                <td class="text-center vl">{{ $i }}</td>
                                                <td class="text-center vl">{{ $value->bank_name }}</td>
                                                <td class="text-center vl">{{ $value->branch_name }}</td>
                                                <td class="text-center vl">{{ $value->account_number }}</td>
                                                <td class="text-center vl">{{ $value->ifsc }}</td>
                                                <td class="text-center vl">{{ $value->virtual_account_number }}</td>
-                                               <td class="text-center">
+                                               <td class="text-center vl">
 
                                                         <a href="/deletebank/{{ $value->id }}/approved/bank"><button type="button" class="btn  btn-info btn-xs">Approve</button></a>
 
@@ -520,8 +534,8 @@
    <script>
    $(function () {
        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-         checkboxClass: 'icheckbox_flat-green',
-         radioClass   : 'iradio_flat-green'
+         checkboxClass: 'icheckbox_flat-blue',
+         radioClass   : 'iradio_flat-blue'
      })
      //Red color scheme for iCheck
      $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
@@ -534,13 +548,7 @@
        radioClass   : 'iradio_flat-blue'
      })
 
-   })
-
-   $(function () {
-   $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-   checkboxClass: 'icheckbox_flat-green',
-   radioClass   : 'iradio_flat-green'
-   })
    });
+
    </script>
             @endsection
