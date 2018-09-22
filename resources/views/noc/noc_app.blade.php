@@ -253,14 +253,14 @@ a.disabled {
                           @elseif($noc_list->status==2)
                               <a href="#"><u>APPROVED</u></a>
                           @elseif($noc_list->status==3)
-                             <a href="#"><u>SUBMITTED</u></a>
+                            SUBMITTED
                           @else
                              <a href="#"><u>NOC RECEIVED</u></a>
                           @endif
                         </td>
                         <td class="vl">
                           @if($noc_list->payment_challan_number!='' && $noc_list->bank_name!='' && $noc_list->transcation_date!='' && $noc_list->amount!='')
-                            <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_list->id }}" ><span class="label edited">EDIT</span></a>
+                            <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_list->id }}" ><span class="label edited" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
 
                           @else
                             <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_list->id }}" class="btn  btn-default btn-xs @if(($noc_list->status==2 ||$noc_list->status==3)) @else disabled @endif">ADD</a>
@@ -274,7 +274,7 @@ a.disabled {
                             <a href="#" data-toggle="modal" data-target="#deletegererateBill{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application!='') @else class="disabled" @endif><span class="label danger">DELETE</span></a>
                         </td>
                         <td class="vl">
-                          <a href="/noc/edit/{{$noc_list->id}}" @if($noc_list->generate_noc_application=='')  @else class="disabled" @endif><span class="label edited" >EDIT</span></a></br>
+                          <a href="/noc/edit/{{$noc_list->id}}" @if($noc_list->generate_noc_application=='')  @else class="disabled" @endif><span class="label edited" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a></br>
                           <a href="/noc/email/{{$noc_list->id}}/client/{{$client_id}}" @if($noc_list->generate_noc_application=='')  @else class="disabled" @endif><span class="label success">SEND EMAIL</span></a>
                         </td>
                         <td class="vl">
@@ -613,4 +613,3 @@ $(document).ready(function() {
 </script>
 
   @endsection
-

@@ -29,20 +29,20 @@
               </div></div>
           <div class="col-md-6"></div>
             <div class="col-md-4 text-right"><button type="button" class="btn btn-raised btn-info btn-xs">APPROVE ALL</button>
-            &nbsp&nbsp&nbsp<button type="button" class="btn btn-raised btn-danger btn-xs mlt">REJECT ALL</button>
+            &nbsp&nbsp&nbsp<button type="button" class="btn btn-raised btn-danger btn-xs ">REJECT ALL</button>
           </div></div>
         <div class="box">
             <div class="box-body table-responsive">
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>
       <tr>
-        <th class="chy"><input type="checkbox"  class="minimal" name="ane1" id="ane1"></th>
-        <th class="srno">SR.NO</th>
-        <th>EMPLOYEE NAME</th>
-        <th>DESIGNATION</th>
-        <th>ROLE NAME</th>
-        <th>DEPARTMENT</th>
-        <th class="act">ACTION</th>
+        <th class="chy" style="padding:5px!important;"><input type="checkbox"  class="minimal" name="ane1" id="ane1"></th>
+        <th class="srno vl">SR.NO</th>
+        <th class="vl">EMPLOYEE NAME</th>
+        <th class="vl">DESIGNATION</th>
+        <th class="vl">ROLE NAME</th>
+        <th class="vl">DEPARTMENT</th>
+        <th class="act vl">ACTION</th>
       </tr>
       </thead>
       <tbody>

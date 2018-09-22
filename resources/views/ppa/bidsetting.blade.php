@@ -13,7 +13,9 @@
    <h5><label  class="control-label"><u>BID SETTING</u></label></h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">PPA & BId Setting</a></li>
+      <li><a href="#">MANAGE CLIENT</a></li>
+      <li><a href="#">DAM</a></li>
+      <li><a href="#">IEX</a></li>
       <li><a href="active"><u>Bid Setting</u></a></li>
    </ol>
 </section>
@@ -73,7 +75,7 @@
                     <span class="text-danger">{{ $errors->first('trader_type') }}</span>
                  </div>
 
-                  <div class="col-md-1" style="margin-top:19px;"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
+                  <div class="col-md-1" style="margin-top:22px;"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
                   <!-- <div class="col-md-1" style="margin-top:19px;"><button type="button" class="btn btn-block btn-danger btn-xs">CANCEL</button></div> -->
               </div>
              </div>

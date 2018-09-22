@@ -1,7 +1,7 @@
 @extends('theme.layouts.default')
 @section('content')
 <section class="content-header">
-    <h5><label  class="control-label"><u>EXISTING EMPLOYEE DETAILS MODIFICATION REQUEST</u></label></h5>
+    <h5><label  class="control-label"><u>EMPLOYEE DETAILS MODIFICATION REQUEST</u></label></h5>
       <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
           <li><a href="#">APPROVE REQUEST</a></li>
@@ -32,23 +32,30 @@
           </div>
           <div class="row">&nbsp;</div>
           <div class="row">
-           <div class="col-md-8"></div>
+            <div class="col-md-2">
+            <div class="input-group input-group-sm">
+              <input type="text" class="form-control" placeholder="SEARCH" id="search">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-info btn-flat" name="go" id="go"><span class="glyphicon glyphicon-search"></span></button>
+                  </span>
+            </div></div>
+           <div class="col-md-6"></div>
             <div class="col-md-4 text-right"><button type="button" class="btn btn-raised btn-info btn-xs">APPROVE ALL</button>
-            &nbsp&nbsp&nbsp<button type="button" class="btn btn-raised btn-danger btn-xs mlt">REJECT ALL</button></div></div>
+            &nbsp&nbsp&nbsp<button type="button" class="btn btn-raised btn-danger btn-xs">REJECT ALL</button></div></div>
         <div class="box">
           <div class="box-body">
       <div class="box-body table-responsive">
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>
       <tr>
-        <th class="chy"><input type="checkbox"  class="minimal" name="ane1" id="ane1"></th>
-        <th class="srno">SR.NO</th>
-        <th>EMPLOYEE NAME</th>
-        <th>USER NAME</th>
-        <th>FIELD NAME</th>
-        <th>UPDATED VALUE</th>
-        <th>CURRENT VALUE</th>
-        <th class="act">ACTION</th>
+        <th class="chy" style="padding:5px!important;"><input type="checkbox"  class="minimal" name="ane1" id="ane1"></th>
+        <th class="srno vl">SR.NO</th>
+        <th class="vl">EMPLOYEE NAME</th>
+        <th  class="vl">USER NAME</th>
+        <th  class="vl">FIELD NAME</th>
+        <th  class="vl">UPDATED VALUE</th>
+        <th  class="vl">CURRENT VALUE</th>
+        <th class="act vl">ACTION</th>
       </tr>
       </thead>
       <tbody>

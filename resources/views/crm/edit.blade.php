@@ -24,7 +24,7 @@
             <div class="col-md-8"></div>
             <div class="col-md-2">
                <a href="{{ route('lead.index') }}" class="btn btn-info btn-xs pull-right"  id="ram" name="">
-               <span class="glyphicon glyphicon-plus"> </span>&nbsp BACK TO LIST</a>
+               <span class="glyphicon glyphicon-forward"></span>&nbsp BACK TO LIST</a>
             </div>
          </div>
   @if (\Session::has('success'))

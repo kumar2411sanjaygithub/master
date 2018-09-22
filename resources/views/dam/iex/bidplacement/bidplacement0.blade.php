@@ -99,7 +99,6 @@
         <td><a href="#"><button type="button" class="btn btn-primary btn-xs" name="" id=""><span class="glyphicon glyphicon-send"></span>&nbsp; SEND</button></a></td>
         <td><a href="#"><button type="button" class="btn btn-primary btn-xs" name="" id=""><span class="glyphicon glyphicon-send"></span>&nbsp; SEND</button></a></td>
       </tr>
-          
     </tbody>
     </table>
 </div>

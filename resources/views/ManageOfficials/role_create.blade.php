@@ -5,7 +5,7 @@
     <h5><label  class="control-label"><u>{{ (@$role->id!='')?'EDIT ROLE':'ADD ROLE'}}</u></label></h5>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-        <li><a href="#">MANAGE OFFICIAL</a></li>
+        <li><a href="#">MANAGE EMPLOYEE</a></li>
         <li><a href="{{ route('roles.index') }}">ROLE & PERMISION</a></li>
       </ol>
     </section>

@@ -96,7 +96,7 @@
             </div>
             <div class="col-md-3 {{ $errors->has('file_path') ? 'has-error' : '' }}">
                <label  class="control-label">UPLOAD DOCUMENT</label><span class="text-danger"><strong>*</strong></span>
-               <input class="form-control input-sm" type="file" name="file_path" placeholder="ENTER POC LOSSES" style="padding:4px 4px;">
+               <input class="form-control input-sm" type="file" name="file_path" placeholder="ENTER POC LOSSES" style="padding:2px 2px;">
                <span class="text-danger">{{ $errors->first('file_path') }}</span>
             </div>
             <div class="col-md-1" style="margin-top:22px;"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
@@ -189,9 +189,11 @@
   $(document).ready(function(){
     $("#add-ppa").click(function(){
         $("#apd-tab").removeClass('hidden');
+        $("#add-ppa").addClass('hidden');
     });
     $("#cancel").click(function(){
         $("#apd-tab").addClass('hidden');
+        $("#add-ppa").removeClass('hidden');
     });
   });
 </script>
