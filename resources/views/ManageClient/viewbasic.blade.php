@@ -324,7 +324,7 @@
                <div class="col-md-3">
                   <label  class="control-label">STATE TYPE</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="state_type" name="state_type" value="{{ $clientdata->state_type}}">
-                     <option value=" ">PLEASE SELECT</option>
+                     <option value=" ">SELECT</option>
                      <option value="intra state">Intra State </option>
                      <option value="inter state">Inter State</option>
                   </select>
@@ -421,7 +421,7 @@
                <div class="col-md-3">
                   <label  class="control-label">PAYMENT OBLIGATION</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" name="obligation" id="obligation">
-                     <option value=' '>PLEASE SELECT</option>
+                     <option value=' '>SELECT</option>
                      <option @if(old('obligation') == 'PSM')? selected="selected" @endif >PSM</option>
                      <option @if(old('obligation') == 'Advance')? selected="selected" @endif >Advance</option>
                   </select>
