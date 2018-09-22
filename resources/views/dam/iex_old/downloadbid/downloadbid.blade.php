@@ -1,12 +1,22 @@
 @extends('theme.layouts.default')
 @section('content')
+<section class="content-header">
+  <h5><label  class="control-label"><u>Download Bid</u></label></h5>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
+    <li><a href="#">DEM</a></li>
+    <li><a href="#">IEX</a></li>
+    <li><a href="#"><u>Download Bid</u></a></li>
+  </ol>
+</section>
 <section>
-  <div class="">
+  <div class="col-md-12">
+    <div class="">
     <!-- <div class="container container-lg"> -->
     <div class="panel panel-default">
-      <div class="panel-heading topheading">Download Bid</div>
+      <div class="panel-heading topheading">Bid Details</div>
       <div class="panel-body pt0 pb0">
-        <form><br>
+        <form>
             <div class="col-md-12" style="display: none;">
               <div class="col-md-6 col-md-offset-4">
                 <div class="form-group">
@@ -25,12 +35,12 @@
             </div>
             <div class="clearfix"></div><br>
             <div class="col-md-12 iextab">
-              <div class="container container-lg np">
+              <div>
                 <div class="panel panel-default nb nbbg np">
                   <div class="panel-body np">
                     <!-- // -->
                     <div class="row">
-                      <div class="col-lg-12">
+                      <div class="col-md-12">
                         <div class="card ">
                           <div class="card-heading">
                               <label class=""><span class="fl"><u>Delivery Date :</u></span> &nbsp; {{ $date }}</label>
@@ -179,6 +189,7 @@
         </form>
       </div>
     </div>
+  </div>
   </div>
 </section>
 {{ Html::script('js/downloadbid/downloadbid.js') }}
