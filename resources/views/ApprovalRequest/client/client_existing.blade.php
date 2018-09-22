@@ -1,6 +1,6 @@
 @extends('theme.layouts.default')
 @section('content')
-<section class="content-header">
+        <section class="content-header">
                <h5><label  class="control-label"><u>APPROVE BASIC  DETAILS</u></label></h5>
                <ol class="breadcrumb">
                   <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
@@ -9,7 +9,7 @@
                   <li><a href="active"><u>EXISTING</u></a></li>
                </ol>
             </section>
-            <!-- Main content -->
+
             <section class="content">
                @if (\Session::has('success'))
             <div class="alert alert-success mt10" >
@@ -23,6 +23,7 @@
                            <div class="box">
                               <div class="box-body">
                                  <div class="row">
+
                                     <div class="col-md-12">
 
                                     @if (count($clientData) > 0)
@@ -45,7 +46,7 @@
                                     </form>
                                     @endif
                                   </div>
-                                       
+                                  <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right mr"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
                                         <div id="myModal" class="modal fade" style="display: none;">
                                           <div class="modal-dialog modal-confirm">
                                             <div class="modal-content">
@@ -58,7 +59,7 @@
                                               <div class="modal-footer">
                                                 <button type="button" href="#"   class="btn btn-danger">
                                                   <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
-                                                </button>        
+                                                </button>
                                                 <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
 
                                               </div>
@@ -77,7 +78,7 @@
                                               <div class="modal-footer">
                                                 <button type="button" href="#"   class="btn btn-danger">
                                                   <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rej">Yes</a>
-                                                </button>        
+                                                </button>
                                                 <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
 
                                               </div>
@@ -85,18 +86,21 @@
                                           </div>
                                         </div>
 
+
                                     </div>
                                  </div>
                                  <div class="box-body table-responsive">
                                     <table id="example1" class="table table-bordered table-striped table-hover text-center">
                                        <thead>
                                           <tr>
-                                             <th class="chy"><input type="checkbox" class="minimal1 deleteallbutton" name="select_all"></th>
-                                             <th class="srno">SR.NO</th>
-                                             <th>FIELD NAME</th>
-                                             <th>CURRENT VALUE</th>
-                                             <th>UPDATED VALUE</th>
-                                             <th class="act">ACTION</th>
+
+                                             <th class="chy" style="padding:5px!important;"><input type="checkbox" class="minimal1 deleteallbutton" name="select_all"></th>
+                                             <th class="srno vl">SR.NO</th>
+                                             <th class="vl">FIELD NAME</th>
+                                             <th class="vl">CURRENT VALUE</th>
+                                             <th class="vl">UPDATED VALUE</th>
+                                             <th class="act vl">ACTION</th>
+
                                           </tr>
                                        </thead>
                                        <tbody>
@@ -109,7 +113,9 @@
                                           @foreach ($clientData as $key => $value)
                                           <tr>
 
-                                                <td><input type="checkbox" class="minimal1 vl deletedbutton" value="{{ $value->id }}" name="select_all"></td>
+
+                                                <td style="padding:5px!important;"><input type="checkbox" class="minimal1 vl deletedbutton" value="{{ $value->id }}" name="select_all"></td>
+
                                                <td class="text-center vl">{{ $i }}</td>
                                                <td class="text-center vl">{{ $input_lebels[$value->attribute_name]}}</td>
                                                <td class="text-center vl">
@@ -140,7 +146,7 @@
                                                   {{ $value->updated_attribute_value }}
                                                 @endif
 
-                                             <td><a href="/modified/{{ $value->id }}/approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/modified/{{ $value->id }}/rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
+                                             <td class="vl"><a href="/modified/{{ $value->id }}/approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/modified/{{ $value->id }}/rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
                                           </tr>
                                         <?php
                                        $i++;
@@ -220,8 +226,8 @@
   <script>
     $(function () {
         $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-          checkboxClass: 'icheckbox_flat-green',
-          radioClass   : 'iradio_flat-green'
+          checkboxClass: 'icheckbox_flat-blue',
+          radioClass   : 'iradio_flat-blue'
       })
       //Red color scheme for iCheck
       $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
@@ -234,13 +240,7 @@
         radioClass   : 'iradio_flat-blue'
       })
 
-    })
-
-    $(function () {
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-    checkboxClass: 'icheckbox_flat-green',
-    radioClass   : 'iradio_flat-green'
-    })
     });
+
     </script>
    @endsection

@@ -54,7 +54,7 @@ class ManageClientLang
             'bank_name'=>'Bank Name',
             'branch_name'=>'Branch Name',
             'account_number'=>'Account Number',
-            'ifsc_code'=>'IFSC Code',
+            'ifsc'=>'IFSC Code',
             'virtual_account_number'=>'Virtual Account Number',
             'name'=>'Contact Name',
             'designation'=>'Designation',
