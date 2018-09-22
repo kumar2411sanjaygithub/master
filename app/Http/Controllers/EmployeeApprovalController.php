@@ -19,7 +19,7 @@ class EmployeeApprovalController extends Controller
 	public function approveemployeeview()
 	{
 
-        $employeeData = User::orderBy('created_at','desc')->get()->whereIn('emp_app_status',array(0, 1, 2));
+        $employeeData = User::orderBy('created_at','desc')->where('id','!=',1)->get()->whereIn('emp_app_status',array(0, 1, 2));
         //dd($employeeData);
         //$role = Role::all()->pluck('role_name','id')->toArray();
         // $roleofficials = Roleofficials::all();

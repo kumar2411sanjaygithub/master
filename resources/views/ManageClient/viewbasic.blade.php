@@ -91,13 +91,14 @@
                <div class="col-md-3 {{ $errors->has('reg_country') ? 'has-error' : '' }}">
                   <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
                   <select class="form-control input-sm disabled-class"   disabled style="width: 100%;" id="reg_country" name="reg_country" value="{{ $clientdata->reg_country}}">
+                      <option value="">SELECT</option>
                      <option value="India">India</option>
                   </select>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
                   <select class="form-control input-sm disabled-class"  disabled  style="width: 100%;"id="reg_state" name="reg_state" value="{{ $clientdata->reg_state}}">
-                     <option value=" ">SELECT STATE</option>
+                     <option value=" ">SELECT</option>
                      <?php
                         $state_list = \App\Common\StateList::get_states();
                         ?>
@@ -147,13 +148,14 @@
                <div class="col-md-3">
                   <label  class="control-label">COUNTRY</label>
                   <select class="form-control input-sm disabled-class" disabled style="width: 100%;" id="bill_country" name="bill_country" value="{{ $clientdata->bill_country}}" >
+                      <option value="">SELECT</option>
                      <option value="India">India</option>
                   </select>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">STATE</label>
                   <select class="form-control input-sm disabled-class"   disabled style="width: 100%;" id="bill_state" name="bill_state" value="{{ $clientdata->bill_state}}">
-                     <option value="">PLEASE SELECT</option>
+                     <option value="">SELECT</option>
                      <?php
                         $state_list = \App\Common\StateList::get_states();
                         ?>
@@ -203,13 +205,14 @@
                <div class="col-md-3">
                   <label  class="control-label">COUNTRY</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="del_country" name="del_country" value="{{ $clientdata->del_country}}">
+                      <option value="">SELECT</option>
                      <option value="India">India</option>
                   </select>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">STATE</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="del_state" name="del_state" value="{{ $clientdata->del_state}}">
-                     <option value=" ">PLEASE SELECT</option>
+                     <option value=" ">SELECT</option>
                      <?php
                         $state_list = \App\Common\StateList::get_states();
                         ?>
