@@ -24,7 +24,18 @@
                               <div class="box-body">
                                  <div class="row">
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 pull-right">
+                                       <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right "><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+
+                                       @if (count($clientData) > 0)
+                                       <form class="pull-right" action="{{ url()->to('multiple-approve/Rejected') }}" method="post" id="approve_data">
+                                         {{ csrf_field() }}
+                                         <input type="hidden" name="selected_status" class="selected_status">
+                                         <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted-rej" name="cdw5" id="cdw5">REJECT ALL</button>
+
+                                         <a data-toggle="modal" data-target="#myModalRej" class="btn btn-danger btn-xs mlt">REJECT ALL</a>
+                                       </form>
+                                       @endif
 
                                     @if (count($clientData) > 0)
                                     <form class="pull-right" action="{{ url()->to('multiple-approve/Approved') }}" method="post" id="approve_data">
@@ -36,17 +47,7 @@
                                     </form>
                                     @endif
 
-                                    @if (count($clientData) > 0)
-                                    <form class="pull-right" action="{{ url()->to('multiple-approve/Rejected') }}" method="post" id="approve_data">
-                                      {{ csrf_field() }}
-                                      <input type="hidden" name="selected_status" class="selected_status">
-                                      <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted-rej" name="cdw5" id="cdw5">REJECT ALL</button>
-
-                                      <a data-toggle="modal" data-target="#myModalRej" class="btn btn-danger btn-xs mlt">REJECT ALL</a>
-                                    </form>
-                                    @endif
                                   </div>
-                                  <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right mr"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
                                         <div id="myModal" class="modal fade" style="display: none;">
                                           <div class="modal-dialog modal-confirm">
                                             <div class="modal-content">
@@ -85,22 +86,18 @@
                                             </div>
                                           </div>
                                         </div>
-
-
                                     </div>
                                  </div>
                                  <div class="box-body table-responsive">
                                     <table id="example1" class="table table-bordered table-striped table-hover text-center">
                                        <thead>
                                           <tr>
-
                                              <th class="chy" style="padding:5px!important;"><input type="checkbox" class="minimal1 deleteallbutton" name="select_all"></th>
                                              <th class="srno vl">SR.NO</th>
                                              <th class="vl">FIELD NAME</th>
                                              <th class="vl">CURRENT VALUE</th>
                                              <th class="vl">UPDATED VALUE</th>
                                              <th class="act vl">ACTION</th>
-
                                           </tr>
                                        </thead>
                                        <tbody>
@@ -153,14 +150,10 @@
                                        ?>
                                        @endforeach
                                        @endisset
-
-
                                        </tbody>
                                     </table>
                                  </div>
                               </div>
-
-
                      </div>
                   </div>
                </div>
@@ -241,6 +234,5 @@
       })
 
     });
-
     </script>
    @endsection
