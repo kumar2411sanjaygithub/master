@@ -76,7 +76,7 @@
   <select class="form-control input-sm" name="department_id" id="department_id">
      <option value="">Select</option>
          @foreach($department as $departmentuser)
-        <option value="{{$departmentuser->id}}">{{$departmentuser->department_id}}</option>
+        <option value="{{$departmentuser->id}}">{{$departmentuser->depatment_name}}</option>
           @endForeach
         </select>
         <span class="text-danger">{{ $errors->first('role_id') }}</span>

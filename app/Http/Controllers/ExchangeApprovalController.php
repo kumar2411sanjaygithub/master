@@ -49,6 +49,40 @@ class ExchangeApprovalController extends Controller
                 return Redirect::back()->with('success', 'User Successfully Rejected.');
             }
     }
+     public function clientExchangeApp(Request $request,$tag='',$type2='')
+    {
+
+        $approvalstatus_id=$request['selected_status'];
+        $array=explode(',',$approvalstatus_id);
+        if($tag=='Approved'){
+          foreach($array as $id){
+              $bnc = ExchangeTemp::find($id);
+                $new_bnc = new Exchange();
+                $new_bnc->client_id = $bnc->client_id;
+                $new_bnc->ex_type = $bnc->ex_type;
+                $new_bnc->validity_from = $bnc->validity_from;
+                $new_bnc->validity_to = $bnc->validity_to;
+                $new_bnc->file_upload = $bnc->file_upload;
+                $new_bnc->status= 1;
+                $new_bnc->save();
+                $bnc->status = 1; 
+                $bnc->update();
+            
+              }
+            }         
+            return Redirect::back()->with('success', 'User Successfully Approved.');
+          }
+          elseif ($tag=='Rejected') {
+            foreach($array as $id){
+                $mm = new ExchangeTemp;
+                $mm::where('id', $id)->update(['status'=> '2']);
+            }
+            return Redirect::back()->with('success', 'User Successfully Rejected.');
+        }
+
+        
+    }
+
      public function modified($id,$type)
     {
          if($id!='' && $type=='approved'){
