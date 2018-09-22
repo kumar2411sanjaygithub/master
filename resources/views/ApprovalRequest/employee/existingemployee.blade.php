@@ -173,10 +173,32 @@
 </div>
 </div>
     </section>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+
+    @endsection
+@section('content_foot')
+
+  <script>
+    $(function () {
+        $('input[type="checkbox"].minimal1, input[type="radio"].minimal1').iCheck({
+          checkboxClass: 'icheckbox_flat-blue',
+          radioClass   : 'iradio_flat-blue'
+      });
+
+    });
+
+    </script>
     <script type="text/javascript">
-            $('.deletedbutton').click(function(){
+            $('.deletedbutton').on('ifChecked', function(event) {
+              var array = [];
+              $('.deletedbutton').each(function(){
+                if($(this).prop('checked')){
+                  array.push($(this).val());
+              }
+              });
+              $('.selected_status').val(array);
+            });
+            $('.deletedbutton').on('ifUnchecked', function(event){
               var array = [];
               $('.deletedbutton').each(function(){
                 if($(this).prop('checked')){
@@ -204,33 +226,28 @@
       }
       });
 
-            $(".deleteallbutton").click(function(){
-                  if($(this).prop('checked')){
-                    $(".deletedbutton").prop("checked",true);
+            $(".deleteallbutton").on('ifChecked', function(event) {
+                  if($(this).iCheck('check')){
+                    $(".deletedbutton").iCheck('check');
                     var array = [];
                     $('.deletedbutton').each(function(){
-                      if($(this).prop('checked')){
+                      if($(this).iCheck('check')){
                         array.push($(this).val());
                     }
                     });
                     $('.selected_status').val(array);
                   }else{
                       $('.selected_status').val('');
-                    $(".deletedbutton").prop("checked",false);
+                    $(".deletedbutton").iCheck('uncheck');
                   }
             });
+            $('.deleteallbutton').on('ifUnchecked', function(event) {
+                $('.selected_status').val('');
+                $(".deletedbutton").iCheck('uncheck');
+            });
+
     </script>
 
-    <script>
-    $("#checkAll").click(function () {
-     $('input:checkbox').not(this).prop('checked', this.checked);
- });
-    </script>
-    <script>
-    $("#checkAllr").click(function () {
-     $('input:checkbox').not(this).prop('checked', this.checked);
- });
-    </script>
 
  <script>
     window.setTimeout(function() {
@@ -239,32 +256,7 @@
         });
     }, 5000);
   </script>
-  <script>
-  $(function () {
-      $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-        checkboxClass: 'icheckbox_flat-green',
-        radioClass   : 'iradio_flat-green'
-    })
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass   : 'iradio_minimal-red'
-    })
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-blue',
-      radioClass   : 'iradio_flat-blue'
-    })
 
-  })
-
-  $(function () {
-  $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-  checkboxClass: 'icheckbox_flat-green',
-  radioClass   : 'iradio_flat-green'
-  })
-  });
-  </script>
   <script>
     $("#search").keyup(function () {
         var value = this.value.toLowerCase().trim();
@@ -280,5 +272,4 @@
         });
     });
   </script>
-
-    @endsection
+@endsection

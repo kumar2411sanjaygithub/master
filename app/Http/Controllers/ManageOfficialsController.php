@@ -90,7 +90,7 @@ class ManageOfficialsController extends Controller
     }
 
     public function employeeview(){
-      $employeeData = User::all()->where('emp_app_status','1');
+      $employeeData = User::all()->where('emp_app_status','1')->where('id','!=',1);
         return view('ManageOfficials.employeeview',compact('employeeData'));
     }
 

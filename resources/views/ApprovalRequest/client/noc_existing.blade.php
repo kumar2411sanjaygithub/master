@@ -1,12 +1,13 @@
 @extends('theme.layouts.default')
 @section('content')
 <section class="content-header">
-               <h5><label  class="control-label"><u>APPROVE NOC DETAILS</u></label></h5>
+                <h5 class="pull-left"><label class="control-label pull-right mt-1"><u>APPROVE BANK DETAILS</u></h5> &nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
                <ol class="breadcrumb">
                   <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
                   <li><a href="#">APPROVE REQUEST</a></li>
-                  <li><a href="active">CLIENT</a></li>
-                  <li><a href="active"><u>EXISTING</u></a></li>
+                  <li><a href="#">CLIENT</a></li>
+                  <li><a href="#">EXISTING</a></li>
+                  <li><a href="#"><u>NOC DETAILS</u></a></li>
                </ol>
             </section>
             <!-- Main content -->
