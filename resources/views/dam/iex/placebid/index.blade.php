@@ -50,7 +50,7 @@
         </div>
         </div>
       </div>
-      <div class="col-md-12 iextab">
+      <div class="col-md-12 iextab pl0">
         <div class="col-md-12 box">
         <div class="col-md-8 mt5 plr0">
           <div class="container-lg">
