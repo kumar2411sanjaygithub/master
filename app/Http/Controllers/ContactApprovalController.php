@@ -26,7 +26,7 @@ class ContactApprovalController extends Controller
         // $delcontact = Contact::select('*')->where('client_id',$request['id'])->where('del_status',1)->orderBy('created_at','desc')->withTrashed()->get();
         $delcontact = Contact::select('*')->where(function($q) { $q->where('del_status',1); })->where('client_id',$request['id'])->orderBy('created_at','desc')->withTrashed()->get();
         //dd($delcontact);
-        
+        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$request['id'])->get();
 
 
         return view('ApprovalRequest.client.contact_existing',compact('contactData','AddcontactData','delcontact','client_details'));
