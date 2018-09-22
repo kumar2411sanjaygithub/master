@@ -57,7 +57,7 @@ tr td{padding:3px 0;}
                        <div class="mda-form-group float-label rel-wrapper">
                          <div class="mda-form-control">
                              <div class="mda-form-control-line"></div>
-                             <input class="form-control search_text" name="search_text" id="search_text" 
+                             <input class="form-control search_text" name="search_text" id="search_text"
                              value="@if($id != ''){{$a[0]['company_name']}}@endif">
                              @if($id != '')
                             <label></label>
@@ -123,8 +123,8 @@ tr td{padding:3px 0;}
                         <tbody>
                         <?php $i=1; ?>
                         @foreach($a as $key => $value)
-                     
-                       
+
+
                         <tr calue="{{$value['client_id']}}">
                         <td class="text-center w5">{{ $i }}</td>
                         <td class="text-center w57">{{$value['company_name']}}</td>
@@ -142,7 +142,7 @@ tr td{padding:3px 0;}
                                 <br/>{{$value['email_submission_time'][1]}}
                                 <br/>{{date('d/m/Y',strtotime(str_replace('/','-',$value['email_submission_time'][0])))}}
 
-                                
+
                                 @else
                                   <a href = "{{ route('bidplacement.bidmail',[$value['client_id']]) }}">
                                        <img class="" src="{{asset('img/icons/mail.svg')}}" height="33px" width="33px">&nbsp;
@@ -155,7 +155,7 @@ tr td{padding:3px 0;}
                                    <a href = "{{ route('bidplacement.bidsms',$value['client_id']) }}" style="color: red;">
                                        <img class="" src="{{asset('img/icons/sms.svg')}}" height="23px" width="23px">&nbsp;
                                        <span class="fs12">Re-send Sms</span></a>
-                                   
+
                                    <br/>{{$value['sms_submission_time'][1]}}
                                    <br/>{{date('d/m/Y',strtotime(str_replace('/','-',$value['sms_submission_time'][0])))}}
                                 @else
@@ -256,7 +256,7 @@ $(document).ready(function() {
         });
     }, 5000);
   </script>
- 
+
     <script>
         src = "{{ route('searchajax') }}";
          $(".search_text").autocomplete({
@@ -275,9 +275,9 @@ $(document).ready(function() {
             select: function (event, ui) {
               //alert(ui.item.id);
               // console.log(ui.item.id);
-              var aa = $("#user_id").val(ui.item.id); 
+              var aa = $("#user_id").val(ui.item.id);
                $("#user_id").submit();
-               window.location.href = "{{url('bidplacement/bidplacement')}}/"+ui.item.id; 
+               window.location.href = "{{url('bidplacement/bidplacement')}}/"+ui.item.id;
                //alert('fgdfgd'+ aa);
                 //form.submit();// display the selected text
             },

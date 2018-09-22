@@ -10,11 +10,11 @@
   .close{line-height: 0.9;}
 </style>
   <div class="col-md-12">
-    <div class="col-md-3 mt10">
+    <div class="col-md-3 mt7">
   <h5><label  class="control-label"><u>PLACE BID</u></label></h5>
 </div>
-<div class="col-md-5 mt10">
-  <span class="fs15 bidtime">  @php  date_default_timezone_set("Asia/Kolkata"); @endphp  Bidding Time Left For Delivery Date: <b class="text-info available-date-for-bidding"> @if(strtotime($bidallowedperiod)>=strtotime(date('H:i')))  @php $i=0; $date=date("d/m/Y", strtotime(date("Y-m-d") . ' + 1 days')); @endphp {{ $date  }}  @else @php $i=1; $date= date("d/m/Y", strtotime(date("Y-m-d") . ' + 2 days')) @endphp {{ $date }}    @endif </b><b id="time"></b> &nbsp;  <b class="text-danger"><span id='time-left' style="display:none"> {{ $bidallowedperiod }} </span> </span></b>
+<div class="col-md-5 mt7">
+  <span class="fs15 bidtime">  @php  date_default_timezone_set("Asia/Kolkata"); @endphp  <span class="bidtest">Bidding Time Left For Delivery Date:</span> <b class="text-info available-date-for-bidding"> @if(strtotime($bidallowedperiod)>=strtotime(date('H:i')))  @php $i=0; $date=date("d/m/Y", strtotime(date("Y-m-d") . ' + 1 days')); @endphp {{ $date  }}  @else @php $i=1; $date= date("d/m/Y", strtotime(date("Y-m-d") . ' + 2 days')) @endphp {{ $date }}    @endif </b><b id="time"></b> &nbsp;  <b class="text-danger"><span id='time-left' style="display:none"> {{ $bidallowedperiod }} </span> </span></b>
 </div>
 <div class="col-md-4">
   <section class="content-header">
@@ -52,7 +52,7 @@
       </div>
       <div class="col-md-12 iextab pl0">
         <div class="col-md-12 box">
-        <div class="col-md-8 mt5">
+        <div class="col-md-8 mt5 plr0">
           <div class="container-lg">
             <div class="panel panel-default">
              <div id="message">
@@ -96,11 +96,11 @@
           <div class="card mlr5 np mt-20 recordtable" id="show-new-bid-form">
             <div class="row p5">
               <div class="col-md-12 mr20 bid-modifier-buttons">
-                <button type="button"  class="btn btn-raised btn-info pull-right mr5 delete-all-bid">
+                <button type="button"  class="btn btn-xs btn-raised btn-info pull-right mr5 delete-all-bid">
                   <span class="rows_selected" id="delete_all">Delete</span>
                 </button>
-                <button type="button" class="btn btn-raised btn-info pull-right mr5 submit-all-bid" id="confirm_place_bid">
-                  <span class="" >Submit All Bid</span>
+                <button type="button" class="btn btn-xs btn-raised btn-info pull-right mr5 submit-all-bid" id="confirm_place_bid">
+                  <span class="" >Submit Bid</span>
                 </button>
 
               </div>
@@ -212,7 +212,7 @@
             </div>
           </div>
         <!-- Confirm & Place bid modal code end -->
-        <div class="col-md-4 mt5">
+        <div class="col-md-4 mt5 pr0">
           <!-- <div class="panel-group" id="accordion">
             <div class="panel-heading tabhead"><b>TOTAL BID DETAILS</b></div>
             <div class="panel-body previous_bids">
@@ -270,7 +270,7 @@
           </div> -->
 
         <div class="panel bds navsbs" id="panelDemo13" style="border:1px solid #ddd">
-            <div class="panel-heading tabhead text-center" style="text-align:center"><b class="text-center">TOTAL BID DETAILS</b></div>
+            <div class="panel-heading tabhead text-center" style="text-align:center;font-size:14px"><b class="text-center">TOTAL BID DETAILS</b></div>
             <div class="panel-body previous_bids pt0">
               <div class="panel-group" id="accordion">
               <div class="panel panel-default">
