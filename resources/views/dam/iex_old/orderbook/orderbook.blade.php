@@ -23,15 +23,17 @@
      <div class="box">
         <div class="box-body">
            <div class="row">
-              <div class="col-md-5">
-                  <label class="control-label">Search Client</label>
+              <div class="col-md-12">
                  <div class="input-group input-group-sm">
-                    <input type="text" class="form-control search_text" name="search_text" placeholder="SEARCH.." name="" id="">
+                    <input type="text" class="form-control search_text" name="search_text" placeholder="SEARCH CLIENT.." name="" id="">
                     <span class="input-group-btn">
                     <button type="button" class="btn btn-info btn-flat" name="" id=""> <span class="glyphicon glyphicon-search"></span></button>
                     </span>
                  </div>
               </div>
+           </div>
+           <div class="row">&nbsp;</div>
+           <div class="row">
               <div class="col-md-3">
                  <label  class="control-label">START DATE</label><span class="text-danger"><strong>*</strong></span>
                  <div class="input-group date">
