@@ -10,11 +10,12 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-   <h5><label  class="control-label">TTrading Margin (TM) Name Setting</label></h5>
+   <h5><label  class="control-label">Trading Margin (TM) Name Setting</label></h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">Trader's Setting</a></li>
-      <li><a href="active">Tm Name Setting</a></li>
+      <li><a href="#">MANAGE CLIENT</a></li>
+      <li><a href="#">TRADER'S SETTING</a></li>
+      <li><a href="#"><u>TM NAME SETTING</u></a></li>
    </ol>
 </section>
   <div class="clearfix"></div>
@@ -41,9 +42,9 @@
                    <table class="table table-bordered text-center">
                      <thead class="tablehead">
                        <tr>
-                         <th class="text-center">Segment</th>
-                         <th class="text-center">Trading Margin Name as</th>
-                         <th class="text-center">GST Applicable</th>
+                         <th class="text-center" style="width:33.33%!important;">Segment</th>
+                         <th class="text-center" style="width:33.33%!important;">Trading Margin Name as</th>
+                         <th class="text-center" style="width:33.33%!important;">GST Applicable</th>
                        </tr>
                      </thead>
                      <tbody>
