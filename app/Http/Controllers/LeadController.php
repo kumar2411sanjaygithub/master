@@ -340,7 +340,7 @@ class LeadController extends Controller
 
         $lead_info = Lead::findOrFail($id);
         $password = str_random(10);
-
+        
         if($lead_info->product==$c_id)
         {
             $client = new Client;
@@ -355,7 +355,7 @@ class LeadController extends Controller
             $client->reg_city = $lead_info->add_city;
             $client->reg_pin = $lead_info->add_pincode;
             $client->reg_mob = $lead_info->contact_number;
-            $client->client_app_status = 0;
+            $client->client_app_status = 1;
             $client->save();
 
             // Create Unique CRN no.

@@ -128,9 +128,18 @@ class ClientDeatilsController extends Controller
 		return redirect('basicdetails')->with('message', '.Client details saved successfully and submitted for approval.!');
 	}
 
-    public function viewclient($id){
+    public function viewclient($id='',$tag=''){
 
-        $clientdata = Client::select('*')->where('client_app_status','1')->where('id',$id)->first();
+        $action_info=$tag;
+        if($action_info=='edit')
+        {
+            $clientdata = Client::select('*')->where('client_app_status','1')->where('id',$id)->first();           
+        }
+        elseif($action_info=='view')
+        {
+            $clientdata = Client::select('*')->where('id',$id)->first();           
+
+        }
 
 				$voltage_array=array();
 				$sldc=StateDiscom::where('state',@$clientdata->conn_state)->first();
@@ -167,7 +176,7 @@ class ClientDeatilsController extends Controller
                 }
 //dd($voltage_array);
 
-        return view('ManageClient.viewbasic',compact('clientdata','id','discom_array','voltage_array'));
+        return view('ManageClient.viewbasic',compact('clientdata','id','discom_array','voltage_array','action_info'));
     }
     public function updateclient(Request $request,$basic_id){
 
