@@ -84,7 +84,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                                    </div>
                                    <input type="text" autocomplete="off" value="{{old('received_date')}}" class="form-control pull-right input-sm" name="received_date" id="datepicker">
                                 </div>
-                                   <span class="text-danger">{{ $errors->first('received_date') }}</span>                                
+                                   <span class="text-danger">{{ $errors->first('received_date') }}</span>
                              </div>
                              <div class="col-md-3">
                                 <label  class="control-label">DOCUMENT NO.</label>
@@ -115,7 +115,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                                    </div>
                                    <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{old('expiry_date')}}" name="expiry_date" id="datepicker2">
                                 </div>
-                                   <span class="text-danger">{{ $errors->first('expiry_date') }}</span>                               
+                                   <span class="text-danger">{{ $errors->first('expiry_date') }}</span>
                              </div>
                              <div class="col-md-3">
                                 <label  class="control-label">REVOCABLE DATE</label>
@@ -281,7 +281,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                            <td>{{isset($last_id->exposure_percent)?@$last_id->exposure_percent:'-'}}</td>
                            <td>{{isset($last_id->exposure)?@$last_id->exposure:'-'}}</td>
                            <td>{{(isset($last_id->psm_added_date))?@$last_id->psm_added_date:'-'}}</td>
-                           <td><a href="/editexposure/{{@$last_id->id}}/{{$clientData->id}}" class="{{ isset($last_id->exposure)? '':'apedbtn disabled'}}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                           <td><a href="javascript::void()" target="/editexposure/{{@$last_id->id}}/{{$clientData->id}}" class="{{ isset($last_id->exposure)? '':' disabled'}}" id="btn-edit-psm"><span class="glyphicon glyphicon-pencil"></span></a></td>
                         </tr>
                      </tbody>
                   </table>
@@ -352,7 +352,7 @@ $(document).ready(function(){
         $(".apdbtn").addClass("hidden");
         $(".setword").text("Add PSM Details");
     });
-    $(".apedbtn").click(function(){
+    $(".apedbtn, #btn-edit-psm").click(function(){
         $(".aped").removeClass("hidden");
         $(".psmexp-test").text("Add PSM Exposure Details");
         $(".apedbtn").hide();

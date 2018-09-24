@@ -32,7 +32,7 @@ class ManageOfficialsController extends Controller
   public function savedepartment(Request $request){
 
     $validator = Validator::make($request->all(), [
-           'depatment_name' => 'required|regex:/^[a-zA-Z ]*$/|min:1|unique:department,depatment_name,NULL,id,deleted_at,NULL',
+           'depatment_name' => 'required|regex:/^[a-zA-Z0-9 ]*$/|min:1|unique:department,depatment_name,NULL,id,deleted_at,NULL',
 
        ]);
 

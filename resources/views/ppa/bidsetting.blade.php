@@ -42,11 +42,11 @@
                   <select class="" name="client_id" id="select-client" data-live-search="true">
                     <option>Search Client</option>
                      @foreach ($clientData as $key => $value)
-                     <option value="{{ $value->id }}" data-tokens="{{ $value->company_name }}.{{ $value->id }}.{{ $value->crn_no }};?>">  [{{$value->company_name}}] [{{$value->short_id}}] [{{$value->crn_no}}]</option>
+                     <option value="{{ $value->id }}" @if(@$id==$value->id) selected="selected" @endif>  [{{$value->company_name}}] [{{$value->short_id}}] [{{$value->crn_no}}]</option>
                     @endforeach
 
                   </select>
-                  <!-- <script>
+                  <script>
                   $(document).ready(function() {
                        $("#select-client").change(function(e) {
                              var id = this.value;
@@ -55,23 +55,23 @@
                              window.location = url;
                        });
                    });
-                  </script> -->
+                  </script>
                  </div>
               </div>
               <div class="row">&nbsp;</div>
               <div class="row">
                  <div class="col-md-3 {{ $errors->has('bid_cut_off_time') ? 'has-error' : '' }}">
                     <label  class="control-label">BIDDING CUTT OFF TIME</label><span class="text-danger"><strong>*</strong></span>
-                    <input class="form-control input-sm timepicker" type="text" id="bid_cut_off_time" name="bid_cut_off_time" placeholder="ENTER BIDDING CUTT OFF TIME">
+                    <input class="form-control input-sm timepicker" type="text" id="bid_cut_off_time" name="bid_cut_off_time" placeholder="ENTER BIDDING CUTT OFF TIME" value="{{isset($ppaData->bid_cut_off_time)?$ppaData->bid_cut_off_time:''}}">
                     <span class="text-danger">{{ $errors->first('bid_cut_off_time') }}</span>
                  </div>
                  <div class="col-md-3 {{ $errors->has('trader_type') ? 'has-error' : '' }}">
                     <label  class="control-label">POWER TRADE TYPE</label><span class="text-danger"><strong>*</strong></span>
                     <select class="form-control input-sm" id="trader_type" name="trader_type" style="width: 100%;">
                        <option value="">PLEASE SELECT</option>
-                       <option>Buy</option>
-                       <option>Sell</option>
-                       <option>Both</option>
+                       <option value="Buy" {{(isset($ppaData->bid_cut_off_time)&&$ppaData->trader_type=='Buy' )?"selected='selected'":''}}>Buy</option>
+                       <option value="Sell" {{(isset($ppaData->bid_cut_off_time)&&$ppaData->trader_type=='Sell' )?"selected='selected'":''}}>Sell</option>
+                       <option value="Both" {{(isset($ppaData->bid_cut_off_time)&&$ppaData->trader_type=='Both' )?"selected='selected'":''}}>Both</option>
                     </select>
                     <span class="text-danger">{{ $errors->first('trader_type') }}</span>
                  </div>
