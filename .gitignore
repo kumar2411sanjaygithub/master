@@ -11,3 +11,4 @@ Homestead.yaml
 Homestead.json
 storage/uploads
 vendor
+storage/files

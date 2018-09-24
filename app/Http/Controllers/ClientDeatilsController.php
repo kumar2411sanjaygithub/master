@@ -111,8 +111,7 @@ class ClientDeatilsController extends Controller
         $client->inter_discom = $request->input('inter_discom');
         $client->inter_stu = $request->input('inter_stu');
         $client->inter_poc = $request->input('inter_poc');
-        $client->rt = $request->input('rt');
-        $client->rt1 = $request->input('rt1');
+        $client->common_feeder_option = $request->input('common_feeder_option');
         $client->feeder_name = $request->input('feeder_name');
         $client->feeder_code = $request->input('feeder_code');
         $client->conn_discom = $request->input('conn_discom');
