@@ -14,8 +14,8 @@ class AutoCompleteController extends Controller {
         $term = $request->get('term','');
 
         $ClientmastertempData = DB::table('clients')
-            ->selectRaw("id,concat(COALESCE(name,'')) as value")
-            ->where('name','LIKE','%'.$term.'%')
+            ->selectRaw("id,concat(COALESCE(company_name,'')) as value")
+            ->where('company_name','LIKE','%'.$term.'%')
             ->get();
 
 

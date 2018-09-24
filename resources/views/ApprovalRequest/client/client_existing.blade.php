@@ -57,13 +57,13 @@
                                                 <h4 class="modal-title text-center">ARE YOU SURE?</h4>
                                               </div>
                                               <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                                                <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                                                <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS?</p>
                                               </div>
                                               <div class="modal-footer">
-                                                <button type="button" href="#"   class="btn btn-danger">
+                                                <button type="button" href="#"   class="btn btn-info">
                                                   <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
                                                 </button>
-                                                <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
 
                                               </div>
                                             </div>
@@ -76,13 +76,13 @@
                                                 <h4 class="modal-title text-center">ARE YOU SURE?</h4>
                                               </div>
                                               <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                                                <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                                                <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS?</p>
                                               </div>
                                               <div class="modal-footer">
-                                                <button type="button" href="#"   class="btn btn-danger">
+                                                <button type="button" href="#"   class="btn btn-info">
                                                   <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rej">Yes</a>
                                                 </button>
-                                                <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
 
                                               </div>
                                             </div>

@@ -1,0 +1,13 @@
+public/storage
+public/hot
+storage/*.key
+storage/upload
+storage/exports
+storage/files/*
+.env.*.php
+.env.php
+.env
+Homestead.yaml
+Homestead.json
+storage/uploads
+ven

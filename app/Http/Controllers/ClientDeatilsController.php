@@ -111,7 +111,8 @@ class ClientDeatilsController extends Controller
         $client->inter_discom = $request->input('inter_discom');
         $client->inter_stu = $request->input('inter_stu');
         $client->inter_poc = $request->input('inter_poc');
-        $client->common_feeder_option = $request->input('common_feeder_option');
+        $client->rt = $request->input('rt');
+        $client->rt1 = $request->input('rt1');
         $client->feeder_name = $request->input('feeder_name');
         $client->feeder_code = $request->input('feeder_code');
         $client->conn_discom = $request->input('conn_discom');
@@ -129,16 +130,8 @@ class ClientDeatilsController extends Controller
 
     public function viewclient($id='',$tag=''){
 
-        $action_info=$tag;
-        if($action_info=='edit')
-        {
             $clientdata = Client::select('*')->where('client_app_status','1')->where('id',$id)->first();           
-        }
-        elseif($action_info=='view')
-        {
-            $clientdata = Client::select('*')->where('id',$id)->first();           
 
-        }
 
 				$voltage_array=array();
 				$sldc=StateDiscom::where('state',@$clientdata->conn_state)->first();
@@ -177,6 +170,50 @@ class ClientDeatilsController extends Controller
 
         return view('ManageClient.viewbasic',compact('clientdata','id','discom_array','voltage_array','action_info'));
     }
+
+    public function viewclientPrint($id='',$tag=''){
+
+        $action_info='view';
+            $clientdata = Client::select('*')->where('id',$id)->first();           
+
+                $voltage_array=array();
+                $sldc=StateDiscom::where('state',@$clientdata->conn_state)->first();
+                $voltage_data=json_decode(@$sldc->voltage);
+                if(isset($voltage_data))
+                {
+                    foreach($voltage_data as $voltage)
+                    {
+                         foreach($voltage as $sk=>$voltage_value)
+                         {
+                                 if($voltage_value!=NULL)
+                                 {
+                                         array_push($voltage_array,$voltage_value);
+                                 }
+
+                         }
+
+                    }
+                }    
+                $discom_array=array();
+                $json_discom=json_decode(@$sldc->discom);
+                if(isset($json_discom))
+                {
+                    foreach($json_discom as $discom)
+                    {
+                         foreach($discom as $sk=>$discom_value)
+                         {
+                                 if($discom_value!=NULL){
+                                         array_push($discom_array,$discom_value);
+                                 }
+                         }
+
+                    }
+                }
+//dd($voltage_array);
+
+        return view('ApprovalRequest.client.approve_rej',compact('clientdata','id','discom_array','voltage_array','action_info'));
+    }
+
     public function updateclient(Request $request,$basic_id){
 
         $validator = validator::make($request->all(),[
