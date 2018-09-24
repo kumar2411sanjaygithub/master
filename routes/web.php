@@ -203,7 +203,7 @@ Route::get('/basicdetails',['as'=>'basic.details','uses'=>'ClientDeatilsControll
 Route::get('/clientadd',['as'=>'clientadd','uses'=>'ClientDeatilsController@addclient']);
 Route::get('/noc_discom_s',['as'=>'noc_discom_s','uses'=>'ClientDeatilsController@search_discom']);
 Route::post('/client/saveclient',['as'=>'clientsave','uses'=>'ClientDeatilsController@saveclient']);
-Route::get('/basic/{id}',['as'=>'basic','uses'=>'ClientDeatilsController@viewclient']);
+Route::get('/basic/{id}/{tag}',['as'=>'basic','uses'=>'ClientDeatilsController@viewclient']);
 Route::post('/client/updateclient/{id}',['as'=>'updatebasic','uses'=>'ClientDeatilsController@updateclient']);
 
 

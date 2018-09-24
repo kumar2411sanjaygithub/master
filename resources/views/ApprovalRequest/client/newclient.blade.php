@@ -132,7 +132,7 @@
 
                                       <div class="text-center">{{$i}}</div>
                                       </td>
-                                    <td class="text-center"><a href="javascript:void(0)" onclick="generate_model({{ $value }})" id="pop">{{$value->company_name}}</a></td>
+                                    <td class="text-center"><a href="/basic/{{$value->id}}/{{'view'}}" id="pop">{{$value->company_name}}</a></td>
                                     <td class="text-center">{{$value->gstin}}</td>
                                     <td class="text-center">{{$value->pan}}</td>
                                     <td class="text-center">{{$value->cin}}</td>
