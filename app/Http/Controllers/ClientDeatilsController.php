@@ -121,7 +121,7 @@ class ClientDeatilsController extends Controller
         $client->maxm_withdrawal = $request->input('maxm_withdrawal');
         $client->payment = $request->input('payment');
         $client->obligation = $request->input('obligation');
-
+        $client->barred_status = 1;
         $client->save();
 
         //$lsatinsertedId = $clien->id;
@@ -134,32 +134,37 @@ class ClientDeatilsController extends Controller
 
 				$voltage_array=array();
 				$sldc=StateDiscom::where('state',@$clientdata->conn_state)->first();
-				$voltage_data=json_decode($sldc->voltage);
-				foreach($voltage_data as $voltage)
-				{
-					 foreach($voltage as $sk=>$voltage_value)
-					 {
-							 if($voltage_value!=NULL)
-							 {
-									 array_push($voltage_array,$voltage_value);
-							 }
+				$voltage_data=json_decode(@$sldc->voltage);
+                if(isset($voltage_data))
+                {
+    				foreach($voltage_data as $voltage)
+    				{
+    					 foreach($voltage as $sk=>$voltage_value)
+    					 {
+    							 if($voltage_value!=NULL)
+    							 {
+    									 array_push($voltage_array,$voltage_value);
+    							 }
 
-					 }
+    					 }
 
-				}
-
+    				}
+                }    
 				$discom_array=array();
-				$json_discom=json_decode($sldc->discom);
-				foreach($json_discom as $discom)
-				{
-					 foreach($discom as $sk=>$discom_value)
-					 {
-							 if($discom_value!=NULL){
-									 array_push($discom_array,$discom_value);
-							 }
-					 }
+				$json_discom=json_decode(@$sldc->discom);
+                if(isset($json_discom))
+                {
+    				foreach($json_discom as $discom)
+    				{
+    					 foreach($discom as $sk=>$discom_value)
+    					 {
+    							 if($discom_value!=NULL){
+    									 array_push($discom_array,$discom_value);
+    							 }
+    					 }
 
-				}
+    				}
+                }
 //dd($voltage_array);
 
         return view('ManageClient.viewbasic',compact('clientdata','id','discom_array','voltage_array'));
@@ -258,7 +263,7 @@ class ClientDeatilsController extends Controller
         $datas['inter_stu'] = $basic['inter_stu'];
         $datas['inter_discom'] = $basic['inter_discom'];
         $datas['common_feeder_option'] = $basic['common_feeder_option'];
-				$datas['obligation'] = $basic['obligation'];
+		$datas['obligation'] = $basic['obligation'];
 
         $dataArray =array();
 		$dataArray['company_name'] = $request->input('company_name');
@@ -521,7 +526,7 @@ class ClientDeatilsController extends Controller
 
 
         $Groupuserdetails = Groupusersetting::where('status',0)->get()->toArray();
-            //dd($Groupuserdetails);
+           // dd($Clientsdetails);
         return view('ManageClient.account_group',compact('Clientsdetails','role_off','Groupuserdetails'));
     }
     public function creategroup(Request $request)
