@@ -68,8 +68,7 @@ class ManageClientLang
             'inter_poc'=> 'Inter Poc',
             'ca_client_id'=>'IEX Client Id',
             'inter_connection'=>'InterConnection',
-            'rt'=> ' Feeder Yes',
-            'rt1'=>' Feeder No',
+            'common_feeder_option'=> 'Common Feeder',
             'validitiy_from'=>'Validity From',
             'file_upload'=>'File Upload',
             'ex_type'=>'Exchange type',
@@ -119,4 +118,3 @@ class ManageClientLang
         );
    }
 }
-
