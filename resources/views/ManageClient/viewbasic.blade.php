@@ -1,12 +1,12 @@
 @extends('theme.layouts.default')
 @section('content')
 <section class="content-header">
-   <h5><label  class="control-label"><u>ADD CLIENT</u></label></h5>
+   <h5><label  class="control-label"><u>@if($action_info=='edit'){{'EDIT'}}@elseif($action_info=='view'){{'VIEW'}}@endif CLIENT</u></label></h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">MANAGE CLIENT</a></li>
       <li class="#">CLIENT BASIC DETAILS</li>
-      <li class="active"><u>ADD CLIENT</u></li>
+      <li class="#"><u>@if($action_info=='edit'){{'EDIT'}}@elseif($action_info=='view'){{'VIEW'}}@endif CLIENT</u></li>
    </ol>
 </section>
 <section class="content">
@@ -20,8 +20,12 @@
    <div class="row">
       <div class="col-xs-12">
          <div class="pull-right">
-             <a href=""><button class="btn btn-info btn-xs enable_edit mt7" value=" EDIT">  <span class="glyphicon glyphicon-pencil"></span>&nbsp;EDIT</button></a>
-            <a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
+            @if($action_info=='edit')
+               <a href=""><button class="btn btn-info btn-xs enable_edit mt7" value=" EDIT">  <span class="glyphicon glyphicon-pencil"></span>&nbsp;EDIT</button></a>
+               <a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
+             @elseif($action_info=='view')
+               <a href="/client/new"><button  class="btn btn-info btn-xs mt7" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
+            @endif
            </div>
       </div>
    </div>
@@ -440,8 +444,25 @@
             <hr>
             <div class="row">
                <div class="col-md-5"></div>
-               <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs saveButton" id="saveclient" style="display:none;">UPDATE</button></div>
+               @if($action_info=='edit')
+                <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs saveButton" id="saveclient" style="display:none;">UPDATE</button></div>
                <div class="col-md-1"><a href="{{ route('basic.details') }}" class="btn btn-block btn-danger btn-xs">Cancel</a></div>
+               @elseif($action_info=='view')
+                  @if($clientdata->client_app_status =='0')
+                   <div class="col-md-1">
+                     <a href="/status/{{$clientdata->id}}/approve" class="btn  btn-info btn-xs">APPROVE</a>
+                  </div>
+                  <div class="col-md-1"><a href="/status/{{$clientdata->id}}/reject" class="btn  btn-danger btn-xs">REJECT</a></div>
+                  @elseif($clientdata->client_app_status =='1')
+                     <div class="col-md-1">
+                        <a href="#" class="btn btn-info btn-xs">APPROVED</a>
+                     </div>
+                  @elseif($clientdata->client_app_status =='2')
+                     <div class="col-md-1">
+                        <a href="" class="btn btn-danger btn-xs">REJECTED</a>
+                     </div>
+                  @endif   
+               @endif
                <div class="col-md-4"></div>
             </div>
             <div class="row">&nbsp;</div>
