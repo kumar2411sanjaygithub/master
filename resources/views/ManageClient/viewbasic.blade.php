@@ -1,12 +1,12 @@
 @extends('theme.layouts.default')
 @section('content')
 <section class="content-header">
-   <h5><label  class="control-label"><u>@if($action_info=='edit'){{'EDIT'}}@elseif($action_info=='view'){{'VIEW'}}@endif CLIENT</u></label></h5>
+   <h5><label  class="control-label"><u>EDIT CLIENT</u></label></h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">MANAGE CLIENT</a></li>
       <li class="#">CLIENT BASIC DETAILS</li>
-      <li class="#"><u>@if($action_info=='edit'){{'EDIT'}}@elseif($action_info=='view'){{'VIEW'}}@endif CLIENT</u></li>
+      <li class="#"><u>EDIT CLIENT</u></li>
    </ol>
 </section>
 <section class="content">
@@ -20,12 +20,9 @@
    <div class="row">
       <div class="col-xs-12">
          <div class="pull-right">
-            @if($action_info=='edit')
                <a href=""><button class="btn btn-info btn-xs enable_edit mt7" value=" EDIT">  <span class="glyphicon glyphicon-pencil"></span>&nbsp;EDIT</button></a>
                <a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
-             @elseif($action_info=='view')
-               <a href="/client/new"><button  class="btn btn-info btn-xs mt7" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
-            @endif
+
            </div>
       </div>
    </div>
@@ -398,10 +395,11 @@
                         <input  disabled type="radio" class="minimal1 disabled-class" value="yes" name="common_feeder_option" id="rt" @if((isset($clientdata->common_feeder_option)&&$clientdata->common_feeder_option=='yes'))? checked="checked" @endif>&nbsp&nbsp<label for="rt">YES</label>
                      </div>
                      <div class="col-md-6 pull-Left">
-                        <input  disabled type="radio" class="minimal1 disabled-class" value="no" name="common_feeder_option" id="rt1" @if((isset($clientdata->common_feeder_option)&&$clientdata->common_feeder_option<>'no'))? checked="checked" @endif>&nbsp&nbsp<label for="rt1">NO</label>
+                        <input  disabled type="radio" class="minimal1 disabled-class" value="no" name="common_feeder_option" id="rt1" @if((isset($clientdata->common_feeder_option)&&$clientdata->common_feeder_option<>'no'))? checked="checked" @else checked="checked" @endif>&nbsp&nbsp<label for="rt1">NO</label>
                      </div>
                   </div>
                </div>
+               <div id="hidecontentDiv">
                <div class="col-md-3">
                   <label  class="control-label">FEEDER NAME</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER FEEDER NAME" name="feeder_name" id="feeder_name" value="{{isset($clientdata->feeder_name)?$clientdata->feeder_name: old('feeder_name')}}">
@@ -411,7 +409,7 @@
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER FEEDER CODE" name="feeder_code" id="feeder_code" value="{{isset($clientdata->feeder_code)?$clientdata->feeder_code: old('feeder_code')}}">
                </div>
             </div>
-            <div class="row">
+
                <div class="col-md-3">
                   <label  class="control-label"> NAME OF SUBSTATION</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER SUBSTATION NAME" id="name_of_substation" name="name_of_substation"  value="{{isset($clientdata->name_of_substation)?$clientdata->name_of_substation: old('name_of_substation')}}">
@@ -444,25 +442,10 @@
             <hr>
             <div class="row">
                <div class="col-md-5"></div>
-               @if($action_info=='edit')
+
                 <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs saveButton" id="saveclient" style="display:none;">UPDATE</button></div>
                <div class="col-md-1"><a href="{{ route('basic.details') }}" class="btn btn-block btn-danger btn-xs">Cancel</a></div>
-               @elseif($action_info=='view')
-                  @if($clientdata->client_app_status =='0')
-                   <div class="col-md-1">
-                     <a href="/status/{{$clientdata->id}}/approve" class="btn  btn-info btn-xs">APPROVE</a>
-                  </div>
-                  <div class="col-md-1"><a href="/status/{{$clientdata->id}}/reject" class="btn  btn-danger btn-xs">REJECT</a></div>
-                  @elseif($clientdata->client_app_status =='1')
-                     <div class="col-md-1">
-                        <a href="#" class="btn btn-info btn-xs">APPROVED</a>
-                     </div>
-                  @elseif($clientdata->client_app_status =='2')
-                     <div class="col-md-1">
-                        <a href="" class="btn btn-danger btn-xs">REJECTED</a>
-                     </div>
-                  @endif   
-               @endif
+
                <div class="col-md-4"></div>
             </div>
             <div class="row">&nbsp;</div>
@@ -588,5 +571,37 @@ $('input[type="checkbox"]#saba,.saba').click(function(){
        $("#del_telephone").val("");
      }
    });
+$(document).ready(function() {
+    $("#rt").click(function() {
+        var test = $(this).val();
+
+        $("#hidecontentDiv").show();
+        //$("#Cars" + test).show();
+    });
+});
+$(document).ready(function() {
+    $("#rt1").click(function() {
+        var test = $(this).val();
+
+        $("#hidecontentDiv").hide();
+        //$("#Cars" + test).show();
+    });
+});
+$(document).ready(function() {
+   var rt1=$('#rt1').val();
+   var rt=$('#rt').val();
+   if(rt1=='no')
+   {alert('asdf');
+      $("#hidecontentDiv").hide();
+   }
+   if(rt=='yes')
+   {
+      $("#hidecontentDiv").show();
+   }
+        
+        //$("#Cars" + test).show();
+});
+
+
 </script>
 @endsection
