@@ -105,7 +105,7 @@ input:checked + .slider:before {
             <td>{{@$client_data->name}}</td>
             <td>{{$client_data->iex_portfolio}}</td>
             <td>{{$client_data->pxil_portfolio}}</td>
-            <td>ACTIVE<label class="switch"><input type="checkbox" {{ $client_data->barred_status===1 ? 'checked data-toggle=modal data-target=#clientDeactivate'.$client_data->id :  'data-toggle=modal data-target=#clientActivate'.$client_data->id }}><span class="slider round"></span></label>BLOCK</td>
+            <td>BLOCK<label class="switch"><input type="checkbox" {{ $client_data->barred_status===1 ? 'checked data-toggle=modal data-target=#clientDeactivate'.$client_data->id :  'data-toggle=modal data-target=#clientActivate'.$client_data->id }}><span class="slider round"></span></label>ACTIVE</td>
 
           </tr>
           <div id="{{ $client_data->barred_status===1 ? 'clientDeactivate'.$client_data->id : 'clientActivate'.$client_data->id }}" class="modal fade" role="dialog">

@@ -35,7 +35,7 @@
                         <div class="row">
                           <div class="col-md-2">
                              <div class="input-group input-group-sm">
-                                <input type="text" class="form-control" placeholder="SEARCH">
+                                <input type="text" class="form-control" placeholder="SEARCH" id="search">
                                 <span class="input-group-btn">
                                 <button type="button" class="btn btn-info btn-flat" id="vg8" name="vg8"><span class="glyphicon glyphicon-search"></span></button>
                                 </span>

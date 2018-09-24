@@ -20,11 +20,18 @@
             @endif
                <div class="row">
                   <div class="col-xs-12">
+                    <div class="row">
+                    <div class="col-md-10">
                         <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#home">NEW</a></li>
                         <li><a data-toggle="tab" href="#menu1">MODIFIED</a></li>
                         <li><a data-toggle="tab" href="#menu2">DELETED</a></li>
                      </ul>
+                   </div>
+                   <div class="col-md-2 mt8">
+                         <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right mr"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+                   </div>
+                 </div>
                      <div class="tab-content">
                         <div id="home" class="tab-pane fade in active">
                            <div class="box">
@@ -53,8 +60,6 @@
               <a data-toggle="modal" data-target="#myModalRej" class="btn btn-danger btn-xs mlt">REJECT ALL</a>
             </form>
             @endif
-            <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right mr"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
-
 
                 <div id="myModal" class="modal fade" style="display: none;">
                   <div class="modal-dialog modal-confirm">
