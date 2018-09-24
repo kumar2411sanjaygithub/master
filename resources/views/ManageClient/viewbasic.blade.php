@@ -91,13 +91,14 @@
                <div class="col-md-3 {{ $errors->has('reg_country') ? 'has-error' : '' }}">
                   <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
                   <select class="form-control input-sm disabled-class"   disabled style="width: 100%;" id="reg_country" name="reg_country" value="{{ $clientdata->reg_country}}">
+                      <option value="">SELECT</option>
                      <option value="India">India</option>
                   </select>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
                   <select class="form-control input-sm disabled-class"  disabled  style="width: 100%;"id="reg_state" name="reg_state" value="{{ $clientdata->reg_state}}">
-                     <option value=" ">SELECT STATE</option>
+                     <option value=" ">SELECT</option>
                      <?php
                         $state_list = \App\Common\StateList::get_states();
                         ?>
@@ -147,13 +148,14 @@
                <div class="col-md-3">
                   <label  class="control-label">COUNTRY</label>
                   <select class="form-control input-sm disabled-class" disabled style="width: 100%;" id="bill_country" name="bill_country" value="{{ $clientdata->bill_country}}" >
+                      <option value="">SELECT</option>
                      <option value="India">India</option>
                   </select>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">STATE</label>
                   <select class="form-control input-sm disabled-class"   disabled style="width: 100%;" id="bill_state" name="bill_state" value="{{ $clientdata->bill_state}}">
-                     <option value="">PLEASE SELECT</option>
+                     <option value="">SELECT</option>
                      <?php
                         $state_list = \App\Common\StateList::get_states();
                         ?>
@@ -203,13 +205,14 @@
                <div class="col-md-3">
                   <label  class="control-label">COUNTRY</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="del_country" name="del_country" value="{{ $clientdata->del_country}}">
+                      <option value="">SELECT</option>
                      <option value="India">India</option>
                   </select>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">STATE</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="del_state" name="del_state" value="{{ $clientdata->del_state}}">
-                     <option value=" ">PLEASE SELECT</option>
+                     <option value=" ">SELECT</option>
                      <?php
                         $state_list = \App\Common\StateList::get_states();
                         ?>
@@ -321,15 +324,15 @@
                <div class="col-md-3">
                   <label  class="control-label">STATE TYPE</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="state_type" name="state_type" value="{{ $clientdata->state_type}}">
-                     <option value=" ">PLEASE SELECT</option>
-                     <option value="intra state">Intra State </option>
-                     <option value="inter state">Inter State</option>
+                     <option value="">SELECT</option>
+                     <option value="intra state" {{ isset($clientdata) && $clientdata->state_type == 'intra state' ? 'selected="selected"' : '' }}>Intra State </option>
+                     <option value="inter state" {{ isset($clientdata) && $clientdata->state_type == 'inter state' ? 'selected="selected"' : '' }}>Inter State</option>
                   </select>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">STATE(For NOC)</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" name="conn_state" id="conn_state" value="{{ $clientdata->conn_state}}">
-                     <option value=' '></option>
+                     <option value=''>Select</option>
                      <?php
                         $state_list = \App\Common\StateList::get_states();
                         ?>
@@ -341,13 +344,23 @@
                <div class="col-md-3">
                   <label  class="control-label">DISCOM</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="discom" name="discom" value="{{ $clientdata->discom}}">
-                     <option value=' '></option>
+                     <option value=''>CHOOSE</option>
+                     @foreach($discom_array as $discom_list)
+                      @if(isset($clientdata->discom))
+                        <option value='{{$discom_list}}' @if((isset($clientdata->discom)&&$clientdata->discom==$discom_list))? selected="selected" @endif>{{$discom_list}}</option>
+                       @endif
+                     @endforeach
                   </select>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">VOLTAGE LEVEL</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="voltage" name="voltage" value="{{ $clientdata->voltage}}">
-                     <option value=' '></option>
+                    <option value=''>CHOOSE</option>
+                    @foreach($voltage_array as $vol_list)
+                     @if(isset($clientdata->voltage))
+                       <option value='{{$vol_list}}' @if((isset($clientdata->voltage)&&$clientdata->voltage==$vol_list))? selected="selected" @endif>{{$vol_list}}</option>
+                      @endif
+                    @endforeach
                   </select>
                </div>
             </div>
@@ -359,17 +372,17 @@
                   <label  class="control-label">PART OF INTERCONNECTION</label>
                   <div class="form-group">
                      <div class="col-md-1 " style="margin-left:-6px;">
-                        <input type="checkbox" class="minimal pull-left disabled-class" id="inter_discom" name="inter_discom"  disabled  disabled value="{{old('inter_discom')}}">
+                        <input type="checkbox" class="minimal1 pull-left disabled-class" id="inter_discom" name="inter_discom"  disabled  value="inter_discom" @if((isset($clientdata->inter_discom)&&$clientdata->inter_discom=='inter_discom'))? checked="checked" @endif >
                      </div>
                      <div class="col-md-3" style="margin-left:-7px;"><label for="inter_discom">DISCOM</label>
                      </div>
                      <div class="col-md-1 "  style="margin-left:-6px;">
-                        <input type="checkbox" class="minimal disabled-class"  disabled  disabled id="inter_stu" name="inter_stu" value="{{old('inter_stu')}}">
+                        <input type="checkbox" class="minimal1 disabled-class"  disabled id="inter_stu" name="inter_stu" value="inter_stu" @if((isset($clientdata->inter_stu)&&$clientdata->inter_stu=='inter_stu'))? checked="checked" @endif>
                      </div>
                      <div class="col-md-1" style="margin-left:-7px;"><label for="inter_stu">STU</label>
                      </div>
                      <div class="col-md-1">
-                        <input type="checkbox" class="minimal disabled-class"  disabled  disabled id="inter_poc" name="inter_poc" value="{{old('inter_poc')}}">
+                        <input type="checkbox" class="minimal1 disabled-class"  disabled id="inter_poc" name="inter_poc" value="inter_poc" @if((isset($clientdata->inter_poc)&&$clientdata->inter_poc=='inter_poc'))? checked="checked" @endif>
                      </div>
                      <div class="col-md-5" style="width:30%;margin-left:-5px;"><label for="inter_poc">POC/CTU</label></div>
                   </div>
@@ -378,34 +391,34 @@
                   <label  class="control-label">DOES BELONG TO COMMON FEEDER?</label>
                   <div class="form-group">
                      <div class="col-md-6 pull-left">
-                        <input  disabled type="radio" class="minimal disabled-class" name="rt" id="rt">&nbsp&nbsp<label for="rt">YES</label>
+                        <input  disabled type="radio" class="minimal1 disabled-class" value="yes" name="common_feeder_option" id="rt" @if((isset($clientdata->common_feeder_option)&&$clientdata->common_feeder_option=='yes'))? checked="checked" @endif>&nbsp&nbsp<label for="rt">YES</label>
                      </div>
                      <div class="col-md-6 pull-Left">
-                        <input  disabled type="radio" class="minimal disabled-class" name="rt" id="rt1">&nbsp&nbsp<label for="rt1">NO</label>
+                        <input  disabled type="radio" class="minimal1 disabled-class" value="no" name="common_feeder_option" id="rt1" @if((isset($clientdata->common_feeder_option)&&$clientdata->common_feeder_option<>'no'))? checked="checked" @endif>&nbsp&nbsp<label for="rt1">NO</label>
                      </div>
                   </div>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">FEEDER NAME</label>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER FEEDER NAME" name="feeder_name" id="feeder_name" value="{{old('feeder_name')}}">
+                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER FEEDER NAME" name="feeder_name" id="feeder_name" value="{{isset($clientdata->feeder_name)?$clientdata->feeder_name: old('feeder_name')}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">FEEDER CODE</label>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER FEEDER CODE" name="feeder_code" id="feeder_code" value="{{old('feeder_code')}}">
+                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER FEEDER CODE" name="feeder_code" id="feeder_code" value="{{isset($clientdata->feeder_code)?$clientdata->feeder_code: old('feeder_code')}}">
                </div>
             </div>
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label"> NAME OF SUBSTATION</label>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER SUBSTATION NAME" id="name_of_substation" name="name_of_substation" value="{{old('name_of_substation')}}">
+                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER SUBSTATION NAME" id="name_of_substation" name="name_of_substation"  value="{{isset($clientdata->name_of_substation)?$clientdata->name_of_substation: old('name_of_substation')}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">MAXIMUM INJECTION QUANTUM</label>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER INJECTION QUANTUM" name="maxm_injection" id="maxm_injection value="{{old('maxm_injection')}}"">
+                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER INJECTION QUANTUM" name="maxm_injection" id="maxm_injection value="{{isset($clientdata->maxm_injection)?$clientdata->maxm_injection: old('maxm_injection')}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">MAXIMUM WITHDRAWAL QUANTUM</label>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER WITHDRAWAL QUANTUM" name="maxm_withdrawal" id="maxm_withdrawal" value="{{old('maxm_withdrawal')}}">
+                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER WITHDRAWAL QUANTUM" name="maxm_withdrawal" id="maxm_withdrawal" value="{{isset($clientdata->maxm_withdrawal)?$clientdata->maxm_withdrawal: old('maxm_withdrawal')}}">
                </div>
             </div>
             <h5><label  class="control-label"><u>FINANCIAL ARRANGEMENT</u></label></h5>
@@ -413,14 +426,14 @@
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label">LATER PAYMENT PENALTY(%)</label>
-                  <input class="form-control input-sm disabled-class" disabled  type="text" placeholder="ENTER DISCOM" name="payment" id="payment" value="{{old('payment')}}">
+                  <input class="form-control input-sm disabled-class" disabled  type="text" placeholder="ENTER DISCOM" name="payment" id="payment" value="{{isset($clientdata->payment)?$clientdata->payment: old('payment')}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">PAYMENT OBLIGATION</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" name="obligation" id="obligation">
-                     <option value=' '>PLEASE SELECT</option>
-                     <option @if(old('obligation') == 'PSM')? selected="selected" @endif >PSM</option>
-                     <option @if(old('obligation') == 'Advance')? selected="selected" @endif >Advance</option>
+                     <option value=''>SELECT</option>
+                     <option @if((isset($clientdata->obligation)&&$clientdata->obligation=='PSM')||old('obligation') == 'PSM')? selected="selected" @endif >PSM</option>
+                     <option @if((isset($clientdata->obligation)&&$clientdata->obligation=='Advance')||old('obligation') == 'Advance')? selected="selected" @endif >Advance</option>
                   </select>
                </div>
             </div>

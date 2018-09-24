@@ -54,6 +54,7 @@ class ManageClientLang
             'bank_name'=>'Bank Name',
             'branch_name'=>'Branch Name',
             'account_number'=>'Account Number',
+            'inter_discom'=> 'Inter Discom',
             'ifsc'=>'IFSC Code',
             'virtual_account_number'=>'Virtual Account Number',
             'name'=>'Contact Name',
@@ -67,8 +68,7 @@ class ManageClientLang
             'inter_poc'=> 'Inter Poc',
             'ca_client_id'=>'IEX Client Id',
             'inter_connection'=>'InterConnection',
-            'rt'=> 'Yes',
-            'rt1'=>'No',
+            'common_feeder_option'=> 'Common Feeder',
             'validitiy_from'=>'Validity From',
             'file_upload'=>'File Upload',
             'ex_type'=>'Exchange type',
@@ -89,7 +89,6 @@ class ManageClientLang
             'validity_to'=>'To Date',
             'upload_noc'=>' File Name',
             'bid_alert'=> 'Bid Alert',
-            'obligation'=> 'Obligation',
             'obligation'=> 'Obligation',
             'scheduling'=> 'Scheduling',
             'Ratesheet'=> 'Ratesheet',
@@ -112,6 +111,9 @@ class ManageClientLang
             'short_id'=> 'Short Id',
             'email'=> 'Email',
             'new_sap'=> 'New Sap',
+            'bid_cut_off_time'=>'Bid Cut Off Time',
+            'trader_type'=>'Trader Type',
+            'pri_contact_no'=>'Primary Contact No',
             'crn_no'=> 'CRN No'
         );
    }

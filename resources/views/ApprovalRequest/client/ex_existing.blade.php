@@ -18,6 +18,7 @@
             {!! \Session::get('success') !!}
             </div>
             @endif
+           
                <div class="row">
                   <div class="col-xs-12">
                     <div class="row">
@@ -132,7 +133,7 @@
                                                <td class="text-center vl">{{ $value->ex_type}}</td>
                                                <td class="text-center vl">{{ $value->validity_from }}</td>
                                                <td class="text-center vl">{{ $value->validity_to }}</td>
-                                               <td class="text-center vl">{{ $value->file_upload }}</td>
+                                               <td class="text-center vl"><a href="{{url('downloads/'.$value->file_upload)}}" >View</a></td>
                                              <td class="vl"  style="padding:5px!important;"><a href="/addexchange/{{ $value->id }}/approved/exchange_temp"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/addexchange/{{ $value->id }}/rejected/exchange_temp"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
                                           </tr>
                                         <?php

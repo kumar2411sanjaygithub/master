@@ -92,6 +92,7 @@
               <div class="col-md-3 {{ $errors->has('reg_country') ? 'has-error' : '' }}">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="reg_country" name="reg_country" value="{{old('reg_country')}}">
+                 <option value="">SELECT</option>
                  <option value="India">India</option>
 
                 </select>
@@ -139,7 +140,7 @@
     </div>
 
     <div class="col-md-5" style="margin-top:7px;" >
-  <input type="checkbox" id="saroa"  class="minimal " style="width:30px!important;height:30px!important;">&nbsp<span><label for="saroa" >SAME AS REGISTERED OFFICE ADDRESS</label></span>
+  <input type="checkbox" id="saroa"  class="minimal1">&nbsp<span><label for="saroa" >SAME AS REGISTERED OFFICE ADDRESS</label></span>
     </div>   <div class="col-md-5"></div>
   </div><hr>
             <div class="row">
@@ -154,6 +155,7 @@
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label>
               <select class="form-control input-sm" style="width: 100%;" id="bill_country" name="bill_country"value="{{old('bill_country')}}">
+                  <option value="">SELECT</option>
                   <option value="India">India</option>
 
 
@@ -162,7 +164,7 @@
               <div class="col-md-3">
               <label  class="control-label">STATE</label>
               <select class="form-control input-sm" style="width: 100%;" id="bill_state" name="bill_state" value="{{old('bill_state')}}">
-                  <option value="">PLEASE SELECT</option>
+                  <option value="">SELECT</option>
                   <?php
           $state_list = \App\Common\StateList::get_states();
           ?>
@@ -200,7 +202,7 @@
         <h5><label  class="control-label mt5" ><u>DELIVERY ADDRESS</u></label></h5>
         </div>
         <div class="col-md-5" style="margin-top:7px;">
-      <input type="checkbox" id="saba" class="minimal">&nbsp<span><label for="saba">SAME AS BILLING ADDRESS</label></span>
+      <input type="checkbox" id="saba" class="minimal1">&nbsp<span><label for="saba">SAME AS BILLING ADDRESS</label></span>
         </div>   <div class="col-md-5"></div>
       </div><hr>
             <div class="row">
@@ -215,13 +217,14 @@
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label>
               <select class="form-control input-sm" style="width: 100%;" id="del_country" name="del_country" value="{{old('del_country')}}">
+                  <option value="">SELECT</option>
                   <option value="India">India</option>
                 </select>
               </div>
               <div class="col-md-3">
               <label  class="control-label">STATE</label>
               <select class="form-control input-sm" style="width: 100%;" id="del_state" name="del_state" value="{{old('del_state')}}">
-                  <option value=''>PLEASE SELECT</option>
+                  <option value=''>SELECT</option>
 
                   <?php
           $state_list = \App\Common\StateList::get_states();
@@ -340,7 +343,7 @@
               <div class="col-md-3">
               <label  class="control-label">STATE TYPE</label>
               <select class="form-control input-sm" style="width: 100%;" id="state_type" name="state_type" value="{{old('state_type')}}">
-                  <option selected="selected">PLEASE SELECT</option>
+                  <option selected="selected">SELECT</option>
                   <option>intra state </option>
                   <option>inter state</option>
 
@@ -349,7 +352,7 @@
                <div class="col-md-3">
             <label  class="control-label">STATE(For NOC)</label>
             <select class="form-control input-sm" style="width: 100%;" name="conn_state" id="conn_state" value="{{old('conn_state')}}">
-                <option value="">PLEASE SELECT</option>
+                <option value="">SELECT</option>
                 <?php
           $state_list = \App\Common\StateList::get_states();
           ?>
@@ -361,13 +364,13 @@
               <div class="col-md-3">
               <label  class="control-label">DISCOM</label>
               <select class="form-control input-sm" style="width: 100%;" id="discom" name="discom" value="{{old('discom')}}">
-                  <option value=''>PLEASE SELECT</option>
+                  <option value=''>SELECT</option>
                 </select>
               </div>
               <div class="col-md-3">
               <label  class="control-label">VOLTAGE LEVEL</label>
               <select class="form-control input-sm" style="width: 100%;" id="voltage" name="voltage" value="{{old('voltage')}}">
-                  <option value=''>PLEASE SELECT</option>
+                  <option value=''>SELECT</option>
                 </select>
               </div>
             </div>
@@ -438,7 +441,7 @@
               <div class="col-md-3">
               <label  class="control-label">PAYMENT OBLIGATION</label>
               <select class="form-control input-sm" style="width: 100%;" name="obligation" id="obligation">
-                  <option value="">PLEASE SELECT</option>
+                  <option value="">SELECT</option>
                   <option value="PSM" @if(old('obligation')=='PSM')selected @endif>PSM</option>
                   <option value="Advance" @if(old('obligation')=='Advance')selected @endif>Advance</option>
                 </select>

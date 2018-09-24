@@ -125,14 +125,44 @@ class ClientDeatilsController extends Controller
         $client->save();
 
         //$lsatinsertedId = $clien->id;
-		return redirect('basicdetails')->with('message', 'Data Save Successfully!');
+		return redirect('basicdetails')->with('message', '.Client details saved successfully and submitted for approval.!');
 	}
 
     public function viewclient($id){
 
         $clientdata = Client::select('*')->where('client_app_status','1')->where('id',$id)->first();
-//dd($clientdata);
-        return view('ManageClient.viewbasic',compact('clientdata','id'));
+
+				$voltage_array=array();
+				$sldc=StateDiscom::where('state',@$clientdata->conn_state)->first();
+				$voltage_data=json_decode($sldc->voltage);
+				foreach($voltage_data as $voltage)
+				{
+					 foreach($voltage as $sk=>$voltage_value)
+					 {
+							 if($voltage_value!=NULL)
+							 {
+									 array_push($voltage_array,$voltage_value);
+							 }
+
+					 }
+
+				}
+
+				$discom_array=array();
+				$json_discom=json_decode($sldc->discom);
+				foreach($json_discom as $discom)
+				{
+					 foreach($discom as $sk=>$discom_value)
+					 {
+							 if($discom_value!=NULL){
+									 array_push($discom_array,$discom_value);
+							 }
+					 }
+
+				}
+//dd($voltage_array);
+
+        return view('ManageClient.viewbasic',compact('clientdata','id','discom_array','voltage_array'));
     }
     public function updateclient(Request $request,$basic_id){
 
@@ -218,7 +248,6 @@ class ClientDeatilsController extends Controller
         $datas['name_of_substation'] = $basic['name_of_substation'];
 
         $datas['inter_connection'] = $basic['inter_connection'];
-        $datas['rt'] = $basic['rt'];
         $datas['feeder_name'] = $basic['feeder_name'];
         $datas['feeder_code'] = $basic['feeder_code'];
         $datas['conn_state'] = $basic['conn_state'];
@@ -228,7 +257,8 @@ class ClientDeatilsController extends Controller
         $datas['inter_poc'] = $basic['inter_poc'];
         $datas['inter_stu'] = $basic['inter_stu'];
         $datas['inter_discom'] = $basic['inter_discom'];
-        $datas['rt1'] = $basic['rt1'];
+        $datas['common_feeder_option'] = $basic['common_feeder_option'];
+				$datas['obligation'] = $basic['obligation'];
 
         $dataArray =array();
 		$dataArray['company_name'] = $request->input('company_name');
@@ -280,7 +310,6 @@ class ClientDeatilsController extends Controller
         $dataArray['name_of_substation'] = $request->input('name_of_substation');
 
         $dataArray['inter_connection'] = $request->input('inter_connection');
-        $dataArray['rt'] = $request->input('rt');
         $dataArray['feeder_name'] = $request->input('feeder_name');
         $dataArray['feeder_code'] = $request->input('feeder_code');
         $dataArray['conn_state'] = $request->input('conn_state');
@@ -290,13 +319,14 @@ class ClientDeatilsController extends Controller
         $dataArray['inter_poc'] = $request->input('inter_poc');
         $dataArray['inter_stu'] = $request->input('inter_stu');
         $dataArray['inter_discom'] = $request->input('inter_discom');
-        $dataArray['rt1'] = $request->input('rt1');
-
+        $dataArray['common_feeder_option'] = $request->input('common_feeder_option');
+				$dataArray['obligation'] = $request->input('obligation');
         $result=array_diff($dataArray,$basic);
+
         $this->generateApprovalrequest($result, 'client', $client_id, $basic_id,$datas);
 
         //return redirect()->route('basicdetails')->with('message','Detail added successfully and sent to Approver');
-        return Redirect::back()->with('message', 'Client updated successfully.');
+        return Redirect::back()->with('message', 'Your update request has been successfully submitted for approval..');
 
 
     }
@@ -324,8 +354,9 @@ class ClientDeatilsController extends Controller
     public function bankdetails($id){
         $client_id=$id;
        // $bankdetails = Bank::where('client_id',$id)->where('status',1)->get();
-        $bankdetails = DB::table('bank')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',2); })->where('client_id',$id)->where('status',1)->get();
-   $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
+        $bankdetails = DB::table('bank')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',1)->orwhere('del_status',4); })->where('client_id',$id)->where('status',1)->get();
+
+       $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
 
         return view('ManageClient.bankdetails',compact('bankdetails','client_id','client_details'));
     }
@@ -404,9 +435,11 @@ class ClientDeatilsController extends Controller
     public function delete_bankdetails(Request $request ,$bank_detail_id)
     {
         $client_id=$request->input('client_id');
-        Bank::destroy($bank_detail_id);
+        $contact = Bank::find($bank_detail_id);
+        $contact->del_status = 1;
+        $contact->update();
 
-        return redirect()->back()->with('Bank detail request successfully and sent to approver');
+        return redirect()->back()->with('message','Delete Request has been submitted successfully for approval');
     }
     public function search_discom(Request $request)
     {

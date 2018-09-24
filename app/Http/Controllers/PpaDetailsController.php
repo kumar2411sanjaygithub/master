@@ -23,9 +23,9 @@ class PpaDetailsController extends Controller
 public function findppa($id)
 {
   $id = $id;
-  $ppaData = Ppadetails::where('client_id',$id)->paginate(10);
+  $ppaData = Client::where('id',$id)->first();
   $clientData = Client::all();
-  return view('ppa.addppa',compact('ppaData','id','clientData'));
+  return view('ppa.bidsetting',compact('ppaData','id','clientData'));
 }
   public function saveppa(Request $request)
   {
@@ -116,19 +116,22 @@ public function viewbidsetting()
       return Response::json(array('bid_cut_off_time' => $selData->bid_cut_off_time, 'trader_type' => $selData->trader_type));
     }
 
-public function addbidsetting(Request $request){
+public function addbidsetting(Request $request,$id=''){
+  //$id = $request->input('client_id');
+  //dd($request->all());
     $this->validate($request,[
-      'client' => 'required',
+      'client_id' => 'required',
       'bid_cut_off_time' => 'required',
       'trader_type' => 'required'
     ]);
-    $id = $request->input('client');
+
+
+    $id = $request->input('client_id');
     $ppa = Client::find($id);
     $ppa->bid_cut_off_time = $request->input('bid_cut_off_time');
     $ppa->trader_type = $request->input('trader_type');
-
     $ppa->save();
-    return redirect()->route('bid.bidview')->with('addmsg', 'Data Add Successfully!');
+    return redirect()->route('addppadetailsfind',['id'=>$id])->with('addmsg', 'Data Add Successfully!');
 }
 
 }
