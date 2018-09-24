@@ -1,12 +1,13 @@
 @extends('theme.layouts.default')
 @section('content')
 <section class="content-header">
-               <h5><label  class="control-label"><u>APPROVE CONTACT DETAILS</u></label></h5>
+               <h5 class="pull-left"><label  class="control-label pull-right mt-1"><u>APPROVE CONTACT DETAILS</u></h5>&nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
                <ol class="breadcrumb">
                   <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
                   <li><a href="#">APPROVE REQUEST</a></li>
-                  <li><a href="active">CLIENT</a></li>
-                  <li><a href="active"><u>EXISTING</u></a></li>
+                  <li><a href="#">CLIENT</a></li>
+                  <li><a href="#">EXISTING</a></li>
+                  <li><a href="#"><u>CONTACT DETAILS</u></a></li>
                </ol>
             </section>
             <!-- Main content -->
@@ -19,11 +20,18 @@
             @endif
                <div class="row">
                   <div class="col-xs-12">
+                    <div class="row">
+                    <div class="col-md-10">
                         <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#home">NEW</a></li>
                         <li><a data-toggle="tab" href="#menu1">MODIFIED</a></li>
                         <li><a data-toggle="tab" href="#menu2">DELETED</a></li>
                      </ul>
+                   </div>
+                   <div class="col-md-2 mt8">
+                         <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right mr"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+                   </div>
+                 </div>
                      <div class="tab-content">
                         <div id="home" class="tab-pane fade in active">
                            <div class="box">
@@ -52,8 +60,6 @@
               <a data-toggle="modal" data-target="#myModalRej" class="btn btn-danger btn-xs mlt">REJECT ALL</a>
             </form>
             @endif
-            <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right mr"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
-
 
                 <div id="myModal" class="modal fade" style="display: none;">
                   <div class="modal-dialog modal-confirm">
@@ -382,12 +388,22 @@
                   </div>
                </div>
             </section>
-            <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-            <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
-             <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-    <script type="text/javascript">
-            $('.deletedbutton').click(function(){
+
+@endsection
+@section('content_foot')
+
+  <script>
+    $(function () {
+        $('input[type="checkbox"].minimal1, input[type="radio"].minimal1').iCheck({
+          checkboxClass: 'icheckbox_flat-blue',
+          radioClass   : 'iradio_flat-blue'
+      });
+
+    });
+
+    </script>
+     <script type="text/javascript">
+            $('.deletedbutton').on('ifChecked', function(event) {
               var array = [];
               $('.deletedbutton').each(function(){
                 if($(this).prop('checked')){
@@ -395,6 +411,15 @@
               }
               });
               $('.selected_status').val(array);
+            });
+            $('.deletedbutton').on('ifUnchecked', function(event){
+              var array = [];
+              $('.deletedbutton').each(function(){
+                if($(this).prop('checked')){
+                  array.push($(this).val());
+              }
+              });
+                $('.selected_status').val(array);
             });
       $(document).delegate('#delete-button-modal','click',function(){
         if(!$(".selected_status").val()){
@@ -415,24 +440,30 @@
       }
       });
 
-            $(".deleteallbutton").click(function(){
-                  if($(this).prop('checked')){
-                    $(".deletedbutton").prop("checked",true);
+
+            $(".deleteallbutton").on('ifChecked', function(event) {
+                  if($(this).iCheck('check')){
+                    $(".deletedbutton").iCheck('check');
                     var array = [];
                     $('.deletedbutton').each(function(){
-                      if($(this).prop('checked')){
+                      if($(this).iCheck('check')){
                         array.push($(this).val());
                     }
                     });
                     $('.selected_status').val(array);
                   }else{
                       $('.selected_status').val('');
-                    $(".deletedbutton").prop("checked",false);
+                    $(".deletedbutton").iCheck('uncheck');
                   }
             });
+            $('.deleteallbutton').on('ifUnchecked', function(event) {
+                $('.selected_status').val('');
+                $(".deletedbutton").iCheck('uncheck');
+            });
+
     </script>
     <script type="text/javascript">
-            $('.deletedbuttonM').click(function(){
+            $('.deletedbuttonM').on('ifChecked', function(event) {
               var array = [];
               $('.deletedbuttonM').each(function(){
                 if($(this).prop('checked')){
@@ -441,6 +472,17 @@
               });
               $('.selected_statusM').val(array);
             });
+            $('.deletedbuttonM').on('ifUnchecked', function(event){
+              var array = [];
+              $('.deletedbuttonM').each(function(){
+                if($(this).prop('checked')){
+                  array.push($(this).val());
+              }
+              });
+                $('.selected_statusM').val(array);
+            });
+
+
       $(document).delegate('#delete-button-modalM','click',function(){
         if(!$(".selected_statusM").val()){
           alert('please check some status to proceed');
@@ -460,24 +502,30 @@
       }
       });
 
-            $(".deleteallbuttonM").click(function(){
-                  if($(this).prop('checked')){
-                    $(".deletedbuttonM").prop("checked",true);
+            $(".deleteallbuttonM").on('ifChecked', function(event) {
+                  if($(this).iCheck('check')){
+                    $(".deletedbuttonM").iCheck('check');
                     var array = [];
                     $('.deletedbuttonM').each(function(){
-                      if($(this).prop('checked')){
+                      if($(this).iCheck('check')){
                         array.push($(this).val());
                     }
                     });
                     $('.selected_statusM').val(array);
                   }else{
                       $('.selected_statusM').val('');
-                    $(".deletedbuttonM").prop("checked",false);
+                    $(".deletedbuttonM").iCheck('uncheck');
                   }
             });
+            $('.deleteallbuttonM').on('ifUnchecked', function(event) {
+                $('.selected_statusM').val('');
+                $(".deletedbuttonM").iCheck('uncheck');
+            });
+
+
     </script>
     <script type="text/javascript">
-            $('.deletedbuttonD').click(function(){
+            $('.deletedbuttonD').on('ifChecked', function(event) {
               var array = [];
               $('.deletedbuttonD').each(function(){
                 if($(this).prop('checked')){
@@ -486,6 +534,17 @@
               });
               $('.selected_statusD').val(array);
             });
+            $('.deletedbuttonD').on('ifUnchecked', function(event){
+              var array = [];
+              $('.deletedbuttonD').each(function(){
+                if($(this).prop('checked')){
+                  array.push($(this).val());
+              }
+              });
+                $('.selected_statusD').val(array);
+            });
+
+
       $(document).delegate('#delete-button-modalD','click',function(){
         if(!$(".selected_statusD").val()){
           alert('please check some status to proceed');
@@ -505,21 +564,26 @@
       }
       });
 
-            $(".deleteallbuttonD").click(function(){
-                  if($(this).prop('checked')){
-                    $(".deletedbuttonD").prop("checked",true);
+            $(".deleteallbuttonD").on('ifChecked', function(event) {
+                  if($(this).iCheck('check')){
+                    $(".deletedbuttonD").iCheck('check');
                     var array = [];
                     $('.deletedbuttonD').each(function(){
-                      if($(this).prop('checked')){
+                      if($(this).iCheck('check')){
                         array.push($(this).val());
                     }
                     });
                     $('.selected_statusD').val(array);
                   }else{
                       $('.selected_statusD').val('');
-                    $(".deletedbuttonD").prop("checked",false);
+                    $(".deletedbuttonD").iCheck('uncheck');
                   }
             });
+            $('.deleteallbuttonD').on('ifUnchecked', function(event) {
+                $('.selected_statusD').val('');
+                $(".deletedbuttonD").iCheck('uncheck');
+            });
+
     </script>
  <script>
     window.setTimeout(function() {
@@ -548,76 +612,4 @@
  }
 }
 </script>
-<script>
-$(function () {
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass   : 'iradio_flat-green'
-  })
-  //Red color scheme for iCheck
-  $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-    checkboxClass: 'icheckbox_minimal-red',
-    radioClass   : 'iradio_minimal-red'
-  })
-  //Flat red color scheme for iCheck
-  $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-    checkboxClass: 'icheckbox_flat-blue',
-    radioClass   : 'iradio_flat-blue'
-  })
-
-})
-
-$(function () {
-$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-checkboxClass: 'icheckbox_flat-green',
-radioClass   : 'iradio_flat-green'
-})
-});
-</script>  <script>
-  $(function () {
-      $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-        checkboxClass: 'icheckbox_flat-green',
-        radioClass   : 'iradio_flat-green'
-    })
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass   : 'iradio_minimal-red'
-    })
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-blue',
-      radioClass   : 'iradio_flat-blue'
-    })
-
-  })
-
-  $(function () {
-  $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-  checkboxClass: 'icheckbox_flat-green',
-  radioClass   : 'iradio_flat-green'
-  })
-  });
-  </script>
-  <script>
-    $(function () {
-        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-          checkboxClass: 'icheckbox_flat-blue',
-          radioClass   : 'iradio_flat-blue'
-      })
-      //Red color scheme for iCheck
-      $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-        checkboxClass: 'icheckbox_minimal-red',
-        radioClass   : 'iradio_minimal-red'
-      })
-      //Flat red color scheme for iCheck
-      $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-        checkboxClass: 'icheckbox_flat-blue',
-        radioClass   : 'iradio_flat-blue'
-      })
-
-    });
-
-
-    </script>
 @endsection

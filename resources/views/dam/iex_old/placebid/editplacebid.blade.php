@@ -87,7 +87,7 @@
               <br>
               <div class="col-md-12">
                 <div class="text-center pull-right">
-                  <button type="button" class="btn btn-raised btn-info text-center mt10 btn-xs" id="update_biddetails">Update</button>
+                  <button type="button" class="btn btn-raised btn-info text-center mt10" id="update_biddetails">Update</button>
                 </div>
               </div>
 

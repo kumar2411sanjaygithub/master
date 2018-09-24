@@ -1,12 +1,13 @@
 @extends('theme.layouts.default')
 @section('content')
 <section class="content-header">
-               <h5><label  class="control-label"><u>APPROVE NOC DETAILS</u></label></h5>
+                <h5 class="pull-left"><label class="control-label pull-right mt-1"><u>APPROVE NOC DETAILS</u></h5> &nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
                <ol class="breadcrumb">
                   <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
                   <li><a href="#">APPROVE REQUEST</a></li>
-                  <li><a href="active">CLIENT</a></li>
-                  <li><a href="active"><u>EXISTING</u></a></li>
+                  <li><a href="#">CLIENT</a></li>
+                  <li><a href="#">EXISTING</a></li>
+                  <li><a href="#"><u>NOC DETAILS</u></a></li>
                </ol>
             </section>
             <!-- Main content -->
@@ -19,11 +20,18 @@
             @endif
                <div class="row">
                   <div class="col-xs-12">
-                                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#home">NEW</a></li>
-                        <li><a data-toggle="tab" href="#menu1">MODIFIED</a></li>
-                        <li><a data-toggle="tab" href="#menu2">DELETED</a></li>
-                     </ul>
+                    <div class="row">
+                      <div class="col-md-10">
+                            <ul class="nav nav-tabs">
+                               <li class="active"><a data-toggle="tab" href="#home">NEW</a></li>
+                                <li><a data-toggle="tab" href="#menu1">MODIFIED</a></li>
+                                <li><a data-toggle="tab" href="#menu2">DELETED</a></li>
+                             </ul>
+                       </div>
+                      <div class="col-md-2 mt8">
+                         <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right mr"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+                       </div>
+                      </div>
                      <div class="tab-content">
                         <div id="home" class="tab-pane fade in active">
                            <div class="box">
@@ -32,9 +40,8 @@
                                     <div class="col-md-2"></div>
                                     <div class="col-md-6"></div>
                                     <div class="col-md-4 text-right">
-                                    <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right mr"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
-                                      <button type="button" class="btn  btn-info btn-xs" name="cdw4" id="cdw4">APPROVE ALL</button>
-                                       &nbsp&nbsp&nbsp&nbsp&nbsp<button type="button" class="btn  btn-danger btn-xs mlt" name="cde4" id="cde4">REJECT ALL</button>
+                                        <button type="button" class="btn  btn-info btn-xs" name="cdw4" id="cdw4">APPROVE ALL</button>
+                                         &nbsp&nbsp&nbsp&nbsp&nbsp<button type="button" class="btn  btn-danger btn-xs mlt" name="cde4" id="cde4">REJECT ALL</button>
                                     </div>
                                  </div>
                                  <div class="box-body table-responsive">

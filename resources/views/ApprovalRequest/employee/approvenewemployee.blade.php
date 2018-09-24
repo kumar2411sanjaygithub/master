@@ -1,5 +1,11 @@
 @extends('theme.layouts.default')
 @section('content')
+<style type="text/css">
+  .modal-body {
+  overflow-flow: auto !important;
+}
+
+</style>
 <section class="content-header">
     <h5><label  class="control-label"><u>APPROVE NEW EMPLOYEE</u></label></h5>
       <ol class="breadcrumb">
@@ -120,7 +126,7 @@
                              <input type="checkbox" name="select_all" value="{{ $value->id }}" class="minimal1 @if($value->emp_app_status =='1' ||$value->emp_app_status =='2') @else deletedbutton @endif" @if($value->emp_app_status =='1' ||$value->emp_app_status =='2') disabled @endif><span class=""></span>
                              </td>
                              <td><div class="">{{$i}}</div></td>
-                              <td class="text-center">{{ $value->name }} </td>
+                              <td class="text-center"><a href=""  data-toggle="modal" data-target="#ConvertData{{ $value->id }}">{{ $value->name }}</a></td>
                               <td class="text-center">{{ $value->designation }}</td>
                               <td class="text-center w20">{{ $value->role }}</td>
                               <td class="text-center">{{ $value->department['depatment_name'] }}</td>
@@ -142,6 +148,8 @@
                                 <span class="text-danger">REJECTED</span>
                               </td>
                               @endif
+                              @include('ApprovalRequest/employee/employee_model')
+
                             </tr>
                             <?php
                               $i++;
@@ -160,10 +168,30 @@
 </div>
 </div>
     </section>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+@endsection
+@section('content_foot')
+
+  <script>
+    $(function () {
+        $('input[type="checkbox"].minimal1, input[type="radio"].minimal1').iCheck({
+          checkboxClass: 'icheckbox_flat-blue',
+          radioClass   : 'iradio_flat-blue'
+      });
+
+    });
+
+    </script>
     <script type="text/javascript">
-            $('.deletedbutton').click(function(){
+            $('.deletedbutton').on('ifChecked', function(event) {
+              var array = [];
+              $('.deletedbutton').each(function(){
+                if($(this).prop('checked')){
+                  array.push($(this).val());
+              }
+              });
+              $('.selected_status').val(array);
+            });
+            $('.deletedbutton').on('ifUnchecked', function(event){
               var array = [];
               $('.deletedbutton').each(function(){
                 if($(this).prop('checked')){
@@ -191,79 +219,50 @@
       }
       });
 
-            $(".deleteallbutton").click(function(){
-                  if($(this).prop('checked')){
-                    $(".deletedbutton").prop("checked",true);
+            $(".deleteallbutton").on('ifChecked', function(event) {
+                  if($(this).iCheck('check')){
+                    $(".deletedbutton").iCheck('check');
                     var array = [];
                     $('.deletedbutton').each(function(){
-                      if($(this).prop('checked')){
+                      if($(this).iCheck('check')){
                         array.push($(this).val());
                     }
                     });
                     $('.selected_status').val(array);
                   }else{
                       $('.selected_status').val('');
-                    $(".deletedbutton").prop("checked",false);
+                    $(".deletedbutton").iCheck('uncheck');
                   }
             });
+            $('.deleteallbutton').on('ifUnchecked', function(event) {
+                $('.selected_status').val('');
+                $(".deletedbutton").iCheck('uncheck');
+            });
+
     </script>
 
-    <script>
-    $("#checkAll").click(function () {
-     $('input:checkbox').not(this).prop('checked', this.checked);
- });
-    </script>
-    <script>
-    $("#checkAllr").click(function () {
-     $('input:checkbox').not(this).prop('checked', this.checked);
- });
-    </script>
-  <script>
-   $("#search").keyup(function () {
-       var value = this.value.toLowerCase().trim();
 
-       $("table tr").each(function (index) {
-           if (!index) return;
-           $(this).find("td").each(function () {
-               var id = $(this).text().toLowerCase().trim();
-               var not_found = (id.indexOf(value) == -1);
-               $(this).closest('tr').toggle(!not_found);
-               return not_found;
-           });
-       });
-   });
- </script>
-<script>
+ <script>
     window.setTimeout(function() {
         $(".alert").fadeTo(500, 0).slideUp(500, function(){
             $(this).remove();
         });
     }, 5000);
   </script>
+
   <script>
-  $(function () {
-      $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-        checkboxClass: 'icheckbox_flat-green',
-        radioClass   : 'iradio_flat-green'
-    })
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass   : 'iradio_minimal-red'
-    })
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-blue',
-      radioClass   : 'iradio_flat-blue'
-    })
+    $("#search").keyup(function () {
+        var value = this.value.toLowerCase().trim();
 
-  })
-
-  $(function () {
-  $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-  checkboxClass: 'icheckbox_flat-green',
-  radioClass   : 'iradio_flat-green'
-  })
-  });
+        $("table tr").each(function (index) {
+            if (!index) return;
+            $(this).find("td").each(function () {
+                var id = $(this).text().toLowerCase().trim();
+                var not_found = (id.indexOf(value) == -1);
+                $(this).closest('tr').toggle(!not_found);
+                return not_found;
+            });
+        });
+    });
   </script>
-    @endsection
+@endsection

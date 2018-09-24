@@ -1,15 +1,15 @@
 @extends('theme.layouts.default')
 @section('content')
         <section class="content-header">
-               <h5><label  class="control-label"><u>APPROVE BASIC  DETAILS</u></label></h5>
+                <h5 class="pull-left"><label  class="control-label pull-right mt-1"><u>APPROVE BASIC DETAILS</u></h5>&nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
                <ol class="breadcrumb">
                   <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
                   <li><a href="#">APPROVE REQUEST</a></li>
-                  <li><a href="active">CLIENT</a></li>
-                  <li><a href="active"><u>EXISTING</u></a></li>
+                  <li><a href="#">CLIENT</a></li>
+                  <li><a href="#">EXISTING</a></li>
+                  <li><a href="#"><u>BASIC DETAILS</u></a></li>
                </ol>
             </section>
-
             <section class="content">
                @if (\Session::has('success'))
             <div class="alert alert-success mt10" >
@@ -19,15 +19,17 @@
             @endif
                <div class="row">
                   <div class="col-xs-12">
-
+                    <div class="row">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6 pull-right">
+                           <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right "><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+                        </div>
+                      </div>
                            <div class="box">
                               <div class="box-body">
                                  <div class="row">
-
                                     <div class="col-md-12 pull-right">
-                                       <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right "><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
-
-                                       @if (count($clientData) > 0)
+                                              @if (count($clientData) > 0)
                                        <form class="pull-right" action="{{ url()->to('multiple-approve/Rejected') }}" method="post" id="approve_data">
                                          {{ csrf_field() }}
                                          <input type="hidden" name="selected_status" class="selected_status">
@@ -158,10 +160,32 @@
                   </div>
                </div>
             </section>
-            <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+   @endsection
+@section('content_foot')
+
+
+  <script>
+    $(function () {
+        $('input[type="checkbox"].minimal1, input[type="radio"].minimal1').iCheck({
+          checkboxClass: 'icheckbox_flat-blue',
+          radioClass   : 'iradio_flat-blue'
+      });
+
+    });
+
+    </script>
     <script type="text/javascript">
-            $('.deletedbutton').click(function(){
+            $('.deletedbutton').on('ifChecked', function(event) {
+              var array = [];
+              $('.deletedbutton').each(function(){
+                if($(this).prop('checked')){
+                  array.push($(this).val());
+              }
+              });
+              $('.selected_status').val(array);
+            });
+            $('.deletedbutton').on('ifUnchecked', function(event){
               var array = [];
               $('.deletedbutton').each(function(){
                 if($(this).prop('checked')){
@@ -189,25 +213,28 @@
       }
       });
 
-            $(".deleteallbutton").click(function(){
-                  if($(this).prop('checked')){
-                    $(".deletedbutton").prop("checked",true);
+            $(".deleteallbutton").on('ifChecked', function(event) {
+                  if($(this).iCheck('check')){
+                    $(".deletedbutton").iCheck('check');
                     var array = [];
                     $('.deletedbutton').each(function(){
-                      if($(this).prop('checked')){
+                      if($(this).iCheck('check')){
                         array.push($(this).val());
                     }
                     });
                     $('.selected_status').val(array);
                   }else{
                       $('.selected_status').val('');
-                    $(".deletedbutton").prop("checked",false);
+                    $(".deletedbutton").iCheck('uncheck');
                   }
             });
+            $('.deleteallbutton').on('ifUnchecked', function(event) {
+                $('.selected_status').val('');
+                $(".deletedbutton").iCheck('uncheck');
+            });
+
     </script>
 
-            <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
-             <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
   <script>
     window.setTimeout(function() {
@@ -216,23 +243,4 @@
         });
     }, 5000);
   </script>
-  <script>
-    $(function () {
-        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-          checkboxClass: 'icheckbox_flat-blue',
-          radioClass   : 'iradio_flat-blue'
-      })
-      //Red color scheme for iCheck
-      $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-        checkboxClass: 'icheckbox_minimal-red',
-        radioClass   : 'iradio_minimal-red'
-      })
-      //Flat red color scheme for iCheck
-      $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-        checkboxClass: 'icheckbox_flat-blue',
-        radioClass   : 'iradio_flat-blue'
-      })
-
-    });
-    </script>
-   @endsection
+@endsection

@@ -9,6 +9,7 @@ use App\Exchange;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
 use DB;
+use App\Client;
 
 
 class ExchangeApprovalController extends Controller
@@ -21,8 +22,8 @@ class ExchangeApprovalController extends Controller
         $Addexchangedata = Exchangetemp::select('*')->where('client_id',$request['id'])->where('status', 0)->orderBy('created_at','desc')->get();
         $delexcgData = Exchange::select('*')->where('client_id',$request['id'])->where('del_status',0)->where('deleted_at', '!=' ,'NULL')->orderBy('created_at','desc')->withTrashed()->get();
         //dd($delexcgData);
-
-        return view('ApprovalRequest.client.ex_existing',compact('exchangeData','Addexchangedata','delexcgData'));
+        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$request['id'])->get();
+        return view('ApprovalRequest.client.ex_existing',compact('exchangeData','Addexchangedata','delexcgData','client_details'));
     }
      public function addapprove($id,$type,$type2)
        {
@@ -68,14 +69,13 @@ class ExchangeApprovalController extends Controller
                 $bnc->status = 1; 
                 $bnc->update();
             
-              }
-            }         
+              }        
             return Redirect::back()->with('success', 'User Successfully Approved.');
           }
           elseif ($tag=='Rejected') {
             foreach($array as $id){
                 $mm = new ExchangeTemp;
-                $mm::where('id', $id)->update(['status'=> '2']);
+                $dd=$mm::where('id', $id)->update(['status'=> '2']);
             }
             return Redirect::back()->with('success', 'User Successfully Rejected.');
         }
@@ -105,6 +105,36 @@ class ExchangeApprovalController extends Controller
             return Redirect::back()->with('success', 'User Successfully Rejected.');
         }
     }
+     public function clientExchangeMode(Request $request,$tag='',$type2='')
+    {
+
+        $approvalstatus_id=$request['selected_status'];
+        $array=explode(',',$approvalstatus_id);
+        if($tag=='Approved'){
+          foreach($array as $id){
+                $updatestemp = Approvalrequest::find($id); 
+                //$selectedmodel= '\\App\\'.$model[$updatestemp->approval_type];
+                $selectedmodel = new Exchange;
+                $exchange = $selectedmodel::find($updatestemp->reference_id); 
+                $attribute_name = $updatestemp->attribute_name;
+                $exchange->$attribute_name = $updatestemp->updated_attribute_value;
+                $exchange->update();
+                $updatestemp->status = 1;
+                $updatestemp->update();     
+            
+              }        
+            return Redirect::back()->with('success', 'User Successfully Approved.');
+          }
+          elseif ($tag=='Rejected') {
+            foreach($array as $id){
+                Approvalrequest::where('id', $id)->update(['status'=> '2']);
+            }
+            return Redirect::back()->with('success', 'User Successfully Rejected.');
+        }
+
+        
+    }
+
      public function delete_exchange($id,$type,$type2){
 
         if($id!='' && $type=='approved'){
@@ -124,4 +154,32 @@ class ExchangeApprovalController extends Controller
                   return Redirect::back()->with('success', 'User Successfully Rejected.');
         }
      }
+     public function clientExchangeDel(Request $request,$tag='',$type2='')
+    {
+
+        $approvalstatus_id=$request['selected_status'];
+        $array=explode(',',$approvalstatus_id);
+        if($tag=='Approved'){
+          foreach($array as $id){
+                  $new_bnc = new Exchange;
+                  $new =  $new_bnc::withTrashed()->find($id);
+                  $new->del_status = 1;
+                  $new->update();
+            
+              }        
+            return Redirect::back()->with('success', 'User Successfully Approved.');
+          }
+          elseif ($tag=='Rejected') {
+            foreach($array as $id){
+                  $new_bnc = new Exchange;;
+                  $new =  $new_bnc::withTrashed()->find($id);
+                  $new->del_status = 2;
+                  $new->update();
+            }
+            return Redirect::back()->with('success', 'User Successfully Rejected.');
+        }
+
+        
+    }
+
 }

@@ -9,6 +9,7 @@ use App\Contact;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
 use DB;
+use App\Client;
 
 
 class ContactApprovalController extends Controller
@@ -22,9 +23,9 @@ class ContactApprovalController extends Controller
         $AddcontactData = ContactTemp::select('*')->where('client_id',$request['id'])->where('status', 0)->orderBy('created_at','desc')->get();
         //dd($AddcontactData);
         $delcontact = Contact::select('*')->where('client_id',$request['id'])->where('del_status',0)->where('deleted_at', '!=' ,'NULL')->orderBy('created_at','desc')->withTrashed()->get();
-        
+        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$request['id'])->get();
 
-        return view('ApprovalRequest.client.contact_existing',compact('contactData','AddcontactData','delcontact'));
+        return view('ApprovalRequest.client.contact_existing',compact('contactData','AddcontactData','delcontact','client_details'));
     }
      public function addapprove($id,$type,$type2)
        {
