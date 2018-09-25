@@ -1,5 +1,12 @@
 @extends('theme.layouts.default')
 @section('content')
+
+<style type="text/css">
+  .uc{
+text-transform : uppercase
+
+}
+</style>
         <section class="content-header">
                 <h5 class="pull-left"><label  class="control-label pull-right mt-1"><u>APPROVE BASIC DETAILS</u></h5>&nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
                <ol class="breadcrumb">
@@ -51,20 +58,21 @@
 
                                   </div>
                                         <div id="myModal" class="modal fade" style="display: none;">
-                                          <div class="modal-dialog modal-confirm">
+                                          <div class="modal-dialog modal-confirm model-xs">
                                             <div class="modal-content">
-                                              <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                                              <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                                                 <h4 class="modal-title text-center">ARE YOU SURE?</h4>
-                                              </div>
+                                              </div> -->
                                               <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                                                <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS?</p>
+                                                <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS?</p></center>
                                               </div>
-                                              <div class="modal-footer">
-                                                <button type="button" href="#"   class="btn btn-info">
+                                              <div class="modal-footer" >
+                                                <div class="text-center">
+                                                <button type="button" href="#"   class="btn btn-xs  btn-info">
                                                   <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
                                                 </button>
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-
+                                                <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">No</button>
+                                                </div>
                                               </div>
                                             </div>
                                           </div>
@@ -72,18 +80,19 @@
                                         <div id="myModalRej" class="modal fade" style="display: none;">
                                           <div class="modal-dialog modal-confirm">
                                             <div class="modal-content">
-                                              <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                                              <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                                                 <h4 class="modal-title text-center">ARE YOU SURE?</h4>
-                                              </div>
+                                              </div> -->
                                               <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                                                <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS?</p>
+                                                <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECTED ALL RECORDS?</p></center>
                                               </div>
                                               <div class="modal-footer">
-                                                <button type="button" href="#"   class="btn btn-info">
+                                                <div class="text-center">
+                                                <button type="button" href="#"   class="btn btn-info btn-xs">
                                                   <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rej">Yes</a>
                                                 </button>
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-
+                                                <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">No</button>
+                                              </div>
                                               </div>
                                             </div>
                                           </div>
@@ -116,7 +125,7 @@
                                                 <td style="padding:5px!important;"><input type="checkbox" class="minimal1 vl deletedbutton" value="{{ $value->id }}" name="select_all"></td>
 
                                                <td class="text-center vl">{{ $i }}</td>
-                                               <td class="text-center vl">{{ $input_lebels[$value->attribute_name]}}</td>
+                                               <td class="text-center vl uc">{{ $input_lebels[$value->attribute_name]}}</td>
                                                <td class="text-center vl">
                                                 @if(in_array($value->old_att_value,$state_data))
                                                   <?php

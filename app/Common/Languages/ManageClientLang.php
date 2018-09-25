@@ -6,18 +6,17 @@ class ManageClientLang
 {
   public static function input_labels(){
        return array(
-            'reg_line1'=> 'Registered Address Line 1',
-            'reg_line2'=>'Registered Address 2',
-            'reg_country'=>'Registered Country',
-            'reg_city'=>'Registered City',
-            'reg_pin'=>'Registered PinCode',
-            'reg_state'=>'Registered State',
-            'reg_mob'=>'Registered Mobile No',
-            'reg_telephone'=>'Registered Telephone No',
-            'reg_email_id'=>'Registered Email',
-            'reg_state'=>'Registered State',
-            'bill_pin'=>'Billing Address Pincode',
-            'bill_state'=>'Billing Address State',
+            'reg_line1'=> 'REGISTERED OFFICE ADDRESS LINE 1',
+            'reg_line2'=>'REGISTERED OFFICE ADDRESS LINE 2',
+            'reg_country'=>'REGISTERED OFFICE COUNTRY',
+            'reg_city'=>'REGISTERED OFFICE CITY',
+            'reg_pin'=>'REGISTERED OFFICE PINCODE',
+            'reg_state'=>'REGISTERED OFFICE STATE',
+            'reg_mob'=>'REGISTERED OFFICE MOBILE NO',
+            'reg_telephone'=>'REGISTERED OFFICE TELEPHONE NO',
+            'reg_email_id'=>'REGISTERED OFFICE EMAIL',
+            'bill_pin'=>'BILLING ADDRESS PINCODE',
+            'bill_state'=>'BILLING ADDRESS STATE',
             'bill_city'=>'Billing Address City',
             'bill_line1'=>'Billing Address line 1',
             'bill_line2'=>'Billing Address Line 2',
@@ -54,7 +53,7 @@ class ManageClientLang
             'bank_name'=>'Bank Name',
             'branch_name'=>'Branch Name',
             'account_number'=>'Account Number',
-            'inter_discom'=> 'Point of Interconnection Discom',
+            'inter_discom'=> 'Point of Interconnection',
             'ifsc'=>'IFSC Code',
             'virtual_account_number'=>'Virtual Account Number',
             'name'=>'Contact Name',
@@ -64,8 +63,8 @@ class ManageClientLang
             'conn_discom'=>'Discom Connection',
             'conn_state'=> 'State(for NOC)',
             'submission_time'=>'Submission Time',
-            'inter_stu'=> 'Point of Interconnection Stu',
-            'inter_poc'=> 'Point of Interconnection Poc',
+            'inter_stu'=> 'Point of Interconnection',
+            'inter_poc'=> 'Point of Interconnection',
             'ca_client_id'=>'IEX Client Id',
             'inter_connection'=>'InterConnection',
             'common_feeder_option'=> 'Common Feeder',
@@ -114,7 +113,8 @@ class ManageClientLang
             'bid_cut_off_time'=>'Bid Cut Off Time',
             'trader_type'=>'Trader Type',
             'pri_contact_no'=>'Primary Contact No',
-            'crn_no'=> 'CRN No'
+            'crn_no'=> 'CRN No',
+            'client_app_status '=> 'Status'
         );
    }
 }

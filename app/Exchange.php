@@ -11,4 +11,9 @@ class Exchange extends Model
     protected $table = 'exchange';
     public $fillable = ['*'];
     protected $dates = ['deleted_at'];
+	
+	public function validationsetting(){
+      return $this->hasOne('App\Validationsetting',"user_id","client_id");
+    }
+
 }

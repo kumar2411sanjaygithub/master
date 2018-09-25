@@ -309,6 +309,7 @@ class ClientDeatilsController extends Controller
         $datas['inter_discom'] = $basic['inter_discom'];
         $datas['common_feeder_option'] = $basic['common_feeder_option'];
 		$datas['obligation'] = $basic['obligation'];
+        $datas['cin'] = $basic['cin'];
 
         $dataArray =array();
 		$dataArray['company_name'] = $request->input('company_name');
@@ -370,9 +371,11 @@ class ClientDeatilsController extends Controller
         $dataArray['inter_stu'] = $request->input('inter_stu');
         $dataArray['inter_discom'] = $request->input('inter_discom');
         $dataArray['common_feeder_option'] = $request->input('common_feeder_option');
-				$dataArray['obligation'] = $request->input('obligation');
+		$dataArray['obligation'] = $request->input('obligation');
+        $dataArray['cin'] = $request->input('cin');
         $result=array_diff($dataArray,$basic);
-
+        //print_r($basic);echo "</br>";print_r($result);
+        //dd($dataArray);
         $this->generateApprovalrequest($result, 'client', $client_id, $basic_id,$datas);
 
         //return redirect()->route('basicdetails')->with('message','Detail added successfully and sent to Approver');
@@ -380,15 +383,6 @@ class ClientDeatilsController extends Controller
 
 
     }
-
-
-
-
-
-
-
-
-
 
 
     public function edit_bankdetails($id='',$eid=''){
@@ -530,7 +524,7 @@ class ClientDeatilsController extends Controller
         //$keys = array('bill_address_line_2'=>'Address Line 1');
 
          foreach($data as $key=>$value){
-          //dd($key);
+          //print_r($key);
            $approvalRequest = New Approvalrequest();
             $approvalRequest->client_id       = $client_id;
             $approvalRequest->attribute_name  = $key;
@@ -543,6 +537,7 @@ class ClientDeatilsController extends Controller
             $approvalRequest->reference_id    = $reference_id;
             $approvalRequest->save();
         }
+        //dd($data);
 
     }
 
