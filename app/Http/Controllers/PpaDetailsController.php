@@ -31,7 +31,8 @@ public function findppa($id)
 {
   $id = $id;
   // $ppaData = Client::where('id',$id)->first();
-  $ppaData = Ppadetails::where('status','0')->paginate(10);
+  $ppaData = Ppadetails::where('client_id',$id)->paginate(10);
+  // dd($ppaData);
   $clientData = Client::all();
   return view('ppa.addppa',compact('ppaData','id','clientData'));
 }
