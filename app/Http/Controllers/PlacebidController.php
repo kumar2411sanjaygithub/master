@@ -231,6 +231,11 @@ class PlacebidController extends Controller
         }
         $basicinfo = Client::selectRaw("trader_type")->where("id",$request->input('client_id'))->first();
 
+        if(!$basicinfo->trader_type){
+            $msg = 'trader type not set for this client';
+            return response()->json(['status' => '1', 'msg'=>$msg],400);
+        }
+
         if((strtoupper($basicinfo->trader_type) != strtoupper($request->input('bid_action')))&&(strtoupper($basicinfo->trader_type) != 'BOTH')){
             $msg = 'Your trade type is set to '.strtolower($basicinfo->trader_type);
             return response()->json(['status' => '1', 'msg'=>$msg],400);
