@@ -202,7 +202,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                           <?php $i++; ?>
                         @empty
                         <tr>
-                          <td colspan="11">Record Not Found</td>
+                          <td colspan="11" class="alert-danger">Record Not Found</td>
                         </tr>
                         @endforelse
                      </tbody>
@@ -284,6 +284,8 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                            <td>{{(isset($last_id->psm_added_date))?@$last_id->psm_added_date:'-'}}</td>
                            <td><a href="javascript::void()" target="/editexposure/{{@$last_id->id}}/{{$clientData->id}}" class="{{ isset($last_id->exposure)? '':' disabled'}}" id="btn-edit-psm"><span class="glyphicon glyphicon-pencil"></span></a></td>
                         </tr>
+                        @else
+                        <tr class="alert-danger"><td colspan="6">Record Not Found</td></tr>
                         @endif
                      </tbody>
                   </table>
