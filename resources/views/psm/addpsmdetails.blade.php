@@ -275,6 +275,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                         </tr>
                      </thead>
                      <tbody>
+                       @if(!empty($last_id->exposure_percent)&&!empty($last_id->exposure))
                         <tr>
                            <td>1</td>
                            <td>{{isset($last_id->psm_amount)?@$last_id->psm_amount:'-'}}</td>
@@ -283,6 +284,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                            <td>{{(isset($last_id->psm_added_date))?@$last_id->psm_added_date:'-'}}</td>
                            <td><a href="javascript::void()" target="/editexposure/{{@$last_id->id}}/{{$clientData->id}}" class="{{ isset($last_id->exposure)? '':' disabled'}}" id="btn-edit-psm"><span class="glyphicon glyphicon-pencil"></span></a></td>
                         </tr>
+                        @endif
                      </tbody>
                   </table>
                </div>

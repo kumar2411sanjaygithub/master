@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Spatie\Permission\Models\Role;
+//use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -10,9 +10,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreRolesRequest;
 use App\Http\Requests\Admin\UpdateRolesRequest;
 use App\Department;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\PermissionList;
 use App\Roles;
+use App\Role;
 
 class RolesController extends Controller
 {
@@ -50,14 +52,36 @@ class RolesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:roles,name',
+            'name' => 'required',
             'department' => 'required',
         ]);
 
+ if(Auth::guard('web')->check()){
+    $gurad_name='web';
+ }
+ elseif(Auth::guard('client')->check())
+ {
+    $gurad_name='client';
+ }
+
+        $role_exists = Role::where('name',$request->input('name'))->where('department_id',$request->input('department'))->where('guard_name',$gurad_name)->first();
+        if($role_exists)
+        {
+            return redirect()->route('roles.index')->with('error', 'Role already exists on this department.');
+        }
+        else
+        {
+
         $login_user=Auth::user();
-        $role = Role::create(['name' => $request->input('name'),'department_id' => $request->input('department'),'created_by' => $login_user['id']]);
+        $role = new Role;
+        $role->name = $request->input('name');
+        $role->department_id = $request->input('department');
+        $role->guard_name = $gurad_name;
+        $role->created_by = $login_user['id'];
+        $role->save();
 
         return redirect()->route('roles.index')->with('success','Role created successfully');
+        }
     }
 
 
@@ -88,11 +112,34 @@ class RolesController extends Controller
             'name' => 'required',
             'department' => 'required',
         ]);
-        
-        $role = Role::findOrFail($id);
-        $role->update(['name' => $request->input('name'),'department_id' => $request->input('department')]);
 
+ if(Auth::guard('web')->check()){
+    $gurad_name='web';
+ }
+ elseif(Auth::guard('client')->check())
+ {
+    $gurad_name='client';
+ }
+
+        $role_exists = Role::where('name',$request->input('name'))->where('department_id',$request->input('department'))->where('guard_name',$gurad_name)->where('id','!=',$id)->first();
+        if($role_exists)
+        {
+            return redirect()->route('roles.index')->with('error', 'Role already exists on this department.');
+        }
+        else
+        {
+
+        $role = Role::find($id);
+        $role->name = $request->input('name');
+        $role->department_id = $request->input('department');
+        $role->save();
+        //print_r($role);
+        //dd('asdf');
         return redirect()->route('roles.index')->with('success','Role updated successfully');
+        }
+
+
+
     }
 
 
@@ -124,6 +171,6 @@ class RolesController extends Controller
                 $entry->delete();
             }
         }
-    } 
+    }
 
 }

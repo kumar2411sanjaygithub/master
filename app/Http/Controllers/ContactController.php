@@ -123,7 +123,7 @@ class ContactController extends Controller
         $contact = Contact::find($contact_detail_id);
         $contact->del_status = 1;
         $contact->update();
-       
+
 
 
         return redirect()->back()->with('message','contact detail request successfully and sent to approver');
