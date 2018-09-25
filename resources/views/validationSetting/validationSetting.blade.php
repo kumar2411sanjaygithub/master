@@ -135,7 +135,7 @@
                @foreach ($validationsettingData as $key => $value)
                <tr>
                  <td class="text-center" style="width:4%;">{{ $i }}</td>
-                 <td class="text-center" style="width:45%;">{{$value->client_master['company_name']}}</td>
+                 <td class="text-center" style="width:45%;">{{$value->clients['company_name']}}</td>
                  <td class="text-center" style="width:10%;">{{ isset($value->noc) && $value->noc == 'NOC' ? 'Yes' : 'No'}}</td>
                  <td class="text-center" style="width:10%;">{{ isset($value->ppa) && $value->ppa == 'PPA' ? 'Yes' : 'No'}}</td>
                  <td class="text-center" style="width:10%;">{{ isset($value->exchange) && $value->exchange == 'Exchange' ? 'Yes' : 'No'}}</td>

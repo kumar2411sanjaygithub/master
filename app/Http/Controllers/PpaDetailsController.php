@@ -30,6 +30,7 @@ class PpaDetailsController extends Controller
 public function findppa($id)
 {
   $id = $id;
+  // dd($id);
   // $ppaData = Client::where('id',$id)->first();
   $ppaData = Ppadetails::where('client_id',$id)->paginate(10);
   // dd($ppaData);
@@ -39,7 +40,7 @@ public function findppa($id)
   public function saveppa(Request $request)
   {
     $this->validate($request,[
-      'validity_from' => 'required',
+        'validity_from' => 'required',
         'validity_to' => 'required',
         'file_path' => 'required',
     ]);

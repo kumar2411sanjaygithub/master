@@ -9,8 +9,10 @@
 
 <section class="content-header">
    <h5>
-      <label  class="control-label">EDIT PSM <small>{{$clientData->company_name}}</small></label>
+     <label  class="control-label"><u class="setword">Edit PSM Details</u></label>
+     &nbsp; {{@$clientData->company_name}}<span class="hifan">|</span>{{@$clientData->crn_no}}<span class="hifan">|</span>{{@$clientData->iex_portfolio}}<span class="hifan">|</span>{{@$clientData->pxil_portfolio}}
    </h5>
+
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="{{ route('psmdetials') }}">PSM Search Client</a></li>
@@ -54,7 +56,7 @@
                           </div>
                           <input autocomplete="off" type="text" value="{{date('d/m/Y',strtotime($psmData->received_date))}}" class="form-control pull-right input-sm" name="received_date" id="datepicker">
                        </div>
-                          <span class="text-danger">{{ $errors->first('received_date') }}</span>                      
+                          <span class="text-danger">{{ $errors->first('received_date') }}</span>
                     </div>
                     <div class="col-md-3">
                        <label  class="control-label">DOCUMENT NO.</label>
@@ -75,7 +77,7 @@
                           </div>
                           <input autocomplete="off" type="text" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif value="{{date('d/m/Y',strtotime($psmData->issue_date))}}" name="issue_date" class="form-control pull-right input-sm" id="issue_date">
                        </div>
-                          <span class="text-danger">{{ $errors->first('issue_date') }}</span>                       
+                          <span class="text-danger">{{ $errors->first('issue_date') }}</span>
                     </div>
                     <div class="col-md-3 {{ $errors->has('expiry_date') ? 'has-error' : '' }}">
                        <label  class="control-label">EXPIRY DATE</label><span class="text-danger"><strong>*</strong></span>
@@ -85,7 +87,7 @@
                           </div>
                           <input autocomplete="off" type="text" class="form-control pull-right input-sm" value="{{date('d/m/Y',strtotime($psmData->expiry_date))}}" name="expiry_date" id="datepicker2">
                        </div>
-                          <span class="text-danger">{{ $errors->first('expiry_date') }}</span>                       
+                          <span class="text-danger">{{ $errors->first('expiry_date') }}</span>
                     </div>
                     <div class="col-md-3">
                        <label  class="control-label">REVOCABLE DATE</label>
@@ -115,7 +117,7 @@
                     <div class="col-md-5"></div>
                     <input type="hidden" name="client_id" value="{{$psmData->client_id}}">
                     <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                    <!-- <div class="col-md-1"><button type="button" class="btn btn-block btn-danger btn-xs">CANCEL</button></div> -->
+                    <div class="col-md-1"><a href="{{url('/psm/psmdetails/'.$psmData->client_id)}}" class="btn btn-block btn-danger btn-xs">CANCEL</a></div>
                     <div class="col-md-5"></div>
                  </div>
               </div>

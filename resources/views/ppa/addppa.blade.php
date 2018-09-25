@@ -143,7 +143,7 @@
                   <td>{{ $i }}</td>
                   <td>{{date('d/m/Y', strtotime($value->validity_from))}}</td>
                   <td>{{date('d/m/Y',strtotime($value->validity_to))}}</td>
-                  <td><a href="{{url('/documents/ppa/'.$value->file_path)}}" download='download'>{{$value->file_path}}</a></td>
+                  <td><a href="{{url('/documents/ppa/'.$value->file_path)}}" download='download'>View</a></td>
                   <td class="text-center">
                     <a href="/ppa/editppa/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
                     &nbsp;&nbsp;&nbsp;
