@@ -267,13 +267,13 @@ class ClientApprovalController extends Controller
             $updatestemp->status = 1;
             $updatestemp->update(); 
             }         
-            return Redirect::back()->with('success', 'User Successfully Approved.');
+            return Redirect::back()->with('success', 'Client Approved Successfully.');
           }
           elseif ($tag=='Rejected') {
             foreach($array as $v){
             Approvalrequest::where('id', $v)->update(['status'=> '2']);
             }
-            return Redirect::back()->with('success', 'User Successfully Rejected.');
+            return Redirect::back()->with('success', 'Client Approved Rejected.');
         }
 
         

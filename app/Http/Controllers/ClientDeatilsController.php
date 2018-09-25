@@ -111,7 +111,8 @@ class ClientDeatilsController extends Controller
         $client->inter_discom = $request->input('inter_discom');
         $client->inter_stu = $request->input('inter_stu');
         $client->inter_poc = $request->input('inter_poc');
-        $client->common_feeder_option = $request->input('common_feeder_option');
+        $client->rt = $request->input('rt');
+        $client->rt1 = $request->input('rt1');
         $client->feeder_name = $request->input('feeder_name');
         $client->feeder_code = $request->input('feeder_code');
         $client->conn_discom = $request->input('conn_discom');
@@ -127,9 +128,10 @@ class ClientDeatilsController extends Controller
 		return redirect('basicdetails')->with('message', '.Client details saved successfully and submitted for approval.!');
 	}
 
-    public function viewclient($id){
+    public function viewclient($id='',$tag=''){
 
-        $clientdata = Client::select('*')->where('client_app_status','1')->where('id',$id)->first();
+            $clientdata = Client::select('*')->where('client_app_status','1')->where('id',$id)->first();           
+
 
 				$voltage_array=array();
 				$sldc=StateDiscom::where('state',@$clientdata->conn_state)->first();
@@ -166,8 +168,52 @@ class ClientDeatilsController extends Controller
                 }
 //dd($voltage_array);
 
-        return view('ManageClient.viewbasic',compact('clientdata','id','discom_array','voltage_array'));
+        return view('ManageClient.viewbasic',compact('clientdata','id','discom_array','voltage_array','action_info'));
     }
+
+    public function viewclientPrint($id='',$tag=''){
+
+        $action_info='view';
+            $clientdata = Client::select('*')->where('id',$id)->first();           
+
+                $voltage_array=array();
+                $sldc=StateDiscom::where('state',@$clientdata->conn_state)->first();
+                $voltage_data=json_decode(@$sldc->voltage);
+                if(isset($voltage_data))
+                {
+                    foreach($voltage_data as $voltage)
+                    {
+                         foreach($voltage as $sk=>$voltage_value)
+                         {
+                                 if($voltage_value!=NULL)
+                                 {
+                                         array_push($voltage_array,$voltage_value);
+                                 }
+
+                         }
+
+                    }
+                }    
+                $discom_array=array();
+                $json_discom=json_decode(@$sldc->discom);
+                if(isset($json_discom))
+                {
+                    foreach($json_discom as $discom)
+                    {
+                         foreach($discom as $sk=>$discom_value)
+                         {
+                                 if($discom_value!=NULL){
+                                         array_push($discom_array,$discom_value);
+                                 }
+                         }
+
+                    }
+                }
+//dd($voltage_array);
+
+        return view('ApprovalRequest.client.approve_rej',compact('clientdata','id','discom_array','voltage_array','action_info'));
+    }
+
     public function updateclient(Request $request,$basic_id){
 
         $validator = validator::make($request->all(),[
@@ -263,6 +309,7 @@ class ClientDeatilsController extends Controller
         $datas['inter_discom'] = $basic['inter_discom'];
         $datas['common_feeder_option'] = $basic['common_feeder_option'];
 		$datas['obligation'] = $basic['obligation'];
+        $datas['cin'] = $basic['cin'];
 
         $dataArray =array();
 		$dataArray['company_name'] = $request->input('company_name');
@@ -324,9 +371,11 @@ class ClientDeatilsController extends Controller
         $dataArray['inter_stu'] = $request->input('inter_stu');
         $dataArray['inter_discom'] = $request->input('inter_discom');
         $dataArray['common_feeder_option'] = $request->input('common_feeder_option');
-				$dataArray['obligation'] = $request->input('obligation');
+		$dataArray['obligation'] = $request->input('obligation');
+        $dataArray['cin'] = $request->input('cin');
         $result=array_diff($dataArray,$basic);
-
+        //print_r($basic);echo "</br>";print_r($result);
+        //dd($dataArray);
         $this->generateApprovalrequest($result, 'client', $client_id, $basic_id,$datas);
 
         //return redirect()->route('basicdetails')->with('message','Detail added successfully and sent to Approver');
@@ -334,15 +383,6 @@ class ClientDeatilsController extends Controller
 
 
     }
-
-
-
-
-
-
-
-
-
 
 
     public function edit_bankdetails($id='',$eid=''){
@@ -484,7 +524,7 @@ class ClientDeatilsController extends Controller
         //$keys = array('bill_address_line_2'=>'Address Line 1');
 
          foreach($data as $key=>$value){
-          //dd($key);
+          //print_r($key);
            $approvalRequest = New Approvalrequest();
             $approvalRequest->client_id       = $client_id;
             $approvalRequest->attribute_name  = $key;
@@ -497,6 +537,7 @@ class ClientDeatilsController extends Controller
             $approvalRequest->reference_id    = $reference_id;
             $approvalRequest->save();
         }
+        //dd($data);
 
     }
 

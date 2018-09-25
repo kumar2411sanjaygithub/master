@@ -75,8 +75,8 @@
                                                <td class="text-center vl">{{ $i }}</td>
                                                <td class="text-center vl">{{ $value->noc_type}}</td>
                                                <td class="text-center vl">{{ $value->noc_quantum }}</td>
-                                               <td class="text-center vl">{{ $value->validity_from }}</td>
-                                               <td class="text-center vl">{{ $value->validity_to }}</td>
+                                               <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
+                                               <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
                                                <td class="text-center vl">{{ $value->noc_periphery }}</td>
                                                <td class="text-center vl">{{ $value->final_quantum }}</td>
                                                <td class="text-center vl">{{ $value->poc_losses }}</td>
@@ -131,8 +131,21 @@
                                                 <td class="vl" style="padding:5px!important;"><input type="checkbox"  class="minimal"> </td>
                                                <td class="text-center vl">{{ $i }}</td>
                                                <td class="text-center vl">{{ $input_lebels[$value->attribute_name]}}</td>
-                                               <td class="text-center vl">{{ $value->old_att_value }}</td>
-                                               <td class="text-center vl">{{ $value->updated_attribute_value }}</td>
+                                               <td class="text-center vl">
+                                                 @if(strstr($input_lebels[$value->attribute_name], 'Date') !== false)
+                                                {{ date('d/m/Y',strtotime($value->old_att_value)) }}
+                                                @else
+                                                  {{$value->old_att_value}}
+                                                @endif
+
+                                              </td>
+                                               <td class="text-center vl">
+                                                @if(strstr($input_lebels[$value->attribute_name], 'Date') !== false)
+                                                {{ date('d/m/Y',strtotime($value->updated_attribute_value)) }}
+                                                @else
+                                                  {{$value->updated_attribute_value}}
+                                                @endif
+                                              </td>
                                              <td class="vl"><a href="/noc/modified/{{ $value->id }}/approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/noc/modified/{{ $value->id }}/rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
                                           </tr>
                                         <?php
@@ -191,8 +204,8 @@
                                                   <td class="text-center vl">{{ $i }}</td>
                                                <td class="text-center vl">{{ $value->noc_type}}</td>
                                                <td class="text-center vl">{{ $value->noc_quantum }}</td>
-                                               <td class="text-center vl">{{ $value->validity_from }}</td>
-                                               <td class="text-center vl">{{ $value->validity_to }}</td>
+                                               <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
+                                               <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
                                                <td class="text-center vl">{{ $value->noc_periphery }}</td>
                                                <td class="text-center vl">{{ $value->final_quantum }}</td>
                                                <td class="text-center vl">{{ $value->poc_losses }}</td>

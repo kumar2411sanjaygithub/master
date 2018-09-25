@@ -18,7 +18,7 @@
       <div class="mda-form-group float-label">
         <div class="mda-form-control">
           <!-- <select> -->
-            <label class="control-label tal">Select User</label>
+            <label class="control-label tal">Select Client</label>
             <input  class="form-control input-sm search_text" autocomplete="off"  name="client" id="client" value="">
           <!-- </select>  -->
           <!-- <input class="form-control" type="text"> -->
