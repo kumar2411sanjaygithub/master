@@ -306,6 +306,7 @@
           <ul class="treeview-menu">
             <!-- <li><a href="{{route('tmnameview')}}"><i class="fa fa-circle-o"></i>TM Name Setting</a></li> -->
             <li><a href="{{ route('discom-sldc-state.index') }}"><i class="fa fa-circle-o"></i>DISCOM & SLDC List</a></li>
+            <li><a href="{{ route('commonview') }}"><i class="fa fa-circle-o"></i>Common Information</a></li>
           </ul>
         </li>
         <!-- Trader's Setting Menu End -->

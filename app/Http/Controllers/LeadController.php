@@ -52,7 +52,7 @@ class LeadController extends Controller
         $leadsource = LeadSource::orderBy('name','asc')->get();
         $industry = Industry::orderBy('industry_name','asc')->get();
         $product = Product::select('*')->get();
-        
+
         return view('crm.create', compact('user','leadsource','industry','product'));
     }
 
@@ -125,15 +125,15 @@ class LeadController extends Controller
         $num = $lead->id;
 
         $leadId =  $this->getSequence($num);
-        
+
         $lead->leadID = $leadId;
         $lead->update();
-       
+
 
         return redirect()->route('lead.index')->with('success', 'Lead Added Successfully.');
     }
 
-    
+
     function getSequence($num) {
      return str_pad($num, 4, '1000', STR_PAD_LEFT);
 

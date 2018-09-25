@@ -72,7 +72,7 @@
    <hr>
      <form method="post" action="{{ route('ppadetails') }}" enctype="multipart/form-data">
         {{ csrf_field() }}
-     <div class="box  hidden" id="apd-tab">
+     <div class="box @if($errors->isEmpty())hidden @else  @endif" id="apd-tab">
       <div class="box-body" >
 
          <div class="row">
@@ -141,8 +141,8 @@
               @forelse ($ppaData as $key => $value)
                <tr>
                   <td>{{ $i }}</td>
-                  <td>{{$value->validity_from}}</td>
-                  <td>{{$value->validity_to}}</td>
+                  <td>{{date('d/m/Y', strtotime($value->validity_from))}}</td>
+                  <td>{{date('d/m/Y',strtotime($value->validity_to))}}</td>
                   <td><a href="{{url('/documents/ppa/'.$value->file_path)}}" download='download'>{{$value->file_path}}</a></td>
                   <td class="text-center">
                     <a href="/ppa/editppa/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
@@ -169,7 +169,7 @@
      //Date picker
         $('#datepicker').datepicker({
          autoclose: true,
-         format: 'dd/mm/yyyy',
+         format: 'yyyy-mm-dd',
        }).on('changeDate', function (selected) {
           var startDate = new Date(selected.date.valueOf());
           $('#datepicker1').datepicker('setStartDate', startDate);
@@ -178,7 +178,7 @@
         });
        $('#datepicker1').datepicker({
          autoclose: true,
-          format: 'dd/mm/yyyy'
+          format: 'yyyy-mm-dd'
        }).on('changeDate', function (selected) {
             var endDate = new Date(selected.date.valueOf());
             $('#datepicker').datepicker('setEndDate', endDate);

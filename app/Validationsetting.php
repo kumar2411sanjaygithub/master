@@ -10,7 +10,7 @@ class Validationsetting extends Model
 
     public $fillable = ['*'];
 
-    public function client_master(){
+    public function clients(){
         return $this->belongsTo('App\Client','user_id','id');
     }
 }
