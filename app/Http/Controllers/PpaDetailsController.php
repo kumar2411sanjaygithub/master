@@ -68,7 +68,6 @@ public function findppa($id)
     {
 
         $ppaData = Ppadetails::select('*')->where('id', $id)->first();
-
         return view('ppa.editppa',compact('ppaData'));
     }
 
@@ -124,12 +123,11 @@ public function viewbidsetting()
 public function addbidsetting(Request $request,$id=''){
   //$id = $request->input('client_id');
   //dd($request->all());
-    $this->validate($request,[
+    $v=$this->validate($request,[
       'client_id' => 'required',
       'bid_cut_off_time' => 'required',
       'trader_type' => 'required'
     ]);
-
 
     $id = $request->input('client_id');
     $ppa = Client::find($id);

@@ -67,7 +67,7 @@
                       </div> -->
                       <div class="  {{ $errors->has('user_id') ? 'has-error' : '' }}">
                           <select class="" name="user_id" id="select-client" data-live-search="true">
-                              <option>Search Client</option>
+                              <option value="">Search Client</option>
                                @foreach ($users as $key => $aa)
                                <option value="{{ $aa['id'] }}" data-tokens="{{ $aa['id'] }}.{{ $aa['id'] }}.{{ $aa['id'] }};?>" @if(isset($client_id) && $aa['id'] == $client_id) selected @endif> [{{$aa['company_name']}}] [{{$aa['short_id']}}] [{{$aa['crn_no']}}]</option>
                               @endforeach
