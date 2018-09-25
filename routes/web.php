@@ -198,6 +198,7 @@ Route::get('/approve/{id}',['as'=>'approve','uses'=>'EmployeeApprovalController@
 Route::get('/reject/{id}',['as'=>'reject','uses'=>'EmployeeApprovalController@rejectnew']);
 Route::get('/employee/approve/{id}',['as'=>'existing.approve','uses'=>'EmployeeApprovalController@existingApprove']);
 Route::get('/employee/reject/{id}',['as'=>'existing.reject','uses'=>'EmployeeApprovalController@existingReject']);
+
 //MANAGE CLIENT---SHALU//
 Route::get('/basicdetails',['as'=>'basic.details','uses'=>'ClientDeatilsController@viewlist']);
 Route::get('/clientadd',['as'=>'clientadd','uses'=>'ClientDeatilsController@addclient']);
@@ -395,6 +396,16 @@ Route::get('/rate_sheet_graph/{exchange}/{year}/{month}/{day}','RatesheetGraphCo
 Route::get('/rate_sheet_graph','RatesheetGraphController@graphindex')->name('rate_sheet_graph');
 
 Route::get('download-ratesheet/{filename}','RatesheetController@download');
+
+/*******************************************************
+  BILL/INVOICE----SHALU
+/*******************************************************/
+Route::get('/invoice','InvoiceController@index')->name('invoice');
+Route::get('/invoice/{exchange}/{year}/{month}/{day}',['as'=>'invoice.index','uses'=>'InvoiceController@index']);
+Route::get('/create/invoice/{id}','InvoiceController@create')->name('invoice');
+
+
+
 
 
 
