@@ -47,12 +47,20 @@ class ExchangeController extends Controller
         // {
         //     return Redirect::back()->withErrors($validator);
         // }
+        // Convert Date Format
+        $from_date = strtr($request->input('validity_from'), '/', '-');
+        $validity_from = date("Y-m-d", strtotime($from_date));
+
+        // Convert Date Format
+        $to_date = strtr($request->input('validity_to'), '/', '-');
+        $validity_to = date("Y-m-d", strtotime($to_date));
+
        
         $exchangedetail = new ExchangeTemp();
        $exchangedetail->client_id = $request->client_id;
         $exchangedetail->ex_type = $request->input('ex_type');
-        $exchangedetail->validity_from = $request->input('validity_from');
-        $exchangedetail->validity_to = $request->input('validity_to');
+        $exchangedetail->validity_from = $validity_from;
+        $exchangedetail->validity_to = $validity_to;
         
         if($file = $request->hasFile('file_upload')) {
               $file = $request->file('file_upload') ;
@@ -79,11 +87,18 @@ class ExchangeController extends Controller
         $datas['validity_from'] = $exchangedetail['validity_from'];
         $datas['validity_to'] = $exchangedetail['validity_to'];
         $datas['file_upload'] = $exchangedetail['file_upload'];
+               // Convert Date Format
+        $from_date = strtr($request->input('validity_from'), '/', '-');
+        $validity_from = date("Y-m-d", strtotime($from_date));
+
+        // Convert Date Format
+        $to_date = strtr($request->input('validity_to'), '/', '-');
+        $validity_to = date("Y-m-d", strtotime($to_date));
        
         $dataArray =array();
         $dataArray['ex_type'] = $request->input('ex_type');
-        $dataArray['validity_from'] = $request->input('validity_from');
-        $dataArray['validity_to'] = $request->input('validity_to');
+        $dataArray['validity_from'] = $validity_from;
+        $dataArray['validity_to'] = $validity_to;
         //$dataArray['file_upload'] = '';
         if($file = $request->hasFile('file_upload')) {
               $file = $request->file('file_upload') ;

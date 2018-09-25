@@ -1,7 +1,7 @@
 @extends('theme.layouts.default')
 @section('content')
 <section class="content-header">
-                <h5 class="pull-left"><label class="control-label pull-right mt-1"><u>APPROVE BANK DETAILS</u></h5> &nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
+                <h5 class="pull-left"><label class="control-label pull-right mt-1"><u>APPROVE NOC DETAILS</u></h5> &nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
                <ol class="breadcrumb">
                   <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
                   <li><a href="#">APPROVE REQUEST</a></li>
@@ -20,11 +20,18 @@
             @endif
                <div class="row">
                   <div class="col-xs-12">
-                                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#home">NEW</a></li>
-                        <li><a data-toggle="tab" href="#menu1">MODIFIED</a></li>
-                        <li><a data-toggle="tab" href="#menu2">DELETED</a></li>
-                     </ul>
+                    <div class="row">
+                      <div class="col-md-10">
+                            <ul class="nav nav-tabs">
+                               <li class="active"><a data-toggle="tab" href="#home">NEW</a></li>
+                                <li><a data-toggle="tab" href="#menu1">MODIFIED</a></li>
+                                <li><a data-toggle="tab" href="#menu2">DELETED</a></li>
+                             </ul>
+                       </div>
+                      <div class="col-md-2 mt8">
+                         <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right mr"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+                       </div>
+                      </div>
                      <div class="tab-content">
                         <div id="home" class="tab-pane fade in active">
                            <div class="box">
@@ -33,9 +40,8 @@
                                     <div class="col-md-2"></div>
                                     <div class="col-md-6"></div>
                                     <div class="col-md-4 text-right">
-                                    <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right mr"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
-                                      <button type="button" class="btn  btn-info btn-xs" name="cdw4" id="cdw4">APPROVE ALL</button>
-                                       &nbsp&nbsp&nbsp&nbsp&nbsp<button type="button" class="btn  btn-danger btn-xs mlt" name="cde4" id="cde4">REJECT ALL</button>
+                                        <button type="button" class="btn  btn-info btn-xs" name="cdw4" id="cdw4">APPROVE ALL</button>
+                                         &nbsp&nbsp&nbsp&nbsp&nbsp<button type="button" class="btn  btn-danger btn-xs mlt" name="cde4" id="cde4">REJECT ALL</button>
                                     </div>
                                  </div>
                                  <div class="box-body table-responsive">
@@ -69,8 +75,8 @@
                                                <td class="text-center vl">{{ $i }}</td>
                                                <td class="text-center vl">{{ $value->noc_type}}</td>
                                                <td class="text-center vl">{{ $value->noc_quantum }}</td>
-                                               <td class="text-center vl">{{ $value->validity_from }}</td>
-                                               <td class="text-center vl">{{ $value->validity_to }}</td>
+                                               <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
+                                               <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
                                                <td class="text-center vl">{{ $value->noc_periphery }}</td>
                                                <td class="text-center vl">{{ $value->final_quantum }}</td>
                                                <td class="text-center vl">{{ $value->poc_losses }}</td>
@@ -125,8 +131,21 @@
                                                 <td class="vl" style="padding:5px!important;"><input type="checkbox"  class="minimal"> </td>
                                                <td class="text-center vl">{{ $i }}</td>
                                                <td class="text-center vl">{{ $input_lebels[$value->attribute_name]}}</td>
-                                               <td class="text-center vl">{{ $value->old_att_value }}</td>
-                                               <td class="text-center vl">{{ $value->updated_attribute_value }}</td>
+                                               <td class="text-center vl">
+                                                 @if(strstr($input_lebels[$value->attribute_name], 'Date') !== false)
+                                                {{ date('d/m/Y',strtotime($value->old_att_value)) }}
+                                                @else
+                                                  {{$value->old_att_value}}
+                                                @endif
+
+                                              </td>
+                                               <td class="text-center vl">
+                                                @if(strstr($input_lebels[$value->attribute_name], 'Date') !== false)
+                                                {{ date('d/m/Y',strtotime($value->updated_attribute_value)) }}
+                                                @else
+                                                  {{$value->updated_attribute_value}}
+                                                @endif
+                                              </td>
                                              <td class="vl"><a href="/noc/modified/{{ $value->id }}/approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/noc/modified/{{ $value->id }}/rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
                                           </tr>
                                         <?php
@@ -185,8 +204,8 @@
                                                   <td class="text-center vl">{{ $i }}</td>
                                                <td class="text-center vl">{{ $value->noc_type}}</td>
                                                <td class="text-center vl">{{ $value->noc_quantum }}</td>
-                                               <td class="text-center vl">{{ $value->validity_from }}</td>
-                                               <td class="text-center vl">{{ $value->validity_to }}</td>
+                                               <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
+                                               <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
                                                <td class="text-center vl">{{ $value->noc_periphery }}</td>
                                                <td class="text-center vl">{{ $value->final_quantum }}</td>
                                                <td class="text-center vl">{{ $value->poc_losses }}</td>

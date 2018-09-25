@@ -205,6 +205,7 @@ Route::get('/clientadd',['as'=>'clientadd','uses'=>'ClientDeatilsController@addc
 Route::get('/noc_discom_s',['as'=>'noc_discom_s','uses'=>'ClientDeatilsController@search_discom']);
 Route::post('/client/saveclient',['as'=>'clientsave','uses'=>'ClientDeatilsController@saveclient']);
 Route::get('/basic/{id}',['as'=>'basic','uses'=>'ClientDeatilsController@viewclient']);
+Route::get('/basic/{id}/view',['as'=>'basicPrint','uses'=>'ClientDeatilsController@viewclientPrint']);
 Route::post('/client/updateclient/{id}',['as'=>'updatebasic','uses'=>'ClientDeatilsController@updateclient']);
 
 

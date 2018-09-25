@@ -56,18 +56,18 @@
          <div class="input-group-addon">
            <i class="fa fa-calendar"></i>
          </div>
-         <input type="text" class="form-control pull-right input-sm" id="validity_from" name="validity_from" value="{{isset($get_noc_details)?$get_noc_details->validity_from:old('validity_from')}}">
+         <input type="text" class="form-control pull-right input-sm" id="validity_from" name="validity_from" value="{{isset($get_noc_details)?date('d/m/Y',strtotime($get_noc_details->validity_from)):old('validity_from')}}" autocomplete="off">
        </div>
        <span class="text-danger">{{ $errors->first('validity_from') }}</span>
       </div>
       <div class="col-md-3 {{ $errors->has('validity_to') ? 'has-error' : '' }}">
         <label  class="control-label">VALIDITY END START<span class="text-danger"><strong>*</strong></label>
-        <div class="input-group date" id="datepicker" name="mkl">
+        <div class="input-group date" id="datepicker1" name="mkl">
           <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
           </div>
 
-          <input type="text" class="form-control pull-right input-sm" id="validity_to" name="validity_to" value="{{isset($get_noc_details)?$get_noc_details->validity_to:old('validity_to')}}">
+          <input type="text" class="form-control pull-right input-sm" id="validity_to" name="validity_to" value="{{isset($get_noc_details)?date('d/m/Y',strtotime($get_noc_details->validity_to)):old('validity_to')}}" autocomplete="off">
         </div>
         <span class="text-danger">{{ $errors->first('validity_to') }}</span>
       </div>
@@ -203,8 +203,8 @@
                               <td class="text-center">{{ $i }}</td>
                               <td class="text-center">{{ $value->noc_type }}</td>
                               <td class="text-center">{{ $value->noc_quantum }}</td>
-                              <td class="text-center">{{ $value->validity_from }}</td>
-                              <td class="text-center">{{ $value->validity_to }}</td>
+                              <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
+                              <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
                               <td class="text-center">{{ $value->noc_periphery }}</td>
                               <td class="text-center">{{ $value->poc_losses }}</td>
                               <td class="text-center">{{ $value->discom_losses }}</td>

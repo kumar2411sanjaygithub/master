@@ -1,5 +1,12 @@
 @extends('theme.layouts.default')
 @section('content')
+
+<style type="text/css">
+  .uc{
+text-transform : uppercase
+
+}
+</style>
         <section class="content-header">
                 <h5 class="pull-left"><label  class="control-label pull-right mt-1"><u>APPROVE BASIC DETAILS</u></h5>&nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
                <ol class="breadcrumb">
@@ -10,7 +17,6 @@
                   <li><a href="#"><u>BASIC DETAILS</u></a></li>
                </ol>
             </section>
-
             <section class="content">
                @if (\Session::has('success'))
             <div class="alert alert-success mt10" >
@@ -20,12 +26,25 @@
             @endif
                <div class="row">
                   <div class="col-xs-12">
-
+                    <div class="row">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6 pull-right">
+                           <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right "><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+                        </div>
+                      </div>
                            <div class="box">
                               <div class="box-body">
                                  <div class="row">
+                                    <div class="col-md-12 pull-right">
+                                              @if (count($clientData) > 0)
+                                       <form class="pull-right" action="{{ url()->to('multiple-approve/Rejected') }}" method="post" id="approve_data">
+                                         {{ csrf_field() }}
+                                         <input type="hidden" name="selected_status" class="selected_status">
+                                         <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted-rej" name="cdw5" id="cdw5">REJECT ALL</button>
 
-                                    <div class="col-md-12">
+                                         <a data-toggle="modal" data-target="#myModalRej" class="btn btn-danger btn-xs mlt">REJECT ALL</a>
+                                       </form>
+                                       @endif
 
                                     @if (count($clientData) > 0)
                                     <form class="pull-right" action="{{ url()->to('multiple-approve/Approved') }}" method="post" id="approve_data">
@@ -37,32 +56,23 @@
                                     </form>
                                     @endif
 
-                                    @if (count($clientData) > 0)
-                                    <form class="pull-right" action="{{ url()->to('multiple-approve/Rejected') }}" method="post" id="approve_data">
-                                      {{ csrf_field() }}
-                                      <input type="hidden" name="selected_status" class="selected_status">
-                                      <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted-rej" name="cdw5" id="cdw5">REJECT ALL</button>
-
-                                      <a data-toggle="modal" data-target="#myModalRej" class="btn btn-danger btn-xs mlt">REJECT ALL</a>
-                                    </form>
-                                    @endif
                                   </div>
-                                  <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right mr"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
                                         <div id="myModal" class="modal fade" style="display: none;">
-                                          <div class="modal-dialog modal-confirm">
+                                          <div class="modal-dialog modal-confirm model-xs">
                                             <div class="modal-content">
-                                              <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                                              <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                                                 <h4 class="modal-title text-center">ARE YOU SURE?</h4>
-                                              </div>
+                                              </div> -->
                                               <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                                                <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                                                <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS?</p></center>
                                               </div>
-                                              <div class="modal-footer">
-                                                <button type="button" href="#"   class="btn btn-danger">
+                                              <div class="modal-footer" >
+                                                <div class="text-center">
+                                                <button type="button" href="#"   class="btn btn-xs  btn-info">
                                                   <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
                                                 </button>
-                                                <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
-
+                                                <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">No</button>
+                                                </div>
                                               </div>
                                             </div>
                                           </div>
@@ -70,38 +80,35 @@
                                         <div id="myModalRej" class="modal fade" style="display: none;">
                                           <div class="modal-dialog modal-confirm">
                                             <div class="modal-content">
-                                              <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                                              <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                                                 <h4 class="modal-title text-center">ARE YOU SURE?</h4>
-                                              </div>
+                                              </div> -->
                                               <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                                                <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                                                <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECTED ALL RECORDS?</p></center>
                                               </div>
                                               <div class="modal-footer">
-                                                <button type="button" href="#"   class="btn btn-danger">
+                                                <div class="text-center">
+                                                <button type="button" href="#"   class="btn btn-info btn-xs">
                                                   <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rej">Yes</a>
                                                 </button>
-                                                <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
-
+                                                <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">No</button>
+                                              </div>
                                               </div>
                                             </div>
                                           </div>
                                         </div>
-
-
                                     </div>
                                  </div>
                                  <div class="box-body table-responsive">
                                     <table id="example1" class="table table-bordered table-striped table-hover text-center">
                                        <thead>
                                           <tr>
-
                                              <th class="chy" style="padding:5px!important;"><input type="checkbox" class="minimal1 deleteallbutton" name="select_all"></th>
                                              <th class="srno vl">SR.NO</th>
                                              <th class="vl">FIELD NAME</th>
                                              <th class="vl">CURRENT VALUE</th>
                                              <th class="vl">UPDATED VALUE</th>
                                              <th class="act vl">ACTION</th>
-
                                           </tr>
                                        </thead>
                                        <tbody>
@@ -118,7 +125,7 @@
                                                 <td style="padding:5px!important;"><input type="checkbox" class="minimal1 vl deletedbutton" value="{{ $value->id }}" name="select_all"></td>
 
                                                <td class="text-center vl">{{ $i }}</td>
-                                               <td class="text-center vl">{{ $input_lebels[$value->attribute_name]}}</td>
+                                               <td class="text-center vl uc">{{ $input_lebels[$value->attribute_name]}}</td>
                                                <td class="text-center vl">
                                                 @if(in_array($value->old_att_value,$state_data))
                                                   <?php
@@ -154,14 +161,10 @@
                                        ?>
                                        @endforeach
                                        @endisset
-
-
                                        </tbody>
                                     </table>
                                  </div>
                               </div>
-
-
                      </div>
                   </div>
                </div>
@@ -169,6 +172,7 @@
 
    @endsection
 @section('content_foot')
+
 
   <script>
     $(function () {

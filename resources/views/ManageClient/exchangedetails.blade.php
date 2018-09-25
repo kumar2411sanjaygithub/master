@@ -44,7 +44,7 @@
                                              <div class="input-group-addon">
                                                <i class="fa fa-calendar"></i>
                                              </div>
-                                             <input type="text" class="form-control pull-right input-sm"  id="validity_from" name="validity_from" value="{{isset($get_exchange_details)?$get_exchange_details->validity_from:old('validity_from')}}">
+                                             <input type="text" class="form-control pull-right input-sm"  id="validity_from" name="validity_from" value="{{isset($get_exchange_details)?$get_exchange_details->validity_from:old('validity_from')}}" autocomplete="off">
 
                                            </div>
                                            <span class="text-danger">{{ $errors->first('validity_to') }}</span>
@@ -55,7 +55,7 @@
                                               <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                               </div>
-                                              <input type="text" class="form-control pull-right input-sm"  id="validity_to" name="validity_to" value="{{isset($get_exchange_details)?$get_exchange_details->validity_to:old('validity_to')}}">
+                                              <input type="text" class="form-control pull-right input-sm"  id="validity_to" name="validity_to" value="{{isset($get_exchange_details)?$get_exchange_details->validity_to:old('validity_to')}}"  autocomplete="off">
 
                                             </div>
                                             <span class="text-danger">{{ $errors->first('validity_to') }}</span>
@@ -108,8 +108,8 @@
                                <tr>
                                   <td class="text-center">{{ $i }}</td>
                                   <td class="text-center">{{ $value->ex_type }}</td>
-                                  <td class="text-center">{{ $value->validity_from }}</td>
-                                  <td class="text-center">{{ $value->validity_to }}</td>
+                                  <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
+                                  <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
                                   <td class="text-center"><a href="{{url('downloads/'.$value->file_upload)}}" >View</a></td>
 
                                   <td class="text-center">

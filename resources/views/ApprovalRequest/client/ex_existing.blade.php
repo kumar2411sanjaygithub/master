@@ -21,11 +21,18 @@
            
                <div class="row">
                   <div class="col-xs-12">
+                    <div class="row">
+                      <div class="col-md-10">
                           <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#home">NEW</a></li>
                         <li><a data-toggle="tab" href="#menu1">MODIFIED</a></li>
                         <li><a data-toggle="tab" href="#menu2">DELETED</a></li>
                      </ul>
+                   </div>
+                   <div class="col-md-2 mt8">
+                       <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right mr"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+                   </div>
+                 </div>
                      <div class="tab-content">
                         <div id="home" class="tab-pane fade in active">
                            <div class="box">
@@ -53,7 +60,7 @@
                     <a data-toggle="modal" data-target="#myModalRej" class="btn btn-danger btn-xs mlt">REJECT ALL</a>
                   </form>
                   @endif
-                  <a href="{{url('client/existing')}}"><button type="button" class="btn btn-info btn-xs pull-right mr"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+
 
                       <div id="myModal" class="modal fade" style="display: none;">
                         <div class="modal-dialog modal-confirm">
@@ -124,8 +131,8 @@
                                                <td class="text-center vl"><input type="checkbox"   name="select_all" value="{{ $value->id }}" class="minimal1 deletedbutton"></td>
                                                <td class="text-center vl">{{ $i }}</td>
                                                <td class="text-center vl">{{ $value->ex_type}}</td>
-                                               <td class="text-center vl">{{ $value->validity_from }}</td>
-                                               <td class="text-center vl">{{ $value->validity_to }}</td>
+                                               <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
+                                               <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
                                                <td class="text-center vl"><a href="{{url('downloads/'.$value->file_upload)}}" >View</a></td>
                                              <td class="vl"  style="padding:5px!important;"><a href="/addexchange/{{ $value->id }}/approved/exchange_temp"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/addexchange/{{ $value->id }}/rejected/exchange_temp"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
                                           </tr>
@@ -234,8 +241,21 @@
                                                <td style="padding:5px!important;"><input type="checkbox" class="minimal1 deletedbuttonM" name="select_allM" value="{{ $value->id }}"></td>
                                                <td class="text-center vl">{{ $i }}</td>
                                                <td class="text-center vl">{{ $input_lebels[$value->attribute_name]}}</td>
-                                               <td class="text-center vl">{{ $value->old_att_value }}</td>
-                                               <td class="text-center vl">{{ $value->updated_attribute_value }}</td>
+                                               <td class="text-center vl">
+                                                @if(strstr($input_lebels[$value->attribute_name], 'Date') !== false)
+                                                {{ date('d/m/Y',strtotime($value->old_att_value)) }}
+                                                @else
+                                                  {{$value->old_att_value}}
+                                                @endif
+                                                
+                                              </td>
+                                               <td class="text-center vl">
+                                                @if(strstr($input_lebels[$value->attribute_name], 'Date') !== false)
+                                                {{ date('d/m/Y',strtotime($value->updated_attribute_value)) }}
+                                                @else
+                                                  {{$value->updated_attribute_value}}
+                                                @endif
+                                               </td>
                                              <td  class="vl"><a href="/exchange/modified/{{ $value->id }}/approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/exchange/modified/{{ $value->id }}/rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
                                           </tr>
                                         <?php
@@ -347,8 +367,8 @@
                                                     <td style="padding:5px!important;"><input type="checkbox" class="minimal1 deletedbuttonD" name="select_allD" value="{{ $value->id }}"></td>
                                                     <td class="text-center">{{ $i }}</td>
                                                     <td class="text-center">{{ $value->ex_type}}</td>
-                                                    <td class="text-center">{{ $value->validity_from }}</td>
-                                                    <td class="text-center">{{ $value->validity_to }}</td>
+                                                    <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
+                                                    <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
                                                     <td class="text-center">{{ $value->file_upload }}</td>
                                                     <td class="text-center vl">
 
