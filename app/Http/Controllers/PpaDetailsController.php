@@ -20,12 +20,21 @@ class PpaDetailsController extends Controller
     $clientData = Client::all();
     return view('ppa.ppa_details',compact('ppaData','clientData'));
   }
+  public function findbid($id)
+  {
+    $id = $id;
+    $ppaData = Client::where('id',$id)->first();
+    $clientData = Client::all();
+    return view('ppa.bidsetting',compact('ppaData','id','clientData'));
+  }
 public function findppa($id)
 {
   $id = $id;
-  $ppaData = Client::where('id',$id)->first();
+  // $ppaData = Client::where('id',$id)->first();
+  $ppaData = Ppadetails::where('client_id',$id)->paginate(10);
+  // dd($ppaData);
   $clientData = Client::all();
-  return view('ppa.bidsetting',compact('ppaData','id','clientData'));
+  return view('ppa.addppa',compact('ppaData','id','clientData'));
 }
   public function saveppa(Request $request)
   {
@@ -47,11 +56,10 @@ public function findppa($id)
            $imageName = "";
        }
        $ppadetails = new Ppadetails();
-       $ppadetails->validity_from = $request->input('validity_from');
-       $ppadetails->validity_to = $request->input('validity_to');
+       $ppadetails->validity_from = date('Y-m-d', strtotime($request->input('validity_from')));
+       $ppadetails->validity_to = date('Y-m-d', strtotime($request->input('validity_to')));
        $ppadetails->client_id = $request->input('client');
        $ppadetails->file_path = $imageName;
-
        $ppadetails->save();
        return redirect()->back()->with('message', 'Data Save Successfully!');
   }
@@ -83,14 +91,11 @@ public function findppa($id)
                $imageName = $request->input('old');
            }
         $ppa = Ppadetails::find($id);
-        $ppa->validity_from = $request->input('validity_from');
-        $ppa->validity_to = $request->input('validity_to');
+        $ppa->validity_from = date('Y-m-d', strtotime($request->input('validity_from')));
+        $ppa->validity_to = date('Y-m-d', strtotime($request->input('validity_to')));
         $ppa->file_path = $imageName;
-        // $v = $department->getDirty();
-        // dd($ppa);
         $ppa->save();
-        // dd("radhe");
-        return redirect()->route('addppadetailss')->with('updatemsg', 'Data Update Successfully!');
+        return redirect()->route('addppadetailsfind',['id'=>$id])->with('updatemsg', 'Data Update Successfully!');
     }
 
     public function deleteppa($id)
@@ -131,7 +136,7 @@ public function addbidsetting(Request $request,$id=''){
     $ppa->bid_cut_off_time = $request->input('bid_cut_off_time');
     $ppa->trader_type = $request->input('trader_type');
     $ppa->save();
-    return redirect()->route('addppadetailsfind',['id'=>$id])->with('addmsg', 'Data Add Successfully!');
+    return redirect()->route('addbiddetailsfind',['id'=>$id])->with('addmsg', 'Data Add Successfully!');
 }
 
 }

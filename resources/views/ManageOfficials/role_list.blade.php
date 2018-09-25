@@ -19,11 +19,18 @@
 <div class="row">
   <div class="col-xs-12">
    @if (\Session::has('success'))
-      <div class="alert alert-success" id="successMessage">
-         <ul>
-             <li>{!! \Session::get('success') !!}</li>
-         </ul>
+    <div class="alert alert-success alert-dismissible fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+     <span class="glyphicon glyphicon-ok"></span> {!! \Session::get('success') !!}
+    </div>
+
+   @endif
+     @if (\Session::has('error'))
+     <div class="alert alert-danger alert-dismissible fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+       <span class="glyphicon glyphicon-ban-circle"></span> &nbsp;{!! \Session::get('error') !!}
       </div>
+
    @endif
 <div class="box adddeportment box @if($errors->isEmpty())hidden @else  @endif">
   <div class="box-body">

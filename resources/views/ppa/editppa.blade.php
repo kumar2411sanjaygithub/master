@@ -57,7 +57,7 @@
                           <span class="text-danger">{{ $errors->first('file_path') }}</span>
                      </div>
                      <div class="col-md-1" style="margin-top:20px;"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                     <div class="col-md-1" style="margin-top:20px;"><button type="reset" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
+                     <div class="col-md-1" style="margin-top:20px;"><a href="/addppadetailsfind/{{$ppaData->client_id}}" class="btn btn-block btn-danger btn-xs">CANCEL</a></div>
                   </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
 
                  $('#datepicker').datepicker({
                   autoclose: true,
-                  format: 'dd/mm/yyyy',
+                  format: 'yyyy-mm-dd',
                 }).on('changeDate', function (selected) {
                    var startDate = new Date(selected.date.valueOf());
                    $('#datepicker1').datepicker('setStartDate', startDate);
@@ -80,7 +80,7 @@
                  });
                 $('#datepicker1').datepicker({
                   autoclose: true,
-                   format: 'dd/mm/yyyy'
+                  format: 'yyyy-mm-dd',
                 }).on('changeDate', function (selected) {
                      var endDate = new Date(selected.date.valueOf());
                      $('#datepicker').datepicker('setEndDate', endDate);
