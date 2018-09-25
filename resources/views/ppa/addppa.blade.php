@@ -141,8 +141,8 @@
               @forelse ($ppaData as $key => $value)
                <tr>
                   <td>{{ $i }}</td>
-                  <td>{{$value->validity_from}}</td>
-                  <td>{{$value->validity_to}}</td>
+                  <td>{{date('d/m/Y', strtotime($value->validity_from))}}</td>
+                  <td>{{date('d/m/Y',strtotime($value->validity_to))}}</td>
                   <td><a href="{{url('/documents/ppa/'.$value->file_path)}}" download='download'>{{$value->file_path}}</a></td>
                   <td class="text-center">
                     <a href="/ppa/editppa/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
