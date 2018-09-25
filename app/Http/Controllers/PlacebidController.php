@@ -383,8 +383,8 @@ class PlacebidController extends Controller
           // print_r(DB::getQueryLog());
           // print_r($exchangeData);
           // die();
-        // if(!empty($exchangeData)||!($validationSetting->exchange)){
-          if(empty($exchangeData)||$validationSetting->exchange){
+        if(!empty($exchangeData)||!($validationSetting->exchange)){
+          // if(empty($exchangeData)||$validationSetting->exchange){
                 // DB::enableQueryLog();
                 $nocData = Noc::selectRaw('*')
                 ->where('client_id',$request->input('client_id'))
