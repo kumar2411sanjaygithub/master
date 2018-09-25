@@ -379,8 +379,8 @@ Route::get('/scheduling/downloadA/{id}','SchedulingController@downloadAmbSchedul
  Route::post('/client/contact/modified/{tag}','ContactApprovalController@clientContactModApp');
  Route::post('/client/contact/deleted/{tag}','ContactApprovalController@clientContactDelApp');
  Route::post('/client/{tag}/bank/{bank}','ClientApprovalController@multipleApproveBank');
- Route::post('/client/back/modified/{tag}','ClientApprovalController@clientBankModApp');
- Route::post('/client/back/deleted/{tag}','ClientApprovalController@clientBankDelApp');
+ Route::post('/client/{bank}/modified/{tag}','ClientApprovalController@clientBankModApp');
+ Route::post('/client/{bank}/deleted/{tag}','ClientApprovalController@clientBankDelApp');
  Route::post('/client/exchange/{tag}','ExchangeApprovalController@clientExchangeApp');
  Route::post('/client/exchange/modified/{tag}','ExchangeApprovalController@clientExchangeMode');
  Route::post('/client/exchange/deleted/{tag}','ExchangeApprovalController@clientExchangeDel');

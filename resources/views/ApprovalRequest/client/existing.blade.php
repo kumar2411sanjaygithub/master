@@ -13,10 +13,10 @@
             <!-- Main content -->
             <section class="content">
                @if (\Session::has('success'))
-            <div class="alert alert-success mt10" >
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-            {!! \Session::get('success') !!}
-            </div>
+              <div class="alert alert-success alert-dismissible fade in">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                 <span class="glyphicon glyphicon-ok"></span> &nbsp; {!! \Session::get('success') !!}
+                </div>
             @endif
                <div class="row">
                   <div class="col-xs-12">
@@ -64,18 +64,19 @@
                       <div id="myModal" class="modal fade" style="display: none;">
                         <div class="modal-dialog modal-confirm">
                           <div class="modal-content">
-                            <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                            <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                               <h4 class="modal-title text-center">ARE YOU SURE?</h4>
-                            </div>
+                            </div> -->
                             <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                              <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                              <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? </p></center>
                             </div>
                             <div class="modal-footer">
-                              <button type="button" href="#"   class="btn btn-danger">
+                               <div class="text-center">
+                              <button type="button" href="#"   class="btn btn-info">
                                 <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
                               </button>
-                              <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
-
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                            </div>
                             </div>
                           </div>
                         </div>
@@ -83,18 +84,19 @@
                       <div id="myModalRej" class="modal fade" style="display: none;">
                         <div class="modal-dialog modal-confirm">
                           <div class="modal-content">
-                            <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                            <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                               <h4 class="modal-title text-center">ARE YOU SURE?</h4>
-                            </div>
+                            </div> -->
                             <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                              <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECTED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                              <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECTED ALL RECORDS? </p></center>
                             </div>
                             <div class="modal-footer">
-                              <button type="button" href="#"   class="btn btn-danger">
-                                <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rej">Yes</a>
+                               <div class="text-center">
+                              <button type="button" href="#"   class="btn btn-info">
+                                <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
                               </button>
-                              <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
-
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                            </div>
                             </div>
                           </div>
                         </div>
@@ -119,7 +121,7 @@
                                           </tr>
                                        </thead>
                                        <tbody>
-                                          @isset($Addbankdata)
+                                          @if(count($Addbankdata)>0)
                                           <?php
                                           $i=1;
                                           ?>
@@ -139,7 +141,9 @@
                                        $i++;
                                        ?>
                                        @endforeach
-                                       @endisset
+                                       @else
+                                       <tr class="alert-danger" ><th colspan='8'>No Data Found.</th></tr>
+                                       @endif
                                        </tbody>
                                     </table>
                                  </div>
@@ -177,18 +181,19 @@
                 <div id="myModalM" class="modal fade" style="display: none;">
                   <div class="modal-dialog modal-confirm">
                     <div class="modal-content">
-                      <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                      <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                         <h4 class="modal-title text-center">ARE YOU SURE?</h4>
-                      </div>
+                      </div> -->
                       <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                        <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                        <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? </p></center>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" href="#"   class="btn btn-danger">
+                         <div class="text-center">
+                        <button type="button" href="#"   class="btn btn-info">
                           <a href="" style="color:#fff;text-decoration:none" id="delete-button-modalM">Yes</a>
                         </button>
-                        <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
-
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                      </div>
                       </div>
                     </div>
                   </div>
@@ -196,18 +201,19 @@
                 <div id="myModalRejM" class="modal fade" style="display: none;">
                   <div class="modal-dialog modal-confirm">
                     <div class="modal-content">
-                      <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                      <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                         <h4 class="modal-title text-center">ARE YOU SURE?</h4>
-                      </div>
+                      </div> -->
                       <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                        <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECTED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                        <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECTED ALL RECORDS? </p></center>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" href="#"   class="btn btn-danger">
-                          <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rejM">Yes</a>
+                         <div class="text-center">
+                        <button type="button" href="#"   class="btn btn-info">
+                          <a href="" style="color:#fff;text-decoration:none" id="delete-button-modalM">Yes</a>
                         </button>
-                        <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
-
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                      </div>
                       </div>
                     </div>
                   </div>
@@ -231,7 +237,7 @@
                                        </thead>
                                        <tbody>
 
-                                              @isset($bankData)
+                                              @if(count($bankData)>0)
                                           <?php
                                           $i=1;
                                            $input_lebels = \App\Common\Languages\ManageClientLang::input_labels();
@@ -252,7 +258,9 @@
                                        $i++;
                                        ?>
                                        @endforeach
-                                       @endisset
+                                       @else
+                                       <tr class="alert-danger" ><th colspan='8'>No Data Found.</th></tr>
+                                       @endif
 
 
                                        </tbody>
@@ -269,7 +277,7 @@
                                     <div class="col-md-6"></div>
                                     <div class="col-md-4 text-right">
                                 @if (count($deletedbnkData) > 0)
-                                    <form class="pull-right" action="{{ url()->to('client/contact/deleted/Approved') }}" method="post" id="approve_data">
+                                    <form class="pull-right" action="{{ url()->to('client/bank/deleted/Approved') }}" method="post" id="approve_data">
                                       {{ csrf_field() }}
                                       <input type="hidden" name="selected_status" class="selected_statusD">
                                       <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deletedD" name="cdw5" id="cdw5">APPROVE ALL</button>
@@ -279,7 +287,7 @@
                                     @endif
 
                                     @if (count($deletedbnkData) > 0)
-                                    <form class="pull-right" action="{{ url()->to('client/contact/deleted/Rejected') }}" method="post" id="approve_data">
+                                    <form class="pull-right" action="{{ url()->to('client/bank/deleted/Rejected') }}" method="post" id="approve_data">
                                       {{ csrf_field() }}
                                       <input type="hidden" name="selected_status" class="selected_statusD">
                                       <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted-rejD" name="cdw5" id="cdw5">REJECT ALL</button>
@@ -292,39 +300,41 @@
                                         <div id="myModalD" class="modal fade" style="display: none;">
                                           <div class="modal-dialog modal-confirm">
                                             <div class="modal-content">
-                                              <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                                              <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                                                 <h4 class="modal-title text-center">ARE YOU SURE?</h4>
-                                              </div>
+                                              </div> -->
                                               <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                                                <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                                                <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? </p></center>
                                               </div>
                                               <div class="modal-footer">
-                                                <button type="button" href="#"   class="btn btn-danger">
-                                                  <a href="" style="color:#fff;text-decoration:none" id="delete-button-modalM">Yes</a>
+                                                 <div class="text-center">
+                                                <button type="button" href="#"   class="btn btn-info">
+                                                  <a href="" style="color:#fff;text-decoration:none" id="delete-button-modalD">Yes</a>
                                                 </button>
-                                                <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
-
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                              </div>
                                               </div>
                                             </div>
                                           </div>
                                         </div>
                                         <div id="myModalRejD" class="modal fade" style="display: none;">
                                           <div class="modal-dialog modal-confirm">
-                                            <div class="modal-content">
-                                              <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
-                                                <h4 class="modal-title text-center">ARE YOU SURE?</h4>
+                                              <div class="modal-content">
+                                                <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                                                  <h4 class="modal-title text-center">ARE YOU SURE?</h4>
+                                                </div> -->
+                                                <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                                                  <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECTED ALL RECORDS? </p></center>
+                                                </div>
+                                                <div class="modal-footer">
+                                                   <div class="text-center">
+                                                  <button type="button" href="#"   class="btn btn-info">
+                                                    <a href="" style="color:#fff;text-decoration:none" id="delete-button-modalD">Yes</a>
+                                                  </button>
+                                                  <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                                </div>
+                                                </div>
                                               </div>
-                                              <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                                                <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECTED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
-                                              </div>
-                                              <div class="modal-footer">
-                                                <button type="button" href="#"   class="btn btn-danger">
-                                                  <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rejM">Yes</a>
-                                                </button>
-                                                <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
-
-                                              </div>
-                                            </div>
                                           </div>
                                         </div>
 
@@ -349,7 +359,7 @@
                                        </thead>
                                        <tbody>
 
-                                           @isset($deletedbnkData)
+                                           @if(count($deletedbnkData)>0)
                                              <?php
                                              $i=1;
                                              ?>
@@ -377,7 +387,9 @@
                                           $i++;
                                           ?>
                                           @endforeach
-                                          @endisset
+                                       @else
+                                       <tr class="alert-danger" ><th colspan='8'>No Data Found.</th></tr>
+                                       @endif
 
                                        </tbody>
                                     </table>
