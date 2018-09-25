@@ -377,6 +377,7 @@ $(document).ready(function(){
       var amount = $("#psm_amount").val();
        var per = $("#exposure_percent").val();
        var calcPrice  = (amount - ( amount * per / 100 )).toFixed(2);
+       var calcPrice = amount - calcPrice;
        $("#exposure").val(calcPrice);
     });
 });

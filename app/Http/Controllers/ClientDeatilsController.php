@@ -148,7 +148,7 @@ class ClientDeatilsController extends Controller
     					 }
 
     				}
-                }    
+                }
 				$discom_array=array();
 				$json_discom=json_decode(@$sldc->discom);
                 if(isset($json_discom))

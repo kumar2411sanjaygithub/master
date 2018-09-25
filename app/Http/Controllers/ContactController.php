@@ -123,7 +123,7 @@ class ContactController extends Controller
         $contact = Contact::find($contact_detail_id);
         $contact->del_status = 1;
         $contact->update();
-       
+
 
 
         return redirect()->back()->with('message','contact detail request successfully and sent to approver');
@@ -132,7 +132,7 @@ class ContactController extends Controller
     public function sevices($id)
     {
         $client_id=$id;
-        $alert_type = ServiseAlert::select('*')->where('client_id',$id)->get();
+        $alert_type = ServiseAlert::select('*')->where('client_id',$client_id)->get();
         return view('ManageClient.service',compact('client_id','alert_type'));
 
     }
