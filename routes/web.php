@@ -59,48 +59,73 @@ Route::group(['middleware' => 'auth'], function ()
 
 	Route::get('/manageofficials/deleteofficialsdetail/{id}',['as'=>'deleteofficialsdata','uses'=>'ManageOfficialsController@deleteemployee']);
 
-
-		// PPA Bid Setting
-    Route::get('/addppadetailsfind/{id}',['as'=>'addppadetailsfind','uses'=>'PpaDetailsController@findppa']);
-    Route::post('/ppa/ppadetails',['as'=>'ppadetails','uses'=>'PpaDetailsController@saveppa']);
+  /*******************************************************
+  | PPA Bid Setting Routes
+  | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
+  /*******************************************************/
+  Route::get('/addppadetailsfind/{id}',['as'=>'addppadetailsfind','uses'=>'PpaDetailsController@findppa']);
+  Route::get('/addbiddetailsfind/{id}',['as'=>'addbiddetailsfind','uses'=>'PpaDetailsController@findbid']);
+  Route::post('/ppa/ppadetails',['as'=>'ppadetails','uses'=>'PpaDetailsController@saveppa']);
  	Route::get('/ppa/addppadetails',['as'=>'addppadetailss','uses'=>'PpaDetailsController@ppadetails']);
   Route::get('/ppa/editppa/{id}',['as'=>'ppa.editppa','uses'=>'PpaDetailsController@editppa']);
   Route::post('/ppa/updateppadata/{id}',['as'=>'ppa.updateppadata','uses'=>'PpaDetailsController@updateppadata']);
   Route::get('/ppa/deleteppa/{id}',['as'=>'deleteppa','uses'=>'PpaDetailsController@deleteppa']);
 
-// ValidationSetting
-Route::get('/validationSetting/validationSetting',['as'=>'validationSetting','uses'=>'ValidationSettingController@validationsettingview']);
-Route::post('/validationSetting/validationSetting',['as'=>'addppadetails','uses'=>'ValidationSettingController@savevalidationsetting']);
-Route::get('/deleteeditvalidationsetting/{id}',['as'=>'deleteeditvalidationsetting','uses'=>'ValidationSettingController@deletevalidation']);
-Route::get('/editvalidationsetting/{id}',['as'=>'editvalidationsetting','uses'=>'ValidationSettingController@editvalidationsetting']);
-Route::post('updateValidationSetting/{id}',['as'=>'updateValidationSetting','uses'=>'ValidationSettingController@updateValidationSetting']);
+  /*******************************************************
+  | ValidationSetting Routes
+  | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
+  /*******************************************************/
+  Route::get('/validationSetting/validationSetting',['as'=>'validationSetting','uses'=>'ValidationSettingController@validationsettingview']);
+  Route::post('/validationSetting/validationSetting',['as'=>'addppadetails','uses'=>'ValidationSettingController@savevalidationsetting']);
+  Route::get('/deleteeditvalidationsetting/{id}',['as'=>'deleteeditvalidationsetting','uses'=>'ValidationSettingController@deletevalidation']);
+  Route::get('/editvalidationsetting/{id}',['as'=>'editvalidationsetting','uses'=>'ValidationSettingController@editvalidationsetting']);
+  Route::post('updateValidationSetting/{id}',['as'=>'updateValidationSetting','uses'=>'ValidationSettingController@updateValidationSetting']);
 
-// PSM Details
-Route::get('/psm/psmdetails',['as'=>'psmdetials','uses'=>'PsmdetailsController@viewclient']);
-Route::post('/psm/psmdetails/{id}',['as'=>'addpsmdetails','uses'=>'PsmdetailsController@addpsmdetailssubmit']);
-Route::get('/deletepsmdetails/{id}',['as'=>'deletepsm','uses'=>'PsmdetailsController@deletepaymentsecuritymargin']);
-Route::get('/editpsmdetails/{id}/{client_id}',['as'=>'editpsmdetails','uses'=>'PsmdetailsController@editpsmdetails']);
-Route::post('updatepsm/{id}',['as'=>'updatepsm','uses'=>'PsmdetailsController@updatepsm']);
-Route::get('/psm/psmdetails/{id}',['as'=>'psmdata','uses'=>'PsmdetailsController@findPsmData']);
-Route::post('addpsmexposure/{id}',['as'=>'addpsmexposure','uses'=>'PsmdetailsController@addpsmexposure']);
-Route::get('/editexposure/{id}/{client_id}',['as'=>'editexposure','uses'=>'PsmdetailsController@editexposure']);
+  /*******************************************************
+  | PSM Details Routes
+  | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
+  /*******************************************************/
+  Route::get('/psm/psmdetails',['as'=>'psmdetials','uses'=>'PsmdetailsController@viewclient']);
+  Route::post('/psm/psmdetails/{id}',['as'=>'addpsmdetails','uses'=>'PsmdetailsController@addpsmdetailssubmit']);
+  Route::get('/deletepsmdetails/{id}',['as'=>'deletepsm','uses'=>'PsmdetailsController@deletepaymentsecuritymargin']);
+  Route::get('/editpsmdetails/{id}/{client_id}',['as'=>'editpsmdetails','uses'=>'PsmdetailsController@editpsmdetails']);
+  Route::post('updatepsm/{id}',['as'=>'updatepsm','uses'=>'PsmdetailsController@updatepsm']);
+  Route::get('/psm/psmdetails/{id}',['as'=>'psmdata','uses'=>'PsmdetailsController@findPsmData']);
+  Route::post('addpsmexposure/{id}',['as'=>'addpsmexposure','uses'=>'PsmdetailsController@addpsmexposure']);
+  Route::get('/editexposure/{id}/{client_id}',['as'=>'editexposure','uses'=>'PsmdetailsController@editexposure']);
 
-// insufficent PSM
+  /*******************************************************
+  | insufficent PSM Routes
+  | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
+  /*******************************************************/
+  Route::get('/psm/insufficientpsm',['as'=>'insufficientpsm','uses'=>'PsmdetailsController@viewinsuffi']);
 
-Route::get('/psm/insufficientpsm',['as'=>'insufficientpsm','uses'=>'PsmdetailsController@viewinsuffi']);
-
-
-  // bid setting
+  /*******************************************************
+  | bid setting Routes
+  | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
+  /*******************************************************/
   Route::get('/ppa/bidsetting',['as'=>'bid.bidview','uses'=>'PpaDetailsController@viewbidsetting']);
   Route::post('/ppa/bidsetting',['as'=>'addbidsetting','uses'=>'PpaDetailsController@addbidsetting']);
   Route::get('/ppa/biddata',['as'=>'biddata','uses'=>'PpaDetailsController@findBidData']);
 
-    // TM setting
-    Route::get('/tm/tmnamesetting',['as'=>'tmnameview','uses'=>'TmNameController@view']);
-    Route::post('/tm/tmnamesetting',['as'=>'tmnameupdate','uses'=>'TmNameController@update']);
+  /*******************************************************
+  | TM setting Routes
+  | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
+  /*******************************************************/
+  Route::get('/tm/tmnamesetting',['as'=>'tmnameview','uses'=>'TmNameController@view']);
+  Route::post('/tm/tmnamesetting',['as'=>'tmnameupdate','uses'=>'TmNameController@update']);
 
+  /*******************************************************
+  | CommonInfo Routes
+  | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
+  /*******************************************************/
+  Route::get('/commonInfo/connoninfo',['as'=>'commonview','uses'=>'CommonInfoController@view']);
+  Route::post('/commonInfo/connoninfo',['as'=>'commonupdate','uses'=>'CommonInfoController@updatecommondata']);
 
-  // POC & DISCOM LOSSES
+  /*******************************************************
+  | POC & DISCOM LOSSES Routes
+  | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
+  /*******************************************************/
   Route::get('/poc',['as'=>'pocdetails','uses'=>'PocController@viewpocdetails']);
   Route::post('/poc',['as'=>'addpoc','uses'=>'PocController@savepoc']);
   Route::get('/poc/{id}',['as'=>'poc.editpoc','uses'=>'PocController@editpoc']);

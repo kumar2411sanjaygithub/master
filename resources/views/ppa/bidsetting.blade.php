@@ -50,7 +50,7 @@
                   $(document).ready(function() {
                        $("#select-client").change(function(e) {
                              var id = this.value;
-                             var url = '{{url('addppadetailsfind')}}/'+id;
+                             var url = '{{url('addbiddetailsfind')}}/'+id;
 
                              window.location = url;
                        });

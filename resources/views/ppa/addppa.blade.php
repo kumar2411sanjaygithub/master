@@ -169,7 +169,7 @@
      //Date picker
         $('#datepicker').datepicker({
          autoclose: true,
-         format: 'dd/mm/yyyy',
+         format: 'yyyy-mm-dd',
        }).on('changeDate', function (selected) {
           var startDate = new Date(selected.date.valueOf());
           $('#datepicker1').datepicker('setStartDate', startDate);
@@ -178,7 +178,7 @@
         });
        $('#datepicker1').datepicker({
          autoclose: true,
-          format: 'dd/mm/yyyy'
+          format: 'yyyy-mm-dd'
        }).on('changeDate', function (selected) {
             var endDate = new Date(selected.date.valueOf());
             $('#datepicker').datepicker('setEndDate', endDate);
