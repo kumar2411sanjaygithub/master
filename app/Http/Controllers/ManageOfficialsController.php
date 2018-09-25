@@ -235,7 +235,7 @@ class ManageOfficialsController extends Controller
         ]);
 
        if ($validator->fails()) {
-            return redirect()->back()->withInput();
+            return redirect()->back()->withInput()->withErrors($validator);
        }
 
         $employees =  User::find($id);

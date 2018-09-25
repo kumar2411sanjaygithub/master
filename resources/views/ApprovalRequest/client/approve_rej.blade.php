@@ -398,7 +398,7 @@
                         <input  disabled type="radio" class="minimal1 disabled-class" value="yes" name="common_feeder_option" id="rt" @if((isset($clientdata->common_feeder_option)&&$clientdata->common_feeder_option=='yes'))? checked="checked" @endif>&nbsp&nbsp<label for="rt">YES</label>
                      </div>
                      <div class="col-md-6 pull-Left">
-                        <input  disabled type="radio" class="minimal1 disabled-class" value="no" name="common_feeder_option" id="rt1" @if((isset($clientdata->common_feeder_option)&&$clientdata->common_feeder_option<>'no'))? checked="checked" @endif>&nbsp&nbsp<label for="rt1">NO</label>
+                        <input  disabled type="radio" class="minimal1 disabled-class" value="no" name="common_feeder_option" id="rt1" @if((isset($clientdata->common_feeder_option)&&$clientdata->common_feeder_option=='no'))? checked="checked" @endif>&nbsp&nbsp<label for="rt1">NO</label>
                      </div>
                   </div>
                </div>
@@ -588,5 +588,17 @@ $('input[type="checkbox"]#saba,.saba').click(function(){
        $("#del_telephone").val("");
      }
    });
+
+$(document).ready(function() {
+   if ($('#rt1').is(":checked")) 
+   {
+
+      $("#hidecontentDiv").hide();
+   }
+   if ($('#rt').is(":checked")) 
+   {
+      $("#hidecontentDiv").show();
+   }
+});
 </script>
 @endsection

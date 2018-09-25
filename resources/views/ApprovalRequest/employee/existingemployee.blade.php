@@ -59,18 +59,19 @@
                 <div id="myModal" class="modal fade" style="display: none;">
                   <div class="modal-dialog modal-confirm">
                     <div class="modal-content">
-                      <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                      <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                         <h4 class="modal-title text-center">ARE YOU SURE?</h4>
-                      </div>
+                      </div> -->
                       <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                        <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                        <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? </p></center>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" href="#"   class="btn btn-danger">
+                         <div class="text-center">
+                        <button type="button" href="#"   class="btn btn-info">
                           <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
                         </button>
-                        <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
-
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                      </div>
                       </div>
                     </div>
                   </div>
@@ -78,18 +79,19 @@
                 <div id="myModalRej" class="modal fade" style="display: none;">
                   <div class="modal-dialog modal-confirm">
                     <div class="modal-content">
-                      <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                      <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                         <h4 class="modal-title text-center">ARE YOU SURE?</h4>
-                      </div>
+                      </div> -->
                       <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                        <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                        <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECTED ALL RECORDS? </p></center>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" href="#"   class="btn btn-danger">
-                          <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rej">Yes</a>
+                         <div class="text-center">
+                        <button type="button" href="#"   class="btn btn-info">
+                          <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
                         </button>
-                        <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
-
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                      </div>
                       </div>
                     </div>
                   </div>
@@ -115,7 +117,7 @@
       </thead>
       <tbody>
 
-                            @isset($employeeData)
+                            @if(count($employeeData)>0)
 
                             <?php $i=1; ?>
                             @foreach ($employeeData as $key => $value)
@@ -164,7 +166,9 @@
                               $i++;
                             ?>
                               @endforeach
-                              @endisset
+                                       @else
+                                       <tr class="alert-danger" ><th colspan='9'>No Data Found.</th></tr>
+                                       @endif
       </tbody>
       </table>
 
