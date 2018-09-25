@@ -8,6 +8,7 @@ use App\Noc;
 use App\Approvalrequest;
 use App\Client;
 use App\Pocdetails;
+use Validator;
 use App\Discomdetails;
 use DB;
 
@@ -41,18 +42,26 @@ class NocController extends Controller
             'validity_to' => 'required',
             //'upload_noc_doc' => 'required',
         ]);
-         if($validator->fails())
-        {
-            return Redirect::back()->withErrors($validator);
-        }
+        //  if($validator->fails())
+        // {
+        //     return Redirect::back()->withInput($request->input())->withErrors($validator);
+        // }
+        // Convert Date Format
+        $from_date = strtr($request->input('validity_from'), '/', '-');
+        $validity_from = date("Y-m-d", strtotime($from_date));
+
+        // Convert Date Format
+        $to_date = strtr($request->input('validity_to'), '/', '-');
+        $validity_to = date("Y-m-d", strtotime($to_date));
+
     	 $noc = new NocTemp();
         $noc->final_quantum = $request->input('final_quantum');
         $noc->noc_periphery = $request->input('noc_periphery');
         $noc->noc_quantum = $request->input('noc_quantum');
         $noc->noc_type = $request->input('noc_type');
         $noc->poc_losses = $request->input('poc_losses');
-        $noc->validity_from =$request->input('validity_from');
-        $noc->validity_to = $request->input('validity_to');
+        $noc->validity_from =$validity_from;
+        $noc->validity_to = $validity_to;
         $noc->noc_periphery = $request->input('noc_periphery');
         $noc->poc_losses = $request->input('poc_losses');
         $noc->stu_losses = $request->input('stu_losses');
@@ -109,10 +118,18 @@ class NocController extends Controller
         $datas['region'] = $nocdetail['region'];
         $datas['region_entity'] = $nocdetail['region_entity'];
        
+               // Convert Date Format
+        $from_date = strtr($request->input('validity_from'), '/', '-');
+        $validity_from = date("Y-m-d", strtotime($from_date));
+
+        // Convert Date Format
+        $to_date = strtr($request->input('validity_to'), '/', '-');
+        $validity_to = date("Y-m-d", strtotime($to_date));
+       
         $dataArray =array();
         $dataArray['noc_type'] = $request->input('noc_type');
-        $dataArray['validity_from'] = $request->input('validity_from');
-        $dataArray['validity_to'] = $request->input('validity_to');
+        $dataArray['validity_from'] = $validity_from;
+        $dataArray['validity_to'] = $validity_to;
         $dataArray['upload_noc'] = $request->input('upload_noc');
         $dataArray['final_quantum'] = $request->input('final_quantum');
         $dataArray['noc_quantum'] = $request->input('noc_quantum');

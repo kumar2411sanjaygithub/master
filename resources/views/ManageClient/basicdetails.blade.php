@@ -50,7 +50,7 @@
             <div class="row">
               <div class="col-md-3  {{ $errors->has('pri_contact_no') ? 'has-error' : '' }}">
             <label  class="control-label">PRIMARY CONTACT NUMBER</label><span class="text-danger"><strong>*</strong></span>
-              <input class="form-control input-sm num" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" value="{{old('pri_contact_no')}}">
+              <input class="form-control input-sm num" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" value="{{old('pri_contact_no')}}" maxlength="10">
                <span class="text-danger">{{ $errors->first('pri_contact_no') }}</span>
               </div>
               <div class="col-md-3 {{ $errors->has('email') ? 'has-error' : '' }}">
@@ -383,15 +383,15 @@
 
               <div class="form-group mt5">
                 <div class="col-md-1" >
-                    <input type="checkbox"  id="inter_discom" name="inter_discom" value="{{old('inter_discom')}}" class=" minimal "></div>
+                    <input type="checkbox"  id="inter_discom" name="inter_discom" value="{{old('DISCOM')}}" class=" minimal1 "></div>
                       <div class="col-md-3 " ><label for="inter_discom">DISCOM</label>
                   </div>
                 <div class="col-md-1 "  >
-                    <input type="checkbox"  id="inter_stu" name="inter_stu" value="{{old('inter_stu')}}" class=" minimal"></div>
+                    <input type="checkbox"  id="inter_stu" name="inter_stu" value="{{old('STU')}}" class=" minimal1"></div>
                     <div class="col-md-1 " ><label for="inter_stu">STU</label>
                 </div>
                <div class="col-md-1 ">
-                     <input type="checkbox"  id="inter_poc" name="inter_poc" value="{{old('inter_poc')}}" class=" minimal ">
+                     <input type="checkbox"  id="inter_poc" name="inter_poc" value="{{old('POC/CTU')}}" class=" minimal1 ">
                 </div>
                    <div class="col-md-5 " style="width:20%;margin-left:-3px;"><label for="inter_poc">POC/CTU</label></div>
                 </div>
@@ -400,13 +400,14 @@
             <label  class="control-label">DOES BELONG TO COMMON FEEDER?</label>
             <div class="form-group">
               <div class="col-md-6 pull-left">
-                  <input type="radio" class="flat-red" name="rt" id="rt">&nbsp&nbsp<label for="rt">YES</label>
+                  <input type="radio" class="flat-red1" value="yes" name="common_feeder_option" id="rt" >&nbsp&nbsp<label for="rt">YES</label>
               </div>
              <div class="col-md-6 pull-Left">
-                   <input type="radio" class="flat-red" name="rt" id="rt1">&nbsp&nbsp<label for="rt1">NO</label>
+                   <input type="radio" class="flat-red1" value="no" name="common_feeder_option" id="rt1">&nbsp&nbsp<label for="rt1">NO</label>
               </div>
             </div>
               </div>
+               <div id="hidecontentDiv">
               <div class="col-md-3">
             <label  class="control-label">FEEDER NAME</label>
             <input class="form-control input-sm" type="text" placeholder="ENTER FEEDER NAME" name="feeder_name" id="feeder_name" value="{{old('feeder_name')}}">
@@ -416,18 +417,18 @@
             <input class="form-control input-sm" type="text" placeholder="ENTER FEEDER CODE" name="feeder_code" id="feeder_code" value="{{old('feeder_code')}}">
               </div>
             </div>
-            <div class="row">
+
 
               <div class="col-md-3">
               <label  class="control-label"> NAME OF SUBSTATION</label>
             <input class="form-control input-sm" type="text" placeholder="ENTER SUBSTATION NAME" id="name_of_substation" name="name_of_substation" value="{{old('name_of_substation')}}">
               </div>
               <div class="col-md-3">
-            <label  class="control-label">MAXIMUM INJECTION QUANTUM</label>
+            <label  class="control-label">MAXIMUM INJECTION QUANTUM (MW)</label>
             <input class="form-control input-sm" type="text" placeholder="ENTER INJECTION QUANTUM" name="maxm_injection" id="maxm_injection" value="{{old('maxm_injection')}}">
               </div>
               <div class="col-md-3">
-            <label  class="control-label">MAXIMUM WITHDRAWAL QUANTUM</label>
+            <label  class="control-label">MAXIMUM WITHDRAWAL QUANTUM (MW)</label>
             <input class="form-control input-sm" type="text" placeholder="ENTER WITHDRAWAL QUANTUM" name="maxm_withdrawal" id="maxm_withdrawal" value="{{old('maxm_withdrawal')}}">
               </div>
             </div>
@@ -564,5 +565,33 @@ $('input[type="checkbox"]#saba,.saba').click(function(){
        $("#del_telephone").val("");
      }
    });
+
+$(document).ready(function() {
+    $("#rt").click(function() {
+        var test = $(this).val();
+
+        $("#hidecontentDiv").show();
+        //$("#Cars" + test).show();
+    });
+});
+$(document).ready(function() {
+    $("#rt1").click(function() {
+        var test = $(this).val();
+
+        $("#hidecontentDiv").hide();
+        //$("#Cars" + test).show();
+    });
+});
+// $(document).ready(function() {
+//    if ($('#rt1').is(":checked")) 
+//    {
+
+//       $("#hidecontentDiv").hide();
+//    }
+//    if ($('#rt').is(":checked")) 
+//    {
+//       $("#hidecontentDiv").show();
+//    }
+// });
 </script>
 @endsection

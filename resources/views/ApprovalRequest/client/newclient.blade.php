@@ -81,10 +81,10 @@
                         <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVED ALL RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" href="#"   class="btn btn-danger">
+                        <button type="button" href="#"   class="btn btn-info">
                           <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rej">Yes</a>
                         </button>
-                        <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
 
                       </div>
                     </div>
@@ -132,7 +132,7 @@
 
                                       <div class="text-center">{{$i}}</div>
                                       </td>
-                                    <td class="text-center"><a href="/basic/{{$value->id}}/{{'view'}}" id="pop">{{$value->company_name}}</a></td>
+                                    <td class="text-center"><a href="/basic/{{$value->id}}/view" id="pop">{{$value->company_name}}</a></td>
                                     <td class="text-center">{{$value->gstin}}</td>
                                     <td class="text-center">{{$value->pan}}</td>
                                     <td class="text-center">{{$value->cin}}</td>

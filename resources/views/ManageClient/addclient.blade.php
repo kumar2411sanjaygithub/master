@@ -64,7 +64,7 @@
 
 
 
-                                  <a href="/basic/{{$value->id}}/{{'edit'}}" class="text-decoration: underline" style="color:#008bdc;"><u>BASIC</u></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="/contactdetails/{{$value->id}}" style="color:#008bdc;"><u>CONTACT</u></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="/exchangedetails/{{$value->id}}" style="color:#008bdc;"><u>EXCHANGE FILE</u></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="/nocdetails/{{$value->id}}" style="color:#008bdc;"><u>NOC</u></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="/bankdetails/{{$value->id}}"><u>BANK</u></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="{{url('/psm/psmdetails/'.$value->id)}}"><u>PSM</u></a>
+                                  <a href="/basic/{{$value->id}}" class="text-decoration: underline" style="color:#008bdc;"><u>BASIC</u></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="/contactdetails/{{$value->id}}" style="color:#008bdc;"><u>CONTACT</u></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="/exchangedetails/{{$value->id}}" style="color:#008bdc;"><u>EXCHANGE FILE</u></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="/nocdetails/{{$value->id}}" style="color:#008bdc;"><u>NOC</u></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="/bankdetails/{{$value->id}}"><u>BANK</u></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="{{url('/psm/psmdetails/'.$value->id)}}"><u>PSM</u></a>
 
                                 </td>
                               </tr>

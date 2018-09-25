@@ -132,7 +132,7 @@ class ContactController extends Controller
     public function sevices($id)
     {
         $client_id=$id;
-        $alert_type = ServiseAlert::select('*')->where('client_id',$id)->get();
+        $alert_type = ServiseAlert::select('*')->where('client_id',$client_id)->get();
         return view('ManageClient.service',compact('client_id','alert_type'));
 
     }

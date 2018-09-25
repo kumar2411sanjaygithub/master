@@ -1,12 +1,12 @@
 @extends('theme.layouts.default')
 @section('content')
 <section class="content-header">
-   <h5><label  class="control-label"><u>EDIT CLIENT</u></label></h5>
+   <h5><label  class="control-label"><u>@if($action_info=='edit'){{'EDIT'}}@elseif($action_info=='view'){{'VIEW'}}@endif CLIENT</u></label></h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">MANAGE CLIENT</a></li>
       <li class="#">CLIENT BASIC DETAILS</li>
-      <li class="#"><u>EDIT CLIENT</u></li>
+      <li class="#"><u>@if($action_info=='edit'){{'EDIT'}}@elseif($action_info=='view'){{'VIEW'}}@endif CLIENT</u></li>
    </ol>
 </section>
 <section class="content">
@@ -20,9 +20,12 @@
    <div class="row">
       <div class="col-xs-12">
          <div class="pull-right">
+            @if($action_info=='edit')
                <a href=""><button class="btn btn-info btn-xs enable_edit mt7" value=" EDIT">  <span class="glyphicon glyphicon-pencil"></span>&nbsp;EDIT</button></a>
                <a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
-
+             @elseif($action_info=='view')
+               <a href="/client/new"><button  class="btn btn-info btn-xs mt7" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
+            @endif
            </div>
       </div>
    </div>
@@ -53,7 +56,7 @@
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label">PRIMARY CONTACT NUMBER</label><span class="text-danger"><strong>*</strong></span>
-                  <input class="form-control input-sm disabled-class num" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" disabled  value="{{ $clientdata->pri_contact_no}}" maxlength="10">
+                  <input class="form-control input-sm disabled-class num" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" disabled  value="{{ $clientdata->cin}}">
                </div>
                <div class="col-md-3 ">
                   <label  class="control-label">PRIMARY EMAIL ID</label><span class="text-danger"><strong>*</strong></span>
@@ -373,17 +376,17 @@
                   <label  class="control-label">PART OF INTERCONNECTION</label>
                   <div class="form-group">
                      <div class="col-md-1 " style="margin-left:-6px;">
-                        <input type="checkbox" class="minimal1 pull-left disabled-class" id="inter_discom" name="inter_discom"  disabled  value="DISCOM" @if((isset($clientdata->inter_discom)&&$clientdata->inter_discom=='DISCOM'))? checked="checked" @endif >
+                        <input type="checkbox" class="minimal1 pull-left disabled-class" id="inter_discom" name="inter_discom"  disabled  value="inter_discom" @if((isset($clientdata->inter_discom)&&$clientdata->inter_discom=='inter_discom'))? checked="checked" @endif >
                      </div>
                      <div class="col-md-3" style="margin-left:-7px;"><label for="inter_discom">DISCOM</label>
                      </div>
                      <div class="col-md-1 "  style="margin-left:-6px;">
-                        <input type="checkbox" class="minimal1 disabled-class"  disabled id="inter_stu" name="inter_stu" value="STU" @if((isset($clientdata->inter_stu)&&$clientdata->inter_stu=='STU'))? checked="checked" @endif>
+                        <input type="checkbox" class="minimal1 disabled-class"  disabled id="inter_stu" name="inter_stu" value="inter_stu" @if((isset($clientdata->inter_stu)&&$clientdata->inter_stu=='inter_stu'))? checked="checked" @endif>
                      </div>
                      <div class="col-md-1" style="margin-left:-7px;"><label for="inter_stu">STU</label>
                      </div>
                      <div class="col-md-1">
-                        <input type="checkbox" class="minimal1 disabled-class"  disabled id="inter_poc" name="inter_poc" value="POC/CTU" @if((isset($clientdata->inter_poc)&&$clientdata->inter_poc=='POC/CTU'))? checked="checked" @endif>
+                        <input type="checkbox" class="minimal1 disabled-class"  disabled id="inter_poc" name="inter_poc" value="inter_poc" @if((isset($clientdata->inter_poc)&&$clientdata->inter_poc=='inter_poc'))? checked="checked" @endif>
                      </div>
                      <div class="col-md-5" style="width:30%;margin-left:-5px;"><label for="inter_poc">POC/CTU</label></div>
                   </div>
@@ -395,11 +398,10 @@
                         <input  disabled type="radio" class="minimal1 disabled-class" value="yes" name="common_feeder_option" id="rt" @if((isset($clientdata->common_feeder_option)&&$clientdata->common_feeder_option=='yes'))? checked="checked" @endif>&nbsp&nbsp<label for="rt">YES</label>
                      </div>
                      <div class="col-md-6 pull-Left">
-                        <input  disabled type="radio" class="minimal1 disabled-class" value="no" name="common_feeder_option" id="rt1" @if((isset($clientdata->common_feeder_option)&&$clientdata->common_feeder_option<>'no'))? checked="checked" @else @endif>&nbsp&nbsp<label for="rt1">NO</label>
+                        <input  disabled type="radio" class="minimal1 disabled-class" value="no" name="common_feeder_option" id="rt1" @if((isset($clientdata->common_feeder_option)&&$clientdata->common_feeder_option<>'no'))? checked="checked" @endif>&nbsp&nbsp<label for="rt1">NO</label>
                      </div>
                   </div>
                </div>
-               <div id="hidecontentDiv">
                <div class="col-md-3">
                   <label  class="control-label">FEEDER NAME</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER FEEDER NAME" name="feeder_name" id="feeder_name" value="{{isset($clientdata->feeder_name)?$clientdata->feeder_name: old('feeder_name')}}">
@@ -409,17 +411,17 @@
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER FEEDER CODE" name="feeder_code" id="feeder_code" value="{{isset($clientdata->feeder_code)?$clientdata->feeder_code: old('feeder_code')}}">
                </div>
             </div>
-
+            <div class="row">
                <div class="col-md-3">
                   <label  class="control-label"> NAME OF SUBSTATION</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER SUBSTATION NAME" id="name_of_substation" name="name_of_substation"  value="{{isset($clientdata->name_of_substation)?$clientdata->name_of_substation: old('name_of_substation')}}">
                </div>
                <div class="col-md-3">
-                  <label  class="control-label">MAXIMUM INJECTION QUANTUM (MW)</label>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER INJECTION QUANTUM" name="maxm_injection" id="maxm_injection" value="{{isset($clientdata->maxm_injection)?$clientdata->maxm_injection: old('maxm_injection')}}">
+                  <label  class="control-label">MAXIMUM INJECTION QUANTUM</label>
+                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER INJECTION QUANTUM" name="maxm_injection" id="maxm_injection value="{{isset($clientdata->maxm_injection)?$clientdata->maxm_injection: old('maxm_injection')}}">
                </div>
                <div class="col-md-3">
-                  <label  class="control-label">MAXIMUM WITHDRAWAL QUANTUM (MW)</label>
+                  <label  class="control-label">MAXIMUM WITHDRAWAL QUANTUM</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER WITHDRAWAL QUANTUM" name="maxm_withdrawal" id="maxm_withdrawal" value="{{isset($clientdata->maxm_withdrawal)?$clientdata->maxm_withdrawal: old('maxm_withdrawal')}}">
                </div>
             </div>
@@ -442,10 +444,25 @@
             <hr>
             <div class="row">
                <div class="col-md-5"></div>
-
+               @if($action_info=='edit')
                 <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs saveButton" id="saveclient" style="display:none;">UPDATE</button></div>
                <div class="col-md-1"><a href="{{ route('basic.details') }}" class="btn btn-block btn-danger btn-xs">Cancel</a></div>
-
+               @elseif($action_info=='view')
+                  @if($clientdata->client_app_status =='0')
+                   <div class="col-md-1">
+                     <a href="/status/{{$clientdata->id}}/approve" class="btn  btn-info btn-xs">APPROVE</a>
+                  </div>
+                  <div class="col-md-1"><a href="/status/{{$clientdata->id}}/reject" class="btn  btn-danger btn-xs">REJECT</a></div>
+                  @elseif($clientdata->client_app_status =='1')
+                     <div class="col-md-1">
+                        <a href="#" class="btn btn-info btn-xs">APPROVED</a>
+                     </div>
+                  @elseif($clientdata->client_app_status =='2')
+                     <div class="col-md-1">
+                        <a href="" class="btn btn-danger btn-xs">REJECTED</a>
+                     </div>
+                  @endif   
+               @endif
                <div class="col-md-4"></div>
             </div>
             <div class="row">&nbsp;</div>
@@ -551,54 +568,25 @@ $('input[type="checkbox"]#saroa,.saroa').click(function(){
    });
 $('input[type="checkbox"]#saba,.saba').click(function(){
      if($("#saba").prop("checked") == true){
-       $("#del_lin1").attr("value",$("#bill_line1").val());
-       $("#del_lin2").attr("value",$("#bill_line2").val());
-       $("#del_country").attr("value",$("#bill_country").val());
-       $("#del_state").attr("value",$("#bill_state").val());
-       $("#del_city").attr("value",$("#bill_city").val());
-       $("#del_pin").attr("value",$("#bill_pin").val());
-       $("#del_mob").attr("value",$("#bill_mob").val());
-       $("#del_telephone").attr("value",$("#bill_telephone").val());
+       $("#del_lin1").val($("#bill_line1").val());
+       $("#del_lin2").val($("#bill_line2").val());
+       $("#del_country").val($("#bill_country").val());
+       $("#del_state").val($("#bill_state").val());
+       $("#del_city").val($("#bill_city").val());
+       $("#del_pin").val($("#bill_pin").val());
+       $("#del_mob").val($("#bill_mob").val());
+       $("#del_telephone").val($("#bill_telephone").val());
      }
      else if($("#saba").prop("checked") == false){
-       $("#del_lin1").attr("value","value","");
-       $("#del_lin2").attr("value","");
-       $("#del_country").attr("value","");
-       $("#del_state").attr("value","");
-       $("#del_city").attr("value","");
-       $("#del_pin").attr("value","");
-       $("#del_mob").attr("value","");
-       $("#del_telephone").attr("value","");
+       $("#del_lin1").val("");
+       $("#del_lin2").val("");
+       $("#del_country").val("");
+       $("#del_state").val("");
+       $("#del_city").val("");
+       $("#del_pin").val("");
+       $("#del_mob").val("");
+       $("#del_telephone").val("");
      }
    });
-$(document).ready(function() {
-    $("#rt").click(function() {
-        var test = $(this).val();
-
-        $("#hidecontentDiv").show();
-        //$("#Cars" + test).show();
-    });
-});
-$(document).ready(function() {
-    $("#rt1").click(function() {
-        var test = $(this).val();
-
-        $("#hidecontentDiv").hide();
-        //$("#Cars" + test).show();
-    });
-});
-// $(document).ready(function() {
-//    if ($('#rt1').is(":checked")) 
-//    {
-
-//       $("#hidecontentDiv").hide();
-//    }
-//    if ($('#rt').is(":checked")) 
-//    {
-//       $("#hidecontentDiv").show();
-//    }
-// });
-
-
 </script>
 @endsection
