@@ -159,7 +159,7 @@
                                     <div class="col-md-6"></div>
                                     <div class="col-md-4 text-right">
         @if (count($exchangeData) > 0)
-            <form class="pull-right" action="{{ url()->to('client/exchange/modified/Approved') }}" method="post" id="approve_data">
+            <form class="pull-right" action="{{ url()->to('client/exchange/modifiedd/Approved') }}" method="post" id="approve_data">
               {{ csrf_field() }}
               <input type="hidden" name="selected_status" class="selected_statusM">
               <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deletedM" name="cdw5" id="cdw5">APPROVE ALL</button>
@@ -169,7 +169,7 @@
             @endif
 
             @if (count($exchangeData) > 0)
-            <form class="pull-right" action="{{ url()->to('client/exchange/modified/Rejected') }}" method="post" id="approve_data">
+            <form class="pull-right" action="{{ url()->to('client/exchange/modifiedd/Rejected') }}" method="post" id="approve_data">
               {{ csrf_field() }}
               <input type="hidden" name="selected_status" class="selected_statusM">
               <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted-rejM" name="cdw5" id="cdw5">REJECT ALL</button>
@@ -287,7 +287,7 @@
                                     <div class="col-md-6"></div>
                                     <div class="col-md-4 text-right">
                                 @if (count($delexcgData) > 0)
-                                    <form class="pull-right" action="{{ url()->to('client/exchange/deleted/Approved') }}" method="post" id="approve_data">
+                                    <form class="pull-right" action="{{ url()->to('client/exchange/deletedd/Approved') }}" method="post" id="approve_data">
                                       {{ csrf_field() }}
                                       <input type="hidden" name="selected_status" class="selected_statusD">
                                       <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deletedD" name="cdw5" id="cdw5">APPROVE ALL</button>
@@ -297,7 +297,7 @@
                                     @endif
 
                                     @if (count($delexcgData) > 0)
-                                    <form class="pull-right" action="{{ url()->to('client/exchange/deleted/Rejected') }}" method="post" id="approve_data">
+                                    <form class="pull-right" action="{{ url()->to('client/exchange/deletedd/Rejected') }}" method="post" id="approve_data">
                                       {{ csrf_field() }}
                                       <input type="hidden" name="selected_status" class="selected_statusD">
                                       <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted-rejD" name="cdw5" id="cdw5">REJECT ALL</button>

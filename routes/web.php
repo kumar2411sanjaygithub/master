@@ -404,11 +404,11 @@ Route::get('/scheduling/downloadA/{id}','SchedulingController@downloadAmbSchedul
  Route::post('/client/contact/modified/{tag}','ContactApprovalController@clientContactModApp');
  Route::post('/client/contact/deleted/{tag}','ContactApprovalController@clientContactDelApp');
  Route::post('/client/{tag}/bank/{bank}','ClientApprovalController@multipleApproveBank');
- Route::post('/client/{bank}/modified/{tag}','ClientApprovalController@clientBankModApp');
+ Route::post('/client-bank/{bank}/modifieded/{tag}','ClientApprovalController@clientBankModApp');
  Route::post('/client/{bank}/deleted/{tag}','ClientApprovalController@clientBankDelApp');
  Route::post('/client/exchange/{tag}','ExchangeApprovalController@clientExchangeApp');
- Route::post('/client/exchange/modified/{tag}','ExchangeApprovalController@clientExchangeMode');
- Route::post('/client/exchange/deleted/{tag}','ExchangeApprovalController@clientExchangeDel');
+ Route::post('/client/exchange/modifiedd/{tag}','ExchangeApprovalController@clientExchangeMode');
+ Route::post('/client/exchange/deletedd/{tag}','ExchangeApprovalController@clientExchangeDel');
  Route::post('/new-client-approve/{tag}','ClientApprovalController@multipleClientstatus');
  /*******************************************************
   IMPORT(DAM)--RATESHEET AND RATESHEET GRAPH
