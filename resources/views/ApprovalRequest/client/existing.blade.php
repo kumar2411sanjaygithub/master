@@ -158,7 +158,7 @@
                                     <div class="col-md-6"></div>
                                     <div class="col-md-4 text-right">
         @if (count($bankData) > 0)
-            <form class="pull-right" action="{{ url()->to('client/back/modified/Approved') }}" method="post" id="approve_data">
+            <form class="pull-right" action="{{ url()->to('client-bank/bank/modifieded/Approved') }}" method="post" id="approve_data">
               {{ csrf_field() }}
               <input type="hidden" name="selected_status" class="selected_statusM">
               <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deletedM" name="cdw5" id="cdw5">APPROVE ALL</button>
@@ -168,7 +168,7 @@
             @endif
 
             @if (count($bankData) > 0)
-            <form class="pull-right" action="{{ url()->to('client/back/modified/Rejected') }}" method="post" id="approve_data">
+            <form class="pull-right" action="{{ url()->to('client-bank/bank/modifieded/Rejected') }}" method="post" id="approve_data">
               {{ csrf_field() }}
               <input type="hidden" name="selected_status" class="selected_statusM">
               <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted-rejM" name="cdw5" id="cdw5">REJECT ALL</button>

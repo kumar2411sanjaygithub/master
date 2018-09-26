@@ -42,7 +42,7 @@ class ClientDeatilsController extends Controller
             //'short_id' => 'required|max:15',
             'pri_contact_no'=>'required',
             'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|unique:clients|min:21|max:21',
-            'email'=>'required|email||max:81',
+            'email'=>'required|unique:clients|email||max:81',
             'reg_line1' => 'required|max:100',
             'reg_line2' => 'min:0|max:100',
             'reg_country' => 'required',
@@ -111,8 +111,7 @@ class ClientDeatilsController extends Controller
         $client->inter_discom = $request->input('inter_discom');
         $client->inter_stu = $request->input('inter_stu');
         $client->inter_poc = $request->input('inter_poc');
-        $client->rt = $request->input('rt');
-        $client->rt1 = $request->input('rt1');
+        $client->common_feeder_option = $request->input('common_feeder_option');
         $client->feeder_name = $request->input('feeder_name');
         $client->feeder_code = $request->input('feeder_code');
         $client->conn_discom = $request->input('conn_discom');
