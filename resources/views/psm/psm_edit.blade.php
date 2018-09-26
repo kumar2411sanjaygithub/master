@@ -151,22 +151,42 @@
 }
 </script>
 <script>
-   $(function () {
+$(function () {
 
-     //Date picker
-     $('#datepicker').datepicker({
-       autoclose: true
-     })
-     $('#issue_date').datepicker({
-       autoclose: true
-     })
-     $('#datepicker2').datepicker({
-       autoclose: true
-     })
-     $('#revocable_date').datepicker({
-       autoclose: true
-     })
+  //Date picker
+  $('#datepicker').datepicker({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+  })
+  $('#issue_date').datepicker({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+  }).on('changeDate', function (selected) {
+     var startDate = new Date(selected.date.valueOf());
+     $('#datepicker2').datepicker('setStartDate', startDate);
+   }).on('clearDate', function (selected) {
+       $('#datepicker2').datepicker('setStartDate', null);
+   });
 
-   })
+
+  $(".datepicker").datepicker({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+  })
+  $('#datepicker2').datepicker({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+  }).on('changeDate', function (selected) {
+       var endDate = new Date(selected.date.valueOf());
+       $('#issue_date').datepicker('setEndDate', endDate);
+   }).on('clearDate', function (selected) {
+       $('#issue_date').datepicker('setEndDate', null);
+   });
+  $('#revocable_date').datepicker({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+  })
+
+})
 </script>
 @endsection
