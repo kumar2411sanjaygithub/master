@@ -98,7 +98,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                           </div>
                           <div class="row">
                              <div class="col-md-3 {{ $errors->has('issue_date') ? 'has-error' : '' }}">
-                                <label  class="control-label">ISSUE DATE</label>
+                                <label  class="control-label">ISSUE DATE</label><span class="text-danger"><strong>*</strong></span>
                                 <div class="input-group date">
                                    <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>

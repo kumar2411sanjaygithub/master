@@ -96,9 +96,10 @@ class PsmdetailsController extends Controller
         "type"=>"required",
         "received_date"=>"required",
         "amount"=>"required",
+        "expiry_date"=>"required",
+        "expiry_date"=>"required",
+        // "document"=>"required",
         // "issue_date"=>"required",
-        "expiry_date"=>"required",
-        "expiry_date"=>"required",
       ]);
       $psm = new Psmdetails();
       if($request['type'] == 2 || $request['type'] == 3)
@@ -177,12 +178,11 @@ class PsmdetailsController extends Controller
         $validator = $this->validate($request, [
         // "upload_document"=>'mimes:jpeg,png,jpg,gif,svg,pdf',
         "type"=>"required",
-        // "document_no"=>"required",
         "received_date"=>"required",
         "amount"=>"required",
-        // "issue_date"=>"required",
         "expiry_date"=>"required",
-        // "client_id"=>"required",
+        // "document"=>"required",
+        // "issue_date"=>"required",
       ]);
 
       $psm = Psmdetails::find($id);
