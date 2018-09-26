@@ -317,9 +317,9 @@ class ClientApprovalController extends Controller
 
         
     }
-     public function clientBankModApp(Request $request,$tag='')
+     public function clientBankModApp(Request $request,$type='',$tag='')
     {
-
+        //dd($tag);
         $approvalstatus_id=$request['selected_status'];
         $array=explode(',',$approvalstatus_id);
         if($tag=='Approved'){
@@ -343,7 +343,6 @@ class ClientApprovalController extends Controller
           elseif ($tag=='Rejected') {
             foreach($array as $id){
               Approvalrequest::where('id', $id)->update(['status'=> '2']);
-            return Redirect::back()->with('success', 'Client details successfully rejected.');
             }
             return Redirect::back()->with('success', 'Client details successfully rejected.');
         }
