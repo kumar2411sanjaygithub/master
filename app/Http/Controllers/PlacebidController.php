@@ -1766,7 +1766,9 @@ class PlacebidController extends Controller
         ->where('id',$id)
         ->get();
 
-        return response()->json(['bidSubmissionTime'=>$bidsubmissiontimeData]);
+        date_default_timezone_set('Asia/Kolkata');
+        $datetime = date('H:i:s');
+        return response()->json(['bidSubmissionTime'=>$bidsubmissiontimeData,'datetime'=>$datetime]);
     }
 
     function timeDiff($firstTime,$lastTime) {
