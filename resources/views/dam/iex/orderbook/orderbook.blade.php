@@ -26,6 +26,9 @@
               <div class="col-md-5">
                   <label class="control-label">Search Client</label>
                  <div class="input-group input-group-sm">
+                    <input type="hidden" name="user_id" id="user_id">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}" id="_token">
+
                     <input type="text" class="form-control search_text" name="search_text" placeholder="SEARCH.." name="" id="">
                     <span class="input-group-btn">
                     <button type="button" class="btn btn-info btn-flat" name="" id=""> <span class="glyphicon glyphicon-search"></span></button>

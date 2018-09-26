@@ -70,12 +70,12 @@
                  </div>
                  <div class="row">
                     <div class="col-md-3 {{ $errors->has('issue_date') ? 'has-error' : '' }}">
-                       <label  class="control-label">ISSUE DATE</label><span class="text-danger"><strong>*</strong></span>
+                       <label  class="control-label">ISSUE DATE</label>
                        <div class="input-group date">
                           <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                           </div>
-                          <input autocomplete="off" type="text" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif value="{{date('d/m/Y',strtotime($psmData->issue_date))}}" name="issue_date" class="form-control pull-right input-sm" id="issue_date">
+                          <input autocomplete="off" type="text" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif value="@if($psmData->issue_date) {{date('d/m/Y',strtotime($psmData->issue_date))}} @endif" name="issue_date" class="form-control pull-right input-sm" id="issue_date">
                        </div>
                           <span class="text-danger">{{ $errors->first('issue_date') }}</span>
                     </div>
@@ -85,7 +85,7 @@
                           <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                           </div>
-                          <input autocomplete="off" type="text" class="form-control pull-right input-sm" value="{{date('d/m/Y',strtotime($psmData->expiry_date))}}" name="expiry_date" id="datepicker2">
+                          <input autocomplete="off" type="text" class="form-control pull-right input-sm" value="@if($psmData->expiry_date){{date('d/m/Y',strtotime($psmData->expiry_date))}} @endif" name="expiry_date" id="datepicker2">
                        </div>
                           <span class="text-danger">{{ $errors->first('expiry_date') }}</span>
                     </div>
@@ -95,7 +95,7 @@
                           <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                           </div>
-                          <input autocomplete="off" type="text" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif class="form-control pull-right input-sm" value="{{date('d/m/Y',strtotime($psmData->revocable_date))}}" name="revocable_date" id="revocable_date">
+                          <input autocomplete="off" type="text" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif class="form-control pull-right input-sm" value="@if($psmData->revocable_date) {{date('d/m/Y',strtotime($psmData->revocable_date))}} @endif" name="revocable_date" id="revocable_date">
                        </div>
                     </div>
                     <div class="col-md-3 {{ $errors->has('document') ? 'has-error' : '' }}">
@@ -151,22 +151,42 @@
 }
 </script>
 <script>
-   $(function () {
+$(function () {
 
-     //Date picker
-     $('#datepicker').datepicker({
-       autoclose: true
-     })
-     $('#issue_date').datepicker({
-       autoclose: true
-     })
-     $('#datepicker2').datepicker({
-       autoclose: true
-     })
-     $('#revocable_date').datepicker({
-       autoclose: true
-     })
+  //Date picker
+  $('#datepicker').datepicker({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+  })
+  $('#issue_date').datepicker({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+  }).on('changeDate', function (selected) {
+     var startDate = new Date(selected.date.valueOf());
+     $('#datepicker2').datepicker('setStartDate', startDate);
+   }).on('clearDate', function (selected) {
+       $('#datepicker2').datepicker('setStartDate', null);
+   });
 
-   })
+
+  $(".datepicker").datepicker({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+  })
+  $('#datepicker2').datepicker({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+  }).on('changeDate', function (selected) {
+       var endDate = new Date(selected.date.valueOf());
+       $('#issue_date').datepicker('setEndDate', endDate);
+   }).on('clearDate', function (selected) {
+       $('#issue_date').datepicker('setEndDate', null);
+   });
+  $('#revocable_date').datepicker({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+  })
+
+})
 </script>
 @endsection

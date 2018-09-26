@@ -69,10 +69,10 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                              <div class="col-md-3 {{ $errors->has('type') ? 'has-error' : '' }}">
                                 <label  class="control-label">TYPE</label><span class="text-danger"><strong>*</strong></span>
                                 <select class="form-control input-sm select2" name="type" id="bankselect" onchange="select()" style="width: 100%;">
-                                   <option value="0">Cash Transfer</option>
-                                   <option value="1">Bank Transfer</option>
-                                   <option value="2">Letter Of Credit</option>
-                                   <option value="3">Bank Guarantee</option>
+                                   <option value="0" @if(old('type')=='0')selected @endif>Cash Transfer</option>
+                                   <option value="1"  @if(old('type')=='1')selected @endif>Bank Transfer</option>
+                                   <option value="2"  @if(old('type')=='2')selected @endif>Letter Of Credit</option>
+                                   <option value="3"  @if(old('type')=='3')selected @endif>Bank Guarantee</option>
                                 </select>
                                 <span class="text-danger">{{ $errors->first('type') }}</span>
                              </div>
@@ -98,7 +98,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                           </div>
                           <div class="row">
                              <div class="col-md-3 {{ $errors->has('issue_date') ? 'has-error' : '' }}">
-                                <label  class="control-label">ISSUE DATE</label><span class="text-danger"><strong>*</strong></span>
+                                <label  class="control-label">ISSUE DATE</label>
                                 <div class="input-group date">
                                    <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
@@ -186,12 +186,12 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                               Bank Guarantee
                             @endif
                            </td>
-                           <td>{{$value->received_date}}</td>
+                           <td>@if($value->received_date){{date('d/m/Y', strtotime($value->received_date))}} @endif</td>
                            <td>{{$value->amount}}</td>
                            <td>{{$value->document_no}}</td>
-                           <td>{{$value->issue_date}}</td>
-                           <td>{{$value->expiry_date}}</td>
-                           <td>{{$value->revocable_date}}</td>
+                           <td>@if($value->issue_date){{date('d/m/Y', strtotime($value->issue_date))}} @endif</td>
+                           <td>@if($value->expiry_date){{date('d/m/Y', strtotime($value->expiry_date))}} @endif</td>
+                           <td>@if($value->revocable_date){{date('d/m/Y', strtotime($value->revocable_date))}} @endif</td>
                            <td><a href="{{url('documents/psm/'.$value->document)}}" download="download">{{$value->document}}</a></td>
                            <td>{{$value->description}}</td>
                            <td>
@@ -333,7 +333,14 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
      $('#issue_date').datepicker({
        autoclose: true,
        format: 'dd/mm/yyyy',
-     })
+     }).on('changeDate', function (selected) {
+        var startDate = new Date(selected.date.valueOf());
+        $('#datepicker2').datepicker('setStartDate', startDate);
+      }).on('clearDate', function (selected) {
+          $('#datepicker2').datepicker('setStartDate', null);
+      });
+
+
      $(".datepicker").datepicker({
        autoclose: true,
        format: 'dd/mm/yyyy',
@@ -341,7 +348,12 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
      $('#datepicker2').datepicker({
        autoclose: true,
        format: 'dd/mm/yyyy',
-     })
+     }).on('changeDate', function (selected) {
+          var endDate = new Date(selected.date.valueOf());
+          $('#issue_date').datepicker('setEndDate', endDate);
+      }).on('clearDate', function (selected) {
+          $('#issue_date').datepicker('setEndDate', null);
+      });
      $('#revocable_date').datepicker({
        autoclose: true,
        format: 'dd/mm/yyyy',
@@ -386,5 +398,6 @@ $(document).ready(function(){
     });
 });
 </script>
+
 
 @endsection
