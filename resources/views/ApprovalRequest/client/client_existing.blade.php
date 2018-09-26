@@ -18,12 +18,12 @@ text-transform : uppercase
                </ol>
             </section>
             <section class="content">
-               @if (\Session::has('success'))
-            <div class="alert alert-success mt10" >
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-            {!! \Session::get('success') !!}
-            </div>
-            @endif
+                @if (\Session::has('success'))
+                <div class="alert alert-success alert-dismissible fade in">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                 <span class="glyphicon glyphicon-ok"></span> &nbsp;{!! \Session::get('success') !!}
+                </div>            
+                @endif
                <div class="row">
                   <div class="col-xs-12">
                     <div class="row">
@@ -113,7 +113,7 @@ text-transform : uppercase
                                        </thead>
                                        <tbody>
 
-                                              @isset($clientData)
+                                              @if(count($clientData)>0)
                                           <?php
                                           $i=1;
                                            $input_lebels = \App\Common\Languages\ManageClientLang::input_labels();
@@ -160,7 +160,9 @@ text-transform : uppercase
                                        $i++;
                                        ?>
                                        @endforeach
-                                       @endisset
+                                       @else
+                                       <tr class="alert-danger" ><th colspan='6'>No Data Found.</th></tr>
+                                       @endif
                                        </tbody>
                                     </table>
                                  </div>

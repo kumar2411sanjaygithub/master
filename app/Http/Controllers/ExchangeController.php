@@ -80,6 +80,13 @@ class ExchangeController extends Controller
 
     public function update_exchangedetails(Request $request ,$exchange_detail_id)
     {
+         $this->validate($request, [
+            'ex_type' => 'required|max:40',
+            'file_upload' => 'required',
+            'validity_from' => 'required',
+            'validity_to' => 'required',
+        ]);
+
     	$client_id = $request->input('client_id');
         $exchangedetail = Exchange::find($exchange_detail_id)->toArray();
         $datas =array();
