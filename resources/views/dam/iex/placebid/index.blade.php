@@ -428,29 +428,29 @@ jQuery(document).delegate('.piyush_datepicker','change',function(){
                     type: 'get',
                     url: '/placebid/getbidsubmissiontime/'+jQuery('#client_id').val(),
                     success: function(data) {
-                      var currentdate = new Date();
-                      var currHours = currentdate.getHours();
-                      var currMinutes = currentdate.getMinutes();
-                      var currSeconds = currentdate.getSeconds();
-                      var datetime = '';
-                            if(currHours < 10){
-                              datetime += '0'+currHours+':';
-                            }else{
-                              datetime += currHours+':';
-                            }
-                            if(currMinutes < 10){
-                              datetime += '0'+currMinutes+':';
-                            }else{
-                              datetime += currMinutes+':';
-                            }
-                            if(currSeconds < 10){
-                              datetime += '0'+currSeconds;
-                            }else{
-                              datetime += currSeconds;
-                            }
+                      // var currentdate = new Date();
+                      // var currHours = currentdate.getHours();
+                      // var currMinutes = currentdate.getMinutes();
+                      // var currSeconds = currentdate.getSeconds();
+                      // var datetime = '';
+                      //       if(currHours < 10){
+                      //         datetime += '0'+currHours+':';
+                      //       }else{
+                      //         datetime += currHours+':';
+                      //       }
+                      //       if(currMinutes < 10){
+                      //         datetime += '0'+currMinutes+':';
+                      //       }else{
+                      //         datetime += currMinutes+':';
+                      //       }
+                      //       if(currSeconds < 10){
+                      //         datetime += '0'+currSeconds;
+                      //       }else{
+                      //         datetime += currSeconds;
+                      //       }
                        // alert(data.bidSubmissionTime[0].bid_submission_time);
                        // alert(datetime);
-                      if(data.bidSubmissionTime[0].bid_submission_time_trader < datetime){
+                      if(data.bidSubmissionTime[0].bid_cut_off_time < data.datetime){
                          var startdate = '+2d';
                          var enddate = '+1d';
                       }else{
