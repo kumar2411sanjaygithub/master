@@ -450,7 +450,7 @@ jQuery(document).delegate('.piyush_datepicker','change',function(){
                             }
                        // alert(data.bidSubmissionTime[0].bid_submission_time);
                        // alert(datetime);
-                      if(data.bidSubmissionTime[0].bid_submission_time_trader < datetime){
+                      if(data.bidSubmissionTime[0].bid_cut_off_time < datetime){
                          var startdate = '+2d';
                          var enddate = '+1d';
                       }else{
