@@ -47,7 +47,7 @@
      @endif
     <form method="post" enctype="multipart/form-data" action="{{ route('addpoc')}}">
       {{ csrf_field()}}
-      <div class="row poc-tab hidden">
+      <div class="row poc-tab @if($errors->isEmpty())hidden @else  @endif">
       <div class="col-xs-12">
         <div class="box">
            <div class="box-body">
@@ -121,7 +121,7 @@
         <a href="#" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#myModal">&nbsp IMPORT(CSV/XLSX)</a>
         <a class="btn btn-info btn-xs poc-btn pull-right mr5" name=" "><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</a>
       </div>
-</div>
+    </div>
   <div class="box">
      <div class="box-body table-responsive">
         <table class="table table-bordered text-center">
@@ -173,6 +173,10 @@
         <!-- Modal body -->
         <div class="modal-body">
           <input type="file" name="file">
+          <input type="text" class="form-control pull-right input-sm" autocomplete="off" id="datepicker" name="date_from">
+
+          <input type="text" class="form-control pull-right input-sm" autocomplete="off" id="datepicker1" name="date_to">
+
         </div>
 
         <!-- Modal footer -->
@@ -214,9 +218,11 @@
    })
    $(".poc-btn").click(function(){
      $(".poc-tab").removeClass('hidden');
+     $(".poc-btn").hide();
    });
    $(".poc-cancel").click(function(){
       $(".poc-tab").addClass('hidden');
+      $(".poc-btn").show();
    });
 </script>
 @endsection
