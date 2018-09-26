@@ -75,7 +75,7 @@
                           <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                           </div>
-                          <input autocomplete="off" type="text" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif value="{{date('d/m/Y',strtotime($psmData->issue_date))}}" name="issue_date" class="form-control pull-right input-sm" id="issue_date">
+                          <input autocomplete="off" type="text" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif value="@if($psmData->issue_date) {{date('d/m/Y',strtotime($psmData->issue_date))}} @endif" name="issue_date" class="form-control pull-right input-sm" id="issue_date">
                        </div>
                           <span class="text-danger">{{ $errors->first('issue_date') }}</span>
                     </div>
@@ -85,7 +85,7 @@
                           <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                           </div>
-                          <input autocomplete="off" type="text" class="form-control pull-right input-sm" value="{{date('d/m/Y',strtotime($psmData->expiry_date))}}" name="expiry_date" id="datepicker2">
+                          <input autocomplete="off" type="text" class="form-control pull-right input-sm" value="@if($psmData->expiry_date){{date('d/m/Y',strtotime($psmData->expiry_date))}} @endif" name="expiry_date" id="datepicker2">
                        </div>
                           <span class="text-danger">{{ $errors->first('expiry_date') }}</span>
                     </div>
@@ -95,7 +95,7 @@
                           <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                           </div>
-                          <input autocomplete="off" type="text" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif class="form-control pull-right input-sm" value="{{date('d/m/Y',strtotime($psmData->revocable_date))}}" name="revocable_date" id="revocable_date">
+                          <input autocomplete="off" type="text" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif class="form-control pull-right input-sm" value="@if($psmData->revocable_date) {{date('d/m/Y',strtotime($psmData->revocable_date))}} @endif" name="revocable_date" id="revocable_date">
                        </div>
                     </div>
                     <div class="col-md-3 {{ $errors->has('document') ? 'has-error' : '' }}">
