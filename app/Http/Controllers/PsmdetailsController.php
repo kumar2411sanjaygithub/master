@@ -100,34 +100,6 @@ class PsmdetailsController extends Controller
         "expiry_date"=>"required",
         "expiry_date"=>"required",
       ]);
-     //  $var1 = $request['received_date'];
-      // $chg_received_date = strtr($request['received_date'], '/', '-');
-      // $received_date = date("Y-m-d", strtotime($chg_received_date));
-      //
-      // $chg_issue_date = strtr($request['issue_date'], '/', '-');
-      // $issue_date = date("Y-m-d", strtotime($chg_issue_date));
-      //
-      // $chg_expiry_date = strtr($request['expiry_date'], '/', '-');
-      // $expiry_date = date("Y-m-d", strtotime($chg_expiry_date));
-      //
-      // $chg_revocable_date = strtr($request['revocable_date'], '/', '-');
-      // $revocable_date = date("Y-m-d", strtotime($chg_revocable_date));
-     //
-     //  $var2 = $request['issue_date'];
-     //  $date2 = strtr( $var2,'/', '-');
-     //  $issue_date = date('Y-m-d', strtotime($date2));
-     //  $var =$request['expiry_date'];
-     //  $date = str_replace('/', '-', $var);
-     //  $request['expiry_date'] = date('Y-m-d', strtotime($date));
-     //  $var = $request['Revocable_date'];
-     //  $date = str_replace('/', '-', $var);
-     //  $request['Revocable_date'] = date('Y-m-d', strtotime($date));
-     //  $validator = Validator::make([], []);
-     //  if(strtotime($request['issue_date'])>strtotime($request['expiry_date'])){
-     //  $validator->getMessageBag()->add('Date', 'Issue date cannot be greater than Expiry date');
-     //  return redirect()->back()->withErrors($validator->getMessageBag());
-     // }
-
       $psm = new Psmdetails();
       if($request['type'] == 2 || $request['type'] == 3)
       {
@@ -148,16 +120,22 @@ class PsmdetailsController extends Controller
       $psm->received_date = date('Y-m-d', strtotime($request['received_date']));
       $psm->document_no = $request['document_no'];
       $psm->amount = $request['amount'];
-      $request['issue_date']=date('Y-m-d', strtotime(str_replace('/','-',$request['issue_date'])));
-      $request['expiry_date']=date('Y-m-d', strtotime(str_replace('/','-',$request['expiry_date'])));
-      $request['revocable_date']=date('Y-m-d', strtotime(str_replace('/','-',$request['revocable_date'])));
+      if(($request['issue_date']) <> null){
+        $request['issue_date']=date('Y-m-d', strtotime(str_replace('/','-',$request['issue_date'])));
+      }
+      if(($request['expiry_date']) <> null){
+        $request['expiry_date']=date('Y-m-d', strtotime(str_replace('/','-',$request['expiry_date'])));
+      }
+      if(($request['revocable_date']) <> null){
+        $request['revocable_date']=date('Y-m-d', strtotime(str_replace('/','-',$request['revocable_date'])));
+      }
+      // dd($request['revocable_date']);
       $psm->issue_date = $request['issue_date'];
       $psm->expiry_date = $request['expiry_date'];
       $psm->revocable_date = $request['revocable_date'];
       $psm->description = $request['description'];
       $psm->client_id = $id;
       $psm->save();
-
       return redirect()->back()->with('message','PSM Added Successfully');
     }
 
@@ -207,18 +185,6 @@ class PsmdetailsController extends Controller
         // "client_id"=>"required",
       ]);
 
-//       $chg_received_date = strtr($request['received_date'], '/', '-');
-//       $received_date = date("Y-m-d", strtotime($chg_received_date));
-//
-//       $chg_issue_date = strtr($request['issue_date'], '/', '-');
-//       $issue_date = date("Y-m-d", strtotime($chg_issue_date));
-//
-//       $chg_expiry_date = strtr($request['expiry_date'], '/', '-');
-//       $expiry_date = date("Y-m-d", strtotime($chg_expiry_date));
-//
-//       $chg_revocable_date = strtr($request['revocable_date'], '/', '-');
-//       $revocable_date = date("Y-m-d", strtotime($chg_revocable_date));
-// dd($issue_date);
       $psm = Psmdetails::find($id);
       if($request['type'] == 2 || $request['type'] == 3)
       {
@@ -239,9 +205,16 @@ class PsmdetailsController extends Controller
       $psm->received_date = date('Y-m-d', strtotime(str_replace('/','-',$request['received_date'])));
       $psm->document_no = $request['document_no'];
       $psm->amount = $request['amount'];
-      $request['issue_date']=date('Y-m-d', strtotime(str_replace('/','-',$request['issue_date'])));
-      $request['expiry_date']=date('Y-m-d', strtotime(str_replace('/','-',$request['expiry_date'])));
-      $request['revocable_date']=date('Y-m-d', strtotime(str_replace('/','-',$request['revocable_date'])));
+      if(($request['issue_date']) <> null){
+        $request['issue_date']=date('Y-m-d', strtotime(str_replace('/','-',$request['issue_date'])));
+      }
+      if(($request['expiry_date']) <> null){
+        $request['expiry_date']=date('Y-m-d', strtotime(str_replace('/','-',$request['expiry_date'])));
+      }
+      if(($request['revocable_date']) <> null){
+        $request['revocable_date']=date('Y-m-d', strtotime(str_replace('/','-',$request['revocable_date'])));
+      }
+      // dd($request['revocable_date']);
       $psm->issue_date = $request['issue_date'];
       $psm->expiry_date = $request['expiry_date'];
       $psm->revocable_date = $request['revocable_date'];
