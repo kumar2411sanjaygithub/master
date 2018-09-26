@@ -200,13 +200,13 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                <div class="clearfix"></div>
-                <div class="col-md-6">
-                  <a href="order_book.php"><input type="submit" class="btn btn-raised btn-primary pull-right" value="View Order"></a>
-                </div>
-                <div class="col-md-6">
-                  <input type="button" value="Close" data-dismiss="modal" class="btn btn-raised btn-danger pull-left">
-                </div>
+                  <div class="clearfix"></div>
+                  <div class="col-md-6">
+                    <a href="order_book.php"><input type="submit" class="btn btn-raised btn-primary pull-right" value="View Order"></a>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="button" value="Close" data-dismiss="modal" class="btn btn-raised btn-danger pull-left">
+                  </div>
                 </div>
               </div>
             </div>
