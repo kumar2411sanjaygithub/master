@@ -211,7 +211,7 @@
                       <div class="modal-footer">
                          <div class="text-center">
                         <button type="button" href="#"   class="btn btn-info">
-                          <a href="" style="color:#fff;text-decoration:none" id="delete-button-modalM">Yes</a>
+                          <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rejM">Yes</a>
                         </button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                       </div>
@@ -339,7 +339,7 @@
                                               <div class="modal-footer">
                                                  <div class="text-center">
                                                 <button type="button" href="#"   class="btn btn-info">
-                                                  <a href="" style="color:#fff;text-decoration:none" id="delete-button-modalD">Yes</a>
+                                                  <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rejD">Yes</a>
                                                 </button>
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                                               </div>

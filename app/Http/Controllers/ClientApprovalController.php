@@ -88,12 +88,12 @@ class ClientApprovalController extends Controller
         }
        
     }
-  public function multipleClientstatus($id, $tag)
+  public function multipleClientstatus(Request $request,$tag='')
     {
         $approvalstatus_id=$request['selected_status'];
         $array=explode(',',$approvalstatus_id);
 
-        if($tag=='approve'){
+        if($tag=='Approved'){
           foreach($array as $id){
             $clientData = Client::findOrFail($id);
 
@@ -144,7 +144,7 @@ class ClientApprovalController extends Controller
                 // return view('approvalrequest.client.approved',compact('clientData'));
             }
 
-        }elseif ($tag=='reject') {
+        }elseif ($tag=='Rejected') {
             foreach($array as $id){
             Client::where('id', $id)->update(['client_app_status'=>2]);
           }
