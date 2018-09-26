@@ -190,8 +190,8 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                            <td>{{$value->amount}}</td>
                            <td>{{$value->document_no}}</td>
                            <td>{{date('d/m/Y', strtotime($value->issue_date))}}</td>
-                           <td>@if($value->expiry_date) {{date('d/m/Y', strtotime($value->expiry_date))}} @else - @endif</td>
-                           <td>@if($value->revocable_date) {{date('d/m/Y', strtotime($value->revocable_date))}} @else - @endif</td>
+                           <td>{{date('d/m/Y', strtotime($value->expiry_date))}}</td>
+                           <td>{{date('d/m/Y', strtotime($value->revocable_date))}}</td>
                            <td><a href="{{url('documents/psm/'.$value->document)}}" download="download">{{$value->document}}</a></td>
                            <td>{{$value->description}}</td>
                            <td>
