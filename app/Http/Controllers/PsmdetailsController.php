@@ -96,7 +96,7 @@ class PsmdetailsController extends Controller
         "type"=>"required",
         "received_date"=>"required",
         "amount"=>"required",
-        "issue_date"=>"required",
+        // "issue_date"=>"required",
         "expiry_date"=>"required",
         "expiry_date"=>"required",
       ]);
