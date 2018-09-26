@@ -36,7 +36,7 @@ class ExchangeController extends Controller
         return view('ManageClient.exchangedetails',compact('exchangedetails','client_id','client_details'));
     }
     public function add_exchangedetails(Request $request){
-        
+
          $this->validate($request, [
             'ex_type' => 'required|max:40',
             'file_upload' => 'required',

@@ -114,7 +114,7 @@ class ManageOfficialsController extends Controller
           //'password' => 'max:20|required',
           'password' => 'required|min:6',
           'confirmed' => 'required|same:password',
-          'email' => 'required|email',
+          'email' => 'required|unique:users,email',
           'role_id' => 'required',
           'designation' => 'required|max:20|regex:/^[a-zA-Z ]*$/|max:50',
           'department_id' => 'required',
