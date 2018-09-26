@@ -12,6 +12,7 @@ class ManageClientLang
             'reg_city'=>'REGISTERED OFFICE CITY',
             'reg_pin'=>'REGISTERED OFFICE PINCODE',
             'reg_state'=>'REGISTERED OFFICE STATE',
+            'telephone_number'=>'Telephone Number',
             'reg_mob'=>'REGISTERED OFFICE MOBILE NO',
             'reg_telephone'=>'REGISTERED OFFICE TELEPHONE NO',
             'reg_email_id'=>'REGISTERED OFFICE EMAIL',
