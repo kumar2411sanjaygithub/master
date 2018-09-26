@@ -120,11 +120,12 @@ class ClientDeatilsController extends Controller
         $client->maxm_withdrawal = $request->input('maxm_withdrawal');
         $client->payment = $request->input('payment');
         $client->obligation = $request->input('obligation');
+        $client->noc_punched_by = $request->input('noc_punched_by');
         $client->barred_status = 1;
         $client->save();
 
         //$lsatinsertedId = $clien->id;
-		return redirect('basicdetails')->with('message', '.Client details saved successfully and submitted for approval.!');
+		return redirect('basicdetails')->with('message', 'Client details saved successfully and submitted for approval.!');
 	}
 
     public function viewclient($id='',$tag=''){
@@ -311,6 +312,7 @@ class ClientDeatilsController extends Controller
         $datas['common_feeder_option'] = $basic['common_feeder_option'];
 		$datas['obligation'] = $basic['obligation'];
         $datas['cin'] = $basic['cin'];
+        $datas['noc_punched_by'] = $basic['noc_punched_by'];
 
         $dataArray =array();
 		$dataArray['company_name'] = $request->input('company_name');
@@ -376,6 +378,8 @@ class ClientDeatilsController extends Controller
         $dataArray['common_feeder_option'] = $request->input('common_feeder_option');
 		$dataArray['obligation'] = $request->input('obligation');
         $dataArray['cin'] = $request->input('cin');
+         $dataArray['noc_punched_by'] = $request->input('noc_punched_by');
+
         $result=array_diff_assoc($dataArray,$datas);
         //print_r($result);
         //dd($dataArray);

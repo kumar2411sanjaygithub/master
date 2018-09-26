@@ -74,7 +74,15 @@
                  </div>
                  <div class="col-md-3 {{ $errors->has('region') ? 'has-error' : '' }}">
                     <label  class="control-label">REGION</label>
-                    <input class="form-control input-sm" type="text" placeholder="VALUE" id="region" name="region">
+                    <select class="form-control input-sm " style="width: 100%;" id="region" name="region">
+                      <option value="">Select</option>
+                      <option value="Northern">Northern</option>
+                      <option value="Western">Western</option>
+                      <option value="Southern">Southern</option>
+                      <option value="Eastern">Eastern</option>
+                      <option value="North Eastern">North Eastern</option>
+                      </select>
+
                     <span class="text-danger">{{ $errors->first('region') }}</span>
                  </div>
                  <div class="col-md-3 {{ $errors->has('regional_entity') ? 'has-error' : '' }}">
