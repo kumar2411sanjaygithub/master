@@ -340,7 +340,22 @@ Route::get('downloads/{filename}', function($filename)
     }
 });
 
-
+Route::get('noc-file-downloads/{filename}', function($filename)
+{
+    // Check if file exists in app/storage/file folder
+    $file_path = storage_path() .'/files/client/noc/'. $filename;
+    if (file_exists($file_path))
+    {
+        // Send Download
+        return Response::download($file_path, $filename, [
+            'Content-Length: '. filesize($file_path)
+        ]);
+    }
+    else
+    {
+         exit('Requested file does not exist on our server!');
+    }
+});
 //Noc Application & Bill Setting & Approval
 //Route::resource('noc-application', 'NocAppController');
 Route::get('/noc-applications',['as'=>'noc-applications.index','uses'=>'NocAppController@index']);
@@ -410,6 +425,15 @@ Route::get('/scheduling/downloadA/{id}','SchedulingController@downloadAmbSchedul
  Route::post('/client/exchange/modifiedd/{tag}','ExchangeApprovalController@clientExchangeMode');
  Route::post('/client/exchange/deletedd/{tag}','ExchangeApprovalController@clientExchangeDel');
  Route::post('/new-client-approve/{tag}','ClientApprovalController@multipleClientstatus');
+
+ Route::post('/client/noc-a/{tag}','NocApprovalController@clientNocApp');
+ Route::post('/client/noc-m/{tag}','NocApprovalController@clientNocMode');
+ Route::post('/client/noc-d/{tag}','NocApprovalController@clientNocDel');
+ // Get Ajax Request data get
+  Route::get('/get-noc-data','NocController@getnocApplicationData');
+  Route::get('/get-losses-ajax','NocController@getLossesData');
+  Route::get('/get-region-entity','NocController@getRegionentity');
+  Route::get('/get-region-value','NocController@getRegionvalue');
  /*******************************************************
   IMPORT(DAM)--RATESHEET AND RATESHEET GRAPH
 /*******************************************************/

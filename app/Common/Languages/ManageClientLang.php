@@ -41,6 +41,7 @@ class ManageClientLang
             'discom'=>'Discom',
             'voltage'=>'Voltage Level',
             'iex_client_name'=> 'Client Iex Name',
+            'noc_punched_by'=> 'NOC APPLICATION PUNCHED BY',
             'pxil_client_name'=> 'Client Pxil Name',
             'state_type'=>'State Type',
             'pxil_client_status',
@@ -114,7 +115,8 @@ class ManageClientLang
             'trader_type'=>'Trader Type',
             'pri_contact_no'=>'Primary Contact No',
             'crn_no'=> 'CRN No',
-            'client_app_status '=> 'Status'
+            'client_app_status'=> 'Status',
+            'noc_application_no'=> 'NOC Application No',
         );
    }
 }

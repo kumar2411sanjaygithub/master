@@ -10,6 +10,7 @@ use App\Client;
 use App\Pocdetails;
 use Validator;
 use App\Discomdetails;
+use App\NocApp;
 use DB;
 
 
@@ -17,30 +18,102 @@ class NocController extends Controller
 {
     public function nocdetails(Request $request, $id){
     	$client_id=$id;
-    	$nocData = DB::table('noc')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',2); })->where('status',1)->where('client_id',$id)->get();
+    	//$nocData = DB::table('noc')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',2); })->where('status',1)->where('client_id',$id)->get();
+        $nocData = Noc::select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',1)->orwhere('del_status',4); })->where('client_id',$id)->where('status',1)->get();
     	$noc_losses = Client::select('inter_discom','inter_poc','inter_stu')->where('client_app_status',1)->where('id',$id)->first();
     	$region = Pocdetails::select('region')->get();
     	$regional = Pocdetails::select('regional_entity')->get();
     	$poc_losses = Pocdetails::select('injection_poc_loss','withdraw_poc_loss')->get();
     	$discom = Discomdetails::select('injection_poc_loss','withdraw_poc_loss')->get();
          $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
-//dd($regional);
+         $noc_applicaiton=NocApp::select('id','application_no')->where('status',3)->get();
+        //dd($noc_applicaiton);
     	//dd($noc_losses);
-        return view('ManageClient.nocdetails',compact('nocData','client_id','noc_losses','region','regional','poc_losses','discom','client_details'));
+         $poc_losses_data=Pocdetails::get();
+        return view('ManageClient.nocdetails',compact('nocData','client_id','noc_losses','region','regional','poc_losses','discom','client_details','noc_applicaiton','poc_losses_data'));
+
+    }
+    public function getnocApplicationData(Request $request,$id='')
+    {
+         $noc_ajax_req=NocApp::select('id','noc_type','start_date','end_date')->where('application_no',$request->id)->first();
+
+           //dd($noc_ajax_req);
+            return response()->json(['noc_type' => $noc_ajax_req->noc_type,'start_date' => date('d/m/Y',strtotime($noc_ajax_req->start_date)),'end_date' =>date('d/m/Y',strtotime($noc_ajax_req->end_date))]);
+
+    }
+
+    public function getRegionentity(Request $request,$id='')
+    {
+         $region_ajax_req=Pocdetails::select('id','regional_entity')->where('region',$request->name)->get();
+
+            return response()->json(['region_ajax_req' => $region_ajax_req]);
+    }
+
+    public function getRegionvalue(Request $request,$id='')
+    {
+        $noc_losses_req1=Client::select('id','inter_poc')->where('id',$request->id)->first();
+         if(isset($noc_losses_req1->inter_poc)&&$noc_losses_req1->inter_poc=='POC/CTU')
+         {
+             $poc_losses_req=Pocdetails::where('region',$request->region)->where('regional_entity',$request->region_entity)->first();
+             if(isset($poc_losses_req)&&$request->noc_type=='sell')
+             {
+                $poc_losses=$poc_losses_req->injection_poc_loss;
+             }
+             elseif(isset($poc_losses_req)&&$request->noc_type=='buy')
+             {
+                $poc_losses=$poc_losses_req->withdraw_poc_loss;
+             }
+             else
+             {
+                $poc_losses=0;
+             }
+        }
+         else
+         {
+            $poc_losses=0;
+         }
+            //dd($request->id);
+            return response()->json(['poc_losses' => $poc_losses]);
+    }
+
+    public function getLossesData(Request $request,$id='')
+    {
+         $noc_losses_req=Client::select('id','inter_discom','inter_stu','inter_poc','voltage','conn_state')->where('id',$request->id)->first();
+         if(isset($noc_losses_req->inter_discom)&&$noc_losses_req->inter_discom=='DISCOM')
+         {
+            $discom_losses=Discomdetails::select('id','withdraw_poc_loss')->where('region',$noc_losses_req->conn_state)->where('regional_entity',$noc_losses_req->voltage)->first();
+            $discom_l=$discom_losses->withdraw_poc_loss;
+         }
+         else
+         {
+            $discom_l=0;
+         }
+         if(isset($noc_losses_req->inter_stu)&&$noc_losses_req->inter_stu=='STU')
+         {
+            $stu_losses=Discomdetails::select('id','injection_poc_loss')->where('region',$noc_losses_req->conn_state)->where('regional_entity',$noc_losses_req->voltage)->first();
+            $stu_l=$stu_losses->injection_poc_loss;
+         }
+         else
+         {
+            $stu_l=0;
+         }
+
+            //dd($discom_losses);
+            return response()->json(['noc_type' => '','discom_l' =>$discom_l,'stu_l' =>$stu_l]);
 
     }
 
     public function add_nocdetails(Request $request){
-
+        //dd($request->all());
     	 $this->validate($request, [
-            //'final_quantum' => 'required',
+            'noc_application_no' => 'required',
             'noc_periphery' => 'required',
             'noc_quantum' => 'required',
             'noc_type' => 'required',
             // 'poc_losses' => 'required',
             'validity_from' => 'required',
             'validity_to' => 'required',
-            //'upload_noc_doc' => 'required',
+            'upload_noc' => 'required',
         ]);
         //  if($validator->fails())
         // {
@@ -55,6 +128,7 @@ class NocController extends Controller
         $validity_to = date("Y-m-d", strtotime($to_date));
 
     	 $noc = new NocTemp();
+         $noc->noc_application_no = $request->input('noc_application_no');
         $noc->final_quantum = $request->input('final_quantum');
         $noc->noc_periphery = $request->input('noc_periphery');
         $noc->noc_quantum = $request->input('noc_quantum');
@@ -66,6 +140,8 @@ class NocController extends Controller
         $noc->poc_losses = $request->input('poc_losses');
         $noc->stu_losses = $request->input('stu_losses');
         $noc->discom_losses = $request->input('discom_losses');
+        $noc->region = $request->input('region');
+        $noc->region_entity = $request->input('region_entity');
         if(strtotime(str_replace('/','-',$request->input('validity_to')))<strtotime(date('Y-m-d'))){
         $noc->status = 'Invalid';
         }else{
@@ -89,6 +165,8 @@ class NocController extends Controller
     public function edit_nocdetails($id='',$eid=''){
         $noc_id=$eid;
         $client_id=$id;
+        $nocData = Noc::select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',1)->orwhere('del_status',4); })->where('client_id',$id)->where('status',1)->get();
+
         $get_noc_details = Noc::where('id',$noc_id)->where('status',1)->withTrashed()->first();
         $region = Pocdetails::select('region')->get();
         $regional = Pocdetails::select('regional_entity')->get();
@@ -97,8 +175,10 @@ class NocController extends Controller
         $nocdetails = Noc::where('client_id',$client_id)->where('status',1)->withTrashed()->get();
         $noc_losses = Client::select('inter_discom','inter_poc','inter_stu')->where('client_app_status',1)->where('id',$id)->first();
         $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
+        $noc_applicaiton=NocApp::select('id','application_no')->where('status',3)->get();
+        $poc_losses_data=Pocdetails::get();
 
-        return view('ManageClient.nocdetails',compact('client_details','nocdetails','client_id','get_noc_details','region','regional','poc_losses','noc_losses'));
+        return view('ManageClient.nocdetails',compact('nocData','client_details','nocdetails','client_id','get_noc_details','region','regional','poc_losses','noc_losses','noc_applicaiton','poc_losses_data'));
     }
      public function update_nocdetails(Request $request ,$noc_detail_id)
     {
@@ -117,7 +197,7 @@ class NocController extends Controller
         $datas['discom_losses'] = $nocdetail['discom_losses'];
         $datas['region'] = $nocdetail['region'];
         $datas['region_entity'] = $nocdetail['region_entity'];
-       
+        $datas['noc_application_no'] = $nocdetail['noc_application_no'];
                // Convert Date Format
         $from_date = strtr($request->input('validity_from'), '/', '-');
         $validity_from = date("Y-m-d", strtotime($from_date));
@@ -127,6 +207,7 @@ class NocController extends Controller
         $validity_to = date("Y-m-d", strtotime($to_date));
        
         $dataArray =array();
+        $dataArray['noc_application_no'] = $request->input('noc_application_no');
         $dataArray['noc_type'] = $request->input('noc_type');
         $dataArray['validity_from'] = $validity_from;
         $dataArray['validity_to'] = $validity_to;
@@ -143,7 +224,7 @@ class NocController extends Controller
         if($file = $request->hasFile('upload_noc')) {
               $file = $request->file('upload_noc') ;
               $fileName = 'NOC_'.($request->input('noc_type')).'_'.time().'_'.$file->getClientOriginalName();
-              $UID_path = storage_path('/app/public/uploads/noc');
+              $UID_path = storage_path('/files/client/noc');
               $destinationPath = $UID_path ;
               $file->move($destinationPath,$fileName);
               $dataArray['upload_noc'] = $fileName;
@@ -157,9 +238,12 @@ class NocController extends Controller
 
     public function delete_nocdetails(Request $request ,$noc_detail_id)
     {
+        // $client_id=$request->input('client_id');
+        // Noc::destroy($noc_detail_id);
         $client_id=$request->input('client_id');
-        Noc::destroy($noc_detail_id);
-
+        $noc = Noc::find($noc_detail_id);
+        $noc->del_status = 1;
+        $noc->update();
         
         return redirect()->back()->with('message','Detail  successfully  sent to Approver');
     }

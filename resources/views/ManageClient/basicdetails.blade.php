@@ -434,6 +434,15 @@
             <label  class="control-label">MAXIMUM WITHDRAWAL QUANTUM (MW)</label>
             <input class="form-control input-sm" type="text" placeholder="ENTER WITHDRAWAL QUANTUM" name="maxm_withdrawal" id="maxm_withdrawal" value="{{old('maxm_withdrawal')}}">
               </div>
+              <div class="col-md-3">
+              <label  class="control-label">NOC APPLICATION PUNCHED BY</label>
+              <select class="form-control input-sm" style="width: 100%;" id="noc_punched_by" name="noc_punched_by" value="{{old('noc_punched_by')}}">
+                  <option value="">SELECT</option>
+                  <option value="Trader">Trader</option>
+                  <option value="Client">Client</option>
+                </select>
+              </div>
+
             </div>
 
         <h5><label  class="control-label"><u>FINANCIAL ARRANGEMENT</u></label></h5><hr>
