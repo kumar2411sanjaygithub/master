@@ -195,7 +195,7 @@ class PlacebidController extends Controller
         $psm=(@$exchangeusertemp['validationsetting']['psm'])?$exchangeusertemp['validationsetting']['psm']:'0';
 
         if($this->validate_user_status($request->input('client_id'),'iex')){
-          $msg = "Client's Iex status is Blocked";
+          $msg = "Invalid IEX status";
           return response()->json(['status' => '1', 'msg'=>$msg],400);
         }
 
@@ -282,25 +282,34 @@ class PlacebidController extends Controller
         ->whereNull('deleted_at')
         ->first();
 
-        $particulardatedata= DB::table('place_bid')
-        ->select(DB::raw('sum(bid_mw) as totalBid'))
-        ->where('client_id', $request->input('client_id'))
-        ->where('exchange', $request->input('exchange'))
-        ->where('bid_date', $biddate)
-        ->where('bid_action', $request->input('bid_action'))
-        ->whereNull('deleted_at')
-        ->first();
+        $totalMwFinal = $PartiCularTimeSlotData->totalBid+$request->input('bid_mw');
 
-        if($request->input('bid_type')=='block'){
-          $noOfBlock = $request->input('no_of_block');
-          $total_bid_mw = $request->input('bid_mw')*$noOfBlock;
-        }else{
-          $total_bid_mw = $request->input('bid_mw');
-        }
+        // if(empty($exchangeData)){
+        //     $msg = 'Your Exchange has been expired or not uploaded. Please contact Trader Admin';
+        //     return response()->json(['status' => '1', 'msg'=>$msg],400);
+        // }
 
-        $totalMwFinal = $particulardatedata->totalBid+$total_bid_mw;
+        // $particulardatedata= DB::table('place_bid')
+        // ->select(DB::raw('sum(bid_mw) as totalBid'))
+        // ->where('client_id', $request->input('client_id'))
+        // ->where('exchange', $request->input('exchange'))
+        // ->where('bid_date', $biddate)
+        // ->where('bid_action', $request->input('bid_action'))
+        // ->whereNull('deleted_at')
+        // ->first();
 
-        // DB::enableQueryLog();
+        // if($request->input('bid_type')=='block'){
+        //   $noOfBlock = $request->input('no_of_block');
+        //   $total_bid_mw = $request->input('bid_mw')*$noOfBlock;
+        // }else{
+        //   $total_bid_mw = $request->input('bid_mw');
+        // }
+
+        // $totalMwFinal = $particulardatedata->totalBid+$total_bid_mw;
+
+        // *******************START***********************
+        // | Validation setting for Exchange, NOC and PPA 
+        // ***********************************************
         
         if($validationSetting){
             //Exchange Validation setting and Exchange expire
@@ -356,6 +365,9 @@ class PlacebidController extends Controller
                 }
             }
         }
+        // ***********************************************
+        // | Validation setting for Exchange, NOC and PPA
+        // ********************END************************
 
         if($request->input('bid_type')=='single'){
           if($this->validatesinglebidbyprice($request->input('time_slot_from'),$request->input('time_slot_to'),$request->input('bid_price'),$biddate,$request->input('bid_action'),$request->input('client_id'))){
@@ -486,7 +498,7 @@ class PlacebidController extends Controller
           $psm=(@$exchangeusertemp['validationsetting']['psm'])?$exchangeusertemp['validationsetting']['psm']:'0';
 
           if($this->validate_user_status($request->input('client_id'),'iex')){
-            $msg = "Client's Iex status is Blocked";
+            $msg = "Invalid IEX status";
             return response()->json(['status' => '1', 'msg'=>$msg],400);
           }
 

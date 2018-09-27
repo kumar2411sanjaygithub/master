@@ -579,7 +579,7 @@ jQuery(document).ready(function() {
                 valHtml += '</div>';
                 jQuery(".msg_error").fadeIn();
                 jQuery(".msg_error").html(valHtml);
-                jQuery(".msg_error").fadeOut(6000);
+                jQuery(".msg_error").fadeOut(10000);
             }
         });
 
