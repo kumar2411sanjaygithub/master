@@ -61,7 +61,11 @@
             <td>{{$noc_initiated->application_no}}</td>
             <td>{{date('d/m/Y',strtotime($noc_initiated->start_date))}}</td>
             <td>{{date('d/m/Y',strtotime($noc_initiated->end_date))}}</td>
-            <td>{{isset($noc_initiated->noc_file)?'YES':'NO' }}</td>
+            <td>                
+                @if($noc_initiated->noc_file)
+                  <a href="{{url('fileNdownloads/'.$noc_initiated->noc_file)}}">View</a>
+                @endif
+            </td>
             <td>
               <a href="" data-toggle="modal" data-target="#approveData{{ $noc_initiated->id }}" class="btn  btn-info btn-xs">APPROVE</a>
               <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_initiated->id }}" class="btn  btn-danger btn-xs">REJECT</a>
@@ -129,7 +133,6 @@
         <th>VALIDITY START DATE</th>
         <th>VALIDITY END DATE</th>
         <th>NOC REQUEST</th>
-        <th class="act">ACTION</th>
       </tr>
     </thead>
     <tbody>
@@ -149,9 +152,10 @@
             <td>{{$noc_approved->application_no}}</td>
             <td>{{date('d/m/Y',strtotime($noc_approved->start_date))}}</td>
             <td>{{date('d/m/Y',strtotime($noc_approved->end_date))}}</td>
-            <td>{{isset($noc_approved->noc_file)?'YES':'NO' }}</td>
-            <td>
-              <a href="#" class="btn  btn-info btn-xs">APPROVED</a>
+            <td>                
+                @if($noc_approved->noc_file)
+                  <a href="{{url('fileNdownloads/'.$noc_approved->noc_file)}}">View</a>
+                @endif
             </td>
           </tr>
             @php $i++; @endphp
@@ -176,7 +180,6 @@
         <th>VALIDITY START DATE</th>
         <th>VALIDITY END DATE</th>
         <th>NOC REQUEST</th>
-        <th class="act">ACTION</th>
       </tr>
     </thead>
     <tbody>
@@ -196,10 +199,10 @@
             <td>{{$noc_rejected->application_no}}</td>
             <td>{{date('d/m/Y',strtotime($noc_rejected->start_date))}}</td>
             <td>{{date('d/m/Y',strtotime($noc_rejected->end_date))}}</td>
-            <td>{{isset($noc_rejected->noc_file)?'YES':'NO' }}</td>
             <td>
-              <a href="#" data-toggle="modal" data-target="#deleteData" class="btn  btn-danger btn-xs">REJECTED</a>
-            </td>
+                @if($noc_rejected->noc_file)
+                  <a href="{{url('fileNdownloads/'.$noc_rejected->noc_file)}}">View</a>
+                @endif
           </tr>
             @php $i++; @endphp
         @endforeach

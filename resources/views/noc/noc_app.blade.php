@@ -284,7 +284,13 @@ min-width:100px;
                         <td class="vl">{{$noc_list->application_no}}</td>
                         <td class="vl">{{date('d/m/Y',strtotime($noc_list->start_date))}}</td>
                         <td class="vl">{{date('d/m/Y',strtotime($noc_list->end_date))}}</td>
-                        <td class="vl">{{isset($noc_list->noc_file)?'YES':'NO' }}</td>
+                        <td class="vl">
+                          @if($noc_list->noc_file)
+                            <a href="{{url('fileNdownloads/'.$noc_list->noc_file)}}">View</a>
+                          @endif
+                        </td>
+
+
                         <td class="vl">
                           @if($noc_list->status==1)
                              <a href="#"><u>INITIATED</u></a>
