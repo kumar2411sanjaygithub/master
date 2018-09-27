@@ -70,7 +70,7 @@
                  </div>
                  <div class="row">
                     <div class="col-md-3 {{ $errors->has('issue_date') ? 'has-error' : '' }}">
-                       <label  class="control-label">ISSUE DATE</label>
+                       <label  class="control-label">ISSUE DATE</label><span class="text-danger"><strong>*</strong></span>
                        <div class="input-group date">
                           <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
@@ -99,7 +99,7 @@
                        </div>
                     </div>
                     <div class="col-md-3 {{ $errors->has('document') ? 'has-error' : '' }}">
-                       <label  class="control-label">UPLOAD DOCUMENT</label><span class="text-danger"><strong>*</strong></span>
+                       <label  class="control-label">UPLOAD DOCUMENT</label>
                        <input class="form-control input-sm" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif type="file" value="{{$psmData->document}}" name="document" id="upload" placeholder="ENTER POC LOSSES">
                        <input class="form-control input-sm" type="hidden" value="{{ $psmData->document }}" name="old">
 
