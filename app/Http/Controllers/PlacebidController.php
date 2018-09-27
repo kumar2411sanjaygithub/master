@@ -187,19 +187,8 @@ class PlacebidController extends Controller
               }]);
             }])->where("client_id",$request->input('client_id'))->get()->first();
         
-        //$blocked = Client::selectRaw("blocked,block_warning")->where("id",$request->input('client_id'))->first();
-
+        
         $validationSetting = Validationsetting::where('user_id',$request->input('client_id'))->get()->first();
-
-
-
-        // if($blocked->blocked){
-        //       $msg = 'Your account is blocked';
-        //       return response()->json(['status' => '1', 'msg'=>$msg],400);
-        // }else if($blocked->block_warning){
-        //   $msg = 'You have a block warning';
-        //   return response()->json(['status' => '1', 'msg'=>$msg],400);
-        // }
 
         $portfolio_id = (@$exchangeusertemp['portfolio_id'])?$exchangeusertemp['portfolio_id']:'0';
 
@@ -212,18 +201,6 @@ class PlacebidController extends Controller
 
         $isBarredHint=0;
 
-
-
-
-            // $biddate = Carbon::createFromFormat('Y-m-d', $request->input('bid_date'));
-
-            // $biddate = date("Y-m-d", strtotime($request->input('bid_date')));
-
-        // if($currentDateTime < strtotime($bidSubmissionTime) && $biddate <= $getNextBidDate){
-        //     $msg = 'You Cant save New bid after '.$bidSubmissionTime.' of Today Date.';
-        //     return response()->json(['status' => '1', 'msg'=>$msg],400);
-        // }
-        //
 
         if($getNextBidDate > $biddate){
             $msg = 'You Cant change/place bid for previous days.';
@@ -241,51 +218,13 @@ class PlacebidController extends Controller
             return response()->json(['status' => '1', 'msg'=>$msg],400);
         }
 
-
-        // $totalBidArray[] = array($request->input('time_slot_from'),$request->input('time_slot_to'),$request->input('bid_mw'),$request->input('bid_price'));
-       //  $timeslice = $this->gettimeslice();
-       // // print_r($gettimeslice);
-       // //  exit();
-       //  // echo $this->ValidateBid($gettimeslice,$totalBidArray);
-
-       //  $totalBidArray = $this->getBidDetailArray($request->input('client_id'), $request->input('bid_date'), $request->input('bid_type'), $request->input('bid_price'));
-       //  // print_r($totalBidArray);
-       //  // exit();
-       //      $diffHr=$this->timeDiff($request->input('time_slot_from'),$request->input('time_slot_to'));
-       //      $indexMultiplyer = ($diffHr / $noOfBlock) * 4;
-       //      // print_r($indexMultiplyer);
-       //      // exit();
-       //      $arrayIndexBlockFrom = $this->get_array_index($request->input('time_slot_from'), $timeslice);
-       //      $arrayIndexBlockTo = $this->get_array_index($request->input('time_slot_to'), $timeslice);
-
-       //      for ($i = $arrayIndexBlockFrom; $i <= $arrayIndexBlockTo - 1; $i = $i + $indexMultiplyer) {
-       //          $nextIndex = $diffHr < 1 ? $i + 1 : $i + $indexMultiplyer;
-
-       //          $totalBidArray[] = array($timeslice[$i], $timeslice[$nextIndex],  $request->input('bid_price'),  $request->input('bid_mw'), '',$request->input('bid_action'));
-       //      }
-       //  // print_r($totalBidArray);
-       //  // exit();
-       //  $ValidateMsg = $this->ValidateBid($timeslice,$totalBidArray,$request->input('bid_action'));
-
-       //  if($ValidateMsg<>"TRUE"){
-       //      return response()->json(['status' => '1', 'msg'=>$ValidateMsg],400);
-       //  }
-        // echo "string";
-        // exit();
-        // return response()->json(['status' => '1', 'msg'=>'AAAAAAAA    Thuuuuuuuuuu'],400);
-        // exit();
-
-       // DB::enableQueryLog();
-
         if($request->input('bid_action')=='sell'){
-             // $sign = ">=";
              $action_final  = "buy";
         }else{
-            // $sign = "<=";
             $action_final  = "sell";
         } 
 
-        // echo $action_final.'~'.$sign.'~'.$request->input('bid_price').'~'.$request->input('bid_type').'~'.$request->input('bid_date').'~'.$request->input('exchange');
+        
         $sameTimeSlotPrice = DB::table('place_bid')
         ->select('*')
         ->where('client_id', $request->input('client_id'))
@@ -300,8 +239,6 @@ class PlacebidController extends Controller
 
         $sameTimeSlotPriceFinal = $sameTimeSlotPrice->toArray();
 
-       // print_r($sameTimeSlotPriceFinal);
-       // exit();
         if(!empty($sameTimeSlotPriceFinal)){
             if(count($sameTimeSlotPriceFinal) > 0){
                 $ValidateMsg = "You Cant buy and sell at same price  ".$request->input('bid_price')." for  ". $request->input('time_slot_from') . "-" . $request->input('time_slot_to');
@@ -345,12 +282,6 @@ class PlacebidController extends Controller
         ->whereNull('deleted_at')
         ->first();
 
-        // $PartiCularTimeSlotDataFinal = $PartiCularTimeSlotData->toArray();
-        // echo $request->input('client_id').'~'.$request->input('exchange').'~'.$request->input('bid_date').'~'.$request->input('bid_action').'~'.$request->input('time_slot_from').'~'.$request->input('time_slot_to');
-        // print_r($PartiCularTimeSlotData);
-
-
-
         $particulardatedata= DB::table('place_bid')
         ->select(DB::raw('sum(bid_mw) as totalBid'))
         ->where('client_id', $request->input('client_id'))
@@ -369,200 +300,163 @@ class PlacebidController extends Controller
 
         $totalMwFinal = $particulardatedata->totalBid+$total_bid_mw;
 
-        // echo $totalMwFinal;
-        // exit();
         // DB::enableQueryLog();
-        $exchangeData = DB::table('exchange')
-          ->select('exchange.*')
-          ->where('exchange.client_id',$request->input('client_id'))
-          ->where('exchange.ex_type',$request->input('exchange'))
-          ->whereRaw("exchange.validity_from <="."'".date('Y-m-d',strtotime('-1 day', strtotime($biddate)))."'")
-          ->whereRaw("exchange.validity_to >="."'".date('Y-m-d',strtotime('-1 day', strtotime($biddate)))."'")
-          ->first();
-          // echo $request->input('exchange');
-          // print_r(DB::getQueryLog());
-          // print_r($exchangeData);
-          // die();
-        if(!empty($exchangeData)||!($validationSetting->exchange)){
-          // if(empty($exchangeData)||$validationSetting->exchange){
-                // DB::enableQueryLog();
+        
+        if($validationSetting){
+            //Exchange Validation setting and Exchange expire
+            if($validationSetting->exchange=='yes'){
+                $exchangeData = DB::table('exchange')
+                  ->select('exchange.*')
+                  ->where('exchange.client_id',$request->input('client_id'))
+                  ->where('exchange.ex_type',$request->input('exchange'))
+                  ->whereRaw("exchange.validity_from <="."'".date('Y-m-d',strtotime('-1 day', strtotime($biddate)))."'")
+                  ->whereRaw("exchange.validity_to >="."'".date('Y-m-d',strtotime('-1 day', strtotime($biddate)))."'")
+                  ->first();
+                if(empty($exchangeData)){
+                    $msg = 'Your Exchange has been expired or not uploaded. Please contact Trader Admin';
+                    return response()->json(['status' => '1', 'msg'=>$msg],400);
+                }
+            }
+            //NOC Setting and validation
+            if($validationSetting->noc=='yes'){
                 $nocData = Noc::selectRaw('*')
-                ->where('client_id',$request->input('client_id'))
-                ->whereRaw("validity_from <="."'".$biddate."'")
-                ->whereRaw("validity_to >="."'".$biddate."'")
-                ->where('noc_type',$request->input('bid_action'))
-                ->first();
-                // print_r(DB::getQueryLog());
-                // die();
-                // ->where('exchange',$request->input('exchange'))
-
-                //check for NOC
-                
-                if($nocData||!($validationSetting->noc)){
-
+                    ->where('client_id',$request->input('client_id'))
+                    ->whereRaw("validity_from <="."'".$biddate."'")
+                    ->whereRaw("validity_to >="."'".$biddate."'")
+                    ->where('noc_type',$request->input('bid_action'))
+                    ->first();
+                if(empty($nocData)){
+                    $msg = 'Your NOC has been expired or not uploaded. Please contact Trader Admin';
+                    return response()->json(['status' => '1', 'msg'=>$msg],400);
+                }else{
                     $nocData = Noc::select('*')
                                 ->where('client_id',$request->input('client_id'))
-                                // ->where('exchange',$request->input('exchange'))
+                                ->where('exchange',$request->input('exchange'))
                                 ->where('noc_type',$request->input('bid_action'))
                                 ->whereRaw("validity_from <="."'".$biddate."'")
                                 ->whereRaw("validity_to >="."'".$biddate."'")
                                 ->first();
-
-
-
-                    //check for NOC Type (Buy or Sell)
-                    // if($nocData->noc_type==$request->input('bid_action')){
-                        //Validate NOC QW
-
-                        //check for NOC exchange (IEX or PXIL)
-                        // if($nocData->exchange==$request->input('exchange')){
-                            //check for NOC quantum
-                            // echo $totalMwFinal;
-                            // echo $nocData->final_noc_quantum;
-                            // exit();
-
-                            if(@$nocData->noc_quantum >= $totalMwFinal||!($validationSetting->noc)){
-                                $ppaData = DB::table('ppa_details')
-                                ->select('validity_from','validity_to')
-                                ->where('client_id',$request->input('client_id'))
-                                ->whereRaw("validity_from <="."'".$biddate."'")
-                                ->whereRaw("validity_to >="."'".$biddate."'")
-                                ->first();
-                                if(!empty($ppaData)||!($validationSetting->ppa)){
-
-
-
-                                    if($request->input('bid_type')=='single'){
-                                      if($this->validatesinglebidbyprice($request->input('time_slot_from'),$request->input('time_slot_to'),$request->input('bid_price'),$biddate,$request->input('bid_action'),$request->input('client_id'))){
-                                        $placebid = new Placebid();
-                                        $placebid->trading = $trading;
-                                        $placebid->exchange = $request->input('exchange');
-                                        $placebid->client_id = $request->input('client_id');
-                                        $placebid->bid_date = $biddate;
-                                        $placebid->bid_type = $request->input('bid_type');
-                                        $placebid->bid_action = $request->input('bid_action');
-                                        $placebid->time_slot_from = $request->input('time_slot_from');
-                                        $placebid->time_slot_to = $request->input('time_slot_to');
-                                        $placebid->bid_mw = $request->input('bid_mw');
-                                        $placebid->bid_price = $request->input('bid_price');
-                                        $placebid->status = '0';
-                                        $placebid->save();
-                                      }else{
-                                        if($request->input('bid_action')=='buy'){
-                                          $msg = 'Buy amount cannot be greater than sell';
-                                          return response()->json(['status' => '1', 'msg'=>$msg],400);
-                                        }else{
-                                          $msg = 'Sell amount cannot be smaller than buy';
-                                          return response()->json(['status' => '1', 'msg'=>$msg],400);
-                                        }
-                                      }
-                                    }
-
-                                    if($request->input('bid_type')=='block'){
-                                        $timeslice = $this->gettimeslice1();
-                                        $blockfrom = $request->input('time_slot_from');
-                                        $blockto = $request->input('time_slot_to');
-                                        $diffHr =  $this->timeDiff($blockfrom,$blockto);
-
-                                        $noOfBlock = $request->input('no_of_block');
-                                        if(($diffHr*4)%$noOfBlock <> 0){
-                                            $msg = 'Please enter valid block number !!!';
-                                            return response()->json(['status' => '1', 'msg'=>$msg],400);
-                                        }
-                                        //block save
-                                        $indexMultiplyer = ($diffHr / $noOfBlock) * 4;
-                                        $arrayIndexBlockFrom = array_search($blockfrom, $timeslice);
-                                        $arrayIndexBlockTo = array_search($blockto, $timeslice);
-                                        $totalBidArray= array();
-                                        for ($i = $arrayIndexBlockFrom; $i <= $arrayIndexBlockTo - 1; $i = $i + $indexMultiplyer) {
-                                            $nextIndex = $diffHr < 1 ? $i + 1 : $i + $indexMultiplyer;
-                                            // $totalBidArray[] = array($placebid->id,, , , $request->input('bid_price'));
-                                            //save block data
-                                            // $placebiddetails = new Placebiddetails();
-                                            // $placebiddetails->place_bid_id  = $placebid->id;
-                                            $placebid = new Placebid();
-                                            $placebid->trading = $trading;
-                                            $placebid->exchange = $request->input('exchange');
-                                            $placebid->client_id = $request->input('client_id');
-                                            $placebid->bid_date = $biddate;
-                                            $placebid->bid_type = $request->input('bid_type');
-                                            $placebid->bid_action = $request->input('bid_action');
-                                            $placebid->time_slot_from= $timeslice[$i];
-                                            $placebid->time_slot_to  = $timeslice[$nextIndex];
-                                            $placebid->bid_mw        = $request->input('bid_mw');
-                                            $placebid->bid_price     = $request->input('bid_price');
-                                            $placebid->no_of_block = $request->input('no_of_block');
-                                            $placebid->save();
-                                        }
-                                    }
-
-                                    $placebidDataSubmitted = DB::table('place_bid')
-                                    ->select('*')
-                                    ->where('trading',$trading)
-                                    ->where('exchange',$request->input('exchange'))
-                                    ->where('client_id',$request->input('client_id'))
-                                    ->where('bid_date',$biddate)
-                                    ->whereNull('deleted_at')
-                                    ->get();
-
-                                    $placebidDataProcess = DB::table('place_bid')
-                                    ->select('*')
-                                    ->where('trading',$trading)
-                                    ->where('exchange',$request->input('exchange'))
-                                    ->where('client_id',$request->input('client_id'))
-                                    ->where('bid_date',$biddate)
-                                    ->where('status','0')
-                                    ->whereNull('deleted_at')
-                                    ->get();
-                                    $msg ="Bid added successfully";
-
-                                    if($request['bid_action']=='buy'&&($validationSetting->psm)){
-                                       $isBarredHint=$this->validate_psm($request->input('client_id'),$portfolio_id,'iex', $biddate);
-                                    }
-
-                                    if($isBarredHint==1){
-                                      $msg .= " But Your PSM amount is low";
-                                    }else if($isBarredHint==2){
-                                      $msg .= " But Your PSM is not available";
-                                    }
-                                    return response()->json(['status' => '0','placebidDataProcess'=> $placebidDataProcess,'placebidDataSubmitted'=>$placebidDataSubmitted, 'msg' => $msg]);
-                                }else{
-                                    //Error message for PPA
-                                    $msg = 'Your PPA has been expired or not uploaded. Please contact Trader Admin';
-                                    return response()->json(['status' => '1', 'msg'=>$msg],400);
-                                }
-                            }else{
-                                //Error message for NOC Exchange (Buy or Sell)
-                               $msg = 'You cannot place bid more than your maximum NOC quantum. Your maximum NOC quantum is set to '.strtoupper($nocData->noc_quantum).' for '.$request->input('bid_action').' trade type.';
-                               return response()->json(['status' => '1', 'msg'=>$msg],400);
-                            }
-                        // }else{
-                        //    //Error message for NOC Exchange (Buy or Sell)
-                        //    $msg = 'Your NOC not registered for '.strtoupper($request->input('exchange')).'.';
-                        //    return response()->json(['status' => '1', 'msg'=>$msg],400);
-                        // }
-                    // }else{
-                    //   //Error message for NOC Type (Buy or Sell)
-                    //   $msg = 'You are not allowed to place a bid for '.strtoupper($request->input('bid_action')).'.';
-                    //     return response()->json(['status' => '1', 'msg'=>$msg],400);
-                    // }
-                }else{
-                    //NOC Error Message
-                    $msg = 'Your NOC has been expired or not uploaded. Please contact Trader Admin';
+                    if(@$nocData->noc_quantum >= $totalMwFinal){
+                        $msg = 'You cannot place bid more than your maximum NOC quantum. Your maximum NOC quantum is set to '.strtoupper($nocData->noc_quantum).' for '.$request->input('bid_action').' trade type.';
+                        return response()->json(['status' => '1', 'msg'=>$msg],400);
+                    }
+                }
+            }
+            //PPA Setting and validation
+            if($validationSetting->ppa=='yes'){
+                $ppaData = DB::table('ppa_details')
+                    ->select('validity_from','validity_to')
+                    ->where('client_id',$request->input('client_id'))
+                    ->whereRaw("validity_from <="."'".$biddate."'")
+                    ->whereRaw("validity_to >="."'".$biddate."'")
+                    ->first();
+                if(empty($ppaData)){
+                    $msg = 'Your PPA has been expired or not uploaded. Please contact Trader Admin';
                     return response()->json(['status' => '1', 'msg'=>$msg],400);
                 }
+            }
+        }
+
+        if($request->input('bid_type')=='single'){
+          if($this->validatesinglebidbyprice($request->input('time_slot_from'),$request->input('time_slot_to'),$request->input('bid_price'),$biddate,$request->input('bid_action'),$request->input('client_id'))){
+            $placebid = new Placebid();
+            $placebid->trading = $trading;
+            $placebid->exchange = $request->input('exchange');
+            $placebid->client_id = $request->input('client_id');
+            $placebid->bid_date = $biddate;
+            $placebid->bid_type = $request->input('bid_type');
+            $placebid->bid_action = $request->input('bid_action');
+            $placebid->time_slot_from = $request->input('time_slot_from');
+            $placebid->time_slot_to = $request->input('time_slot_to');
+            $placebid->bid_mw = $request->input('bid_mw');
+            $placebid->bid_price = $request->input('bid_price');
+            $placebid->status = '0';
+            $placebid->save();
+          }else{
+            if($request->input('bid_action')=='buy'){
+              $msg = 'Buy amount cannot be greater than sell';
+              return response()->json(['status' => '1', 'msg'=>$msg],400);
             }else{
-                //Exchange Error Message
-                $msg = 'Your Exchange has been expired or not uploaded. Please contact Trader Admin';
+              $msg = 'Sell amount cannot be smaller than buy';
+              return response()->json(['status' => '1', 'msg'=>$msg],400);
+            }
+          }
+        }
+
+        if($request->input('bid_type')=='block'){
+            $timeslice = $this->gettimeslice1();
+            $blockfrom = $request->input('time_slot_from');
+            $blockto = $request->input('time_slot_to');
+            $diffHr =  $this->timeDiff($blockfrom,$blockto);
+
+            $noOfBlock = $request->input('no_of_block');
+            if(($diffHr*4)%$noOfBlock <> 0){
+                $msg = 'Please enter valid block number !!!';
                 return response()->json(['status' => '1', 'msg'=>$msg],400);
             }
+            //block save
+            $indexMultiplyer = ($diffHr / $noOfBlock) * 4;
+            $arrayIndexBlockFrom = array_search($blockfrom, $timeslice);
+            $arrayIndexBlockTo = array_search($blockto, $timeslice);
+            $totalBidArray= array();
+            for ($i = $arrayIndexBlockFrom; $i <= $arrayIndexBlockTo - 1; $i = $i + $indexMultiplyer) {
+                $nextIndex = $diffHr < 1 ? $i + 1 : $i + $indexMultiplyer;
+                // $totalBidArray[] = array($placebid->id,, , , $request->input('bid_price'));
+                //save block data
+                // $placebiddetails = new Placebiddetails();
+                // $placebiddetails->place_bid_id  = $placebid->id;
+                $placebid = new Placebid();
+                $placebid->trading = $trading;
+                $placebid->exchange = $request->input('exchange');
+                $placebid->client_id = $request->input('client_id');
+                $placebid->bid_date = $biddate;
+                $placebid->bid_type = $request->input('bid_type');
+                $placebid->bid_action = $request->input('bid_action');
+                $placebid->time_slot_from= $timeslice[$i];
+                $placebid->time_slot_to  = $timeslice[$nextIndex];
+                $placebid->bid_mw        = $request->input('bid_mw');
+                $placebid->bid_price     = $request->input('bid_price');
+                $placebid->no_of_block = $request->input('no_of_block');
+                $placebid->save();
+            }
+        }
+
+        $placebidDataSubmitted = DB::table('place_bid')
+        ->select('*')
+        ->where('trading',$trading)
+        ->where('exchange',$request->input('exchange'))
+        ->where('client_id',$request->input('client_id'))
+        ->where('bid_date',$biddate)
+        ->whereNull('deleted_at')
+        ->get();
+
+        $placebidDataProcess = DB::table('place_bid')
+        ->select('*')
+        ->where('trading',$trading)
+        ->where('exchange',$request->input('exchange'))
+        ->where('client_id',$request->input('client_id'))
+        ->where('bid_date',$biddate)
+        ->where('status','0')
+        ->whereNull('deleted_at')
+        ->get();
+        $msg ="Bid added successfully";
+
+        // if($request['bid_action']=='buy'&&($validationSetting->psm)){
+        //    $isBarredHint=$this->validate_psm($request->input('client_id'),$portfolio_id,'iex', $biddate);
+        // }
+
+        // if($isBarredHint==1){
+        //   $msg .= " But Your PSM amount is low";
+        // }else if($isBarredHint==2){
+        //   $msg .= " But Your PSM is not available";
+        // }
+        return response()->json(['status' => '0','placebidDataProcess'=> $placebidDataProcess,'placebidDataSubmitted'=>$placebidDataSubmitted, 'msg' => $msg]);
     }
 
 
 
     public function updatebiddata(Request $request, $trading, $id)
     {
-
           if($request->input('bid_type')=='block'){
               $noOfBlock=$request->input('no_of_block');
           }else{
@@ -585,17 +479,7 @@ class PlacebidController extends Controller
               }]);
             }])->where("client_id",$request->input('client_id'))->get()->first();
 
-          // $blocked = Clientmaster::selectRaw("blocked,block_warning")->where("id",$request->input('client_id'))->first();
-
           $validationSetting = Validationsetting::where('user_id',$request->input('client_id'))->get()->first();
-
-          // if($blocked->blocked){
-          //       $msg = 'Your account is blocked';
-          //       return response()->json(['status' => '1', 'msg'=>$msg],400);
-          // }else if($blocked->block_warning){
-          //   $msg = 'You have a block warning';
-          //   return response()->json(['status' => '1', 'msg'=>$msg],400);
-          // }
 
           $portfolio_id = (@$exchangeusertemp['portfolio_id'])?$exchangeusertemp['portfolio_id']:'0';
 
@@ -608,19 +492,6 @@ class PlacebidController extends Controller
 
           $isBarredHint=0;
 
-
-
-
-              // $biddate = Carbon::createFromFormat('Y-m-d', $request->input('bid_date'));
-
-              // $biddate = date("Y-m-d", strtotime($request->input('bid_date')));
-
-          // if($currentDateTime < strtotime($bidSubmissionTime) && $biddate <= $getNextBidDate){
-          //     $msg = 'You Cant save New bid after '.$bidSubmissionTime.' of Today Date.';
-          //     return response()->json(['status' => '1', 'msg'=>$msg],400);
-          // }
-          //
-
           if($getNextBidDate > $biddate){
               $msg = 'You Cant change/place bid for previous days.';
               return response()->json(['status' => '1', 'msg'=>$msg],400);
@@ -632,42 +503,6 @@ class PlacebidController extends Controller
               return response()->json(['status' => '1', 'msg'=>$msg],400);
           }
 
-
-          // $totalBidArray[] = array($request->input('time_slot_from'),$request->input('time_slot_to'),$request->input('bid_mw'),$request->input('bid_price'));
-         //  $timeslice = $this->gettimeslice();
-         // // print_r($gettimeslice);
-         // //  exit();
-         //  // echo $this->ValidateBid($gettimeslice,$totalBidArray);
-
-         //  $totalBidArray = $this->getBidDetailArray($request->input('client_id'), $request->input('bid_date'), $request->input('bid_type'), $request->input('bid_price'));
-         //  // print_r($totalBidArray);
-         //  // exit();
-         //      $diffHr=$this->timeDiff($request->input('time_slot_from'),$request->input('time_slot_to'));
-         //      $indexMultiplyer = ($diffHr / $noOfBlock) * 4;
-         //      // print_r($indexMultiplyer);
-         //      // exit();
-         //      $arrayIndexBlockFrom = $this->get_array_index($request->input('time_slot_from'), $timeslice);
-         //      $arrayIndexBlockTo = $this->get_array_index($request->input('time_slot_to'), $timeslice);
-
-         //      for ($i = $arrayIndexBlockFrom; $i <= $arrayIndexBlockTo - 1; $i = $i + $indexMultiplyer) {
-         //          $nextIndex = $diffHr < 1 ? $i + 1 : $i + $indexMultiplyer;
-
-         //          $totalBidArray[] = array($timeslice[$i], $timeslice[$nextIndex],  $request->input('bid_price'),  $request->input('bid_mw'), '',$request->input('bid_action'));
-         //      }
-         //  // print_r($totalBidArray);
-         //  // exit();
-         //  $ValidateMsg = $this->ValidateBid($timeslice,$totalBidArray,$request->input('bid_action'));
-
-         //  if($ValidateMsg<>"TRUE"){
-         //      return response()->json(['status' => '1', 'msg'=>$ValidateMsg],400);
-         //  }
-          // echo "string";
-          // exit();
-          // return response()->json(['status' => '1', 'msg'=>'AAAAAAAA    Thuuuuuuuuuu'],400);
-          // exit();
-
-         // DB::enableQueryLog();
-
           if($request->input('bid_action')=='sell'){
                // $sign = ">=";
                $action_final  = "buy";
@@ -676,7 +511,7 @@ class PlacebidController extends Controller
               $action_final  = "sell";
           }
 
-          // echo $action_final.'~'.$sign.'~'.$request->input('bid_price').'~'.$request->input('bid_type').'~'.$request->input('bid_date').'~'.$request->input('exchange');
+          
           $sameTimeSlotPrice = DB::table('place_bid')
           ->select('*')
           ->where('client_id', $request->input('client_id'))
@@ -759,185 +594,160 @@ class PlacebidController extends Controller
 
           // echo $totalMwFinal;
           // exit();
+          // *************************
+          // *************************
+            if($validationSetting){
+                //Exchange Validation setting and Exchange expire
+                if($validationSetting->exchange=='yes'){
+                    $exchangeData = DB::table('exchange')
+                      ->select('exchange.*')
+                      ->where('exchange.client_id',$request->input('client_id'))
+                      ->where('exchange.ex_type',$request->input('exchange'))
+                      ->whereRaw("exchange.validity_from <="."'".date('Y-m-d',strtotime('-1 day', strtotime($biddate)))."'")
+                      ->whereRaw("exchange.validity_to >="."'".date('Y-m-d',strtotime('-1 day', strtotime($biddate)))."'")
+                      ->first();
+                    if(empty($exchangeData)){
+                        $msg = 'Your Exchange has been expired or not uploaded. Please contact Trader Admin';
+                        return response()->json(['status' => '1', 'msg'=>$msg],400);
+                    }
+                }
+                //NOC Setting and validation
+                if($validationSetting->noc=='yes'){
+                    $nocData = Noc::selectRaw('*')
+                        ->where('client_id',$request->input('client_id'))
+                        ->whereRaw("validity_from <="."'".$biddate."'")
+                        ->whereRaw("validity_to >="."'".$biddate."'")
+                        ->where('noc_type',$request->input('bid_action'))
+                        ->first();
+                    if(empty($nocData)){
+                        $msg = 'Your NOC has been expired or not uploaded. Please contact Trader Admin';
+                        return response()->json(['status' => '1', 'msg'=>$msg],400);
+                    }else{
+                        $nocData = Noc::select('*')
+                                    ->where('client_id',$request->input('client_id'))
+                                    ->where('exchange',$request->input('exchange'))
+                                    ->where('noc_type',$request->input('bid_action'))
+                                    ->whereRaw("validity_from <="."'".$biddate."'")
+                                    ->whereRaw("validity_to >="."'".$biddate."'")
+                                    ->first();
+                        if(@$nocData->noc_quantum >= $totalMwFinal){
+                            $msg = 'You cannot place bid more than your maximum NOC quantum. Your maximum NOC quantum is set to '.strtoupper($nocData->noc_quantum).' for '.$request->input('bid_action').' trade type.';
+                            return response()->json(['status' => '1', 'msg'=>$msg],400);
+                        }
+                    }
+                }
+                //PPA Setting and validation
+                if($validationSetting->ppa=='yes'){
+                    $ppaData = DB::table('ppa_details')
+                        ->select('validity_from','validity_to')
+                        ->where('client_id',$request->input('client_id'))
+                        ->whereRaw("validity_from <="."'".$biddate."'")
+                        ->whereRaw("validity_to >="."'".$biddate."'")
+                        ->first();
+                    if(empty($ppaData)){
+                        $msg = 'Your PPA has been expired or not uploaded. Please contact Trader Admin';
+                        return response()->json(['status' => '1', 'msg'=>$msg],400);
+                    }
+                }
+            }
+          // *************************
+          // *************************
 
-          $exchangeData = DB::table('exchange')
-          ->select('exchange.*')
-          ->where('exchange.client_id',$request->input('client_id'))
-          ->where('exchange.ex_type',$request->input('exchange'))
-          ->whereRaw("exchange.validity_from <="."'".date('Y-m-d',strtotime('-1 day', strtotime($biddate)))."'")
-          ->whereRaw("exchange.validity_to >="."'".date('Y-m-d',strtotime('-1 day', strtotime($biddate)))."'")
-          ->first();
-
-          if(empty($exchangeData)|| ($validationSetting->exchange)){
-
-                  $nocData = Noc::selectRaw('*')
-                  ->where('client_id',$request->input('client_id'))
-                  // ->where('exchange',$request->input('exchange'))
-                  ->whereRaw("validity_from <="."'".$biddate."'")
-                  ->whereRaw("validity_to >="."'".$biddate."'")
-                  ->where('noc_type',$request->input('bid_action'))
-                  ->first();
-
-                  //check for NOC
-                  if($nocData->noc_type||!($validationSetting->noc)){
-
-                      $nocData = Noc::select('*')
-                                  ->where('client_id',$request->input('client_id'))
-                                  // ->where('exchange',$request->input('exchange'))
-                                  ->where('noc_type',$request->input('bid_action'))
-                                  ->whereRaw("validity_from <="."'".$biddate."'")
-                                  ->whereRaw("validity_to >="."'".$biddate."'")
-                                  ->first();
-
-
-
-
-                      //check for NOC Type (Buy or Sell)
-                      // if($nocData->noc_type==$request->input('bid_action')){
-                          //Validate NOC QW
-
-                          //check for NOC exchange (IEX or PXIL)
-                          // if($nocData->exchange==$request->input('exchange')){
-                              //check for NOC quantum
-                              // echo $totalMwFinal;
-                              // echo $nocData->final_noc_quantum;
-                              // exit();
-
-                              if(@$nocData->noc_quantum >= $totalMwFinal||!($validationSetting->noc)){
-                                  $ppaData = DB::table('ppa_details')
-                                  ->select('validity_from','validity_to')
-                                  ->where('client_id',$request->input('client_id'))
-                                  ->whereRaw("validity_from <="."'".$biddate."'")
-                                  ->whereRaw("validity_to >="."'".$biddate."'")
-                                  ->first();
-                                  if(!empty($ppaData)||!($validationSetting->ppa)){
-
-
-
-                                      if($request->input('bid_type')=='single'){
-                                        if($this->validatesinglebidbyprice($request->input('time_slot_from'),$request->input('time_slot_to'),$request->input('bid_price'),$biddate,$request->input('bid_action'),$request->input('client_id'))){
-                                          $placebid = Placebid::find($id);
-                                          $placebid->trading = $trading;
-                                          $placebid->exchange = $request->input('exchange');
-                                          $placebid->client_id = $request->input('client_id');
-                                          $placebid->bid_date = $biddate;
-                                          $placebid->bid_type = $request->input('bid_type');
-                                          $placebid->bid_action = $request->input('bid_action');
-                                          $placebid->time_slot_from = $request->input('time_slot_from');
-                                          $placebid->time_slot_to = $request->input('time_slot_to');
-                                          $placebid->bid_mw = $request->input('bid_mw');
-                                          $placebid->bid_price = $request->input('bid_price');
-                                          $placebid->status = '0';
-                                          $placebid->save();
-                                        }else{
-                                          if($request->input('bid_action')=='buy'){
-                                            $msg = 'Buy amount cannot be greater than sell';
-                                            return response()->json(['status' => '1', 'msg'=>$msg],400);
-                                          }else{
-                                            $msg = 'Sell amount cannot be smaller than buy';
-                                            return response()->json(['status' => '1', 'msg'=>$msg],400);
-                                          }
-                                        }
-                                      }
-
-                                      if($request->input('bid_type')=='block'){
-                                          $timeslice = $this->gettimeslice1();
-                                          $blockfrom = $request->input('time_slot_from');
-                                          $blockto = $request->input('time_slot_to');
-                                          $diffHr =  $this->timeDiff($blockfrom,$blockto);
-
-                                          $noOfBlock = $request->input('no_of_block');
-                                          if(($diffHr*4)%$noOfBlock <> 0){
-                                              $msg = 'Please enter valid block number !!!';
-                                              return response()->json(['status' => '1', 'msg'=>$msg],400);
-                                          }
-                                          //block save
-                                          $indexMultiplyer = ($diffHr / $noOfBlock) * 4;
-                                          $arrayIndexBlockFrom = array_search($blockfrom, $timeslice);
-                                          $arrayIndexBlockTo = array_search($blockto, $timeslice);
-                                          $totalBidArray= array();
-                                          for ($i = $arrayIndexBlockFrom; $i <= $arrayIndexBlockTo - 1; $i = $i + $indexMultiplyer) {
-                                              $nextIndex = $diffHr < 1 ? $i + 1 : $i + $indexMultiplyer;
-                                              // $totalBidArray[] = array($placebid->id,, , , $request->input('bid_price'));
-                                              //save block data
-                                              // $placebiddetails = new Placebiddetails();
-                                              // $placebiddetails->place_bid_id  = $placebid->id;
-                                              $placebid = Placebid::find($id);
-                                              $placebid->trading = $trading;
-                                              $placebid->exchange = $request->input('exchange');
-                                              $placebid->client_id = $request->input('client_id');
-                                              $placebid->bid_date = $biddate;
-                                              $placebid->bid_type = $request->input('bid_type');
-                                              $placebid->bid_action = $request->input('bid_action');
-                                              $placebid->time_slot_from= $timeslice[$i];
-                                              $placebid->time_slot_to  = $timeslice[$nextIndex];
-                                              $placebid->bid_mw        = $request->input('bid_mw');
-                                              $placebid->bid_price     = $request->input('bid_price');
-                                              $placebid->no_of_block = $request->input('no_of_block');
-                                              $placebid->save();
-                                          }
-                                      }
-
-                                      $placebidDataSubmitted = DB::table('place_bid')
-                                      ->select('*')
-                                      ->where('trading',$trading)
-                                      ->where('exchange',$request->input('exchange'))
-                                      ->where('client_id',$request->input('client_id'))
-                                      ->where('bid_date',$biddate)
-                                      ->whereNull('deleted_at')
-                                      ->get();
-
-                                      $placebidDataProcess = DB::table('place_bid')
-                                      ->select('*')
-                                      ->where('trading',$trading)
-                                      ->where('exchange',$request->input('exchange'))
-                                      ->where('client_id',$request->input('client_id'))
-                                      ->where('bid_date',$biddate)
-                                      ->where('status','0')
-                                      ->whereNull('deleted_at')
-                                      ->get();
-                                      $msg ="Bid added successfully";
-
-                                      if($request['bid_action']=='buy'&&($validationSetting->psm)){
-                                         $isBarredHint=$this->validate_psm($request->input('client_id'),$portfolio_id,'iex', $biddate);
-                                      }
-
-                                      if($isBarredHint==1){
-                                        $msg .= " But Your PSM amount is low";
-                                      }else if($isBarredHint==2){
-                                        $msg .= " But Your PSM is not available";
-                                      }
-                                      return response()->json(['status' => '0','placebidDataProcess'=> $placebidDataProcess,'placebidDataSubmitted'=>$placebidDataSubmitted, 'msg' => $msg]);
-                                  }else{
-                                      //Error message for PPA
-                                      $msg = 'Your PPA has been expired or not uploaded. Please contact Trader Admin';
-                                      return response()->json(['status' => '1', 'msg'=>$msg],400);
-                                  }
-                              }else{
-                                  //Error message for NOC Exchange (Buy or Sell)
-                                 $msg = 'You cannot place bid more than your maximum NOC quantum. Your maximum NOC quantum is set to '.strtoupper($nocData->noc_quantum).' for '.$request->input('bid_action').' trade type.';
-                                 return response()->json(['status' => '1', 'msg'=>$msg],400);
-                              }
-                          // }else{
-                          //    //Error message for NOC Exchange (Buy or Sell)
-                          //    $msg = 'Your NOC not registered for '.strtoupper($request->input('exchange')).'.';
-                          //    return response()->json(['status' => '1', 'msg'=>$msg],400);
-                          // }
-                      // }else{
-                      //   //Error message for NOC Type (Buy or Sell)
-                      //   $msg = 'You are not allowed to place a bid for '.strtoupper($request->input('bid_action')).'.';
-                      //     return response()->json(['status' => '1', 'msg'=>$msg],400);
-                      // }
-                  }else{
-                      //NOC Error Message
-                      $msg = 'Your NOC has been expired or not uploaded. Please contact Trader Admin';
-                      return response()->json(['status' => '1', 'msg'=>$msg],400);
-                  }
+          if($request->input('bid_type')=='single'){
+            if($this->validatesinglebidbyprice($request->input('time_slot_from'),$request->input('time_slot_to'),$request->input('bid_price'),$biddate,$request->input('bid_action'),$request->input('client_id'))){
+              $placebid = Placebid::find($id);
+              $placebid->trading = $trading;
+              $placebid->exchange = $request->input('exchange');
+              $placebid->client_id = $request->input('client_id');
+              $placebid->bid_date = $biddate;
+              $placebid->bid_type = $request->input('bid_type');
+              $placebid->bid_action = $request->input('bid_action');
+              $placebid->time_slot_from = $request->input('time_slot_from');
+              $placebid->time_slot_to = $request->input('time_slot_to');
+              $placebid->bid_mw = $request->input('bid_mw');
+              $placebid->bid_price = $request->input('bid_price');
+              $placebid->status = '0';
+              $placebid->save();
+            }else{
+              if($request->input('bid_action')=='buy'){
+                $msg = 'Buy amount cannot be greater than sell';
+                return response()->json(['status' => '1', 'msg'=>$msg],400);
               }else{
-                  //Exchange Error Message
-                  $msg = 'Your Exchange has been expired or not uploaded. Please contact Trader Admin';
+                $msg = 'Sell amount cannot be smaller than buy';
+                return response()->json(['status' => '1', 'msg'=>$msg],400);
+              }
+            }
+          }
+
+          if($request->input('bid_type')=='block'){
+              $timeslice = $this->gettimeslice1();
+              $blockfrom = $request->input('time_slot_from');
+              $blockto = $request->input('time_slot_to');
+              $diffHr =  $this->timeDiff($blockfrom,$blockto);
+
+              $noOfBlock = $request->input('no_of_block');
+              if(($diffHr*4)%$noOfBlock <> 0){
+                  $msg = 'Please enter valid block number !!!';
                   return response()->json(['status' => '1', 'msg'=>$msg],400);
               }
+              //block save
+              $indexMultiplyer = ($diffHr / $noOfBlock) * 4;
+              $arrayIndexBlockFrom = array_search($blockfrom, $timeslice);
+              $arrayIndexBlockTo = array_search($blockto, $timeslice);
+              $totalBidArray= array();
+              for ($i = $arrayIndexBlockFrom; $i <= $arrayIndexBlockTo - 1; $i = $i + $indexMultiplyer) {
+                  $nextIndex = $diffHr < 1 ? $i + 1 : $i + $indexMultiplyer;
+                  // $totalBidArray[] = array($placebid->id,, , , $request->input('bid_price'));
+                  //save block data
+                  // $placebiddetails = new Placebiddetails();
+                  // $placebiddetails->place_bid_id  = $placebid->id;
+                  $placebid = Placebid::find($id);
+                  $placebid->trading = $trading;
+                  $placebid->exchange = $request->input('exchange');
+                  $placebid->client_id = $request->input('client_id');
+                  $placebid->bid_date = $biddate;
+                  $placebid->bid_type = $request->input('bid_type');
+                  $placebid->bid_action = $request->input('bid_action');
+                  $placebid->time_slot_from= $timeslice[$i];
+                  $placebid->time_slot_to  = $timeslice[$nextIndex];
+                  $placebid->bid_mw        = $request->input('bid_mw');
+                  $placebid->bid_price     = $request->input('bid_price');
+                  $placebid->no_of_block = $request->input('no_of_block');
+                  $placebid->save();
+              }
+          }
+
+          $placebidDataSubmitted = DB::table('place_bid')
+          ->select('*')
+          ->where('trading',$trading)
+          ->where('exchange',$request->input('exchange'))
+          ->where('client_id',$request->input('client_id'))
+          ->where('bid_date',$biddate)
+          ->whereNull('deleted_at')
+          ->get();
+
+          $placebidDataProcess = DB::table('place_bid')
+          ->select('*')
+          ->where('trading',$trading)
+          ->where('exchange',$request->input('exchange'))
+          ->where('client_id',$request->input('client_id'))
+          ->where('bid_date',$biddate)
+          ->where('status','0')
+          ->whereNull('deleted_at')
+          ->get();
+          $msg ="Bid added successfully";
+
+          // if($request['bid_action']=='buy'&&($validationSetting->psm)){
+          //    $isBarredHint=$this->validate_psm($request->input('client_id'),$portfolio_id,'iex', $biddate);
+          // }
+
+          // if($isBarredHint==1){
+          //   $msg .= " But Your PSM amount is low";
+          // }else if($isBarredHint==2){
+          //   $msg .= " But Your PSM is not available";
+          // }
+          return response()->json(['status' => '0','placebidDataProcess'=> $placebidDataProcess,'placebidDataSubmitted'=>$placebidDataSubmitted, 'msg' => $msg]);
+
     }
 
 
@@ -1126,14 +936,17 @@ class PlacebidController extends Controller
         foreach($biddate as $date){
           $placebidDataSubmitted[$date->date]=DB::table('place_bid')
           ->selectRaw('*,SUBSTRING(`place_bid`.`time_slot_from`,1,5) as time_slot_from,SUBSTRING(`place_bid`.`time_slot_to`,1,5) as time_slot_to')
-          ->where('trading',$trading)
+          // ->where('trading',$trading)
           ->where('exchange',$request->input('exchange'))
           ->where('client_id',$request->input('client_id'))
           ->where('bid_date',$date->date)
+          // ->where('status',1)
           ->whereNull('place_bid.deleted_at')
           ->OrderByRaw("bid_date",'Desc')
           ->get();
         }
+
+        // dd($placebidDataSubmitted);
         return response()->json(['placebidDataProcess'=> $placebidDataProcess, 'placebidDataSubmitted'=>$placebidDataSubmitted, 'msg' => 'Bid added successfully', 'status' => '1']);
     }
 
