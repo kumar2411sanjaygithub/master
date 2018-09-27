@@ -283,7 +283,7 @@ class PlacebidController extends Controller
         ->first();
 
         $totalMwFinal = $PartiCularTimeSlotData->totalBid+$request->input('bid_mw');
-
+        // dd($totalMwFinal);
         // if(empty($exchangeData)){
         //     $msg = 'Your Exchange has been expired or not uploaded. Please contact Trader Admin';
         //     return response()->json(['status' => '1', 'msg'=>$msg],400);
@@ -345,7 +345,7 @@ class PlacebidController extends Controller
                                 ->whereRaw("validity_from <="."'".$biddate."'")
                                 ->whereRaw("validity_to >="."'".$biddate."'")
                                 ->first();
-                    if(@$nocData->noc_quantum >= $totalMwFinal){
+                    if($nocData->noc_quantum < $totalMwFinal){
                         $msg = 'You cannot place bid more than your maximum NOC quantum. Your maximum NOC quantum is set to '.strtoupper($nocData->noc_quantum).' for '.$request->input('bid_action').' trade type.';
                         return response()->json(['status' => '1', 'msg'=>$msg],400);
                     }
