@@ -462,11 +462,13 @@ jQuery(document).delegate('.piyush_datepicker','change',function(){
                           autoclose: true,
                           format: 'dd/mm/yyyy'
                       });
+                      $('.piyush_datepicker').datepicker('refresh');
                       $('.earlierdate').datepicker({
                           endDate:enddate,
                           autoclose: true,
                           format: 'dd/mm/yyyy'
                       });
+                      $('earlierdate').datepicker('refresh');
                       // console.log(startdate,enddate);
                     },
                     error: function (response) {
