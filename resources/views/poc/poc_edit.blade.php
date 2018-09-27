@@ -74,7 +74,16 @@
                  </div>
                  <div class="col-md-3 {{ $errors->has('region') ? 'has-error' : '' }}">
                     <label  class="control-label">REGION</label>
-                    <input class="form-control input-sm" value="{{ $pocData->region }}" type="text" placeholder="VALUE" id="region" name="region">
+                    <select class="form-control input-sm " style="width: 100%;" id="region" name="region">
+                      <option value="">Select</option>
+                      <option value="Northern" {{(isset($pocData)&& $pocData->region=='Northern')?'selected':''}}>Northern</option>
+                      <option value="Western" {{(isset($pocData)&& $pocData->region=='Western')?'selected':''}}>Western</option>
+                      <option value="Southern" {{(isset($pocData)&& $pocData->region=='Southern')?'selected':''}}>Southern</option>
+                      <option value="Eastern" {{(isset($pocData)&& $pocData->region=='Eastern')?'selected':''}}>Eastern</option>
+                      <option value="North Eastern" {{(isset($pocData)&& $pocData->region=='North Eastern')?'selected':''}} >North Eastern</option>
+                      </select>
+
+
                     <span class="text-danger">{{ $errors->first('region') }}</span>
                  </div>
                  <div class="col-md-3 {{ $errors->has('regional_entity') ? 'has-error' : '' }}">

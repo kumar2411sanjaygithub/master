@@ -270,7 +270,7 @@
           </div> -->
 
         <div class="panel bds navsbs" id="panelDemo13" style="border:1px solid #ddd">
-            <div class="panel-heading tabhead text-center" style="text-align:center;font-size:14px"><b class="text-center">TOTAL BID DETAILS</b></div>
+            <div class="panel-heading tabhead text-center" style="text-align:center;font-size:12px"><b class="text-center">TOTAL BID DETAILS</b></div>
             <div class="panel-body previous_bids pt0">
               <div class="panel-group" id="accordion">
               <div class="panel panel-default">

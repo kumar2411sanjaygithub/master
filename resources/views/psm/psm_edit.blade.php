@@ -99,7 +99,7 @@
                        </div>
                     </div>
                     <div class="col-md-3 {{ $errors->has('document') ? 'has-error' : '' }}">
-                       <label  class="control-label">UPLOAD DOCUMENT</label><span class="text-danger"><strong>*</strong></span>
+                       <label  class="control-label">UPLOAD DOCUMENT</label>
                        <input class="form-control input-sm" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif type="file" value="{{$psmData->document}}" name="document" id="upload" placeholder="ENTER POC LOSSES">
                        <input class="form-control input-sm" type="hidden" value="{{ $psmData->document }}" name="old">
 

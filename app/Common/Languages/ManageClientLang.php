@@ -12,6 +12,7 @@ class ManageClientLang
             'reg_city'=>'REGISTERED OFFICE CITY',
             'reg_pin'=>'REGISTERED OFFICE PINCODE',
             'reg_state'=>'REGISTERED OFFICE STATE',
+            'telephone_number'=>'Telephone Number',
             'reg_mob'=>'REGISTERED OFFICE MOBILE NO',
             'reg_telephone'=>'REGISTERED OFFICE TELEPHONE NO',
             'reg_email_id'=>'REGISTERED OFFICE EMAIL',
@@ -41,6 +42,7 @@ class ManageClientLang
             'discom'=>'Discom',
             'voltage'=>'Voltage Level',
             'iex_client_name'=> 'Client Iex Name',
+            'noc_punched_by'=> 'NOC APPLICATION PUNCHED BY',
             'pxil_client_name'=> 'Client Pxil Name',
             'state_type'=>'State Type',
             'pxil_client_status',
@@ -114,7 +116,8 @@ class ManageClientLang
             'trader_type'=>'Trader Type',
             'pri_contact_no'=>'Primary Contact No',
             'crn_no'=> 'CRN No',
-            'client_app_status '=> 'Status'
+            'client_app_status'=> 'Status',
+            'noc_application_no'=> 'NOC Application No',
         );
    }
 }

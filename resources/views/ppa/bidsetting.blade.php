@@ -63,7 +63,7 @@
               <div class="row">
                  <div class="col-md-3 {{ $errors->has('bid_cut_off_time') ? 'has-error' : '' }}">
                     <label  class="control-label">BIDDING CUTT OFF TIME</label><span class="text-danger"><strong>*</strong></span>
-                    <input class="form-control input-sm timepicker" autocomplete="off" type="text" id="bid_cut_off_time" name="bid_cut_off_time" placeholder="ENTER BIDDING CUTT OFF TIME" value="{{isset($ppaData->bid_cut_off_time)?$ppaData->bid_cut_off_time:''}}">
+                    <input class="form-control input-sm" autocomplete="off" type="time" id="bid_cut_off_time" name="bid_cut_off_time" placeholder="ENTER BIDDING CUTT OFF TIME" value="{{isset($ppaData->bid_cut_off_time)?$ppaData->bid_cut_off_time:''}}">
                     <span class="text-danger">{{ $errors->first('bid_cut_off_time') }}</span>
                  </div>
                  <div class="col-md-3 {{ $errors->has('trader_type') ? 'has-error' : '' }}">

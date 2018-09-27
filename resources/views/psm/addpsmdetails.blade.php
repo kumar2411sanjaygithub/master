@@ -69,10 +69,10 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                              <div class="col-md-3 {{ $errors->has('type') ? 'has-error' : '' }}">
                                 <label  class="control-label">TYPE</label><span class="text-danger"><strong>*</strong></span>
                                 <select class="form-control input-sm select2" name="type" id="bankselect" onchange="select()" style="width: 100%;">
-                                   <option value="0">Cash Transfer</option>
-                                   <option value="1">Bank Transfer</option>
-                                   <option value="2">Letter Of Credit</option>
-                                   <option value="3">Bank Guarantee</option>
+                                   <option value="0" @if(old('type')=='0')selected @endif>Cash Transfer</option>
+                                   <option value="1"  @if(old('type')=='1')selected @endif>Bank Transfer</option>
+                                   <option value="2"  @if(old('type')=='2')selected @endif>Letter Of Credit</option>
+                                   <option value="3"  @if(old('type')=='3')selected @endif>Bank Guarantee</option>
                                 </select>
                                 <span class="text-danger">{{ $errors->first('type') }}</span>
                              </div>
