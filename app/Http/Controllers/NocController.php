@@ -26,7 +26,7 @@ class NocController extends Controller
     	$poc_losses = Pocdetails::select('injection_poc_loss','withdraw_poc_loss')->get();
     	$discom = Discomdetails::select('injection_poc_loss','withdraw_poc_loss')->get();
          $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
-         $noc_applicaiton=NocApp::select('id','application_no')->where('status',3)->get();
+         $noc_applicaiton=NocApp::select('id','application_no')->where('status',4)->where('client_id',$id)->get();
         //dd($noc_applicaiton);
     	//dd($noc_losses);
          $poc_losses_data=Pocdetails::get();
@@ -97,9 +97,15 @@ class NocController extends Controller
          {
             $stu_l=0;
          }
-
-            //dd($discom_losses);
-            return response()->json(['noc_type' => '','discom_l' =>$discom_l,'stu_l' =>$stu_l]);
+         if(isset($noc_losses_req->inter_poc)&&$noc_losses_req->inter_poc=='POC/CTU')
+         {
+            $poc_app='Yes';
+         }
+         else
+         {
+            $poc_app='No';
+         }         
+            return response()->json(['poc_apply' => $poc_app,'discom_l' =>$discom_l,'stu_l' =>$stu_l]);
 
     }
 
@@ -175,7 +181,7 @@ class NocController extends Controller
         $nocdetails = Noc::where('client_id',$client_id)->where('status',1)->withTrashed()->get();
         $noc_losses = Client::select('inter_discom','inter_poc','inter_stu')->where('client_app_status',1)->where('id',$id)->first();
         $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
-        $noc_applicaiton=NocApp::select('id','application_no')->where('status',3)->get();
+        $noc_applicaiton=NocApp::select('id','application_no')->where('status',4)->where('client_id',$id)->get();
         $poc_losses_data=Pocdetails::get();
 
         return view('ManageClient.nocdetails',compact('nocData','client_details','nocdetails','client_id','get_noc_details','region','regional','poc_losses','noc_losses','noc_applicaiton','poc_losses_data'));

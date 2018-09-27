@@ -102,7 +102,7 @@ input:checked + .slider:before {
          @foreach ($client_list as $k=>$client_data)
           <tr>
             <td>{{$i}}</td>
-            <td>{{@$client_data->name}}</td>
+            <td>{{@$client_data->company_name}}</td>
             <td>{{$client_data->iex_portfolio}}</td>
             <td>{{$client_data->pxil_portfolio}}</td>
             <td>BLOCK<label class="switch"><input type="checkbox" {{ $client_data->barred_status===1 ? 'checked data-toggle=modal data-target=#clientDeactivate'.$client_data->id :  'data-toggle=modal data-target=#clientActivate'.$client_data->id }}><span class="slider round"></span></label>ACTIVE</td>
