@@ -7,7 +7,7 @@ jQuery(document).ready(function() {
     //   jQuery(".addbidtab").fadeIn( 2000 );
     //   // jQuery(".recordtable").show();
     // });
-});
+}); 
 // code for add bid tab code end
 // recod table show hide code start
 jQuery(".hdate,.recordtable").addClass('hidden');
@@ -613,44 +613,43 @@ jQuery(document).ready(function() {
             data: dataSubmit,
             dataType: 'json',
             success: function(data) {
-                console.log(data);
-                var count = data.placebidDataProcess.length;
+                var count = data.placebidDataSubmitted.length;
                 if (count) {
 
                     var trData = "";
                     for (var i = 0; i < count; i++) {
-                        if (data.placebidDataProcess[i].bid_action == 'sell') {
-                            trData += '<tr class="gradeX" data-row-id="' + data.placebidDataProcess[i].id + '">' +
+                        if (data.placebidDataSubmitted[i].bid_action == 'sell') {
+                            trData += '<tr class="gradeX" data-row-id="' + data.placebidDataSubmitted[i].id + '">' +
                                 '<td>' +
                                 '<label class="mda-checkbox">' +
-                                '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataProcess[i].id + '"><em class="bg-blue-500"></em>' +
+                                '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataSubmitted[i].id + '"><em class="bg-blue-500"></em>' +
                                 '</label>' +
                                 '</td>' +
-                                '<td class="text-danger">' + data.placebidDataProcess[i].bid_type + '</td>' +
-                                '<td class="text-danger">' + data.placebidDataProcess[i].bid_action + '</td>' +
-                                '<td class="text-danger">' + data.placebidDataProcess[i].time_slot_from + '</td>' +
-                                '<td class="text-danger">' + data.placebidDataProcess[i].time_slot_to + '</td>' +
-                                '<td class="text-danger">-' + data.placebidDataProcess[i].bid_mw + '</td>' +
-                                '<td class="text-danger">' + data.placebidDataProcess[i].bid_price + '</td>' +
+                                '<td class="text-danger">' + data.placebidDataSubmitted[i].bid_type + '</td>' +
+                                '<td class="text-danger">' + data.placebidDataSubmitted[i].bid_action + '</td>' +
+                                '<td class="text-danger">' + data.placebidDataSubmitted[i].time_slot_from + '</td>' +
+                                '<td class="text-danger">' + data.placebidDataSubmitted[i].time_slot_to + '</td>' +
+                                '<td class="text-danger">-' + data.placebidDataSubmitted[i].bid_mw + '</td>' +
+                                '<td class="text-danger">' + data.placebidDataSubmitted[i].bid_price + '</td>' +
                                 '<td>' +
-                                '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/delete.svg"></span>' +
+                                '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataSubmitted[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataSubmitted[i].id + '" src="/img/assets/delete.svg"></span>' +
                                 '</td>' +
                                 '</tr>';
                         } else {
-                            trData += '<tr class="gradeX" data-row-id="' + data.placebidDataProcess[i].id + '">' +
+                            trData += '<tr class="gradeX" data-row-id="' + data.placebidDataSubmitted[i].id + '">' +
                                 '<td>' +
                                 '<label class="mda-checkbox">' +
-                                '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataProcess[i].id + '"><em class="bg-blue-500"></em>' +
+                                '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataSubmitted[i].id + '"><em class="bg-blue-500"></em>' +
                                 '</label>' +
                                 '</td>' +
-                                '<td class="text-success">' + data.placebidDataProcess[i].bid_type + '</td>' +
-                                '<td class="text-success">' + data.placebidDataProcess[i].bid_action + '</td>' +
-                                '<td class="text-success">' + data.placebidDataProcess[i].time_slot_from + '</td>' +
-                                '<td class="text-success">' + data.placebidDataProcess[i].time_slot_to + '</td>' +
-                                '<td class="text-success">' + data.placebidDataProcess[i].bid_mw + '</td>' +
-                                '<td class="text-success">' + data.placebidDataProcess[i].bid_price + '</td>' +
+                                '<td class="text-success">' + data.placebidDataSubmitted[i].bid_type + '</td>' +
+                                '<td class="text-success">' + data.placebidDataSubmitted[i].bid_action + '</td>' +
+                                '<td class="text-success">' + data.placebidDataSubmitted[i].time_slot_from + '</td>' +
+                                '<td class="text-success">' + data.placebidDataSubmitted[i].time_slot_to + '</td>' +
+                                '<td class="text-success">' + data.placebidDataSubmitted[i].bid_mw + '</td>' +
+                                '<td class="text-success">' + data.placebidDataSubmitted[i].bid_price + '</td>' +
                                 '<td>' +
-                                '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/delete.svg"></span>' +
+                                '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataSubmitted[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataSubmitted[i].id + '" src="/img/assets/delete.svg"></span>' +
                                 '</td>' +
                                 '</tr>';
                         }
