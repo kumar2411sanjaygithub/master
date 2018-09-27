@@ -304,7 +304,7 @@ class PlacebidController extends Controller
         
         if($validationSetting){
             //Exchange Validation setting and Exchange expire
-            if($validationSetting->exchange=='yes'){
+            if($validationSetting->exchange=='Exchange'){
                 $exchangeData = DB::table('exchange')
                   ->select('exchange.*')
                   ->where('exchange.client_id',$request->input('client_id'))
@@ -318,7 +318,7 @@ class PlacebidController extends Controller
                 }
             }
             //NOC Setting and validation
-            if($validationSetting->noc=='yes'){
+            if($validationSetting->noc=='NOC'){
                 $nocData = Noc::selectRaw('*')
                     ->where('client_id',$request->input('client_id'))
                     ->whereRaw("validity_from <="."'".$biddate."'")
@@ -343,7 +343,7 @@ class PlacebidController extends Controller
                 }
             }
             //PPA Setting and validation
-            if($validationSetting->ppa=='yes'){
+            if($validationSetting->ppa=='PPA'){
                 $ppaData = DB::table('ppa_details')
                     ->select('validity_from','validity_to')
                     ->where('client_id',$request->input('client_id'))
