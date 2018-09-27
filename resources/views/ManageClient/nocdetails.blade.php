@@ -25,7 +25,9 @@
             </div>
             <div class="col-md-6 pull-right">
                     <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mt7"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+                    @if(empty($get_noc_details))
                     <button class="btn btn-info btn-xs pull-right mr5 mt7" id="add"><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
+                    @endif
             </div>
           </div>
 
@@ -40,15 +42,32 @@
         <div class="col-xs-12">
      <div class="box" id="noccbox">
     <div class="box-body">
-    <div class="row {{ $errors->has('noc_type') ? 'has-error' : '' }}">
-      <div class="col-md-3">
+    <div class="row">
+      <div class="col-md-3  {{ $errors->has('noc_application_no') ? 'has-error' : '' }}">
+      <label  class="control-label">NOC APPLICATION NO<span class="text-danger"><strong>*</strong></label>
+      <select class="form-control input-sm " style="width: 100%;" id="noc_application_no" name="noc_application_no">
+          <option value="">Select</option>
+          @if(count($noc_applicaiton)>0)
+            @foreach($noc_applicaiton as $application)
+              <option value="{{$application->application_no}}" {{((isset($get_noc_details)&& $get_noc_details->noc_application_no==$application->application_no)||old('noc_application_no')==$application->application_no)?'selected="selected"':''}}>{{$application->application_no}}</option>
+            @endforeach
+          @else
+            <option value="">No Record.</option>
+          @endif
+      </select>
+        <span class="text-danger">{{ $errors->first('noc_application_no') }}</span>      
+      </div>
+
+      <div class="col-md-3  {{ $errors->has('noc_type') ? 'has-error' : '' }}">
       <label  class="control-label">NOC TYPE<span class="text-danger"><strong>*</strong></label>
       <input type="hidden"  name="client_id" value="{{@$client_id}}" id="client">
-      <select class="form-control input-sm " style="width: 100%;" id="noc_type" name="noc_type" value="{{isset($get_noc_details)?$get_noc_details->noc_type:old('noc_type')}}">
+      <select class="form-control input-sm " style="width: 100%;" id="noc_type" name="noc_type" disabled>
           <option value="">Select</option>
-                              <option value="buy">Buy</option>
-                              <option value="sell">Sell</option>
+          <option value="buy" {{((isset($get_noc_details)&&$get_noc_details->noc_type=='buy')||old('noc_type')=='buy')?'selected="selected"':''}}>Buy</option>
+          <option value="sell" {{((isset($get_noc_details)&&$get_noc_details->noc_type=='sell')||old('noc_type')=='sell')?'selected="selected"':''}}>Sell</option>
       </select>
+        <span class="text-danger">{{ $errors->first('noc_type') }}</span>
+
       </div>
       <div class="col-md-3 {{ $errors->has('validity_from') ? 'has-error' : '' }}">
        <label  class="control-label">VALIDITY START DATE<span class="text-danger"><strong>*</strong></label>
@@ -56,7 +75,7 @@
          <div class="input-group-addon">
            <i class="fa fa-calendar"></i>
          </div>
-         <input type="text" class="form-control pull-right input-sm" id="validity_from" name="validity_from" value="{{isset($get_noc_details)?date('d/m/Y',strtotime($get_noc_details->validity_from)):old('validity_from')}}" autocomplete="off">
+         <input type="text" class="form-control pull-right input-sm" id="validity_from" name="validity_from" value="{{isset($get_noc_details)?date('d/m/Y',strtotime($get_noc_details->validity_from)):old('validity_from')}}" autocomplete="off" disabled>
        </div>
        <span class="text-danger">{{ $errors->first('validity_from') }}</span>
       </div>
@@ -67,92 +86,85 @@
             <i class="fa fa-calendar"></i>
           </div>
 
-          <input type="text" class="form-control pull-right input-sm" id="validity_to" name="validity_to" value="{{isset($get_noc_details)?date('d/m/Y',strtotime($get_noc_details->validity_to)):old('validity_to')}}" autocomplete="off">
+          <input type="text" class="form-control pull-right input-sm" id="validity_to" name="validity_to" value="{{isset($get_noc_details)?date('d/m/Y',strtotime($get_noc_details->validity_to)):old('validity_to')}}" autocomplete="off" disabled>
         </div>
         <span class="text-danger">{{ $errors->first('validity_to') }}</span>
       </div>
-        <div class="col-md-3 {{ $errors->has('noc_periphery') ? 'has-error' : '' }}">
-      <label  class="control-label">NOC PERIPHERY<span class="text-danger"><strong>*</strong></label>
-      <select class="form-control input-sm" style="width: 100%;" id="noc_periphery" name="noc_periphery" value="{{isset($get_noc_details)?$get_noc_details->noc_periphery:old('noc_periphery')}}">
-         <option value="">Select</option>
-                              <option value="Regional" {{(isset($get_noc_details)&& $get_noc_details->ex_type=='Regional')||old('noc_periphery')=='Regional'?'selected':''}}>Regional</option>
-                              <option value="Ex-Bus" {{(isset($get_noc_details)&& $get_noc_details->ex_type=='Ex-Bus')||old('noc_periphery')=='Ex-Bus'?'selected':''}}>Ex-Bus</option>
-                              <option value="stu" {{(isset($get_noc_details)&& $get_noc_details->ex_type=='stu')||old('noc_periphery')=='stu'?'selected':''}}>STU</option>
-        </select>
-         <span class="text-danger">{{ $errors->first('noc_periphery') }}</span>
-    </div>
     </div>
 
     <div class="row">
-       <div class="col-md-3 {{ $errors->has('noc_quantum') ? 'has-error' : '' }}">
-        <label  class="control-label">NOC QUANTUM</label><span class="text-danger"><strong>*</strong></span>
-        <input class="form-control input-sm" type="text" placeholder="ENTER NOC QUANTUM" id="noc_quantum" name="noc_quantum" value="{{isset($get_noc_details)?$get_noc_details->noc_quantum:old('noc_quantum')}}">
-         <span class="text-danger">{{ $errors->first('noc_quantum') }}</span>
-      </div>
+        <div class="col-md-3 {{ $errors->has('noc_periphery') ? 'has-error' : '' }}">
+      <label  class="control-label">NOC PERIPHERY<span class="text-danger"><strong>*</strong></label>
+      <select class="form-control input-sm" style="width: 100%;" id="noc_periphery" name="noc_periphery">
+         <option value="">Select</option>
+                              <option value="Regional" {{(isset($get_noc_details)&& $get_noc_details->noc_periphery=='Regional')?'selected':''}}>Regional</option>
+                              <option value="Ex-Bus" {{(isset($get_noc_details)&& $get_noc_details->noc_periphery=='Ex-Bus')?'selected':''}}>Ex-Bus</option>
+<!--                               <option value="stu" {{(isset($get_noc_details)&& $get_noc_details->ex_type=='stu')||old('noc_periphery')=='stu'?'selected':''}}>STU</option>
+ -->        </select>
+         <span class="text-danger">{{ $errors->first('noc_periphery') }}</span>
+    </div>
 
       <div class="col-md-3">
       <label  class="control-label">REGION</label>
-      <select class="form-control input-sm " style="width: 100%;" id="region" name="region" value="{{isset($get_noc_details)?$get_noc_details->region:old('region')}}">
-
-          @foreach($region as $regions)
-        <option value="{{$regions->id}}">{{$regions->region}}</option>
-          @endForeach
-                </select>
+      <select class="form-control input-sm " style="width: 100%;" id="region" name="region" {{(isset($get_noc_details)&& $get_noc_details->noc_periphery=='Ex-Bus')?'':'disabled'}}>
+        <option value="">Select</option>
+        <option value="Northern" {{(isset($get_noc_details)&& $get_noc_details->region=='Northern')?'selected':''}}>Northern</option>
+        <option value="Western" {{(isset($get_noc_details)&& $get_noc_details->region=='Western')?'selected':''}}>Western</option>
+        <option value="Southern" {{(isset($get_noc_details)&& $get_noc_details->region=='Southern')?'selected':''}}>Southern</option>
+        <option value="Eastern" {{(isset($get_noc_details)&& $get_noc_details->region=='Eastern')?'selected':''}}>Eastern</option>
+        <option value="North Eastern" {{(isset($get_noc_details)&& $get_noc_details->region=='North Eastern')?'selected':''}} >North Eastern</option>
+        </select>
 
       </select>
     </div>
     <div class="col-md-3">
     <label  class="control-label">REGION ENTITY</label>
-    <select class="form-control input-sm" style="width: 100%;" id="region_entity" name="region_entity" value="{{isset($get_noc_details)?$get_noc_details->region_entity:old('region_entity')}}">
-
-          @foreach($regional as $regions)
-        <option value="{{$regions->id}}">{{$regions->regional_entity}}</option>
-          @endForeach
+    <select class="form-control input-sm" style="width: 100%;" id="region_entity" name="region_entity"  {{(isset($get_noc_details)&& $get_noc_details->noc_periphery=='Ex-Bus')?'':'disabled'}}>
+          <option value="">Select</option>
+          @if(count($poc_losses_data)>0)
+            @foreach($poc_losses_data as $poc_losses_list)
+            @if(isset($get_noc_details) && $get_noc_details->region_entity==$poc_losses_list->regional_entity)
+              <option value="{{$poc_losses_list->regional_entity}}" {{(isset($get_noc_details)&& $get_noc_details->region_entity==$poc_losses_list->regional_entity)?'selected':''}}>{{$poc_losses_list->regional_entity}}</option>
+              @endif
+            @endforeach
+          @endif
       </select>
   </div>
-  @if($noc_losses->inter_poc == 'yes')
-  <div class="col-md-3">
-  <label  class="control-label">POC LOSSES</label>
-  <input class="form-control input-sm" type="text" placeholder="ENTER POC LOSSES" id="poc_losses" name="poc_losses" value="{{isset($get_noc_details)?$get_noc_details->poc_losses:old('poc_losses')}}">
-</div>
-@else
-<div class="col-md-3">
-  <label  class="control-label">POC LOSSES</label>
-  <input class="form-control input-sm" type="text" placeholder="ENTER POC LOSSES" id="poc_losses" name="poc_losses"  readonly value="{{isset($get_noc_details)?$get_noc_details->poc_losses:old('poc_losses')}}">
-</div>
-@endif
+   <div class="col-md-3 {{ $errors->has('noc_quantum') ? 'has-error' : '' }}">
+    <label  class="control-label">NOC QUANTUM</label><span class="text-danger"><strong>*</strong></span>
+    <input class="form-control input-sm num" type="text" placeholder="ENTER NOC QUANTUM" id="noc_quantum" name="noc_quantum" value="{{isset($get_noc_details)?$get_noc_details->noc_quantum:''}}">
+     <span class="text-danger">{{ $errors->first('noc_quantum') }}</span>
+      <span class="text-danger" id="error1" style="display:none;">Required</span>
+  </div>
+
 </div>
 
 <div class="row">
-   @if($noc_losses->inter_stu == 'yes')
-  <div class="col-md-3">
-  <label  class="control-label">STU LOSSES</label>
-  <input class="form-control input-sm" type="text" placeholder="ENTER STU LOSSES" id="stu_losses" name="stu_losses" value="{{isset($get_noc_details)?$get_noc_details->stu_losses:old('stu_losses')}}">
+
+<div class="col-md-3">
+  <label  class="control-label">POC LOSSES</label>
+  <input class="form-control input-sm" type="text" placeholder="ENTER POC LOSSES" id="poc_losses" name="poc_losses"  disabled value="{{isset($get_noc_details)?$get_noc_details->poc_losses:''}}">
 </div>
-@else
+
+
 <div class="col-md-3">
   <label  class="control-label">STU LOSSES</label>
-  <input class="form-control input-sm" type="text"  readonly placeholder="ENTER STU LOSSES" id="stu_losses" name="stu_losses" value="{{isset($get_noc_details)?$get_noc_details->stu_losses:old('stu_losses')}}">
+  <input class="form-control input-sm" type="text"  disabled placeholder="ENTER STU LOSSES" id="stu_losses" name="stu_losses" value="{{isset($get_noc_details)?$get_noc_details->stu_losses:''}}">
 </div>
-@endif
- @if($noc_losses->inter_discom == 'yes')
-  <div class="col-md-3">
-  <label  class="control-label">DISCOM LOSSES</label>
-  <input class="form-control input-sm" type="text" placeholder="ENTER DISCOM LOSSES" id="discom_losses" name="discom_losses" value="{{isset($get_noc_details)?$get_noc_details->discom_losses:old('discom_losses')}}">
-</div>
-@else
+
 <div class="col-md-3">
   <label  class="control-label">DISCOM LOSSES</label>
-  <input class="form-control input-sm" type="text" readonly placeholder="ENTER DISCOM LOSSES" id="discom_losses" name="discom_losses" value="{{isset($get_noc_details)?$get_noc_details->discom_losses:old('discom_losses')}}">
+  <input class="form-control input-sm" type="text" disabled placeholder="ENTER DISCOM LOSSES" id="discom_losses" name="discom_losses" value="{{isset($get_noc_details)?$get_noc_details->discom_losses:''}}">
   </div>
-  @endif
+
 <div class="col-md-3">
 <label  class="control-label">FINAL NOC QUANTUM</label>
-  <input class="form-control input-sm" type="text" placeholder="ENTER FINAL NOC QUANTUM"id="final_quantum" name="final_quantum" value="{{isset($get_noc_details)?$get_noc_details->final_quantum:old('final_quantum')}}">
+  <input class="form-control input-sm" type="text" placeholder="ENTER FINAL NOC QUANTUM"id="final_quantum" name="final_quantum" value="{{isset($get_noc_details)?$get_noc_details->final_quantum:''}}" disabled>
 </div>
-<div class="col-md-3">
-<label  class="control-label">UPLOAD NOC FILE</label>
-<input class="form-control input-sm" type="file" placeholder="ENTER UPLOAD NOC FILE" id="upload_noc" name="upload_noc" value="{{isset($get_noc_details)?$get_noc_details->upload_noc:old('upload_noc')}}">
+<div class="col-md-3 {{ $errors->has('upload_noc') ? 'has-error' : '' }}">
+<label  class="control-label">UPLOAD NOC FILE<span class="text-danger"><strong>*</strong></span></label>
+<input class="form-control input-sm" type="file" placeholder="ENTER UPLOAD NOC FILE" id="upload_noc" name="upload_noc" value="{{isset($get_noc_details)?$get_noc_details->upload_noc:''}}">
+<span class="text-danger">{{ $errors->first('upload_noc') }}</span>
 </div>
 </div>
 
@@ -160,11 +172,11 @@
       <div class="row">
          <div class="col-md-5"></div>
           @if(isset($get_noc_details))
-          <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" id="save" name="save">UPDATE</button></div>
+          <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" onclick="removeDisabled()" id="save" name="save">UPDATE</button></div>
           @else
-          <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs" id="save" name="save">SAVE</button></div>
+          <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs" onclick="removeDisabled()" id="save" name="save">SAVE</button></div>
           @endif
-          <div class="col-md-1"><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="CANCEL" onclick="myFunction()"></div>
+          <div class="col-md-1"><a href="/nocdetails/{{@$client_id}}" type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="CANCEL" >CANCEL</a></div>
       </div>
       </div>
     </div>
@@ -210,7 +222,10 @@
                               <td class="text-center">{{ $value->discom_losses }}</td>
                               <td class="text-center">{{ $value->stu_losses }}</td>
                               <td class="text-center">{{ $value->final_quantum }}</td>
-                              <td class="text-center">{{ $value->upload_noc }}</td>
+                              <td class="text-center">
+                                @if($value->upload_noc)
+                                <a href="{{url('noc-file-downloads/'.$value->upload_noc)}}">View</a>
+                              @endif</td>
                               <td class="text-center">{{ $value->status }}</td>
                               <td class="text-center">
                                   <a href="{{url('/editnocdetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-noc-detail" noc_detail_id="{{$value->id}}"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -252,51 +267,71 @@
        $(document).ready(function(){
 
 
-      $('#noc_type').change(function(){
-          if($("#noc_quantum").val()){
-        var p = (isNaN($("#poc_losses").val()) || $("#poc_losses").val()=='')?0:($("#noc_quantum").val()*($("#poc_losses").val())/100);
+     //  $('#noc_type').change(function(){
+     //      if($("#noc_quantum").val()){
+     //    var p = (isNaN($("#poc_losses").val()) || $("#poc_losses").val()=='')?0:($("#noc_quantum").val()*($("#poc_losses").val())/100);
 
-        if($("#noc_type").val() == 'buy')
-         {
-        $('#final_quantum').val(parseFloat($("#noc_quantum").val())+p);
-         }
-        if($("#noc_type").val() == 'sell')
-         {
-           $('#final_quantum').val(parseFloat($("#noc_quantum").val())-p);
-         }
-        var s = (isNaN($("#stu_losess").val()) || $("#stu_losess").val()=='')?0:($('#final_quantum').val()*($("#stu_losess").val())/100);
-        if($("#noc_type").val() == 'buy')
-         {
-        $('#final_quantum').val(parseFloat($('#final_quantum').val())+s);
-         }
-        if($("#noc_type").val() == 'sell')
-         {
-           $('#final_quantum').val(parseFloat($('#final_quantum').val())-s);
-         }
+     //    if($("#noc_type").val() == 'buy')
+     //     {
+     //    $('#final_quantum').val(parseFloat($("#noc_quantum").val())+p);
+     //     }
+     //    if($("#noc_type").val() == 'sell')
+     //     {
+     //       $('#final_quantum').val(parseFloat($("#noc_quantum").val())-p);
+     //     }
+     //    var s = (isNaN($("#stu_losess").val()) || $("#stu_losess").val()=='')?0:($('#final_quantum').val()*($("#stu_losess").val())/100);
+     //    if($("#noc_type").val() == 'buy')
+     //     {
+     //    $('#final_quantum').val(parseFloat($('#final_quantum').val())+s);
+     //     }
+     //    if($("#noc_type").val() == 'sell')
+     //     {
+     //       $('#final_quantum').val(parseFloat($('#final_quantum').val())-s);
+     //     }
 
-       var dl = (isNaN($("#discom_lossess").val()) || $("#discom_lossess").val()=='')?0:($("#final_quantum").val()*($("#discom_lossess").val())/100);
+     //   var dl = (isNaN($("#discom_lossess").val()) || $("#discom_lossess").val()=='')?0:($("#final_quantum").val()*($("#discom_lossess").val())/100);
 
-        if($("#noc_type").val() == 'buy')
-         {
+     //    if($("#noc_type").val() == 'buy')
+     //     {
 
-        $('#final_quantum').val((parseFloat($('#final_quantum').val())+dl).toFixed(2));
-         }
-        if($("#noc_type").val() == 'sell')
-         {
-           $('#final_quantum').val((parseFloat($('#final_quantum').val())-dl).toFixed(2));
-         }
-        var spd = parseInt(s) + parseInt(p) + parseInt(dl);
+     //    $('#final_quantum').val((parseFloat($('#final_quantum').val())+dl).toFixed(2));
+     //     }
+     //    if($("#noc_type").val() == 'sell')
+     //     {
+     //       $('#final_quantum').val((parseFloat($('#final_quantum').val())-dl).toFixed(2));
+     //     }
+     //    var spd = parseInt(s) + parseInt(p) + parseInt(dl);
 
-       $('#final_quantum').addClass('valid');
-     }else{
-       $('#final_quantum').val('');
-     }
-      });
+     //   $('#final_quantum').addClass('valid');
+     // }else{
+     //   $('#final_quantum').val('');
+     // }
+     //  });
 
       $('#noc_periphery').change(function(){
          var nocval = $('#noc_periphery').val();
          if(nocval == 'Ex-Bus')
          {
+           document.getElementById("region_entity").disabled = false;
+           document.getElementById("region").disabled = false;
+
+          var client_id=$('#client').val();
+          // alert(client_id);
+          if(client_id!='')
+          {
+              $.ajax({
+                  url: '{{ url()->to("get-losses-ajax") }}',
+                  type: 'GET', //this is your methodtotal_lavel_balance
+                  data: { 'id':client_id},
+                  dataType: 'JSON',
+                  success: function(data){
+                    //$('#poc_losses').val(data.noc_type);
+                    $('#stu_losses').val(data.stu_l);
+                    $('#discom_losses').val(data.discom_l);
+                  }
+              });
+          }
+
 
             // $('#discom_lossess,#poc_losses,#stu_losess').keyup(function(event) {
             $('#noc_quantum').keyup(function(event) {
@@ -312,7 +347,8 @@
                 {
                   $('#final_quantum').val(parseFloat($("#noc_quantum").val())-p);
                 }
-               var s = (isNaN($("#stu_losess").val()) || $("#stu_losess").val()=='')?0:($('#final_quantum').val()*($("#stu_losess").val())/100);
+               var s = (isNaN($("#stu_losses").val()) || $("#stu_losses").val()=='')?0:($('#final_quantum').val()*($("#stu_losses").val())/100);
+
                if($("#noc_type").val() == 'buy')
                 {
                $('#final_quantum').val(parseFloat($('#final_quantum').val())+s);
@@ -322,7 +358,7 @@
                   $('#final_quantum').val(parseFloat($('#final_quantum').val())-s);
                 }
 
-              var dl = (isNaN($("#discom_lossess").val()) || $("#discom_lossess").val()=='')?0:($("#final_quantum").val()*($("#discom_lossess").val())/100);
+              var dl = (isNaN($("#discom_losses").val()) || $("#discom_losses").val()=='')?0:($("#final_quantum").val()*($("#discom_losses").val())/100);
 
                if($("#noc_type").val() == 'buy')
                 {
@@ -335,15 +371,16 @@
                 }
                var spd = parseInt(s) + parseInt(p) + parseInt(dl);
 
-               // if($("#noc_type").val() == 'buy')
-               // {
-               //    var total = parseInt(n) + spd;
-               // }
-               // if($("#noc_type").val() == 'sell')
-               // {
-               //    var total = parseInt(n) - spd;
-               // }
-              // $("#final_quantum").val(total);
+               if($("#noc_type").val() == 'buy')
+               {
+                  var total = parseInt(n) + spd;
+               }
+               if($("#noc_type").val() == 'sell')
+               {
+                  var total = parseInt(n) - spd;
+               }
+
+              $("#final_quantum").val(total);
               $('#final_quantum').addClass('valid');
             });
             $("#final_quantum").val('');
@@ -353,6 +390,8 @@
          {
             $("#final_quantum").val('');
             $("#stu_poc_discom").addClass('hidden');
+            document.getElementById("region_entity").disabled = true;
+           document.getElementById("region").disabled = true;
             $('#noc_quantum').keyup(function(event) {
 
                var nocval = $('#noc_periphery').val();
@@ -402,5 +441,95 @@ $(document).ready(function(){
   $(".save ").click(function(){
     $(".hw1").focus();
   });
+</script>
+  <script type="text/javascript">
+    $(function() {
+        $('#noc_application_no').change(function(){
+          var id=$(this).val();
+          if(id!='')
+          {
+              $.ajax({
+                  url: '{{ url()->to("get-noc-data") }}',
+                  type: 'GET', //this is your methodtotal_lavel_balance
+                  data: { 'id':id},
+                  dataType: 'JSON',
+                  success: function(data){
+                    $('#noc_type').val(data.noc_type);
+                    $('#validity_from').val(data.start_date);
+                    $('#validity_to').val(data.end_date);
+                  }
+              });
+          }
+        });
+    });
+
+  </script>
+  <script type="text/javascript">
+    $(function() {
+        $('#region').change(function(){
+          var name=$(this).val();
+          if(name!='')
+          {
+              $.ajax({
+                  url: '{{ url()->to("get-region-entity") }}',
+                  type: 'GET', //this is your methodtotal_lavel_balance
+                  data: { 'name':name},
+                  dataType: 'JSON',
+                  success: function(data){
+                      //alert(data.region_ajax_req);
+                      html='<option value="">Select</option>';
+                      $.each(data.region_ajax_req,function(key,val){
+                        html+='<option value="'+val.regional_entity+'">'+val.regional_entity+'</option>';
+                      });
+                    $('#region_entity').html(html);
+                  }
+              });
+          }
+        });
+    });
+
+  </script>
+  <script type="text/javascript">
+    $(function() {
+        $('#region_entity').change(function(){
+          var id=$('#client').val();
+          var region_entity=$(this).val();
+          var noc_type=$('#noc_type').val();
+          var region=$('#region').val();
+          if(noc_type=='')
+          {
+            alert('Please Select NOC Type.');
+          }
+          if(region_entity!='')
+          {
+              $.ajax({
+                  url: '{{ url()->to("get-region-value") }}',
+                  type: 'GET', //this is your methodtotal_lavel_balance
+                  data: {'id':id,'region_entity':region_entity,'noc_type':noc_type,'region':region},
+                  dataType: 'JSON',
+                  success: function(data){
+                    $('#poc_losses').val(data.poc_losses);
+                    $('#noc_quantum').val('');
+                    $("#noc_quantum").css('border-color', 'red');
+                    $("#error1").show();
+                  }
+              });
+          }
+        });
+    });
+
+  </script>
+<script>
+ function removeDisabled(){
+   document.getElementById("noc_type").disabled = false;
+   document.getElementById("validity_from").disabled = false;
+   document.getElementById("validity_to").disabled = false;
+   document.getElementById("poc_losses").disabled = false;
+   document.getElementById("stu_losses").disabled = false;
+   document.getElementById("discom_losses").disabled = false;
+   document.getElementById("final_quantum").disabled = false;
+  document.getElementById("region").disabled = false;
+   document.getElementById("region_entity").disabled = false;
+}
 </script>
     @endsection

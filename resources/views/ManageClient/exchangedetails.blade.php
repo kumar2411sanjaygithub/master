@@ -1,13 +1,6 @@
 @extends('theme.layouts.default')
 @section('content')
      <section class="content">
-       @if(session()->has('message'))
-            <div class="alert alert-success mt10">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                {{ session()->get('message') }}
-            </div>
-          @endif
-
                     <div class="row">
                       <div class="col-xs-12">
                                 <div class="row">
@@ -19,7 +12,12 @@
                                           <button class="btn btn-info btn-xs pull-right mr5 mt7 {{(isset($get_exchange_details)||!$errors->isEmpty())?'hidden':''}}" id="add"><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
                                   </div>
                                 </div>
-                               
+                                      @if(session()->has('message'))
+                                        <div class="alert alert-success alert-dismissible fade in">
+                                          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                         <span class="glyphicon glyphicon-ok"></span> &nbsp; {{ session()->get('message') }}
+                                        </div>
+                                      @endif
                                   <form method ="post" action="{{isset($get_exchange_details)?url('exchange_edit/'.$get_exchange_details->id):route('exchange_create')}}" enctype="multipart/form-data">
                                    {{ csrf_field() }}
                                    <div class="{{isset($get_exchange_details)?'':'divhide'}}" id="exchangebox">
@@ -29,7 +27,7 @@
                                   <div class="row">
                                       <div class="col-md-3 {{ $errors->has('ex_type') ? 'has-error' : '' }}">
                                         <input type="hidden"  name="client_id" value="{{@$client_id}}" id="client">
-                                      <label  class="control-label">EXCHANGE TYPE<span class="text-danger"></span><strong>*</strong></label>
+                                      <label  class="control-label">EXCHANGE TYPE<span class="text-danger"><strong>*</strong></span></label>
 
                                       <select class="form-control input-sm " style="width: 100%;" id="ex_type" name="ex_type" >
                                           <option value="">SELECT EXCHANGE</option>
@@ -39,23 +37,23 @@
                                           <span class="text-danger">{{ $errors->first('ex_type') }}</span>
                                           </div>
                                           <div class="col-md-3 {{ $errors->has('validity_from') ? 'has-error' : '' }}">
-                                           <label  class="control-label">VALIDITY START DATE<span class="text-danger"></span><strong>*</strong></label>
+                                           <label  class="control-label">VALIDITY START DATE<span class="text-danger"><strong>*</strong></span></label>
                                            <div class="input-group date" id="datepicker" >
                                              <div class="input-group-addon">
                                                <i class="fa fa-calendar"></i>
                                              </div>
-                                             <input type="text" class="form-control pull-right input-sm"  id="validity_from" name="validity_from" value="{{isset($get_exchange_details)?$get_exchange_details->validity_from:old('validity_from')}}" autocomplete="off">
+                                             <input type="text" class="form-control pull-right input-sm"  id="validity_from" name="validity_from" value="{{isset($get_exchange_details)?date('d/m/Y',strtotime($get_exchange_details->validity_from)):old('validity_from')}}" autocomplete="off">
 
                                            </div>
                                            <span class="text-danger">{{ $errors->first('validity_to') }}</span>
                                           </div>
-                                          <div class="col-md-3 {{ $errors->has('file_upload') ? 'has-error' : '' }}">
-                                            <label  class="control-label">VALIDITY END START<span class="text-danger"><span><strong>*</strong></label>
+                                          <div class="col-md-3 {{ $errors->has('validity_to') ? 'has-error' : '' }}">
+                                            <label  class="control-label">VALIDITY END START<span class="text-danger"><strong>*</strong><span></label>
                                             <div class="input-group date" id="datepicker1">
                                               <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                               </div>
-                                              <input type="text" class="form-control pull-right input-sm"  id="validity_to" name="validity_to" value="{{isset($get_exchange_details)?$get_exchange_details->validity_to:old('validity_to')}}"  autocomplete="off">
+                                              <input type="text" class="form-control pull-right input-sm"  id="validity_to" name="validity_to" value="{{isset($get_exchange_details)?date('d/m/Y',strtotime($get_exchange_details->validity_to)):old('validity_to')}}"  autocomplete="off">
 
                                             </div>
                                             <span class="text-danger">{{ $errors->first('validity_to') }}</span>
@@ -100,7 +98,7 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  @isset($exchangedetails)
+                                  @if(count($exchangedetails)>0)
                               <?php
                               $i=1;
                               ?>
@@ -121,7 +119,9 @@
                             $i++;
                             ?>
                             @endforeach
-                            @endisset
+                             @else
+                             <tr class="alert-danger" ><th colspan='7'>No Data Found.</th></tr>
+                             @endif
                                 </tbody>
                                 </table>
                                 </div>

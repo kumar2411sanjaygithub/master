@@ -231,6 +231,11 @@ class PlacebidController extends Controller
         }
         $basicinfo = Client::selectRaw("trader_type")->where("id",$request->input('client_id'))->first();
 
+        if(!$basicinfo->trader_type){
+            $msg = 'trader type not set for this client';
+            return response()->json(['status' => '1', 'msg'=>$msg],400);
+        }
+
         if((strtoupper($basicinfo->trader_type) != strtoupper($request->input('bid_action')))&&(strtoupper($basicinfo->trader_type) != 'BOTH')){
             $msg = 'Your trade type is set to '.strtolower($basicinfo->trader_type);
             return response()->json(['status' => '1', 'msg'=>$msg],400);
@@ -378,8 +383,8 @@ class PlacebidController extends Controller
           // print_r(DB::getQueryLog());
           // print_r($exchangeData);
           // die();
-        // if(!empty($exchangeData)||!($validationSetting->exchange)){
-          if(empty($exchangeData)||$validationSetting->exchange){
+        if(!empty($exchangeData)||!($validationSetting->exchange)){
+          // if(empty($exchangeData)||$validationSetting->exchange){
                 // DB::enableQueryLog();
                 $nocData = Noc::selectRaw('*')
                 ->where('client_id',$request->input('client_id'))
@@ -1761,7 +1766,9 @@ class PlacebidController extends Controller
         ->where('id',$id)
         ->get();
 
-        return response()->json(['bidSubmissionTime'=>$bidsubmissiontimeData]);
+        date_default_timezone_set('Asia/Kolkata');
+        $datetime = date('H:i:s');
+        return response()->json(['bidSubmissionTime'=>$bidsubmissiontimeData,'datetime'=>$datetime]);
     }
 
     function timeDiff($firstTime,$lastTime) {

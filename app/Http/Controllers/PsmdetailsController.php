@@ -96,22 +96,22 @@ class PsmdetailsController extends Controller
         "type"=>"required",
         "received_date"=>"required",
         "amount"=>"required",
-        "issue_date"=>"after:today",
+        // "issue_date"=>"required",
         "expiry_date"=>"required",
-        "expiry_date"=>"required",
+
       ]);
      //  $var1 = $request['received_date'];
-      $chg_received_date = strtr($request['received_date'], '/', '-');
-      $received_date = date("Y-m-d", strtotime($chg_received_date));
-
-      $chg_issue_date = strtr($request['issue_date'], '/', '-');
-      $issue_date = date("Y-m-d", strtotime($chg_issue_date));
-
-      $chg_expiry_date = strtr($request['expiry_date'], '/', '-');
-      $expiry_date = date("Y-m-d", strtotime($chg_expiry_date));
-
-      $chg_revocable_date = strtr($request['revocable_date'], '/', '-');
-      $revocable_date = date("Y-m-d", strtotime($chg_revocable_date));
+      // $chg_received_date = strtr($request['received_date'], '/', '-');
+      // $received_date = date("Y-m-d", strtotime($chg_received_date));
+      //
+      // $chg_issue_date = strtr($request['issue_date'], '/', '-');
+      // $issue_date = date("Y-m-d", strtotime($chg_issue_date));
+      //
+      // $chg_expiry_date = strtr($request['expiry_date'], '/', '-');
+      // $expiry_date = date("Y-m-d", strtotime($chg_expiry_date));
+      //
+      // $chg_revocable_date = strtr($request['revocable_date'], '/', '-');
+      // $revocable_date = date("Y-m-d", strtotime($chg_revocable_date));
      //
      //  $var2 = $request['issue_date'];
      //  $date2 = strtr( $var2,'/', '-');
@@ -133,6 +133,7 @@ class PsmdetailsController extends Controller
       {
         if(isset(request()->document))
            {
+
                $imageName = time().'.'.request()->document->getClientOriginalName();
                $contact_path = public_path().'/documents/psm/';
                File::isDirectory($contact_path) or File::makeDirectory($contact_path, 0777, true, true);
@@ -145,15 +146,25 @@ class PsmdetailsController extends Controller
         $psm->document = $imageName;
       }
       $psm->type = $request['type'];
-      $psm->received_date = $received_date;
+      // $psm->received_date = date('Y-m-d', strtotime($request['received_date']));
+      $psm->received_date = ($request['received_date']!='') ? date('Y-m-d', strtotime(str_replace('/','-',$request['received_date']))) : "";
+      // $request['received_date'];
       $psm->document_no = $request['document_no'];
       $psm->amount = $request['amount'];
 
-      $psm->issue_date = $issue_date;
-      $psm->expiry_date = $expiry_date;
-      $psm->revocable_date = $revocable_date;
+      $request['issue_date']=($request['issue_date']!='') ? date('Y-m-d', strtotime(str_replace('/','-',$request['issue_date']))) : "";
+      $request['expiry_date']=($request['expiry_date']!='') ? date('Y-m-d', strtotime(str_replace('/','-',$request['expiry_date']))) : "";
+      $request['revocable_date']=($request['revocable_date']!='') ? date('Y-m-d', strtotime(str_replace('/','-',$request['revocable_date']))) : "";
+      if($request['issue_date']!=''){
+        $psm->issue_date = $request['issue_date'];
+      }
+      if($request['revocable_date']!=''){
+        $psm->revocable_date = $request['revocable_date'];
+      }
+      $psm->expiry_date = $request['expiry_date'];
       $psm->description = $request['description'];
       $psm->client_id = $id;
+      // dd($psm);
       $psm->save();
 
       return redirect()->back()->with('message','PSM Added Successfully');
@@ -200,23 +211,10 @@ class PsmdetailsController extends Controller
         // "document_no"=>"required",
         "received_date"=>"required",
         "amount"=>"required",
-        "issue_date"=>"after:today",
+        // "issue_date"=>"required",
         "expiry_date"=>"required",
         // "client_id"=>"required",
       ]);
-
-      $chg_received_date = strtr($request['received_date'], '/', '-');
-      $received_date = date("Y-m-d", strtotime($chg_received_date));
-
-      $chg_issue_date = strtr($request['issue_date'], '/', '-');
-      $issue_date = date("Y-m-d", strtotime($chg_issue_date));
-
-      $chg_expiry_date = strtr($request['expiry_date'], '/', '-');
-      $expiry_date = date("Y-m-d", strtotime($chg_expiry_date));
-
-      $chg_revocable_date = strtr($request['revocable_date'], '/', '-');
-      $revocable_date = date("Y-m-d", strtotime($chg_revocable_date));
-
       $psm = Psmdetails::find($id);
       if($request['type'] == 2 || $request['type'] == 3)
       {
@@ -234,15 +232,26 @@ class PsmdetailsController extends Controller
         $psm->document = $imageName;
       }
       $psm->type = $request['type'];
-      $psm->received_date = $received_date;
+      $psm->received_date = date('Y-m-d', strtotime(str_replace('/','-',$request['received_date'])));
       $psm->document_no = $request['document_no'];
       $psm->amount = $request['amount'];
-      $psm->issue_date = $issue_date;
-      $psm->expiry_date = $expiry_date;
-      $psm->revocable_date = $revocable_date;
+
+      $request['issue_date']=($request['issue_date']!='') ? date('Y-m-d', strtotime(str_replace('/','-',$request['issue_date']))) : "";
+      $request['expiry_date']=($request['expiry_date']!='') ? date('Y-m-d', strtotime(str_replace('/','-',$request['expiry_date']))) : "";
+      $request['revocable_date']=($request['revocable_date']!='') ? date('Y-m-d', strtotime(str_replace('/','-',$request['revocable_date']))) : "";
+      if($request['issue_date']!=''){
+        $psm->issue_date = $request['issue_date'];
+      }
+      if($request['revocable_date']!=''){
+        $psm->revocable_date = $request['revocable_date'];
+      }
+      // $psm->issue_date = $request['issue_date'];
+      $psm->expiry_date = $request['expiry_date'];
+      // $psm->revocable_date = $request['revocable_date'];
       $psm->description = $request['description'];
       $psm->client_id = $request['client_id'];
       $psm->save();
+      // dd($psm);
       return redirect()->to('/psm/psmdetails/'.$request['client_id'])->with('updatemsg','PSM Updated Successfully');
 
     }

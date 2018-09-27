@@ -67,7 +67,7 @@
                       </div> -->
                       <div class="  {{ $errors->has('user_id') ? 'has-error' : '' }}">
                           <select class="" name="user_id" id="select-client" data-live-search="true">
-                              <option>Search Client</option>
+                              <option value="">Search Client</option>
                                @foreach ($users as $key => $aa)
                                <option value="{{ $aa['id'] }}" data-tokens="{{ $aa['id'] }}.{{ $aa['id'] }}.{{ $aa['id'] }};?>" @if(isset($client_id) && $aa['id'] == $client_id) selected @endif> [{{$aa['company_name']}}] [{{$aa['short_id']}}] [{{$aa['crn_no']}}]</option>
                               @endforeach
@@ -135,7 +135,7 @@
                @foreach ($validationsettingData as $key => $value)
                <tr>
                  <td class="text-center" style="width:4%;">{{ $i }}</td>
-                 <td class="text-center" style="width:45%;">{{$value->client_master['company_name']}}</td>
+                 <td class="text-center" style="width:45%;">{{$value->clients['company_name']}}</td>
                  <td class="text-center" style="width:10%;">{{ isset($value->noc) && $value->noc == 'NOC' ? 'Yes' : 'No'}}</td>
                  <td class="text-center" style="width:10%;">{{ isset($value->ppa) && $value->ppa == 'PPA' ? 'Yes' : 'No'}}</td>
                  <td class="text-center" style="width:10%;">{{ isset($value->exchange) && $value->exchange == 'Exchange' ? 'Yes' : 'No'}}</td>

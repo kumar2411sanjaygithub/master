@@ -9,12 +9,7 @@
 }
 </style>
     <section class="content">
-      @if(session()->has('message'))
-            <div class="alert alert-success mt10">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                {{ session()->get('message') }}
-            </div>
-          @endif
+
       <div class="row">
         <div class="col-xs-12">
 
@@ -27,7 +22,13 @@
                     <button class="btn btn-info btn-xs pull-right mr5 mt7 {{(isset($get_bank_details)||!$errors->isEmpty())?'divhide':''}} " id="add"><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
             </div>
           </div>
+      @if(session()->has('message'))
+            <div class="alert alert-success alert-dismissible fade in">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+             <span class="glyphicon glyphicon-ok"></span> &nbsp;{{ session()->get('message') }}
+            </div>
 
+          @endif
         <form method ="post" action="{{isset($get_bank_details)?url('bank_edit/'.$get_bank_details->id):route('bank_create')}}">
       {{ csrf_field() }}
   <div class="row {{(isset($get_bank_details)||!$errors->isEmpty())?'':'divhide'}}" id="bankbox">
@@ -98,7 +99,7 @@
     </tr>
   </thead>
   <tbody>
-     @isset($bankdetails)
+     @if(count($bankdetails)>0)
                     <?php
                     $i=1;
                     ?>
@@ -119,7 +120,9 @@
                     $i++;
                     ?>
                     @endforeach
-                    @endisset
+                   @else
+                   <tr class="alert-danger" ><th colspan='7'>No Data Found.</th></tr>
+                   @endif
 
   </tbody>
 </table>

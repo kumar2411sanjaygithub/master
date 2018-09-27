@@ -398,7 +398,7 @@
                         <input  disabled type="radio" class="minimal1 disabled-class" value="yes" name="common_feeder_option" id="rt" @if((isset($clientdata->common_feeder_option)&&$clientdata->common_feeder_option=='yes'))? checked="checked" @endif>&nbsp&nbsp<label for="rt">YES</label>
                      </div>
                      <div class="col-md-6 pull-Left">
-                        <input  disabled type="radio" class="minimal1 disabled-class" value="no" name="common_feeder_option" id="rt1" @if((isset($clientdata->common_feeder_option)&&$clientdata->common_feeder_option<>'no'))? checked="checked" @endif>&nbsp&nbsp<label for="rt1">NO</label>
+                        <input  disabled type="radio" class="minimal1 disabled-class" value="no" name="common_feeder_option" id="rt1" @if((isset($clientdata->common_feeder_option)&&$clientdata->common_feeder_option=='no'))? checked="checked" @endif>&nbsp&nbsp<label for="rt1">NO</label>
                      </div>
                   </div>
                </div>
@@ -424,6 +424,15 @@
                   <label  class="control-label">MAXIMUM WITHDRAWAL QUANTUM</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER WITHDRAWAL QUANTUM" name="maxm_withdrawal" id="maxm_withdrawal" value="{{isset($clientdata->maxm_withdrawal)?$clientdata->maxm_withdrawal: old('maxm_withdrawal')}}">
                </div>
+              <div class="col-md-3">
+              <label  class="control-label">NOC APPLICATION PUNCHED BY</label>
+              <select class="form-control input-sm  disabled-class" disabled style="width: 100%;" id="noc_punched_by" name="noc_punched_by">
+                  <option value="">SELECT</option>
+                  <option value="Trader" {{ isset($clientdata) && $clientdata->noc_punched_by == 'Trader' ? 'selected="selected"' : '' }}>Trader</option>
+                  <option value="Client" {{ isset($clientdata) && $clientdata->noc_punched_by == 'Client' ? 'selected="selected"' : '' }}>Client</option>
+                </select>
+              </div>
+               
             </div>
             <h5><label  class="control-label"><u>FINANCIAL ARRANGEMENT</u></label></h5>
             <hr>
@@ -588,5 +597,17 @@ $('input[type="checkbox"]#saba,.saba').click(function(){
        $("#del_telephone").val("");
      }
    });
+
+$(document).ready(function() {
+   if ($('#rt1').is(":checked")) 
+   {
+
+      $("#hidecontentDiv").hide();
+   }
+   if ($('#rt').is(":checked")) 
+   {
+      $("#hidecontentDiv").show();
+   }
+});
 </script>
 @endsection

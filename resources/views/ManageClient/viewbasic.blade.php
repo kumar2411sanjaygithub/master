@@ -12,10 +12,11 @@
 <section class="content">
    <!-- success msg -->
    @if(session()->has('message'))
-   <div class="alert alert-success mt10">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-      {{ session()->get('message') }}
-   </div>
+   <div class="alert alert-success alert-dismissible fade in">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+   <span class="glyphicon glyphicon-ok"></span>&nbsp; {{ session()->get('message') }}
+  </div>
+
    @endif
    <div class="row">
       <div class="col-xs-12">
@@ -33,31 +34,37 @@
             <h5><label  class="control-label"><u>CLIENT DETAILS</u></label></h5>
             <hr>
             <div class="row">
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('company_name') ? 'has-error' : '' }}">
                   <label  class="control-label">COMPANY NAME</label><span class="text-danger"><strong>*</strong></span>
                   <input class="form-control input-sm  disabled-class" disabled type="text" placeholder="ENTER COMPANY NAME" name="company_name" id="company_name" value="{{ $clientdata->company_name}}">
+               <span class="text-danger">{{ $errors->first('company_name') }}</span>
                </div>
-               <div class="col-md-3">
+               <div class="col-md-3  {{ $errors->has('gstin') ? 'has-error' : '' }}">
                   <label  class="control-label">GSTIN</label><span class="text-danger"><strong>*</strong></span>
                   <input class="form-control input-sm  disabled-class"  disabled type="text" placeholder="ENTER GSTIN" name="gstin" id="gstin" value="{{ $clientdata->gstin}}">
+               <span class="text-danger">{{ $errors->first('gstin') }}</span>
                </div>
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('pan') ? 'has-error' : '' }}">
                   <label  class="control-label">PAN</label><span class="text-danger"><strong>*</strong></span>
                   <input class="form-control input-sm  disabled-class" disabled type="text" placeholder="ENTER PAN NUMBER" name="pan" id="pan" value="{{ $clientdata->pan}}">
+               <span class="text-danger">{{ $errors->first('pan') }}</span>
                </div>
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('cin') ? 'has-error' : '' }}">
                   <label  class="control-label">CIN</label><span class="text-danger"><strong>*</strong></span>
                   <input class="form-control input-sm  disabled-class"  disabled type="text" placeholder="ENTER CIN NUMBER" name="cin" id="cin"value="{{ $clientdata->cin}}">
+                  <span class="text-danger">{{ $errors->first('cin') }}</span>
                </div>
             </div>
             <div class="row">
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('pri_contact_no') ? 'has-error' : '' }}">
                   <label  class="control-label">PRIMARY CONTACT NUMBER</label><span class="text-danger"><strong>*</strong></span>
                   <input class="form-control input-sm disabled-class num" type="text" placeholder="ENTER PRIMARY CONTACT NUMBER" name="pri_contact_no" id="pri_contact_no" disabled  value="{{ $clientdata->pri_contact_no}}" maxlength="10">
+               <span class="text-danger">{{ $errors->first('pri_contact_no') }}</span>
                </div>
-               <div class="col-md-3 ">
+               <div class="col-md-3 {{ $errors->has('email') ? 'has-error' : '' }}">
                   <label  class="control-label">PRIMARY EMAIL ID</label><span class="text-danger"><strong>*</strong></span>
                   <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER PRIMARY MAIL ID"name="email" id="email" value="{{ $clientdata->email}}">
+               <span class="text-danger">{{ $errors->first('email') }}</span>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">SHORT ID</label>
@@ -81,9 +88,10 @@
             <h5><label  class="control-label"><u>REGISTERED OFFICE ADDRESS</u></label></h5>
             <hr>
             <div class="row">
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('reg_line1') ? 'has-error' : '' }}">
                   <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
                   <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER ADDRESS LINE-1" name="reg_line1" id="reg_line1" value="{{ $clientdata->reg_line1}}">
+              <span class="text-danger">{{ $errors->first('reg_line1') }}</span>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">LINE-2</label>
@@ -91,15 +99,16 @@
                </div>
                <div class="col-md-3 {{ $errors->has('reg_country') ? 'has-error' : '' }}">
                   <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
-                  <select class="form-control input-sm disabled-class"   disabled style="width: 100%;" id="reg_country" name="reg_country" value="{{ $clientdata->reg_country}}">
+                  <select class="form-control input-sm disabled-class"   disabled style="width: 100%;" id="reg_country" name="reg_country">
                       <option value="">SELECT</option>
-                     <option value="India">India</option>
+                     <option value="India" @if(isset($clientdata->reg_country)&&$clientdata->reg_country=='India') selected='selected'@endif>India</option>
                   </select>
+              <span class="text-danger">{{ $errors->first('reg_country') }}</span>
                </div>
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('reg_state') ? 'has-error' : '' }}">
                   <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
                   <select class="form-control input-sm disabled-class"  disabled  style="width: 100%;"id="reg_state" name="reg_state" value="{{ $clientdata->reg_state}}">
-                     <option value=" ">SELECT</option>
+                     <option value="">SELECT</option>
                      <?php
                         $state_list = \App\Common\StateList::get_states();
                         ?>
@@ -107,20 +116,24 @@
                      <option value="{{$state_code}}" {{ isset($clientdata) && $clientdata->reg_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
                      @endforeach
                   </select>
+              <span class="text-danger">{{ $errors->first('reg_state') }}</span>
                </div>
             </div>
             <div class="row">
-               <div class="col-md-3 ">
+               <div class="col-md-3 {{ $errors->has('reg_city') ? 'has-error' : '' }}">
                   <label  class="control-label">CITY</label><span class="text-danger"><strong>*</strong></span>
                   <input class="form-control input-sm disabled-class"  disabled  type="text" name="reg_city" id="reg_city" value="{{ $clientdata->reg_city}}">
+                <span class="text-danger">{{ $errors->first('reg_city') }}</span>
                </div>
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('reg_pin') ? 'has-error' : '' }}">
                   <label  class="control-label">PIN CODE</label><span class="text-danger"><strong>*</strong></span>
                   <input class="form-control input-sm disabled-class num" maxlength="6" type="text"  disabled  placeholder="ENTER PIN CODE" id="reg_pin" name="reg_pin" value="{{ $clientdata->reg_pin}}">
+                <span class="text-danger">{{ $errors->first('reg_pin') }}</span>
                </div>
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('reg_mob') ? 'has-error' : '' }}">
                   <label  class="control-label">MOBILE NUMBER</label><span class="text-danger"><strong>*</strong></span>
                   <input class="form-control input-sm disabled-class num" maxlength="10" type="text"  disabled placeholder="ENTER MOBILE NUMBER"  id="reg_mob" name="reg_mob" value="{{ $clientdata->reg_mob}}">
+                <span class="text-danger">{{ $errors->first('reg_mob') }}</span>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">TELEPHONE</label>
@@ -148,9 +161,9 @@
                </div>
                <div class="col-md-3">
                   <label  class="control-label">COUNTRY</label>
-                  <select class="form-control input-sm disabled-class" disabled style="width: 100%;" id="bill_country" name="bill_country" value="{{ $clientdata->bill_country}}" >
+                  <select class="form-control input-sm disabled-class" disabled style="width: 100%;" id="bill_country" name="bill_country">
                       <option value="">SELECT</option>
-                     <option value="India">India</option>
+                     <option value="India" @if(isset($clientdata->bill_country)&&$clientdata->bill_country=='India') selected='selected'@endif>India</option>
                   </select>
                </div>
                <div class="col-md-3">
@@ -169,7 +182,7 @@
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label">CITY</label>
-                  <input class="form-control input-sm disabled-class"   disabled style="width: 100%;" id="bill_city" name="bill_city" value="{{ $clientdata->bill_city}}">
+                  <input class="form-control input-sm disabled-class"  placeholder="ENTER CITY"  disabled style="width: 100%;" id="bill_city" name="bill_city" value="{{ $clientdata->bill_city}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">PIN CODE</label>
@@ -205,15 +218,15 @@
                </div>
                <div class="col-md-3">
                   <label  class="control-label">COUNTRY</label>
-                  <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="del_country" name="del_country" value="{{ $clientdata->del_country}}">
+                  <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="del_country" name="del_country">
                       <option value="">SELECT</option>
-                     <option value="India">India</option>
+                     <option value="India" @if(isset($clientdata->del_country)&&$clientdata->del_country=='India') selected='selected'@endif>India</option>
                   </select>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">STATE</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="del_state" name="del_state" value="{{ $clientdata->del_state}}">
-                     <option value=" ">SELECT</option>
+                     <option value="">SELECT</option>
                      <?php
                         $state_list = \App\Common\StateList::get_states();
                         ?>
@@ -226,7 +239,7 @@
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label">CITY</label>
-                  <input class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="del_city" name="del_city" value="{{ $clientdata->del_city}}">
+                  <input class="form-control input-sm disabled-class"  placeholder="ENTER CITY" disabled style="width: 100%;" id="del_city" name="del_city" value="{{ $clientdata->del_city}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">PIN CODE</label>
@@ -246,16 +259,16 @@
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label">IEX CLIENT NAME</label>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER CLIENT NAME" id="iex_client_name" name="iex_client_name" value="{{ $clientdata->iex_client_name}}">
+                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER IEX CLIENT NAME" id="iex_client_name" name="iex_client_name" value="{{ $clientdata->iex_client_name}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">IEX PORTFOLIO CODE</label>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER PORTFOLIO CODE"  id="iex_portfolio" name="iex_portfolio" value="{{ $clientdata->iex_client_name}}">
+                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER IEX PORTFOLIO CODE"  id="iex_portfolio" name="iex_portfolio" value="{{ $clientdata->iex_portfolio}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">IEX STATUS</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;"  id="iex_status" name="iex_status" value="{{ $clientdata->iex_status}}">
-                     <option value=" ">Select</option>
+                     <option value="">SELECT</option>
                      <option value="Active" {{ isset($clientdata) && $clientdata->iex_status == 'Active' ? 'selected="selected"' : '' }}>Active</option>
                      <option value="Inactive" {{ isset($clientdata) && $clientdata->iex_status == 'Inactive' ? 'selected="selected"' : '' }}>Inactive</option>
                      <option value="Suspended" {{ isset($clientdata) && $clientdata->iex_status == 'Suspended' ? 'selected="selected"' : '' }}>Suspended</option>
@@ -264,58 +277,58 @@
                <div class="col-md-3">
                   <label  class="control-label">IEX REGION</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;"id="iex_region" name="iex_region" value="{{ $clientdata->iex_region}}">
-                     <option value=" ">Select Region</option>
-                     <option value="A1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A1") ? 'selected' : '' }}>A1(Tripura, Mainpur, Mizoram, Nagaland)</option>
-                     <option value="A2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A2") ? 'selected' : '' }}>A2(Assam, Arunachal Pradesh, Meghalaya)</option>
-                     <option value="E1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="E1") ? 'selected' : '' }}>E1(West Bengal, Sikkim, Bihar, Jharkhand)</option>
-                     <option value="E2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="E2") ? 'selected' : '' }}>E2(Odisha)</option>
-                     <option value="N1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N1") ? 'selected' : '' }}>N1(J&K, HP, Chandigarh, Haryana)</option>
-                     <option value="N2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N2") ? 'selected' : '' }}>N2(UP, Uttaranchal, Rajasthan, Delhi)</option>
-                     <option value="N3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N3") ? 'selected' : '' }}>N3(Punjab)</option>
-                     <option value="S1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S1") ? 'selected' : '' }}>S1(AP,Telangana, Karnataka, Pondicherry, SG)</option>
-                     <option value="S2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S2") ? 'selected' : '' }}>S2(Tamilnadu, Punducherry, Karaikal, Mahe)</option>
-                     <option value="S3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S3") ? 'selected' : '' }}>S3(Kerla)</option>
-                     <option value="W1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W1") ? 'selected' : '' }}>W1(Madhya Pradesh)</option>
-                     <option value="W2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W2") ? 'selected' : '' }}>W2(Maharashtra, Gujarat, DD, DNH, North Goa)</option>
-                     <option value="W3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W3") ? 'selected' : '' }}>W3(Chhattisharh)</option>
+                     <option value="">SELECT REGION</option>
+                     <option value="A1" {{ (isset($clientdata) && $clientdata->iex_region=="A1") ? 'selected' : '' }}>A1(Tripura, Mainpur, Mizoram, Nagaland)</option>
+                     <option value="A2" {{ (isset($clientdata) && $clientdata->iex_region=="A2") ? 'selected' : '' }}>A2(Assam, Arunachal Pradesh, Meghalaya)</option>
+                     <option value="E1" {{ (isset($clientdata) && $clientdata->iex_region=="E1") ? 'selected' : '' }}>E1(West Bengal, Sikkim, Bihar, Jharkhand)</option>
+                     <option value="E2" {{ (isset($clientdata) && $clientdata->iex_region=="E2") ? 'selected' : '' }}>E2(Odisha)</option>
+                     <option value="N1" {{ (isset($clientdata) && $clientdata->iex_region=="N1") ? 'selected' : '' }}>N1(J&K, HP, Chandigarh, Haryana)</option>
+                     <option value="N2" {{ (isset($clientdata) && $clientdata->iex_region=="N2") ? 'selected' : '' }}>N2(UP, Uttaranchal, Rajasthan, Delhi)</option>
+                     <option value="N3" {{ (isset($clientdata) && $clientdata->iex_region=="N3") ? 'selected' : '' }}>N3(Punjab)</option>
+                     <option value="S1" {{ (isset($clientdata) && $clientdata->iex_region=="S1") ? 'selected' : '' }}>S1(AP,Telangana, Karnataka, Pondicherry, SG)</option>
+                     <option value="S2" {{ (isset($clientdata) && $clientdata->iex_region=="S2") ? 'selected' : '' }}>S2(Tamilnadu, Punducherry, Karaikal, Mahe)</option>
+                     <option value="S3" {{ (isset($clientdata) && $clientdata->iex_region=="S3") ? 'selected' : '' }}>S3(Kerla)</option>
+                     <option value="W1" {{ (isset($clientdata) && $clientdata->iex_region=="W1") ? 'selected' : '' }}>W1(Madhya Pradesh)</option>
+                     <option value="W2" {{ (isset($clientdata) && $clientdata->iex_region=="W2") ? 'selected' : '' }}>W2(Maharashtra, Gujarat, DD, DNH, North Goa)</option>
+                     <option value="W3" {{ (isset($clientdata) && $clientdata->iex_region=="W3") ? 'selected' : '' }}>W3(Chhattisharh)</option>
                   </select>
                </div>
             </div>
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label">PXIL CLIENT NAME</label>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER CLIENT NAME"  id="pxil_client_name" name="pxil_client_name" value="{{ $clientdata->pxil_client_name}}">
+                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER PXIL CLIENT NAME"  id="pxil_client_name" name="pxil_client_name" value="{{ $clientdata->pxil_client_name}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">PXIL PORTFOLIO CODE</label>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER PORTDOLIO CODE" id="pxil_portfolio" name="pxil_portfolio" value="{{ $clientdata->pxil_portfolio}}">
+                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER PXIL PORTDOLIO CODE" id="pxil_portfolio" name="pxil_portfolio" value="{{ $clientdata->pxil_portfolio}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">PXIL STATUS</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="pxil_status" name="pxil_status" value="{{old('pxil_status')}}">
-                     <option value=" ">Select</option>
-                     <option value="Active" {{ isset($clientdata) && $clientdata->iex_status == 'Active' ? 'selected="selected"' : '' }}>Active</option>
-                     <option value="Inactive" {{ isset($clientdata) && $clientdata->iex_status == 'Inactive' ? 'selected="selected"' : '' }}>Inactive</option>
-                     <option value="Suspended" {{ isset($clientdata) && $clientdata->iex_status == 'Suspended' ? 'selected="selected"' : '' }}>Suspended</option>
+                     <option value="">SELECT</option>
+                     <option value="Active" {{ isset($clientdata) && $clientdata->pxil_status == 'Active' ? 'selected="selected"' : '' }}>Active</option>
+                     <option value="Inactive" {{ isset($clientdata) && $clientdata->pxil_status == 'Inactive' ? 'selected="selected"' : '' }}>Inactive</option>
+                     <option value="Suspended" {{ isset($clientdata) && $clientdata->pxil_status == 'Suspended' ? 'selected="selected"' : '' }}>Suspended</option>
                   </select>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">PXIL REGION</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="pxil_region" name="pxil_region" value="{{ $clientdata->pxil_region}}">
-                     <option value=" ">Select Region</option>
-                     <option value="A1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A1") ? 'selected' : '' }}>A1(Tripura, Mainpur, Mizoram, Nagaland)</option>
-                     <option value="A2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A2") ? 'selected' : '' }}>A2(Assam, Arunachal Pradesh, Meghalaya)</option>
-                     <option value="E1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="E1") ? 'selected' : '' }}>E1(West Bengal, Sikkim, Bihar, Jharkhand)</option>
-                     <option value="E2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="E2") ? 'selected' : '' }}>E2(Odisha)</option>
-                     <option value="N1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N1") ? 'selected' : '' }}>N1(J&K, HP, Chandigarh, Haryana)</option>
-                     <option value="N2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N2") ? 'selected' : '' }}>N2(UP, Uttaranchal, Rajasthan, Delhi)</option>
-                     <option value="N3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N3") ? 'selected' : '' }}>N3(Punjab)</option>
-                     <option value="S1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S1") ? 'selected' : '' }}>S1(AP,Telangana, Karnataka, Pondicherry, SG)</option>
-                     <option value="S2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S2") ? 'selected' : '' }}>S2(Tamilnadu, Punducherry, Karaikal, Mahe)</option>
-                     <option value="S3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S3") ? 'selected' : '' }}>S3(Kerla)</option>
-                     <option value="W1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W1") ? 'selected' : '' }}>W1(Madhya Pradesh)</option>
-                     <option value="W2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W2") ? 'selected' : '' }}>W2(Maharashtra, Gujarat, DD, DNH, North Goa)</option>
-                     <option value="W3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W3") ? 'selected' : '' }}>W3(Chhattisharh)</option>
+                     <option value="">SELECT REGION</option>
+                     <option value="A1" {{ (isset($clientdata) && $clientdata->pxil_region=="A1") ? 'selected' : '' }}>A1(Tripura, Mainpur, Mizoram, Nagaland)</option>
+                     <option value="A2" {{ (isset($clientdata) && $clientdata->pxil_region=="A2") ? 'selected' : '' }}>A2(Assam, Arunachal Pradesh, Meghalaya)</option>
+                     <option value="E1" {{ (isset($clientdata) && $clientdata->pxil_region=="E1") ? 'selected' : '' }}>E1(West Bengal, Sikkim, Bihar, Jharkhand)</option>
+                     <option value="E2" {{ (isset($clientdata) && $clientdata->pxil_region=="E2") ? 'selected' : '' }}>E2(Odisha)</option>
+                     <option value="N1" {{ (isset($clientdata) && $clientdata->pxil_region=="N1") ? 'selected' : '' }}>N1(J&K, HP, Chandigarh, Haryana)</option>
+                     <option value="N2" {{ (isset($clientdata) && $clientdata->pxil_region=="N2") ? 'selected' : '' }}>N2(UP, Uttaranchal, Rajasthan, Delhi)</option>
+                     <option value="N3" {{ (isset($clientdata) && $clientdata->pxil_region=="N3") ? 'selected' : '' }}>N3(Punjab)</option>
+                     <option value="S1" {{ (isset($clientdata) && $clientdata->pxil_region=="S1") ? 'selected' : '' }}>S1(AP,Telangana, Karnataka, Pondicherry, SG)</option>
+                     <option value="S2" {{ (isset($clientdata) && $clientdata->pxil_region=="S2") ? 'selected' : '' }}>S2(Tamilnadu, Punducherry, Karaikal, Mahe)</option>
+                     <option value="S3" {{ (isset($clientdata) && $clientdata->pxil_region=="S3") ? 'selected' : '' }}>S3(Kerla)</option>
+                     <option value="W1" {{ (isset($clientdata) && $clientdata->pxil_region=="W1") ? 'selected' : '' }}>W1(Madhya Pradesh)</option>
+                     <option value="W2" {{ (isset($clientdata) && $clientdata->pxil_region=="W2") ? 'selected' : '' }}>W2(Maharashtra, Gujarat, DD, DNH, North Goa)</option>
+                     <option value="W3" {{ (isset($clientdata) && $clientdata->pxil_region=="W3") ? 'selected' : '' }}>W3(Chhattisharh)</option>
                   </select>
                </div>
             </div>
@@ -333,7 +346,7 @@
                <div class="col-md-3">
                   <label  class="control-label">STATE(For NOC)</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" name="conn_state" id="conn_state" value="{{ $clientdata->conn_state}}">
-                     <option value=''>Select</option>
+                     <option value=''>SELECT</option>
                      <?php
                         $state_list = \App\Common\StateList::get_states();
                         ?>
@@ -345,7 +358,7 @@
                <div class="col-md-3">
                   <label  class="control-label">DISCOM</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="discom" name="discom" value="{{ $clientdata->discom}}">
-                     <option value=''>CHOOSE</option>
+                     <option value=''>SELECT</option>
                      @foreach($discom_array as $discom_list)
                       @if(isset($clientdata->discom))
                         <option value='{{$discom_list}}' @if((isset($clientdata->discom)&&$clientdata->discom==$discom_list))? selected="selected" @endif>{{$discom_list}}</option>
@@ -356,7 +369,7 @@
                <div class="col-md-3">
                   <label  class="control-label">VOLTAGE LEVEL</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="voltage" name="voltage" value="{{ $clientdata->voltage}}">
-                    <option value=''>CHOOSE</option>
+                    <option value=''>SELECT</option>
                     @foreach($voltage_array as $vol_list)
                      @if(isset($clientdata->voltage))
                        <option value='{{$vol_list}}' @if((isset($clientdata->voltage)&&$clientdata->voltage==$vol_list))? selected="selected" @endif>{{$vol_list}}</option>
@@ -395,7 +408,7 @@
                         <input  disabled type="radio" class="minimal1 disabled-class" value="yes" name="common_feeder_option" id="rt" @if((isset($clientdata->common_feeder_option)&&$clientdata->common_feeder_option=='yes'))? checked="checked" @endif>&nbsp&nbsp<label for="rt">YES</label>
                      </div>
                      <div class="col-md-6 pull-Left">
-                        <input  disabled type="radio" class="minimal1 disabled-class" value="no" name="common_feeder_option" id="rt1" @if((isset($clientdata->common_feeder_option)&&$clientdata->common_feeder_option<>'no'))? checked="checked" @else @endif>&nbsp&nbsp<label for="rt1">NO</label>
+                        <input  disabled type="radio" class="minimal1 disabled-class" value="no" name="common_feeder_option" id="rt1" @if((isset($clientdata->common_feeder_option)&&$clientdata->common_feeder_option=='no'))? checked="checked" @else @endif>&nbsp&nbsp<label for="rt1">NO</label>
                      </div>
                   </div>
                </div>
@@ -422,13 +435,22 @@
                   <label  class="control-label">MAXIMUM WITHDRAWAL QUANTUM (MW)</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER WITHDRAWAL QUANTUM" name="maxm_withdrawal" id="maxm_withdrawal" value="{{isset($clientdata->maxm_withdrawal)?$clientdata->maxm_withdrawal: old('maxm_withdrawal')}}">
                </div>
+              <div class="col-md-3">
+              <label  class="control-label">NOC APPLICATION PUNCHED BY</label>
+              <select class="form-control input-sm disabled-class" disabled style="width: 100%;" id="noc_punched_by" name="noc_punched_by">
+                  <option value="">SELECT</option>
+                  <option value="Trader" {{ isset($clientdata) && $clientdata->noc_punched_by == 'Trader' ? 'selected="selected"' : '' }}>Trader</option>
+                  <option value="Client" {{ isset($clientdata) && $clientdata->noc_punched_by == 'Client' ? 'selected="selected"' : '' }}>Client</option>
+                </select>
+              </div>
+
             </div>
             <h5><label  class="control-label"><u>FINANCIAL ARRANGEMENT</u></label></h5>
             <hr>
             <div class="row">
                <div class="col-md-3">
                   <label  class="control-label">LATER PAYMENT PENALTY(%)</label>
-                  <input class="form-control input-sm disabled-class" disabled  type="text" placeholder="ENTER DISCOM" name="payment" id="payment" value="{{isset($clientdata->payment)?$clientdata->payment: old('payment')}}">
+                  <input class="form-control input-sm disabled-class" disabled  type="text" placeholder="ENTER LATER PAYMENT PENALTY(%)" name="payment" id="payment" value="{{isset($clientdata->payment)?$clientdata->payment: old('payment')}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">PAYMENT OBLIGATION</label>
@@ -551,24 +573,24 @@ $('input[type="checkbox"]#saroa,.saroa').click(function(){
    });
 $('input[type="checkbox"]#saba,.saba').click(function(){
      if($("#saba").prop("checked") == true){
-       $("#del_lin1").attr("value",$("#bill_line1").val());
-       $("#del_lin2").attr("value",$("#bill_line2").val());
-       $("#del_country").attr("value",$("#bill_country").val());
-       $("#del_state").attr("value",$("#bill_state").val());
-       $("#del_city").attr("value",$("#bill_city").val());
-       $("#del_pin").attr("value",$("#bill_pin").val());
-       $("#del_mob").attr("value",$("#bill_mob").val());
-       $("#del_telephone").attr("value",$("#bill_telephone").val());
+       $("#del_lin1").val($("#bill_line1").val());
+       $("#del_lin2").val($("#bill_line2").val());
+       $("#del_country").val($("#bill_country").val());
+       $("#del_state").val($("#bill_state").val());
+       $("#del_city").val($("#bill_city").val());
+       $("#del_pin").val($("#bill_pin").val());
+       $("#del_mob").val($("#bill_mob").val());
+       $("#del_telephone").val($("#bill_telephone").val());
      }
      else if($("#saba").prop("checked") == false){
-       $("#del_lin1").attr("value","value","");
-       $("#del_lin2").attr("value","");
-       $("#del_country").attr("value","");
-       $("#del_state").attr("value","");
-       $("#del_city").attr("value","");
-       $("#del_pin").attr("value","");
-       $("#del_mob").attr("value","");
-       $("#del_telephone").attr("value","");
+       $("#del_lin1").val("");
+       $("#del_lin2").val("");
+       $("#del_country").val("");
+       $("#del_state").val("");
+       $("#del_city").val("");
+       $("#del_pin").val("");
+       $("#del_mob").val("");
+       $("#del_telephone").val("");
      }
    });
 $(document).ready(function() {
@@ -587,17 +609,17 @@ $(document).ready(function() {
         //$("#Cars" + test).show();
     });
 });
-// $(document).ready(function() {
-//    if ($('#rt1').is(":checked")) 
-//    {
+$(document).ready(function() {
+   if ($('#rt1').is(":checked")) 
+   {
 
-//       $("#hidecontentDiv").hide();
-//    }
-//    if ($('#rt').is(":checked")) 
-//    {
-//       $("#hidecontentDiv").show();
-//    }
-// });
+      $("#hidecontentDiv").hide();
+   }
+   if ($('#rt').is(":checked")) 
+   {
+      $("#hidecontentDiv").show();
+   }
+});
 
 
 </script>

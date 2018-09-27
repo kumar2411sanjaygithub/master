@@ -122,7 +122,7 @@
  <div class="row">
     <div class="col-md-5"></div>
      
-     <div class="col-md-2"><a href="{{ route('employee') }}"><input type="button" class="btn btn-block btn-danger btn-xs" value="Back To Multiple View"></a></div>
+     <div class="col-md-2"><a href="{{ route('employee') }}"><input type="button" class="btn btn-block btn-danger btn-xs" value="BACK TO LIST"></a></div>
    <div class="col-md-5"></div>
  </div>
 

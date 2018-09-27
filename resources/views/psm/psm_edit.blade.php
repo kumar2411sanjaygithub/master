@@ -9,8 +9,10 @@
 
 <section class="content-header">
    <h5>
-      <label  class="control-label">EDIT PSM <small>{{$clientData->company_name}}</small></label>
+     <label  class="control-label"><u class="setword">Edit PSM Details</u></label>
+     &nbsp; {{@$clientData->company_name}}<span class="hifan">|</span>{{@$clientData->crn_no}}<span class="hifan">|</span>{{@$clientData->iex_portfolio}}<span class="hifan">|</span>{{@$clientData->pxil_portfolio}}
    </h5>
+
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="{{ route('psmdetials') }}">PSM Search Client</a></li>
@@ -54,7 +56,7 @@
                           </div>
                           <input autocomplete="off" type="text" value="{{date('d/m/Y',strtotime($psmData->received_date))}}" class="form-control pull-right input-sm" name="received_date" id="datepicker">
                        </div>
-                          <span class="text-danger">{{ $errors->first('received_date') }}</span>                      
+                          <span class="text-danger">{{ $errors->first('received_date') }}</span>
                     </div>
                     <div class="col-md-3">
                        <label  class="control-label">DOCUMENT NO.</label>
@@ -68,14 +70,14 @@
                  </div>
                  <div class="row">
                     <div class="col-md-3 {{ $errors->has('issue_date') ? 'has-error' : '' }}">
-                       <label  class="control-label">ISSUE DATE</label><span class="text-danger"><strong>*</strong></span>
+                       <label  class="control-label">ISSUE DATE</label>
                        <div class="input-group date">
                           <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                           </div>
-                          <input autocomplete="off" type="text" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif value="{{date('d/m/Y',strtotime($psmData->issue_date))}}" name="issue_date" class="form-control pull-right input-sm" id="issue_date">
+                          <input autocomplete="off" type="text" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif value="@if($psmData->issue_date) {{date('d/m/Y',strtotime($psmData->issue_date))}} @endif" name="issue_date" class="form-control pull-right input-sm" id="issue_date">
                        </div>
-                          <span class="text-danger">{{ $errors->first('issue_date') }}</span>                       
+                          <span class="text-danger">{{ $errors->first('issue_date') }}</span>
                     </div>
                     <div class="col-md-3 {{ $errors->has('expiry_date') ? 'has-error' : '' }}">
                        <label  class="control-label">EXPIRY DATE</label><span class="text-danger"><strong>*</strong></span>
@@ -83,9 +85,9 @@
                           <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                           </div>
-                          <input autocomplete="off" type="text" class="form-control pull-right input-sm" value="{{date('d/m/Y',strtotime($psmData->expiry_date))}}" name="expiry_date" id="datepicker2">
+                          <input autocomplete="off" type="text" class="form-control pull-right input-sm" value="@if($psmData->expiry_date){{date('d/m/Y',strtotime($psmData->expiry_date))}} @endif" name="expiry_date" id="datepicker2">
                        </div>
-                          <span class="text-danger">{{ $errors->first('expiry_date') }}</span>                       
+                          <span class="text-danger">{{ $errors->first('expiry_date') }}</span>
                     </div>
                     <div class="col-md-3">
                        <label  class="control-label">REVOCABLE DATE</label>
@@ -93,7 +95,7 @@
                           <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                           </div>
-                          <input autocomplete="off" type="text" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif class="form-control pull-right input-sm" value="{{date('d/m/Y',strtotime($psmData->revocable_date))}}" name="revocable_date" id="revocable_date">
+                          <input autocomplete="off" type="text" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif class="form-control pull-right input-sm" value="@if($psmData->revocable_date) {{date('d/m/Y',strtotime($psmData->revocable_date))}} @endif" name="revocable_date" id="revocable_date">
                        </div>
                     </div>
                     <div class="col-md-3 {{ $errors->has('document') ? 'has-error' : '' }}">
@@ -115,7 +117,7 @@
                     <div class="col-md-5"></div>
                     <input type="hidden" name="client_id" value="{{$psmData->client_id}}">
                     <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                    <!-- <div class="col-md-1"><button type="button" class="btn btn-block btn-danger btn-xs">CANCEL</button></div> -->
+                    <div class="col-md-1"><a href="{{url('/psm/psmdetails/'.$psmData->client_id)}}" class="btn btn-block btn-danger btn-xs">CANCEL</a></div>
                     <div class="col-md-5"></div>
                  </div>
               </div>
@@ -149,22 +151,42 @@
 }
 </script>
 <script>
-   $(function () {
+$(function () {
 
-     //Date picker
-     $('#datepicker').datepicker({
-       autoclose: true
-     })
-     $('#issue_date').datepicker({
-       autoclose: true
-     })
-     $('#datepicker2').datepicker({
-       autoclose: true
-     })
-     $('#revocable_date').datepicker({
-       autoclose: true
-     })
+  //Date picker
+  $('#datepicker').datepicker({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+  })
+  $('#issue_date').datepicker({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+  }).on('changeDate', function (selected) {
+     var startDate = new Date(selected.date.valueOf());
+     $('#datepicker2').datepicker('setStartDate', startDate);
+   }).on('clearDate', function (selected) {
+       $('#datepicker2').datepicker('setStartDate', null);
+   });
 
-   })
+
+  $(".datepicker").datepicker({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+  })
+  $('#datepicker2').datepicker({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+  }).on('changeDate', function (selected) {
+       var endDate = new Date(selected.date.valueOf());
+       $('#issue_date').datepicker('setEndDate', endDate);
+   }).on('clearDate', function (selected) {
+       $('#issue_date').datepicker('setEndDate', null);
+   });
+  $('#revocable_date').datepicker({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+  })
+
+})
 </script>
 @endsection

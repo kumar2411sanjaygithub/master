@@ -37,20 +37,21 @@
      <div class="col-xs-12">
         <div class="box">
            <div class="box-body">
-              <div class="row">
-                 <div class="col-md-12">
+              <div class="row {{ $errors->has('client_id') ? 'has-error' : '' }}">
+                 <div class="col-md-12 {{ $errors->has('client_id') ? 'has-error' : '' }}">
                   <select class="" name="client_id" id="select-client" data-live-search="true">
-                    <option>Search Client</option>
+                    <option value="">Search Client</option>
                      @foreach ($clientData as $key => $value)
                      <option value="{{ $value->id }}" @if(@$id==$value->id) selected="selected" @endif>  [{{$value->company_name}}] [{{$value->short_id}}] [{{$value->crn_no}}]</option>
                     @endforeach
 
                   </select>
+                  <span class="text-danger">{{ $errors->first('client_id') }}</span>
                   <script>
                   $(document).ready(function() {
                        $("#select-client").change(function(e) {
                              var id = this.value;
-                             var url = '{{url('addppadetailsfind')}}/'+id;
+                             var url = '{{url('addbiddetailsfind')}}/'+id;
 
                              window.location = url;
                        });
@@ -62,7 +63,7 @@
               <div class="row">
                  <div class="col-md-3 {{ $errors->has('bid_cut_off_time') ? 'has-error' : '' }}">
                     <label  class="control-label">BIDDING CUTT OFF TIME</label><span class="text-danger"><strong>*</strong></span>
-                    <input class="form-control input-sm timepicker" type="text" id="bid_cut_off_time" name="bid_cut_off_time" placeholder="ENTER BIDDING CUTT OFF TIME" value="{{isset($ppaData->bid_cut_off_time)?$ppaData->bid_cut_off_time:''}}">
+                    <input class="form-control input-sm" autocomplete="off" type="time" id="bid_cut_off_time" name="bid_cut_off_time" placeholder="ENTER BIDDING CUTT OFF TIME" value="{{isset($ppaData->bid_cut_off_time)?$ppaData->bid_cut_off_time:''}}">
                     <span class="text-danger">{{ $errors->first('bid_cut_off_time') }}</span>
                  </div>
                  <div class="col-md-3 {{ $errors->has('trader_type') ? 'has-error' : '' }}">

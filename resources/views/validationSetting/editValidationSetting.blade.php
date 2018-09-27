@@ -71,7 +71,7 @@
                 <div class="row">
                    <div class="col-md-5"></div>
                    <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" id="vg6" name="vg6">SAVE</button></div>
-                   <div class="col-md-1"><button type="button" class="btn btn-block btn-danger btn-xs" id="vg7" name="vg7">CANCEL</button></div>
+                   <div class="col-md-1"><a href="/validationSetting/validationSetting" class="btn btn-block btn-danger btn-xs" id="vg7" name="vg7">CANCEL</a></div>
                    <div class="col-md-5"></div>
                 </div>
              </div>

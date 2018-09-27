@@ -42,7 +42,7 @@ class ClientDeatilsController extends Controller
             //'short_id' => 'required|max:15',
             'pri_contact_no'=>'required',
             'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|unique:clients|min:21|max:21',
-            'email'=>'required|email||max:81',
+            'email'=>'required|unique:clients|email||max:81',
             'reg_line1' => 'required|max:100',
             'reg_line2' => 'min:0|max:100',
             'reg_country' => 'required',
@@ -111,8 +111,7 @@ class ClientDeatilsController extends Controller
         $client->inter_discom = $request->input('inter_discom');
         $client->inter_stu = $request->input('inter_stu');
         $client->inter_poc = $request->input('inter_poc');
-        $client->rt = $request->input('rt');
-        $client->rt1 = $request->input('rt1');
+        $client->common_feeder_option = $request->input('common_feeder_option');
         $client->feeder_name = $request->input('feeder_name');
         $client->feeder_code = $request->input('feeder_code');
         $client->conn_discom = $request->input('conn_discom');
@@ -121,11 +120,12 @@ class ClientDeatilsController extends Controller
         $client->maxm_withdrawal = $request->input('maxm_withdrawal');
         $client->payment = $request->input('payment');
         $client->obligation = $request->input('obligation');
+        $client->noc_punched_by = $request->input('noc_punched_by');
         $client->barred_status = 1;
         $client->save();
 
         //$lsatinsertedId = $clien->id;
-		return redirect('basicdetails')->with('message', '.Client details saved successfully and submitted for approval.!');
+		return redirect('basicdetails')->with('message', 'Client details saved successfully and submitted for approval.!');
 	}
 
     public function viewclient($id='',$tag=''){
@@ -150,7 +150,7 @@ class ClientDeatilsController extends Controller
     					 }
 
     				}
-                }    
+                }
 				$discom_array=array();
 				$json_discom=json_decode(@$sldc->discom);
                 if(isset($json_discom))
@@ -219,8 +219,8 @@ class ClientDeatilsController extends Controller
         $validator = validator::make($request->all(),[
 
             'company_name' => 'required|max:100',
-            'gstin' => 'required|regex:/^[0-9]{2}[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z][0-9A-z]{3}$/|unique:clients|max:15',
-            'pan' => 'required|regex:/^[a-zA-Z]{3}[ABCEFGHJLTabcefghjl]{1}[a-zA-Z]{1}\d{4}[a-zA-Z]{1}$/|unique:clients|max:10',
+            'gstin' => 'required|regex:/^[0-9]{2}[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z][0-9A-z]{3}$/|max:15',
+            'pan' => 'required|regex:/^[a-zA-Z]{3}[ABCEFGHJLTabcefghjl]{1}[a-zA-Z]{1}\d{4}[a-zA-Z]{1}$/|max:10',
             //'short_id' => 'required|max:15',
             'pri_contact_no'=>'required',
             // 'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|unique:clients|min:21|max:21',
@@ -229,18 +229,18 @@ class ClientDeatilsController extends Controller
             'reg_line2' => 'min:0|max:100',
             'reg_country' => 'required',
             'reg_state' => 'required',
-            'reg_city' => 'required|regex:/^[A-z]+$/|max:25',
+            'reg_city' => 'required|regex:/^[a-zA-Z]+$/|max:25',
             'reg_pin' => 'required|regex:/^[1-9][0-9]{5}$/',
             'reg_mob' => 'required|regex:/^[0-9]{10}$/',
             'reg_telephone' => 'min:0|max:100',
 
 
             ]);
-        //  if($validator->fails())
-        // {
+         if($validator->fails())
+        {
 
-        //     return redirect()->back()->withInput($request->input())->withErrors($validator);
-        // }
+            return redirect()->back()->withInput($request->input())->withErrors($validator);
+        }
 
 
           //  ]);
@@ -256,7 +256,7 @@ class ClientDeatilsController extends Controller
         $datas['short_id'] = $basic['short_id'];
         $datas['old_sap'] = $basic['old_sap'];
 		$datas['new_sap'] = $basic['new_sap'];
-		$datas['crn_no'] = $basic['crn_no'];
+		//$datas['crn_no'] = $basic['crn_no'];
 
         $datas['reg_line1'] = $basic['reg_line1'];
         $datas['reg_line2'] = $basic['reg_line2'];
@@ -273,6 +273,8 @@ class ClientDeatilsController extends Controller
         $datas['bill_city'] = $basic['bill_city'];
         $datas['bill_mob'] = $basic['bill_mob'];
         $datas['bill_telephone'] = $basic['bill_telephone'];
+        $datas['bill_state'] = $basic['bill_state'];
+        $datas['bill_pin'] = $basic['bill_pin'];
 
         $datas['del_lin1'] = $basic['del_lin1'];
         $datas['del_lin2'] = $basic['del_lin2'];
@@ -310,6 +312,7 @@ class ClientDeatilsController extends Controller
         $datas['common_feeder_option'] = $basic['common_feeder_option'];
 		$datas['obligation'] = $basic['obligation'];
         $datas['cin'] = $basic['cin'];
+        $datas['noc_punched_by'] = $basic['noc_punched_by'];
 
         $dataArray =array();
 		$dataArray['company_name'] = $request->input('company_name');
@@ -320,7 +323,7 @@ class ClientDeatilsController extends Controller
         $dataArray['short_id'] = $request->input('short_id');
         $dataArray['old_sap'] = $request->input('old_sap');
 		$dataArray['new_sap'] = $request->input('new_sap');
-		$dataArray['crn_no'] = $request->input('crn_no');
+		//$dataArray['crn_no'] = $request->input('crn_no');
         $dataArray['reg_line1'] = $request->input('reg_line1');
         $dataArray['reg_line2'] = $request->input('reg_line2');
         $dataArray['reg_country'] = $request->input('reg_country');
@@ -336,6 +339,8 @@ class ClientDeatilsController extends Controller
         $dataArray['bill_city'] = $request->input('bill_city');
         $dataArray['bill_mob'] = $request->input('bill_mob');
         $dataArray['bill_telephone'] = $request->input('bill_telephone');
+        $dataArray['bill_state'] = $request->input('bill_state');
+        $dataArray['bill_pin'] = $request->input('bill_pin');
 
         $dataArray['del_lin1'] = $request->input('del_lin1');
         $dataArray['del_lin2'] = $request->input('del_lin2');
@@ -373,8 +378,10 @@ class ClientDeatilsController extends Controller
         $dataArray['common_feeder_option'] = $request->input('common_feeder_option');
 		$dataArray['obligation'] = $request->input('obligation');
         $dataArray['cin'] = $request->input('cin');
-        $result=array_diff($dataArray,$basic);
-        //print_r($basic);echo "</br>";print_r($result);
+         $dataArray['noc_punched_by'] = $request->input('noc_punched_by');
+
+        $result=array_diff_assoc($dataArray,$datas);
+        //print_r($result);
         //dd($dataArray);
         $this->generateApprovalrequest($result, 'client', $client_id, $basic_id,$datas);
 
@@ -524,7 +531,7 @@ class ClientDeatilsController extends Controller
         //$keys = array('bill_address_line_2'=>'Address Line 1');
 
          foreach($data as $key=>$value){
-          //print_r($key);
+          //dd($key);
            $approvalRequest = New Approvalrequest();
             $approvalRequest->client_id       = $client_id;
             $approvalRequest->attribute_name  = $key;
@@ -537,7 +544,6 @@ class ClientDeatilsController extends Controller
             $approvalRequest->reference_id    = $reference_id;
             $approvalRequest->save();
         }
-        //dd($data);
 
     }
 

@@ -47,7 +47,7 @@
      @endif
     <form method="post" enctype="multipart/form-data" action="{{ route('addpoc')}}">
       {{ csrf_field()}}
-      <div class="row">
+      <div class="row poc-tab @if($errors->isEmpty())hidden @else  @endif">
       <div class="col-xs-12">
         <div class="box">
            <div class="box-body">
@@ -74,7 +74,15 @@
                  </div>
                  <div class="col-md-3 {{ $errors->has('region') ? 'has-error' : '' }}">
                     <label  class="control-label">REGION</label>
-                    <input class="form-control input-sm" type="text" placeholder="VALUE" id="region" name="region">
+                    <select class="form-control input-sm " style="width: 100%;" id="region" name="region">
+                      <option value="">Select</option>
+                      <option value="Northern">Northern</option>
+                      <option value="Western">Western</option>
+                      <option value="Southern">Southern</option>
+                      <option value="Eastern">Eastern</option>
+                      <option value="North Eastern">North Eastern</option>
+                      </select>
+
                     <span class="text-danger">{{ $errors->first('region') }}</span>
                  </div>
                  <div class="col-md-3 {{ $errors->has('regional_entity') ? 'has-error' : '' }}">
@@ -97,9 +105,10 @@
                </div>
                <div class="row">&nbsp;</div>
                <div class="row">
-                 <div class="col-md-5"></div>
-                 <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                 <div class="col-md-5"></div>
+                 <div class="col-md-12 text-center">
+                   <button type="submit" class="btn btn-info btn-xs">SAVE</button>
+                 <button type="button" class="btn btn-danger btn-xs poc-cancel">CANCEL</button>
+               </div>
               </div>
               <div class="row">&nbsp;</div>
            </div>
@@ -108,11 +117,11 @@
     </div>
     </form>
     <div class="row">
-     <div class="col-md-1"></div>
-     <div class="col-md-9"></div>
-    <div class="col-md-1 text-right"><a href="#" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal">&nbsp IMPORT(CSV/XLSX)</a></div>
-    <!-- <div class="col-md-1 text-right"><a href="add_poc_losses.html" class="btn btn-info btn-xs" id=" " name=" "><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</a></div> -->
-</div>
+     <div class="col-md-12">
+        <a href="#" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#myModal">&nbsp IMPORT(CSV/XLSX)</a>
+        <a class="btn btn-info btn-xs poc-btn pull-right mr5" name=" "><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</a>
+      </div>
+    </div>
   <div class="box">
      <div class="box-body table-responsive">
         <table class="table table-bordered text-center">
@@ -164,6 +173,10 @@
         <!-- Modal body -->
         <div class="modal-body">
           <input type="file" name="file">
+          <input type="text" class="form-control pull-right input-sm" autocomplete="off" id="datepicker" name="date_from">
+
+          <input type="text" class="form-control pull-right input-sm" autocomplete="off" id="datepicker1" name="date_to">
+
         </div>
 
         <!-- Modal footer -->
@@ -203,5 +216,13 @@
                });
 
    })
+   $(".poc-btn").click(function(){
+     $(".poc-tab").removeClass('hidden');
+     $(".poc-btn").hide();
+   });
+   $(".poc-cancel").click(function(){
+      $(".poc-tab").addClass('hidden');
+      $(".poc-btn").show();
+   });
 </script>
 @endsection

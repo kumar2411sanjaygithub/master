@@ -36,7 +36,7 @@ class ExchangeController extends Controller
         return view('ManageClient.exchangedetails',compact('exchangedetails','client_id','client_details'));
     }
     public function add_exchangedetails(Request $request){
-        
+
          $this->validate($request, [
             'ex_type' => 'required|max:40',
             'file_upload' => 'required',
@@ -55,13 +55,13 @@ class ExchangeController extends Controller
         $to_date = strtr($request->input('validity_to'), '/', '-');
         $validity_to = date("Y-m-d", strtotime($to_date));
 
-       
+
         $exchangedetail = new ExchangeTemp();
        $exchangedetail->client_id = $request->client_id;
         $exchangedetail->ex_type = $request->input('ex_type');
         $exchangedetail->validity_from = $validity_from;
         $exchangedetail->validity_to = $validity_to;
-        
+
         if($file = $request->hasFile('file_upload')) {
               $file = $request->file('file_upload') ;
               $fileName = 'EX_REG_'.($request->input('ex_type')).'_'.time().'_'.$file->getClientOriginalName();
@@ -75,11 +75,18 @@ class ExchangeController extends Controller
         //dd(3);
         $exchangedetail->save();
         return redirect()->back()->with('message','Detail added successfully and sent to Approver');
-        
+
     }
 
     public function update_exchangedetails(Request $request ,$exchange_detail_id)
     {
+         $this->validate($request, [
+            'ex_type' => 'required|max:40',
+            'file_upload' => 'required',
+            'validity_from' => 'required',
+            'validity_to' => 'required',
+        ]);
+
     	$client_id = $request->input('client_id');
         $exchangedetail = Exchange::find($exchange_detail_id)->toArray();
         $datas =array();
@@ -94,7 +101,7 @@ class ExchangeController extends Controller
         // Convert Date Format
         $to_date = strtr($request->input('validity_to'), '/', '-');
         $validity_to = date("Y-m-d", strtotime($to_date));
-       
+
         $dataArray =array();
         $dataArray['ex_type'] = $request->input('ex_type');
         $dataArray['validity_from'] = $validity_from;
@@ -108,10 +115,10 @@ class ExchangeController extends Controller
               $file->move($destinationPath,$fileName);
               $dataArray['file_upload'] = $fileName;
            }
-        
+
         $result=array_diff($dataArray,$datas);
         $this->generateApprovalrequest($result,'exchange',$client_id,$exchange_detail_id,$datas);
-        return redirect()->route('exchangedetails', ['id' => $client_id])->with('message','Detail added successfully and sent to Approver'); 
+        return redirect()->route('exchangedetails', ['id' => $client_id])->with('message','Detail added successfully and sent to Approver');
     }
 
 

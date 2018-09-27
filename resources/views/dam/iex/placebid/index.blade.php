@@ -200,13 +200,13 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                <div class="clearfix"></div>
-                <div class="col-md-6">
-                  <a href="order_book.php"><input type="submit" class="btn btn-raised btn-primary pull-right" value="View Order"></a>
-                </div>
-                <div class="col-md-6">
-                  <input type="button" value="Close" data-dismiss="modal" class="btn btn-raised btn-danger pull-left">
-                </div>
+                  <div class="clearfix"></div>
+                  <div class="col-md-6">
+                    <a href="order_book.php"><input type="submit" class="btn btn-raised btn-primary pull-right" value="View Order"></a>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="button" value="Close" data-dismiss="modal" class="btn btn-raised btn-danger pull-left">
+                  </div>
                 </div>
               </div>
             </div>
@@ -270,7 +270,7 @@
           </div> -->
 
         <div class="panel bds navsbs" id="panelDemo13" style="border:1px solid #ddd">
-            <div class="panel-heading tabhead text-center" style="text-align:center;font-size:14px"><b class="text-center">TOTAL BID DETAILS</b></div>
+            <div class="panel-heading tabhead text-center" style="text-align:center;font-size:12px"><b class="text-center">TOTAL BID DETAILS</b></div>
             <div class="panel-body previous_bids pt0">
               <div class="panel-group" id="accordion">
               <div class="panel panel-default">
@@ -428,29 +428,29 @@ jQuery(document).delegate('.piyush_datepicker','change',function(){
                     type: 'get',
                     url: '/placebid/getbidsubmissiontime/'+jQuery('#client_id').val(),
                     success: function(data) {
-                      var currentdate = new Date();
-                      var currHours = currentdate.getHours();
-                      var currMinutes = currentdate.getMinutes();
-                      var currSeconds = currentdate.getSeconds();
-                      var datetime = '';
-                            if(currHours < 10){
-                              datetime += '0'+currHours+':';
-                            }else{
-                              datetime += currHours+':';
-                            }
-                            if(currMinutes < 10){
-                              datetime += '0'+currMinutes+':';
-                            }else{
-                              datetime += currMinutes+':';
-                            }
-                            if(currSeconds < 10){
-                              datetime += '0'+currSeconds;
-                            }else{
-                              datetime += currSeconds;
-                            }
+                      // var currentdate = new Date();
+                      // var currHours = currentdate.getHours();
+                      // var currMinutes = currentdate.getMinutes();
+                      // var currSeconds = currentdate.getSeconds();
+                      // var datetime = '';
+                      //       if(currHours < 10){
+                      //         datetime += '0'+currHours+':';
+                      //       }else{
+                      //         datetime += currHours+':';
+                      //       }
+                      //       if(currMinutes < 10){
+                      //         datetime += '0'+currMinutes+':';
+                      //       }else{
+                      //         datetime += currMinutes+':';
+                      //       }
+                      //       if(currSeconds < 10){
+                      //         datetime += '0'+currSeconds;
+                      //       }else{
+                      //         datetime += currSeconds;
+                      //       }
                        // alert(data.bidSubmissionTime[0].bid_submission_time);
                        // alert(datetime);
-                      if(data.bidSubmissionTime[0].bid_submission_time_trader < datetime){
+                      if(data.bidSubmissionTime[0].bid_cut_off_time < data.datetime){
                          var startdate = '+2d';
                          var enddate = '+1d';
                       }else{

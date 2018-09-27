@@ -12,12 +12,6 @@
 
     <!-- Main content -->
     <section class="content">
-       @if(session()->has('message'))
-            <div class="alert alert-success mt10">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                {{ session()->get('message') }}
-            </div>
-          @endif
           <!-- @if (count($errors) > 0)
     <div class="alert alert-danger">
         <ul>
@@ -40,7 +34,12 @@
             </div>
           </div>
 
-
+       @if(session()->has('message'))
+        <div class="alert alert-success alert-dismissible fade in">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+         <span class="glyphicon glyphicon-ok"></span> &nbsp;{{ session()->get('message') }}
+        </div>
+        @endif
       <form method ="post" action="{{isset($get_contact_details)?url('contact_edit/'.$get_contact_details->id):route('contact_create')}}">
       {{ csrf_field() }}
       <div class="row {{(isset($get_contact_details)||!$errors->isEmpty())?'':'divhide'}}" id="contactbox">
@@ -66,7 +65,7 @@
       </div>
       <div class="col-md-3  {{ $errors->has('mob_num') ? 'has-error' : '' }}">
         <label  class="control-label">MOBILE NUMBER</label><span class="text-danger"><strong>*</strong></span>
-        <input class="form-control input-sm" type="text" placeholder="ENTER MOBILE NUMBER" id="mob_num" name="mob_num" value="{{isset($get_contact_details)?$get_contact_details->mob_num:old('mob_num')}}">
+        <input class="form-control input-sm num" maxlength="10" type="text" placeholder="ENTER MOBILE NUMBER" id="mob_num" name="mob_num" value="{{isset($get_contact_details)?$get_contact_details->mob_num:old('mob_num')}}">
         <span class="text-danger">{{ $errors->first('mob_num') }}</span>
     </div>
   </div>
@@ -115,7 +114,7 @@
                                     <td><a href="#" data-toggle="modal" data-target="#myModal"><u>SET</u></a></td>
                                     <td><a href="edit_contact_details.html"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp<a href="#" class="text-danger"><span class="glyphicon glyphicon-trash "></span></a></td>
                                  </tr> -->
-                                 @isset($contactdetails)
+                                 @if(count($contactdetails)>0)
                     <?php
                     $i=1;
                     ?>
@@ -136,7 +135,9 @@
                     $i++;
                     ?>
                     @endforeach
-                    @endisset
+                     @else
+                     <tr class="alert-danger" ><th colspan='7'>No Data Found.</th></tr>
+                     @endif
 
                               </tbody>
                            </table>
