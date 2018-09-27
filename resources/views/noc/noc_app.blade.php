@@ -145,7 +145,7 @@ min-width:100px;
 
                <div class="row">
                   <div class="col-md-3 {{ $errors->has('sldc') ? 'has-error' : '' }}">
-                     <label  class="control-label">SDLC</label>
+                     <label  class="control-label">SLDC</label>
                     <select class="form-control input-sm" style="width: 100%;" id="sldc" name="sldc">
                         <option value="">PLEASE SELECT SLDC</option>
                         @if (count($sldc_array) > 0)
@@ -293,18 +293,25 @@ min-width:100px;
 
                         <td class="vl">
                           @if($noc_list->status==1)
-                             <a href="#"><u>INITIATED</u></a>
+                            <span class="text-default"><b>INITIATED</b></span>
                           @elseif($noc_list->status==2)
-                              <a href="#"><u>APPROVED</u></a>
+                            <span class="text-info"><b>APPROVED</b></span>
                           @elseif($noc_list->status==3)
-                            SUBMITTED
-                          @else
-                             <a href="#"><u>NOC RECEIVED</u></a>
+                            <span class="text-primary"><b>SUBMITTED</b></span>
+                          @elseif($noc_list->status==4)
+                            <span class="text-success"><b>ACCEPTED</b></span>
+                          @elseif($noc_list->status==5)
+                            <span class="text-danger"><b>REJECTED</b></span>
                           @endif
                         </td>
                         <td class="vl">
-                          @if($noc_list->payment_challan_number!='' && $noc_list->bank_name!='' && $noc_list->transcation_date!='' && $noc_list->amount!='')
-                            <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_list->id }}" ><span class="label edited fnt " >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                          @if(($noc_list->payment_challan_number!='' && $noc_list->bank_name!='' && $noc_list->transcation_date!='' && $noc_list->amount!=''))
+                            @if($noc_list->status==4 ||$noc_list->status==5)
+                              <a href="#" disabled><span class="label edited fnt " >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                              @else
+                              <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_list->id }}" ><span class="label edited fnt " >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+
+                              @endif
 
                           @else
                             <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_list->id }}" class="btn  btn-default btn-xs @if(($noc_list->status==2 ||$noc_list->status==3)) @else disabled @endif">ADD</a>
@@ -312,39 +319,47 @@ min-width:100px;
                         </td>
                         <td class="vl">
 
-                          <a href="/generateNocPDF/{{$noc_list->id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application=='') @else class="disabled hidediv" @endif><span class="label edited fnt">GENERATE</span></a>
+                          <a href="/generateNocPDF/{{$noc_list->id}}" @if($noc_list->status==1 ||$noc_list->status==2||(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_noc_application=='')) class="disabled" @else @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application=='') @else class="disabled hidediv" @endif @endif><span class="label edited fnt">GENERATE</span></a>
 
-                           <a href="{{url('/noc-application/generate_noc_application/'.$noc_list->generate_noc_application)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application!='') @else class="disabled hidediv" @endif><span class="label success fnt">DOWNLOAD</span></a>
-                            <a href="#" data-toggle="modal" data-target="#deletegererateBill{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application!='') @else class="disabled hidediv" @endif><span class="label danger fnt">DELETE</span></a>
+                           <a href="{{url('/downloadGenPdfn/'.$noc_list->generate_noc_application)}}" @if($noc_list->status==3 && $noc_list->generate_noc_application!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_noc_application!=''))  class="disabled" @else class="disabled hidediv" @endif @endif><span class="label success fnt">DOWNLOAD</span></a>
+                            <a href="#" data-toggle="modal" data-target="#deletegererateBill{{ $noc_list->id }}" @if($noc_list->status==3 && $noc_list->generate_noc_application!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_noc_application!=''))  class="disabled" @else class="disabled hidediv" @endif @endif><span class="label danger fnt">DELETE</span></a>
                         </td>
                         <td class="vl">
-                          <a href="/noc/edit/{{$noc_list->id}}" @if($noc_list->generate_noc_application=='')  @else class="disabled" @endif><span class="label edited fnt" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
-                          <a href="/noc/email/{{$noc_list->id}}/client/{{$client_id}}" @if($noc_list->generate_noc_application=='')  @else class="disabled" @endif><span class="label success fnt">SEND EMAIL</span></a>
+                          <a href="/noc/edit/{{$noc_list->id}}" @if($noc_list->status==1 ||$noc_list->status==4 ||$noc_list->status==5) class="disabled" @else @if($noc_list->status==3)  @else class="disabled" @endif @endif><span class="label edited fnt" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                          <a href="/noc/email/{{$noc_list->id}}/client/{{$client_id}}" @if($noc_list->status==1 ||$noc_list->status==4 ||$noc_list->status==5) class="disabled" @else @if($noc_list->status==3)  @else class="disabled" @endif @endif><span class="label success fnt">SEND EMAIL</span></a>
                         </td>
                         <td class="vl">
                           @if(@$noc_list['client']['nocbilling']['noc_application_for']=='both' || @$noc_list['client']['nocbilling']['noc_application_for']=='sldc')
-                            <a href="/generatesldcPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit=='') @else class="disabled hidediv" @endif><span class="label edited fnt">GENERATE</span></a>
-                            <a href="{{url('/noc-application/bill/'.$noc_list->generate_sldc_debit)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit!='') @else class="disabled hidediv" @endif><span class="label success fnt">DOWNLOAD</span></a>
+                            <a href="/generatesldcPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if($noc_list->status==1 ||$noc_list->status==2||(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_sldc_debit=='')) class="disabled" @else @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit=='') @else class="disabled hidediv" @endif @endif><span class="label edited fnt">GENERATE</span></a>
+                            
+                            <a href="{{url('/downlNewFile/'.$noc_list->generate_sldc_debit)}}"  @if($noc_list->status==3 && $noc_list->generate_sldc_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_sldc_debit!=''))  class="disabled" @else class="disabled hidediv" @endif @endif><span class="label success fnt">DOWNLOAD</span></a>
 
-                            <a href="#" data-toggle="modal" data-target="#deletesldcDebit{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit!='') @else class="disabled hidediv" @endif><span class="label danger fnt">DELETE</span></a>
+                            <a href="#" data-toggle="modal" data-target="#deletesldcDebit{{ $noc_list->id }}" @if($noc_list->status==3 && $noc_list->generate_sldc_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_sldc_debit!=''))  class="disabled" @else class="disabled hidediv" @endif @endif><span class="label danger fnt">DELETE</span></a>
 
                           @endif
                         </td>
                         <td class="vl" >
                           @if(@$noc_list['client']['nocbilling']['noc_application_for']=='both' || @$noc_list['client']['nocbilling']['noc_application_for']=='discom')
-                            <a href="/generatediscomPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit=='') @else class="disabled hidediv" @endif><span class="label edited fnt">GENERATE</span></a>
-                            <a href="{{url('/noc-application/bill/'.$noc_list->generate_discom_debit)}}" download="download" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit!='') @else class="disabled hidediv" @endif><span class="label success fnt">DOWNLOAD</span></a>
+                            <a href="/generatediscomPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if($noc_list->status==1 ||$noc_list->status==2||(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit=='')) class="disabled" @else @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit=='') @else class="disabled hidediv" @endif @endif><span class="label edited fnt">GENERATE</span></a>
+                            <a href="{{url('/downlNewFile/'.$noc_list->generate_discom_debit)}}" @if($noc_list->status==3 && $noc_list->generate_discom_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit!=''))  class="disabled" @else class="disabled hidediv" @endif @endif><span class="label success fnt">DOWNLOAD</span></a>
 
-                            <a href="#" data-toggle="modal" data-target="#deletediscomDebit{{ $noc_list->id }}" @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit!='') @else class="disabled hidediv" @endif><span class="label danger fnt">DELETE</span></a>
+                            <a href="#" data-toggle="modal" data-target="#deletediscomDebit{{ $noc_list->id }}" @if($noc_list->status==3 && $noc_list->generate_discom_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit!=''))  class="disabled" @else class="disabled hidediv" @endif @endif><span class="label danger fnt">DELETE</span></a>
 
                           @endif
                         </td>
                         <td class="vl">
-                           <a href="/noc/email-debit/{{$noc_list->id}}/client/{{$client_id}}"><span class="label success fnt">SEND EMAIL</span></a>
+                           <a href="/noc/email-debit/{{$noc_list->id}}/client/{{$client_id}}" @if($noc_list->status==1 ||$noc_list->status==4 ||$noc_list->status==5) class="disabled" @else @if($noc_list->status==3 )  @else class="disabled" @endif @endif><span class="label success fnt">SEND EMAIL</span></a>
                         </td>
                         <td class="vertical-align">
-                            <a href="" data-toggle="modal" data-target="#approveData{{ $noc_list->id }}" ><span class="label edited fnt">ACCEPTED</span></a>
-                            <a href="" data-toggle="modal" data-target="#rejectedData{{ $noc_list->id }}" ><span class="label danger fnt">REJECTED</span></a>
+                          @if($noc_list->status==1 || $noc_list->status==2 || $noc_list->status==3)
+                            <a @if($noc_list->status==1) class="disabled" @else @if($noc_list->status==3)  @else class="disabled" @endif @endif href="" data-toggle="modal" data-target="#approveData{{ $noc_list->id }}" ><span class="label edited fnt">ACCEPTED</span></a>
+
+                            <a  @if($noc_list->status==1) class="disabled" @else @if($noc_list->status==3)  @else class="disabled" @endif @endif href="" data-toggle="modal" data-target="#rejectedData{{ $noc_list->id }}" ><span class="label danger fnt">REJECTED</span></a>
+                            @elseif($noc_list->status==4)
+                            <a href="#" disabled><span class="label edited fnt">ACCEPTED</span></a>
+                            @elseif($noc_list->status==5)
+                            <a  href="#" disabled><span class="label danger fnt">REJECTED</span></a>
+                            @endif
 
                         </td>
                         <div id="deleteData{{ $noc_list->id }}" class="modal fade" role="dialog">
@@ -355,9 +370,9 @@ min-width:100px;
                              <div class="modal-content">
                                <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                                 @if($noc_list->payment_challan_number!='' && $noc_list->bank_name!='' && $noc_list->transcation_date!='' && $noc_list->amount!='')
-                                 <h4 class="modal-title text-center">EDIT PAYMENT ENTRY</h4>
+                                 <h4 class="modal-title text-center">EDIT PAYMENT</h4>
                                  @else
-                                 <h4 class="modal-title text-center">ADD PAYMENT ENTRY</h4>
+                                 <h4 class="modal-title text-center">ADD PAYMENT</h4>
                                  @endif
                                </div>
                                <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
@@ -402,11 +417,11 @@ min-width:100px;
                                </div>
                                <div class="modal-footer">
                                 @if($noc_list->payment_challan_number!='' && $noc_list->bank_name!='' && $noc_list->transcation_date!='' && $noc_list->amount!='')
-                                  <button type="submit" class="btn btn-danger save_button">UPDATE</button>
+                                  <button type="submit" class="btn btn-info btn-xs save_button">UPDATE</button>
                                 @else
-                                  <button type="submit" class="btn btn-danger save_button">SAVE</button>
+                                  <button type="submit" class="btn btn-info btn-xs save_button">SAVE</button>
                                 @endif
-                                 <button type="button" class="btn btn-info" data-dismiss="modal">CANCEL</button>
+                                 <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">CANCEL</button>
                                </div>
                              </div>
                            </div>
