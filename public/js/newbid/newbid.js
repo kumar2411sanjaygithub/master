@@ -579,7 +579,7 @@ jQuery(document).ready(function() {
                 valHtml += '</div>';
                 jQuery(".msg_error").fadeIn();
                 jQuery(".msg_error").html(valHtml);
-                jQuery(".msg_error").fadeOut(6000);
+                jQuery(".msg_error").fadeOut(10000);
             }
         });
 
@@ -1382,65 +1382,71 @@ jQuery(document).ready(function() {
 
                     }
                     if (bid_type == 'single') {
-                        var html5 = '<table class="table-datatable table table-striped table-hover">';
+                        // alert('hi');
+                        var $html5 = '';
                         var i = 1;
                         var firstrow = 1;
                         var startserialno = 0;
                         var biddingcount = 1;
                         var starting = 1;
                         jQuery.each(data.bid_array, function(tya, val) {
-
-                            html5 += '<tr>';
+                            
+                            $html5 += '<tr>';
                             if (tya == 'count') {
                                 var columns = data.bid_array.count;
                             }
                             var count = 1;
                             if ((firstrow) && (bid_type == 'single')) {
-                                html5 += '<td style="font-weight:900">Block No.</td><td style="font-weight:900">From</td><td style="font-weight:900">To</td>';
+                                $html5 += '<td style="font-weight:900">Block No.</td><td style="font-weight:900">From</td><td style="font-weight:900">To</td>';
                                 firstrow = 0;
                             }
                             var startcount = 0;
                             var startbid = 1;
                             if (startserialno) {
                                 if (biddingcount != 97) {
-                                    html5 += '<td>' + biddingcount + '</td>';
+                                    $html5 += '<td>' + biddingcount + '</td>';
                                     biddingcount = biddingcount + 1;
                                 }
                             }
                             startserialno = 1;
-                            jQuery.each(val, function(tyai, vali) {
-
-                                html5 += '<td style="';
+                            Object.keys(val).forEach(function(tyai) {
+                                var vali = val[tyai];
+                                $html5 += '<td style="';
                                 if (!starting) {
                                     if ((tyai != 'A') && (tyai != 'B')) {
                                         if (parseInt(vali)) {
                                             if (parseInt(vali) > 0) {
-                                                html5 += 'color:#4CAF50';
+                                                $html5 += 'color:#4CAF50';
                                             } else {
-                                                html5 += 'color:#F44336';
+                                                $html5 += 'color:#F44336';
                                             }
                                         }
                                     }
                                 } else {
-                                    html5 += 'font-weight:900';
+                                    $html5 += 'font-weight:900';
                                 }
 
 
-                                html5 += '"> ' + vali + ' </td>';
+                                $html5 += '"> ' + vali + ' </td>';
                                 count += 1;
                                 startcount = 1;
+
                             });
                             starting = 0;
-                            for (var extra = 0; extra <= (columns - count); extra++) {
-                                // html5+='<td> - </td>';
-                            }
-                            html5 += '<tr>';
+                            // for (var extra = 0; extra <= (columns - count); extra++) {
+                            //     // html5+='<td> - </td>';
+                            // }
+                            $html5 += '<tr>';
                         });
-                        html5 += '</table>'
-                        jQuery("#biddatarecord").html(html5);
+
+                        $html5 = '<table class="table-datatable table table-striped table-hover">'+$html5+'</table>';
+                        console.log($html5);
+                        jQuery("#biddatarecord").html($html5);
                     } else {
+                        // alert('hi123');
                         jQuery("#biddatarecord").html('');
                     }
+
                 },
                 error: function(response) {
                     var valHtml = '<div class="alert alert-danger alert-dismissable" style="margin-top:5px">' +
