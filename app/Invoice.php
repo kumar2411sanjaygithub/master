@@ -12,7 +12,8 @@ class Invoice extends Model
     public $fillable = ['*'];
     protected $dates = ['deleted_at'];
 
-
+    
+    
     public function getCustomerDetails(){
     	return $this->hasOne('App\Client','invoice_id','id');
     }

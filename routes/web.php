@@ -369,7 +369,7 @@ Route::get('/scheduling/{exchange}/{year}/{month}/{day}',['as'=>'scheduling.inde
 Route::get('/update_ftp_list/{exchange}/{year}/{month}/{day}',['as'=>'scheduling.ftp_db','uses'=>'SchedulingController@updateFtpDetails']);
 Route::get('/scheduling/download/{id}',['as'=>'download.scheduling','uses'=>'SchedulingController@downloadScheduling']);
 Route::get('/scheduling/import/{id}',['as'=>'scheduling.import','uses'=>'SchedulingController@importScheduling']);
-Route::get('/service/mailobligation/{client_id}/{ftp_id}',['as'=>'service.mail','uses'=>'EmailController@mail_scheduling']);
+Route::get('/service/mailscheduling/{client_id}/{ftp_id}',['as'=>'service.mail','uses'=>'EmailController@mail_scheduling']);
 Route::get('/scheduling/downloadA/{id}','SchedulingController@downloadAmbScheduling');
 
 
@@ -397,14 +397,22 @@ Route::get('/rate_sheet_graph/{exchange}/{year}/{month}/{day}','RatesheetGraphCo
 Route::get('/rate_sheet_graph','RatesheetGraphController@graphindex')->name('rate_sheet_graph');
 
 Route::get('download-ratesheet/{filename}','RatesheetController@download');
+Route::get('/service/mailRatesheet/{client_id}/{ftp_id}',['as'=>'service.rtc','uses'=>'EmailController@mail_rtSheet']);
+
 
 /*******************************************************
   BILL/INVOICE----SHALU
 /*******************************************************/
-Route::get('/invoice','InvoiceController@index')->name('invoice');
+Route::get('/invoice',['as'=>'billing','uses'=>'InvoiceController@index']);
 Route::get('/invoice/{exchange}/{year}/{month}/{day}',['as'=>'invoice.index','uses'=>'InvoiceController@index']);
 Route::get('/create/invoice/{id}','InvoiceController@create')->name('invoice');
-
+Route::get('/view/invoice/{id}','InvoiceController@view_invoice')->name('view');
+Route::get('user/invoice/{invoice}', function (Request $request, $invoiceId) {
+    return $request->downloadInvoice($invoiceId, [
+        'vendor'  => 'TPTCL-ERP',
+        'product' => 'Monthly Subscription',
+    ]);
+});
 
 
 

@@ -90,4 +90,10 @@ class FinancialFunctions
       return ($Rupees ? $Rupees . 'Rupees ' : '') ."". " ".$paise." "."Only";
 
   }
+  public function db_format($date){
+     return date('Y-m-d', strtotime(str_replace('/','-',$date)));
+  }
+  public function view_format($date){
+     return date('d-m-Y', strtotime(str_replace('/','-',$date)));
+  }
 }

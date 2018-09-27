@@ -81,8 +81,10 @@
                       </thead>
                       <tbody>
                         @isset($bidclient)
+
                         <?php $i=1; ?>
-                      @foreach ($bidclient as $key=>$name)     
+                      @foreach ($bidclient as $key=>$name)  
+
                         @if($name->place_bid()->where('bid_date',$dt)->count()<=0)
                           @continue
                         @else
@@ -94,9 +96,16 @@
                           <td style="text-center">
                             <a href="{{url('download-ratesheet-graph/download')}}/{{$name->id}}/IEX/{{ $id }}"><button type="button" class="btn  btn-info btn-xs">GENERATE</button></a>
                           </td>
+                           <?php
+                            if($name->mail_status== 0){?>
                           <td style="text-center">
                             <a href="{{url('service/mailRatesheet/'.$name->id.'/'.$id) }}" target="_blank"><button type="button" class="btn btn-primary btn-xs" name="" id=""><span class="glyphicon glyphicon-download-alt"></span>&nbsp;SEND</button></a>
                           </td>
+                          <?php } else{ ?>
+                          <td style="text-center">
+                            <a href="{{url('service/mailRatesheet/'.$name->id.'/'.$id) }}" target="_blank"><button type="button" class="btn btn-danger btn-xs" name="" id=""><span class="glyphicon glyphicon-download-alt"></span>&nbsp;Re-Send</button></a>
+                          </td>
+                          <?php } ?>
                         </tr>
                         <?php $i++; ?>
                         @endforeach
