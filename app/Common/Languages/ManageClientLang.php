@@ -118,6 +118,7 @@ class ManageClientLang
             'crn_no'=> 'CRN No',
             'client_app_status'=> 'Status',
             'noc_application_no'=> 'NOC Application No',
+            'exchange'=> 'Exchange Type',
         );
    }
 }

@@ -111,6 +111,17 @@ min-width:100px;
         <span class="text-danger">{{ $errors->first('noc_type') }}</span>
 
       </div>
+      <div class="col-md-3  {{ $errors->has('exchange') ? 'has-error' : '' }}">
+      <label  class="control-label">EXCHANGE TYPE<span class="text-danger"><strong>*</strong></label>
+      <select class="form-control input-sm " style="width: 100%;" id="exchange" name="exchange" disabled>
+          <option value="">Select</option>
+          <option value="iex" {{((isset($get_noc_details)&&$get_noc_details->exchange=='iex')||old('exchange')=='iex')?'selected="selected"':''}}>IEX</option>
+          <option value="pxil" {{((isset($get_noc_details)&&$get_noc_details->exchange=='pxil')||old('exchange')=='pxil')?'selected="selected"':''}}>PXIL</option>
+      </select>
+        <span class="text-danger">{{ $errors->first('exchange') }}</span>
+
+      </div>
+
       <div class="col-md-3 {{ $errors->has('validity_from') ? 'has-error' : '' }}">
        <label  class="control-label">VALIDITY START DATE<span class="text-danger"><strong>*</strong></label>
        <div class="input-group date"  id="datepicker" name="sde">
@@ -121,6 +132,10 @@ min-width:100px;
        </div>
        <span class="text-danger">{{ $errors->first('validity_from') }}</span>
       </div>
+
+    </div>
+
+    <div class="row">
       <div class="col-md-3 {{ $errors->has('validity_to') ? 'has-error' : '' }}">
         <label  class="control-label">VALIDITY END START<span class="text-danger"><strong>*</strong></label>
         <div class="input-group date" id="datepicker1" name="mkl">
@@ -132,9 +147,7 @@ min-width:100px;
         </div>
         <span class="text-danger">{{ $errors->first('validity_to') }}</span>
       </div>
-    </div>
 
-    <div class="row">
         <div class="col-md-3 {{ $errors->has('noc_periphery') ? 'has-error' : '' }}">
       <label  class="control-label">NOC PERIPHERY<span class="text-danger"><strong>*</strong></label>
       <select class="form-control input-sm" style="width: 100%;" id="noc_periphery" name="noc_periphery">
@@ -172,17 +185,15 @@ min-width:100px;
           @endif
       </select>
   </div>
-   <div class="col-md-3 {{ $errors->has('noc_quantum') ? 'has-error' : '' }}">
-    <label  class="control-label">NOC QUANTUM</label><span class="text-danger"><strong>*</strong></span>
-    <input class="form-control input-sm num" type="text" placeholder="ENTER NOC QUANTUM" id="noc_quantum" name="noc_quantum" value="{{isset($get_noc_details)?$get_noc_details->noc_quantum:''}}">
-     <span class="text-danger">{{ $errors->first('noc_quantum') }}</span>
-      <span class="text-danger" id="error1" style="display:none;">Required</span>
-  </div>
-
 </div>
 
 <div class="row">
-
+ <div class="col-md-3 {{ $errors->has('noc_quantum') ? 'has-error' : '' }}">
+  <label  class="control-label">NOC QUANTUM</label><span class="text-danger"><strong>*</strong></span>
+  <input class="form-control input-sm num" type="text" placeholder="ENTER NOC QUANTUM" id="noc_quantum" name="noc_quantum" value="{{isset($get_noc_details)?$get_noc_details->noc_quantum:''}}" autocomplete="off">
+   <span class="text-danger">{{ $errors->first('noc_quantum') }}</span>
+    <span class="text-danger" id="error1" style="display:none;">Required</span>
+</div>
 <div class="col-md-3">
   <label  class="control-label">POC LOSSES</label>
   <input class="form-control input-sm" type="text" placeholder="ENTER POC LOSSES" id="poc_losses" name="poc_losses"  disabled value="{{isset($get_noc_details)?$get_noc_details->poc_losses:''}}">
@@ -234,13 +245,14 @@ min-width:100px;
       <th  class="vl scroll-table2" >SR.NO</th>
       <th  class="vl scroll-table4">NOC APPLICATION NO</th>
       <th  class="vl scroll-table3">NOC TYPE</th>
+      <th  class="vl scroll-table3">EXCHANGE TYPE</th>
       <th  class="vl scroll-table3">NOC QUANTUM</th>
       <th  class="vl scroll-table4">VALIDITY START DATE</th>
       <th  class="vl scroll-table4">VALIDITY END DATE</th>
       <th  class="vl scroll-table3">NOC PERIPHERY</th>
       <th  class="vl scroll-table3">POC LOSSES(%)</th>
       <th  class="vl scroll-table4">DISCOM LOSSES(%)</th>
-      <th  class="vl scroll-table3">STU LOSSES</th>
+      <th  class="vl scroll-table3">STU LOSSES(%)</th>
       <th  class="vl scroll-table4">FINAL NOC QUANTUM</th>
       <th  class="vl scroll-table2">FILE</th>
       <th  class="vl scroll-table2">STATUS</th>
@@ -264,7 +276,6 @@ min-width:100px;
                               } else {
                                    $valid = "Expired";
                               }
-                              echo $valid;
                            @endphp
 
 
@@ -272,6 +283,7 @@ min-width:100px;
                               <td class="text-center">{{ $i }}</td>
                               <td class="text-center">{{ $value->noc_application_no }}</td>
                               <td class="text-center">{{ ucfirst($value->noc_type) }}</td>
+                              <td class="text-center">{{ strtoupper($value->exchange) }}</td>
                               <td class="text-center">{{ $value->noc_quantum }}</td>
                               <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
                               <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
@@ -287,7 +299,9 @@ min-width:100px;
                               </td>
                               <td class="text-center">{{ $valid }}</td>
                               <td class="text-center">
+                                  @if($valid=='Valid')
                                   <a href="{{url('/editnocdetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-noc-detail" noc_detail_id="{{$value->id}}"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                  @endif
                                 <a href="/delete/noc/{{$value->id}}"><span class="glyphicon glyphicon-trash " id="remove-noc-detail" noc_detail_id="{{$value->id}}"></span></a>
                               </td>
                            </tr>
@@ -401,52 +415,58 @@ min-width:100px;
             // $('#discom_lossess,#poc_losses,#stu_losess').keyup(function(event) {
             $('#noc_quantum').keyup(function(event) {
 
-
-               var p = (isNaN($("#poc_losses").val()) || $("#poc_losses").val()=='')?0:($("#noc_quantum").val()*($("#poc_losses").val())/100);
-
-               if($("#noc_type").val() == 'buy')
+                if($("#noc_quantum").val()!='')
                 {
-               $('#final_quantum').val(parseFloat($("#noc_quantum").val())+p);
+                   var p = (isNaN($("#poc_losses").val()) || $("#poc_losses").val()=='')?0:($("#noc_quantum").val()*($("#poc_losses").val())/100);
+
+                   if($("#noc_type").val() == 'buy')
+                    {
+                   $('#final_quantum').val(parseFloat($("#noc_quantum").val())+p);
+                    }
+                   if($("#noc_type").val() == 'sell')
+                    {
+                      $('#final_quantum').val(parseFloat($("#noc_quantum").val())-p);
+                    }
+                   var s = (isNaN($("#stu_losses").val()) || $("#stu_losses").val()=='')?0:($('#final_quantum').val()*($("#stu_losses").val())/100);
+
+                   if($("#noc_type").val() == 'buy')
+                    {
+                   $('#final_quantum').val(parseFloat($('#final_quantum').val())+s);
+                    }
+                   if($("#noc_type").val() == 'sell')
+                    {
+                      $('#final_quantum').val(parseFloat($('#final_quantum').val())-s);
+                    }
+
+                  var dl = (isNaN($("#discom_losses").val()) || $("#discom_losses").val()=='')?0:($("#final_quantum").val()*($("#discom_losses").val())/100);
+
+                   if($("#noc_type").val() == 'buy')
+                    {
+
+                   $('#final_quantum').val((parseFloat($('#final_quantum').val())+dl).toFixed(2));
+                    }
+                   if($("#noc_type").val() == 'sell')
+                    {
+                      $('#final_quantum').val((parseFloat($('#final_quantum').val())-dl).toFixed(2));
+                    }
+                   var spd = parseInt(s) + parseInt(p) + parseInt(dl);
+
+                   if($("#noc_type").val() == 'buy')
+                   {
+                      var total = parseInt(n) + spd;
+                   }
+                   if($("#noc_type").val() == 'sell')
+                   {
+                      var total = parseInt(n) - spd;
+                   }
+
+                  $("#final_quantum").val(total);
+                  $('#final_quantum').addClass('valid');
                 }
-               if($("#noc_type").val() == 'sell')
+                else
                 {
-                  $('#final_quantum').val(parseFloat($("#noc_quantum").val())-p);
+                  $("#final_quantum").val("");
                 }
-               var s = (isNaN($("#stu_losses").val()) || $("#stu_losses").val()=='')?0:($('#final_quantum').val()*($("#stu_losses").val())/100);
-
-               if($("#noc_type").val() == 'buy')
-                {
-               $('#final_quantum').val(parseFloat($('#final_quantum').val())+s);
-                }
-               if($("#noc_type").val() == 'sell')
-                {
-                  $('#final_quantum').val(parseFloat($('#final_quantum').val())-s);
-                }
-
-              var dl = (isNaN($("#discom_losses").val()) || $("#discom_losses").val()=='')?0:($("#final_quantum").val()*($("#discom_losses").val())/100);
-
-               if($("#noc_type").val() == 'buy')
-                {
-
-               $('#final_quantum').val((parseFloat($('#final_quantum').val())+dl).toFixed(2));
-                }
-               if($("#noc_type").val() == 'sell')
-                {
-                  $('#final_quantum').val((parseFloat($('#final_quantum').val())-dl).toFixed(2));
-                }
-               var spd = parseInt(s) + parseInt(p) + parseInt(dl);
-
-               if($("#noc_type").val() == 'buy')
-               {
-                  var total = parseInt(n) + spd;
-               }
-               if($("#noc_type").val() == 'sell')
-               {
-                  var total = parseInt(n) - spd;
-               }
-
-              $("#final_quantum").val(total);
-              $('#final_quantum').addClass('valid');
             });
             $("#final_quantum").val('');
             $("#stu_poc_discom").removeClass('hidden');
@@ -524,6 +544,7 @@ $(document).ready(function(){
                   dataType: 'JSON',
                   success: function(data){
                     $('#noc_type').val(data.noc_type);
+                    $('#exchange').val(data.exchange);
                     $('#validity_from').val(data.start_date);
                     $('#validity_to').val(data.end_date);
                   }
@@ -590,15 +611,16 @@ $(document).ready(function(){
   </script>
 <script>
  function removeDisabled(){
-   document.getElementById("noc_type").disabled = false;
-   document.getElementById("validity_from").disabled = false;
-   document.getElementById("validity_to").disabled = false;
-   document.getElementById("poc_losses").disabled = false;
-   document.getElementById("stu_losses").disabled = false;
-   document.getElementById("discom_losses").disabled = false;
-   document.getElementById("final_quantum").disabled = false;
-  document.getElementById("region").disabled = false;
-   document.getElementById("region_entity").disabled = false;
+    document.getElementById("noc_type").disabled = false;
+    document.getElementById("validity_from").disabled = false;
+    document.getElementById("validity_to").disabled = false;
+    document.getElementById("poc_losses").disabled = false;
+    document.getElementById("stu_losses").disabled = false;
+    document.getElementById("discom_losses").disabled = false;
+    document.getElementById("final_quantum").disabled = false;
+    document.getElementById("region").disabled = false;
+    document.getElementById("region_entity").disabled = false;
+    document.getElementById("exchange").disabled = false;
 }
 </script>
     @endsection
