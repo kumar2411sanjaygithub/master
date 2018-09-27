@@ -369,7 +369,7 @@ class NocAppController extends Controller
 
 
 
-            $noc_data=NocApp::with(['client'=>function($query){$query->with('nocbilling');}])->orderBy('id','desc')->where('client_id',$client_id)->where('status','!=',5)->paginate(10);
+            $noc_data=NocApp::with(['client'=>function($query){$query->with('nocbilling');}])->orderBy('id','desc')->where('client_id',$client_id)->paginate(10);
             $clientData = Client::all();
             return view('noc.noc_app',compact('client_id','sldc_array','str','noc_data','clientData'));
                 
@@ -606,8 +606,8 @@ class NocAppController extends Controller
 
     public function generateNocPdf($id='')
     {
-        $get_data=NocApp::where('id',$id)->first();
-        $get_client=NocApp::find(1)->client()->where('id',$get_data->client_id)->first();
+        $get_data=NocApp::with('client')->where('id',$id)->first();
+        $get_client=NocApp::find(1)->client()->where('id',$get_data->client_id)->get();
         if($get_data->exchange_type=='both')
         {
             $exchange='IEX/PXIL';
@@ -617,13 +617,15 @@ class NocAppController extends Controller
             $exchange=$get_data->exchange_type;
         }
 
-        $pdf_name=$get_client->id.'_'.$get_client->name.'_'.date('d_m_Y').'.pdf';
+        $pdf_name=$get_data['client']->id.'_'.$get_data['client']->company_name.'_'.date('d_m_Y').'.pdf';
 
         $update_pdf=NocApp::find($id);
         $update_pdf->generate_noc_application=$pdf_name;
         $update_pdf->save();
 
-        $generate_noc = storage_path().'/FILES/TPTCL/NOC/generate_noc_application';
+        $generate_noc = storage_path().'/files/tptcl/noc/generate_noc_application';
+        File::isDirectory($generate_noc) or File::makeDirectory($generate_noc, 0777, true, true);
+
 
         $pdf=PDF::loadView('noc.generate_noc_app',['date'=>date('d.m.Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'exchange'=>strtoupper($exchange),'quantum'=>$get_data->quantum,'from_date'=>date('d.m.Y',strtotime($get_data->start_date)),'end_date'=>date('d.m.Y',strtotime($get_data->end_date)),'amount'=>$get_data->amount,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d.m.Y',strtotime($get_data->transcation_date))]);
          $pdf->save($generate_noc.'/'.$pdf_name);
@@ -636,11 +638,12 @@ class NocAppController extends Controller
         $url=$request->input('client_name');
         $file_path=$request->input('noc_file_pdf');
         $discom_path=$request->input('noc_discom_pdf');
+        $sldc_path=$request->input('noc_sldc_pdf');
         if(isset($file_path))
         {
-            if($file_path!=''&&file_exists(storage_path('/FILES/TPTCL/NOC/generate_noc_application/'.$file_path)))
+            if($file_path!=''&&file_exists(storage_path('/files/tptcl/noc/generate_noc_application/'.$file_path)))
              {
-               unlink(storage_path('/FILES/TPTCL/NOC/generate_noc_application/'.$file_path));
+               unlink(storage_path('/files/tptcl/noc/generate_noc_application/'.$file_path));
              }
             $pdf = NocApp::find($id);
             $client_id=$pdf->client_id;
@@ -651,9 +654,9 @@ class NocAppController extends Controller
         }
         if(isset($sldc_path))
         {
-            if($sldc_path!=''&&file_exists(storage_path('/FILES/TPTCL/NOC/generate_noc_application/'.$sldc_path)))
+            if($sldc_path!=''&&file_exists(storage_path('/files/tptcl/noc/bill/'.$sldc_path)))
              {
-               unlink(storage_path('/FILES/TPTCL/NOC/generate_noc_application/'.$sldc_path));
+               unlink(storage_path('/files/tptcl/noc/bill/'.$sldc_path));
              }
             $pdf = NocApp::find($id);
             $client_id=$pdf->client_id;
@@ -664,9 +667,9 @@ class NocAppController extends Controller
         }
         if(isset($discom_path))
         {
-            if($discom_path!=''&&file_exists(storage_path('/FILES/TPTCL/NOC/generate_noc_application/'.$discom_path)))
+            if($discom_path!=''&&file_exists(storage_path('/files/tptcl/noc/bill/'.$discom_path)))
              {
-               unlink(storage_path('/FILES/TPTCL/NOC/generate_noc_application/'.$discom_path));
+               unlink(storage_path('/files/tptcl/noc/bill/'.$discom_path));
              }
             $pdf = NocApp::find($id);
             $client_id=$pdf->client_id;
@@ -698,7 +701,8 @@ class NocAppController extends Controller
         $update_pdf->generate_sldc_debit=$pdf_name;
         $update_pdf->save();
 
-        $generate_noc = storage_path().'/FILES/TPTCL/NOC/bill';
+        $generate_noc = storage_path().'/files/tptcl/noc/bill';
+        File::isDirectory($generate_noc) or File::makeDirectory($generate_noc, 0777, true, true);
 
         $pdf=PDF::loadView('noc.bill_view',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'client_name'=>strtoupper($client->name),'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$get_data->amount,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date))]);
         $pdf->save($generate_noc.'/'.$pdf_name);
@@ -726,11 +730,45 @@ class NocAppController extends Controller
         $update_pdf->generate_discom_debit=$pdf_name;
         $update_pdf->save();
 
-        $generate_noc = storage_path().'/FILES/TPTCL/NOC/bill';
+        $generate_noc = storage_path().'/files/tptcl/noc/bill';
+        File::isDirectory($generate_noc) or File::makeDirectory($generate_noc, 0777, true, true);
+
         $pdf=PDF::loadView('noc.discomBill',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'client_name'=>strtoupper($client->name),'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$get_data->amount,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date))]);
         $pdf->save($generate_noc.'/'.$pdf_name);
 
         return redirect()->route('getclientData', ['id' => $get_data->client_id])->with('success','DISCOM Debit generate successfully');
     }
+
+    public function downloadGenPdfn($filename='')
+    {
+            $file_path = storage_path() .'/files/tptcl/noc/generate_noc_application/'. $filename;
+            if (file_exists($file_path))
+            {
+                // Send Download
+                return Response::download($file_path, $filename, [
+                    'Content-Length: '. filesize($file_path)
+                ]);
+            }
+            else
+            {
+                 exit('Requested file does not exist on our server!');
+            }
+    }
+    public function downloadNewDownWord($filename='')
+    {
+            $file_path = storage_path() .'/files/tptcl/noc/bill/'. $filename;
+            if (file_exists($file_path))
+            {
+                // Send Download
+                return Response::download($file_path, $filename, [
+                    'Content-Length: '. filesize($file_path)
+                ]);
+            }
+            else
+            {
+                 exit('Requested file does not exist on our server!');
+            }
+    }
+
 
 }
