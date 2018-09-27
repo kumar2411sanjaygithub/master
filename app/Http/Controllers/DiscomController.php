@@ -7,6 +7,7 @@ use App\Discomdetails;
 use Carbon\Carbon;
 use DB;
 use Validator;
+use App\StateDiscom;
 use Illuminate\Support\Facades\Redirect;
 use Response;
 
@@ -48,7 +49,25 @@ class DiscomController extends Controller
     {
 
         $discomData = Discomdetails::select('*')->where('id', $id)->first();
-        return view('discom.discom_edit',compact('discomData'));
+        $voltage_array=array();
+        $sldc=StateDiscom::where('state',@$discomData->region)->first();
+        $voltage_data=json_decode(@$sldc->voltage);
+                if(isset($voltage_data))
+                {
+            foreach($voltage_data as $voltage)
+            {
+               foreach($voltage as $sk=>$voltage_value)
+               {
+                   if($voltage_value!=NULL)
+                   {
+                       array_push($voltage_array,$voltage_value);
+                   }
+
+               }
+
+            }
+                }
+        return view('discom.discom_edit',compact('discomData','voltage_array'));
     }
 
     public function updatediscomdata(Request $request, $id)

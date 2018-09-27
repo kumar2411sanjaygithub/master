@@ -23,9 +23,11 @@ class OrderbookController extends Controller
 
     public function orderbookdata(Request $request)
     {
+      // dd("radhe");
       $fromDate = date('Y-m-d',strtotime(str_replace('/','-',$request->input('date_from'))));
       $toDate = date('Y-m-d',strtotime(str_replace('/','-',$request->input('date_to'))));
-        $client_id = $request->input('client_id');
+      $client_id = $request->input('client_id');
+
         // $bid_type = $request->input('bid_type');
         // $order_status = $request->input('order_status');
         // $sort_status = $request->input('sort_status');
@@ -44,7 +46,6 @@ class OrderbookController extends Controller
         ->whereBetween('place_bid.bid_date',[$fromDate, $toDate])
         ->get();
 // dd(DB::getQueryLog());
-
         // dd($placebidData);
         //get all pxil place bid data
         // $pxilPlaceBidData = array();
