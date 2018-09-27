@@ -74,6 +74,7 @@ $(document).ready(function(){
               dataType: 'json',
               success: function(data) {
                 // console.log(data.placebidData);
+                // alert(data);
                  var trData='';
                 if (data.placebidData) {
                   var j =1;
