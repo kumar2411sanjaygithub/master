@@ -8,6 +8,48 @@
   display: block;
 }
 </style>
+<style>
+.scroll-table-container {
+height:auto;
+overflow: scroll;
+}
+.scroll-table1
+{
+border-collapse:collapse;
+min-width:260px;
+}
+.scroll-table4
+{
+border-collapse:collapse;
+min-width:130px;
+}
+.scroll-table5
+{
+border-collapse:collapse;
+min-width:160px;
+}
+.scroll-table2
+{
+border-collapse:collapse;
+min-width:50px;
+}
+.scroll-table3
+{
+border-collapse:collapse;
+min-width:100px;
+}
+.fnt
+{
+  font-size:11px!important;
+  padding-left:10px!important;
+  padding-right: 10px!important;
+  padding-bottom:0px!important;
+  padding-top:0px!important;
+  font-weight:600!important;
+
+}
+</style>
+
 <section class="content">
    @if(session()->has('message'))
             <div class="alert alert-success mt10">
@@ -106,7 +148,7 @@
 
       <div class="col-md-3">
       <label  class="control-label">REGION</label>
-      <select class="form-control input-sm " style="width: 100%;" id="region" name="region" {{(isset($get_noc_details)&& $get_noc_details->noc_periphery=='Ex-Bus')?'':'disabled'}}>
+      <select class="form-control input-sm " style="width: 100%;" id="region" name="region" {{((isset($get_noc_details)&& $get_noc_details->noc_periphery=='Ex-Bus'))?'':'disabled'}}>
         <option value="">Select</option>
         <option value="Northern" {{(isset($get_noc_details)&& $get_noc_details->region=='Northern')?'selected':''}}>Northern</option>
         <option value="Western" {{(isset($get_noc_details)&& $get_noc_details->region=='Western')?'selected':''}}>Western</option>
@@ -119,7 +161,7 @@
     </div>
     <div class="col-md-3">
     <label  class="control-label">REGION ENTITY</label>
-    <select class="form-control input-sm" style="width: 100%;" id="region_entity" name="region_entity"  {{(isset($get_noc_details)&& $get_noc_details->noc_periphery=='Ex-Bus')?'':'disabled'}}>
+    <select class="form-control input-sm" style="width: 100%;" id="region_entity" name="region_entity"  {{((isset($get_noc_details)&& $get_noc_details->noc_periphery=='Ex-Bus'))?'':'disabled'}}>
           <option value="">Select</option>
           @if(count($poc_losses_data)>0)
             @foreach($poc_losses_data as $poc_losses_list)
@@ -185,48 +227,65 @@
   </div>
 
 <div class="box">
-  <div class="box-body table-responsive">
+  <div class="box-body table-responsive scroll-table-container">
     <table class="table table-bordered text-center">
   <thead>
     <tr>
-      <th >SR.NO</th>
-      <th>NOC TYPE</th>
-      <th>NOC QUANTUM</th>
-      <th>VALIDITY START DATE</th>
-      <th>VALIDITY END DATE</th>
-      <th>NOC PERIPHERY</th>
-      <th>POC LOSSES(%)</th>
-      <th>DISCOM LOSSES(%)</th>
-      <th>STU LOSSES</th>
-      <th>FINAL NOC QUANTUM</th>
-      <th>FILE</th>
-      <th>STATUS</th>
-      <th >ACTION</th>
+      <th  class="vl scroll-table2" >SR.NO</th>
+      <th  class="vl scroll-table4">NOC APPLICATION NO</th>
+      <th  class="vl scroll-table3">NOC TYPE</th>
+      <th  class="vl scroll-table3">NOC QUANTUM</th>
+      <th  class="vl scroll-table4">VALIDITY START DATE</th>
+      <th  class="vl scroll-table4">VALIDITY END DATE</th>
+      <th  class="vl scroll-table3">NOC PERIPHERY</th>
+      <th  class="vl scroll-table3">POC LOSSES(%)</th>
+      <th  class="vl scroll-table4">DISCOM LOSSES(%)</th>
+      <th  class="vl scroll-table3">STU LOSSES</th>
+      <th  class="vl scroll-table4">FINAL NOC QUANTUM</th>
+      <th  class="vl scroll-table2">FILE</th>
+      <th  class="vl scroll-table2">STATUS</th>
+      <th  class="vl scroll-table2">ACTION</th>
     </tr>
   </thead>
   <tbody>
 
-        @isset($nocData)
+        @if(count($nocData)>0)
                            <?php
                              $i=1;
                            ?>
                            @foreach ($nocData as $key => $value)
+                           @php
+                              $date1 = date("Y-m-d",strtotime("today midnight"));
+                              $date2=date('Y-m-d',strtotime($value->validity_to));
+                              $today = strtotime($date1);
+                              $expiration_date = strtotime($date2);
+                              if ( $today<=$expiration_date) {
+                                   $valid = "Valid";
+                              } else {
+                                   $valid = "Expired";
+                              }
+                              echo $valid;
+                           @endphp
+
+
                            <tr>
                               <td class="text-center">{{ $i }}</td>
-                              <td class="text-center">{{ $value->noc_type }}</td>
+                              <td class="text-center">{{ $value->noc_application_no }}</td>
+                              <td class="text-center">{{ ucfirst($value->noc_type) }}</td>
                               <td class="text-center">{{ $value->noc_quantum }}</td>
                               <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
                               <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
-                              <td class="text-center">{{ $value->noc_periphery }}</td>
+                              <td class="text-center">{{ ucfirst($value->noc_periphery) }}</td>
                               <td class="text-center">{{ $value->poc_losses }}</td>
                               <td class="text-center">{{ $value->discom_losses }}</td>
                               <td class="text-center">{{ $value->stu_losses }}</td>
                               <td class="text-center">{{ $value->final_quantum }}</td>
                               <td class="text-center">
                                 @if($value->upload_noc)
-                                <a href="{{url('noc-file-downloads/'.$value->upload_noc)}}">View</a>
-                              @endif</td>
-                              <td class="text-center">{{ $value->status }}</td>
+                                  <a href="{{url('noc-file-downloads/'.$value->upload_noc)}}">View</a>
+                                @endif
+                              </td>
+                              <td class="text-center">{{ $valid }}</td>
                               <td class="text-center">
                                   <a href="{{url('/editnocdetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-noc-detail" noc_detail_id="{{$value->id}}"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a href="/delete/noc/{{$value->id}}"><span class="glyphicon glyphicon-trash " id="remove-noc-detail" noc_detail_id="{{$value->id}}"></span></a>
@@ -236,7 +295,9 @@
                               $i++;
                            ?>
                            @endforeach
-                           @endisset
+                   @else
+                   <tr class="alert-danger" ><th colspan='14'>No Data Found.</th></tr>
+                   @endif
 
                    </tbody>
                 </table>
@@ -310,13 +371,12 @@
 
       $('#noc_periphery').change(function(){
          var nocval = $('#noc_periphery').val();
+
          if(nocval == 'Ex-Bus')
          {
-           document.getElementById("region_entity").disabled = false;
-           document.getElementById("region").disabled = false;
-
           var client_id=$('#client').val();
           // alert(client_id);
+           $("#noc_quantum").val('');
           if(client_id!='')
           {
               $.ajax({
@@ -328,6 +388,11 @@
                     //$('#poc_losses').val(data.noc_type);
                     $('#stu_losses').val(data.stu_l);
                     $('#discom_losses').val(data.discom_l);
+                    if(data.poc_apply=='Yes')
+                    {
+                      document.getElementById("region_entity").disabled = false;
+                      document.getElementById("region").disabled = false;
+                    }
                   }
               });
           }
@@ -389,9 +454,13 @@
          if(nocval == 'Regional')
          {
             $("#final_quantum").val('');
+            $("#noc_quantum").val('');
+            $("#poc_losses").val('');
+            $("#stu_losses").val('');
+            $("#discom_losses").val('');
             $("#stu_poc_discom").addClass('hidden');
             document.getElementById("region_entity").disabled = true;
-           document.getElementById("region").disabled = true;
+            document.getElementById("region").disabled = true;
             $('#noc_quantum').keyup(function(event) {
 
                var nocval = $('#noc_periphery').val();

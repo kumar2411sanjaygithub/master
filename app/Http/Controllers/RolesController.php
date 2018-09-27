@@ -78,6 +78,8 @@ class RolesController extends Controller
         $role->department_id = $request->input('department');
         $role->guard_name = $gurad_name;
         $role->created_by = $login_user['id'];
+        //$role->created_at = $login_user['id'];
+        //$role->updated_at = $login_user['id'];
         $role->save();
 
         return redirect()->route('roles.index')->with('success','Role created successfully');
