@@ -72,7 +72,7 @@
                   </div>
                   <div class="col-md-3 {{ $errors->has('contact_number') ? 'has-error' : '' }}">
                      <label  class="control-label">CONTACT NUMBER</label><span class="text-danger"><strong>*</strong></span>
-                     <input class="form-control input-sm disabled-class" disabled='disabled' type="text" placeholder="ENTER CONTACT NUMBER" id="contact_number" name="contact_number" value="{{
+                     <input class="form-control input-sm disabled-class num" maxlength="15" disabled='disabled' type="text" placeholder="ENTER CONTACT NUMBER" id="contact_number" name="contact_number" value="{{
         (isset($leads->contact_number)) ? $leads->contact_number : old('contact_number') }}">
               <span class="text-danger">{{ $errors->first('contact_number') }}</span>
                   </div>
@@ -239,7 +239,7 @@
                   </div>
                   <div class="col-md-3 {{ $errors->has('add_pincode') ? 'has-error' : '' }}">
                      <label  class="control-label">PIN CODE</label><span class="text-danger"><strong>*</strong></span>
-                     <input class="form-control input-sm disabled-class" onkeypress="return IsNumeric1(event);" disabled='disabled' type="text" placeholder="ENTER PIN CODE" id="add_pincode" name="add_pincode" value="{{
+                     <input class="form-control input-sm disabled-class" onkeypress="return IsNumeric1(event);" disabled='disabled' maxlength="6" type="text" placeholder="ENTER PIN CODE" id="add_pincode" name="add_pincode" value="{{
         (isset($leads->add_pincode)) ? $leads->add_pincode : old('add_pincode') }}">
                 <span id="error_areaa1" style="color: Red; display: none">* Input digits (0 - 9)</span>
                 <span class="text-danger">{{ $errors->first('add_pincode') }}</span>

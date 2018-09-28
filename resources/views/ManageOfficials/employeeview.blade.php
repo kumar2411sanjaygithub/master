@@ -75,7 +75,7 @@
                                 <td class="text-center">{{ $i }}</td>
                                 <td class="text-center">{{ $value->name }} </td>
                                 <td class="text-center">{{ $value->designation }}</td>
-                                <td class="text-center">{{ $value->role }}</td>
+                                <td class="text-center">{{ @$value->rolename->name  }}</td>
                                 <td class="text-center">{{ $value->department['depatment_name'] }}</td>
                                 <td class="text-center">{{ @date('d/m/Y',strtotime($value->created_at)) }}</td>
                                 <td class="text-center">

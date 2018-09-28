@@ -56,9 +56,11 @@
             <thead>
               <tr>
                 <th>SR.NO</th>
-                <th>CLIENT NAME</th>
-                <th>PORTFOLIO ID</th>
                 <th>APPLICATON NO.</th>
+                <th>SLDC</th>
+                <th>NOC TYPE</th>
+                <th>EXCHANGE TYPE</th>
+                <th>QUANTUM</th>               
                 <th>VALIDITY START DATE</th>
                 <th>VALIDITY END DATE</th>
                 <th>NOC REQUEST</th>
@@ -81,6 +83,10 @@
 
                     </td>
                     <td>{{$noc_approved->application_no}}</td>
+                    <td>{{strtoupper($noc_approved->sldc)}}</td>
+                    <td>{{strtoupper($noc_approved->noc_type)}}</td>
+                    <td>{{strtoupper($noc_approved->exchange_type)}}</td>
+                    <td>{{$noc_approved->quantum}}</td>
                     <td>{{date('d/m/Y',strtotime($noc_approved->start_date))}}</td>
                     <td>{{date('d/m/Y',strtotime($noc_approved->end_date))}}</td>
                     <td>
@@ -89,14 +95,14 @@
                       @endif
                     </td>
                     <td>
-                      <a href="#" class="btn  btn-info btn-xs" disabled>APPROVED</a>
+                      <a class="btn btn-info btn-xs" disabled>APPROVED</a>
                     </td>
                   </tr>
                     @php $i++; @endphp
                 @endforeach
               @else
                 <tr>
-                    <td colspan="8" style="background-color: #c74343a6;"><b>No Data Found.</b></td>
+                    <td colspan="10" style="background-color: #c74343a6;"><b>NO DATA FOUND.</b></td>
                 </tr>
               @endif
             </tbody>

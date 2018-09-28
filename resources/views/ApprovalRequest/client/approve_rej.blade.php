@@ -376,17 +376,17 @@
                   <label  class="control-label">PART OF INTERCONNECTION</label>
                   <div class="form-group">
                      <div class="col-md-1 " style="margin-left:-6px;">
-                        <input type="checkbox" class="minimal1 pull-left disabled-class" id="inter_discom" name="inter_discom"  disabled  value="inter_discom" @if((isset($clientdata->inter_discom)&&$clientdata->inter_discom=='inter_discom'))? checked="checked" @endif >
+                        <input type="checkbox" class="minimal1 pull-left disabled-class" id="inter_discom" name="inter_discom"  disabled  value="inter_discom" @if((isset($clientdata->inter_discom)&&$clientdata->inter_discom=='DISCOM'))? checked="checked" @endif >
                      </div>
                      <div class="col-md-3" style="margin-left:-7px;"><label for="inter_discom">DISCOM</label>
                      </div>
                      <div class="col-md-1 "  style="margin-left:-6px;">
-                        <input type="checkbox" class="minimal1 disabled-class"  disabled id="inter_stu" name="inter_stu" value="inter_stu" @if((isset($clientdata->inter_stu)&&$clientdata->inter_stu=='inter_stu'))? checked="checked" @endif>
+                        <input type="checkbox" class="minimal1 disabled-class"  disabled id="inter_stu" name="inter_stu" value="inter_stu" @if((isset($clientdata->inter_stu)&&$clientdata->inter_stu=='STU'))? checked="checked" @endif>
                      </div>
                      <div class="col-md-1" style="margin-left:-7px;"><label for="inter_stu">STU</label>
                      </div>
                      <div class="col-md-1">
-                        <input type="checkbox" class="minimal1 disabled-class"  disabled id="inter_poc" name="inter_poc" value="inter_poc" @if((isset($clientdata->inter_poc)&&$clientdata->inter_poc=='inter_poc'))? checked="checked" @endif>
+                        <input type="checkbox" class="minimal1 disabled-class"  disabled id="inter_poc" name="inter_poc" value="inter_poc" @if((isset($clientdata->inter_poc)&&$clientdata->inter_poc=='POC/CTU'))? checked="checked" @endif>
                      </div>
                      <div class="col-md-5" style="width:30%;margin-left:-5px;"><label for="inter_poc">POC/CTU</label></div>
                   </div>
@@ -402,6 +402,7 @@
                      </div>
                   </div>
                </div>
+               <div id="hidecontentDiv">
                <div class="col-md-3">
                   <label  class="control-label">FEEDER NAME</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER FEEDER NAME" name="feeder_name" id="feeder_name" value="{{isset($clientdata->feeder_name)?$clientdata->feeder_name: old('feeder_name')}}">
@@ -411,14 +412,14 @@
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER FEEDER CODE" name="feeder_code" id="feeder_code" value="{{isset($clientdata->feeder_code)?$clientdata->feeder_code: old('feeder_code')}}">
                </div>
             </div>
-            <div class="row">
+
                <div class="col-md-3">
                   <label  class="control-label"> NAME OF SUBSTATION</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER SUBSTATION NAME" id="name_of_substation" name="name_of_substation"  value="{{isset($clientdata->name_of_substation)?$clientdata->name_of_substation: old('name_of_substation')}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">MAXIMUM INJECTION QUANTUM</label>
-                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER INJECTION QUANTUM" name="maxm_injection" id="maxm_injection value="{{isset($clientdata->maxm_injection)?$clientdata->maxm_injection: old('maxm_injection')}}">
+                  <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER INJECTION QUANTUM" name="maxm_injection" id="maxm_injection" value="{{isset($clientdata->maxm_injection)?$clientdata->maxm_injection: old('maxm_injection')}}">
                </div>
                <div class="col-md-3">
                   <label  class="control-label">MAXIMUM WITHDRAWAL QUANTUM</label>
@@ -464,11 +465,11 @@
                   <div class="col-md-1"><a href="/status/{{$clientdata->id}}/reject" class="btn  btn-danger btn-xs">REJECT</a></div>
                   @elseif($clientdata->client_app_status =='1')
                      <div class="col-md-1">
-                        <a href="#" class="btn btn-info btn-xs">APPROVED</a>
+                        <a disabled class="btn btn-info btn-xs">APPROVED</a>
                      </div>
                   @elseif($clientdata->client_app_status =='2')
                      <div class="col-md-1">
-                        <a href="" class="btn btn-danger btn-xs">REJECTED</a>
+                        <a disabled class="btn btn-danger btn-xs">REJECTED</a>
                      </div>
                   @endif   
                @endif

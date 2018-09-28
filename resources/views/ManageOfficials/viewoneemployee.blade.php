@@ -6,7 +6,7 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
         <li><a href="#">MANAGE EMPLOYEE</a></li>
-        <li><a href="active"><u>VIEW EMPLOYEE</u></a></li>
+        <li><a href="#"><u>VIEW EMPLOYEE</u></a></li>
       </ol>
     </section>
     <section class="content">
@@ -67,7 +67,7 @@
 </div>
 <div class="col-md-3">
   <label  class="control-label">ROLE</label><span class="text-danger"><strong>*</strong></span>
-   <input class="form-control input-sm" type="text" name="role_idrole_id" id="role_id" readonly name="role_id" value="{{ $officialstData->role_id }}">
+   <input class="form-control input-sm" type="text" name="role_idrole_id" id="role_id" readonly name="role_id" value="{{ @$officialstData->rolename->name }}">
 </div>
 </div>
 </div>

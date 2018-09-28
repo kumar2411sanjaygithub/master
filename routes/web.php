@@ -403,7 +403,8 @@ Route::get('/generatediscomPDF/{id}/client/{c_id}',['as'=>'NocDisocmPdf','uses'=
 
 Route::delete('/noc-request/{id}/status/{status_id}',['as'=>'nocRequest','uses'=>'NocAppController@nocReq']);
 Route::get('/noc/email-debit/{id}/client/{c_id}',['as'=>'noc-debit-email','uses'=>'NocAppController@emailDebitNoc']);
-
+Route::get('downloadGenPdfn/{filename}', 'NocAppController@downloadGenPdfn');
+Route::get('downlNewFile/{filename}', 'NocAppController@downloadNewDownWord');
 
 Route::get('/noc/billingsetting',['as'=>'billsetting.nocbilllist','uses'=>'NocAppController@nocbilllist']);
 Route::get('/noc_discom_search',['as'=>'noc_discom_search','uses'=>'NocAppController@nocbillsearch']);

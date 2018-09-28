@@ -77,7 +77,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                                 <span class="text-danger">{{ $errors->first('type') }}</span>
                              </div>
                              <div class="col-md-3 {{ $errors->has('received_date') ? 'has-error' : '' }}">
-                                <label  class="control-label">RECIVED DATE</label><span class="text-danger"><strong>*</strong></span>
+                                <label  class="control-label">RECEIVED DATE</label><span class="text-danger"><strong>*</strong></span>
                                 <div class="input-group date">
                                    <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>

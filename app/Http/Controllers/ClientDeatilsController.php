@@ -42,7 +42,7 @@ class ClientDeatilsController extends Controller
             //'short_id' => 'required|max:15',
             'pri_contact_no'=>'required',
             'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|unique:clients|min:21|max:21',
-            'email'=>'required|unique:clients|email||max:81',
+            'email'=>'required|email|max:81',
             'reg_line1' => 'required|max:100',
             'reg_line2' => 'min:0|max:100',
             'reg_country' => 'required',
@@ -67,6 +67,7 @@ class ClientDeatilsController extends Controller
         $client->short_id = $request->input('short_id');
         $client->email = $request->input('email');
         $client->new_sap = $request->input('new_sap');
+        $client->old_sap = $request->input('old_sap');
         $client->crn_no = $request->input('crn_no');
         $client->pri_contact_no = $request->input('pri_contact_no');
         $client->reg_line1 = $request->input('reg_line1');
@@ -223,8 +224,8 @@ class ClientDeatilsController extends Controller
             'pan' => 'required|regex:/^[a-zA-Z]{3}[ABCEFGHJLTabcefghjl]{1}[a-zA-Z]{1}\d{4}[a-zA-Z]{1}$/|max:10',
             //'short_id' => 'required|max:15',
             'pri_contact_no'=>'required',
-            // 'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|unique:clients|min:21|max:21',
-            'email'=>'required|email||max:81',
+             'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|min:21|max:21',
+            'email'=>'required|email|max:81',
             'reg_line1' => 'required|max:100',
             'reg_line2' => 'min:0|max:100',
             'reg_country' => 'required',
