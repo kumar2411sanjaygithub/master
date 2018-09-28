@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
 use App\Ppadetails;
+use App\PpaApprovedetails;
 use App\Client;
 use Carbon\Carbon;
 use DB;
@@ -16,7 +17,7 @@ class PpaDetailsController extends Controller
 
   public function ppadetails()
   {
-    $ppaData = Ppadetails::where('status','0')->paginate(10);
+    $ppaData = Ppadetails::where('status','1')->paginate(10);
     $clientData = Client::all();
     return view('ppa.ppa_details',compact('ppaData','clientData'));
   }
@@ -56,11 +57,13 @@ public function findppa($id)
        {
            $imageName = "";
        }
-       $ppadetails = new Ppadetails();
+       // $ppadetails = new Ppadetails();
+       $ppadetails = new PpaApprovedetails();
        $ppadetails->validity_from = date('Y-m-d', strtotime($request->input('validity_from')));
        $ppadetails->validity_to = date('Y-m-d', strtotime($request->input('validity_to')));
        $ppadetails->client_id = $request->input('client');
        $ppadetails->file_path = $imageName;
+       $ppadetails->status = 0;
        $ppadetails->save();
        return redirect()->back()->with('message', 'Data Save Successfully!');
   }
@@ -101,9 +104,11 @@ public function findppa($id)
     public function deleteppa($id)
     {
         $ppa = Ppadetails::find($id);
-        $file_path=$ppa->file_path;
+        $ppa->del_status = 1;
+        $ppa->update();
+        // $file_path=$ppa->file_path;
         $ppa->destroy($id);
-        unlink('documents/ppa/'.$file_path);
+        // unlink('documents/ppa/'.$file_path);
         return redirect()->back()->with('delmsg', 'Data Deleted Successfully!');
     }
 
