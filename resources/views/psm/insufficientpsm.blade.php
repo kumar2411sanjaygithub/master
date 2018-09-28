@@ -84,7 +84,7 @@ a.disabled {
             <div class="row">
                <div class="col-md-2">
                   <div class="input-group input-group-sm">
-                     <input type="text" class="form-control" placeholder="SEARCH">
+                     <input type="text" class="form-control" placeholder="SEARCH" id="search">
                      <span class="input-group-btn">
                      <button type="button" class="btn btn-info btn-flat"><span class="glyphicon glyphicon-search"></span></button>
                      </span>
@@ -165,4 +165,20 @@ a.disabled {
 
    })
 </script>
+  <script>
+    $("#search").keyup(function () {
+        var value = this.value.toLowerCase().trim();
+
+        $("table tr").each(function (index) {
+            if (!index) return;
+            $(this).find("td").each(function () {
+                var id = $(this).text().toLowerCase().trim();
+                var not_found = (id.indexOf(value) == -1);
+                $(this).closest('tr').toggle(!not_found);
+                return not_found;
+            });
+        });
+    });
+  </script>
+
 @endsection

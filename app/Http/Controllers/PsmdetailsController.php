@@ -93,27 +93,27 @@ class PsmdetailsController extends Controller
     public function addpsmdetailssubmit(Request $request, $id)
     {
       if($request['type'] == 0 || $request['type'] == 1)
-      {
-        $validator = $this->validate($request, [
-        "type"=>"required",
-        "received_date"=>"required",
-        "amount"=>"required",
-        "expiry_date"=>"required",
-      ]);
-    }
+           {
+             $validator = $this->validate($request, [
+             "type"=>"required",
+             "received_date"=>"required|date",
+             "amount"=>"required",
+             "expiry_date"=>"required|date|after_or_equal:received_date",
+           ]);
+         }
 
-      $psm = new Psmdetails();
-      if($request['type'] == 2 || $request['type'] == 3)
-      {
-        $validator = $this->validate($request, [
-        "type"=>"required",
-        "received_date"=>"required",
-        "amount"=>"required",
-        "issue_date"=>"required",
-        "document"=>"required",
-        "expiry_date"=>"required",
+     $psm = new Psmdetails();
+     if($request['type'] == 2 || $request['type'] == 3)
+     {
+       $validator = $this->validate($request, [
+       "type"=>"required",
+       "received_date"=>"required|date",
+       "amount"=>"required",
+       "issue_date"=>"required",
+       "document"=>"required",
+       "expiry_date"=>"required|date|after_or_equal:received_date",
 
-      ]);
+     ]);
 
         if(isset(request()->document))
            {
@@ -192,9 +192,9 @@ class PsmdetailsController extends Controller
       {
         $validator = $this->validate($request, [
         "type"=>"required",
-        "received_date"=>"required",
+        "received_date"=>"required|date",
         "amount"=>"required",
-        "expiry_date"=>"required",
+       "expiry_date"=>"required|date|after_or_equal:received_date",
       ]);
     }
       $psm = Psmdetails::find($id);
@@ -202,10 +202,10 @@ class PsmdetailsController extends Controller
       {
         $validator = $this->validate($request, [
         "type"=>"required",
-        "received_date"=>"required",
+        "received_date"=>"required|date",
         "amount"=>"required",
         "issue_date"=>"required",
-        "expiry_date"=>"required",
+       "expiry_date"=>"required|date|after_or_equal:received_date",
       ]);
         if(isset(request()->document))
            {

@@ -41,7 +41,7 @@ a.disabled {
     font-size: 9px;
 }
 
-
+.disabled{opacity:0.5;}
 .success {background-color: #4CAF50;} /* Green */
 .edited {background-color: #2196F3;} /* Green */
 .danger {background-color: #f44336;} /* Green */
@@ -303,7 +303,7 @@ min-width:100px;
                         <td class="vl">
                           @if(($noc_list->payment_challan_number!='' && $noc_list->bank_name!='' && $noc_list->transcation_date!='' && $noc_list->amount!=''))
                             @if($noc_list->status==4 ||$noc_list->status==5 ||$noc_list->status==1)
-                              <a disabled><span class="label edited fnt " >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                              <a class="disabled"><span class="label edited fnt " >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
                               @else
                               <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_list->id }}" ><span class="label edited fnt " >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
 
@@ -317,13 +317,13 @@ min-width:100px;
 
                           <a href="/generateNocPDF/{{$noc_list->id}}" @if($noc_list->status==1 ||$noc_list->status==2||(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_noc_application=='')) class="disabled" @else @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_noc_application=='') @else class="disabled hidediv" @endif @endif><span class="label edited fnt">GENERATE</span></a>
 
-                           <a href="{{url('/downloadGenPdfn/'.$noc_list->generate_noc_application)}}" @if($noc_list->status==3 && $noc_list->generate_noc_application!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_noc_application!=''))  class="disabled" @else class="disabled hidediv" @endif @endif><span class="label success fnt">DOWNLOAD</span></a>
+                           <a href="{{url('/downloadGenPdfn/'.$noc_list->generate_noc_application)}}" @if($noc_list->status==3 && $noc_list->generate_noc_application!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_noc_application!=''))   @else class="disabled hidediv" @endif @endif><span class="label success fnt">DOWNLOAD</span></a>
                             <a href="#" data-toggle="modal" data-target="#deletegererateBill{{ $noc_list->id }}" @if($noc_list->status==3 && $noc_list->generate_noc_application!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_noc_application!=''))  class="disabled hidediv" @else class="disabled hidediv" @endif @endif><span class="label danger fnt">DELETE</span></a>
                         </td>
                         <td class="vl">
                          <!--  <a href="/noc/edit/{{$noc_list->id}}" @if($noc_list->status==1 ||$noc_list->status==4 ||$noc_list->status==5) class="disabled" @else @if($noc_list->status==3 && $noc_list->generate_noc_application=='')  @else class="disabled"  @endif @endif><span class="label edited fnt" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a> -->
-                           @if($noc_list->status==1 ||$noc_list->status==4 ||$noc_list->status==5) 
-                             <a ><span class="label edited fnt" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                           @if($noc_list->status==1 ||$noc_list->status==2 ||$noc_list->status==4 ||$noc_list->status==5) 
+                             <a class="disabled"><span class="label edited fnt" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
                            
                            @else 
                             @if($noc_list->status==3 && $noc_list->generate_noc_application=='')  
@@ -334,29 +334,29 @@ min-width:100px;
                            @endif
 
 
-                          <a href="/noc/email/{{$noc_list->id}}/client/{{$client_id}}" @if($noc_list->status==1 ||$noc_list->status==4 ||$noc_list->status==5) class="disabled" @else @if($noc_list->status==3)  @else class="disabled" @endif @endif><span class="label success fnt">SEND EMAIL</span></a>
+                          <a href="/noc/email/{{$noc_list->id}}/client/{{$client_id}}" @if($noc_list->status==1 ) class="disabled" @else @if($noc_list->status==3||$noc_list->status==4 ||$noc_list->status==5)  @else class="disabled" @endif @endif><span class="label success fnt">SEND EMAIL</span></a>
                         </td>
                         <td class="vl">
                           @if(@$noc_list['client']['nocbilling']['noc_application_for']=='both' || @$noc_list['client']['nocbilling']['noc_application_for']=='sldc')
                             <a href="/generatesldcPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if($noc_list->status==1 ||$noc_list->status==2||(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_sldc_debit=='')) class="disabled" @else @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit=='') @else class="disabled hidediv" @endif @endif><span class="label edited fnt">GENERATE</span></a>
                             
-                            <a href="{{url('/downlNewFile/'.$noc_list->generate_sldc_debit)}}"  @if($noc_list->status==3 && $noc_list->generate_sldc_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_sldc_debit!=''))  class="disabled" @else class="disabled hidediv" @endif @endif><span class="label success fnt">DOWNLOAD</span></a>
+                            <a href="{{url('/downlNewFile/'.$noc_list->generate_sldc_debit)}}"  @if($noc_list->status==3 && $noc_list->generate_sldc_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_sldc_debit!=''))  @else class="disabled hidediv" @endif @endif><span class="label success fnt">DOWNLOAD</span></a>
 
                             <a href="#" data-toggle="modal" data-target="#deletesldcDebit{{ $noc_list->id }}" @if($noc_list->status==3 && $noc_list->generate_sldc_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_sldc_debit!=''))  class="disabled hidediv" @else class="disabled hidediv" @endif @endif><span class="label danger fnt">DELETE</span></a>
 
                           @endif
                         </td>
-                        <td class="vl" >
+                        <td class="vl">
                           @if(@$noc_list['client']['nocbilling']['noc_application_for']=='both' || @$noc_list['client']['nocbilling']['noc_application_for']=='discom')
                             <a href="/generatediscomPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if($noc_list->status==1 ||$noc_list->status==2||(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit=='')) class="disabled" @else @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit=='') @else class="disabled hidediv" @endif @endif><span class="label edited fnt">GENERATE</span></a>
-                            <a href="{{url('/downlNewFile/'.$noc_list->generate_discom_debit)}}" @if($noc_list->status==3 && $noc_list->generate_discom_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit!=''))  class="disabled" @else class="disabled hidediv" @endif @endif><span class="label success fnt">DOWNLOAD</span></a>
+                            <a href="{{url('/downlNewFile/'.$noc_list->generate_discom_debit)}}" @if($noc_list->status==3 && $noc_list->generate_discom_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit!=''))   @else class="disabled hidediv" @endif @endif><span class="label success fnt">DOWNLOAD</span></a>
 
                             <a href="#" data-toggle="modal" data-target="#deletediscomDebit{{ $noc_list->id }}" @if($noc_list->status==3 && $noc_list->generate_discom_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit!=''))  class="disabled hidediv" @else class="disabled hidediv" @endif @endif><span class="label danger fnt">DELETE</span></a>
 
                           @endif
                         </td>
                         <td class="vl">
-                           <a href="/noc/email-debit/{{$noc_list->id}}/client/{{$client_id}}" @if($noc_list->status==1 ||$noc_list->status==4 ||$noc_list->status==5) class="disabled" @else @if($noc_list->status==3 )  @else class="disabled" @endif @endif><span class="label success fnt">SEND EMAIL</span></a>
+                           <a href="/noc/email-debit/{{$noc_list->id}}/client/{{$client_id}}" @if($noc_list->status==1) class="disabled" @else @if($noc_list->status==3 ||$noc_list->status==4 ||$noc_list->status==5)  @else class="disabled" @endif @endif><span class="label success fnt">SEND EMAIL</span></a>
                         </td>
                         <td class="vertical-align">
                           @if($noc_list->status==1 || $noc_list->status==2 || $noc_list->status==3)
@@ -364,9 +364,9 @@ min-width:100px;
 
                             <a  @if($noc_list->status==1) class="disabled" @else @if($noc_list->status==3 && $noc_list->generate_noc_application!='')  @else class="disabled" @endif @endif href="" data-toggle="modal" data-target="#rejectedData{{ $noc_list->id }}" ><span class="label danger fnt">REJECT</span></a>
                             @elseif($noc_list->status==4)
-                            <a disabled><span class="label edited fnt">ACCEPTED</span></a>
+                            <a class="disabled"><span class="label edited fnt">ACCEPTED</span></a>
                             @elseif($noc_list->status==5)
-                            <a  disabled><span class="label danger fnt">REJECTED</span></a>
+                            <a  class="disabled"><span class="label danger fnt">REJECTED</span></a>
                             @endif
 
                         </td>
@@ -446,7 +446,7 @@ min-width:100px;
                                  <h4 class="modal-title text-center">ARE YOU SURE?</h4>
                                </div> -->
                                <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                                 <center><p style="font-size: 12px;font-weight: 500;color:black!important;">PLEASE DELETE NOC APPLICATION AFTER THAT CAN BE EDIT INFORMATION.</p></center>
+                                 <center><p style="font-size: 12px;font-weight: 500;color:black!important;">PLEASE DELETE THE ALREADY GENERATED NOC APPLICATION TO EDIT DETAILS.</p></center>
                                </div>
                                <div class="modal-footer">
                                 <div class="text-center">
@@ -473,7 +473,7 @@ min-width:100px;
                                  <h4 class="modal-title text-center">ARE YOU SURE?</h4>
                                </div> -->
                                <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                                 <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO DELETE THESE RECORDS</p></center>
+                                 <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO DELETE THIS RECORDS?</p></center>
                                </div>
                                <div class="modal-footer">
                                 <div class="text-center">
@@ -545,7 +545,7 @@ min-width:100px;
                                    <h4 class="modal-title text-center">ARE YOU SURE?</h4>
                                  </div> -->
                                  <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                                    <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECTED THIS NOC APPLICAITON.</p></center>
+                                    <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECT THIS NOC APPLICAITON.</p></center>
                                  </div>
                                  <div class="modal-footer">
                                   <div class="text-center">
@@ -567,7 +567,7 @@ min-width:100px;
                                    <h4 class="modal-title text-center">ARE YOU SURE?</h4>
                                  </div> -->
                                  <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                                   <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO ACCEPTED THIS NOC APPLICAITON.</p></center>
+                                   <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO ACCEPT THIS NOC APPLICAITON.</p></center>
                                  </div>
                                  <div class="modal-footer">
                                   <div class="text-center">

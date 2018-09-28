@@ -134,7 +134,7 @@ class NocAppController extends Controller
         $noc->save();  
 
 
-        return redirect()->route('getclientData', ['id' => $client_id])->with('success','Noc added successfully');
+        return redirect()->route('getclientData', ['id' => $client_id])->with('success','NOC Application initiated successfully and sent for approval.');
 
     }
 

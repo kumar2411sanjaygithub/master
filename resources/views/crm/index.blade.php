@@ -54,7 +54,7 @@
                   @if (count($leads) > 0)
                      @foreach ($leads as $k=>$lead)
                       <tr>
-                        <td>{{$i}}</td>
+                        <td>{{ $k + $leads->firstItem() }}</td>
                         <td>{{$lead->leadID}}</td>
                         <td><a href="{{ route('lead.edit',[$lead->id]) }}">{{$lead->company_name}}</a></td>
                         <td>{{$lead->email_id}}</td>

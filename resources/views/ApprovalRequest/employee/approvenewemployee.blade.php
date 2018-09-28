@@ -83,7 +83,7 @@
                       <div class="modal-footer">
                          <div class="text-center">
                         <button type="button" href="#"   class="btn btn-info">
-                          <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
+                          <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rej">Yes</a>
                         </button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                       </div>
@@ -124,7 +124,7 @@
                              <td><div class="">{{$i}}</div></td>
                               <td class="text-center"><a href=""  data-toggle="modal" data-target="#ConvertData{{ $value->id }}">{{ $value->name }}</a></td>
                               <td class="text-center">{{ $value->designation }}</td>
-                              <td class="text-center w20">{{ $value->role }}</td>
+                              <td class="text-center w20">{{  @$value->rolename->name}}</td>
                               <td class="text-center">{{ $value->department['depatment_name'] }}</td>
 
                               @if($value->emp_app_status =='0')
