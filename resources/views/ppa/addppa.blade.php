@@ -117,10 +117,9 @@
             </span>
          </div>
       </div>
-      <div class="col-md-8"></div>
-      <div class="col-md-2">
-         <a href="#" id="add-ppa" class="btn btn-info btn-xs pull-right" >
-         <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PPA</a>
+      <div class="col-md-12 pull-right">
+        <a href="/basicdetails" class="btn btn-info btn-xs pull-right" ><span class="glyphicon glyphicon-forward"></span>&nbsp BACK TO LIST</a>
+        <a href="#" id="add-ppa" class="btn btn-info btn-xs pull-right mr5" ><span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PPA</a>
       </div>
    </div>
    <div class="box">
