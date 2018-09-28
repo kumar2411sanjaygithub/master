@@ -41,4 +41,8 @@ class Client extends Authenticatable
         return $this->hasMany('App\PlaceBid','client_id','id');
     }
 
+    public function exchangedata(){
+       return $this->hasOne('App\Exchange', 'client_id', 'id');
+    }
+
    }

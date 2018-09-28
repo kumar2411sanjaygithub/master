@@ -7,16 +7,25 @@ use Illuminate\Http\Request;
 use DB;
 use App\Client;
 use App\Placebid;
+use PHPExcel;
+use PHPExcel_Style_Border;
+use PHPExcel_Style_Alignment;
+use PHPExcel_Chart_DataSeriesValues;
+use PHPExcel_Chart_DataSeries;
+use PHPExcel_Chart_PlotArea;
+use PHPExcel_Chart_Legend;
+use PHPExcel_Chart_Title;
+use PHPExcel_Chart;
+use PHPExcel_IOFactory;
 use Excel;
-use App\Exchang;
+use App\Exchange;
 use Validator;
-// use App\IexObligationImported;
-// use App\Bill;
-// use App\AccountStatement;
-// use App\PsmApproval;
-use ZipArchive;
-// use  App\Common\Bid;
-// use App\Basicinformation;
+use App\IexObligationImported;
+use App\Bill;
+use App\AccountStatement;
+use App\PsmApproval;
+use  App\Common\Bid;
+use App\Basicinformation;
 
 
 class DownloadbidController extends Controller
@@ -35,14 +44,14 @@ class DownloadbidController extends Controller
     public function downloadbid()
     {
       $date = date("Y-m-d",strtotime("+1 day", strtotime(date("Y-m-d"))));
-      $bidData = DB::table('place_bid')
-          ->selectRaw('place_bid.bid_date, place_bid.order_no, clients.cin as cin_no, place_bid.client_id, clients.name as company_name,clients.iex_portfolio, sum(bid_price) as sum')
-          ->rightjoin('clients', 'place_bid.client_id', '=', 'clients.id')
-          ->groupBy('client_id')
-          ->where('place_bid.status', '1')
-          ->where('place_bid.bid_date', $date)
-          ->WhereNull('deleted_at')
-          ->get();
+        $bidData = DB::table('place_bid')
+            ->selectRaw('place_bid.bid_date,place_bid.order_no,client.cin as cin_no,place_bid.client_id,client.company_name,client.iex_portfolio,sum(bid_price) as sum')
+            ->rightjoin('clients as client', 'place_bid.client_id', '=', 'client.id')
+            ->groupBy('client_id')
+            ->where('place_bid.status', '1')
+            ->where('place_bid.bid_date', $date)
+            ->WhereNull('deleted_at')
+            ->get();
 
 
         return view('dam.iex.downloadbid.downloadbid',compact('bidData','date'));
@@ -63,7 +72,7 @@ class DownloadbidController extends Controller
 
                       // DB::enableQueryLog();
                       $bidData = DB::table('place_bid')
-                          ->join('client_master', 'place_bid.client_id', '=', 'client_master.id')
+                          ->join('clients', 'place_bid.client_id', '=', 'clients.id')
                           ->select('place_bid.*')
                           ->where('place_bid.status', '1')
                           ->where('place_bid.bid_type', $bid_type)
@@ -74,7 +83,7 @@ class DownloadbidController extends Controller
                           ->orderBy('time_slot_from','DESC')
                           ->get();
                           $bidPrice = DB::table('place_bid')
-                              ->join('client_master', 'place_bid.client_id', '=', 'client_master.id')
+                              ->join('clients', 'place_bid.client_id', '=', 'clients.id')
                               ->select('place_bid.*')
                               ->where('place_bid.status', '1')
                               ->where('place_bid.bid_type', $bid_type)
@@ -109,7 +118,7 @@ class DownloadbidController extends Controller
 
               // DB::enableQueryLog();
               $bidData = DB::table('place_bid')
-                  ->join('client_master', 'place_bid.client_id', '=', 'client_master.id')
+                  ->join('clients', 'place_bid.client_id', '=', 'clients.id')
                   ->selectRaw('place_bid.*')
                   ->where('place_bid.status', '1')
                   ->where('place_bid.bid_date','=', $date)
@@ -533,7 +542,7 @@ class DownloadbidController extends Controller
 
       $bidusers = DB::table('place_bid')
           ->selectRaw('client_id')
-          ->join('client_master', 'place_bid.client_id', '=', 'client_master.id')
+          ->join('clients', 'place_bid.client_id', '=', 'clients.id')
           ->groupBy('client_id')
           ->where('place_bid.status', '1')
           ->whereNull('deleted_at')
@@ -544,7 +553,7 @@ class DownloadbidController extends Controller
       foreach($bidusers as $user){
 
       $bidData = DB::table('place_bid')
-          ->join('client_master', 'place_bid.client_id', '=', 'client_master.id')
+          ->join('clients', 'place_bid.client_id', '=', 'clients.id')
           ->select('place_bid.*')
           ->where('place_bid.status', '1')
           ->where('place_bid.bid_date','=', $date)
@@ -553,7 +562,7 @@ class DownloadbidController extends Controller
           ->get();
 
           $bidPrice = DB::table('place_bid')
-              ->join('client_master', 'place_bid.client_id', '=', 'client_master.id')
+              ->join('clients', 'place_bid.client_id', '=', 'clients.id')
               ->select('place_bid.*')
               ->where('place_bid.status', '1')
               ->where('place_bid.bid_date','=', $date)
@@ -1072,39 +1081,46 @@ class DownloadbidController extends Controller
     // })->store('csv', storage_path('excel/exports/singlebids'))->download('csv');
 
         // Define Dir Folder
-        $public_dir=public_path();
+        // $public_dir=public_path();
         // Zip File Name
-          $zipFileName = 'allbidzipped.zip';
+            $zipFileName = 'allbidzipped.zip';
           // Create ZipArchive Obj
-          $zip = new ZipArchive;
-
-            $directories = glob(storage_path()."/excel/exports/allbids/*.*");
-
-
-            $directories=str_replace("/","\\",$directories);
-
-
-            if ($zip->open(storage_path() . '/' . $zipFileName, ZipArchive::CREATE) === TRUE) {
-          // Add File in ZipArchive
-
-            foreach($directories as $directory){
-
-                $zip->addFile($directory,basename($directory));
-
+          
+            $directories = glob(storage_path("/excel/exports/allbids/*.csv"));
+            // $directories=str_replace("/","\\",$directories);
+            $filetopath=storage_path('/downloads/'.$zipFileName);
+            
+            try {
+                $zip = new \ZipArchive;
+                if($zip->open($filetopath,\ZipArchive::CREATE | \ZipArchive::OVERWRITE) !== true)
+                {
+                   throw new \Exception("Unable to create zip file.");
+                }
+                // Add File in ZipArchive
+                foreach($directories as $directory){
+                  if ($zip->addFile($directory, basename($directory))) {
+                      continue;
+                  } else {
+                      throw new \Exception("Unable to add ".basename($directory).": ".$zip->getStatusString());
+                  }
+                }
+                if ($zip->close()) {
+                    if(file_exists($filetopath)){
+                      $headers = array(
+                          'Content-Type' => 'application/octet-stream',
+                      );
+                      return response()->download($filetopath,$zipFileName,$headers);
+                    }
+                    else{
+                       throw new \Exception("Zip File Not Found.");
+                    }
+                } else {
+                    throw new \Exception("Unable to close zip file: " . $zip->getStatusString());
+                }
             }
-              // Close ZipArchive
-              $zip->close();
-          }
-          // Set Header
-          $headers = array(
-              'Content-Type' => 'application/octet-stream',
-          );
-          $filetopath=storage_path().'/'.$zipFileName;
-          // Create Download Response
-          if(file_exists($filetopath)){
-              return response()->download($filetopath,$zipFileName,$headers);
-          }
-      return view('createZip');
+            catch(\Exception $ex) {
+                return back()->withErrors(["Opps! Zip creation failed. ".$ex->getMessage()]);
+            }
     }
 
 
@@ -1228,15 +1244,13 @@ class DownloadbidController extends Controller
     public function downloadbidtemplateexcel(Request $request){
 
 
-      $clientname = Clientmaster::with(["exchangedata"=>function($query) use ($request){
-      $query->where("exchange_type",$request["exchange_type"]);
-      }])->where("id",$request['userselected'])->get()->first();
+      $clientname = Client::select('*')->where("id",$request['userselected'])->get()->first();
 
       $data['company_name']=$clientname['company_name'];
       $data['delivery_date']=$request['deliverydate'];
       $data['company_id']=$request['userselected'];
       $path = 'storage/bid/BID_2018_05_23_n1hr0tpt1000.xlsx';
-      $data['exchange']=(@$clientname['exchangedata']['portfolio_id'])?$clientname['exchangedata']['portfolio_id']:'';
+      $data['exchange']=(@$clientname['iex_portfolio'])?$clientname['iex_portfolio']:'';
 
       Excel::load($path, function($file) use($data)
       {
@@ -1287,9 +1301,9 @@ class DownloadbidController extends Controller
        $sheetData = $records->getActiveSheet()->toArray(null, true, true, true);
         $noc=0; $ppa=0; $psm=0; $exchange=0;
        if($sheetData[2]["C"]){
-            $exchangeusertemp = Exchangeuser::with(['validationsetting'=>function($query){
-              $query->with(['client_master'=>function($query){
-                $query->selectRaw("id,bid_submission_time");
+            $exchangeusertemp = Exchange::with(['validationsetting'=>function($query){
+              $query->with(['clients'=>function($query){
+                $query->selectRaw("id,bid_cut_off_time as bid_submission_time");
               }]);
             }])->where("portfolio_id",trim($sheetData[2]["C"]))->get()->first();
 
