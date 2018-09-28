@@ -193,6 +193,7 @@
               </ul>
             </li>
             <li><a href="{{route('insufficientpsm')}}"><i class="fa fa-circle-o"></i> Insufficient PSM</a></li>
+            <li><a href="{{ route('approveppa')}}"><i class="fa fa-circle-o"></i> PPA</a></li>
           </ul>
         </li>
         <!-- Approve Request Menu End -->
