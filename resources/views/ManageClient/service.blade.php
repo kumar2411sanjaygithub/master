@@ -1,7 +1,8 @@
 @extends('theme.layouts.default')
 @section('content')
 <section class="content">
-  <form method="post" action="{{'addservices/'.$client_id}}">
+  <form method="post" action="{{route('addservices',['id' => $client_id])}}">
+     {{ csrf_field() }}
    <div class="row">
       <div class="col-xs-12">
          <div class="row">
