@@ -23,9 +23,11 @@ class OrderbookController extends Controller
 
     public function orderbookdata(Request $request)
     {
+      // dd("radhe");
       $fromDate = date('Y-m-d',strtotime(str_replace('/','-',$request->input('date_from'))));
       $toDate = date('Y-m-d',strtotime(str_replace('/','-',$request->input('date_to'))));
-        $client_id = $request->input('client_id');
+      $client_id = $request->input('client_id');
+
         // $bid_type = $request->input('bid_type');
         // $order_status = $request->input('order_status');
         // $sort_status = $request->input('sort_status');
@@ -38,13 +40,12 @@ class OrderbookController extends Controller
         ->join('clients', 'place_bid.client_id', '=', 'clients.id')
         ->join('users', 'place_bid.staff_id', '=', 'users.id')
         ->selectRaw("place_bid.bid_date, place_bid.order_no, place_bid.status, clients.cin as cin_no, clients.name as company_name,clients.iex_portfolio as portfolio_id,concat(SUBSTRING(bid_date, 9, 2),'/',SUBSTRING(bid_date, 6,2),'/',SUBSTRING(bid_date, 1,4)) as biddate, users.name as order_placed_by")
-        // ->groupBy('place_bid.bid_date')
+        ->groupBy('place_bid.bid_date')
         ->where('place_bid.client_id', $client_id)
         ->where('place_bid.status', '!=', 0)
         ->whereBetween('place_bid.bid_date',[$fromDate, $toDate])
         ->get();
 // dd(DB::getQueryLog());
-
         // dd($placebidData);
         //get all pxil place bid data
         // $pxilPlaceBidData = array();

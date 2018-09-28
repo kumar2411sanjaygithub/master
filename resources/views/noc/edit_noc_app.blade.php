@@ -41,7 +41,7 @@
 
                <div class="row">
                   <div class="col-md-3 {{ $errors->has('sldc') ? 'has-error' : '' }}">
-                     <label  class="control-label">SDLC <span class="text-danger">*</span></label>
+                     <label  class="control-label">SLDC <span class="text-danger">*</span></label>
                     <select class="form-control input-sm" style="width: 100%;" id="sldc" name="sldc">
                         <option value="">PLEASE SELECT SLDC</option>
                         @if (count($sldc_array) > 0)                        

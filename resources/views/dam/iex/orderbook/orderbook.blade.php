@@ -24,12 +24,12 @@
         <div class="box-body">
            <div class="row">
               <div class="col-md-5">
-                  <label class="control-label">Search Client</label>
+                  <label class="control-label">SEARCH CLIENT</label>
                  <div class="input-group input-group-sm">
                     <input type="hidden" name="user_id" id="user_id">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" id="_token">
 
-                    <input type="text" class="form-control search_text" name="search_text" placeholder="SEARCH.." name="" id="">
+                    <input type="text" class="form-control search_text" name="search_text" placeholder="Search.." name="" id="">
                     <span class="input-group-btn">
                     <button type="button" class="btn btn-info btn-flat" name="" id=""> <span class="glyphicon glyphicon-search"></span></button>
                     </span>

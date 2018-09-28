@@ -83,9 +83,13 @@
                     <td>{{$noc_approved->application_no}}</td>
                     <td>{{date('d/m/Y',strtotime($noc_approved->start_date))}}</td>
                     <td>{{date('d/m/Y',strtotime($noc_approved->end_date))}}</td>
-                    <td>{{isset($noc_approved->noc_file)?'YES':'NO' }}</td>
                     <td>
-                      <a href="#" class="btn  btn-info btn-xs">APPROVED</a>
+                      @if($noc_approved->noc_file)
+                        <a href="{{url('fileNdownloads/'.$noc_approved->noc_file)}}">View</a>
+                      @endif
+                    </td>
+                    <td>
+                      <a href="#" class="btn  btn-info btn-xs" disabled>APPROVED</a>
                     </td>
                   </tr>
                     @php $i++; @endphp

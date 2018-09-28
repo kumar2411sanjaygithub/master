@@ -108,15 +108,17 @@
                                           <tr>
                                              <th class="chy" style="padding:5px!important;"><input type="checkbox" class="minimal1 deleteallbutton" name="select_all"></th>
                                              <th class="srno vl">SR.NO</th>
+                                             <th class="vl">NOC APPLICATION NO</th>
                                              <th class="vl">NOC TYPE</th>
+                                             <th class="vl">EXCHANGE TYPE</th>
                                              <th class="vl">NOC QUANTUM</th>
                                              <th class="vl">VALIDITY FROM</th>
                                              <th class="vl">VALIDITY TO</th>
                                              <th class="vl">NOC PERIPHERY</th>
                                              <th class="vl">FINAL NOC QUANTUM</th>
-                                             <th class="vl">POC LOSSES</th>
-                                             <th class="vl">STU LOSSES</th>
-                                             <th class="vl">DISCOM LOSSES</th>
+                                             <th class="vl">POC LOSSES(%)</th>
+                                             <th class="vl">STU LOSSES(%)</th>
+                                             <th class="vl">DISCOM LOSSES(%)</th>
                                              <th class="vl">FILE NAME</th>
                                              <th class="act vl">ACTION</th>
                                           </tr>
@@ -131,7 +133,9 @@
 
                                               <td class="vl" style="padding:5px!important;"><input type="checkbox" name="select_all" value="{{ $value->id }}" class="minimal1 deletedbutton"></td>
                                                <td class="text-center vl">{{ $i }}</td>
-                                               <td class="text-center vl">{{ $value->noc_type}}</td>
+                                               <td class="text-center vl">{{ $value->noc_application_no}}</td>
+                                               <td class="text-center vl">{{ ucfirst($value->noc_type)}}</td>
+                                               <td class="text-center vl">{{ strtoupper($value->exchange)}}</td>
                                                <td class="text-center vl">{{ $value->noc_quantum }}</td>
                                                <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
                                                <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
@@ -140,7 +144,11 @@
                                                <td class="text-center vl">{{ $value->poc_losses }}</td>
                                                <td class="text-center vl">{{ $value->stu_losses }}</td>
                                                <td class="text-center vl">{{ $value->discom_losses }}</td>
-                                               <td class="text-center vl">{{ $value->upload_noc }}</td>
+                                               <td class="text-center vl">
+                                                  @if($value->upload_noc)
+                                                    <a href="{{url('noc-file-downloads/'.$value->upload_noc)}}">View</a>
+                                                  @endif
+                                                </td>
                                              <td class="vl"><a href="/addnoc/{{ $value->id }}/approved/noc_temp"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/addnoc/{{ $value->id }}/rejected/noc_temp"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
                                           </tr>
                                         <?php
@@ -148,7 +156,7 @@
                                        ?>
                                        @endforeach
                                        @else
-                                       <tr class="alert-danger" ><th colspan='13'>No Data Found.</th></tr>
+                                       <tr class="alert-danger" ><th colspan='15'>No Data Found.</th></tr>
                                        @endif
                                        </tbody>
                                     </table>

@@ -71,6 +71,13 @@ Route::group(['middleware' => 'auth'], function ()
   Route::post('/ppa/updateppadata/{id}',['as'=>'ppa.updateppadata','uses'=>'PpaDetailsController@updateppadata']);
   Route::get('/ppa/deleteppa/{id}',['as'=>'deleteppa','uses'=>'PpaDetailsController@deleteppa']);
 
+    /*******************************************************
+    | PPA Bid Setting Routes
+    | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
+    /*******************************************************/
+
+   	Route::get('/ApprovalRequest/PPA/aprovePpa',['as'=>'approveppa','uses'=>'PpaApprovalController@approveppa']);
+
   /*******************************************************
   | ValidationSetting Routes
   | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
@@ -358,6 +365,23 @@ Route::get('noc-file-downloads/{filename}', function($filename)
          exit('Requested file does not exist on our server!');
     }
 });
+Route::get('fileNdownloads/{filename}', function($filename)
+{
+    // Check if file exists in app/storage/file folder
+    $file_path = storage_path() .'/FILES/TPTCL/NOC/'. $filename;
+    if (file_exists($file_path))
+    {
+        // Send Download
+        return Response::download($file_path, $filename, [
+            'Content-Length: '. filesize($file_path)
+        ]);
+    }
+    else
+    {
+         exit('Requested file does not exist on our server!');
+    }
+});
+
 //Noc Application & Bill Setting & Approval
 //Route::resource('noc-application', 'NocAppController');
 Route::get('/noc-applications',['as'=>'noc-applications.index','uses'=>'NocAppController@index']);

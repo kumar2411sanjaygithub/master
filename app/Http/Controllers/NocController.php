@@ -26,7 +26,7 @@ class NocController extends Controller
     	$poc_losses = Pocdetails::select('injection_poc_loss','withdraw_poc_loss')->get();
     	$discom = Discomdetails::select('injection_poc_loss','withdraw_poc_loss')->get();
          $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
-         $noc_applicaiton=NocApp::select('id','application_no')->where('status',3)->get();
+         $noc_applicaiton=NocApp::select('id','application_no')->where('status',4)->where('client_id',$id)->get();
         //dd($noc_applicaiton);
     	//dd($noc_losses);
          $poc_losses_data=Pocdetails::get();
@@ -35,10 +35,9 @@ class NocController extends Controller
     }
     public function getnocApplicationData(Request $request,$id='')
     {
-         $noc_ajax_req=NocApp::select('id','noc_type','start_date','end_date')->where('application_no',$request->id)->first();
+         $noc_ajax_req=NocApp::select('id','noc_type','exchange_type','start_date','end_date')->where('application_no',$request->id)->first();
 
-           //dd($noc_ajax_req);
-            return response()->json(['noc_type' => $noc_ajax_req->noc_type,'start_date' => date('d/m/Y',strtotime($noc_ajax_req->start_date)),'end_date' =>date('d/m/Y',strtotime($noc_ajax_req->end_date))]);
+            return response()->json(['noc_type' => $noc_ajax_req->noc_type,'exchange' => $noc_ajax_req->exchange_type,'start_date' => date('d/m/Y',strtotime($noc_ajax_req->start_date)),'end_date' =>date('d/m/Y',strtotime($noc_ajax_req->end_date))]);
 
     }
 
@@ -97,9 +96,15 @@ class NocController extends Controller
          {
             $stu_l=0;
          }
-
-            //dd($discom_losses);
-            return response()->json(['noc_type' => '','discom_l' =>$discom_l,'stu_l' =>$stu_l]);
+         if(isset($noc_losses_req->inter_poc)&&$noc_losses_req->inter_poc=='POC/CTU')
+         {
+            $poc_app='Yes';
+         }
+         else
+         {
+            $poc_app='No';
+         }         
+            return response()->json(['poc_apply' => $poc_app,'discom_l' =>$discom_l,'stu_l' =>$stu_l]);
 
     }
 
@@ -110,7 +115,7 @@ class NocController extends Controller
             'noc_periphery' => 'required',
             'noc_quantum' => 'required',
             'noc_type' => 'required',
-            // 'poc_losses' => 'required',
+            'exchange' => 'required',
             'validity_from' => 'required',
             'validity_to' => 'required',
             'upload_noc' => 'required',
@@ -134,6 +139,7 @@ class NocController extends Controller
         $noc->noc_quantum = $request->input('noc_quantum');
         $noc->noc_type = $request->input('noc_type');
         $noc->poc_losses = $request->input('poc_losses');
+        $noc->exchange = $request->input('exchange');
         $noc->validity_from =$validity_from;
         $noc->validity_to = $validity_to;
         $noc->noc_periphery = $request->input('noc_periphery');
@@ -175,7 +181,7 @@ class NocController extends Controller
         $nocdetails = Noc::where('client_id',$client_id)->where('status',1)->withTrashed()->get();
         $noc_losses = Client::select('inter_discom','inter_poc','inter_stu')->where('client_app_status',1)->where('id',$id)->first();
         $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
-        $noc_applicaiton=NocApp::select('id','application_no')->where('status',3)->get();
+        $noc_applicaiton=NocApp::select('id','application_no')->where('status',4)->where('client_id',$id)->get();
         $poc_losses_data=Pocdetails::get();
 
         return view('ManageClient.nocdetails',compact('nocData','client_details','nocdetails','client_id','get_noc_details','region','regional','poc_losses','noc_losses','noc_applicaiton','poc_losses_data'));
@@ -186,6 +192,7 @@ class NocController extends Controller
         $nocdetail = Noc::find($noc_detail_id)->toArray();
         $datas =array();
         $datas['noc_type'] = $nocdetail['noc_type'];
+        $datas['exchange'] = $nocdetail['exchange'];
         $datas['validity_from'] = $nocdetail['validity_from'];
         $datas['validity_to'] = $nocdetail['validity_to'];
         $datas['upload_noc'] = $nocdetail['upload_noc'];
@@ -209,6 +216,7 @@ class NocController extends Controller
         $dataArray =array();
         $dataArray['noc_application_no'] = $request->input('noc_application_no');
         $dataArray['noc_type'] = $request->input('noc_type');
+        $dataArray['exchange'] = $request->input('exchange');
         $dataArray['validity_from'] = $validity_from;
         $dataArray['validity_to'] = $validity_to;
         $dataArray['upload_noc'] = $request->input('upload_noc');

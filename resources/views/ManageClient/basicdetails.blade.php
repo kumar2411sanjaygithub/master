@@ -595,12 +595,12 @@ $(document).ready(function() {
     });
 });
 // $(document).ready(function() {
-//    if ($('#rt1').is(":checked")) 
+//    if ($('#rt1').is(":checked"))
 //    {
 
 //       $("#hidecontentDiv").hide();
 //    }
-//    if ($('#rt').is(":checked")) 
+//    if ($('#rt').is(":checked"))
 //    {
 //       $("#hidecontentDiv").show();
 //    }
