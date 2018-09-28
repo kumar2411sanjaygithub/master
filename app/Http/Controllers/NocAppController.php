@@ -63,7 +63,7 @@ class NocAppController extends Controller
             'sldc' => 'required',
             'noc_type' => 'required',
             'exchange_type' => 'required',
-            'quantum' => 'required|integer',
+            'quantum' => 'required',
             'start_date' => 'required',
             'start_time' => 'required',
             'end_date' => 'required',
@@ -134,7 +134,7 @@ class NocAppController extends Controller
         $noc->save();  
 
 
-        return redirect()->route('getclientData', ['id' => $client_id])->with('success','Noc added successfully');
+        return redirect()->route('getclientData', ['id' => $client_id])->with('success','NOC Application initiated successfully and sent for approval.');
 
     }
 
@@ -176,7 +176,7 @@ class NocAppController extends Controller
             'sldc' => 'required',
             'noc_type' => 'required',
             'exchange_type' => 'required',
-            'quantum' => 'required|integer',
+            'quantum' => 'required',
             'start_date' => 'required',
             'start_time' => 'required',
             'end_date' => 'required',
@@ -563,10 +563,29 @@ class NocAppController extends Controller
     public function nocApprovalReq($id='',$status_id='')
     {
        $status = NocApp::find($id);
-       $status->status = $status_id;
-       $status->save();
+       if($status_id==2)
+       {
+        if($status->payment_challan_number!=''&&$status->bank_name!='' &&$status->transcation_date!=''&&$status->amount!='')
+        {
+            $status->status = 3;
+            $status->save();
+            return redirect()->back()->with('success','NOC application successfully approved.');
+        }
+        else
+        {
+            $status->status = $status_id;
+            $status->save();
+            return redirect()->back()->with('success','NOC application successfully approved.');
+        }
+       }
+       elseif($status_id==5)
+       {
+        $status->status = $status_id;
+        $status->save();
+        return redirect()->back()->with('success','NOC application successfully rejected.');
+       }
 
-        return redirect()->back()->with('success','Noc Application Successfully Approved.');
+
     }
     public function nocReq($id='',$status_id='')
     {

@@ -20,8 +20,9 @@
           @endif
       <div class="row">
         <div class="col-xs-12">
+          <div class="row">&nbsp;</div>
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-2">
               <div class="input-group input-group-sm">
                 <input type="text" class="form-control" placeholder="SEARCH" id="search">
                     <span class="input-group-btn">
@@ -29,11 +30,7 @@
                     </span>
               </div>
             </div>
-          </div>
-          <div class="row">&nbsp;</div>
-          <div class="row">
-
-           <div class="col-md-8"></div>
+           <div class="col-md-6"></div>
             <div class="col-md-4 text-right">
                 @if (count($employeeData) > 0)
             <form class="pull-right" action="{{ url()->to('exists-employee-approve/Approved') }}" method="post" id="approve_data">
@@ -88,7 +85,7 @@
                       <div class="modal-footer">
                          <div class="text-center">
                         <button type="button" href="#"   class="btn btn-info">
-                          <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
+                          <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal-rej">Yes</a>
                         </button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                       </div>
@@ -105,7 +102,7 @@
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>
       <tr>
-        <th class="chy"  style="padding:5px!important;"><input type="checkbox"  class="minimal1 deleteallbutton" name="select_all"></th>
+        <th class="chy" style="padding:5px!important;"><input type="checkbox"  class="minimal1 deleteallbutton" name="select_all"></th>
         <th class="srno vl">SR.NO</th>
         <th  class="vl">EMPLOYEE NAME</th>
         <th  class="vl">USER NAME</th>
@@ -132,7 +129,19 @@
                               <?php echo isset($keys[$value->keyname])?$keys[$value->keyname]:$value->keyname; ?>
                               </td>
 
-                              <td class="text-center">{{ $value->value }}</td>
+                              @if(in_array($value->value,$state_data))
+                                 <?php
+                                 $state_list = \App\Common\StateList::get_states();
+                                 ?>
+                                 @foreach($state_list as $state_code=>$state_ar)
+                                   @if($state_code==$value->value)
+                                   <td class="text-center">{{ $state_ar['name'] }}</td>
+                                  @endif
+                                 @endforeach
+                               @else
+                                 <td class="text-center">{{ $value->value }}</td>
+                               @endif
+                              
                               @else
                               <td class="text-center"><span class="hidden">{{$key = $value->keyname}}</span>
                               <?php echo isset($keys[$value->keyname])?$keys[$value->keyname]:$value->keyname; ?>

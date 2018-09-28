@@ -61,7 +61,7 @@
                 <div class="form-group row ">                 
                   <label class="col-sm-3 control-label">ROLE</label>
                   <div class="col-sm-6">
-                      <p>{{ $value->role }}</p>
+                      <p>{{  @$value->rolename->name }}</p>
                   </div>
                 </div>
                 <div class="form-group row ">                 

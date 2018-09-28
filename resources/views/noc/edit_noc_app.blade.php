@@ -69,7 +69,6 @@
                         <option value="">SELECT</option>
                         <option value="iex" {{ isset($noc_data) && $noc_data->exchange_type == "iex" ? 'selected="selected"' : '' }}>IEX</option>
                         <option value="pxil" {{ isset($noc_data) && $noc_data->exchange_type == "pxil" ? 'selected="selected"' : '' }}>PXIL</option>
-                        <option value="both" {{ isset($noc_data) && $noc_data->exchange_type == "both" ? 'selected="selected"' : '' }}>BOTH</option>
                      </select>
                     <span class="text-danger">{{ $errors->first('exchange_type') }}</span>                                               
                   </div>
