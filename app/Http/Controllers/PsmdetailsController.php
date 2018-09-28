@@ -96,9 +96,9 @@ class PsmdetailsController extends Controller
       {
         $validator = $this->validate($request, [
         "type"=>"required",
-        "received_date"=>"required",
+        "received_date"=>"required|date",
         "amount"=>"required",
-        "expiry_date"=>"required",
+        "expiry_date"=>"required|date|after_or_equal:received_date",
       ]);
     }
 
@@ -107,11 +107,11 @@ class PsmdetailsController extends Controller
       {
         $validator = $this->validate($request, [
         "type"=>"required",
-        "received_date"=>"required",
+        "received_date"=>"required|date",
         "amount"=>"required",
         "issue_date"=>"required",
         "document"=>"required",
-        "expiry_date"=>"required",
+        "expiry_date"=>"required|date|after_or_equal:received_date",
 
       ]);
 
