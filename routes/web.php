@@ -215,6 +215,7 @@ Route::group(['middleware' => 'auth'], function ()
     Route::get('/discom-sldc-state/delvoltage/{id}/e_del/{eid}','DiscomSLDCController@delvoltage');
 
 // APPROVAL FOR EMPLOYEE---SHALU //
+
 // Route::get('/employee/newemployeeclient',array('as'=>'approve.newemployee','uses'=>'EmployeeApprovalController@approveemployeeview'));
 Route::get('/employee/newemployeeclient',['as'=>'approve.newemployee','uses'=>'EmployeeApprovalController@approveemployeeview']);
 
@@ -450,18 +451,14 @@ Route::get('/service/mailRatesheet/{client_id}/{ftp_id}',['as'=>'service.rtc','u
 
 
 /*******************************************************
-  BILL/INVOICE----SHALU
+  BILL/INVOICE----DURGESH/SHALU
 /*******************************************************/
 Route::get('/invoice',['as'=>'billing','uses'=>'InvoiceController@index']);
 Route::get('/invoice/{exchange}/{year}/{month}/{day}',['as'=>'invoice.index','uses'=>'InvoiceController@index']);
 Route::get('/create/invoice/{id}','InvoiceController@create')->name('invoice');
 Route::get('/view/invoice/{id}','InvoiceController@view_invoice')->name('view');
-Route::get('user/invoice/{invoice}', function (Request $request, $invoiceId) {
-    return $request->downloadInvoice($invoiceId, [
-        'vendor'  => 'TPTCL-ERP',
-        'product' => 'Monthly Subscription',
-    ]);
-});
+Route::post('/client_bill_list','InvoiceController@client_list')->name('list');
+
 
 
 

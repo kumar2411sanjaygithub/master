@@ -1,5 +1,6 @@
 @extends('theme.layouts.default')
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <section class="content-header">
       <h5>
     <label  class="control-label"><u>ENERGY BILL</u></label>
@@ -13,6 +14,7 @@
 
       </ol>
     </section>
+
 @php
  $url_segment = \Request::segment(3);
 @endphp
@@ -33,6 +35,7 @@
    </div>
   </div>
   
+
   <div class="col-md-1" style="margin-top:10px;">
         <label  class="control-label"></label>
     <button type="button" class="btn btn-block btn-info btn-xs" name="" id="submit_go">GO</button>
@@ -44,17 +47,19 @@
 <div class="box">
 <div class="box-body">
 <div class="row">
+@if(isset($clients) && count($clients) > 0)
 <div class="col-md-3">
+
     <label  class="control-label">SELECT CLIENT</label>
-    <select class="form-control input-sm disabled-class" @php if(isset($url_segment)){}else{echo "disabled";}@endphp name="" id="select_client" style="width: 100%;">  
-        <option value="">CLIENT NAME</option>
-       
-        @foreach($client_list as $clients)
-        
-        <option value="{{$clients->id}}">{{@$clients->client_details->company_name}}</option>
+    <select class="form-control input-sm disabled-class" name="" id="select_client" style="width: 100%;" onchange="Datalist()">
+        <!-- <option value="">Select Clients</option> -->
+        <option value="{{$all_bill_string}}">Select All</option>
+        @foreach($clients as $key => $client)
+            <option value="{{$client['bill_string']}}">{{$client['company_name']}}[{{$client['iex_portfolio']}}]</option>
         @endforeach
     </select>
   </div>
+@endif
 </div>
   </div>
 </div>
@@ -64,22 +69,30 @@
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>
       <tr>
-        <th>SR.NO</th>
-        <th>CLIENT LIST</th>
-        <th>ACTION</th>
+        <th rowspan="2" class="vertical-align">SR.NO</th>
+        <th rowspan="2" class="vertical-align">CLIENT NAME</th>
+        <th colspan="2">ENERGY BILL</th>
+        <th colspan="2">OA CHARGES BILL</th>
+        <th colspan="2">ENERGY & CHANGES BILL</th>
+        <th colspan="2">TRADING MARGIN BILL</th>
+        <th colspan="2">OBLIGATION & TRADING MARGIN BILL</th>
+      </tr>
+       <tr>
+        <th><u><a href="#">GENERATE ALL</a></u><br><u><a href="#">DOWNLOAD ALL</a></u></th>
+            <th><u><a href="#">EMAIL ALL</a></u></th>
+        <th><u><a href="#">GENERATE ALL</a></u><br><u><a href="#">DOWNLOAD ALL</a></u></th>
+            <th><u><a href="#">EMAIL ALL</a></u></th>
+        <th><u><a href="#">GENERATE ALL</a></u><br><u><a href="#">DOWNLOAD ALL</a></u></th>
+            <th><u><a href="#">EMAIL ALL</a></u></th>
+        <th><u><a href="#">GENERATE ALL</a></u><br><u><a href="#">DOWNLOAD ALL</a></u></th>
+            <th><u><a href="#">EMAIL ALL</a></u></th>
+        <th><u><a href="#">GENERATE ALL</a></u><br><u><a href="#">DOWNLOAD ALL</a></u></th>
+            <th><u><a href="#">EMAIL ALL</a></u></th>
+
       </tr>
       </thead>
       <tbody>
-         <?php $i=1; ?>
-         @foreach ($clients as $key=> $invoice)
-
-      <tr>
-        <td>{{$i}}</td>
-        <td></td>
-        <td><a  class= "btn btn-primary  btn-xs"  href="" id ="foo"><span class="glyphicon glyphicon-send"></span>&nbsp;GENERATE</a></td>
-      </tr>
-       <?php $i++; ?>
-     @endforeach
+           
       </tbody>
       </table>
   </div>
@@ -113,15 +126,31 @@
         });
     });
 </script>
-   <script>
-   if($str!=''){
-    $('.disabled-class').removeAttr("disabled");   
+
+  <script>
+ function Datalist(){
+  $.ajaxSetup({
+  headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
-   
-    // window.setTimeout(function() {
-    //     $(".alert").fadeTo(500, 0).slideUp(500, function(){
-    //         $(this).remove();
-    //     });
-    // }, 5000);
+  });   
+      var client_value = $('#select_client').val();
+      alert(client_value);
+      $.ajax({
+        type:'POST',
+        url:'{{url("/client_bill_list")}}',
+        data:{
+          'client_value':client_value
+        },
+        dataType:'JSON',
+        success:function(data){
+          console.log(data.data);
+          if(data.data!=''){
+          $('#example1 tbody').append('<tr><td>1</td><td>LAKHAN SHARMA</td><td><a href="#"><span class="glyphicon glyphicon-repeat "></span></a>&nbsp;&nbsp;&nbsp;<a href="#"><span class="glyphicon glyphicon-download-alt"></span></a></td> <td><a href="#"><span class="glyphicon glyphicon-send"></span></a></td><td><a href="#"><span class="glyphicon glyphicon-repeat"></span></a>&nbsp;&nbsp;&nbsp;<a href="#"><span class="glyphicon glyphicon-download-alt"></span></a></td><td><a href="#"><span class="glyphicon glyphicon-send"></span></a></td><td><a href="#"><span class="glyphicon glyphicon-repeat"></span></a>&nbsp;&nbsp;&nbsp;<a href="#"><span class="glyphicon glyphicon-download-alt"></span></a></td><td><a href="#"><span class="glyphicon glyphicon-send"></span></a></td><td><a href="#"><span class="glyphicon glyphicon-repeat"></span></a>&nbsp;&nbsp;&nbsp;<a href="#"><span class="glyphicon glyphicon-download-alt"></span></a></td><td><a href="#"><span class="glyphicon glyphicon-send"></span></a></td><td><a href="#"><span class="glyphicon glyphicon-repeat"></span></a>&nbsp;&nbsp;&nbsp;<a href="#"><span class="glyphicon glyphicon-download-alt"></span></a></td><td><a href="#"><span class="glyphicon glyphicon-send"></span></a></td></tr>');
+          }
+        }
+      });
+
+ }
   </script>
     @endsection

@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\BillDetails;
 use App\Invoice;
 use App\BillCycle;
-// use App\BillDetails;
+use App\BillGeneration;
+use App\Obligation;
 
 class InvoiceController extends Controller
 {
@@ -31,71 +32,128 @@ class InvoiceController extends Controller
         $clients =array(); 
         //$invoice_list = Invoice::all()->where('date',$date);
         $client_list = BillCycle::where('date',$date)->get();
-
+        $all_bill_string='';
          foreach($client_list as $client){
-            if($client->cycle_type == 'WEEKLY'){
-              if($this->getDayStr($client->cycle_string)==$day){
-                $clients[] = $client->client_details->company_name;
-                break;
-              }else{
+            if($client->cycle_type == 'DAYWISE'){
+                $clients[$client->client_id]['company_name'] = $client->client_details->company_name;
+                $clients[$client->client_id]['iex_portfolio'] = $client->client_details->iex_portfolio;
+                // $clients[$client->client_id]['bill'][$client->bill_type] = array(
+                //       'fromDate' => $date,
+                //       'toDate' => $date,
+                //       'billDate' => $date
+                // );
+                $clients[$client->client_id]['bill_string'] = isset($clients[$client->client_id]['bill_string'])? $clients[$client->client_id]['bill_string'].'`'.$client->client_id.'~'.$client->bill_type.'~'.$date.'~'.$date.'~'.$date:$client->client_id.'~'.$client->bill_type.'~'.$date.'~'.$date.'~'.$date;
+                $all_bill_string .= '`'.$client->client_id.'~'.$client->bill_type.'~'.$date.'~'.$date.'~'.$date;
+            }elseif($client->cycle_type == 'WEEKLY'){
                 if($this->getDayStr($client->cycle_string) == $day){
-                  $fromdate = date('Y-m-d', strtotime('-7 days', strtotime($date)));
-                  $clients[] = $client->client_details->company_name;
-                break;
+                  $fromDate = date('Y-m-d', strtotime('-7 days', strtotime($date)));
+                  $clients[$client->client_id]['company_name'] = $client->client_details->company_name;
+                  $clients[$client->client_id]['iex_portfolio'] = $client->client_details->iex_portfolio;
+                  // $clients[$client->client_id]['bill'][$client->bill_type] = array(
+                  //       'fromDate' => $fromDate,
+                  //       'toDate' => $date,
+                  //       'billDate' => $date
+                  // );
+                   $clients[$client->client_id]['bill_string'] = isset($clients[$client->client_id]['bill_string'])? $clients[$client->client_id]['bill_string'].'`'.$client->client_id.'~'.$client->bill_type.'~'.$fromDate.'~'.$date.'~'.$date : $client->client_id.'~'.$client->bill_type.'~'.$fromDate.'~'.$date.'~'.$date;
+                    $all_bill_string .= '`'.$client->client_id.'~'.$client->bill_type.'~'.$fromDate.'~'.$date.'~'.$date;
                 }
-              }
             }elseif($client->cycle_type == 'MONTHLY'){
-              $client->cycle_string = str_replace("LastDay", date('t', strtotime($date)), $client->cycle_string);
-              $monthDateArr = explode(',', $client->cycle_string);
+              $cycle_string = str_replace("LastDay", date('t', strtotime($date)), $client->cycle_string);
+              $d = date('j', strtotime($date));
+              if($cycle_string == $d){
+                  $fromDate = date('Y-m-d', strtotime($date.' -1 month'));
+                  $toDate = date('Y-m', strtotime($date)) . '-' . date('d', strtotime($date));
+                  $portFolioId = $client->client_details->iex_portfolio;
+                  $clients[$client->client_id]['company_name'] = $client->client_details->company_name;
+                  $clients[$client->client_id]['iex_portfolio'] = $client->client_details->iex_portfolio;
+                  // $clients[$client->client_id]['bill'][$client->bill_type] = array(
+                  //       'fromDate' => $fromDate,
+                  //       'toDate' => $toDate,
+                  //       'billDate' => $toDate
+                  // );
+                  $clients[$client->client_id]['bill_string'] = isset($clients[$client->client_id]['bill_string'])? $clients[$client->client_id]['bill_string'].'`'.$client->client_id.'~'.$client->bill_type.'~'.$fromDate.'~'.$toDate.'~'.$toDate : $client->client_id.'~'.$client->bill_type.'~'.$fromDate.'~'.$toDate.'~'.$toDate;
+                  $all_bill_string .= '`'.$client->client_id.'~'.$client->bill_type.'~'.$fromDate.'~'.$toDate.'~'.$toDate;
+
+              }
+            }elseif($client->cycle_type == 'CUSTOM'){
+              $cycle_string = str_replace("LastDay", date('t', strtotime($date)), $client->cycle_string);
+              $monthDateArr = explode(',', $cycle_string);
               $d = date('j', strtotime($date));
               if (in_array($d, $monthDateArr)) {
-              $dayIndex = array_search($d, $monthDateArr);
-              $fromDate = "";
-              $toDate = "";
-               if ($dayIndex == 0 && count($monthDateArr) > 1 && count($monthDateArr)!=8) {
-                  $fromDate = date('Y-m-01', strtotime($date));
-                  $toDate = date('Y-m', strtotime($date)) . '-' . date('d', strtotime($date));
-              } else if (count($monthDateArr) > 1 && count($monthDateArr)!=8) {
-                  $fromDate = date('Y-m', strtotime($date)) . '-' . $monthDateArr[$dayIndex - 1];
-                  $fromDate = date('Y-m-d', strtotime($fromDate . ' + 1 days'));
-                  $toDate = date('Y-m', strtotime($date)) . '-' . date('d', strtotime($date));
-              } else if (count($monthDateArr) == 1 && count($monthDateArr)!=8) {
-                  $fromDate = date('Y-m-01', strtotime($date));
-                  $toDate = date('Y-m', strtotime($date)) . '-' . date('d', strtotime($date));
-              } else if ($dayIndex == 0 && count($monthDateArr)==8) {
-                  $lmd = date("t", strtotime($date . ' - 1 month'));
-                  $lmdday = date("Y-m-t", strtotime($date . ' - 1 month'));
-                  $dateInterval = $lmd - 28;
-                  $fromDate = date('Y-m-d', strtotime($lmdday .'-'. $dateInterval.'days'));
-                  $fromDate = date('Y-m-d', strtotime($fromDate . ' + 1 days'));
-                  $toDate = date('Y-m', strtotime($date)) . '-' . date('d', strtotime($date));
+                  $dayIndex = array_search($d, $monthDateArr);
+                  $fromDate = "";
+                  $toDate = "";
+                  if ($dayIndex == 0 && count($monthDateArr) > 1 && count($monthDateArr)!=8) {
+                      $fromDate = date('Y-m-01', strtotime($date));
+                      $toDate = date('Y-m', strtotime($date)) . '-' . date('d', strtotime($date));
+                  } else if (count($monthDateArr) > 1 && count($monthDateArr)!=8) {
+                      $fromDate = date('Y-m', strtotime($date)) . '-' . $monthDateArr[$dayIndex - 1];
+                      $fromDate = date('Y-m-d', strtotime($fromDate . ' + 1 days'));
+                      $toDate = date('Y-m', strtotime($date)) . '-' . date('d', strtotime($date));
+                  } else if (count($monthDateArr) == 1 && count($monthDateArr)!=8) {
+                      $fromDate = date('Y-m-01', strtotime($date));
+                      $toDate = date('Y-m', strtotime($date)) . '-' . date('d', strtotime($date));
+                  } else if ($dayIndex == 0 && count($monthDateArr)==8) {
+                      $lmd = date("t", strtotime($date . ' - 1 month'));
+                      $lmdday = date("Y-m-t", strtotime($date . ' - 1 month'));
+                      $dateInterval = $lmd - 28;
+                      $fromDate = date('Y-m-d', strtotime($lmdday .'-'. $dateInterval.'days'));
+                      $fromDate = date('Y-m-d', strtotime($fromDate . ' + 1 days'));
+                      $toDate = date('Y-m', strtotime($date)) . '-' . date('d', strtotime($date));
 
-              } else if ($dayIndex > 0 && count($monthDateArr)==8) {
-                  $fromDate = date('Y-m', strtotime($date)) . '-' . $monthDateArr[$dayIndex - 1];
-                  $fromDate = date('Y-m-d', strtotime($fromDate . ' + 1 days'));
-                  $toDate = date('Y-m', strtotime($date)) . '-' . date('d', strtotime($date));
+                  } else if ($dayIndex > 0 && count($monthDateArr)==8) {
+                      $fromDate = date('Y-m', strtotime($date)) . '-' . $monthDateArr[$dayIndex - 1];
+                      $fromDate = date('Y-m-d', strtotime($fromDate . ' + 1 days'));
+                      $toDate = date('Y-m', strtotime($date)) . '-' . date('d', strtotime($date));
+                  }
+                  $portFolioId = $client->client_details->iex_portfolio;
+                  $clients[$client->client_id]['company_name'] = $client->client_details->company_name;
+                  $clients[$client->client_id]['iex_portfolio'] = $client->client_details->iex_portfolio;
+                  // $clients[$client->client_id]['bill'][$client->bill_type] = array(
+                  //       'fromDate' => $fromDate,
+                  //       'toDate' => $toDate,
+                  //       'billDate' => $toDate
+                  // );
+                  $clients[$client->client_id]['bill_string'] = isset($clients[$client->client_id]['bill_string'])? 
+                  $clients[$client->client_id]['bill_string'].'`'.$client->client_id.'~'.$client->bill_type.'~'.$fromDate.'~'.$toDate.'~'.$toDate : $client->client_id.'~'.$client->bill_type.'~'.$fromDate.'~'.$toDate.'~'.$toDate;
+                  $all_bill_string .= '`'.$client->client_id.'~'.$client->bill_type.'~'.$fromDate.'~'.$toDate.'~'.$toDate;
               }
-              $portFolioId = $client->client_details->iex_portfolio;
-
-              break;
-              }
-            }elseif($client->cycle_type == 'DAYWISE'){
-                $client[] = $client->client_details->company_name;
-                break;
             }
          }
-         dd($clients);
- 
         if(isset($request->status)){
-            
-            return view('invoice.list',['list' => $invoice_list,'client'=>$client_list,'status' => $request->status]);
+         return view('invoice.list',['list' => $clients,'client'=>$client_list,'status' => $request->status]);
         }
-
-        //return view('invoice.list',['list' => $invoice_list,'client'=>$client_list]);
-        return view('invoice.list',compact('client_list','invoice_list'));
-
+        return view('invoice.list',compact('client_list','clients','all_bill_string'));
 
    }
+
+    public function client_list(Request $request){
+        $list = $request->client_value;
+        $list3 = explode('`',$list);
+        foreach($list3 as $key => $value){
+          $val = explode('~',$value);
+          /*
+          *   $val[0] = client_id
+          *   $val[1] = bill_type
+          *   $val[2] = from_date
+          *   $val[3] = to_date
+          *   $val[4] = bill_date
+          */
+          $count = BillGeneration::where('client_id',$val[0])->where('bill_type',$val[1])->where('bill_date',$val[4])->get();
+            if(count($count) > 0){
+               $count1 = Obligation::select('fundpayin')->where('client_id',$val[0])->where('bill_date',$val[4])->get();
+                 if($count1->fundpayin > 0){
+                    return response()->json(array('data'=>'0'));
+            }else{
+              return response()->json(array('data'=>'1'));
+            }
+          
+         }else{
+          return response()->json(array('data'=> $list3));
+         }
+        }
+    }
+
    public function create($client_id){
       $fy = \App\Common\FinancialFunctions::getIntFinancialYear(date('Y-m-d'));
       
