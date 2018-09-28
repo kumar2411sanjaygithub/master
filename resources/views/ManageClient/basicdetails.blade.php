@@ -64,7 +64,7 @@
               </div>
               <div class="col-md-3">
               <label  class="control-label">OLD SAP CODE</label>
-              <input class="form-control input-sm" type="text" placeholder="ENTER OLD SAP CODE" name="old_sap" id="old_sap" value="{{old('short_id')}}" >
+              <input class="form-control input-sm" type="text" placeholder="ENTER OLD SAP CODE" name="old_sap" id="old_sap" value="{{old('old_sap')}}" >
               </div>
             </div>
             <div class="row">
@@ -595,12 +595,12 @@ $(document).ready(function() {
     });
 });
 // $(document).ready(function() {
-//    if ($('#rt1').is(":checked")) 
+//    if ($('#rt1').is(":checked"))
 //    {
 
 //       $("#hidecontentDiv").hide();
 //    }
-//    if ($('#rt').is(":checked")) 
+//    if ($('#rt').is(":checked"))
 //    {
 //       $("#hidecontentDiv").show();
 //    }

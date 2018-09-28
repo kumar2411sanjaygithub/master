@@ -7,10 +7,10 @@ use App\AccountStatement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Contact;
-use App\Exchangeuser;
+use App\Client;
 use App\Placebid;
 use App\FtpFiles;
-use App\Clientmaster;
+use App\ServiseAlert;
 use Validator;
 use App\Manualbilltemp;
 use App\TraderMail;
@@ -49,13 +49,21 @@ class EmailController extends Controller
             }
     public function bidRemainder_mail($id){
       try {
-           $client_mail = Contact::select('email','name')->where('client_id', $id)->where('bid_email','yes')->get()->toArray();
+
+         $client = ServiseAlert::where('client_id', $id)->where('alert_type','bid_alert')->where('email','yes')->get()->toArray();
+
+         if(count($client) > 0){
+
+          $client_mail = Contact::select('email','name')->where('client_id', $id)->get()->toArray();
+          
            $trader_mail = TraderMail::select('email_cc','email_bcc','mail_from')->get()->toArray();
+          // dd($trader_mail);
            $dateName = date('d-M-Y');
            $data = array('name'=>"Virat Gandhi");
-           $out = Mail::send('email.email',array('dateName'=> $dateName) , function($message) use ($client_mail,$trader_mail) {
+           //dd($client_mail);
+           $out = Mail::send('email.email',array('dateName'=> $dateName) , function($message) use($client_mail,$trader_mail) {
                 foreach ($client_mail as $key => $user) {
-                   $message->to($user['email'], $user['name']);
+                   $message->to('php6@cybuzzsc.com', $user['name']);
                  }
                    $message->subject('BID Not Recieved  for DD '.date('d-M-Y'));
                      foreach($trader_mail as $key => $email){
@@ -65,11 +73,14 @@ class EmailController extends Controller
                      }
            });
            $data = array(
-                     'client_id'=> $id,'date'=>date('d-M-Y'),'type'=>'bid-mail','status'=> 1
+                     'client_id'=> $id,'date'=>date('Y-m-d'),'type'=>'bid-mail','status'=> 1
                      );
            EmailLog::insert($data);
            return redirect()->back()->with('success','Mail Sent Successfully.');
+      }else{
+        return redirect()->back()->with('success','Service Is Not Applicable For You.');
       }
+    }
       catch(Exception $ex){
            $validator = Validator::make([], []);
            $validator->getMessageBag()->add('Email', 'Opps! Mail sending failed. Plesae try after sometime.');
@@ -79,11 +90,15 @@ class EmailController extends Controller
 
   public function mail_obligation($client_id,$ftp_id){
      try {
-      $client_mail = ServiseAlert::select('email','name')->where('client_id', $client_id)->where('obl_email','yes')->get()->toArray();
+          $client = ServiseAlert::where('client_id', $id)->where('alert_type','obligation')->where('email','yes')->get()->toArray();
+         if(count($client) > 0){
+
+      $client_mail = Contact::select('email','name')->where('client_id', $id)->get()->toArray();
       $trader_mail = TraderMail::select('email_cc','email_bcc','mail_from')->get()->toArray();
       $ftp_schedule = FtpFiles::select('filename','filepath')->where('id',$ftp_id)->where('client_id',$client_id)->get()->toArray();
-      $pathToAttach = realpath($ftp_schedule[0]['filepath'].'\\'.$ftp_schedule[0]['filename']);
-
+      //print($ftp_schedule);
+      $pathToAttach = storage_path().($ftp_schedule[0]['filepath'].'\\'.$ftp_schedule[0]['filename']);
+      //dd($pathToAttach);
       $dateName = date('d-M-Y');
       $data = array('name'=>"Virat Gandhi");
       $out = Mail::send('email.obligation',array('dateName'=> $dateName), function($message) use ($client_mail,$trader_mail,$pathToAttach) {
@@ -110,7 +125,9 @@ class EmailController extends Controller
 
 
       return redirect()->back()->with('success','Mail Sent Successfully.');
-      }
+      }else{
+        return redirect()->back()->with('success','Service Is Not Applicable For You.');
+      }}
       catch(Exception $ex){
            $validator = Validator::make([], []);
            $validator->getMessageBag()->add('Email', 'Opps! Mail sending failed. Plesae try after sometime.');
@@ -276,9 +293,12 @@ class EmailController extends Controller
 
  public function mail_scheduling($client_id, $ftp_id){
   try {
-    $client_mail = Contact::select('email','name')->where('client_id', $client_id)->where('sch_email','yes')->get()->toArray();
+
+    $client = ServiseAlert::where('client_id', $id)->where('alert_type','scheduling')->where('email','yes')->get()->toArray();
+     if(count($client) > 0){
+    $client_mail = Contact::select('email','name')->where('client_id', $id)->get()->toArray();
     $trader_mail = TraderMail::select('email_cc','email_bcc','mail_from')->get()->toArray();
-    $company_name = Clientmaster::where('id', $client_id)->pluck('company_name')->toArray();
+    $company_name = Client::where('id', $client_id)->pluck('company_name')->toArray();
     $ftp_schedule = FtpFiles::select('filename','filepath')->where('id',$ftp_id)->get()->toArray();
     $dateName = date('d-m-Y');
     $clientName = $company_name[0];
@@ -303,7 +323,9 @@ class EmailController extends Controller
                'mail_status' => 1
               ]);
     return redirect()->back()->with('success','Mail Sent Successfully.');
-    }
+    }else{
+      return redirect()->back()->with('success','Service Is Not Applicable For You.');
+    }}
     catch(Exception $ex){
          $validator = Validator::make([], []);
          $validator->getMessageBag()->add('Email', 'Opps! Mail sending failed. Plesae try after sometime.');
@@ -315,13 +337,14 @@ class EmailController extends Controller
   public function mail_rtSheet($client_id,$id){
      try {
     
-      $client_mail = Contact::select('email','name')->where('client_id', $id)->where('ratesheet_email','yes')->get()->toArray();
+      $client_mail = ServiseAlert::select('email','name')->where('client_id', $id)->where('alert_type','Ratesheet')->where('email','yes')->get()->toArray();
       $trader_mail = TraderMail::select('email_cc','email_bcc','mail_from')->get()->toArray();
-       $company_name = Clientmaster::where('id', $id)->pluck('company_name')->toArray();
+       $company_name = Client::where('id', $client_id)->pluck('company_name')->toArray();
       $clientName = $company_name[0];
+      $dateName = date('d-m-Y');
      //$pathToAttach = realpath($ftp_schedule[0]['filepath'].'\\'.$ftp_schedule[0]['filename']);
       $data = array('date'=> date('d-M-Y'));
-      $out = Mail::send('email.rtSheet', $data, function($message) use ($client_mail,$clientName,$trader_mail) {
+      $out = Mail::send('email.rtSheet',array('dateName'=> $dateName), function($message) use ($client_mail,$clientName,$trader_mail) {
          foreach ($client_mail as $key => $user) {
            $message->to($user['email'], $user['name']);
          }
@@ -333,6 +356,11 @@ class EmailController extends Controller
          }
         //$message->attach($pathToAttach);
       });
+      $devices = Client::find($client_id)->where('id',$client_id);
+
+             $devices->update([
+               'mail_status' => 1
+              ]);
      return redirect()->back()->with('success','Mail Sent Successfully.');
     }
     catch(Exception $ex){

@@ -66,10 +66,14 @@ class EmployeeApprovalController extends Controller
 	 public function viewexistingemployee()
         {
           $keys=array('mob_number'=>'Mobile Number','employee_id'=>'Employee Id','name'=>'Employee Name','email'=>'Email','contact_number'=>'Contact No.','username'=>'User Name','password'=>'Password','role_id'=>'Role','designation'=>'Designation','department_id'=>'Department','line1'=>'Address Line 1','line2'=>'Address Line 2','country'=>'Country','state'=>'State','city'=>'City','pin_code'=>'Pin Code','comm_mob'=>'Communication Number','comm_telephone'=>'Telephones','telephone_number'=>'Telephone Number');
+
             $employeeData = Employeeupdatestatus::whereIn('approve_status',array(0,1,2))->get();
+             $state_data = array_keys(\App\Common\StateList::get_states());
             // $role = Role::all()->pluck('role_name','id')->toArray();
 
-            return view('ApprovalRequest.employee.existingemployee',compact('employeeData','keys'));
+            $state_data = array_keys(\App\Common\StateList::get_states());
+
+            return view('ApprovalRequest.employee.existingemployee',compact('employeeData','keys','state_data'));
         }
     public function existingApprove($id)
     {

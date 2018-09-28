@@ -36,6 +36,7 @@ class NocApprovalController extends Controller
                 $new_bnc->noc_application_no = $bnc->noc_application_no;
                 $new_bnc->client_id = $bnc->client_id;
                 $new_bnc->noc_type = $bnc->noc_type;
+                $new_bnc->exchange = $bnc->exchange;
                 $new_bnc->validity_from = $bnc->validity_from;
                 $new_bnc->validity_to = $bnc->validity_to;
                 $new_bnc->upload_noc = $bnc->upload_noc;
@@ -71,6 +72,7 @@ class NocApprovalController extends Controller
                 $new_bnc->noc_application_no = $bnc->noc_application_no;
                 $new_bnc->client_id = $bnc->client_id;
                 $new_bnc->noc_type = $bnc->noc_type;
+                $new_bnc->exchange = $bnc->exchange;
                 $new_bnc->validity_from = $bnc->validity_from;
                 $new_bnc->validity_to = $bnc->validity_to;
                 $new_bnc->upload_noc = $bnc->upload_noc;

@@ -41,7 +41,7 @@
 
                <div class="row">
                   <div class="col-md-3 {{ $errors->has('sldc') ? 'has-error' : '' }}">
-                     <label  class="control-label">SDLC <span class="text-danger">*</span></label>
+                     <label  class="control-label">SLDC <span class="text-danger">*</span></label>
                     <select class="form-control input-sm" style="width: 100%;" id="sldc" name="sldc">
                         <option value="">PLEASE SELECT SLDC</option>
                         @if (count($sldc_array) > 0)                        
@@ -69,7 +69,6 @@
                         <option value="">SELECT</option>
                         <option value="iex" {{ isset($noc_data) && $noc_data->exchange_type == "iex" ? 'selected="selected"' : '' }}>IEX</option>
                         <option value="pxil" {{ isset($noc_data) && $noc_data->exchange_type == "pxil" ? 'selected="selected"' : '' }}>PXIL</option>
-                        <option value="both" {{ isset($noc_data) && $noc_data->exchange_type == "both" ? 'selected="selected"' : '' }}>BOTH</option>
                      </select>
                     <span class="text-danger">{{ $errors->first('exchange_type') }}</span>                                               
                   </div>

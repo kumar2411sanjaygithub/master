@@ -40,6 +40,13 @@ class Client extends Authenticatable
     {
         return $this->hasMany('App\PlaceBid','client_id','id');
     }
+    public function sms(){
+        return $this->hasMany('App\SmsLog','client_id','id');
+    }
+
+    public function email(){
+        return $this->hasMany('App\EmailLog','client_id','id');
+    }
 
     public function exchangedata(){
        return $this->hasOne('App\Exchange', 'client_id', 'id');

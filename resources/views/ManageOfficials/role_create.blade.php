@@ -43,7 +43,11 @@
   </div>
 <div class="col-md-1 mt3">
   <label  class="control-label"></label>
-  <button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
+  <button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button>
+</div>
+<div class="col-md-1" style="margin-top:21px;">
+  <a href="{{ route('roles.index') }}"><input type="button"  class="btn btn-danger btn-block  btn-xs pull-right"value="Cancel"></a>
+</div>
 </div>
 </form>
 </div>
