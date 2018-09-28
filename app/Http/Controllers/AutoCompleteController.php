@@ -12,12 +12,15 @@ class AutoCompleteController extends Controller {
    }
     public function autoComplete(Request $request) {
         $term = $request->get('term','');
+       // dd($term);
 
         $ClientmastertempData = DB::table('clients')
-            ->selectRaw("id,concat(COALESCE(company_name,'')) as value")
+            ->selectRaw("id,concat(COALESCE(company_name,''),'[',COALESCE(iex_portfolio,''),']') as value")
             ->where('company_name','LIKE','%'.$term.'%')
             ->where('client_app_status','!=','4')
             ->get();
+
+            // ->selectRaw("client_id,client_master.status as clientstatus,concat(COALESCE(company_name,''),'[',COALESCE(short_id,''),'][',COALESCE(crn_no,''),'][',COALESCE(GROUP_CONCAT(portfolio_id SEPARATOR ']['),''),'][',COALESCE(GROUP_CONCAT(ca_client_id SEPARATOR ']['),''),']') as value")
 
 
         $data=array(); $client_id=array();

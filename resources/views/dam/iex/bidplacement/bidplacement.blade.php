@@ -51,17 +51,17 @@
       </div>
     </div>
   </div>
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-12">
     <div class="col-md-1 pl0 pr0">
-      <label  class="control-label">DELIVERY DATE</label>
+      <label  class="control-label">SELECT DATE</label>
     </div>
     <div class="col-md-3">
        <div class="input-group date">
          <div class="input-group-addon">
            <i class="fa fa-calendar"></i>
          </div>
-         <input type="text" class="form-control pull-right input-sm" id="datepicker" placeholder="DELIVERY  DATE"  name="" id="">
+         <input type="text" class="form-control pull-right input-sm" id="deliverydate" placeholder="SELECT DATE"  name="" id="">
        </div>
      </div>
     <div class="col-md-1">
@@ -71,7 +71,7 @@
   </div>
 </div>
 </div>
-</div>
+</div> -->
 
 <div class="row">&nbsp;</div>
 <div class="row">
@@ -79,8 +79,10 @@
       <div class="mda-form-group float-label rel-wrapper">
         <div class="mda-form-control">
             <div class="mda-form-control-line"></div>
+            <input  type="hidden" class="form-control browsers" list="browsers" name="user_id" id="user_id">
+                   <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
             <div class="input-group input-group-sm">
-            <input class="form-control search_text" style="border-radius:2px 0 0 2px;" name="search_text" placeholder="SEARCH" id="search_text"
+            <input class="form-control search_text" style="border-radius:2px 0 0 2px;width:200px;" name="search_text" placeholder="SEARCH" id="search_text"
             value="@if($id != ''){{$a[0]['company_name']}}@endif">
             <span class="input-group-btn" style="margin-bottom:3px;">
             <button style="margin-bottom:4px;border-radius:0 2px 2px 0;" type="button" class="btn btn-info btn-flat"><span class="glyphicon glyphicon-search"></span></button>
@@ -114,6 +116,7 @@
       <th class="w5">SR.NO</th>
       <th>CLIENT NAME</th>
       <th class="w10">PORTFOLIO ID</th>
+      <th class="w10">BID SUBMISSION DATE</th>
       <th class="w10">EMAIL</th>
       <th class="w10">SMS</th>
   </tr>
@@ -126,6 +129,7 @@
       <tr calue="{{$value['client_id']}}">
       <td class="text-center w5">{{ $i }}</td>
       <td class="text-center w57">{{$value['company_name']}}</td>
+      <td class="text-center w57">{{$value['iex_portfolio']}}</td>
       @if($value['bid_submission_date']!= '')
       <td class="text-center w13">{{@date('d/m/Y',strtotime($value['bid_submission_date']))}}</td>
       @else
@@ -134,7 +138,7 @@
        <td class="text-center w14">
              @if($value['email_submission_time'][0]<>'')
                <a href = "{{ route('bidplacement.bidmail',[$value['client_id']]) }}" style="color: red;">
-                     <button type="button" class="btn btn-primary btn-xs" name="" id=""><span class="glyphicon glyphicon-send"></span>&nbsp;Re-SEND</button>
+                     <button type="button" class="btn btn-success btn-xs" name="" id=""><span class="glyphicon glyphicon-send"></span>&nbsp;Re-SEND</button>
                </a>
               <br/>{{$value['email_submission_time'][1]}}
               <br/>{{date('d/m/Y',strtotime(str_replace('/','-',$value['email_submission_time'][0])))}}
@@ -142,20 +146,20 @@
 
               @else
                 <a href = "{{ route('bidplacement.bidmail',[$value['client_id']]) }}">
-                     <button type="button" class="btn btn-primary btn-xs" name="" id=""><span class="glyphicon glyphicon-send"></span>&nbsp; SEND</button><br><span class="text-danger"> DD/MM/YY (HH:MM:SS)<span>
+                     <button type="button" class="btn btn-success btn-xs" name="" id=""><span class="glyphicon glyphicon-send"></span>&nbsp; SEND MAIL</button><br><span class="text-danger"> DD/MM/YY (HH:MM:SS)<span>
                 </a>
               @endif
           </td>
           <td class="text-center w14">
             @if($value['sms_submission_time'][0]<>'')
                  <a href = "{{ route('bidplacement.bidsms',$value['client_id']) }}" style="color: red;">
-                     <button type="button" class="btn btn-primary btn-xs" name="" id=""><span class="glyphicon glyphicon-send"></span>&nbsp; Re-SEND</button>
+                     <button type="button" class="btn btn-info btn-xs" name="" id=""><span class="glyphicon glyphicon-send"></span>&nbsp; Re-SEND</button>
 
                  <br/>{{$value['sms_submission_time'][1]}}
                  <br/>{{date('d/m/Y',strtotime(str_replace('/','-',$value['sms_submission_time'][0])))}}
               @else
                  <a href = "{{ route('bidplacement.bidsms',$value['client_id']) }}">
-                      <button type="button" class="btn btn-primary btn-xs" name="" id=""><span class="glyphicon glyphicon-send"></span>&nbsp; SEND</button><br> <span class="text-danger">DD/MM/YY (HH:MM:SS)</span>
+                      <button type="button" class="btn btn-info btn-xs" name="" id=""><span class="glyphicon glyphicon-send"></span>&nbsp; SEND</button><br> <span class="text-danger">DD/MM/YY (HH:MM:SS)</span>
                  </a>
               @endif
           </td>

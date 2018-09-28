@@ -56,7 +56,6 @@ return [
     */
 
     'from' => [
-
         'address' => env('MAIL_FROM_ADDRESS', 'php5@cybuzzsc.com'),
         'name' => env('MAIL_FROM_NAME', 'PHP5'),
     ],
