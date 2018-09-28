@@ -105,7 +105,7 @@
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>
       <tr>
-        <th class="chy"  style="padding:5px!important;"><input type="checkbox"  class="minimal1 deleteallbutton" name="select_all"></th>
+        <th class="chy" style="padding:5px!important;"><input type="checkbox"  class="minimal1 deleteallbutton" name="select_all"></th>
         <th class="srno vl">SR.NO</th>
         <th  class="vl">EMPLOYEE NAME</th>
         <th  class="vl">USER NAME</th>
