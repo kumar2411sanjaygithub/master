@@ -71,6 +71,13 @@ Route::group(['middleware' => 'auth'], function ()
   Route::post('/ppa/updateppadata/{id}',['as'=>'ppa.updateppadata','uses'=>'PpaDetailsController@updateppadata']);
   Route::get('/ppa/deleteppa/{id}',['as'=>'deleteppa','uses'=>'PpaDetailsController@deleteppa']);
 
+    /*******************************************************
+    | PPA Bid Setting Routes
+    | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
+    /*******************************************************/
+
+   	Route::get('/ApprovalRequest/PPA/aprovePpa',['as'=>'approveppa','uses'=>'PpaApprovalController@approveppa']);
+
   /*******************************************************
   | ValidationSetting Routes
   | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
@@ -373,8 +380,6 @@ Route::get('fileNdownloads/{filename}', function($filename)
     }
 });
 
-
-
 //Noc Application & Bill Setting & Approval
 //Route::resource('noc-application', 'NocAppController');
 Route::get('/noc-applications',['as'=>'noc-applications.index','uses'=>'NocAppController@index']);
@@ -396,8 +401,7 @@ Route::get('/generatediscomPDF/{id}/client/{c_id}',['as'=>'NocDisocmPdf','uses'=
 
 Route::delete('/noc-request/{id}/status/{status_id}',['as'=>'nocRequest','uses'=>'NocAppController@nocReq']);
 Route::get('/noc/email-debit/{id}/client/{c_id}',['as'=>'noc-debit-email','uses'=>'NocAppController@emailDebitNoc']);
-Route::get('downloadGenPdfn/{filename}', 'NocAppController@downloadGenPdfn');
-Route::get('downlNewFile/{filename}', 'NocAppController@downloadNewDownWord');
+
 
 Route::get('/noc/billingsetting',['as'=>'billsetting.nocbilllist','uses'=>'NocAppController@nocbilllist']);
 Route::get('/noc_discom_search',['as'=>'noc_discom_search','uses'=>'NocAppController@nocbillsearch']);
