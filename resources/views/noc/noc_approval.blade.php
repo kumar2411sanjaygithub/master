@@ -35,9 +35,13 @@
     <thead>
       <tr>
         <th class="srno">SR.NO</th>
-        <th class="cn">CLIENT NAME</th>
-        <th class="act">PORTFOLIO ID</th>
+        <th>CLIENT NAME</th>
+        <th>PORTFOLIO ID</th>
         <th>APPLICATON NO.</th>
+        <th>SLDC</th>
+        <th>NOC TYPE</th>
+        <th>EXCHANGE TYPE</th>
+        <th>QUANTUM</th>        
         <th>VALIDITY START DATE</th>
         <th>VALIDITY END DATE</th>
         <th>NOC REQUEST</th>
@@ -59,6 +63,10 @@
                 @endif
             </td>
             <td>{{$noc_initiated->application_no}}</td>
+            <td>{{strtoupper($noc_initiated->sldc)}}</td>
+            <td>{{strtoupper($noc_initiated->noc_type)}}</td>
+            <td>{{strtoupper($noc_initiated->exchange_type)}}</td>
+            <td>{{$noc_initiated->quantum}}</td>
             <td>{{date('d/m/Y',strtotime($noc_initiated->start_date))}}</td>
             <td>{{date('d/m/Y',strtotime($noc_initiated->end_date))}}</td>
             <td>                
@@ -76,15 +84,17 @@
                 {{ method_field('DELETE') }}
                <div class="modal-dialog modal-confirm">
                  <div class="modal-content">
-                   <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
-                     <h4 class="modal-title text-center">ARE YOU SURE?</h4>
-                   </div>
+                    <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                      <h4 class="modal-title text-center">ARE YOU SURE?</h4>
+                    </div> -->
                    <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                     <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECT THIS NOC APPLICAITON.</p>
+                    <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECT THIS NOC APPLICAITON?</p></center>
                    </div>
                    <div class="modal-footer">
-                     <button type="submit" class="btn btn-danger">Yes</button>
-                     <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+                    <div class="text-center">
+                     <button type="submit" class="btn btn-info btn-xs">YES</button>
+                     <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">NO</button>
+                   </div>
                    </div>
                  </div>
                </div>
@@ -96,15 +106,17 @@
                 {{ method_field('DELETE') }}
                <div class="modal-dialog modal-confirm">
                  <div class="modal-content">
-                   <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
-                     <h4 class="modal-title text-center">ARE YOU SURE?</h4>
-                   </div>
+                    <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                      <h4 class="modal-title text-center">ARE YOU SURE?</h4>
+                    </div> -->
                    <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                     <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVE THIS NOC APPLICAITON.</p>
+                     <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVE THIS NOC APPLICAITON?</p></center>
                    </div>
                    <div class="modal-footer">
-                     <button type="submit" class="btn btn-danger">Yes</button>
-                     <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+                    <div class="text-center">
+                     <button type="submit" class="btn btn-info btn-xs">YES</button>
+                     <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">NO</button>
+                   </div>
                    </div>
                  </div>
                </div>
@@ -115,7 +127,7 @@
         @endforeach
       @else
         <tr>
-            <td colspan="8" style="background-color: #c74343a6;"><b>No Data Found.</b></td>
+            <td colspan="12" style="background-color: #c74343a6;"><b>No Data Found.</b></td>
         </tr>
       @endif
     </tbody>
@@ -127,9 +139,13 @@
     <thead>
       <tr>
         <th class="srno">SR.NO</th>
-        <th class="cn">CLIENT NAME</th>
-        <th class="act">PORTFOLIO ID</th>
+        <th>CLIENT NAME</th>
+        <th>PORTFOLIO ID</th>
         <th>APPLICATON NO.</th>
+        <th>SLDC</th>
+        <th>NOC TYPE</th>
+        <th>EXCHANGE TYPE</th>
+        <th>QUANTUM</th>          
         <th>VALIDITY START DATE</th>
         <th>VALIDITY END DATE</th>
         <th>NOC REQUEST</th>
@@ -150,6 +166,10 @@
                 @endif
             </td>
             <td>{{$noc_approved->application_no}}</td>
+            <td>{{strtoupper($noc_approved->sldc)}}</td>
+            <td>{{strtoupper($noc_approved->noc_type)}}</td>
+            <td>{{strtoupper($noc_approved->exchange_type)}}</td>
+            <td>{{$noc_approved->quantum}}</td>            
             <td>{{date('d/m/Y',strtotime($noc_approved->start_date))}}</td>
             <td>{{date('d/m/Y',strtotime($noc_approved->end_date))}}</td>
             <td>                
@@ -162,7 +182,7 @@
         @endforeach
       @else
         <tr>
-            <td colspan="8" style="background-color: #c74343a6;"><b>No Data Found.</b></td>
+            <td colspan="12" style="background-color: #c74343a6;"><b>No Data Found.</b></td>
         </tr>
       @endif
     </tbody>
@@ -174,9 +194,13 @@
     <thead>
       <tr>
         <th class="srno">SR.NO</th>
-        <th class="cn">CLIENT NAME</th>
-        <th class="act">PORTFOLIO ID</th>
+        <th>CLIENT NAME</th>
+        <th>PORTFOLIO ID</th>
         <th>APPLICATON NO.</th>
+        <th>SLDC</th>
+        <th>NOC TYPE</th>
+        <th>EXCHANGE TYPE</th>
+        <th>QUANTUM</th>           
         <th>VALIDITY START DATE</th>
         <th>VALIDITY END DATE</th>
         <th>NOC REQUEST</th>
@@ -197,6 +221,10 @@
                 @endif
             </td>
             <td>{{$noc_rejected->application_no}}</td>
+            <td>{{strtoupper($noc_rejected->sldc)}}</td>
+            <td>{{strtoupper($noc_rejected->noc_type)}}</td>
+            <td>{{strtoupper($noc_rejected->exchange_type)}}</td>
+            <td>{{$noc_rejected->quantum}}</td>             
             <td>{{date('d/m/Y',strtotime($noc_rejected->start_date))}}</td>
             <td>{{date('d/m/Y',strtotime($noc_rejected->end_date))}}</td>
             <td>
@@ -208,7 +236,7 @@
         @endforeach
       @else
         <tr>
-            <td colspan="8" style="background-color: #c74343a6;"><b>No Data Found.</b></td>
+            <td colspan="12" style="background-color: #c74343a6;"><b>No Data Found.</b></td>
         </tr>
       @endif
     </tbody>
