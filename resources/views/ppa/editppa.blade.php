@@ -28,6 +28,7 @@
             <div class="box">
               <form method="post" action="{{url('/ppa/updateppadata/'.$ppaData->id)}}" enctype="multipart/form-data">
                 {{ csrf_field() }}
+                <input class="form-control input-sm" type="hidden" value="{{ $ppaData->client_id }}" name="client_id" placeholder="ENTER POC LOSSES">
                <div class="box-body">
                   <div class="row">
                      <div class="col-md-3 {{ $errors->has('validity_from') ? 'has-error' : '' }}">

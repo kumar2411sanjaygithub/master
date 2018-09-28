@@ -88,6 +88,7 @@ class ManageClientLang
             'final_noc_quantum'=>'Final Noc Quantum',
             'validity_from'=>'From Date',
             'validity_to'=>'To Date',
+            'role'=>'Role',
             'upload_noc'=>' File Name',
             'bid_alert'=> 'Bid Alert',
             'obligation'=> 'Payment Obligation',
