@@ -39,7 +39,7 @@
   </div>
   <div class="col-md-3 {{ $errors->has('designation') ? 'has-error' : '' }}">
     <label  class="control-label">DESIGNATION<span class="text-danger"><strong>*</strong></span></label>
-  <input class="form-control input-sm alphanum" type="text" name="designation"  id="designation"   value="{{ $officialstData->designation }}">
+  <input class="form-control input-sm " type="text" name="designation"  id="designation"   value="{{ $officialstData->designation }}">
   <span class="text-danger">{{ $errors->first('designation') }}</span>
   </div>
   <div class="col-md-3 {{ $errors->has('email') ? 'has-error' : '' }}">
@@ -90,7 +90,7 @@
   <select class="form-control input-sm" name="role_id" id="role_id" style="width: 100%;">
 
       @foreach($role as $roleuser)
-      <option value="{{$roleuser->id}}" {{isset($officialstData) && $officialstData->id == $roleuser->id ? 'selected="selected"' : ''}}>{{$roleuser->name}}</option>
+      <option value="{{$roleuser->id}}" {{isset($officialstData) && $officialstData->role == $roleuser->id ? 'selected="selected"' : ''}}>{{$roleuser->name}}</option>
       @endForeach
 
   </select>

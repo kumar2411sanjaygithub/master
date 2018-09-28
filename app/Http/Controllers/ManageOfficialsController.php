@@ -32,7 +32,7 @@ class ManageOfficialsController extends Controller
   public function savedepartment(Request $request){
 
     $validator = Validator::make($request->all(), [
-           'depatment_name' => 'required|regex:/^[a-zA-Z0-9 ]*$/|min:1|unique:department,depatment_name,NULL,id,deleted_at,NULL',
+           'depatment_name' => 'required|min:1|unique:department,depatment_name,NULL,id,deleted_at,NULL',
 
        ]);
 
@@ -106,7 +106,7 @@ class ManageOfficialsController extends Controller
        //dd(1);
         $this->validate($request,[
           'name' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
-          'employee_id'=>'required|max:20',
+          'employee_id'=>'required|numeric|min:1|max:20',
 
           'contact_number' => 'required|unique:users|max:10|min:10|regex:/^[0-9]{10}$/',
           'telephone_number'=>'nullable|digits_between:4,15/',
@@ -145,8 +145,8 @@ class ManageOfficialsController extends Controller
         $employees->designation = $request->input('designation');
         $employees->department_id = $request->input('department_id');
         //$employees->role_id = $request->input('role_id');
-        $employees->line1 = $request->input('role_id');
-        $employees->role = $request->input('line1');
+        $employees->line1 = $request->input('line1');
+        $employees->role = $request->input('role_id');
         $employees->line2 = $request->input('line2');
         $employees->country = $request->input('country');
         $employees->state = $request->input('state');
@@ -170,7 +170,7 @@ class ManageOfficialsController extends Controller
         }
         // save officials_permission data Here
 
-        return redirect('manageofficials/employeeview')->with('message', 'Data Save Successfully!');
+        return redirect('manageofficials/employeeview')->with('message', 'Employee details saved successfully and submitted for approval. ');
     }
     public function viewoneoemployeepermission($id)
     {
@@ -209,7 +209,7 @@ class ManageOfficialsController extends Controller
         // $this->validate($request, [
       $validator = Validator::make($request->all(), [
           'name' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
-          'employee_id'=>'required|max:20',
+          'employee_id'=>'required|numeric|min:1|max:20',
 
           'contact_number' => 'required|max:10|min:10|regex:/^[0-9]{10}$/',
           'telephone_number'=>'nullable|digits_between:4,15/',
@@ -220,7 +220,7 @@ class ManageOfficialsController extends Controller
           //'confirmed' => 'max:20|same:password',
           'email' => 'required|email',
           'role_id' => 'required',
-          'designation' => 'required|max:20|regex:/^[a-zA-Z ]*$/|max:50',
+          'designation' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
           'department_id' => 'required',
           'line1' => 'required|max:100',
           'country' => 'required',
@@ -251,6 +251,7 @@ class ManageOfficialsController extends Controller
         $employees->designation = $request->input('designation');
         $employees->department_id = $request->input('department_id');
         //$employees->role_id = $request->input('role_id');
+        $employees->role = $request->input('role_id');
         $employees->line1 = $request->input('line1');
         $employees->line2 = $request->input('line2');
         $employees->country = $request->input('country');
@@ -365,12 +366,12 @@ class ManageOfficialsController extends Controller
         //   $officialspermissiontemp->update();
         // }
         // }
-        return redirect('manageofficials/employeeview')->with('updatemsg', 'Data Updated Successfully!');
+        return redirect('manageofficials/employeeview')->with('updatemsg', 'Employee update request has been successfully submitted for approval.');
     }
     public function deleteemployee($id)
         {
             User::destroy($id);
-            return redirect()->back()->with('delmsg', 'Data Deleted Successfully!');
+            return redirect()->back()->with('delmsg', 'Employee deleted successfully!');
         }
 
 
