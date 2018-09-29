@@ -372,6 +372,19 @@
 </section>
 {{ Html::script('js/newbid/newbid.js') }}
 <script>
+$(document).ready(function(){
+jQuery(document).delegate('.piyush_datepicker','change',function(){
+  if(jQuery(this).val()){
+    // alert(jQuery(this).val());
+    jQuery('#deliverydate').val(jQuery(this).val());
+    jQuery('#exchange_type').val('iex');
+    // alert(jQuery('#exchange_type').val());
+  }
+});
+  });
+
+  </script>
+<script>
 
 jQuery(document).ready(function(){
   jQuery("#message").fadeOut(6000);
@@ -396,14 +409,16 @@ jQuery("#downloadtemplteform").submit(function(){
       return false;
     }
 });
-jQuery(document).delegate('.piyush_datepicker','change',function(){
-  if(jQuery(this).val()){
 
-    jQuery('#deliverydate').val(jQuery(this).val());
-  }
-});
+// jQuery(document).delegate('.piyush_datepicker','change',function(){
+//   if(jQuery(this).val()){
+//     alert(jQuery(this).val());
+//     jQuery('#deliverydate').val(jQuery(this).val());
+//   }
+// });
 
-        src = "{{ route('searchajax') }}";
+
+         var src = "{{ route('searchajax') }}";
          jQuery(".search_text").autocomplete({
             source: function(request, response) {
                 jQuery.ajax({
@@ -562,6 +577,3 @@ var x = setInterval(function() {
 }, 1000);
 </script>
 @endsection
-
-<!-- wget --mirror --convert-links --adjust-extension --page-requisites
---no-parent https://www.w3schools.com/ -->

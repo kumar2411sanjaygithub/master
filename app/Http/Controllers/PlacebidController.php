@@ -697,7 +697,7 @@ class PlacebidController extends Controller
               $blockto = $request->input('time_slot_to');
               $diffHr =  $this->timeDiff($blockfrom,$blockto);
 
-              $noOfBlock = $request->input('no_of_block');
+              $noOfBlock = 1;
               if(($diffHr*4)%$noOfBlock <> 0){
                   $msg = 'Please enter valid block number !!!';
                   return response()->json(['status' => '1', 'msg'=>$msg],400);
