@@ -26,6 +26,7 @@ use App\AccountStatement;
 use App\PsmApproval;
 use  App\Common\Bid;
 use App\Basicinformation;
+use App\Validationsetting;
 
 
 class DownloadbidController extends Controller
@@ -61,6 +62,7 @@ class DownloadbidController extends Controller
 
     public function downloadbidexcel($type, $bid_type, $order_no,$date,$client_id)
     {
+
         // echo DB::enableQueryLog();
 
           /**
@@ -1242,7 +1244,7 @@ class DownloadbidController extends Controller
     }
 
     public function downloadbidtemplateexcel(Request $request){
-
+      // dd($request);
 
       $clientname = Client::select('*')->where("id",$request['userselected'])->get()->first();
 
@@ -1251,7 +1253,7 @@ class DownloadbidController extends Controller
       $data['company_id']=$request['userselected'];
       $path = 'storage/bid/BID_2018_05_23_n1hr0tpt1000.xlsx';
       $data['exchange']=(@$clientname['iex_portfolio'])?$clientname['iex_portfolio']:'';
-
+      // dd($data);
       Excel::load($path, function($file) use($data)
       {
         $date = str_replace('/', '-', $data['delivery_date']);
@@ -1301,22 +1303,27 @@ class DownloadbidController extends Controller
        $sheetData = $records->getActiveSheet()->toArray(null, true, true, true);
         $noc=0; $ppa=0; $psm=0; $exchange=0;
        if($sheetData[2]["C"]){
-            $exchangeusertemp = Exchange::with(['validationsetting'=>function($query){
-              $query->with(['clients'=>function($query){
-                $query->selectRaw("id,bid_cut_off_time as bid_submission_time");
-              }]);
-            }])->where("portfolio_id",trim($sheetData[2]["C"]))->get()->first();
+            $exchangeusertemp=DB::table('clients')
+                 ->selectRaw('id,bid_cut_off_time as bid_submission_time')
+                 ->where('iex_portfolio',trim($sheetData[2]["C"]))
+                 ->first();
+
+            // $exchangeusertemp = Exchange::with(['validationsetting'=>function($query){
+            //   $query->with(['clients'=>function($query){
+            //     $query->selectRaw("id,bid_cut_off_time as bid_submission_time");
+            //   }]);
+            // }])->where("portfolio_id",trim($sheetData[2]["C"]))->get()->first();
 
 
             if($exchangeusertemp){
-              $noc=(@$exchangeusertemp['validationsetting']['noc'])?1:0;
-              $ppa=(@$exchangeusertemp['validationsetting']['ppa'])?1:0;
-              $psm=(@$exchangeusertemp['validationsetting']['psm'])?1:0;
-              $exchange=(@$exchangeusertemp['validationsetting']['exchange'])?1:0;
-              // $noc=1;
-              // $ppa=1;
-              // $psm=1;
-              // $exchange=1;
+              // $noc=(@$exchangeusertemp['validationsetting']['noc'])?1:0;
+              // $ppa=(@$exchangeusertemp['validationsetting']['ppa'])?1:0;
+              // $psm=(@$exchangeusertemp['validationsetting']['psm'])?1:0;
+              // $exchange=(@$exchangeusertemp['validationsetting']['exchange'])?1:0;
+              $noc=1;
+              $ppa=1;
+              $psm=1;
+              $exchange=1;
             }else{
               $validator->getMessageBag()->add('User_id', 'UserID not found! Check Excel Sheet');
               return redirect()->back()->withErrors($validator->getMessageBag());
@@ -1327,9 +1334,9 @@ class DownloadbidController extends Controller
          return redirect()->back()->withErrors($validator->getMessageBag());
        }
 
-       $client_id = $exchangeusertemp['client_id'];
+       $client_id = $exchangeusertemp->id;
 
-       $blocked = Clientmaster::selectRaw("blocked")->where("id",$client_id)->first();
+       $blocked = Client::selectRaw("iex_status")->where("id",$client_id)->first();
        if($blocked->blocked){
              $validator->getMessageBag()->add('account', 'Your account is blocked');
              return redirect()->back()->withErrors($validator->getMessageBag());
@@ -1337,7 +1344,7 @@ class DownloadbidController extends Controller
 
        $checkType = trim($sheetData[4]["C"]);
 
-       $basicinfo = Basicinformation::selectRaw("power_trade_type")->where("client_id",$client_id)->first();
+       $basicinfo = Client::selectRaw("trader_type as power_trade_type")->where("id",$client_id)->first();
 
        if((strtoupper($basicinfo->power_trade_type) != strtoupper($checkType))&&(strtoupper($basicinfo->power_trade_type) != 'BOTH')){
            $validator->getMessageBag()->add('Tradetype', 'Your power trade type is set to '.strtolower($basicinfo->power_trade_type));
@@ -1365,7 +1372,7 @@ class DownloadbidController extends Controller
          $validator->getMessageBag()->add('Date', 'Invalid Bid-Date found! Check Excel Sheet');
          return redirect()->back()->withErrors($validator->getMessageBag());
        }
-       $bidsubmissiontime = Bid::validatebidtime($exchangeusertemp->client_id);
+       $bidsubmissiontime = $exchangeusertemp->bid_submission_time;
       // if(strtotime(date("H:i:s")) > strtotime($bidsubmissiontime)){
       //   $validator->getMessageBag()->add('Date', 'You Cant save New bid after '.date('H:s A',strtotime($bidsubmissiontime)).' of Today Date! Check Excel Sheet');
       //   return redirect()->back()->withErrors($validator->getMessageBag());
@@ -1381,28 +1388,89 @@ class DownloadbidController extends Controller
            return redirect()->back()->withErrors($validator->getMessageBag());
        }
 
+       // *******************START***********************
+        // | Validation setting for Exchange, NOC and PPA 
+        // ***********************************************
+        $validationSetting = Validationsetting::where('user_id',$client_id)->get()->first();
+        if($validationSetting){
+            //Exchange Validation setting and Exchange expire
+            if($validationSetting->exchange=='Exchange'){
+                $exchangeData = DB::table('exchange')
+                  ->select('exchange.*')
+                  ->where('exchange.client_id',$client_id)
+                  ->where('exchange.ex_type','iex')
+                  ->whereRaw("exchange.validity_from <="."'".date('Y-m-d',strtotime('-1 day', strtotime($formattedBidDate)))."'")
+                  ->whereRaw("exchange.validity_to >="."'".date('Y-m-d',strtotime('-1 day', strtotime($formattedBidDate)))."'")
+                  ->first();
+                if(empty($exchangeData)){
+                    $msg = 'Your Exchange has been expired or not uploaded. Please contact Trader Admin';
+                    return response()->json(['status' => '1', 'msg'=>$msg],400);
+                }
+            }
+            //NOC Setting and validation
+            if($validationSetting->noc=='NOC'){
+                $nocData = Noc::selectRaw('*')
+                    ->where('client_id',$client_id)
+                    ->whereRaw("validity_from <="."'".$formattedBidDate."'")
+                    ->whereRaw("validity_to >="."'".$formattedBidDate."'")
+                    ->where('noc_type',strtolower($checkType))
+                    ->first();
+                if(empty($nocData)){
+                    $msg = 'Your NOC has been expired or not uploaded. Please contact Trader Admin';
+                    return response()->json(['status' => '1', 'msg'=>$msg],400);
+                }
+                // else{
+                //     $nocData = Noc::select('*')
+                //                 ->where('client_id',$client_id)
+                //                 ->where('exchange','iex')
+                //                 ->where('noc_type',strtolower($checkType))
+                //                 ->whereRaw("validity_from <="."'".$formattedBidDate."'")
+                //                 ->whereRaw("validity_to >="."'".$formattedBidDate."'")
+                //                 ->first();
+                //     if($nocData->noc_quantum < $totalMwFinal){
+                //         $msg = 'You cannot place bid more than your maximum NOC quantum. Your maximum NOC quantum is set to '.strtoupper($nocData->noc_quantum).' for '.$request->input('bid_action').' trade type.';
+                //         return response()->json(['status' => '1', 'msg'=>$msg],400);
+                //     }
+                // }
+            }
+            //PPA Setting and validation
+            if($validationSetting->ppa=='PPA'){
+                $ppaData = DB::table('ppa_details')
+                    ->select('validity_from','validity_to')
+                    ->where('client_id',$client_id)
+                    ->whereRaw("validity_from <="."'".$formattedBidDate."'")
+                    ->whereRaw("validity_to >="."'".$formattedBidDate."'")
+                    ->first();
+                if(empty($ppaData)){
+                    $msg = 'Your PPA has been expired or not uploaded. Please contact Trader Admin';
+                    return response()->json(['status' => '1', 'msg'=>$msg],400);
+                }
+            }
+        }
+        // ***********************************************
+        // | Validation setting for Exchange, NOC and PPA
+        // ********************END************************
+       // if($noc){
 
-       if($noc){
+       //   $nocDetail=$this->validate_noc($exchangeusertemp['client_id'], $formattedBidDate, "iex", strtolower($checkType));
 
-         $nocDetail=$this->validate_noc($exchangeusertemp['client_id'], $formattedBidDate, "iex", strtolower($checkType));
-
-          if($nocDetail== "FALSE"){
-            $validator->getMessageBag()->add('NOC', 'Your NOC has been expired ! Check Excel-Sheet');
-            return redirect()->back()->withErrors($validator->getMessageBag());
-          }
-       }
-       if($ppa){
-         if(!$this->validate_ppa($exchangeusertemp['client_id'], $formattedBidDate)){
-           $validator->getMessageBag()->add('ppa', 'Your PPA has been expired ! Check Excel-Sheet');
-           return redirect()->back()->withErrors($validator->getMessageBag());
-         }
-       }
-       if($exchange){
-         if(!$this->validate_exchange($exchangeusertemp['client_id'],'iex', $formattedBidDate)){
-           $validator->getMessageBag()->add('Exchange_reg', 'Your Exchange Registration has been expired ! Check Excel-Sheet');
-           return redirect()->back()->withErrors($validator->getMessageBag());
-         }
-       }
+       //    if($nocDetail== "FALSE"){
+       //      $validator->getMessageBag()->add('NOC', 'Your NOC has been expired ! Check Excel-Sheet');
+       //      return redirect()->back()->withErrors($validator->getMessageBag());
+       //    }
+       // }
+       // if($ppa){
+       //   if(!$this->validate_ppa($exchangeusertemp['client_id'], $formattedBidDate)){
+       //     $validator->getMessageBag()->add('ppa', 'Your PPA has been expired ! Check Excel-Sheet');
+       //     return redirect()->back()->withErrors($validator->getMessageBag());
+       //   }
+       // }
+       // if($exchange){
+       //   if(!$this->validate_exchange($exchangeusertemp['client_id'],'iex', $formattedBidDate)){
+       //     $validator->getMessageBag()->add('Exchange_reg', 'Your Exchange Registration has been expired ! Check Excel-Sheet');
+       //     return redirect()->back()->withErrors($validator->getMessageBag());
+       //   }
+       // }
        $isBarredHint=0;
 
 
@@ -1473,15 +1541,15 @@ class DownloadbidController extends Controller
         }
 
 
-        if(@$nocDetailAr){
-      $compareQuantum = $this->compareBidQuantumWithNocQuantum($checkType, trim($BidType[1]), $timeslice, $nocDetailAr, $totalBidArray);
-     // exit;
-      if ($compareQuantum == "FALSE") {
+      if(@$nocDetailAr){
+        $compareQuantum = $this->compareBidQuantumWithNocQuantum($checkType, trim($BidType[1]), $timeslice, $nocDetailAr, $totalBidArray);
+       // exit;
+        if ($compareQuantum == "FALSE") {
 
-        $validator->getMessageBag()->add('quantum_exceed', 'Your Bidding Quantum Excedding from Noc Quantum . Check Excel-Sheet');
-        return redirect()->back()->withErrors($validator->getMessageBag());
+          $validator->getMessageBag()->add('quantum_exceed', 'Your Bidding Quantum Excedding from Noc Quantum . Check Excel-Sheet');
+          return redirect()->back()->withErrors($validator->getMessageBag());
+        }
       }
-    }
       $ValidateMsg = $this->ValidateBid($timeslice, $totalBidArray, $checkType, trim($BidType[1]));
       if ($ValidateMsg <> "TRUE") {
         $validator->getMessageBag()->add('something_wrong ', 'Something Wrong with bid count..! Check Excel-Sheet');
@@ -1719,14 +1787,14 @@ function getBidValueOnPerticularTimeSlice($main_array, $from, $to, $price) {
 public function validate_user_status($client_id,$exchange){
 
   if($exchange=='iex'){
-       $data = Basicinformation::where(['client_id'=>$client_id,'iex_status'=>'Active'])->get()->first();
+       $data = Client::where(['id'=>$client_id,'iex_status'=>'Active'])->get()->first();
        if($data){
          return 0;
        }else{
          return 1;
        }
   }else{
-       $data = Basicinformation::where(['client_id'=>$client_id,'pxil_status'=>'Active'])->get()->first();
+       $data = Client::where(['id'=>$client_id,'pxil_status'=>'Active'])->get()->first();
        if($data){
          return 0;
        }else{
