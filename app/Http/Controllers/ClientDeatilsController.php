@@ -21,7 +21,7 @@ class ClientDeatilsController extends Controller
 {
 	public function viewlist()
 	{
-		$clientdata = Client::all()->where('client_app_status','1');
+		$clientdata = Client::latest()->where('client_app_status','1')->get();
 
 		return view('ManageClient.addclient',compact('clientdata'));
 	}
@@ -131,7 +131,7 @@ class ClientDeatilsController extends Controller
 
     public function viewclient($id='',$tag=''){
 
-            $clientdata = Client::select('*')->where('client_app_status','1')->where('id',$id)->first();           
+            $clientdata = Client::select('*')->where('client_app_status','1')->where('id',$id)->first();
 
 
 				$voltage_array=array();
@@ -175,7 +175,7 @@ class ClientDeatilsController extends Controller
     public function viewclientPrint($id='',$tag=''){
 
         $action_info='view';
-            $clientdata = Client::select('*')->where('id',$id)->first();           
+            $clientdata = Client::select('*')->where('id',$id)->first();
 
                 $voltage_array=array();
                 $sldc=StateDiscom::where('state',@$clientdata->conn_state)->first();
@@ -194,7 +194,7 @@ class ClientDeatilsController extends Controller
                          }
 
                     }
-                }    
+                }
                 $discom_array=array();
                 $json_discom=json_decode(@$sldc->discom);
                 if(isset($json_discom))

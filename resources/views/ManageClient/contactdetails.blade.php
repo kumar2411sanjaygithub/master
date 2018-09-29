@@ -12,15 +12,13 @@
 
     <!-- Main content -->
     <section class="content">
-          <!-- @if (count($errors) > 0)
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif -->
+          @if (count($errors) > 0 && $errors->has('pending'))
+            <div class="alert alert-danger">
+                <ul>
+                   <li>{{ $errors->first('pending') }}</li>
+                </ul>
+            </div>
+         @endif
 
 
           <div class="row">
@@ -55,7 +53,7 @@
       </div>
       <div class="col-md-3 {{ $errors->has('designation') ? 'has-error' : '' }}">
        <label  class="control-label">DESIGNATION<span class="text-danger"><strong>*</strong></span></label>
-      <input class="form-control input-sm alphanum" type="text" placeholder="ENTER DESIGNATION" id="designation" name="designation" value="{{isset($get_contact_details)?$get_contact_details->designation:old('designation')}}">
+      <input class="form-control input-sm" type="text" placeholder="ENTER DESIGNATION" id="designation" name="designation" value="{{isset($get_contact_details)?$get_contact_details->designation:old('designation')}}">
       <span class="text-danger">{{ $errors->first('designation') }}</span>
       </div>
       <div class="col-md-3 {{ $errors->has('email') ? 'has-error' : '' }}">

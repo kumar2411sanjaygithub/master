@@ -22,7 +22,7 @@ text-transform : uppercase
                 <div class="alert alert-success alert-dismissible fade in">
                   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                  <span class="glyphicon glyphicon-ok"></span> &nbsp;{!! \Session::get('success') !!}
-                </div>            
+                </div>
                 @endif
                <div class="row">
                   <div class="col-xs-12">
@@ -35,19 +35,20 @@ text-transform : uppercase
                            <div class="box">
                               <div class="box-body">
                                  <div class="row">
-                                    <div class="col-md-12 pull-right">
-                                              @if (count($clientData) > 0)
+                                    <div class="col-md-12">
+                                      <div class="pull-right">
+                                      @if (count($clientData) > 0)
                                        <form class="pull-right" action="{{ url()->to('multiple-approve/Rejected') }}" method="post" id="approve_data">
                                          {{ csrf_field() }}
                                          <input type="hidden" name="selected_status" class="selected_status">
                                          <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted-rej" name="cdw5" id="cdw5">REJECT ALL</button>
 
-                                         <a data-toggle="modal" data-target="#myModalRej" class="btn btn-danger btn-xs mlt">REJECT ALL</a>
+                                         <a data-toggle="modal" data-target="#myModalRej" class="btn btn-danger btn-xs">REJECT ALL</a>
                                        </form>
-                                       @endif
-
+                                      @endif
+                                      &nbsp;
                                     @if (count($clientData) > 0)
-                                    <form class="pull-right" action="{{ url()->to('multiple-approve/Approved') }}" method="post" id="approve_data">
+                                    <form class="pull-left" action="{{ url()->to('multiple-approve/Approved') }}" method="post" id="approve_data">
                                       {{ csrf_field() }}
                                       <input type="hidden" name="selected_status" class="selected_status">
                                       <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted" name="cdw5" id="cdw5">APPROVE ALL</button>
@@ -55,6 +56,7 @@ text-transform : uppercase
                                       <a data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info btn-xs">APPROVE ALL</a>
                                     </form>
                                     @endif
+                                  </div>
 
                                   </div>
                                         <div id="myModal" class="modal fade" style="display: none;">
