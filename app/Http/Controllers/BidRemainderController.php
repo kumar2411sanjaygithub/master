@@ -27,22 +27,23 @@ class BidRemainderController extends Controller
 		if(!$id)
 		{
 		 $a = array();
-		 $data['clients'] = Client::select('id','name as company_name')->get();
+		 $data['clients'] = Client::select('id','company_name','iex_portfolio')->get();
 		 foreach ($data['clients'] as $key => $value) {
 //dd($value->id);
 			$d = Placebid::select('*')->where('status','0')->orderBy('bid_date','desc')->take(1)->get()->toArray();
 			//$d = DB::table('place_bid')->orderBy('bid_date','desc')->where('status','1')->where('client_id',$value->id)->orderBy('bid_date','desc')->take(1)->get();
 			//dd($d);
 
-			//**********************************
-			// $sms = $value->sms()->where('status','1')->where('client_id',[$value->id])->orderBy('created_at','desc')->take(1)->get()->toArray();
-			// $email = $value->email()->where('status','1')->where('client_id',[$value->id])->orderBy('created_at','desc')->take(1)->get()->toArray();
-			//**********************************
+			
+			$sms = $value->sms()->where('status','1')->where('client_id',[$value->id])->orderBy('created_at','desc')->take(1)->get()->toArray();
+			$email = $value->email()->where('status','1')->where('client_id',[$value->id])->orderBy('created_at','desc')->take(1)->get()->toArray();
+			
 
 			// dd($d);
 			$a[]= array(
 				'client_id' => $value->id,
 				'company_name' => $value->company_name,
+				'iex_portfolio'=> $value->iex_portfolio,
 				'bid_submission_date' => isset($d[0])?$d[0]['bid_date']:'',
 				'bid_submission_time' => isset($d[0])?$d[0]['created_at']:'NA',
 				'sms_submission_time' =>explode(" ",(isset($sms[0])?$sms[0]['created_at']:'')),
@@ -58,19 +59,20 @@ class BidRemainderController extends Controller
 		{
 
 			$a = array();
-		 	$data['clients'] = Client::select('id','name as company_name')->where('id',$id)->get();
+		 	$data['clients'] = Client::select('id','company_name','iex_portfolio')->where('id',$id)->get();
 		 	//dd($data['clients'][0]['company_name']);
 			$d = Placebid::where('client_id',$id)->where('status','0')->orderBy('bid_date','desc')->take(1)->get()->toArray();
 			//$d = DB::table('place_bid')->orderBy('bid_date','desc')->where('status','1')->where('client_id',$value->id)->orderBy('bid_date','desc')->take(1)->get();
 			//dd($d);
 			
-			//**********************
-			// $sms = SmsLog::where('status','1')->where('client_id',$id)->orderBy('created_at','desc')->take(1)->get()->toArray();
-			// $email = EmailLog::where('status','1')->where('client_id',$id)->orderBy('created_at','desc')->take(1)->get()->toArray();
-			//**********************
+			
+			$sms = SmsLog::where('status','1')->where('client_id',$id)->orderBy('created_at','desc')->take(1)->get()->toArray();
+			$email = EmailLog::where('status','1')->where('client_id',$id)->orderBy('created_at','desc')->take(1)->get()->toArray();
+			
 			$a[]= array(
 				'client_id' => $id,
 				'company_name' => $data['clients'][0]['company_name'],
+				'iex_portfolio' => $data['clients'][0]['iex_portfolio'],
 				'bid_submission_date' => isset($d[0])?$d[0]['bid_date']:'',
 				'bid_submission_time' => isset($d[0])?$d[0]['created_at']:'NA',
 				'sms_submission_time' =>explode(" ",(isset($sms[0])?$sms[0]['created_at']:'')),

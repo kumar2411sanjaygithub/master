@@ -93,28 +93,30 @@ class PsmdetailsController extends Controller
     public function addpsmdetailssubmit(Request $request, $id)
     {
       if($request['type'] == 0 || $request['type'] == 1)
-           {
-             $validator = $this->validate($request, [
-             "type"=>"required",
-             "received_date"=>"required|date",
-             "amount"=>"required",
-             "expiry_date"=>"required|date|after_or_equal:received_date",
-           ]);
-         }
 
-     $psm = new Psmdetails();
-     if($request['type'] == 2 || $request['type'] == 3)
-     {
-       $validator = $this->validate($request, [
-       "type"=>"required",
-       "received_date"=>"required|date",
-       "amount"=>"required",
-       "issue_date"=>"required",
-       "document"=>"required",
-       "expiry_date"=>"required|date|after_or_equal:received_date",
+      {
+        $validator = $this->validate($request, [
+        "type"=>"required",
+        "received_date"=>"required|date",
+        "amount"=>"required",
+        "expiry_date"=>"required|date|after_or_equal:received_date",
+      ]);
+    }
 
-     ]);
+      $psm = new Psmdetails();
+      if($request['type'] == 2 || $request['type'] == 3)
+      {
+        $validator = $this->validate($request, [
+        "type"=>"required",
+        "received_date"=>"required|date",
+        "amount"=>"required",
+        "issue_date"=>"required",
+        "document"=>"required",
+        "expiry_date"=>"required|date|after_or_equal:received_date",
 
+      ]);
+
+          
         if(isset(request()->document))
            {
 

@@ -79,6 +79,9 @@ Route::group(['middleware' => 'auth'], function ()
    	Route::get('/ApprovalRequest/PPA/aprovePpa',['as'=>'approveppa','uses'=>'PpaApprovalController@approveppa']);
     Route::get('/approveppadetailsfind/{id}',['as'=>'approveppadetailsfind','uses'=>'PpaApprovalController@approveppadetailsfind']);
     Route::get('/PPA/aprovePpa/{id}/{type}',['as'=>'PPA.aprovePpa','uses'=>'PpaApprovalController@newapprove']);
+    Route::get('/modifiedPpa/{id}/{type}',['as'=>'PPA.modified','uses'=>'PpaApprovalController@Modifiedapprove']);
+    Route::get('/deletedPPA/{id}/{type}',['as'=>'PPA.modified','uses'=>'PpaApprovalController@delete_PPA']);
+
 
   /*******************************************************
   | ValidationSetting Routes
@@ -224,6 +227,7 @@ Route::group(['middleware' => 'auth'], function ()
     Route::get('/discom-sldc-state/delvoltage/{id}/e_del/{eid}','DiscomSLDCController@delvoltage');
 
 // APPROVAL FOR EMPLOYEE---SHALU //
+
 // Route::get('/employee/newemployeeclient',array('as'=>'approve.newemployee','uses'=>'EmployeeApprovalController@approveemployeeview'));
 Route::get('/employee/newemployeeclient',['as'=>'approve.newemployee','uses'=>'EmployeeApprovalController@approveemployeeview']);
 
@@ -232,6 +236,7 @@ Route::get('/approve/{id}',['as'=>'approve','uses'=>'EmployeeApprovalController@
 Route::get('/reject/{id}',['as'=>'reject','uses'=>'EmployeeApprovalController@rejectnew']);
 Route::get('/employee/approve/{id}',['as'=>'existing.approve','uses'=>'EmployeeApprovalController@existingApprove']);
 Route::get('/employee/reject/{id}',['as'=>'existing.reject','uses'=>'EmployeeApprovalController@existingReject']);
+
 //MANAGE CLIENT---SHALU//
 Route::get('/basicdetails',['as'=>'basic.details','uses'=>'ClientDeatilsController@viewlist']);
 Route::get('/clientadd',['as'=>'clientadd','uses'=>'ClientDeatilsController@addclient']);
@@ -435,7 +440,7 @@ Route::get('/scheduling/{exchange}/{year}/{month}/{day}',['as'=>'scheduling.inde
 Route::get('/update_ftp_list/{exchange}/{year}/{month}/{day}',['as'=>'scheduling.ftp_db','uses'=>'SchedulingController@updateFtpDetails']);
 Route::get('/scheduling/download/{id}',['as'=>'download.scheduling','uses'=>'SchedulingController@downloadScheduling']);
 Route::get('/scheduling/import/{id}',['as'=>'scheduling.import','uses'=>'SchedulingController@importScheduling']);
-Route::get('/service/mailobligation/{client_id}/{ftp_id}',['as'=>'service.mail','uses'=>'EmailController@mail_scheduling']);
+Route::get('/service/mailscheduling/{client_id}/{ftp_id}',['as'=>'service.mail','uses'=>'EmailController@mail_scheduling']);
 Route::get('/scheduling/downloadA/{id}','SchedulingController@downloadAmbScheduling');
 
 
@@ -472,6 +477,20 @@ Route::get('/rate_sheet_graph/{exchange}/{year}/{month}/{day}','RatesheetGraphCo
 Route::get('/rate_sheet_graph','RatesheetGraphController@graphindex')->name('rate_sheet_graph');
 
 Route::get('download-ratesheet/{filename}','RatesheetController@download');
+Route::get('/service/mailRatesheet/{client_id}/{ftp_id}',['as'=>'service.rtc','uses'=>'EmailController@mail_rtSheet']);
+
+
+/*******************************************************
+  BILL/INVOICE----DURGESH/SHALU
+/*******************************************************/
+Route::get('/invoice',['as'=>'billing','uses'=>'InvoiceController@index']);
+Route::get('/invoice/{exchange}/{year}/{month}/{day}',['as'=>'invoice.index','uses'=>'InvoiceController@index']);
+Route::get('/create/invoice/{id}','InvoiceController@create')->name('invoice');
+Route::get('/view/invoice/{id}','InvoiceController@view_invoice')->name('view');
+Route::post('/client_bill_list','InvoiceController@client_list')->name('list');
+
+
+
 
 
 

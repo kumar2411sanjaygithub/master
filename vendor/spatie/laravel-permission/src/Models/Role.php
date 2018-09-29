@@ -153,5 +153,4 @@ class Role extends Model implements RoleContract
 
         return $this->permissions->contains('id', $permission->id);
     }
-
 }
