@@ -244,7 +244,7 @@
                       </a>
                       <ul class="treeview-menu" style="display: none;">
                         <li><a href="#"><i class="fa fa-circle-o"></i>Submitted / Rejected</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i>Un-submitted</a></li>
+                        <li><a href="{{route('unsubmitted')}}"><i class="fa fa-circle-o"></i>Un-submitted</a></li>
                         <li><a href="#"><i class="fa fa-circle-o"></i>Deleted</a></li>
                         <li><a href="#"><i class="fa fa-circle-o"></i>No Bid</a></li>
                       </ul>
