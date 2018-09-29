@@ -24,9 +24,12 @@ use App\IexObligationImported;
 use App\Bill;
 use App\AccountStatement;
 use App\PsmApproval;
-use  App\Common\Bid;
+use App\Common\Bid;
 use App\Basicinformation;
 use App\Validationsetting;
+use App\Noc;
+
+
 
 
 class DownloadbidController extends Controller
