@@ -67,7 +67,7 @@ class LeadController extends Controller
         $this->validate($request, [
             'company_name' => 'required|min:1|max:50',
             'product' => 'required',
-            'contact_person' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
+            'contact_person' => 'required|regex:/^[a-zA-Z\.\s]+$/u|max:50',
             'contact_number' => 'required',
             'email_id' => 'required',
             'add_line1' => 'required|max:200',
@@ -340,7 +340,7 @@ class LeadController extends Controller
 
         $lead_info = Lead::findOrFail($id);
         $password = str_random(10);
-        
+
         if($lead_info->product==$c_id)
         {
             $client = new Client;
