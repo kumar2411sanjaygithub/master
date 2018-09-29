@@ -32,7 +32,6 @@ span.hifan{margin-right:10px!important;}
             @foreach ($clientData as $key => $value)
             <option value="{{ $value->id }}" data-tokens="{{ $value->id }}.{{ $value->id }}.{{ $value->id }};?>"  @if(@$client_id==$value->id) selected  @endif> [{{$value->company_name}}] [{{$value->short_id}}] [{{$value->crn_no}}]</option>
            @endforeach
-
          </select>
          <script>
          $(document).ready(function() {
@@ -261,7 +260,7 @@ span.hifan{margin-right:10px!important;}
                                                 @else
                                                   {{$value->old_att_value}}
                                                 @endif
-                                                
+
                                               </td>
                                                <td class="text-center vl">
                                                 @if(strstr($input_lebels[$value->attribute_name], 'Date') !== false)
@@ -376,8 +375,5 @@ $(document).ready(function() {
         $(".deletedbutton").iCheck('uncheck');
     });
   });
-
   </script>
-
-
 @endsection
