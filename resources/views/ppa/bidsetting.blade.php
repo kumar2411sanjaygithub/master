@@ -42,7 +42,7 @@
                   <select class="" name="client_id" id="select-client" data-live-search="true">
                     <option value="">Search Client</option>
                      @foreach ($clientData as $key => $value)
-                     <option value="{{ $value->id }}" @if(@$id==$value->id) selected="selected" @endif>  [{{$value->company_name}}] [{{$value->short_id}}] [{{$value->crn_no}}]</option>
+                     <option value="{{ $value->id }}" @if(@$id==$value->id) selected="selected" @endif>  {{$value->company_name}} [{{$value->short_id}}] [{{$value->crn_no}}] [{{$value->iex_portfolio}}] [{{$value->pxil_portfolio}}]</option>
                     @endforeach
 
                   </select>

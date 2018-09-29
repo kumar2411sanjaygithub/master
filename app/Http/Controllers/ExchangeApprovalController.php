@@ -27,9 +27,9 @@ class ExchangeApprovalController extends Controller
     }
      public function addapprove($id,$type,$type2)
        {
-         
+
            if($id!='' && $type=='approved'){
-             
+
                 $bnc = ExchangeTemp::find($id);
                 $new_bnc = new Exchange();
                 $new_bnc->client_id = $bnc->client_id;
@@ -39,15 +39,15 @@ class ExchangeApprovalController extends Controller
                 $new_bnc->file_upload = $bnc->file_upload;
                 $new_bnc->status= 1;
                 $new_bnc->save();
-                $bnc->status = 1; 
+                $bnc->status = 1;
                 $bnc->update();
-            
-              
-               return Redirect::back()->with('success', 'User details successfully approved.');
+
+
+               return Redirect::back()->with('success', 'Client details approved successfully.');
                }else{
                $mm = new ExchangeTemp;
                $mm::where('id', $id)->update(['status'=> '2']);
-                return Redirect::back()->with('success', 'User details successfully rejected.');
+                return Redirect::back()->with('success', 'Client details rejected successfully.');
             }
     }
      public function clientExchangeApp(Request $request,$tag='',$type2='')
@@ -66,24 +66,24 @@ class ExchangeApprovalController extends Controller
                 $new_bnc->file_upload = $bnc->file_upload;
                 $new_bnc->status= 1;
                 $new_bnc->save();
-                $bnc->status = 1; 
+                $bnc->status = 1;
                 $bnc->update();
-            
+
 
               }
-       
 
-            return Redirect::back()->with('success', 'User details successfully approved.');
+
+            return Redirect::back()->with('success', 'Client details approved successfully.');
           }
           elseif ($tag=='Rejected') {
             foreach($array as $id){
                 $mm = new ExchangeTemp;
                 $dd=$mm::where('id', $id)->update(['status'=> '2']);
             }
-            return Redirect::back()->with('success', 'User details successfully rejected.');
+            return Redirect::back()->with('success', 'Client details rejected successfully.');
         }
 
-        
+
     }
 
      public function modified($id,$type)
@@ -91,21 +91,21 @@ class ExchangeApprovalController extends Controller
          if($id!='' && $type=='approved'){
             // $model = array('excahnge'=> 'Exchange',
             //           'client'=>'Client');
-            $updatestemp = Approvalrequest::find($id); 
+            $updatestemp = Approvalrequest::find($id);
             //$selectedmodel= '\\App\\'.$model[$updatestemp->approval_type];
             $selectedmodel = new Exchange;
-            $exchange = $selectedmodel::find($updatestemp->reference_id); 
+            $exchange = $selectedmodel::find($updatestemp->reference_id);
             $attribute_name = $updatestemp->attribute_name;
             $exchange->$attribute_name = $updatestemp->updated_attribute_value;
             $exchange->update();
             $updatestemp->status = 1;
-            $updatestemp->update();          
-            return Redirect::back()->with('success', 'User details successfully approved.');
+            $updatestemp->update();
+            return Redirect::back()->with('success', 'Client details approved successfully.');
 
          }elseif ($id!='' && $type=='rejected') {
 
             Approvalrequest::where('id', $id)->update(['status'=> '2']);
-            return Redirect::back()->with('success', 'User details successfully rejected.');
+            return Redirect::back()->with('success', 'Client details rejected successfully.');
         }
     }
      public function clientExchangeMode(Request $request,$tag='',$type2='')
@@ -115,27 +115,27 @@ class ExchangeApprovalController extends Controller
         $array=explode(',',$approvalstatus_id);
         if($tag=='Approved'){
           foreach($array as $id){
-                $updatestemp = Approvalrequest::find($id); 
+                $updatestemp = Approvalrequest::find($id);
                 //$selectedmodel= '\\App\\'.$model[$updatestemp->approval_type];
                 $selectedmodel = new Exchange;
-                $exchange = $selectedmodel::find($updatestemp->reference_id); 
+                $exchange = $selectedmodel::find($updatestemp->reference_id);
                 $attribute_name = $updatestemp->attribute_name;
                 $exchange->$attribute_name = $updatestemp->updated_attribute_value;
                 $exchange->update();
                 $updatestemp->status = 1;
-                $updatestemp->update();     
-            
-              }        
-            return Redirect::back()->with('success', 'User details successfully approved.');
+                $updatestemp->update();
+
+              }
+            return Redirect::back()->with('success', 'Client details approved successfully.');
           }
           elseif ($tag=='Rejected') {
             foreach($array as $id){
                 Approvalrequest::where('id', $id)->update(['status'=> '2']);
             }
-            return Redirect::back()->with('success', 'User details successfully rejected.');
+            return Redirect::back()->with('success', 'Client details rejected successfully.');
         }
 
-        
+
     }
 
      public function delete_exchange($id,$type,$type2){
@@ -148,19 +148,19 @@ class ExchangeApprovalController extends Controller
                    $new->del_status = 2;
                    $new->update();
 
-            return Redirect::back()->with('success', 'User details successfully approved.');
+            return Redirect::back()->with('success', 'Client details approved successfully.');
            }else{
-            
+
                   $new_bnc = new Exchange;;
                   $new =  $new_bnc::withTrashed()->find($id);
                   $new->del_status = 4 ;
                   $new->update();
-                  return Redirect::back()->with('success', 'User details successfully rejected.');
+                  return Redirect::back()->with('success', 'Client details rejected successfully.');
         }
      }
      public function clientExchangeDel(Request $request,$tag='',$type2='')
     {
-      
+
         $approvalstatus_id=$request['selected_status'];
         $array=explode(',',$approvalstatus_id);
         if($tag=='Approved'){
@@ -169,9 +169,9 @@ class ExchangeApprovalController extends Controller
                   $new =  $new_bnc::withTrashed()->find($id);
                   $new->del_status = 2;
                   $new->update();
-            
-              }        
-            return Redirect::back()->with('success', 'User details successfully approved.');
+
+              }
+            return Redirect::back()->with('success', 'Client details approved successfully.');
           }
           elseif ($tag=='Rejected') {
             foreach($array as $id){
@@ -180,10 +180,10 @@ class ExchangeApprovalController extends Controller
                   $new->del_status = 4;
                   $new->update();
             }
-            return Redirect::back()->with('success', 'User details successfully rejected.');
+            return Redirect::back()->with('success', 'Client details rejected successfully.');
         }
 
-        
+
     }
 
 }

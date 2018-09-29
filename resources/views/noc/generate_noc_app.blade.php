@@ -22,15 +22,15 @@
                <div class="row">&nbsp;</div>
                <div class="row">&nbsp;</div>
                <div style="font-size:14px;font-weight:600;">
-                  <u>Sub: Standing Clearance for {{$sldc}} in Power Exchanges({{$exchange}})</u>
+                  <u>Sub: Standing Clearance for {{$short_id}} {{$company_name}} in Power Exchanges({{$exchange}})</u>
                </div>
                <div class="row">&nbsp;</div>
                <div>Dear Sir,</div>
                <div class="row">&nbsp;</div>
                <div style="font-size:13px;">
                   Tata Power Trading is a member of both the power exchange(IEX/PXIL),presently in operation.We have power purchase aggreement with
-                  {{$sldc}} for Buying Power for their plant in karnataka. We request you to kindly issue the Standing Clearance
-                  for Buying {{$quantum}} MW for {{$sldc}} power Exchange ({{$exchange}}) from {{$from_date}} to {{$end_date}}, as per Exchange Px-I format. Processing Fees of Rs.{{$amount}} with UTR no.
+                  {{$short_id}} {{$company_name}} for Buying Power for their plant in {{$conn_state}}. We request you to kindly issue the Standing Clearance
+                  for Buying {{$quantum}} MW for {{$short_id}} {{$company_name}} in Power Exchange ({{$exchange}}) from {{$from_date}} to {{$end_date}}, as per Exchange PX-I format. Processing Fees of Rs.{{$amount}} with UTR no.
                   {{$challan_no}} is paid on {{$transcation_date}}.
                </div>
                <div class="row">&nbsp;</div>

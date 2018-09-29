@@ -15,10 +15,10 @@
                <div id="data3" style="margin-top:30px;">
                   <div id="emp1">To,</div>
                   <div class="row">&nbsp;</div>
-                  <div id="emp3">Haldia Power Project HFC Complex</div>
-                  <div id="emp4">Patikhali, Purba Nedinpur Haldia</div>
-                  <div id="emp5">721606,West Bengal.</div>
-                  <div id="emp6">PIN-123456</div>
+                  <div id="emp3">{{ $client_det['company_name'] }}</div>
+                  <div id="emp4">{{ $client_det['bill_line1'] }}, {{ $client_det['bill_line2'] }}</div>
+                  <div id="emp5">{{ $client_det['bill_city'] }},{{  \App\Common\StateList::get_state_name($client_det['bill_state']) }}</div>
+                  <div id="emp6">{{ $client_det['bill_country'] }}, PIN-{{ $client_det['bill_pin'] }}</div>
               </div>
                     <div class="row">&nbsp;</div>
                   <div class="row">&nbsp;</div>
@@ -28,7 +28,7 @@
 
               <div class="row">&nbsp;</div>
               <div class="row">&nbsp;</div>
-              <div class="text-center" style="font-size:15px;font-weight:600;">Sub:Debit Note for {{$client_name}}({{$challan_no}})</div>
+              <div class="text-center" style="font-size:15px;font-weight:600;">Sub:Debit Note for {{$client_det['company_name']}}({{$client_det['iex_portfolio']}})</div>
                  <div class="row">&nbsp;</div>
              <div style="margin-left:20%;">
                 <table class="table table-bordered text-center table-condensed" style="width:80%;">
@@ -40,7 +40,7 @@
                   </tr>
                   <tr>
                     <td  style="font-size:12px;vertical-align:middle;">1</td>
-                    <td  style="font-size:12px;">Debit Note for NOC raised to SLDC for<br>{{$client_name}} for the Period<br>from {{$from_date}} to {{$end_date}}.</td>
+                    <td  style="font-size:12px;">Debit Note for NOC raised to SLDC for<br> {{$client_det['company_name']}} for the Period<br>from {{$from_date}} to {{$end_date}}.</td>
                     <td  style="font-size:12px;vertical-align:middle;font-weight:600;">Rs. {{$amount}}</td>
                   </tr>
                   </tbody>
@@ -48,9 +48,9 @@
              </div>
              <div class="row">&nbsp;</div>
                 @php
-                    $convert_word = \App\Common\StateList::numberTowords($amount);
+                    $convert_word = \App\Common\FinancialFunctions::getIndianCurrency($amount);
                 @endphp
-             <div class="row text-center" style="font-size:15px;font-weight:600;">Net Amount Payable: {{ucwords($convert_word) }} Only</div>
+             <div class="row text-center" style="font-size:15px;font-weight:600;">Net Amount Payable: {{ucwords($convert_word) }}</div>
              <div class="row">&nbsp;</div>
              <div class="row">&nbsp;</div>
             <div class="row">&nbsp;</div>
