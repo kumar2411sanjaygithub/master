@@ -36,7 +36,7 @@ class ClientApprovalController extends Controller
 
             // $Clientmaster = new Client();
             if($clientData->count() > 0){
-                
+
                 //$clientData->client_app_status = 1;
                 // $Clientmaster->company_name  =  $clientData->company_name;
                 // $Clientmaster->gstin  =  $clientData->gstin;
@@ -46,19 +46,19 @@ class ClientApprovalController extends Controller
                 // $Clientmaster->new_sap    =  $clientData->new_sap;
                 $clientData->save();
                 $cid = $clientData->id;
-              
+
                 $crn_no = 'CRN00000'.$cid;
 
                 //$hasing_password = Hash::make(str_random(10));
                 $password = str_random(10);
-                
+
                 Client::where('id', $cid)->update(['client_app_status'=>1,'crn_no'=>$crn_no]);
-                
+
                $data = array('name'=>$clientData->company_name,'email'=>$crn_no,'password'=>Hash::make($password),'id'=>$cid);
                 Credential::insert($data);
                 $dateName = date('d-M-Y');
                 $client_mail = Client::select('email','company_name')->where('id', $cid)->get()->toArray();
-                
+
                 $trader_mail = TraderMail::select('email_cc','email_bcc','mail_from')->get()->toArray();
                 $headers  = "MIME-Version: 1.0\r\n";
                 $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
@@ -77,16 +77,16 @@ class ClientApprovalController extends Controller
            });
 
                 //dd($clientData);
-                return Redirect::back()->with('success', 'User Successfully Approved.');
+                return Redirect::back()->with('success', 'Client Approved Successfully.');
                 // return view('approvalrequest.client.approved',compact('clientData'));
             }
 
         }elseif ($id!='' && $type=='reject') {
-            
+
             Client::where('id', $id)->update(['client_app_status'=>2]);
-            return Redirect::back()->with('success', 'User Successfully Rejected.');
+            return Redirect::back()->with('success', 'Client Rejected Successfully.');
         }
-       
+
     }
   public function multipleClientstatus(Request $request,$tag='')
     {
@@ -99,7 +99,7 @@ class ClientApprovalController extends Controller
 
             // $Clientmaster = new Client();
             if($clientData->count() > 0){
-                
+
                 //$clientData->client_app_status = 1;
                 // $Clientmaster->company_name  =  $clientData->company_name;
                 // $Clientmaster->gstin  =  $clientData->gstin;
@@ -109,19 +109,19 @@ class ClientApprovalController extends Controller
                 // $Clientmaster->new_sap    =  $clientData->new_sap;
                 $clientData->save();
                 $cid = $clientData->id;
-              
+
                 $crn_no = 'CRN00000'.$cid;
 
                 //$hasing_password = Hash::make(str_random(10));
                 $password = str_random(10);
-                
+
                 Client::where('id', $cid)->update(['client_app_status'=>1,'crn_no'=>$crn_no]);
-                
+
                $data = array('name'=>$clientData->company_name,'email'=>$crn_no,'password'=>Hash::make($password),'id'=>$cid);
                 Credential::insert($data);
                 $dateName = date('d-M-Y');
                 $client_mail = Client::select('email','company_name')->where('id', $cid)->get()->toArray();
-                
+
                 $trader_mail = TraderMail::select('email_cc','email_bcc','mail_from')->get()->toArray();
                 $headers  = "MIME-Version: 1.0\r\n";
                 $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
@@ -140,7 +140,7 @@ class ClientApprovalController extends Controller
            });
               }
                 //dd($clientData);
-                return Redirect::back()->with('success', 'User Successfully Approved.');
+                return Redirect::back()->with('success', 'Client Approved Successfully.');
                 // return view('approvalrequest.client.approved',compact('clientData'));
             }
 
@@ -148,19 +148,19 @@ class ClientApprovalController extends Controller
             foreach($array as $id){
             Client::where('id', $id)->update(['client_app_status'=>2]);
           }
-            return Redirect::back()->with('success', 'User Successfully Rejected.');
+            return Redirect::back()->with('success', 'Client Rejected Successfully.');
         }
-       
+
     }
 
 
 
     public function approveexisting(){
-        $clientdata = Client::all()->where('client_app_status','1');
+        $clientdata = Client::latest()->where('client_app_status','1')->get();
 
         return view('ApprovalRequest.client.viewclient',compact('clientdata'));
         //return view('ApprovalRequest.client.existing')
-    	
+
     }
      public function clientapproval(Request $request,$id)
     {
@@ -195,7 +195,7 @@ class ClientApprovalController extends Controller
         return view('ApprovalRequest.client.existing',compact('bankData','Addbankdata','deletedbnkData','client_details'));
 
     }
-    
+
         public function addapprove($id,$type,$type2)
        {
          $oldmodel = array('bank_temp'=> 'BankTemp',
@@ -215,39 +215,39 @@ class ClientApprovalController extends Controller
                 $new_bnc->updated_by = $bnc->updated_by;
                 $new_bnc->status= 1;
                 $new_bnc->save();
-                $bnc->status = 1; 
+                $bnc->status = 1;
                 $bnc->update();
-            
+
               }
-               return Redirect::back()->with('success', 'User details successfully approved.');
+               return Redirect::back()->with('success', 'Client details approved successfully.');
                }else{
-               $mm = '\\App\\'.$oldmodel[$type2]; 
-               $mm::where('id', $id)->update(['status'=> '2']); 
+               $mm = '\\App\\'.$oldmodel[$type2];
+               $mm::where('id', $id)->update(['status'=> '2']);
             }
-         
-     
-        return Redirect::back()->with('success', 'User details successfully rejected.');       
-  
+
+
+        return Redirect::back()->with('success', 'Client details rejected successfully.');
+
     }
      public function modified($id,$type)
     {
          if($id!='' && $type=='approved'){
             $model = array('bank'=> 'Bank',
                       'client'=>'Client');
-            $updatestemp = Approvalrequest::find($id); 
+            $updatestemp = Approvalrequest::find($id);
             $selectedmodel= '\\App\\'.$model[$updatestemp->approval_type];
-            $banktemp = $selectedmodel::find($updatestemp->reference_id); 
+            $banktemp = $selectedmodel::find($updatestemp->reference_id);
             $attribute_name = $updatestemp->attribute_name;
             $banktemp->$attribute_name = $updatestemp->updated_attribute_value;
             $banktemp->update();
             $updatestemp->status = 1;
-            $updatestemp->update();          
-            return Redirect::back()->with('success', 'User details successfully approved.');
+            $updatestemp->update();
+            return Redirect::back()->with('success', 'Client details approved successfully.');
 
          }elseif ($id!='' && $type=='rejected') {
 
             Approvalrequest::where('id', $id)->update(['status'=> '2']);
-            return Redirect::back()->with('success', 'User details successfully rejected.');
+            return Redirect::back()->with('success', 'Client details rejected successfully.');
         }
     }
      public function multipleApprove(Request $request,$tag='')
@@ -258,15 +258,15 @@ class ClientApprovalController extends Controller
           foreach($array as $v){
             $model = array('bank'=> 'Bank',
                       'client'=>'Client');
-            $updatestemp = Approvalrequest::find($v); 
+            $updatestemp = Approvalrequest::find($v);
             $selectedmodel= '\\App\\'.$model[$updatestemp->approval_type];
-            $banktemp = $selectedmodel::find($updatestemp->reference_id); 
+            $banktemp = $selectedmodel::find($updatestemp->reference_id);
             $attribute_name = $updatestemp->attribute_name;
             $banktemp->$attribute_name = $updatestemp->updated_attribute_value;
             $banktemp->update();
             $updatestemp->status = 1;
-            $updatestemp->update(); 
-            }         
+            $updatestemp->update();
+            }
             return Redirect::back()->with('success', 'Client details successfully approved.');
           }
           elseif ($tag=='Rejected') {
@@ -276,7 +276,7 @@ class ClientApprovalController extends Controller
             return Redirect::back()->with('success', 'Client details successfully rejected.');
         }
 
-        
+
     }
      public function multipleApproveBank(Request $request,$tag='',$type2='')
     {
@@ -300,22 +300,22 @@ class ClientApprovalController extends Controller
                 $new_bnc->updated_by = $bnc->updated_by;
                 $new_bnc->status= 1;
                 $new_bnc->save();
-                $bnc->status = 1; 
+                $bnc->status = 1;
                 $bnc->update();
-            
+
               }
-            }         
+            }
             return Redirect::back()->with('success', 'Client details successfully approved.');
           }
           elseif ($tag=='Rejected') {
             foreach($array as $id){
-              $mm = '\\App\\'.$oldmodel[$type2]; 
-               $mm::where('id', $id)->update(['status'=> '2']); 
+              $mm = '\\App\\'.$oldmodel[$type2];
+               $mm::where('id', $id)->update(['status'=> '2']);
             }
             return Redirect::back()->with('success', 'Client details successfully rejected.');
         }
 
-        
+
     }
      public function clientBankModApp(Request $request,$type='',$tag='')
     {
@@ -326,7 +326,7 @@ class ClientApprovalController extends Controller
           foreach($array as $id){
              $model = array('bank'=> 'Bank',
                       'client'=>'Client');
-            $updatestemp = Approvalrequest::find($id); 
+            $updatestemp = Approvalrequest::find($id);
             $selectedmodel= '\\App\\'.$model[$updatestemp->approval_type];
             $ref_id=$updatestemp->reference_id;
             $banktemp = $selectedmodel::findOrFail($ref_id);
@@ -335,9 +335,9 @@ class ClientApprovalController extends Controller
             $banktemp->$attribute_name = $updatestemp->updated_attribute_value;
             $banktemp->update();
             $updatestemp->status = 1;
-            $updatestemp->update();          
-            
-            }        
+            $updatestemp->update();
+
+            }
             return Redirect::back()->with('success', 'Client details successfully approved.');
           }
           elseif ($tag=='Rejected') {
@@ -347,7 +347,7 @@ class ClientApprovalController extends Controller
             return Redirect::back()->with('success', 'Client details successfully rejected.');
         }
 
-        
+
     }
 
      public function deletebank($id,$type,$type2){
@@ -364,14 +364,14 @@ class ClientApprovalController extends Controller
 
             return Redirect::back()->with('success', 'Client details successfully approved.');
     }else{
-            
+
                   $new_bnc = '\\App\\'.$newmodel[$type2];
                   $new =  $new_bnc::withTrashed()->find($id);
                   $new->del_status = 4;
                   $new->update();
                   return Redirect::back()->with('success', 'Client details successfully rejected.');
         }
-        
+
 
 }
      public function clientBankDelApp(Request $request,$type2,$tag='')
@@ -386,9 +386,9 @@ class ClientApprovalController extends Controller
                $new_bnc = '\\App\\'.$newmodel[$type2];
                   $new =  $new_bnc::withTrashed()->find($id);
                   $new->del_status = 2;
-                  $new->update();      
-            
-            }        
+                  $new->update();
+
+            }
             return Redirect::back()->with('success', 'Client details successfully approved.');
           }
           elseif ($tag=='Rejected') {
@@ -399,7 +399,7 @@ class ClientApprovalController extends Controller
                   $new->update();
             }
             return Redirect::back()->with('success', 'Client details successfully rejected.');
-        }  
+        }
     }
 
 

@@ -39,7 +39,7 @@
                   <select class="" name="client_id" id="select-client" data-live-search="true">
                       <option>Search Client</option>
                        @foreach ($clientData as $key => $value)
-                       <option value="{{ $value->id }}" data-tokens="{{ $value->id }}.{{ $value->id }}.{{ $value->id }};?>"> [{{$value->company_name}}] [{{$value->short_id}}] [{{$value->crn_no}}]</option>
+                       <option value="{{ $value->id }}" data-tokens="{{ $value->id }}.{{ $value->id }}.{{ $value->id }};?>"> {{$value->company_name}} [{{$value->short_id}}] [{{$value->crn_no}}] [{{$value->iex_portfolio}}] [{{$value->pxil_portfolio}}]</option>
                       @endforeach
                     </select>
                   </div>
@@ -60,7 +60,7 @@
                 <th>SLDC</th>
                 <th>NOC TYPE</th>
                 <th>EXCHANGE TYPE</th>
-                <th>QUANTUM</th>               
+                <th>QUANTUM</th>
                 <th>VALIDITY START DATE</th>
                 <th>VALIDITY END DATE</th>
                 <th>NOC REQUEST</th>

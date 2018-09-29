@@ -43,8 +43,8 @@ class ContactController extends Controller
     }
     public function add_contactdetails(Request $request){
         $validator = Validator::make($request->all(), [
-            'name' => 'required|regex:/^[a-zA-Z ]*$/|max:100',
-            'designation' => 'required|regex:/^[a-zA-Z ]*$/|max:100',
+            'name' => 'required|regex:/^[a-zA-Z\.\s]*$/|max:100',
+            'designation' => 'required|regex:/^[a-zA-Z\.\s]*$/|max:100',
             'email' => 'required|unique:contact|email',
             //'required|min:1|unique:department,depatment_name,NULL,id,deleted_at,NULL',
             'mob_num' => 'required|unique:contact|regex:/^[0-9]{10}$/',
@@ -61,11 +61,11 @@ class ContactController extends Controller
         $contactdetail->mob_num = $request->input('mob_num');
         $contactdetail->status = 0;
         $contactdetail->save();
-        return redirect()->back()->with('message','Detail added successfully and sent to Approver');
+        return redirect()->back()->with('message','Detail added successfully and sent for approval.');
     }
     public function addservices(Request $request, $id)
     {
-       
+
         $client_id=$id;
         $service = new service();
         $service->alert_type = $request->input('alert_type');
@@ -85,8 +85,7 @@ class ContactController extends Controller
         $service->ec_iex_sms = $request->input('ec_iex_sms');
         $service->ec_iex_email = $request->input('ec_iex_email');
         $service->save();
-        return view('ManageClient.service',compact('client_id','alert_type'));
-
+        return redirect()->back()->with('message','Email/SMS request saved successfully and sent to approver');
     }
     public function update_contactdetails(Request $request ,$contact_detail_id)
     {
@@ -113,8 +112,10 @@ class ContactController extends Controller
 
 
         $result=array_diff($dataArray,$datas);
-        $this->generateApprovalrequest($result,'contact',$client_id,$contact_detail_id,$datas);
-        return redirect()->route('contactdetails', ['id' => $client_id])->with('message','Detail added successfully and sent to Approver');
+        if($this->generateApprovalrequest($result,'contact',$client_id,$contact_detail_id,$datas)==false){
+            return redirect()->route('contactdetails', ['id' => $client_id])->withErrors(['pending'=>'There is already a change request pending for approval.']);
+        }
+          return redirect()->route('contactdetails', ['id' => $client_id])->with('message','Detail added successfully and sent for approval.');
     }
 
 
@@ -133,30 +134,38 @@ class ContactController extends Controller
     public function sevices($id)
     {
         $client_id=$id;
-        $alert_type = ServiseAlert::select('*')->where('client_id',$client_id)->get();
-        return view('ManageClient.service',compact('client_id','alert_type'));
+        $client = Client::find($client_id);
+        $alert_type = ServiseAlert::select('*')->get();
+        return view('ManageClient.service',compact('client_id','alert_type','client'));
 
     }
 
     function generateApprovalrequest($data, $type, $client_id, $reference_id='',$datas){
-        $arrayKey = array_keys($data);
-
-        $arrayValue = array_values($data);
-        //$keys = array('bill_address_line_2'=>'Address Line 1');
-         foreach($data as $key=>$value){
-          //dd($key);
-           $approvalRequest = New Approvalrequest();
-            $approvalRequest->client_id       = $client_id;
-            $approvalRequest->attribute_name  = $key;
-            $approvalRequest->updated_attribute_value =  $value;
-            $approvalRequest->approval_type   = $type;
-            $approvalRequest->old_att_value   = isset($datas[$key])?$datas[$key]:'-';
-            //$approvalRequest->updated_by      = \Auth::id();
-            //$approvalRequest->approved_by      = '';
-            $approvalRequest->status          = '0';
-            $approvalRequest->reference_id    = $reference_id;
-            $approvalRequest->save();
+        $apprval_req_pending = Approvalrequest::where('client_id',$client_id)->where('status','0')->get();
+        if($apprval_req_pending->count()>0)
+        {
+          return false;
         }
+        else{
+          $arrayKey = array_keys($data);
 
+          $arrayValue = array_values($data);
+          //$keys = array('bill_address_line_2'=>'Address Line 1');
+           foreach($data as $key=>$value){
+            //dd($key);
+             $approvalRequest = new Approvalrequest();
+              $approvalRequest->client_id       = $client_id;
+              $approvalRequest->attribute_name  = $key;
+              $approvalRequest->updated_attribute_value =  $value;
+              $approvalRequest->approval_type   = $type;
+              $approvalRequest->old_att_value   = isset($datas[$key])?$datas[$key]:'-';
+              //$approvalRequest->updated_by      = \Auth::id();
+              //$approvalRequest->approved_by      = '';
+              $approvalRequest->status          = '0';
+              $approvalRequest->reference_id    = $reference_id;
+              $approvalRequest->save();
+          }
+          return true;
+      }
     }
 }

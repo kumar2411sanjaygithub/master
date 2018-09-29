@@ -48,7 +48,7 @@
              </div>
              <div class="row">&nbsp;</div>
                 @php
-                    $convert_word = \App\Common\StateList::numberTowords($amount);
+                    $convert_word = \App\Common\FinancialFunctions::getIndianCurrency($amount);
                 @endphp
              <div class="row text-center" style="font-size:15px;font-weight:600;">Net Amount Payable: {{ucwords($convert_word) }} Only</div>
              <div class="row">&nbsp;</div>
