@@ -79,6 +79,9 @@ Route::group(['middleware' => 'auth'], function ()
    	Route::get('/ApprovalRequest/PPA/aprovePpa',['as'=>'approveppa','uses'=>'PpaApprovalController@approveppa']);
     Route::get('/approveppadetailsfind/{id}',['as'=>'approveppadetailsfind','uses'=>'PpaApprovalController@approveppadetailsfind']);
     Route::get('/PPA/aprovePpa/{id}/{type}',['as'=>'PPA.aprovePpa','uses'=>'PpaApprovalController@newapprove']);
+    Route::get('/modifiedPpa/{id}/{type}',['as'=>'PPA.modified','uses'=>'PpaApprovalController@Modifiedapprove']);
+    Route::get('/deletedPPA/{id}/{type}',['as'=>'PPA.modified','uses'=>'PpaApprovalController@delete_PPA']);
+
 
   /*******************************************************
   | ValidationSetting Routes
@@ -124,12 +127,18 @@ Route::group(['middleware' => 'auth'], function ()
   Route::get('/tm/tmnamesetting',['as'=>'tmnameview','uses'=>'TmNameController@view']);
   Route::post('/tm/tmnamesetting',['as'=>'tmnameupdate','uses'=>'TmNameController@update']);
 
-  /*******************************************************
-  | CommonInfo Routes
-  | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
-  /*******************************************************/
-  Route::get('/commonInfo/connoninfo',['as'=>'commonview','uses'=>'CommonInfoController@view']);
-  Route::post('/commonInfo/connoninfo',['as'=>'commonupdate','uses'=>'CommonInfoController@updatecommondata']);
+    /*******************************************************
+    | CommonInfo Routes
+    | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
+    /*******************************************************/
+    Route::get('/commonInfo/connoninfo',['as'=>'commonview','uses'=>'CommonInfoController@view']);
+    Route::post('/commonInfo/connoninfo',['as'=>'commonupdate','uses'=>'CommonInfoController@updatecommondata']);
+
+    /*******************************************************
+    | bid confirmation unsubmitted Routes
+    | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
+    /*******************************************************/
+    Route::get('/bidconfirmation/unsubmitted',['as'=>'unsubmitted','uses'=>'BidConfirmationController@viewunsubmittedbid']);
 
   /*******************************************************
   | POC & DISCOM LOSSES Routes

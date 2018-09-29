@@ -65,6 +65,7 @@ class ContactController extends Controller
     }
     public function addservices(Request $request, $id)
     {
+       
         $client_id=$id;
         $service = new service();
         $service->alert_type = $request->input('alert_type');

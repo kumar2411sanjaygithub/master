@@ -73,16 +73,8 @@
                  @foreach ($approved_noc as $k=>$noc_approved)
                   <tr>
                     <td>{{$i}}</td>
-                    <td><a href="{{url('/getclientData/'.$noc_approved->client_id)}}">{{@$noc_approved->client->company_name}}</a></td>
-                    <td>
-                      @if($noc_approved->exchange_type=='pxil')
-                      {{@$noc_approved->client->pxil_portfolio}}
-                      @elseif($noc_approved->exchange_type=='iex')
-                      {{@$noc_approved->client->iex_portfolio}}
-                      @endif
 
-                    </td>
-                    <td>{{$noc_approved->application_no}}</td>
+                    <td><a href="{{url('/getclientData/'.$noc_approved->client_id)}}">{{$noc_approved->application_no}}</a></td>
                     <td>{{strtoupper($noc_approved->sldc)}}</td>
                     <td>{{strtoupper($noc_approved->noc_type)}}</td>
                     <td>{{strtoupper($noc_approved->exchange_type)}}</td>

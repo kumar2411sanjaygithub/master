@@ -30,15 +30,14 @@ span.hifan{margin-right:10px!important;}
          <select class="" name="client_id" id="select-client" data-live-search="true">
            <option>Search Client</option>
             @foreach ($clientData as $key => $value)
-            <option value="{{ $value->id }}" data-tokens="{{ $value->id }}.{{ $value->id }}.{{ $value->id }};?>"  @if(@$id==$value->id) selected  @endif> [{{$value->company_name}}] [{{$value->short_id}}] [{{$value->crn_no}}]</option>
+            <option value="{{ $value->id }}" data-tokens="{{ $value->id }}.{{ $value->id }}.{{ $value->id }};?>"  @if(@$client_id==$value->id) selected  @endif> [{{$value->company_name}}] [{{$value->short_id}}] [{{$value->crn_no}}]</option>
            @endforeach
-
          </select>
          <script>
          $(document).ready(function() {
               $("#select-client").change(function(e) {
                     var id = this.value;
-                    var url = '{{url('approveppadetailsfind')}}/'+id;
+                    var url = "{{url('approveppadetailsfind')}}/"+id;
 
                     window.location = url;
               });
@@ -141,27 +140,28 @@ span.hifan{margin-right:10px!important;}
                               </tr>
                            </thead>
                            <tbody>
-                             @forelse($ppaData as $key => $value)
-                              <tr>
-                                 <td class="text-center vl"><input type="checkbox"   name="select_all" value="" class="minimal1 deletedbutton"></td>
-                                 <td class="text-center vl">{{$key+1}}</td>
-                                 <td class="text-center vl">{{date('d/m/Y',strtotime($value->validity_to))}}</td>
-                                 <td class="text-center vl">{{date('d/m/Y',strtotime($value->validity_from))}}</td>
-                                 <td class="text-center vl"><a download href="{{url('/documents/ppa/'.$value->file_path)}}" >View</a></td>
-                                 <td class="vl" style="padding:5px!important;">
-                                   @if($value->status == 0)
-                                   <a href="/PPA/aprovePpa/{{$value->id}}/Approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>
-                                   <a href="/PPA/aprovePpa/{{$value->id}}/Rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a>
-                                   @elseif($value->status == 1)
-                                   <span class="text-info">Approved</span>
-                                   @elseif($value->status == 2)
-                                   <span class="text-danger">Rejected</span>
-                                   @endif
-                                 </td>
-                              </tr>
-                              @empty
-                              <tr><td colspan="6">Record Not Found</td></tr>
-                              @endforelse
+                                          @if(count($Addexchangedata)>0)
+                                          <?php
+                                          $i=1;
+                                          ?>
+                                          @foreach ($Addexchangedata as $key => $value)
+                                          <tr>
+
+
+                                               <td class="text-center vl"><input type="checkbox"   name="select_all" value="{{ $value->id }}" class="minimal1 deletedbutton"></td>
+                                               <td class="text-center vl">{{ $i }}</td>
+                                               <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
+                                               <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
+                                               <td class="text-center vl"><a href="{{url('/documents/ppa/'.$value->file_path)}}" download='download'>View</a></td>
+                                             <td class="vl"  style="padding:5px!important;"><a href="/PPA/aprovePpa/{{ $value->id }}/Approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/PPA/aprovePpa/{{ $value->id }}/Rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
+                                          </tr>
+                                        <?php
+                                       $i++;
+                                       ?>
+                                       @endforeach
+                                       @else
+                                       <tr class="alert-danger" ><th colspan='7'>No Data Found.</th></tr>
+                                       @endif
                            </tbody>
                         </table>
                      </div>
@@ -245,16 +245,44 @@ span.hifan{margin-right:10px!important;}
                               </tr>
                            </thead>
                            <tbody>
+                              <?php
+                                          $i=1;
+                                           $input_lebels = \App\Common\Languages\ManageClientLang::input_labels();
+                                          ?>
+                             @forelse($ppaData as $key => $value)
                               <tr>
-                                 <td style="padding:5px!important;"><input type="checkbox" class="minimal1 deletedbuttonM" name="select_allM" value=""></td>
-                                 <td class="text-center vl"></td>
-                                 <td class="text-center vl"></td>
-                                 <td class="text-center vl">
+                                               <td style="padding:5px!important;"><input type="checkbox" class="minimal1 deletedbuttonM" name="select_allM" value="{{ $value->id }}"></td>
+                                               <td class="text-center vl">{{ $i }}</td>
+                                               <td class="text-center vl">{{ $input_lebels[$value->attribute_name]}}</td>
+                                               <td class="text-center vl">
+                                                @if(strstr($input_lebels[$value->attribute_name], 'Date') !== false)
+                                                {{ date('d/m/Y',strtotime($value->old_att_value)) }}
+                                                @else
+                                                  {{$value->old_att_value}}
+                                                @endif
+
+                                              </td>
+                                               <td class="text-center vl">
+                                                @if(strstr($input_lebels[$value->attribute_name], 'Date') !== false)
+                                                {{ date('d/m/Y',strtotime($value->updated_attribute_value)) }}
+                                                @else
+                                                  {{$value->updated_attribute_value}}
+                                                @endif
+                                               </td>
+                                 <td class="vl" style="padding:5px!important;">
+                                   @if($value->status == 0)
+                                   <a href="/modifiedPpa/{{$value->id}}/Approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>
+                                   <a href="/modifiedPpa/{{$value->id}}/Rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a>
+                                   @elseif($value->status == 1)
+                                   <span class="text-info">Approved</span>
+                                   @elseif($value->status == 2)
+                                   <span class="text-danger">Rejected</span>
+                                   @endif
                                  </td>
-                                 <td class="text-center vl">
-                                 </td>
-                                 <td  class="vl"><a href=""><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href=""><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
                               </tr>
+                              @empty
+                              <tr><td colspan="6">Record Not Found</td></tr>
+                              @endforelse
                            </tbody>
                         </table>
                      </div>
@@ -270,7 +298,6 @@ span.hifan{margin-right:10px!important;}
                               <tr>
                                  <th class="chy" style="padding:5px!important;"><input type="checkbox" class="minimal1 deleteallbuttonD" name="select_allD"></th>
                                  <th class="srno vl">SR.NO</th>
-                                 <th class="vl">EXCHANGE TYPE</th>
                                  <th class="vl">VALIDITY FROM</th>
                                  <th class="vl">VALIDITY TO</th>
                                  <th class="vl">FILE NAME</th>
@@ -278,27 +305,35 @@ span.hifan{margin-right:10px!important;}
                               </tr>
                            </thead>
                            <tbody>
-                             @forelse($delData as $key -> $value)
-                             <tr>
-                                <td class="text-center vl"><input type="checkbox" name="select_all" value="" class="minimal1 deletedbutton"></td>
-                                <td class="text-center vl">{{$key+1}}</td>
-                                <td class="text-center vl">{{date('d/m/Y',strtotime($value->validity_to))}}</td>
-                                <td class="text-center vl">{{date('d/m/Y',strtotime($value->validity_from))}}</td>
-                                <td class="text-center vl"><a download href="{{url('/documents/ppa/'.$value->file_path)}}" >View</a></td>
-                                <td class="vl" style="padding:5px!important;">
-                                  @if($value->status == 0)
-                                  <a href="/PPA/aprovePpa/{{$value->id}}/Approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>
-                                  <a href="/PPA/aprovePpa/{{$value->id}}/Rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a>
-                                  @elseif($value->status == 1)
-                                  <span class="text-info">Approved</span>
-                                  @elseif($value->status == 2)
-                                  <span class="text-danger">Rejected</span>
-                                  @endif
-                                </td>
-                             </tr>
-                              @empty
-                              <tr><td colspan="7">Record Not Found</td><tr>
-                              @endforelse
+ @if(count($delexcgData)>0)
+                                                  <?php
+                                                  $i=1;
+                                                  ?>
+                                                  @foreach ($delexcgData as $key => $value)
+
+
+                                                <tr>
+                                                    <td style="padding:5px!important;"><input type="checkbox" class="minimal1 deletedbuttonD" name="select_allD" value="{{ $value->id }}"></td>
+                                                    <td class="text-center">{{ $i }}</td>
+                                                    <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
+                                                    <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
+                                                    <td class="text-center"><a href="{{url('/documents/ppa/'.$value->file_path)}}" download='download'>View</a></td>
+                                                    <td class="text-center vl">
+
+                                                          <a href="/deletedPPA/{{ $value->id }}/Approved"><button type="button" class="btn  btn-info btn-xs">APPROVE</button></a>
+
+                                                          <a href="/deletedPPA/{{ $value->id }}/Rejected"><button type="button" class="btn  btn-danger btn-xs">REJECT</button></a>
+
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                                $i++;
+                                                ?>
+
+                                            @endforeach
+                                       @else
+                                       <tr class="alert-danger" ><th colspan='7'>No Data Found.</th></tr>
+                                       @endif
                            </tbody>
                         </table>
                      </div>
@@ -340,8 +375,5 @@ $(document).ready(function() {
         $(".deletedbutton").iCheck('uncheck');
     });
   });
-
   </script>
-
-
 @endsection

@@ -8,6 +8,7 @@ use App\Ppadetails;
 use App\PpaApprovedetails;
 use App\Client;
 use Carbon\Carbon;
+use App\Approvalrequest;
 use DB;
 use Validator;
 use Illuminate\Support\Facades\Redirect;
@@ -75,7 +76,7 @@ public function findppa($id)
         return view('ppa.editppa',compact('ppaData'));
     }
 
-    public function updateppadata(Request $request, $id)
+    public function updateppadata(Request $request, $ppdetailid)
     {
         $this->validate($request, [
             'validity_from' => 'required',
@@ -93,22 +94,45 @@ public function findppa($id)
            {
                $imageName = $request->input('old');
            }
-        $ppa = Ppadetails::find($id);
-        $ppa->validity_from = date('Y-m-d', strtotime($request->input('validity_from')));
-        $ppa->validity_to = date('Y-m-d', strtotime($request->input('validity_to')));
-        $ppa->file_path = $imageName;
-        $ppa->save();
-        return redirect()->route('addppadetailsfind',['id'=>$id])->with('updatemsg', 'Data Update Successfully!');
+        // $ppa = Ppadetails::find($id);
+        // $ppa->validity_from = date('Y-m-d', strtotime($request->input('validity_from')));
+        // $ppa->validity_to = date('Y-m-d', strtotime($request->input('validity_to')));
+        // $ppa->file_path = $imageName;
+        // $ppa->save();
+        // return redirect()->route('addppadetailsfind',['id'=>$id])->with('updatemsg', 'Data Update Successfully!');
+        $client_id = $request->input('client_id');
+        $ppadetail = Ppadetails::find($ppdetailid)->toArray();
+        $datas =array();
+        $datas['validity_from'] = $ppadetail['validity_from'];
+        $datas['validity_to'] = $ppadetail['validity_to'];
+        //$datas['file_path'] = $ppadetail['file_path'];
+
+        $dataArray =array();
+        $dataArray['validity_from'] = date('Y-m-d', strtotime($request->input('validity_from')));
+        $dataArray['validity_to'] = date('Y-m-d', strtotime($request->input('validity_to')));
+        // $dataArray['email'] = $request->input('email');
+        $result=array_diff($dataArray,$datas);
+        
+        $this->generateApprovalrequest($result,'ppa',$client_id,$ppdetailid,$datas);
+        return redirect()->route('addppadetailsfind',['id'=>$client_id])->with('updatemsg','Detail added successfully and sent to Approver');
+
+
     }
 
     public function deleteppa($id)
     {
-        $ppa = Ppadetails::find($id);
-        $ppa->del_status = 1;
-        $ppa->update();
-        // $file_path=$ppa->file_path;
-        $ppa->destroy($id);
+        // $ppa = Ppadetails::find($id);
+        // $ppa->del_status = 1;
+        // $ppa->update();
+        // // $file_path=$ppa->file_path;
+        // $ppa->destroy($id);
         // unlink('documents/ppa/'.$file_path);
+        //$client_id=$request->input('client_id');
+        $exchange = Ppadetails::find($id);
+        $exchange->del_status = 1;
+        $exchange->update();
+
+
         return redirect()->back()->with('delmsg', 'Data Deleted Successfully!');
     }
 
@@ -142,5 +166,27 @@ public function addbidsetting(Request $request,$id=''){
     $ppa->save();
     return redirect()->route('addbiddetailsfind',['id'=>$id])->with('addmsg', 'Data Add Successfully!');
 }
+
+    function generateApprovalrequest($data, $type, $client_id, $reference_id='',$datas){
+        $arrayKey = array_keys($data);
+
+        $arrayValue = array_values($data);
+        //$keys = array('bill_address_line_2'=>'Address Line 1');
+         foreach($data as $key=>$value){
+          //dd($key);
+           $approvalRequest = New Approvalrequest();
+            $approvalRequest->client_id       = $client_id;
+            $approvalRequest->attribute_name  = $key;
+            $approvalRequest->updated_attribute_value =  $value;
+            $approvalRequest->approval_type   = $type;
+            $approvalRequest->old_att_value   = isset($datas[$key])?$datas[$key]:'-';
+            //$approvalRequest->updated_by      = \Auth::id();
+            //$approvalRequest->approved_by      = '';
+            $approvalRequest->status          = '0';
+            $approvalRequest->reference_id    = $reference_id;
+            $approvalRequest->save();
+        }
+
+    }
 
 }

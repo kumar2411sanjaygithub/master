@@ -124,7 +124,8 @@
                               <td >{{ $value->user['name'] }} </td>
                               <td class="text-center">{{ $value->user['username'] }} </td>
                               <!-- <td class="text-center">{{ $value->official_id }}</td> -->
-                              @if($keys[$value->keyname]!="Password")
+
+                              @if(@($keys[$value->keyname]!="password"))
                               <td class="text-center"><span class="hidden">{{$key = $value->keyname}}</span>
                               <?php echo isset($keys[$value->keyname])?$keys[$value->keyname]:$value->keyname; ?>
                               </td>
@@ -141,7 +142,7 @@
                                @else
                                  <td class="text-center">{{ $value->value }}</td>
                                @endif
-                              
+
                               @else
                               <td class="text-center"><span class="hidden">{{$key = $value->keyname}}</span>
                               <?php echo isset($keys[$value->keyname])?$keys[$value->keyname]:$value->keyname; ?>

@@ -248,7 +248,7 @@
             </div>
             <div class="row">
                <div class="col-md-5"></div>
-                <div class="col-md-1"  id="enable_edit"><a href="#" class="btn btn-block btn-info btn-xs enable_edit" name="">EDIT</a></div>
+                <div class="col-md-1"  id="enable_edit"><a href="#" class="btn btn-block btn-info btn-xs enable_edit @if(isset($getcrn_info)) disabled @endif" name="">EDIT</a></div>
                <div class="col-md-1 saveButton" style="display: none;"><button type="submit" class="btn btn-block btn-success btn-xs">UPDATE</button></div>
                @if(!isset($getcrn_info))
                <div class="col-md-1"><a href="" data-toggle="modal" data-target="#ConvertData{{ $leads->id }}" class="btn btn-block btn-default btn-xs" name="" id="convert-disabled">CONVERT</a></div>
