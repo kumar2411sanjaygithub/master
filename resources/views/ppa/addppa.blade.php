@@ -11,7 +11,7 @@
 </style>
 <!-- Content Header (Page header) -->
 <section class="content-header">
-   <h5><label  class="control-label"><u>ADD PPA DETAILS</u></label></h5>
+   <h5><label  class="control-label"><u class="add">PPA DETAILS</u></label></h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">MANAGE CLIENT</a></li>
@@ -117,7 +117,7 @@
             </span>
          </div>
       </div>
-      <div class="col-md-12 pull-right">
+      <div class="col-md-10 pull-right">
         <a href="/basicdetails" class="btn btn-info btn-xs pull-right" ><span class="glyphicon glyphicon-forward"></span>&nbsp BACK TO LIST</a>
         <a href="#" id="add-ppa" class="btn btn-info btn-xs pull-right mr5" ><span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PPA</a>
       </div>
@@ -206,6 +206,14 @@
    // In your Javascript (external .js resource or <script> tag)
 $(document).ready(function() {
     $('#select-client').select2();
+});
+$(document).ready(function(){
+    $("#add-ppa").click(function(){
+      $(".add").text("ADD PPA DETAILS");
+    })
+    $("#cancel").click(function(){
+      $(".add").text("PPA DETAILS");
+    });
 });
 </script>
 

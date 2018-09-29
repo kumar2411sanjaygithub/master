@@ -66,7 +66,7 @@ public function findppa($id)
        $ppadetails->file_path = $imageName;
        $ppadetails->status = 0;
        $ppadetails->save();
-       return redirect()->back()->with('message', 'Data Save Successfully!');
+       return redirect()->back()->with('message', 'Details added successfully and sent for approval');
   }
 
   public function editppa($id)

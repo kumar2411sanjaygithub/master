@@ -51,7 +51,8 @@ class PpaApprovalController extends Controller
 
   public function approveppa()
   {
-    $ppaData = PpaApprovedetails::where('status','0')->paginate(10);
+    // $ppaData = PpaApprovedetails::where('status','0')->paginate(10);
+    $ppaData=array();
     $clientData = Client::all();
     return view('ApprovalRequest.PPA.aprovePpa',compact('ppaData','clientData'));
   }
@@ -73,13 +74,13 @@ class PpaApprovalController extends Controller
          $ppadetails->save();
          $ppa->status = 1;
          $ppa->update();
-        return Redirect::back()->with('success', 'User details successfully approved.');
+        return Redirect::back()->with('success', 'Client details approved successfully.');
         }
         elseif($id!='' && $type=='Rejected')
         {
         $mm = new PpaApprovedetails;
         $mm::where('id', $id)->update(['status'=> '2']);
-        return Redirect::back()->with('success', 'User details successfully rejected.');
+        return Redirect::back()->with('success', 'Client details rejected successfully.');
         }
     }
      public function Modifiedapprove($id,$type)

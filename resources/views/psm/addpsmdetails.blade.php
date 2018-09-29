@@ -46,13 +46,13 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
       <div class="row">
          <div class="col-xs-12">
            <div class="row">
-             <div class="col-md-7 pull-left">
+             <div class="col-md-9 pull-left">
                <h5 class="hid">
                   <label  class="control-label"><u class="setword">Payment Security Mechanism(PSM) Details</u></label>
                   &nbsp; {{@$clientData->company_name}}<span class="hifan">|</span>{{@$clientData->crn_no}}<span class="hifan">|</span>{{@$clientData->iex_portfolio}}<span class="hifan">|</span>{{@$clientData->pxil_portfolio}}
                </h5>
              </div>
-             <div class="col-md-5 pull-right">
+             <div class="col-md-3 pull-right">
                      <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mt7 "><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
                       <a class="mt7 mr5 btn btn-info btn-xs pull-right apdbtn hid @if($errors->isEmpty()) @else hidden  @endif">
                         <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PSM</a>
