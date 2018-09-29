@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Placebid extends Model
+class BidDeleted extends Model
 {
   use SoftDeletes;
 
@@ -14,7 +14,7 @@ class Placebid extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function clientmaster(){
-    	return $this->belongsTo('App\Clientmaster','client_id','id');
+    public function Client(){
+    	return $this->belongsTo('App\Client','client_id','id');
     }
 }

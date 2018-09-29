@@ -140,14 +140,12 @@ span.hifan{margin-right:10px!important;}
                               </tr>
                            </thead>
                            <tbody>
-                                          @if(count($Addexchangedata)>0)
+                                          @if(count($ppaData)>0)
                                           <?php
                                           $i=1;
                                           ?>
-                                          @foreach ($Addexchangedata as $key => $value)
+                                          @foreach ($ppaData as $key => $value)
                                           <tr>
-
-
                                                <td class="text-center vl"><input type="checkbox"   name="select_all" value="{{ $value->id }}" class="minimal1 deletedbutton"></td>
                                                <td class="text-center vl">{{ $i }}</td>
                                                <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>

@@ -10,13 +10,13 @@
 <!-- Order Book HTML Strat -->
   <!-- Header Start -->
   <section class="content-header">
-    <h5><label  class="control-label"><u>UN-SUBMITTED BID</u></label></h5>
+    <h5><label  class="control-label"><u>BID DELETED</u></label></h5>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">DEM</a></li>
       <li><a href="#">IEX</a></li>
       <li><a href="#">BID CONFIRMATION</a></li>
-      <li><a href="#"><u>UN-SUBMITTED</u></a></li>
+      <li><a href="#"><u>BID DELETED</u></a></li>
     </ol>
   </section>
   <!-- Header End -->
@@ -60,27 +60,28 @@
                     <th>CLIENT NAME</th>
                     <th>PORTFOLIO ID</th>
                     <th>STATUS</th>
+                    <th>Deleted Time</th>
                     <th>EMAIL/SMS</th>
                  </tr>
               </thead>
               <tbody>
-
                 @forelse($bidData as $key => $value)
                 <tr>
                   <td class="text-center">{{$key+1}}</td>
                   <td class="text-center">{{$value->Client['company_name']}}</td>
                   <td class="text-center">{{$value->Client['iex_portfolio']}}</td>
-                  <td class="text-center">UnSubmitted</td>
-                  <td class="text-center"><a>Send</a></td>
+                  <td class="text-center">Deleted</td>
+                  <td class="text-center">{{$value->deleted_at}}</td>
+                  <td class="text-center"><a>Re-Send</a></td>
                 </tr>
                 @empty
                 <tr class="gradeX">
-                  <td class="text-center" colspan="5">Data Not Found</td>
+                  <td class="text-center" colspan="6">Data Not Found</td>
                 </tr>
                 @endforelse
               </tbody>
            </table>
-           {{$bidData->links()}}
+           {{ $bidData->links() }}
         </div>
      </div>
   </section>

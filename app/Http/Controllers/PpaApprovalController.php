@@ -24,7 +24,7 @@ class PpaApprovalController extends Controller
   //   $ppaData = PpaApprovedetails::where('client_id',$id)->paginate(10);
   //   $delData = Ppadetails::where('del_status',1)->paginate(10);
   //   $headData = Client::where('id',$id)->first();
-  //   $clientData = Client::all(); 
+  //   $clientData = Client::all();
 
   //   return view('ApprovalRequest.PPA.aprovePpa',compact('ppaData','id','clientData','headData','delData'));
   // }
@@ -43,7 +43,7 @@ class PpaApprovalController extends Controller
         $delexcgData = Ppadetails::select('*')->where(function($q) { $q->where('del_status',1); })->where('client_id',$id)->orderBy('created_at','desc')->withTrashed()->get();
         //dd($delcontact);
         $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
-         $clientData = Client::all(); 
+         $clientData = Client::all();
 
 
         return view('ApprovalRequest.PPA.aprovePpa',compact('ppaData','Addexchangedata','delexcgData','client_details','clientData','client_id'));
@@ -87,15 +87,15 @@ class PpaApprovalController extends Controller
          if($id!='' && $type=='Approved'){
             // $model = array('excahnge'=> 'Exchange',
             //           'client'=>'Client');
-            $updatestemp = Approvalrequest::find($id); 
+            $updatestemp = Approvalrequest::find($id);
             //$selectedmodel= '\\App\\'.$model[$updatestemp->approval_type];
             $selectedmodel = new Ppadetails;
-            $exchange = $selectedmodel::find($updatestemp->reference_id); 
+            $exchange = $selectedmodel::find($updatestemp->reference_id);
             $attribute_name = $updatestemp->attribute_name;
             $exchange->$attribute_name = $updatestemp->updated_attribute_value;
             $exchange->update();
             $updatestemp->status = 1;
-            $updatestemp->update();          
+            $updatestemp->update();
             return Redirect::back()->with('success', 'User details successfully approved.');
 
          }elseif ($id!='' && $type=='Rejected') {
@@ -116,7 +116,7 @@ class PpaApprovalController extends Controller
 
             return Redirect::back()->with('success', 'User details successfully approved.');
            }elseif ($id!='' && $type=='Rejected') {
-            
+
                   $new_bnc = new Ppadetails;;
                   $new =  $new_bnc::withTrashed()->find($id);
                   $new->del_status = 4 ;

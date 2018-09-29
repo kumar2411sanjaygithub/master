@@ -10,13 +10,13 @@
 <!-- Order Book HTML Strat -->
   <!-- Header Start -->
   <section class="content-header">
-    <h5><label  class="control-label"><u>UN-SUBMITTED BID</u></label></h5>
+    <h5><label  class="control-label"><u>NO BID</u></label></h5>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">DEM</a></li>
       <li><a href="#">IEX</a></li>
       <li><a href="#">BID CONFIRMATION</a></li>
-      <li><a href="#"><u>UN-SUBMITTED</u></a></li>
+      <li><a href="#"><u>NO BID</u></a></li>
     </ol>
   </section>
   <!-- Header End -->
@@ -59,28 +59,30 @@
                     <th class="srno">SR.NO</th>
                     <th>CLIENT NAME</th>
                     <th>PORTFOLIO ID</th>
-                    <th>STATUS</th>
                     <th>EMAIL/SMS</th>
                  </tr>
               </thead>
               <tbody>
-
-                @forelse($bidData as $key => $value)
                 <tr>
-                  <td class="text-center">{{$key+1}}</td>
-                  <td class="text-center">{{$value->Client['company_name']}}</td>
-                  <td class="text-center">{{$value->Client['iex_portfolio']}}</td>
-                  <td class="text-center">UnSubmitted</td>
-                  <td class="text-center"><a>Send</a></td>
+                  <td class="text-center">1</td>
+                  <td class="text-center">Tata Pvt. Ltd.</td>
+                  <td class="text-center">S2TN0TPT0052</td>
+                  <td class="text-center"><a>Re-Send</a></td>
                 </tr>
-                @empty
-                <tr class="gradeX">
-                  <td class="text-center" colspan="5">Data Not Found</td>
+                <tr>
+                  <td class="text-center">2</td>
+                  <td class="text-center">Tata Pvt. Ltd.</td>
+                  <td class="text-center">S2TN0TPT0052</td>
+                  <td class="text-center"><a>Re-Send</a></td>
                 </tr>
-                @endforelse
+                <tr>
+                  <td class="text-center">3</td>
+                  <td class="text-center">Tata Pvt. Ltd.</td>
+                  <td class="text-center">S2TN0TPT0052</td>
+                  <td class="text-center"><a>Re-Send</a></td>
+                </tr>
               </tbody>
            </table>
-           {{$bidData->links()}}
         </div>
      </div>
   </section>
