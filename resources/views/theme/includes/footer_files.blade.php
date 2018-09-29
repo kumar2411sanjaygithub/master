@@ -83,3 +83,13 @@ $('.alphanum').keypress(function (e) {
     return false;
 });
 </script>
+<script>
+  $(document).ready(function(){
+      $(".glyphicon-pencil").hover(function(){
+          $(".glyphicon-pencil").attr('title','Edit');
+      });
+      $(".glyphicon-trash").hover(function(){
+          $(".glyphicon-trash").attr('title','Delete');
+      });
+  });
+</script>

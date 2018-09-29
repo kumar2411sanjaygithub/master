@@ -32,15 +32,13 @@ span.hifan{margin-right:10px!important;}
             @foreach ($clientData as $key => $value)
             <option value="{{ $value->id }}" data-tokens="{{ $value->id }}.{{ $value->id }}.{{ $value->id }};?>"  @if(@$id==$value->id) selected  @endif> [{{$value->company_name}}] [{{$value->short_id}}] [{{$value->crn_no}}]</option>
            @endforeach
-
          </select>
          <script>
          $(document).ready(function() {
               $("#select-client").change(function(e) {
-                    var id = this.value;
-                    var url = '{{url('approveppadetailsfind')}}/'+id;
-
-                    window.location = url;
+                  var id = this.value;
+                  var url = '{{url('approveppadetailsfind')}}/'+id;
+                  window.location = url;
               });
           });
          </script>
@@ -340,8 +338,5 @@ $(document).ready(function() {
         $(".deletedbutton").iCheck('uncheck');
     });
   });
-
   </script>
-
-
 @endsection
