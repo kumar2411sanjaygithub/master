@@ -139,6 +139,8 @@ Route::group(['middleware' => 'auth'], function ()
     | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
     /*******************************************************/
     Route::get('/bidconfirmation/unsubmitted',['as'=>'unsubmitted','uses'=>'BidConfirmationController@viewunsubmittedbid']);
+    Route::get('/bidconfirmation/biddeleted',['as'=>'deletedbid','uses'=>'BidConfirmationController@deletedbid']);
+    Route::get('/bidconfirmation/nobid',['as'=>'nobid','uses'=>'BidConfirmationController@nobid']);
 
   /*******************************************************
   | POC & DISCOM LOSSES Routes

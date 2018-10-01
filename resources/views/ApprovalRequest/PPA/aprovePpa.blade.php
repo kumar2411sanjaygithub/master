@@ -10,6 +10,14 @@
 .select2{width:100%!important;}
 span.hifan{margin-right:10px!important;}
 </style>
+<!-- success msg -->
+@if(session()->has('success'))
+  <div class="alert alert-success mt10">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+      {{ session()->get('success') }}
+  </div>
+@endif
+<!-- query validater     -->
 <section class="content-header">
    <h5 class="pull-left"><label  class="control-label pull-right mt-1"><u>APPROVE PPA DETAILS</u></h5>
      @if(isset($headData->company_name))
@@ -140,7 +148,7 @@ span.hifan{margin-right:10px!important;}
                               </tr>
                            </thead>
                            <tbody>
-                                          @if(count($Addexchangedata)>0)
+                                          @if(isset($Addexchangedata) && count($Addexchangedata)>0)
                                           <?php
                                           $i=1;
                                           ?>
@@ -305,7 +313,7 @@ span.hifan{margin-right:10px!important;}
                               </tr>
                            </thead>
                            <tbody>
- @if(count($delexcgData)>0)
+ @if(isset($delexcgData) && count($delexcgData)>0)
                                                   <?php
                                                   $i=1;
                                                   ?>
@@ -375,5 +383,10 @@ $(document).ready(function() {
         $(".deletedbutton").iCheck('uncheck');
     });
   });
+  </script>
+  <script>
+  setTimeout(function() {
+    $('.alert-success').fadeOut('fast');
+    }, 2000);
   </script>
 @endsection

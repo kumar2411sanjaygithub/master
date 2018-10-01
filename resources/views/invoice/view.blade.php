@@ -44,7 +44,7 @@
                   <th>invoice type</th>
                   <th>billnumber</th>
                   <th>action</th>
-                  
+
                 </tr>
                 </thead>
                 <tbody>
@@ -53,7 +53,7 @@
                                 $i=1;
                               ?>
                               @foreach ($invoice as $invoices)
-                              
+
                               <tr>
                                 <td>{{ $invoices->fy }}</td>
             <td>{{ $invoices->invoice_type }}</td>

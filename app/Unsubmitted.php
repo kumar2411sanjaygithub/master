@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Placebid extends Model
+class Unsubmitted extends Model
 {
   use SoftDeletes;
 
