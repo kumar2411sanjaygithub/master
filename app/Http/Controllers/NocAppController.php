@@ -238,7 +238,7 @@ class NocAppController extends Controller
         $noc->save();  
 
 
-        return redirect()->route('getclientData', ['id' => $client_id])->with('success','Noc updated successfully');
+        return redirect()->route('getclientData', ['id' => $client_id])->with('success','Your update request has been successfully submitted for approval.');
 
     }
     public function emailnoc($id='',$c_id='')
@@ -478,20 +478,32 @@ class NocAppController extends Controller
         $noc_bill_sett = new NocBilling;
         $noc_bill_sett->state = request('state');
         $noc_bill_sett->noc_application_for = request('noc_application_for');
-        $noc_bill_sett->discom = request('discom');
-        $noc_bill_sett->discom_amt = request('discom_amt');     
-        $noc_bill_sett->discom_gst_applicabale = request('discom_gst_applicabale');
-        $noc_bill_sett->discom_cgst_value = request('discom_cgst_value');
-        $noc_bill_sett->discom_sgst_value = request('discom_sgst_value');
-        $noc_bill_sett->discom_utgst_value = request('discom_utgst_value');
-        $noc_bill_sett->discom_igst_value = request('discom_igst_value');
-        $noc_bill_sett->sldc = request('sldc');
-        $noc_bill_sett->sldc_amt = request('sldc_amt');   
-        $noc_bill_sett->sldc_gst_applicable = request('sldc_gst_applicable');
-        $noc_bill_sett->sldc_cgst_amt = request('sldc_cgst_amt');
-        $noc_bill_sett->sldc_sgst_amt = request('sldc_sgst_amt');        
-        $noc_bill_sett->sldc_utgst_amt = request('sldc_utgst_amt');             
-        $noc_bill_sett->sldc_igst_amt = request('sldc_igst_amt');                               
+        if(request('noc_application_for')=='discom' ||request('noc_application_for')=='both')
+        {
+            $noc_bill_sett->discom = request('discom');
+            $noc_bill_sett->discom_amt = request('discom_amt');     
+            $noc_bill_sett->discom_gst_applicabale = request('discom_gst_applicabale');
+                if(request('discom_gst_applicabale')=='YES')
+                {
+                $noc_bill_sett->discom_cgst_value = request('discom_cgst_value');
+                $noc_bill_sett->discom_sgst_value = request('discom_sgst_value');
+                $noc_bill_sett->discom_utgst_value = request('discom_utgst_value');
+                $noc_bill_sett->discom_igst_value = request('discom_igst_value');
+                }
+        }
+        if(request('noc_application_for')=='sldc' ||request('noc_application_for')=='both')
+        {
+            $noc_bill_sett->sldc = request('sldc');
+            $noc_bill_sett->sldc_amt = request('sldc_amt');   
+            $noc_bill_sett->sldc_gst_applicable = request('sldc_gst_applicable');
+            if(request('sldc_gst_applicable')=='YES')
+            {
+                $noc_bill_sett->sldc_cgst_amt = request('sldc_cgst_amt');
+                $noc_bill_sett->sldc_sgst_amt = request('sldc_sgst_amt');        
+                $noc_bill_sett->sldc_utgst_amt = request('sldc_utgst_amt');             
+                $noc_bill_sett->sldc_igst_amt = request('sldc_igst_amt');   
+            }
+        }                              
         $noc_bill_sett->save();
 
         return redirect()->route('billsetting.nocbilllist')->with('success', 'NOC Billing Setting Added Successfully.');
@@ -518,7 +530,7 @@ class NocAppController extends Controller
     public function nocbillingupdate(Request $request,$id='')
     {
         $this->validate($request, [
-            'state' => 'required',
+            //'state' => 'required',
             'noc_application_for' => 'required',
             'discom_cgst_value' => 'nullable|integer',
             'discom_sgst_value' => 'nullable|integer',
@@ -532,20 +544,32 @@ class NocAppController extends Controller
 
         $noc_bill_sett = NocBilling::find($id);
         $noc_bill_sett->noc_application_for = request('noc_application_for');
-        $noc_bill_sett->discom = request('discom');
-        $noc_bill_sett->discom_amt = request('discom_amt');     
-        $noc_bill_sett->discom_gst_applicabale = request('discom_gst_applicabale');
-        $noc_bill_sett->discom_cgst_value = request('discom_cgst_value');
-        $noc_bill_sett->discom_sgst_value = request('discom_sgst_value');
-        $noc_bill_sett->discom_utgst_value = request('discom_utgst_value');
-        $noc_bill_sett->discom_igst_value = request('discom_igst_value');
-        $noc_bill_sett->sldc = request('sldc');
-        $noc_bill_sett->sldc_amt = request('sldc_amt');   
-        $noc_bill_sett->sldc_gst_applicable = request('sldc_gst_applicable');
-        $noc_bill_sett->sldc_cgst_amt = request('sldc_cgst_amt');
-        $noc_bill_sett->sldc_sgst_amt = request('sldc_sgst_amt');        
-        $noc_bill_sett->sldc_utgst_amt = request('sldc_utgst_amt');             
-        $noc_bill_sett->sldc_igst_amt = request('sldc_igst_amt');                               
+        if(request('noc_application_for')=='discom' ||request('noc_application_for')=='both')
+        {
+            $noc_bill_sett->discom = request('discom');
+            $noc_bill_sett->discom_amt = request('discom_amt');     
+            $noc_bill_sett->discom_gst_applicabale = request('discom_gst_applicabale');
+                if(request('discom_gst_applicabale')=='YES')
+                {
+                $noc_bill_sett->discom_cgst_value = request('discom_cgst_value');
+                $noc_bill_sett->discom_sgst_value = request('discom_sgst_value');
+                $noc_bill_sett->discom_utgst_value = request('discom_utgst_value');
+                $noc_bill_sett->discom_igst_value = request('discom_igst_value');
+                }
+        }
+        if(request('noc_application_for')=='sldc' ||request('noc_application_for')=='both')
+        {
+            $noc_bill_sett->sldc = request('sldc');
+            $noc_bill_sett->sldc_amt = request('sldc_amt');   
+            $noc_bill_sett->sldc_gst_applicable = request('sldc_gst_applicable');
+            if(request('sldc_gst_applicable')=='YES')
+            {
+                $noc_bill_sett->sldc_cgst_amt = request('sldc_cgst_amt');
+                $noc_bill_sett->sldc_sgst_amt = request('sldc_sgst_amt');        
+                $noc_bill_sett->sldc_utgst_amt = request('sldc_utgst_amt');             
+                $noc_bill_sett->sldc_igst_amt = request('sldc_igst_amt');   
+            }
+        }                            
         $noc_bill_sett->save();
 
         return redirect()->route('billsetting.nocbilllist')->with('success', 'NOC Billing Setting Updated Successfully.');
@@ -648,7 +672,7 @@ class NocAppController extends Controller
 
         $pdf=PDF::loadView('noc.generate_noc_app',['date'=>date('d.m.Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'exchange'=>strtoupper($exchange),'quantum'=>$get_data->quantum,'from_date'=>date('d.m.Y',strtotime($get_data->start_date)),'end_date'=>date('d.m.Y',strtotime($get_data->end_date)),'amount'=>$get_data->amount,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d.m.Y',strtotime($get_data->transcation_date))]);
          $pdf->save($generate_noc.'/'.$pdf_name);
-        return redirect()->route('getclientData', ['id' => $get_data->client_id])->with('success','Noc generate successfully');
+        return redirect()->route('getclientData', ['id' => $get_data->client_id])->with('success','NOC application generated successfully');
         //return $pdf->download('noc-applicaiton.pdf');
     }
 
@@ -703,6 +727,7 @@ class NocAppController extends Controller
     {
         $get_data=NocApp::where('id',$id)->first();
         $client=Client::where('id',$c_id)->first();
+        $noc_bill_details=NocBilling::where('state',$client->conn_state)->first();
         $get_client=Client::find(1)->nocbilling()->where('id',$c_id)->first();
         //NocBilling
 
@@ -719,11 +744,11 @@ class NocAppController extends Controller
         $update_pdf=NocApp::find($id);
         $update_pdf->generate_sldc_debit=$pdf_name;
         $update_pdf->save();
-
+        //dd($noc_bill_details->sldc_amt);
         $generate_noc = storage_path().'/files/tptcl/noc/bill';
         File::isDirectory($generate_noc) or File::makeDirectory($generate_noc, 0777, true, true);
 
-        $pdf=PDF::loadView('noc.bill_view',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'client_name'=>strtoupper($client->name),'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$get_data->amount,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date))]);
+        $pdf=PDF::loadView('noc.bill_view',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'client_name'=>strtoupper($client->name),'client_add1'=>ucwords($client->bill_line1),'client_add2'=>ucwords($client->bill_line2),'client_city'=>ucwords($client->bill_city),'client_state'=>ucwords($client->bill_state),'client_country'=>ucwords($client->bill_country),'client_pin'=>ucwords($client->bill_pin),'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$noc_bill_details->sldc_amt,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date))]);
         $pdf->save($generate_noc.'/'.$pdf_name);
 
         return redirect()->route('getclientData', ['id' => $get_data->client_id])->with('success','SLDC Debit generate successfully');
@@ -732,6 +757,7 @@ class NocAppController extends Controller
     {
         $get_data=NocApp::where('id',$id)->first();
         $client=Client::where('id',$c_id)->first();
+        $noc_bill_details=NocBilling::where('state',$client->conn_state)->first();
         $get_client=Client::find(1)->nocbilling()->where('id',$c_id)->first();
         //NocBilling
 
@@ -752,7 +778,7 @@ class NocAppController extends Controller
         $generate_noc = storage_path().'/files/tptcl/noc/bill';
         File::isDirectory($generate_noc) or File::makeDirectory($generate_noc, 0777, true, true);
 
-        $pdf=PDF::loadView('noc.discomBill',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'client_name'=>strtoupper($client->name),'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$get_data->amount,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date))]);
+        $pdf=PDF::loadView('noc.discomBill',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'client_name'=>strtoupper($client->name),'client_add1'=>ucwords($client->bill_line1),'client_add2'=>ucwords($client->bill_line2),'client_city'=>ucwords($client->bill_city),'client_state'=>ucwords($client->bill_state),'client_country'=>ucwords($client->bill_country),'client_pin'=>ucwords($client->bill_pin),'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$noc_bill_details->sldc_amt,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date))]);
         $pdf->save($generate_noc.'/'.$pdf_name);
 
         return redirect()->route('getclientData', ['id' => $get_data->client_id])->with('success','DISCOM Debit generate successfully');

@@ -123,6 +123,9 @@
                <div class="row">
                   <div class="col-md-5"></div>
                   <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs">UPDATE</button></div>
+                <div class="col-md-1"><a href="{{route('getclientData',['id'=>$client_id])}}"><button class="btn btn-danger btn-xs" value="Cancel" type="button">CANCEL</button></a>
+                </div>    
+
                   <div class="col-md-5"></div>
                </div>
              </form>
