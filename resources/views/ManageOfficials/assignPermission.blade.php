@@ -6,14 +6,23 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
         <li><a href="#">MANAGE EMPLOYEE</a></li>
-        <li><a href="{{ route('roles.index') }}"><u>ROLE & PERMISSION</u></a></li>
+        <li><a href="#">ROLE & PERMISSION</a></li>
+        <li><a href="{{ route('roles.index') }}"><u>ASSIGN PERMISSION</u></a></li>
       </ol>
     </section>
 
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
-<div class="box">
+          <div class="row">
+          <div class="col-md-10"></div>
+          <div class="col-md-2">
+            <a href="{{ route('roles.index') }}" class="btn btn-info btn-xs pull-right mt7"  id="ram" name="">
+           <span class="glyphicon glyphicon-forward"></span>&nbsp BACK TO LIST</a>
+          </div>
+          </div>
+
+<div class="box mt3">
   <div class="box-header">
     @if (\Session::has('success'))
       <div class="alert alert-success" id="successMessage">

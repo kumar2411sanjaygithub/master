@@ -16,10 +16,9 @@
                   <div id="emp1">To,</div>
                   <div class="row">&nbsp;</div>
                   <div id="emp3">{{$client_name}}</div>
-                  <div id="emp4">{{$client_add1}} </div>
-                  <div id="emp5">{{$client_add2}}</div>
-                  <div id="emp5">{{$client_city}} {{$client_state}} {{$client_country}}</div>
-                  <div id="emp6">PIN-{{$client_pin}}</div>
+                  <div id="emp4">{{$client_add1}}, {{$client_add2}},</div>
+                  <div id="emp5">{{$client_city}}, {{  \App\Common\StateList::get_state_name($client_state) }},</div>
+                  <div id="emp6">{{$client_country}}, PIN-{{$client_pin}}.</div>
               </div>
                     <div class="row">&nbsp;</div>
                   <div class="row">&nbsp;</div>

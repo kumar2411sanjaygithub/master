@@ -12,7 +12,7 @@
          <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
             <li><a href="#">MANAGE EMPLOYEE</a></li>
-            <li><a href="active"><u>DEPARTMENT</u></a></li>
+            <li><a href="#"><u>DEPARTMENT</u></a></li>
          </ol>
       </section>
       <!-- Main content -->
@@ -58,21 +58,20 @@
                                <label  class="control-label">DESCRIPTION</label>
                                <input class="form-control input-sm" type="text" placeholder="ENTER DESCRIPTION" id="description" name="description">
                             </div>
-                            <div class="col-md-3">
-                              <div class="col-md-6" style="margin-top:22px;">
+                              <div class="col-md-1" style="margin-top:22px;">
                                   <button type="submit" id= "submitdepartment" class="btn btn-block btn-info btn-xs">SAVE</button>
                               </div>
-                              <div class="col-md-6" style="margin-top:22px;">
+                              <div class="col-md-1" style="margin-top:22px;">
                                   <a href="{{ route('departments') }}"><input type="button"  class="btn btn-danger btn-block  btn-xs pull-right"value="Cancel"></a>
                               </div>
-                            </div>
+
                         </div>
 
                       </div>
                     </div>
                 </div>
              </div>
-                       </form>
+            </form>
              <div class="row">
                 <div class="col-md-12">
                   <div class="pull-right mt7">
@@ -80,7 +79,7 @@
                   </div>
                 </div>
              </div>
-             <div class="box">
+             <div class="box mt3">
                 <div class="box-body table-responsive">
                    <table id="example1" class="table table-bordered table-striped table-hover text-center">
                       <thead class="tablehead">
@@ -115,15 +114,17 @@
             {{ csrf_field() }}
            <div class="modal-dialog modal-confirm">
              <div class="modal-content">
-               <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+               <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                  <h4 class="modal-title text-center"></h4>
-               </div>
+               </div> -->
                <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                 <p style="font-size: 18px;font-weight:400;color:black!important; text-align:center;">Are you sure you want to delete this record?</p>
+                <center><p style="font-size: 12px;font-weight:500;color:black!important; text-align:center;">DO YOU REALLY WANT TO DELETE THIS RECORD?</p></center> 
                </div>
                <div class="modal-footer">
-                 <button type="submit" class="btn btn-danger">Yes</button>
-                 <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+                <div class="text-center">
+                 <button type="submit" class="btn btn-info btn-xs">YES</button>
+                 <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">NO</button>
+               </div>
                </div>
              </div>
            </div>

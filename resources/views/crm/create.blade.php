@@ -1,12 +1,19 @@
 @extends('theme.layouts.default')
 @section('content')
-
+    <section class="content-header">
+      <h5><label  class="control-label"><u>CREATE LEAD</u></label></h5>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
+        <li><a href="#">CRM</a></li>
+        <li><a href="#">LEAD</a></li>
+        <li class="#"><u>CREATE</u></li>
+      </ol>
+    </section>
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
           <div class="row">
-          <div class="col-md-2 pull-left"><h5><label  class="control-label"><u>CREATE LEAD</u></label></h5></div>
-          <div class="col-md-8"></div>
+          <div class="col-md-10"></div>
           <div class="col-md-2">
             <a href="{{ route('lead.index') }}" class="btn btn-info btn-xs pull-right mt7"  id="ram" name="">
            <span class="glyphicon glyphicon-forward"></span>&nbsp BACK TO LIST</a>
@@ -14,14 +21,14 @@
           </div>
           <form method="post" action="{{ route('lead.store') }}">
             {{csrf_field()}}
-          <div class="box">
+          <div class="box mt3">
               <div class="box-body">
 
           <h5><label  class="control-label">LEAD INFORMATION</label></h5><hr>
               <div class="row">
               <div class="col-md-3 {{ $errors->has('company_name') ? 'has-error' : '' }}">
               <label  class="control-label">COMPANY NAME</label><span class="text-danger"><strong>*</strong></span>
-              <input class="form-control input-sm" type="text" placeholder="ENTER COMPANY NAME" id="company_name" name="company_name" value="{{old('company_name')}}">
+              <input class="form-control input-sm alphanum" type="text" placeholder="ENTER COMPANY NAME" id="company_name" name="company_name" value="{{old('company_name')}}">
               <span class="text-danger">{{ $errors->first('company_name') }}</span>
               </div>
               <div class="col-md-3 {{ $errors->has('product') ? 'has-error' : '' }}">
@@ -102,7 +109,7 @@
             <div class="row">
               <div class="col-md-3 {{ $errors->has('quantum') ? 'has-error' : '' }}">
             <label  class="control-label">QUANTUM</label>
-              <input class="form-control input-sm" type="text" placeholder="ENTER QUANTUM" id="quantum" name="quantum" value="{{old('quantum')}}">
+              <input class="form-control input-sm num" type="text" placeholder="ENTER QUANTUM" id="quantum" name="quantum" value="{{old('quantum')}}">
               <span class="text-danger">{{ $errors->first('quantum') }}</span>
               </div>
               <div class="col-md-3">
@@ -190,13 +197,18 @@
                 <span class="text-danger">{{ $errors->first('add_pincode') }}</span>
                 <span id="error_areaa1" style="color: Red; display: none">* Input digits (0 - 9)</span>
               </div>
+              <div class="col-md-4">
+              
+              </div>
+                <div class="col-md-1" style="margin-top: 20px;"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
+                  <div class="col-md-1" style="margin-top: 20px;"><a href="{{url('lead')}}" class="btn btn-block btn-danger btn-xs">CANCEL</a></div>
+
             </div>
             </div>
 
               <div class="row">
                  <div class="col-md-5"></div>
-                  <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                  <div class="col-md-1"><a href="{{url('lead')}}" class="btn btn-block btn-danger btn-xs">CANCEL</a></div>
+                  
                 <div class="col-md-5"></div>
               </div>
               <div class="row">&nbsp;</div>

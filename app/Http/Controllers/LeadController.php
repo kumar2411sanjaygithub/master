@@ -35,7 +35,7 @@ class LeadController extends Controller
     public function index()
     {
 
-        $leads = Lead::paginate(10);
+        $leads = Lead::paginate(15);
 
         return view('crm.index', compact('leads'));
     }
@@ -75,7 +75,7 @@ class LeadController extends Controller
             'quantum' => 'nullable|regex:/^[0-9]+$/',
             'add_country' => 'required',
             'add_state' => 'required',
-            'add_city' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
+            'add_city' => 'required|regex:/^[a-zA-Z ]+$/u|max:30',
             'add_pincode' => 'required|min:6|max:6|not_in:0',
             //'contact_number' => 'nullable|digits:10',
 
@@ -185,7 +185,7 @@ class LeadController extends Controller
             'add_line2' => 'nullable|max:200',
             'add_country' => 'required',
             'add_state' => 'required',
-            'add_city' => 'required|regex:/^[a-zA-Z ]+$/u|max:50',
+            'add_city' => 'required|regex:/^[a-zA-Z ]+$/u|max:30',
             'add_pincode' => 'required|min:6|max:6|not_in:0',
             'contact_number' => 'nullable|digits:10',
 

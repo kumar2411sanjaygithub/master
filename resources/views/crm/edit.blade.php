@@ -6,7 +6,8 @@
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">CRM</a></li>
-      <li class="active"><u>LEAD</u></li>
+      <li><a href="#">LEAD</a></li>
+      <li class="#"><u>EDIT</u></li>
    </ol>
 </section>
 <section class="content">
@@ -23,7 +24,7 @@
             </div>
             <div class="col-md-8"></div>
             <div class="col-md-2">
-               <a href="{{ route('lead.index') }}" class="btn btn-info btn-xs pull-right"  id="ram" name="">
+               <a href="{{ route('lead.index') }}" class="btn btn-info btn-xs pull-right" id="ram" name="">
                <span class="glyphicon glyphicon-forward"></span>&nbsp BACK TO LIST</a>
             </div>
          </div>
@@ -38,12 +39,12 @@
           <form method="post" action="{{ url('/lead/'.$leads->id) }}">
             {{csrf_field()}}
             {{method_field('PATCH')}}
-         <div class="box">
+         <div class="box mt3">
             <div class="box-body">
                <div class="row">
                   <div class="col-md-3 {{ $errors->has('company_name') ? 'has-error' : '' }}">
                      <label  class="control-label">COMPANY NAME</label><span class="text-danger"><strong>*</strong></span>
-                     <input class="form-control input-sm disabled-class"  disabled='disabled' type="text" placeholder="ENTER COMPANY NAME" id="company_name" name="company_name" value="{{
+                     <input class="form-control input-sm alphanum disabled-class"  disabled='disabled' type="text" placeholder="ENTER COMPANY NAME" id="company_name" name="company_name" value="{{
         (isset($leads->company_name)) ? $leads->company_name : old('company_name') }}">
               <span class="text-danger">{{ $errors->first('company_name') }}</span>
                   </div>
@@ -141,7 +142,7 @@
                <div class="row">
                   <div class="col-md-3 {{ $errors->has('quantum') ? 'has-error' : '' }}">
                 <label  class="control-label">QUANTUM</label>
-                  <input class="form-control input-sm disabled-class" disabled='disabled' type="text" placeholder="ENTER QUANTUM" id="quantum" name="quantum" value="{{
+                  <input class="form-control input-sm num disabled-class" disabled='disabled' type="text" placeholder="ENTER QUANTUM" id="quantum" name="quantum" value="{{
         (isset($leads->quantum)) ? $leads->quantum : old('quantum') }}">
               <span class="text-danger">{{ $errors->first('quantum') }}</span>
 
@@ -244,9 +245,17 @@
                 <span id="error_areaa1" style="color: Red; display: none">* Input digits (0 - 9)</span>
                 <span class="text-danger">{{ $errors->first('add_pincode') }}</span>
                   </div>
+                  <div class="col-md-4"></div>
+                <div class="col-md-1"  id="enable_edit" style="margin-top: 20px;"><a href="#" class="btn btn-block btn-info btn-xs enable_edit @if(isset($getcrn_info)) disabled @endif" name="">EDIT</a></div>
+               <div class="col-md-1 saveButton" style="display: none;margin-top: 20px;"><button type="submit" class="btn btn-block btn-success btn-xs">UPDATE</button></div>
+               @if(!isset($getcrn_info))
+               <div class="col-md-1" style="margin-top: 20px;"><a href="" data-toggle="modal" data-target="#ConvertData{{ $leads->id }}" class="btn btn-block btn-default btn-xs" name="" id="convert-disabled">CONVERT</a></div>
+               @else
+               <div class="col-md-1" style="margin-top: 20px;margin-left: -10px;"><a disabled class="btn btn-default btn-xs" name="">CONVERTED</a></div>
+               @endif
                </div>
             </div>
-            <div class="row">
+<!--             <div class="row">
                <div class="col-md-5"></div>
                 <div class="col-md-1"  id="enable_edit"><a href="#" class="btn btn-block btn-info btn-xs enable_edit @if(isset($getcrn_info)) disabled @endif" name="">EDIT</a></div>
                <div class="col-md-1 saveButton" style="display: none;"><button type="submit" class="btn btn-block btn-success btn-xs">UPDATE</button></div>
@@ -256,7 +265,7 @@
                <div class="col-md-2"><a disabled class="btn btn-default btn-xs" name="">CONVERTED</a></div>
                @endif
                <div class="col-md-3"></div>
-            </div>
+            </div> -->
             <div class="row">&nbsp;</div>
          </div>
        </form>
@@ -289,7 +298,7 @@
                <button type="button" class="btn  btn-info btn-xs" data-toggle="modal" data-target="#myModal">   <span class="glyphicon glyphicon-plus"> </span>&nbspNEW TASK</button>
             </div>
          </div>
-         <div class="box " >
+         <div class="box mt3" >
             <!---------------------------->
             <div class="box-body table-responsive">
                <table class="table table-bordered text-center">
@@ -430,7 +439,7 @@
                <button type="button" class="btn  btn-info btn-xs" data-toggle="modal" data-target="#myModalProduct"> <span class="glyphicon glyphicon-plus"> </span>&nbsp NEW PRODUCT</button>
             </div>
          </div>
-         <div class="box">
+         <div class="box mt3">
             <div class="box-body table-responsive">
                <table class="table table-bordered text-center">
                   <thead>
@@ -499,7 +508,7 @@
                <button type="button" class="btn  btn-info btn-xs" data-toggle="modal" data-target="#myModal1">SEND EMAIL</button>
             </div>
          </div>
-         <div class="box ">
+         <div class="box mt3">
               <div class="box-body table-responsive">
                <table class="table table-bordered text-center">
                   <thead>

@@ -151,7 +151,11 @@
 
               <div class="row">
                  <div class="col-md-5"></div>
-                  <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
+                 @if(isset($get_state_discom))
+                  <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">UPDATE</button></div>
+                  @else
+                  <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs">SAVE</button></div>
+                  @endif
                   <div class="col-md-1"><button type="reset" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
                 <div class="col-md-5"></div>
               </div>
@@ -260,15 +264,17 @@
                           {{ method_field('DELETE') }}
                          <div class="modal-dialog modal-confirm">
                            <div class="modal-content">
-                             <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                             <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                                <h4 class="modal-title text-center">ARE YOU SURE?</h4>
-                             </div>
+                             </div> -->
                              <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                               <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO DELETE THESE RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                               <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO DELETE THESE RECORDS?</p></center>
                              </div>
                              <div class="modal-footer">
-                               <button type="submit" class="btn btn-danger">Yes</button>
-                               <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+                              <div class="text-center">
+                               <button type="submit" class="btn btn-info btn-xs">YES</button>
+                               <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">NO</button>
+                             </div>
                              </div>
                            </div>
                          </div>

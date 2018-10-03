@@ -6,7 +6,7 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
         <li><a href="#">MANAGE EMPLOYEE</a></li>
-        <li><a href="{{ route('permissionlist.index') }}"><u>ADD PERMISSION</u></a></li>
+        <li><a href="{{ route('permissionlist.index') }}"><u>EDIT PERMISSION</u></a></li>
       </ol>
     </section>
 
@@ -14,7 +14,15 @@
 <section class="content">
   <div class="row">
   <div class="col-xs-12">
-<div class="box">
+          <div class="row">
+          <div class="col-md-10"></div>
+          <div class="col-md-2">
+            <a href="{{ route('permissionlist.index') }}" class="btn btn-info btn-xs pull-right mt7"  id="ram" name="">
+           <span class="glyphicon glyphicon-forward"></span>&nbsp BACK TO LIST</a>
+          </div>
+          </div>
+
+<div class="box mt3">
   <div class="box-body">
   <form method="post" action="{{ (@$permissions->id!='')?url('/permissionlist/'.$permissions->id):route('permissionlist.store')}}">
             {{ csrf_field() }}
@@ -35,9 +43,12 @@
      <label  class="control-label">DESCRIPTION</label>
      <input class="form-control input-sm" type="text" placeholder="ENTER DESCRIPTION" name="description" value="{{(isset($permissions->id)&& $permissions->description)?$permissions->description:old('description')}}">
   </div>
-<div class="col-md-1 mt3">
-   <label  class="control-label"></label>
-   <button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
+<div class="col-md-1"  style="margin-top:21px;">
+   <button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button>
+ </div>
+  <div class="col-md-1" style="margin-top:21px;">
+    <a href="{{ route('permissionlist.index') }}"><input type="button"  class="btn btn-danger btn-block  btn-xs pull-right"value="Cancel"></a>
+</div> 
 </div>
 </form>
 </div>

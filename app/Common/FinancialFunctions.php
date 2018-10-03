@@ -57,7 +57,7 @@ class FinancialFunctions
 
 
   /**** Converitng  amount to words for bill *****/
-  public static function getIndianCurrency(float $amount){
+  public static function getIndianCurrency($amount){
 
       $decimal = round($amount - ($no = floor($amount)), 2) * 100;
       $hundred = null;
