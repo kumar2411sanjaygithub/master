@@ -42,12 +42,12 @@ $(document).ready(function(){
         $('#date_to').focus();
         return false;
       }
-      if(date_from > date_to)
-      {
-        swal('Error!', 'From date should not be greater than to date !!!.', 'error');
-        $('#date_to').focus();
-        return false;
-      }
+      // if(date_from > date_to)
+      // {
+      //   swal('Error!', 'From date should not be greater than to date !!!.', 'error');
+      //   $('#date_to').focus();
+      //   return false;
+      // }
 
       var orderbookData = {
           client_id: $('#user_id').val(),
@@ -83,8 +83,8 @@ $(document).ready(function(){
                                 '<td class="text-center">'+j+'</td>'+
                                 '<td class="text-center">'+data.placebidData[i].order_no+'</td>'+
                                 '<td class="text-center">'+data.placebidData[i].biddate+'</td>'+
-                                '<td class="text-center">'+data.placebidData[i].portfolio_id+'</td>'+
                                 '<td class="text-center">'+data.placebidData[i].company_name+'</td>'+
+                                '<td class="text-center">'+data.placebidData[i].portfolio_id+'</td>'+
                                 '<td class="text-center"><a><span data-toggle="modal" order-no="'+data.placebidData[i].order_no+'" bid-type="single" data-target="#bid-details" class="text-info view-details" style="cursor:pointer;">View</span></a></td>'+
                                 '<td class="text-center"><a><span data-toggle="modal" order-no="'+data.placebidData[i].order_no+'" bid-type="block" data-target="#bid-details" class="text-info view-details" style="cursor:pointer;">View</span></a></td>'+
                                 '<td class="text-center">'+data.placebidData[i].order_placed_by+'</td>'+

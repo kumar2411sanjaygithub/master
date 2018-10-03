@@ -66,7 +66,7 @@ public function findppa($id)
        $ppadetails->file_path = $imageName;
        $ppadetails->status = 0;
        $ppadetails->save();
-       return redirect()->back()->with('message', 'Data Save Successfully!');
+       return redirect()->back()->with('message', 'Details added successfully and sent for approval');
   }
 
   public function editppa($id)
@@ -112,7 +112,7 @@ public function findppa($id)
         $dataArray['validity_to'] = date('Y-m-d', strtotime($request->input('validity_to')));
         // $dataArray['email'] = $request->input('email');
         $result=array_diff($dataArray,$datas);
-        
+
         $this->generateApprovalrequest($result,'ppa',$client_id,$ppdetailid,$datas);
         return redirect()->route('addppadetailsfind',['id'=>$client_id])->with('updatemsg','Detail added successfully and sent to Approver');
 

@@ -42,7 +42,7 @@ class NocAppController extends Controller
      */
     public function create()
     {
-    
+
     }
 
     /**
@@ -70,7 +70,7 @@ class NocAppController extends Controller
             'end_time' => 'required',
         ]);
 
-        if ( $validator->fails()) 
+        if ( $validator->fails())
         {
         return Redirect::to('getclientData/'. $client_id )->withErrors($validator)->withInput();
         }
@@ -109,7 +109,7 @@ class NocAppController extends Controller
         {
             $imageName = "";
         }
-        $last = NocApp::orderBy('id', 'desc')->get();        
+        $last = NocApp::orderBy('id', 'desc')->get();
         if ($last) {
             $application_no=count($last)+1;
         }else{
@@ -125,13 +125,13 @@ class NocAppController extends Controller
         $noc->noc_type = request('noc_type');
         $noc->exchange_type =request('exchange_type');
         $noc->quantum = request('quantum');
-        $noc->noc_file =$imageName;                
+        $noc->noc_file =$imageName;
         $noc->start_date = $new_start_date;
-        $noc->end_date =$new_end_date;  
+        $noc->end_date =$new_end_date;
         $noc->start_time =request('start_time');
         $noc->end_time = request('end_time');
-        $noc->status =1;                               
-        $noc->save();  
+        $noc->status =1;
+        $noc->save();
 
 
         return redirect()->route('getclientData', ['id' => $client_id])->with('success','NOC Application initiated successfully and sent for approval.');
@@ -160,7 +160,7 @@ class NocAppController extends Controller
                         }
 
                     }
-                    
+
                 }
             }
         }
@@ -183,7 +183,7 @@ class NocAppController extends Controller
             'end_time' => 'required',
         ]);
 
-        if ( $validator->fails()) 
+        if ( $validator->fails())
         {
         return Redirect::to('noc/edit/'. $id )->withErrors($validator)->withInput();
         }
@@ -216,7 +216,7 @@ class NocAppController extends Controller
             $imageName = time().'.'.request()->noc_file->getClientOriginalName();
             $noc_path = storage_path().'/FILES/TPTCL/NOC';
             File::isDirectory($noc_path) or File::makeDirectory($noc_path, 0777, true, true);
-            request()->noc_file->move($noc_path, $imageName);         
+            request()->noc_file->move($noc_path, $imageName);
         }
         else
         {
@@ -229,13 +229,13 @@ class NocAppController extends Controller
         $noc->noc_type = request('noc_type');
         $noc->exchange_type =request('exchange_type');
         $noc->quantum = request('quantum');
-        $noc->noc_file =$imageName;                
+        $noc->noc_file =$imageName;
         $noc->start_date = $new_start_date;
-        $noc->end_date =$new_end_date;  
+        $noc->end_date =$new_end_date;
         $noc->start_time =request('start_time');
         $noc->end_time = request('end_time');
-        $noc->status =1;                               
-        $noc->save();  
+        $noc->status =1;
+        $noc->save();
 
 
         return redirect()->route('getclientData', ['id' => $client_id])->with('success','Your update request has been successfully submitted for approval.');
@@ -249,10 +249,10 @@ class NocAppController extends Controller
         $trader_mail='cybuzzsc@gmail.com';
 
         $out = Mail::send('noc.noc_email',array('name'=> $client_name,'text'=>'generated') , function($message) use ($client_mail,$trader_mail,$client_name) {
-                $message->to($client_mail);                        
+                $message->to($client_mail);
                 $message->subject($client_name.' noc generate.');
                   //$message->bcc($trader_mail);
-                  $message->from($trader_mail,$client_name);           
+                  $message->from($trader_mail,$client_name);
         });
         return redirect()->route('getclientData', ['id' => $c_id])->with('success','Email succesfully generated.');
     }
@@ -265,10 +265,10 @@ class NocAppController extends Controller
         $trader_mail='cybuzzsc@gmail.com';
 
         $out = Mail::send('noc.noc_email',array('name'=> $client_name,'text'=>'debited') , function($message) use ($client_mail,$trader_mail,$client_name) {
-                $message->to($client_mail);                        
+                $message->to($client_mail);
                 $message->subject($client_name.' noc debit note.');
                   //$message->bcc($trader_mail);
-                  $message->from($trader_mail,$client_name);           
+                  $message->from($trader_mail,$client_name);
         });
         return redirect()->route('getclientData', ['id' => $c_id])->with('success','Email succesfully generated.');
     }
@@ -302,11 +302,11 @@ class NocAppController extends Controller
     {
 
     }
-    
+
     public function clientSearch(Request $request)
     {
         $client=Client::where('company_name','LIKE','%'.$request['term'].'%')->get();
-        
+
         $results = array();
         foreach ($client as $query)
         {
@@ -321,20 +321,20 @@ class NocAppController extends Controller
             $res=['value'=>'No Result Found','id'=>''];
             return Response::json($res);
         }
-        
-    } 
+
+    }
     public function clientData(Request $request,$s='')
     {
         if($s=='clientdata')
         {
-            $str = $request->client_name; 
-            preg_match_all("/\\[(.*?)\\]/", $str, $matches); 
+            $str = $request->client_name;
+            preg_match_all("/\\[(.*?)\\]/", $str, $matches);
             $client_id=@$matches[1][0];
         }
         else
         {
-            $str =$s; 
-            $client_id =$s; 
+            $str =$s;
+            $client_id =$s;
 
         }
 
@@ -362,7 +362,7 @@ class NocAppController extends Controller
                             }
 
                         }
-                        
+
                     }
                 }
             }
@@ -372,7 +372,7 @@ class NocAppController extends Controller
             $noc_data=NocApp::with(['client'=>function($query){$query->with('nocbilling');}])->orderBy('id','desc')->where('client_id',$client_id)->paginate(10);
             $clientData = Client::all();
             return view('noc.noc_app',compact('client_id','sldc_array','str','noc_data','clientData'));
-                
+
         }
         else
         {
@@ -380,8 +380,8 @@ class NocAppController extends Controller
         }
 
 
-        
-    }   
+
+    }
 
     public function nocbilllist()
     {
@@ -408,7 +408,7 @@ class NocAppController extends Controller
                     }
 
                 }
-                
+
             }
         }
         $discom_array=array();
@@ -424,7 +424,7 @@ class NocAppController extends Controller
                         array_push($discom_array,$discom_value);
                     }
                 }
-                
+
             }
         }
         if($request['noc_application_for']=='both')
@@ -439,7 +439,7 @@ class NocAppController extends Controller
                         array_push($discom_array,$discom_value);
                     }
                 }
-                
+
             }
             $sldc_data=json_decode($get_state_discom->sldc);
             foreach($sldc_data as $sldc)
@@ -452,7 +452,7 @@ class NocAppController extends Controller
                     }
 
                 }
-                
+
             }
 
         }
@@ -504,6 +504,7 @@ class NocAppController extends Controller
                 $noc_bill_sett->sldc_igst_amt = request('sldc_igst_amt');   
             }
         }                              
+
         $noc_bill_sett->save();
 
         return redirect()->route('billsetting.nocbilllist')->with('success', 'NOC Billing Setting Added Successfully.');
@@ -511,7 +512,7 @@ class NocAppController extends Controller
     }
     public function nocbillingdelete($id)
     {
-        
+
         $del = NocBilling::findOrFail($id);
         $del->delete();
 
@@ -544,6 +545,7 @@ class NocAppController extends Controller
 
         $noc_bill_sett = NocBilling::find($id);
         $noc_bill_sett->noc_application_for = request('noc_application_for');
+
         if(request('noc_application_for')=='discom' ||request('noc_application_for')=='both')
         {
             $noc_bill_sett->discom = request('discom');
@@ -623,7 +625,7 @@ class NocAppController extends Controller
        }
        else
        {
-        return redirect()->route('getclientData', ['id' => $c_id])->with('success', 'NOC rejected successfully.');        
+        return redirect()->route('getclientData', ['id' => $c_id])->with('success', 'NOC rejected successfully.');
        }
 
     }
@@ -638,9 +640,9 @@ class NocAppController extends Controller
         $noc_bill_sett = NocApp::find($request->noc_id);
         $noc_bill_sett->payment_challan_number = request('payment_challan_number');
         $noc_bill_sett->bank_name = request('bank_name');
-        $noc_bill_sett->transcation_date = $transcation_date_n;     
-        $noc_bill_sett->amount = request('amount');    
-        $noc_bill_sett->status = 3;                         
+        $noc_bill_sett->transcation_date = $transcation_date_n;
+        $noc_bill_sett->amount = request('amount');
+        $noc_bill_sett->status = 3;
         $noc_bill_sett->save();
 
         return redirect()->route('getclientData', ['id' => $url])->with('success', 'NOC payment added successfully.');
@@ -668,9 +670,8 @@ class NocAppController extends Controller
 
         $generate_noc = storage_path().'/files/tptcl/noc/generate_noc_application';
         File::isDirectory($generate_noc) or File::makeDirectory($generate_noc, 0777, true, true);
-
-
-        $pdf=PDF::loadView('noc.generate_noc_app',['date'=>date('d.m.Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'exchange'=>strtoupper($exchange),'quantum'=>$get_data->quantum,'from_date'=>date('d.m.Y',strtotime($get_data->start_date)),'end_date'=>date('d.m.Y',strtotime($get_data->end_date)),'amount'=>$get_data->amount,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d.m.Y',strtotime($get_data->transcation_date))]);
+        $conn_state = \App\Common\StateList::get_states()[$get_data['client']->conn_state]['name'];
+        $pdf=PDF::loadView('noc.generate_noc_app',['date'=>date('d.m.Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'exchange'=>strtoupper($exchange),'quantum'=>$get_data->quantum,'from_date'=>date('d.m.Y',strtotime($get_data->start_date)),'end_date'=>date('d.m.Y',strtotime($get_data->end_date)),'amount'=>$get_data->amount,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d.m.Y',strtotime($get_data->transcation_date)),'company_name'=>$get_data['client']->company_name,'short_id'=>$get_data['client']->short_id,'conn_state'=>$conn_state]);
          $pdf->save($generate_noc.'/'.$pdf_name);
         return redirect()->route('getclientData', ['id' => $get_data->client_id])->with('success','NOC application generated successfully');
         //return $pdf->download('noc-applicaiton.pdf');
@@ -690,7 +691,7 @@ class NocAppController extends Controller
              }
             $pdf = NocApp::find($id);
             $client_id=$pdf->client_id;
-            $pdf->generate_noc_application='';                         
+            $pdf->generate_noc_application='';
             $pdf->save();
 
             return redirect()->route('getclientData', ['id' => $url])->with('success', 'NOC Application pdf Deleted.');
@@ -703,7 +704,7 @@ class NocAppController extends Controller
              }
             $pdf = NocApp::find($id);
             $client_id=$pdf->client_id;
-            $pdf->generate_sldc_debit='';                         
+            $pdf->generate_sldc_debit='';
             $pdf->save();
 
             return redirect()->route('getclientData', ['id' => $url])->with('success', 'NOC SLDC Debit pdf Deleted.');
@@ -716,7 +717,7 @@ class NocAppController extends Controller
              }
             $pdf = NocApp::find($id);
             $client_id=$pdf->client_id;
-            $pdf->generate_discom_debit='';                         
+            $pdf->generate_discom_debit='';
             $pdf->save();
 
             return redirect()->route('getclientData', ['id' => $url])->with('success', 'NOC DISCOM Debit pdf Deleted.');
@@ -748,7 +749,8 @@ class NocAppController extends Controller
         $generate_noc = storage_path().'/files/tptcl/noc/bill';
         File::isDirectory($generate_noc) or File::makeDirectory($generate_noc, 0777, true, true);
 
-        $pdf=PDF::loadView('noc.bill_view',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'client_name'=>strtoupper($client->name),'client_add1'=>ucwords($client->bill_line1),'client_add2'=>ucwords($client->bill_line2),'client_city'=>ucwords($client->bill_city),'client_state'=>ucwords($client->bill_state),'client_country'=>ucwords($client->bill_country),'client_pin'=>ucwords($client->bill_pin),'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$noc_bill_details->sldc_amt,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date))]);
+
+        $pdf=PDF::loadView('noc.bill_view',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'client_name'=>strtoupper($client->name),'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$get_data->amount,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date)),'client_det'=>$client->toArray()]);
         $pdf->save($generate_noc.'/'.$pdf_name);
 
         return redirect()->route('getclientData', ['id' => $get_data->client_id])->with('success','SLDC Debit generate successfully');

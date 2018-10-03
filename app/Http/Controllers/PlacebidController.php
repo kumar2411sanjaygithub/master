@@ -697,7 +697,7 @@ class PlacebidController extends Controller
               $blockto = $request->input('time_slot_to');
               $diffHr =  $this->timeDiff($blockfrom,$blockto);
 
-              $noOfBlock = $request->input('no_of_block');
+              $noOfBlock = 1;
               if(($diffHr*4)%$noOfBlock <> 0){
                   $msg = 'Please enter valid block number !!!';
                   return response()->json(['status' => '1', 'msg'=>$msg],400);
@@ -764,8 +764,11 @@ class PlacebidController extends Controller
 
 
     public function validatesinglebidbyprice($time_slot_from,$time_slot_to,$price,$biddate,$bid_action,$client_id){
+        echo $time_slot_from.'~'.$time_slot_to.'~'.$price.'~'.$biddate.'~'.$bid_action.'~'.$client_id;
+        die();
       if($bid_action=='sell'){
       $placebid = Placebid::selectRaw("max(`bid_price`) as bid_price")->where('bid_action','buy')->whereRaw("(((time_slot_from >= CAST('".$time_slot_from.":00' AS time)) and (time_slot_from >= CAST('".$time_slot_from.":00' AS time)) and (time_slot_from <= CAST('".$time_slot_to.":00' AS time) )) or (time_slot_from <= CAST('".$time_slot_from.":00' AS time)) and (time_slot_from <= CAST('".$time_slot_from.":00' AS time)) and (time_slot_to >= CAST('".$time_slot_from.":00' AS time) ))")->where('bid_date',$biddate)->orderBy('bid_price','Asc')->where('client_id',$client_id)->whereNull('deleted_at')->get()->first();
+      dd($placebid);
       if($placebid->bid_price!=null){
       if($price<$placebid->bid_price){
         return 0;

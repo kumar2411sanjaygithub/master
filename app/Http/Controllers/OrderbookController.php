@@ -37,9 +37,9 @@ class OrderbookController extends Controller
         // get all iex place bid data
         // DB::enableQueryLog();
        $placebidData = DB::table('place_bid')
-        ->join('clients', 'place_bid.client_id', '=', 'clients.id')
-        ->join('users', 'place_bid.staff_id', '=', 'users.id')
-        ->selectRaw("place_bid.bid_date, place_bid.order_no, place_bid.status, clients.cin as cin_no, clients.name as company_name,clients.iex_portfolio as portfolio_id,concat(SUBSTRING(bid_date, 9, 2),'/',SUBSTRING(bid_date, 6,2),'/',SUBSTRING(bid_date, 1,4)) as biddate, users.name as order_placed_by")
+        ->leftJoin('clients', 'place_bid.client_id', '=', 'clients.id')
+        ->leftJoin('users', 'place_bid.staff_id', '=', 'users.id')
+        ->selectRaw("place_bid.bid_date, place_bid.order_no, place_bid.status, clients.cin as cin_no, clients.company_name as company_name,clients.iex_portfolio as portfolio_id,concat(SUBSTRING(bid_date, 9, 2),'/',SUBSTRING(bid_date, 6,2),'/',SUBSTRING(bid_date, 1,4)) as biddate, users.name as order_placed_by")
         ->groupBy('place_bid.bid_date')
         ->where('place_bid.client_id', $client_id)
         ->where('place_bid.status', '!=', 0)

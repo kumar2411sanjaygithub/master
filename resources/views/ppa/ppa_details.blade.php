@@ -11,7 +11,7 @@
 </style>
 <!-- Content Header (Page header) -->
 <section class="content-header">
-   <h5><label  class="control-label"><u>SEARCH PPA DETAILS</u></label></h5>
+   <h5><label  class="control-label"><u>PPA DETAILS</u></label></h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">MANAGE CLIENT</a></li>
@@ -31,7 +31,7 @@
              <select class="" name="client_id" id="select-client" data-live-search="true">
                <option>Search Client</option>
                 @foreach ($clientData as $key => $value)
-                <option value="{{ $value->id }} {{(old('client')==$value->id)?'selected':''}}"  data-tokens="{{ $value->company_name }}.{{ $value->id }}.{{ $value->crn_no }};?>" > [{{$value->company_name}}] [{{$value->short_id}}] [{{$value->crn_no}}]</option>
+                <option value="{{ $value->id }} {{(old('client')==$value->id)?'selected':''}}"  data-tokens="{{ $value->company_name }}.{{ $value->id }}.{{ $value->crn_no }};?>" > {{$value->company_name}} [{{$value->short_id}}] [{{$value->crn_no}}] [{{$value->iex_portfolio}}] [{{$value->pxil_portfolio}}]</option>
                @endforeach
 
              </select>

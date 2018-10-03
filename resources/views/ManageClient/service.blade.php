@@ -7,7 +7,7 @@
       <div class="col-xs-12">
          <div class="row">
             <div class="col-md-4">
-               <h5><label class="control-label"><u>SET EMAIL/SMS ALERT</u>&nbsp&nbsp&nbsp&nbsp lakhan pvt. ltd</label></h5>
+               <h5><label class="control-label"><u>SET EMAIL/SMS ALERT</u>&nbsp&nbsp&nbsp&nbsp {{$client->company_name}}</label></h5>
             </div>
             <div class="col-md-7"></div>
             <div class="col-md-1" style="margin-left:-30px;"><a href="/contactdetails/{{$client_id}}" class="btn btn-info btn-xs mt7">
@@ -17,6 +17,12 @@
          </div>
          <div class="box">
             <div class="box-header">
+              @if(session()->has('message'))
+               <div class="alert alert-success alert-dismissible fade in">
+                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <span class="glyphicon glyphicon-ok"></span> &nbsp;{{ session()->get('message') }}
+               </div>
+               @endif
             </div>
             <div class="box-body table-responsive">
                <table class="table table-bordered text-center">

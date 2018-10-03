@@ -1252,6 +1252,7 @@ jQuery(document).ready(function() {
                                 blockBid = '<tr><td colspan="4" class="text-center">No Bid Found</td></tr>';
                             }
                             header += singleBid + '</tbody></table></div>  <label class="text-info">IEX || Block</label>';
+                            
                             if (dateindex >= current_date) {
                                 header += '<img style="cursor: pointer;" src="/img/assets/edit.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="15px" width="19px">';
                             } else {
