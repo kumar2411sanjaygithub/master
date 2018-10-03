@@ -15,10 +15,11 @@
                <div id="data3" style="margin-top:30px;">
                   <div id="emp1">To,</div>
                   <div class="row">&nbsp;</div>
-                  <div id="emp3">Haldia Power Project HFC Complex</div>
-                  <div id="emp4">Patikhali, Purba Nedinpur Haldia</div>
-                  <div id="emp5">721606,West Bengal.</div>
-                  <div id="emp6">PIN-123456</div>
+                  <div id="emp3">{{$client_name}}</div>
+                  <div id="emp4">{{$client_add1}} </div>
+                  <div id="emp5">{{$client_add2}}</div>
+                  <div id="emp5">{{$client_city}} {{$client_state}} {{$client_country}}</div>
+                  <div id="emp6">PIN-{{$client_pin}}</div>
               </div>
                     <div class="row">&nbsp;</div>
                   <div class="row">&nbsp;</div>

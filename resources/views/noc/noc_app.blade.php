@@ -88,6 +88,7 @@ min-width:100px;
   font-weight:600!important;
 
 }
+.datepicker{z-index: 9999!important;}
 </style>
 <section class="content-header">
    <h5>
@@ -328,9 +329,15 @@ min-width:100px;
                            @else
                             @if($noc_list->status==3 && $noc_list->generate_noc_application=='')
                              <a href="/noc/edit/{{$noc_list->id}}"><span class="label edited fnt" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+<<<<<<< HEAD
+                            @else 
+                             <a href="" data-toggle="modal" data-target="#alertMessage{{ $noc_list->id }}"><span class="label edited fnt" >EDIT</span></a>
+                            @endif 
+=======
                             @else
                              <a  data-toggle="modal" data-target="#alertMessage{{ $noc_list->id }}"><span class="label edited fnt" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
                             @endif
+>>>>>>> a6b3d3513f85bcb422042e5571609a66bc42b16f
                            @endif
 
 

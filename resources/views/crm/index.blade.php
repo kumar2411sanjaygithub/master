@@ -10,11 +10,12 @@
     </section>
     <section class="content">
   @if (\Session::has('success'))
-      <div class="alert alert-success" id="successMessage">
-          <ul>
-              <li>{!! \Session::get('success') !!}</li>
-          </ul>
-      </div>
+    <div class="alert alert-success alert-dismissible fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+     <span class="glyphicon glyphicon-ok"></span> {!! \Session::get('success') !!}
+    </div>
+
+
   @endif
 
 
