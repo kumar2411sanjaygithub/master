@@ -354,7 +354,7 @@ class LeadController extends Controller
             $client->reg_state = $lead_info->add_state;
             $client->reg_city = $lead_info->add_city;
             $client->reg_pin = $lead_info->add_pincode;
-            $client->reg_mob = $lead_info->contact_number;
+            $client->pri_contact_no = $lead_info->contact_number;
             $client->client_app_status = 1;
             $client->save();
 
@@ -389,14 +389,15 @@ class LeadController extends Controller
                   $message->from($email['mail_from']);
                 }
               });
+
+            return redirect()->route('lead.index')->with('success', 'Client CRN No. generate successfully.');
         }
         else
         {
             $convert=LeadProduct::where(['lead_id'=>$id,'product_id'=>$c_id])->update(['product_converted' => 1]);
+            return redirect()->route('lead.index')->with('success', 'Product converted successfully.');
 
         }
-        return redirect()->route('lead.index')->with('success', 'Client CRN information generate Successfully.');
-
     }
 
 }

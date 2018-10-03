@@ -21,6 +21,9 @@ min-width:50px;
 border-collapse:collapse;
 min-width:100px;
 }
+.hidedivv{
+  display:none;
+}
 </style>
     <section class="content-header">
       <h5>
@@ -76,6 +79,7 @@ min-width:100px;
   </div>
   </div>
     <div class="row">&nbsp;</div>
+    <div id="discom_noc_application_for" class="{{ (isset($edit_nocBilling) && $edit_nocBilling->noc_application_for == 'discom')||@$edit_nocBilling->noc_application_for == 'both'?  : 'hidedivv' }}">
 <div class="row"><hr>
   <div class="col-md-3">
     <label  class="control-label">DISCOM</label>
@@ -93,17 +97,16 @@ min-width:100px;
   <div class="col-md-3">
     <label  class="control-label">GST APPLICABLE</label>
     <select class="form-control input-sm" style="width: 100%;"  id="discom_gst_applicabale" name="discom_gst_applicabale">
+      <option value="">SELECT</option>
        <option value="YES" {{ isset($edit_nocBilling) && $edit_nocBilling->discom_gst_applicabale == 'YES' || old('discom_gst_applicabale')==  'YES'? 'selected="selected"' : '' }}>YES</option>
        <option value="NO" {{ isset($edit_nocBilling) && $edit_nocBilling->discom_gst_applicabale == 'NO' || old('discom_gst_applicabale')==  'NO'? 'selected="selected"' : '' }}>NO</option>
   </select>
   </div>
-
+    <div id="hide_discom_gst_applicabale" class="{{ (isset($edit_nocBilling) && $edit_nocBilling->discom_gst_applicabale == 'YES')?  : 'hidedivv' }}">
   <div class="col-md-3">
     <label  class="control-label">CGST AMOUNT</label>
     <input class="form-control input-sm num" type="text" placeholder="VALUE" id="discom_cgst_value" name="discom_cgst_value" value="{{ isset($edit_nocBilling->discom_cgst_value) ? $edit_nocBilling->discom_cgst_value : old('discom_cgst_value') }}">
   </div>
-</div>
-<div class="row">
   <div class="col-md-3">
     <label  class="control-label">SGST AMOUNT</label>
     <input class="form-control input-sm num" type="text" placeholder="VALUE" id="discom_sgst_value" name="discom_sgst_value" value="{{ isset($edit_nocBilling->discom_sgst_value) ? $edit_nocBilling->discom_sgst_value : old('discom_sgst_value') }}">
@@ -118,7 +121,11 @@ min-width:100px;
     <input class="form-control input-sm num" type="text" placeholder="VALUE" id="discom_igst_value" name="discom_igst_value" value="{{ isset($edit_nocBilling->discom_igst_value) ? $edit_nocBilling->discom_igst_value : old('discom_igst_value') }}">
   </div>
   </div>
+</div>
+</div>
 <hr>
+    <div id="sldc_noc_application_for" class="{{ (isset($edit_nocBilling) && $edit_nocBilling->noc_application_for == 'sldc')||@$edit_nocBilling->noc_application_for == 'both'?  : 'hidedivv' }}">
+
   <div class="row">
     <div class="col-md-3">
       <label  class="control-label">SLDC</label>
@@ -137,17 +144,17 @@ min-width:100px;
     <div class="col-md-3">
       <label  class="control-label">GST APPLICABLE</label>
       <select class="form-control input-sm" style="width: 100%;" name="sldc_gst_applicable" id="sldc_gst_applicable">
+        <option value="">SELECT</option>
          <option value="YES" {{ isset($edit_nocBilling) && $edit_nocBilling->sldc_gst_applicable == 'YES' || old('sldc_gst_applicable')==  'YES'? 'selected="selected"' : '' }}>YES</option>
          <option value="NO" {{ isset($edit_nocBilling) && $edit_nocBilling->sldc_gst_applicable == 'NO' || old('sldc_gst_applicable')==  'NO'? 'selected="selected"' : '' }}>NO</option>
     </select>
     </div>
-
+    <div id="hide_sldc_gst_applicable" class="{{ (isset($edit_nocBilling) && $edit_nocBilling->sldc_gst_applicable == 'YES')?  : 'hidedivv' }}">
     <div class="col-md-3">
       <label  class="control-label">CGST AMOUNT</label>
       <input class="form-control input-sm num" type="text" placeholder="VALUE" id="sldc_cgst_amt" name="sldc_cgst_amt"  value="{{ isset($edit_nocBilling->sldc_cgst_amt) ?$edit_nocBilling->sldc_cgst_amt  : old('sldc_cgst_amt') }}">
     </div>
-  </div>
-<div class="row">
+
   <div class="col-md-3">
     <label  class="control-label">SGST AMOUNT</label>
     <input class="form-control input-sm num" type="text" placeholder="VALUE" id="sldc_sgst_amt" name="sldc_sgst_amt" value="{{ isset($edit_nocBilling->sldc_sgst_amt) ? $edit_nocBilling->sldc_sgst_amt : old('sldc_sgst_amt') }}">
@@ -160,9 +167,9 @@ min-width:100px;
     <label  class="control-label">IGST AMOUNT</label>
     <input class="form-control input-sm num" type="text" placeholder="VALUE" id="sldc_igst_amt" name="sldc_igst_amt" value="{{ isset($edit_nocBilling->sldc_igst_amt) ? $edit_nocBilling->sldc_igst_amt : old('sldc_igst_amt') }}">
   </div>
-
+</div>
   </div>
-
+</div>
     <div class="row">&nbsp;</div>
      <div class="row">
         <div class="col-md-5"></div>
@@ -185,7 +192,7 @@ min-width:100px;
         <th rowspan="2" class="scroll-table2 vl" >SR.NO</th>
         <th rowspan="2"  class="vl " >STATE</th>
         <th colspan="7" >DISCOM</th>
-        <th colspan="7">SDLC</th>
+        <th colspan="7">SLDC</th>
         <th rowspan="2" class="scroll-table3 vl" >ACTION</th>
       </tr>
       <tr>
@@ -283,6 +290,19 @@ min-width:100px;
   $(document).ready(function(){
     $('#noc_application_for').on('click', function() {
       var noc_application_for=this.value;
+        if($('#noc_application_for').val() == 'sldc') {
+            $('#sldc_noc_application_for').show(); 
+            $('#discom_noc_application_for').hide();
+        } else if($('#noc_application_for').val() == 'discom')  {
+            $('#discom_noc_application_for').show(); 
+            $('#sldc_noc_application_for').hide();
+        } 
+        else if($('#noc_application_for').val() == 'both')  {
+            $('#discom_noc_application_for').show(); 
+            $('#sldc_noc_application_for').show(); 
+        } 
+
+
       var state=$('#state').val();
       if(state!='')
       {
@@ -323,5 +343,25 @@ min-width:100px;
  setTimeout(function() {
    $('#successMessage').fadeOut('fast');
    }, 2000); // <-
+
+$(function() { 
+    $('#sldc_gst_applicable').change(function(){
+        if($('#sldc_gst_applicable').val() == 'YES') {
+            $('#hide_sldc_gst_applicable').show(); 
+        } else {
+            $('#hide_sldc_gst_applicable').hide(); 
+        } 
+    });
+});
+$(function() { 
+    $('#discom_gst_applicabale').change(function(){
+        if($('#discom_gst_applicabale').val() == 'YES') {
+            $('#hide_discom_gst_applicabale').show(); 
+        } else {
+            $('#hide_discom_gst_applicabale').hide(); 
+        } 
+    });
+});
+
 </script>
   @endsection
