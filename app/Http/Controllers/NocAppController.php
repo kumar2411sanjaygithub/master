@@ -254,7 +254,7 @@ class NocAppController extends Controller
                   //$message->bcc($trader_mail);
                   $message->from($trader_mail,$client_name);
         });
-        return redirect()->route('getclientData', ['id' => $c_id])->with('success','Email succesfully generated.');
+        return redirect()->route('getclientData', ['id' => $c_id])->with('success','Email succesfully send.');
     }
 
    public function emailDebitNoc($id='',$c_id='')
@@ -270,7 +270,7 @@ class NocAppController extends Controller
                   //$message->bcc($trader_mail);
                   $message->from($trader_mail,$client_name);
         });
-        return redirect()->route('getclientData', ['id' => $c_id])->with('success','Email succesfully generated.');
+        return redirect()->route('getclientData', ['id' => $c_id])->with('success','Email succesfully send.');
     }
     /**
      * Show the form for editing Permission.
@@ -720,7 +720,7 @@ class NocAppController extends Controller
             $pdf->generate_discom_debit='';
             $pdf->save();
 
-            return redirect()->route('getclientData', ['id' => $url])->with('success', 'NOC DISCOM Debit pdf Deleted.');
+            return redirect()->route('getclientData', ['id' => $url])->with('success', 'NOC DISCOM debit file deleted successfully.');
         }
 
     }
@@ -750,10 +750,10 @@ class NocAppController extends Controller
         File::isDirectory($generate_noc) or File::makeDirectory($generate_noc, 0777, true, true);
 
 
-        $pdf=PDF::loadView('noc.bill_view',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'client_name'=>strtoupper($client->name),'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$get_data->amount,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date)),'client_det'=>$client->toArray()]);
+        $pdf=PDF::loadView('noc.bill_view',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'client_name'=>strtoupper($client->company_name),'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$noc_bill_details->sldc_amt,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date)),'client_det'=>$client->toArray()]);
         $pdf->save($generate_noc.'/'.$pdf_name);
 
-        return redirect()->route('getclientData', ['id' => $get_data->client_id])->with('success','SLDC Debit generate successfully');
+        return redirect()->route('getclientData', ['id' => $get_data->client_id])->with('success','SLDC debit note generate successfully.');
     }
     public function generateDiscomPdf($id='',$c_id='')
     {
@@ -780,10 +780,10 @@ class NocAppController extends Controller
         $generate_noc = storage_path().'/files/tptcl/noc/bill';
         File::isDirectory($generate_noc) or File::makeDirectory($generate_noc, 0777, true, true);
 
-        $pdf=PDF::loadView('noc.discomBill',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'client_name'=>strtoupper($client->name),'client_add1'=>ucwords($client->bill_line1),'client_add2'=>ucwords($client->bill_line2),'client_city'=>ucwords($client->bill_city),'client_state'=>ucwords($client->bill_state),'client_country'=>ucwords($client->bill_country),'client_pin'=>ucwords($client->bill_pin),'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$noc_bill_details->sldc_amt,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date))]);
+        $pdf=PDF::loadView('noc.discomBill',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'client_name'=>strtoupper($client->company_name),'client_add1'=>ucwords($client->bill_line1),'client_add2'=>ucwords($client->bill_line2),'client_city'=>ucwords($client->bill_city),'client_state'=>ucwords($client->bill_state),'client_country'=>ucwords($client->bill_country),'client_pin'=>ucwords($client->bill_pin),'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$noc_bill_details->discom_amt,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date))]);
         $pdf->save($generate_noc.'/'.$pdf_name);
 
-        return redirect()->route('getclientData', ['id' => $get_data->client_id])->with('success','DISCOM Debit generate successfully');
+        return redirect()->route('getclientData', ['id' => $get_data->client_id])->with('success','DISCOM debit note generate successfully');
     }
 
     public function downloadGenPdfn($filename='')

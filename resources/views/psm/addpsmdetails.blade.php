@@ -45,7 +45,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
 
       <div class="row">
          <div class="col-xs-12">
-           <div class="row">
+           <div class="row mb3">
              <div class="col-md-9 pull-left">
                <h5 class="hid">
                   <label  class="control-label"><u class="setword">Payment Security Mechanism(PSM) Details</u></label>
@@ -53,13 +53,12 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                </h5>
              </div>
              <div class="col-md-3 pull-right">
-                     <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mt7 "><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
-                      <a class="mt7 mr5 btn btn-info btn-xs pull-right apdbtn hid @if($errors->isEmpty()) @else hidden  @endif">
-                        <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PSM</a>
-
+               <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mt7 "><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+               <a class="mt7 mr5 btn btn-info btn-xs pull-right apdbtn hid @if($errors->isEmpty()) @else hidden  @endif">
+               <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PSM</a>
              </div>
            </div>
-           <form method="post" enctype="multipart/form-data" action="{{ url('psm/psmdetails/'.$id) }}" class="apd @if($errors->isEmpty())hidden @else  @endif">
+           <form method="post" enctype="multipart/form-data" action="{{ url('psm/psmdetails/'.$id) }}" class="mt3 apd @if($errors->isEmpty())hidden @else  @endif">
              {{ csrf_field()}}
             <div class="row">
                  <div class="col-xs-12">
@@ -128,7 +127,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                              </div>
                              <div class="col-md-3 {{ $errors->has('document') ? 'has-error' : '' }}">
                                 <label  class="control-label">UPLOAD DOCUMENT</label><span class="text-danger"><strong>*</strong></span>
-                                <input class="form-control input-sm" type="file" value="{{old('document')}}" name="document" id="upload" placeholder="ENTER POC LOSSES" disabled="disabled" style="padding:4px 4px;">
+                                <input class="file form-control input-sm" type="file" value="{{old('document')}}" name="document" id="upload" placeholder="ENTER POC LOSSES" disabled="disabled" style="padding:4px 4px;">
                                 <span class="text-danger">{{ $errors->first('document') }}</span>
                              </div>
                           </div>
@@ -137,14 +136,9 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                                 <label  class="control-label">DESCRIPTION</label>
                                 <input class="form-control input-sm" type="text" value="{{old('description')}}" name="description" placeholder="ENTER DESCRIPTION">
                              </div>
-
-                          </div>
-                          <div class="row">&nbsp;</div>
-                          <div class="row">
-                             <div class="col-md-5"></div>
-                             <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                             <div class="col-md-1"><button type="button" id="cancel1" class="btn btn-block btn-danger btn-xs cancel">CANCEL</button></div>
-                             <div class="col-md-5"></div>
+                             <div class="col-md-7"></div>
+                             <div class="col-md-1 mt23"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
+                             <div class="col-md-1 mt23"><button type="button" id="cancel1" class="btn btn-block btn-danger btn-xs cancel">CANCEL</button></div>
                           </div>
                        </div>
                     </div>
@@ -218,7 +212,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
             }
 
             @endphp
-            <div class="row">
+            <div class="row mb3">
               <div class="col-md-6">
             <section class="content-header exposuredetails">
               <span style="margin-left:-12px;"><label class="control-label"><u class="psmexp-test"> PSM EXPOSURE DETAILS</u></label></span>
@@ -251,6 +245,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                               <label  class="control-label">PSM Exposure (Auto-Calculate)</label>
                               <input class="form-control input-sm" value="{{@$last_id->exposure}}" name="exposure" id="exposure" type="text" placeholder="Auto Calculate">
                            </div>
+                           <div class="col-md-1"></div>
                            <div class="col-md-1"><button type="submit" @if(empty($path))disabled @endif class="btn btn-block btn-info btn-xs" style="margin-top:20px;">SAVE</button></div>
                            <div class="col-md-1"><input type="reset" class="btn btn-block btn-danger btn-xs" value="CANCEL" id="cancel"  style="margin-top:20px;"></div>
                         </div>

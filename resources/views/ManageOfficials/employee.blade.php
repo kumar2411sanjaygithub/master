@@ -15,10 +15,16 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
-
+          <div class="row">
+          <div class="col-md-10"></div>
+          <div class="col-md-2">
+            <a href="{{ route('employee') }}" class="btn btn-info btn-xs pull-right mt7"  id="ram" name="">
+           <span class="glyphicon glyphicon-forward"></span>&nbsp BACK TO LIST</a>
+          </div>
+          </div>
 <form method="post" action="/manageofficials/saveofficialsdata">
   {{ csrf_field() }}
-<div class="box">
+<div class="box mt3">
   <div class="box-body">
   <div class="row">
       <div class="col-md-3 {{ $errors->has('name') ? 'has-error' : '' }}">

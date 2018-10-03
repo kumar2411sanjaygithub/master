@@ -34,7 +34,7 @@
                   {{$challan_no}} is paid on {{$transcation_date}}.
                </div>
                <div class="row">&nbsp;</div>
-               <div style="font-size:14px;font-weight:600;">Note: payment is made on {{$transcation_date}}</div>
+               <div style="font-size:14px;font-weight:600;">Note: Payment is made on {{$transcation_date}}.</div>
                <div class="row">&nbsp;</div>
                <div class="row">&nbsp;</div>
                <div>Thank You ,</div>

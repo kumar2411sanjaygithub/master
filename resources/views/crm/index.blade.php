@@ -31,11 +31,11 @@
               </div></div>
           <div class="col-md-8"></div>
           <div class="col-md-2">
-            <a href="{{ route('lead.create') }}" class="btn btn-info btn-xs pull-right"  id="ram" name=" ">
+            <a href="{{ route('lead.create') }}" class="btn btn-info btn-xs pull-right" id="ram" name=" ">
             <span class="glyphicon glyphicon-plus"> </span>&nbspCREATE LEAD</a>
           </div>
           </div>
-          <div class="box">
+          <div class="box mt3">
             <!-- /.box-header -->
             <div class="box-body table-responsive">
               <table id="example1" class="table table-bordered table-striped table-hover text-center">

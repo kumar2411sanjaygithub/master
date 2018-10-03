@@ -105,7 +105,6 @@
             <input type="hidden" name="client" value="{{$id}}">
             <div class="col-md-1" style="margin-top:22px;"><button type="reset" id="cancel" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
          </div>
-
         </div>
    </div>
    <div class="row">
@@ -118,11 +117,11 @@
          </div>
       </div>
       <div class="col-md-10 pull-right">
-        <a href="/basicdetails" class="btn btn-info btn-xs pull-right" ><span class="glyphicon glyphicon-forward"></span>&nbsp BACK TO LIST</a>
-        <a href="#" id="add-ppa" class="btn btn-info btn-xs pull-right mr5" ><span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PPA</a>
+        <!-- <a href="/basicdetails" class="btn btn-info btn-xs pull-right" title="BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp BACK TO LIST</a> -->
+        <a href="#" id="add-ppa" class="btn btn-info btn-xs pull-right mr5"><span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PPA</a>
       </div>
    </div>
-   <div class="box">
+   <div class="box mt3">
       <div class="box-body table-responsive">
          <table id="example1" class="table table-bordered table-striped table-hover text-center">
             <thead>
@@ -131,18 +130,30 @@
                   <th>VALIDITY START DATE</th>
                   <th>VALIDITY END DATE</th>
                   <th>FILE</th>
-                  <!-- <th>STATUS</th> -->
+                  <th>STATUS</th>
                   <th>ACTION</th>
                </tr>
             </thead>
             <tbody>
               <?php $i=1; ?>
               @forelse ($ppaData as $key => $value)
+              @php
+                $date1 = date("Y-m-d",strtotime("today midnight"));
+                $date2=date('Y-m-d',strtotime($value->validity_to));
+                $today = strtotime($date1);
+                $expiration_date = strtotime($date2);
+                if ( $today<=$expiration_date) {
+                     $valid = "Valid";
+                } else {
+                     $valid = "Expired";
+                }
+              @endphp
                <tr>
                   <td>{{ $i }}</td>
                   <td>{{date('d/m/Y', strtotime($value->validity_from))}}</td>
                   <td>{{date('d/m/Y',strtotime($value->validity_to))}}</td>
                   <td><a href="{{url('/documents/ppa/'.$value->file_path)}}" download='download'>View</a></td>
+                  <td>{{$valid}}</td>
                   <td class="text-center">
                     <a href="/ppa/editppa/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
                     &nbsp;&nbsp;&nbsp;
@@ -151,7 +162,7 @@
                  </tr>
                <?php $i++; ?>
                  @empty
-                 <tr><td colspan="5">Record Nont Found</td></tr>
+                 <tr><td class="alert-danger" colspan="6">Record Nont Found</td></tr>
                  @endforelse
             </tbody>
          </table>
@@ -221,5 +232,7 @@ $(document).ready(function(){
     });
 });
 </script>
+<script>
 
+</script>
 @endsection
