@@ -23,9 +23,7 @@
   <!-- Body Start -->
   <section class="content">
      <div class="row">
-     <div class="col-xs-12">
-     <div class="box">
-        <div class="box-body">
+
            <!-- <div class="row">
               <div class="col-md-3">
                  <label class="control-label">Select Date</label>
@@ -41,7 +39,7 @@
                  <button type="button" class="btn btn-block btn-info btn-xs searchBidDeatils" name="" id="" style="margin-top:6px;">GO</button>
               </div>
            </div> -->
-               <div class="col-md-2" >
+               <div class="col-md-2 mb3" >
                <div class="input-group input-group-sm">
                  <input type="text" id="search" class="form-control" placeholder="SEARCH">
                      <span class="input-group-btn">
@@ -49,8 +47,7 @@
                      </span>
                </div>
              </div>
-        </div>
-     </div>
+           </div>
      <div class="box">
         <div class="box-body table-responsive">
            <table id="example1" class="table table-bordered table-striped table-hover text-center">
