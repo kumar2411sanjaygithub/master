@@ -73,7 +73,7 @@ $(document).ready(function() {
 </script>
 <script>
 $('.alphanum').keypress(function (e) {
-    var regex = new RegExp("^[a-zA-Z0-9]+$");
+    var regex = new RegExp("^[a-zA-Z0-9 ]+$");
     var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
     if (regex.test(str)) {
         return true;
@@ -92,4 +92,9 @@ $('.alphanum').keypress(function (e) {
           $(".glyphicon-trash").attr('title','Delete');
       });
   });
+</script>
+<script>
+$(document).ready(function(){
+   $('[aks="tooltip"]').tooltip({placement: "bottom"});
+});
 </script>

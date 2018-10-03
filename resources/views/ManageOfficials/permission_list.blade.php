@@ -60,7 +60,7 @@
           <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PERMISSION</a>
         </div>
       </div>
-      <div class="box">
+      <div class="box mt3">
         <div class="box-body table-responsive">
           <table id="example1" class="table table-bordered table-striped table-hover text-center">
             <thead>
@@ -94,15 +94,18 @@
                           {{ method_field('DELETE') }}
                          <div class="modal-dialog modal-confirm">
                            <div class="modal-content">
-                             <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                             <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                                <h4 class="modal-title text-center"></h4>
-                             </div>
+                             </div> -->
                              <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                               <p style="font-size: 18px;font-weight: 500;color:black!important;text-align:center;">Are you sure you want to delete this record?</p>
+                               <center><p style="font-size: 12px;font-weight: 500;color:black!important;text-align:center;">DO YOU REALLY WANT TO DELETE THIS RECORD?</p>
+                                </center>
                              </div>
                              <div class="modal-footer">
-                               <button type="submit" class="btn btn-danger">Yes</button>
-                               <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+                              <div class="text-center">
+                               <button type="submit" class="btn btn-info btn-xs">YES</button>
+                               <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">NO</button>
+                             </div>
                              </div>
                            </div>
                          </div>

@@ -48,7 +48,7 @@
             </div>
          </div>
             <h5>
-      <label  class="control-label"><u>APPROVED</u> <u>CLIENT LIST :</u></label>
+      <label  class="control-label"><u>APPROVED</u> <u>CLIENT LIST</u></label>
    </h5>
           <div class="box">
             <div class="box-body table-responsive">
@@ -83,7 +83,7 @@
                     <td>{{date('d/m/Y',strtotime($noc_approved->end_date))}}</td>
                     <td>
                       @if($noc_approved->noc_file)
-                        <a href="{{url('fileNdownloads/'.$noc_approved->noc_file)}}">View</a>
+                        <a href="{{url('fileNdownloads/'.$noc_approved->noc_file)}}" target="_blank" aks="tooltip" title="VIEW FILE">View</a>
                       @endif
                     </td>
                     <td>

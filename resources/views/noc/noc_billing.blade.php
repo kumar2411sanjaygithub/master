@@ -123,9 +123,9 @@ min-width:100px;
   </div>
 </div>
 </div>
-<hr>
-    <div id="sldc_noc_application_for" class="{{ (isset($edit_nocBilling) && $edit_nocBilling->noc_application_for == 'sldc')||@$edit_nocBilling->noc_application_for == 'both'?  : 'hidedivv' }}">
 
+    <div id="sldc_noc_application_for" class="{{ (isset($edit_nocBilling) && $edit_nocBilling->noc_application_for == 'sldc')||@$edit_nocBilling->noc_application_for == 'both'?  : 'hidedivv' }}">
+<hr>
   <div class="row">
     <div class="col-md-3">
       <label  class="control-label">SLDC</label>
@@ -252,15 +252,17 @@ min-width:100px;
                 {{ method_field('DELETE') }}
                <div class="modal-dialog modal-confirm">
                  <div class="modal-content">
-                   <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                   <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                      <h4 class="modal-title text-center">ARE YOU SURE?</h4>
-                   </div>
+                   </div> -->
                    <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                     <p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO DELETE THESE RECORDS? IF CHOOSE YES, THEN THIS PROCESS CANNOT BE UNDONE.</p>
+                     <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO DELETE THIS RECORD?</p></center>
                    </div>
                    <div class="modal-footer">
-                     <button type="submit" class="btn btn-danger">Yes</button>
-                     <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+                    <div class="text-center">
+                     <button type="submit" class="btn btn-info btn-xs">YES</button>
+                     <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">NO</button>
+                    </div>
                    </div>
                  </div>
                </div>

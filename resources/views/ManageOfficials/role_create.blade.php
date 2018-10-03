@@ -6,7 +6,8 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
         <li><a href="#">MANAGE EMPLOYEE</a></li>
-        <li><a href="{{ route('roles.index') }}">ROLE & PERMISION</a></li>
+         <li><a href="#">ROLE & PERMISION</a></li>
+        <li><a href="{{ route('roles.index') }}"><u>EDIT ROLE</u></a></li>
       </ol>
     </section>
 
@@ -14,7 +15,15 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
-<div class="box">
+          <div class="row">
+          <div class="col-md-10"></div>
+          <div class="col-md-2">
+            <a href="{{ route('roles.index') }}" class="btn btn-info btn-xs pull-right mt7"  id="ram" name="">
+           <span class="glyphicon glyphicon-forward"></span>&nbsp BACK TO LIST</a>
+          </div>
+          </div>
+
+<div class="box mt3">
   <div class="box-body">
 
   <form method="post" action="{{ (@$role->id!='')?url('/roles/'.$role->id):route('roles.store')}}">
@@ -22,7 +31,7 @@
             {{ (@$role->id!='')?method_field('PATCH'):method_field('POST')}}
   <div class="row">
       <div class="col-md-3 {{ $errors->has('department') ? 'has-error' : '' }}">
-     <label  class="control-label">DEPARTMENT NAME</label>
+     <label  class="control-label">DEPARTMENT NAME<span class="text-danger"><strong>*</strong></span></label>
        <select class="form-control input-sm" name="department">
          <option value="">SELECT DEPARTMENT</option>
          @if(count($department) > 0)
@@ -37,7 +46,7 @@
         <span class="text-danger">{{ $errors->first('department') }}</span>
     </div>
   <div class="col-md-3 {{ $errors->has('name') ? 'has-error' : '' }}">
-    <label  class="control-label">ROLE</label>
+    <label  class="control-label">ROLE<span class="text-danger"><strong>*</strong></span></label>
   <input class="form-control input-sm" type="text" placeholder="ENTER ROLE" name="name" value="{{(isset($role->id)&& $role->name)?$role->name:old('name')}}">
     <span class="text-danger">{{ $errors->first('name') }}</span>
   </div>
