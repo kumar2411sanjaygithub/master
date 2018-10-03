@@ -29,7 +29,7 @@
    </div>
    <form method="post" action="/client/updateclient/{{$id}}">
       {{ csrf_field() }}
-      <div class="box" >
+      <div class="box mt3" >
          <div class="box-body">
             <h5><label  class="control-label"><u>CLIENT DETAILS</u></label></h5>
             <hr>
@@ -66,23 +66,27 @@
                   <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER PRIMARY MAIL ID"name="email" id="email" value="{{ $clientdata->email}}">
                <span class="text-danger">{{ $errors->first('email') }}</span>
                </div>
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('short_id') ? 'has-error' : '' }}">
                   <label  class="control-label">SHORT ID</label>
                   <input class="form-control input-sm disabled-class"  type="text"  disabled placeholder="ENTER SHORT ID" name="short_id" id="short_id" value="{{ $clientdata->short_id}}">
+                  <span class="text-danger">{{ $errors->first('short_id') }}</span>
                </div>
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('old_sap') ? 'has-error' : '' }}">
                   <label  class="control-label">OLD SAP CODE</label>
                   <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER OLD SAP CODE" name="old_sap" id="old_sap" value="{{ $clientdata->old_sap}}" >
+                  <span class="text-danger">{{ $errors->first('old_sap') }}</span>
                </div>
             </div>
             <div class="row">
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('new_sap') ? 'has-error' : '' }}">
                   <label  class="control-label">SAP CODE</label>
                   <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER SAP CODE" name="new_sap" id="new_sap" value="{{ $clientdata->new_sap}}">
+                  <span class="text-danger">{{ $errors->first('new_sap') }}</span>
                </div>
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('crn_no') ? 'has-error' : '' }}">
                   <label  class="control-label">CRN</label>
                   <input class="form-control input-sm" type="text"  disabled placeholder="ENTER CRN NUMBER" name="crn_no" id="crn_no" value="{{ $clientdata->crn_no}}">
+                  <span class="text-danger">{{ $errors->first('crn_no') }}</span>
                </div>
             </div>
             <h5><label  class="control-label"><u>REGISTERED OFFICE ADDRESS</u></label></h5>
@@ -91,13 +95,13 @@
                <div class="col-md-3 {{ $errors->has('reg_line1') ? 'has-error' : '' }}">
                   <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
                   <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER ADDRESS LINE-1" name="reg_line1" id="reg_line1" value="{{ $clientdata->reg_line1}}">
-              <span class="text-danger">{{ $errors->first('reg_line1') }}</span>
+              <span class="text-danger">{{ $errors->first('reg_line2') }}</span>
                </div>
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('reg_line1') ? 'has-error' : '' }}">
                   <label  class="control-label">LINE-2</label>
                   <input class="form-control input-sm disabled-class" type="text"  disabled placeholder="ENTER ADDRESS  LINE-2"  name="reg_line2" id="reg_line2" value="{{ $clientdata->reg_line2}}">
                </div>
-               <div class="col-md-3 {{ $errors->has('reg_country') ? 'has-error' : '' }}">
+               <div class="col-md-3">
                   <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
                   <select class="form-control input-sm disabled-class"   disabled style="width: 100%;" id="reg_country" name="reg_country">
                       <option value="">SELECT</option>
@@ -105,7 +109,7 @@
                   </select>
               <span class="text-danger">{{ $errors->first('reg_country') }}</span>
                </div>
-               <div class="col-md-3 {{ $errors->has('reg_state') ? 'has-error' : '' }}">
+               <div class="col-md-3 ">
                   <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
                   <select class="form-control input-sm disabled-class"  disabled  style="width: 100%;"id="reg_state" name="reg_state" value="{{ $clientdata->reg_state}}">
                      <option value="">SELECT</option>
@@ -151,15 +155,19 @@
             </div>
             <hr>
             <div class="row">
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('bill_line1') ? 'has-error' : '' }}">
+              
                   <label  class="control-label">LINE-1</label>
                   <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS LINE-1" id="bill_line1" name="bill_line1" value="{{ $clientdata->bill_line1}}">
+                  <span class="text-danger">{{ $errors->first('bill_line1') }}</span>
                </div>
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('bill_line2') ? 'has-error' : '' }}">
+               
                   <label  class="control-label">LINE-2</label>
                   <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS LINE-2" id="bill_line2" name="bill_line2" value="{{ $clientdata->bill_line2}}">
+                  <span class="text-danger">{{ $errors->first('bill_line2') }}</span>
                </div>
-               <div class="col-md-3">
+               <div class="col-md-3 ">
                   <label  class="control-label">COUNTRY</label>
                   <select class="form-control input-sm disabled-class" disabled style="width: 100%;" id="bill_country" name="bill_country">
                       <option value="">SELECT</option>
@@ -180,9 +188,10 @@
                </div>
             </div>
             <div class="row">
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('bill_city') ? 'has-error' : '' }}">
                   <label  class="control-label">CITY</label>
                   <input class="form-control input-sm disabled-class"  placeholder="ENTER CITY"  disabled style="width: 100%;" id="bill_city" name="bill_city" value="{{ $clientdata->bill_city}}">
+                  <span class="text-danger">{{ $errors->first('bill_city') }}</span>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">PIN CODE</label>
@@ -208,13 +217,15 @@
             </div>
             <hr>
             <div class="row">
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('del_lin1') ? 'has-error' : '' }}">
                   <label  class="control-label">LINE-1</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER ADDRESS LINE-1" id="del_lin1" name="del_lin1" value="{{ $clientdata->del_lin1}}">
+                  <span class="text-danger">{{ $errors->first('del_lin1') }}</span>
                </div>
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('del_lin2') ? 'has-error' : '' }}">
                   <label  class="control-label">LINE-2</label>
                   <input class="form-control input-sm disabled-class"   disabled type="text" placeholder="ENTER ADDRESS LINE-2" id="del_lin2" name="del_lin2" value="{{ $clientdata->del_lin2}}">
+                  <span class="text-danger">{{ $errors->first('del_lin2') }}</span>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">COUNTRY</label>
@@ -238,12 +249,14 @@
             </div>
             <div class="row">
                <div class="col-md-3">
-                  <label  class="control-label">CITY</label>
+                  <label  class="control-label {{ $errors->has('del_city') ? 'has-error' : '' }}">CITY</label>
                   <input class="form-control input-sm disabled-class"  placeholder="ENTER CITY" disabled style="width: 100%;" id="del_city" name="del_city" value="{{ $clientdata->del_city}}">
+                  <span class="text-danger">{{ $errors->first('del_city') }}</span>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">PIN CODE</label>
                   <input class="form-control input-sm disabled-class num" maxlength="6"  disabled type="text" placeholder="ENTER PIN CODE" id="del_pin" name="del_pin" value="{{ $clientdata->del_pin}}">
+
                </div>
                <div class="col-md-3">
                   <label  class="control-label">MOBILE NUMBER</label>
@@ -258,12 +271,14 @@
             <hr>
             <div class="row">
                <div class="col-md-3">
-                  <label  class="control-label">IEX CLIENT NAME</label>
+                  <label  class="control-label {{ $errors->has('iex_client_name') ? 'has-error' : '' }}">IEX CLIENT NAME</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER IEX CLIENT NAME" id="iex_client_name" name="iex_client_name" value="{{ $clientdata->iex_client_name}}">
+                  <span class="text-danger">{{ $errors->first('iex_client_name') }}</span>
                </div>
                <div class="col-md-3">
-                  <label  class="control-label">IEX PORTFOLIO CODE</label>
+                  <label  class="control-label {{ $errors->has('iex_portfolio') ? 'has-error' : '' }}">IEX PORTFOLIO CODE</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER IEX PORTFOLIO CODE"  id="iex_portfolio" name="iex_portfolio" value="{{ $clientdata->iex_portfolio}}">
+                  <span class="text-danger">{{ $errors->first('iex_portfolio') }}</span>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">IEX STATUS</label>
@@ -295,13 +310,15 @@
                </div>
             </div>
             <div class="row">
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('pxil_client_name') ? 'has-error' : '' }}">
                   <label  class="control-label">PXIL CLIENT NAME</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER PXIL CLIENT NAME"  id="pxil_client_name" name="pxil_client_name" value="{{ $clientdata->pxil_client_name}}">
+                  <span class="text-danger">{{ $errors->first('pxil_client_name') }}</span>
                </div>
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('pxil_portfolio') ? 'has-error' : '' }}">
                   <label  class="control-label">PXIL PORTFOLIO CODE</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER PXIL PORTDOLIO CODE" id="pxil_portfolio" name="pxil_portfolio" value="{{ $clientdata->pxil_portfolio}}">
+                  <span class="text-danger">{{ $errors->first('pxil_portfolio') }}</span>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">PXIL STATUS</label>
@@ -335,7 +352,7 @@
             <h5><label  class="control-label"><u>CONNECTION DETAILS</u></label></h5>
             <hr>
             <div class="row">
-               <div class="col-md-3">
+               <div class="col-md-3 ">
                   <label  class="control-label">STATE TYPE</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="state_type" name="state_type" value="{{ $clientdata->state_type}}">
                      <option value="">SELECT</option>
@@ -383,7 +400,7 @@
             </div>
             <div class="row">
                <div class="col-md-3">
-                  <label  class="control-label">POINTOF INTERCONNECTION</label>
+                  <label  class="control-label">POINT OF INTERCONNECTION</label>
                   <div class="form-group">
                      <div class="col-md-1 " style="margin-left:-6px;">
                         <input type="checkbox" class="minimal1 pull-left disabled-class" id="inter_discom" name="inter_discom"  disabled  value="DISCOM" @if((isset($clientdata->inter_discom)&&$clientdata->inter_discom=='DISCOM'))? checked="checked" @endif >
@@ -413,27 +430,32 @@
                   </div>
                </div>
                <div id="hidecontentDiv">
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('feeder_name') ? 'has-error' : '' }}">
                   <label  class="control-label">FEEDER NAME</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER FEEDER NAME" name="feeder_name" id="feeder_name" value="{{isset($clientdata->feeder_name)?$clientdata->feeder_name: old('feeder_name')}}">
+                  <span class="text-danger">{{ $errors->first('feeder_name') }}</span>
                </div>
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('feeder_code') ? 'has-error' : '' }}">
                   <label  class="control-label">FEEDER CODE</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER FEEDER CODE" name="feeder_code" id="feeder_code" value="{{isset($clientdata->feeder_code)?$clientdata->feeder_code: old('feeder_code')}}">
+                  <span class="text-danger">{{ $errors->first('feeder_code') }}</span>
                </div>
             </div>
 
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('name_of_substation') ? 'has-error' : '' }}">
                   <label  class="control-label"> NAME OF SUBSTATION</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER SUBSTATION NAME" id="name_of_substation" name="name_of_substation"  value="{{isset($clientdata->name_of_substation)?$clientdata->name_of_substation: old('name_of_substation')}}">
+                  <span class="text-danger">{{ $errors->first('name_of_substation') }}</span>
                </div>
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('maxm_injection') ? 'has-error' : '' }}">
                   <label  class="control-label">MAXIMUM INJECTION QUANTUM (MW)</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER INJECTION QUANTUM" name="maxm_injection" id="maxm_injection" value="{{isset($clientdata->maxm_injection)?$clientdata->maxm_injection: old('maxm_injection')}}">
+                  <span class="text-danger">{{ $errors->first('maxm_injection') }}</span>
                </div>
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('maxm_withdrawal') ? 'has-error' : '' }}">
                   <label  class="control-label">MAXIMUM WITHDRAWAL QUANTUM (MW)</label>
                   <input class="form-control input-sm disabled-class"  disabled type="text" placeholder="ENTER WITHDRAWAL QUANTUM" name="maxm_withdrawal" id="maxm_withdrawal" value="{{isset($clientdata->maxm_withdrawal)?$clientdata->maxm_withdrawal: old('maxm_withdrawal')}}">
+                  <span class="text-danger">{{ $errors->first('maxm_withdrawal') }}</span>
                </div>
               <div class="col-md-3">
               <label  class="control-label">NOC APPLICATION PUNCHED BY</label>
@@ -448,9 +470,10 @@
             <h5><label  class="control-label"><u>FINANCIAL ARRANGEMENT</u></label></h5>
             <hr>
             <div class="row">
-               <div class="col-md-3">
+               <div class="col-md-3 {{ $errors->has('payment') ? 'has-error' : '' }}">
                   <label  class="control-label">LATER PAYMENT PENALTY(%)</label>
                   <input class="form-control input-sm disabled-class" disabled  type="text" placeholder="ENTER LATER PAYMENT PENALTY(%)" name="payment" id="payment" value="{{isset($clientdata->payment)?$clientdata->payment: old('payment')}}">
+                  <span class="text-danger">{{ $errors->first('payment') }}</span>
                </div>
                <div class="col-md-3">
                   <label  class="control-label">PAYMENT OBLIGATION</label>
@@ -460,17 +483,13 @@
                      <option @if((isset($clientdata->obligation)&&$clientdata->obligation=='Advance')||old('obligation') == 'Advance')? selected="selected" @endif >Advance</option>
                   </select>
                </div>
+               <div class="col-md-5"></div>
+                 <div class="col-md-1 mt23"><button type="submit" class="btn btn-block btn-info btn-xs saveButton" id="saveclient" style="display:none;">UPDATE</button></div>
+             
+
             </div>
             <hr>
-            <div class="row">
-               <div class="col-md-5"></div>
-
-                <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs saveButton" id="saveclient" style="display:none;">UPDATE</button></div>
-               <div class="col-md-1"><a href="{{ route('basic.details') }}" class="btn btn-block btn-danger btn-xs">Cancel</a></div>
-
-               <div class="col-md-4"></div>
-            </div>
-            <div class="row">&nbsp;</div>
+         <div class="row">&nbsp;</div>
          </div>
       </div>
    </form>

@@ -58,6 +58,8 @@
                                <label  class="control-label">DESCRIPTION</label>
                                <input class="form-control input-sm" type="text" placeholder="ENTER DESCRIPTION" id="description" name="description">
                             </div>
+                            
+                           
                               <div class="col-md-1" style="margin-top:22px;">
                                   <button type="submit" id= "submitdepartment" class="btn btn-block btn-info btn-xs">SAVE</button>
                               </div>
@@ -105,7 +107,7 @@
                               <td class="text-center">{{@date('d/m/Y',strtotime($value->created_at)) }}</td>
 
                               <td class="text-center">
-                                <a href="/manageofficials/editdepartments/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                                <a href="/manageofficials/editdepartments/{{$value->id}}"><span class="glyphicon glyphicon-pencil" aks="tooltip"></span></a>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 <a href="" data-toggle="modal" data-target="#ConvertData{{ $value->id }}" name="" id="convert-disabled"><span class="glyphicon glyphicon-trash"></span></a>
                               </td>
@@ -121,6 +123,8 @@
                 <center><p style="font-size: 12px;font-weight:500;color:black!important; text-align:center;">DO YOU REALLY WANT TO DELETE THIS RECORD?</p></center> 
                </div>
                <div class="modal-footer">
+
+                 <
                 <div class="text-center">
                  <button type="submit" class="btn btn-info btn-xs">YES</button>
                  <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">NO</button>

@@ -39,6 +39,7 @@
                   <label  class="control-label">DESCRIPTION</label>
                   <input class="form-control input-sm" type="text" id="description" name="description" value="{{ $departmentData->description }}">
                 </div>
+
                 <div class="col-md-1" style="margin-top:19px;"><button class="btn btn-info btn-xs mt3" id="" name="">UPDATE</button></div>
                 <div class="col-md-1" style="margin-top:19px;"><a href="{{ route('departments') }}" class="btn btn-danger btn-xs mt3">CANCEL</a>
                 </div>

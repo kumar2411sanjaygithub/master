@@ -136,7 +136,8 @@
                                                <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
                                                <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
                                                <td class="text-center vl"><a href="{{url('downloads/'.$value->file_upload)}}" >View</a></td>
-                                             <td class="vl"  style="padding:5px!important;"><a href="/addexchange/{{ $value->id }}/approved/exchange_temp"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/addexchange/{{ $value->id }}/rejected/exchange_temp"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
+                                             <td class="vl"  style="padding:5px!important;"><a href="/addexchange/{{ $value->id }}/approved/exchange_temp"><span  class="text-success glyphicon glyphicon-ok" name="cd4" id="cd4"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                              <a href="/addexchange/{{ $value->id }}/rejected/exchange_temp"><span  class="text-danger glyphicon glyphicon-remove" name="cd5" id="cd5"></span></a></td>
                                           </tr>
                                         <?php
                                        $i++;
@@ -262,7 +263,8 @@
                                                   {{$value->updated_attribute_value}}
                                                 @endif
                                                </td>
-                                             <td  class="vl"><a href="/exchange/modified/{{ $value->id }}/approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/exchange/modified/{{ $value->id }}/rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
+                                             <td  class="vl"><a href="/exchange/modified/{{ $value->id }}/approved"><span  class="text-success glyphicon glyphicon-ok" name="" id=""></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                              <a href="/exchange/modified/{{ $value->id }}/rejected"><span  class="text-danger glyphicon glyphicon-remove" name="" id=""></span></a></td>
                                           </tr>
                                         <?php
                                        $i++;
@@ -382,10 +384,9 @@
                                                     <td class="text-center">{{ $value->file_upload }}</td>
                                                     <td class="text-center vl">
 
-                                                          <a href="/delete_exchange/{{ $value->id }}/approved/exchange"><button type="button" class="btn  btn-info btn-xs">APPROVE</button></a>
+                                                          <a href="/delete_exchange/{{ $value->id }}/approved/exchange"><span  class="text-success glyphicon glyphicon-ok" name="" id=""></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                                          <a href="/delete_exchange/{{ $value->id }}/rejected/exchange"><button type="button" class="btn  btn-danger btn-xs">REJECT</button></a>
-
+                                                          <a href="/delete_exchange/{{ $value->id }}/rejected/exchange"><span  class="text-danger glyphicon glyphicon-remove" name="" id=""></span></a>
                                                     </td>
                                                 </tr>
                                                 <?php

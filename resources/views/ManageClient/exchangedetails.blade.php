@@ -60,13 +60,13 @@
                                           </div>
                                           <div class="col-md-3 {{ $errors->has('file_upload') ? 'has-error' : '' }}">
                                             <label  class="control-label">REGISTRATION CERTIFICATE</label><span class="text-danger"><strong>*</strong></span>
-                                            <input class="form-control input-sm" type="file" placeholder="" id="file_upload" name="file_upload" style="padding:4px 4px;">
+                                            <input class="form-control input-sm" type="file" placeholder="" id="file_upload" name="file_upload" style="padding:2px 4px;">
                                              <span class="text-danger">{{ $errors->first('file_upload') }}</span>
                                           </div>
                                         </div>
                                          <div class="col-md-12">&nbsp;</div>
-                                           <div class="col-md-12">
-                                             <div class="col-md-5"></div>
+                                           <div class="row">
+                                             <div class="col-md-10"></div>
                                              @if(isset($get_exchange_details))
                                               <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" id="save" name="save">UPDATE</button></div>
                                               @else
@@ -74,7 +74,7 @@
                                               @endif
                                               <div class="col-md-1"><a href="{{ URL('/exchangedetails/'.$client_id) }}" ><input type="button" class="btn btn-block btn-danger btn-xs cancel" id="bn7" name="bn7" value="CANCEL"></a></div>
 
-                                            <div class="col-md-5"></div>
+                                        
                                           </div>
 
                                         </div>
@@ -82,7 +82,7 @@
                                       </div>
                                     
                                     </form>
-                                <div class="box">
+                                <div class="box mt3">
 
 
                                 <div class="box-body table-responsive">

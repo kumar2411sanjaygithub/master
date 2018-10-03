@@ -96,7 +96,7 @@
 
 
         </div>
-<div class="box">
+<div class="box mt3">
   <div class="box-body table-responsive">
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>
@@ -142,8 +142,8 @@
                                      @if($value->client_app_status =='0')
 
                                       <td class="text-center">
-                                        <a href="/status/{{$value->id}}/approve" class="btn  btn-info btn-xs">APPROVE</a>
-                                        <a href="/status/{{$value->id}}/reject" class="btn  btn-danger btn-xs">REJECT</a>
+                                        <a href="/status/{{$value->id}}/approve" ><span class="text-success glyphicon glyphicon-ok"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="/status/{{$value->id}}/reject" ><span class=" text-danger glyphicon glyphicon-remove"></span></a>
                                       </td>
                                     @elseif($value->client_app_status =='1')
 

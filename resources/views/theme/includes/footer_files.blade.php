@@ -1,5 +1,3 @@
-
-
 {{ Html::script('bower_components/jquery/dist/jquery.min.js') }}
       <!-- Bootstrap 3.3.7 -->
       {{ Html::script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}
@@ -101,10 +99,4 @@
          $('[download="download"]').attr('title', 'Download').attr('data-toggle', 'tooltip').attr('data-placement', 'bottom').tooltip();
          $('[download="download"]').html('<span class="glyphicon glyphicon-download"></span>');
        });
-      </script>
-
-      <script>
-        $(document).ready(function(){
-           $('[aks="tooltip"]').tooltip({placement: "bottom"});
-        });
       </script>

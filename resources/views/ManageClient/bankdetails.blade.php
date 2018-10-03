@@ -66,18 +66,16 @@
                 <span class="text-danger">{{ $errors->first('virtual_account_number') }}</span>
 
       </div>
+      <div class="col-md-7"></div>
+       @if(isset($get_bank_details))
+          <div class="col-md-1 mt23"><button type="submit" class="btn btn-block btn-info btn-xs" id="save" name="save">UPDATE</button></div>
+          @else
+          <div class="col-md-1 mt23"><button type="submit" class="btn btn-block btn-success btn-xs" id="save" name="save">SAVE</button></div>
+          @endif
+          <div class="col-md-1 mt23"><a href="{{ URL('/bankdetails/'.$client_id) }}" ><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="CANCEL" ></a></div>
     </div>
       <div class="row">&nbsp;</div>
-      <div class="row">
-         <div class="col-md-5"></div>
-         @if(isset($get_bank_details))
-          <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" id="save" name="save">UPDATE</button></div>
-          @else
-          <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs" id="save" name="save">SAVE</button></div>
-          @endif
-          <div class="col-md-1"><a href="{{ URL('/bankdetails/'.$client_id) }}" ><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="CANCEL" ></a></div>
-        <div class="col-md-5"></div>
-      </div>
+    
     </div>
     </div>
     </div>

@@ -127,9 +127,9 @@
                               @if($value->emp_app_status =='0')
                               <td class="text-center w15">
 
-                                  <a href="/approve/{{ $value->id }}"><button type="button" class="btn btn-raised btn-info btn-xs">APPROVE</button></a>
+                                  <a href="/approve/{{ $value->id }}"><span  class="text-success glyphicon glyphicon-ok" name="" id=""></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                  <a href="/reject/{{ $value->id }}"><button type="button" class="btn btn-raised btn-danger btn-xs">REJECT</button></a>
+                                  <a href="/reject/{{ $value->id }}"><span  class="text-danger glyphicon glyphicon-remove" name="" id=""></span></a>
 
                               </td>
                               @elseif($value->emp_app_status =='1')

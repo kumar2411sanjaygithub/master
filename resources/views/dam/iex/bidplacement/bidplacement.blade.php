@@ -138,7 +138,7 @@
        <td class="text-center w14">
              @if($value['email_submission_time'][0]<>'')
                <a href = "{{ route('bidplacement.bidmail',[$value['client_id']]) }}" style="color: red;">
-                     <button type="button" class="btn btn-success btn-xs" name="" id=""><span class="glyphicon glyphicon-send"></span>&nbsp;Re-SEND</button>
+                     <span class=" text-danger glyphicon glyphicon-retweet"></span>&nbsp;
                </a>
               <br/>{{$value['email_submission_time'][1]}}
               <br/>{{date('d/m/Y',strtotime(str_replace('/','-',$value['email_submission_time'][0])))}}
@@ -146,20 +146,20 @@
 
               @else
                 <a href = "{{ route('bidplacement.bidmail',[$value['client_id']]) }}">
-                     <button type="button" class="btn btn-success btn-xs" name="" id=""><span class="glyphicon glyphicon-send"></span>&nbsp; SEND MAIL</button><br><span class="text-danger"> DD/MM/YY (HH:MM:SS)<span>
+                     <span class="text-success glyphicon glyphicon-send"></span>&nbsp;<br><span class="text-danger"> DD/MM/YY (HH:MM:SS)<span>
                 </a>
               @endif
           </td>
           <td class="text-center w14">
             @if($value['sms_submission_time'][0]<>'')
                  <a href = "{{ route('bidplacement.bidsms',$value['client_id']) }}" style="color: red;">
-                     <button type="button" class="btn btn-info btn-xs" name="" id=""><span class="glyphicon glyphicon-send"></span>&nbsp; Re-SEND</button>
+                    <span class=" text-danger glyphicon glyphicon-repeat"></span>&nbsp;
 
                  <br/>{{$value['sms_submission_time'][1]}}
                  <br/>{{date('d/m/Y',strtotime(str_replace('/','-',$value['sms_submission_time'][0])))}}
               @else
                  <a href = "{{ route('bidplacement.bidsms',$value['client_id']) }}">
-                      <button type="button" class="btn btn-info btn-xs" name="" id=""><span class="glyphicon glyphicon-send"></span>&nbsp; SEND</button><br> <span class="text-danger">DD/MM/YY (HH:MM:SS)</span>
+                     <span class=" text-success glyphicon glyphicon-envelope"></span>&nbsp; <br> <span class="text-danger">DD/MM/YY (HH:MM:SS)</span>
                  </a>
               @endif
           </td>

@@ -151,13 +151,13 @@
                               <td class="text-center">-</td>
                               @if($value->approve_status =='0')
                               <td class="text-center">
-                                <span class="">
-                                  <a href="employee/approve/{{ $value->id }}"><button type="button" class="btn btn-raised btn-info btn-xs">APPROVE</button></a>
-                                </span>
+                              
+                                  <a href="employee/approve/{{ $value->id }}"><span  class="text-success glyphicon glyphicon-ok" name="" id=""></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                
 
-                                <span class="">
-                                  <a href="/employee/reject/{{ $value->id }}"><button type="button" class="btn btn-raised btn-danger btn-xs">REJECT</button></a>
-                                </span>
+                               
+                                  <a href="/employee/reject/{{ $value->id }}"><span  class="text-danger glyphicon glyphicon-remove" name="" id=""></span></a>
+                               
                               </td>
                               @elseif($value->approve_status =='1')
                               <td class="text-center">

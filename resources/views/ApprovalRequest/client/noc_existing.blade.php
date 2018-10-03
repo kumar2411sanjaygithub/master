@@ -149,7 +149,7 @@
                                                     <a href="{{url('noc-file-downloads/'.$value->upload_noc)}}">View</a>
                                                   @endif
                                                 </td>
-                                             <td class="vl"><a href="/addnoc/{{ $value->id }}/approved/noc_temp"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/addnoc/{{ $value->id }}/rejected/noc_temp"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
+                                             <td class="vl"><a href="/addnoc/{{ $value->id }}/approved/noc_temp"><span  class="text-success glyphicon glyphicon-ok" name="" id=""></span></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/addnoc/{{ $value->id }}/rejected/noc_temp"><span  class="text-danger glyphicon glyphicon-remove" name="" id=""></span></a></td>
                                           </tr>
                                         <?php
                                        $i++;
@@ -274,7 +274,7 @@
                                                   {{$value->updated_attribute_value}}
                                                 @endif
                                               </td>
-                                             <td class="vl"><a href="/noc/modified/{{ $value->id }}/approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/noc/modified/{{ $value->id }}/rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
+                                             <td class="vl"><a href="/noc/modified/{{ $value->id }}/approved"><span  class="text-success glyphicon glyphicon-ok" name="" id=""></span></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/noc/modified/{{ $value->id }}/rejected"><span  class="text-danger glyphicon glyphicon-remove" name="" id=""></span></a></td>
                                           </tr>
                                         <?php
                                        $i++;
@@ -405,9 +405,8 @@
                                                <td class="text-center vl">{{ $value->upload_noc }}</td>
                                                     <td class="text-center vl">
 
-                                                          <a href="/delete_noc/{{ $value->id }}/approved/noc"><button type="button" class="btn  btn-info btn-xs">Approve</button></a>
-
-                                                          <a href="/delete_noc/{{ $value->id }}/rejected/noc"><button type="button" class="btn  btn-danger btn-xs">Reject</button></a>
+                                                          <a href="/delete_noc/{{ $value->id }}/approved/noc"><span  class="text-success glyphicon glyphicon-ok" name="" id=""></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                          <a href="/delete_noc/{{ $value->id }}/rejected/noc"><span  class="text-danger glyphicon glyphicon-remove" name="" id=""></span></a>
 
                                                     </td>
                                                 </tr>
