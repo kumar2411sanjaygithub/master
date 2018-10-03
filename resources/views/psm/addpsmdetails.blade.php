@@ -118,7 +118,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                                    <span class="text-danger">{{ $errors->first('expiry_date') }}</span>
                              </div>
                              <div class="col-md-3">
-                                <label  class="control-label">REVOCABLE DATE</label>
+                                <label  class="control-label">REVOCABLE DATE (if any)</label>
                                 <div class="input-group date">
                                    <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
@@ -192,7 +192,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                            <td>@if($value->issue_date){{date('d/m/Y', strtotime($value->issue_date))}} @endif</td>
                            <td>@if($value->expiry_date){{date('d/m/Y', strtotime($value->expiry_date))}} @endif</td>
                            <td>@if($value->revocable_date){{date('d/m/Y', strtotime($value->revocable_date))}} @endif</td>
-                           <td><a href="{{url('documents/psm/'.$value->document)}}" download="download">{{$value->document}}</a></td>
+                           <td><a href="{{url('documents/psm/'.$value->document)}}" download="download">View</a></td>
                            <td>{{$value->description}}</td>
                            <td>
                              <a href="/editpsmdetails/{{$value->id}}/{{$value->client_id}}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -328,11 +328,11 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
      //Date picker
      $('#datepicker').datepicker({
        autoclose: true,
-       format: 'dd/mm/yyyy',
+       format: 'dd-mm-yyyy',
      })
      $('#issue_date').datepicker({
        autoclose: true,
-       format: 'dd/mm/yyyy',
+       format: 'dd-mm-yyyy',
      }).on('changeDate', function (selected) {
         var startDate = new Date(selected.date.valueOf());
         $('#datepicker2').datepicker('setStartDate', startDate);
@@ -343,11 +343,11 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
 
      $(".datepicker").datepicker({
        autoclose: true,
-       format: 'dd/mm/yyyy',
+       format: 'dd-mm-yyyy',
      })
      $('#datepicker2').datepicker({
        autoclose: true,
-       format: 'dd/mm/yyyy',
+       format: 'dd-mm-yyyy',
      }).on('changeDate', function (selected) {
           var endDate = new Date(selected.date.valueOf());
           $('#issue_date').datepicker('setEndDate', endDate);
@@ -356,7 +356,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
       });
      $('#revocable_date').datepicker({
        autoclose: true,
-       format: 'dd/mm/yyyy',
+       format: 'dd-mm-yyyy',
      })
 
    })
