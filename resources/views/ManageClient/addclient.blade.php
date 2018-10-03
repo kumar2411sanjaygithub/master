@@ -31,7 +31,7 @@
 
           <div class="col-md-8"></div>
           <div class="col-md-2 pull-right" >
-            <a href="{{ ('clientadd')}}" class="btn btn-info btn-xs pull-right">
+            <a href="{{ ('clientadd')}}" class="btn btn-info btn-xs pull-right add-btn">
             <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD CLIENT</a>
           </div>
           </div>
@@ -55,7 +55,7 @@
                               ?>
                               @foreach ($clientdata as $key => $value)
                               <tr>
-                                <td class="text-center">{{ $i }}</td>
+                                <td class="text-center">{{ $key + $clientdata->firstItem()  }}</td>
                                 <td class="text-center" style="width:30%;">{{ $value->company_name }} </td>
                                 <td class="text-center">{{ $value->iex_portfolio }}</td>
                                 <td class="text-center">{{ $value->pxil_portfolio }}</td>
@@ -75,6 +75,7 @@
                               @endisset
                 </tbody>
                 </table>
+                  {{$clientdata->links()}}
             </div>
           </div>
         </div>

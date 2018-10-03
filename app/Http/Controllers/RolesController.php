@@ -26,7 +26,7 @@ class RolesController extends Controller
     public function index()
     {
 
-        $roles = Roles::all();
+        $roles = Roles::paginate(15);
         $department = Department::orderBy('depatment_name','Desc')->get();
         return view('ManageOfficials.role_list', compact('roles','department'));
     }

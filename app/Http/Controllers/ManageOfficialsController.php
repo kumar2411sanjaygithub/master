@@ -25,7 +25,7 @@ class ManageOfficialsController extends Controller
 
   public function departmentview()
   {
-    $Department = Department::get();
+    $Department = Department::paginate(15);
     return view('ManageOfficials.department',compact('Department'));
 
   }
@@ -50,7 +50,7 @@ class ManageOfficialsController extends Controller
        //dd($department->description);
        $department->save();
        // return redirect('departments')->with('message', 'Data Save Successfully!');
-       return redirect()->back()->with('message', 'Data Save Successfully!');
+       return redirect()->back()->with('message', 'Department Added Successfully!');
   }
   public function editdepartments($id)
     {
@@ -90,7 +90,7 @@ class ManageOfficialsController extends Controller
     }
 
     public function employeeview(){
-      $employeeData = User::all()->where('emp_app_status','1')->where('id','!=',1);
+      $employeeData = User::where('emp_app_status','1')->where('id','!=',1)->paginate(15);
         return view('ManageOfficials.employeeview',compact('employeeData'));
     }
 
@@ -106,7 +106,7 @@ class ManageOfficialsController extends Controller
        //dd(1);
         $this->validate($request,[
           'name' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
-          'employee_id'=>'required|numeric|min:1|max:20',
+          'employee_id'=>'required|regex:/^[0-9A-Za-z.\-_]+$/|max:20',
 
           'contact_number' => 'required|unique:users|max:10|min:10|regex:/^[0-9]{10}$/',
           'telephone_number'=>'nullable|digits_between:4,15/',
@@ -116,7 +116,7 @@ class ManageOfficialsController extends Controller
           'confirmed' => 'required|same:password',
           'email' => 'required|unique:users,email',
           'role_id' => 'required',
-          'designation' => 'required|max:20|regex:/^[a-zA-Z ]*$/|max:50',
+          'designation' => 'required|regex:/^[0-9A-Za-z.\-_]+$/|max:30',
           'department_id' => 'required',
           'line1' => 'required|max:100',
           'country' => 'required',
@@ -209,7 +209,7 @@ class ManageOfficialsController extends Controller
         // $this->validate($request, [
       $validator = Validator::make($request->all(), [
           'name' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
-          'employee_id'=>'required|numeric|min:1|max:20',
+          'employee_id'=>'required|regex:/^[0-9A-Za-z.\-_]+$/|max:20',
 
           'contact_number' => 'required|max:10|min:10|regex:/^[0-9]{10}$/',
           'telephone_number'=>'nullable|digits_between:4,15/',
@@ -220,7 +220,7 @@ class ManageOfficialsController extends Controller
           //'confirmed' => 'max:20|same:password',
           'email' => 'required|email',
           'role_id' => 'required',
-          'designation' => 'required|regex:/^[a-zA-Z ]*$/|max:50',
+          'designation' => 'required|regex:/^[0-9A-Za-z.\-_]+$/|max:30',
           'department_id' => 'required',
           'line1' => 'required|max:100',
           'country' => 'required',
@@ -258,6 +258,10 @@ class ManageOfficialsController extends Controller
         $employees->state = $request->input('state');
         $employees->city = $request->input('city');
         $employees->pin_code = $request->input('pin_code');
+        $employees->comm_mob = $request->input('comm_mob');
+        $employees->comm_telephone = $request->input('comm_telephone');
+
+
 
         // $officialstemp->role_id = $request->input('role_id');
 
@@ -270,6 +274,7 @@ class ManageOfficialsController extends Controller
             'name' => 'Employee',
             'email' => 'Email',
             'contact_number' => 'Contact Number',
+            'telephone_number'=>'Telephone Number',
             'username' => 'User Name',
             'password' => 'Password',
             'role_id' => 'Role',
@@ -283,6 +288,8 @@ class ManageOfficialsController extends Controller
             'comm_state' => 'State',
             'comm_city' => 'City',
             'pin_code' => 'Pin Code',
+            'comm_mob'=>'Communication Mobile No.',
+            'comm_telephone'=> 'Communication Telephome No.'
         );
         if(count($pendding)>0)
         {
