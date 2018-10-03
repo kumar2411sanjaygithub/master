@@ -67,7 +67,7 @@
 
                 @forelse($bidData as $key => $value)
                 <tr>
-                  <td class="text-center">{{$key+1}}</td>
+                  <td class="text-center">{{ $key + $bidData->firstItem()}}</td>
                   <td class="text-center">{{$value->Client['company_name']}}</td>
                   <td class="text-center">{{$value->Client['iex_portfolio']}}</td>
                   <td class="text-center">UnSubmitted</td>
@@ -80,7 +80,14 @@
                 @endforelse
               </tbody>
            </table>
-           {{$bidData->links()}}
+           <div class="row">
+             <div class="col-md-6"><br>
+               Total Records: {{ $bidData->total() }}
+             </div>
+             <div class="col-md-6">
+               <div class="pull-right">{{$bidData->links()}}</div>
+             </div>
+           </div>
         </div>
      </div>
   </section>

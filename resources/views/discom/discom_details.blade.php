@@ -148,7 +148,7 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($discomData as $key => $value)
+            @forelse ($discomData as $key => $value)
             <tr>
               <td class="text-center">{{$key+1}}</td>
               <td class="text-center">{{ $value->date_from }}</td>
@@ -163,6 +163,8 @@
                 <a href="/discom/deletediscom/{{$value->id}}"><span class="glyphicon glyphicon-trash"></span></a>
               </td>
             </tr>
+            @empty
+            <tr><td class="alert-danger" colspan="8">Record not found</td><tr>
             @endforeach
           </tbody>
         </table>
