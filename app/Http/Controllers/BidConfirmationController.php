@@ -19,13 +19,13 @@ class BidConfirmationController extends Controller
 {
     public function viewunsubmittedbid()
     {
-        $bidData    = PlaceBid::where('status', 0)->where('deleted_at', NULL)->paginate(15);
+        $bidData    = PlaceBid::where('status', 0)->where('deleted_at', NULL)->latest()->paginate(15);
         $clients = Client::select('id','company_name')->get();
         return view('dam.iex.bidconfirmation.unsubmitted', compact('bidData','clients'));
     }
     public function deletedbid()
     {
-        $bidData    = PlaceBid::onlyTrashed()->paginate(16);
+        $bidData    = PlaceBid::onlyTrashed()->latest()->paginate(16);
         $clients = Client::select('id','company_name')->get();
         return view('dam.iex.bidconfirmation.biddeleted', compact('bidData','clients'));
     }

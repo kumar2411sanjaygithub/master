@@ -69,7 +69,7 @@
                           <select class="" name="user_id" id="select-client" data-live-search="true">
                               <option value="">Search Client</option>
                                @foreach ($users as $key => $aa)
-                               <option value="{{ $aa['id'] }}" data-tokens="{{ $aa['id'] }}.{{ $aa['id'] }}.{{ $aa['id'] }};?>" @if(isset($client_id) && $aa['id'] == $client_id) selected @endif> [{{$aa['company_name']}}] [{{$aa['short_id']}}] [{{$aa['crn_no']}}]</option>
+                               <option value="{{ $aa['id'] }}" data-tokens="{{ $aa['id'] }}.{{ $aa['id'] }}.{{ $aa['id'] }};?>" @if(isset($client_id) && $aa['id'] == $client_id) selected @endif> {{$aa->company_name}} [{{$aa->short_id}}] [{{$aa->crn_no}}] [{{$aa->iex_portfolio}}] [{{$aa->pxil_portfolio}}]</option>
                               @endforeach
 
                             </select>
@@ -153,6 +153,12 @@
                @endforeach
              </tbody>
           </table>
+          <div class="col-md-6"><br>
+            Total Records: {{ $validationsettingData->total() }}
+          </div>
+          <div class="col-md-6">
+            <div class="pull-right">{{$validationsettingData->links()}}</div>
+          </div>
        </div>
        <!-- /.box-body -->
     </div>

@@ -38,7 +38,7 @@ span.hifan{margin-right:10px!important;}
          <select class="" name="client_id" id="select-client" data-live-search="true">
            <option>Search Client</option>
             @foreach ($clientData as $key => $value)
-            <option value="{{ $value->id }}" data-tokens="{{ $value->id }}.{{ $value->id }}.{{ $value->id }};?>"  @if(@$client_id==$value->id) selected  @endif> [{{$value->company_name}}] [{{$value->short_id}}] [{{$value->crn_no}}]</option>
+            <option value="{{ $value->id }}" data-tokens="{{ $value->id }}.{{ $value->id }}.{{ $value->id }};?>"  @if(@$client_id==$value->id) selected  @endif>{{$value->company_name}} [{{$value->short_id}}] [{{$value->crn_no}}] [{{$value->iex_portfolio}}] [{{$value->pxil_portfolio}}]</option>
            @endforeach
          </select>
          <script>
@@ -77,20 +77,21 @@ span.hifan{margin-right:10px!important;}
                         <div class="col-md-2"></div>
                         <div class="col-md-6"></div>
                         <div class="col-md-4 text-right">
-                           <form class="pull-right" action="{{ url()->to('/client/exchange/Approved') }}" method="post" id="approve_data">
+                          <form class="pull-right" action="{{ url()->to('/client/exchange/Rejected') }}" method="post" id="approve_data">
+                             {{ csrf_field() }}
+                             <input type="hidden" name="selected_status" class="selected_status">
+                             <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted-rej" name="cdw5" id="cdw5">REJECT ALL</button>
+                             <a data-toggle="modal" data-target="#myModalRej" class="btn btn-danger btn-xs mlt">REJECT ALL</a>
+                          </form>
+                           <form class="pull-right mr5" action="{{ url()->to('/client/exchange/Approved') }}" method="post" id="approve_data">
                               {{ csrf_field() }}
                               <input type="hidden" name="selected_status" class="selected_status">
                               <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted" name="cdw5" id="cdw5">APPROVE ALL</button>
                               <a data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info btn-xs">APPROVE ALL</a>
                            </form>
-                           <form class="pull-right" action="{{ url()->to('/client/exchange/Rejected') }}" method="post" id="approve_data">
-                              {{ csrf_field() }}
-                              <input type="hidden" name="selected_status" class="selected_status">
-                              <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted-rej" name="cdw5" id="cdw5">REJECT ALL</button>
-                              <a data-toggle="modal" data-target="#myModalRej" class="btn btn-danger btn-xs mlt">REJECT ALL</a>
-                           </form>
+
                            <div id="myModal" class="modal fade" style="display: none;">
-                              <div class="modal-dialog modal-confirm">
+                              <div class="modal-dialog modal-confirm modal-sm">
                                  <div class="modal-content">
                                     <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                                        <h4 class="modal-title text-center">ARE YOU SURE?</h4>
@@ -112,7 +113,7 @@ span.hifan{margin-right:10px!important;}
                               </div>
                            </div>
                            <div id="myModalRej" class="modal fade" style="display: none;">
-                              <div class="modal-dialog modal-confirm">
+                              <div class="modal-dialog modal-confirm modal-sm">
                                  <div class="modal-content">
                                     <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                                        <h4 class="modal-title text-center">ARE YOU SURE?</h4>
@@ -143,6 +144,7 @@ span.hifan{margin-right:10px!important;}
                                  <th class="srno vl">SR. NO.</th>
                                  <th class="vl">VALIDITY START DATE</th>
                                  <th class="vl">VALIDITY END DATE</th>
+                                 <th class="vl">STATUS</th>
                                  <th class="vl">FILE</th>
                                  <th class="act vl">ACTION</th>
                               </tr>
@@ -153,13 +155,23 @@ span.hifan{margin-right:10px!important;}
                                           $i=1;
                                           ?>
                                           @foreach ($Addexchangedata as $key => $value)
+                                          @php
+                                            $date1 = date("Y-m-d",strtotime("today midnight"));
+                                            $date2=date('Y-m-d',strtotime($value->validity_to));
+                                            $today = strtotime($date1);
+                                            $expiration_date = strtotime($date2);
+                                            if ( $today<=$expiration_date) {
+                                                 $valid = "Valid";
+                                            } else {
+                                                 $valid = "Expired";
+                                            }
+                                         @endphp
                                           <tr>
-
-
                                                <td class="text-center vl"><input type="checkbox"   name="select_all" value="{{ $value->id }}" class="minimal1 deletedbutton"></td>
                                                <td class="text-center vl">{{ $i }}</td>
                                                <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
                                                <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
+                                               <td class="text-center vl">{{$valid}}</td>
                                                <td class="text-center vl"><a href="{{url('/documents/ppa/'.$value->file_path)}}" download='download'>View</a></td>
                                              <td class="vl"  style="padding:5px!important;"><a href="/PPA/aprovePpa/{{ $value->id }}/Approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/PPA/aprovePpa/{{ $value->id }}/Rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
                                           </tr>
@@ -183,19 +195,20 @@ span.hifan{margin-right:10px!important;}
                         <div class="col-md-2"></div>
                         <div class="col-md-6"></div>
                         <div class="col-md-4 text-right">
-                           <form class="pull-right" action="" method="post" id="approve_data">
-                              <input type="hidden" name="selected_status" class="selected_statusM">
-                              <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deletedM" name="cdw5" id="cdw5">APPROVE ALL</button>
-                              <a data-toggle="modal" data-target="#myModalM" class="btn btn-sm btn-info btn-xs">APPROVE ALL</a>
-                           </form>
+
                            <form class="pull-right" action="" method="post" id="approve_data">
                               {{ csrf_field() }}
                               <input type="hidden" name="selected_status" class="selected_statusM">
                               <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted-rejM" name="cdw5" id="cdw5">REJECT ALL</button>
                               <a data-toggle="modal" data-target="#myModalRejM" class="btn btn-danger btn-xs mlt">REJECT ALL</a>
                            </form>
+                           <form class="pull-right mr5" action="" method="post" id="approve_data">
+                              <input type="hidden" name="selected_status" class="selected_statusM">
+                              <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deletedM" name="cdw5" id="cdw5">APPROVE ALL</button>
+                              <a data-toggle="modal" data-target="#myModalM" class="btn btn-sm btn-info btn-xs">APPROVE ALL</a>
+                           </form>
                            <div id="myModalM" class="modal fade" style="display: none;">
-                              <div class="modal-dialog modal-confirm">
+                              <div class="modal-dialog modal-confirm modal-sm">
                                  <div class="modal-content">
                                     <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                                        <h4 class="modal-title text-center">ARE YOU SURE?</h4>
@@ -217,7 +230,7 @@ span.hifan{margin-right:10px!important;}
                               </div>
                            </div>
                            <div id="myModalRejM" class="modal fade" style="display: none;">
-                              <div class="modal-dialog modal-confirm">
+                              <div class="modal-dialog modal-confirm modal-sm">
                                  <div class="modal-content">
                                     <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                                        <h4 class="modal-title text-center">ARE YOU SURE?</h4>
@@ -289,7 +302,7 @@ span.hifan{margin-right:10px!important;}
                                  </td>
                               </tr>
                               @empty
-                              <tr><td colspan="6">Record Not Found</td></tr>
+                              <tr><td class="alert-danger" colspan="6">Record Not Found</td></tr>
                               @endforelse
                            </tbody>
                         </table>
