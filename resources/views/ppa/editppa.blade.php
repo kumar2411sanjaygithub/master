@@ -53,12 +53,12 @@
                      </div>
                      <div class="col-md-3 {{ $errors->has('file_path') ? 'has-error' : '' }}">
                         <label  class="control-label">UPLOAD DOCUMENT</label><span class="text-danger"><strong></strong></span>
-                        <input class="form-control input-sm" type="file" value="{{ $ppaData->file_path }}" name="file_path" placeholder="ENTER POC LOSSES">
+                        <input class="form-control input-sm file" type="file" value="{{ $ppaData->file_path }}" name="file_path" placeholder="ENTER POC LOSSES">
                         <input class="form-control input-sm" type="hidden" value="{{ $ppaData->file_path }}" name="old" placeholder="ENTER POC LOSSES">
                           <span class="text-danger">{{ $errors->first('file_path') }}</span>
                      </div>
-                     <div class="col-md-1" style="margin-top:20px;"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                     <div class="col-md-1" style="margin-top:20px;"><a href="/addppadetailsfind/{{$ppaData->client_id}}" class="btn btn-block btn-danger btn-xs">CANCEL</a></div>
+                     <div class="col-md-1 mt23"><button type="submit" title="SAVE" class="btn btn-block btn-info btn-xs">SAVE</button></div>
+                     <div class="col-md-1 mt23"><a title="CANCEL" href="/addppadetailsfind/{{$ppaData->client_id}}" class="btn btn-block btn-danger btn-xs">CANCEL</a></div>
                   </div>
                 </div>
             </div>
