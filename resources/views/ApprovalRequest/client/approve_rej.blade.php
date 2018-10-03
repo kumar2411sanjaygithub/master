@@ -268,19 +268,19 @@
                   <label  class="control-label">IEX REGION</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;"id="iex_region" name="iex_region" value="{{ $clientdata->iex_region}}">
                      <option value=" ">Select Region</option>
-                     <option value="A1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A1") ? 'selected' : '' }}>A1(Tripura, Mainpur, Mizoram, Nagaland)</option>
-                     <option value="A2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A2") ? 'selected' : '' }}>A2(Assam, Arunachal Pradesh, Meghalaya)</option>
-                     <option value="E1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="E1") ? 'selected' : '' }}>E1(West Bengal, Sikkim, Bihar, Jharkhand)</option>
-                     <option value="E2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="E2") ? 'selected' : '' }}>E2(Odisha)</option>
-                     <option value="N1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N1") ? 'selected' : '' }}>N1(J&K, HP, Chandigarh, Haryana)</option>
-                     <option value="N2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N2") ? 'selected' : '' }}>N2(UP, Uttaranchal, Rajasthan, Delhi)</option>
-                     <option value="N3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N3") ? 'selected' : '' }}>N3(Punjab)</option>
-                     <option value="S1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S1") ? 'selected' : '' }}>S1(AP,Telangana, Karnataka, Pondicherry, SG)</option>
-                     <option value="S2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S2") ? 'selected' : '' }}>S2(Tamilnadu, Punducherry, Karaikal, Mahe)</option>
-                     <option value="S3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S3") ? 'selected' : '' }}>S3(Kerla)</option>
-                     <option value="W1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W1") ? 'selected' : '' }}>W1(Madhya Pradesh)</option>
-                     <option value="W2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W2") ? 'selected' : '' }}>W2(Maharashtra, Gujarat, DD, DNH, North Goa)</option>
-                     <option value="W3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W3") ? 'selected' : '' }}>W3(Chhattisharh)</option>
+                     <option value="A1" {{ (isset($clientdata) && $clientdata->iex_region=="A1") ? 'selected' : '' }}>A1(Tripura, Mainpur, Mizoram, Nagaland)</option>
+                     <option value="A2" {{ (isset($clientdata) && $clientdata->iex_region=="A2") ? 'selected' : '' }}>A2(Assam, Arunachal Pradesh, Meghalaya)</option>
+                     <option value="E1" {{ (isset($clientdata) && $clientdata->iex_region=="E1") ? 'selected' : '' }}>E1(West Bengal, Sikkim, Bihar, Jharkhand)</option>
+                     <option value="E2" {{ (isset($clientdata) && $clientdata->iex_region=="E2") ? 'selected' : '' }}>E2(Odisha)</option>
+                     <option value="N1" {{ (isset($clientdata) && $clientdata->iex_region=="N1") ? 'selected' : '' }}>N1(J&K, HP, Chandigarh, Haryana)</option>
+                     <option value="N2" {{ (isset($clientdata) && $clientdata->iex_region=="N2") ? 'selected' : '' }}>N2(UP, Uttaranchal, Rajasthan, Delhi)</option>
+                     <option value="N3" {{ (isset($clientdata) && $clientdata->iex_region=="N3") ? 'selected' : '' }}>N3(Punjab)</option>
+                     <option value="S1" {{ (isset($clientdata) && $clientdata->iex_region=="S1") ? 'selected' : '' }}>S1(AP,Telangana, Karnataka, Pondicherry, SG)</option>
+                     <option value="S2" {{ (isset($clientdata) && $clientdata->iex_region=="S2") ? 'selected' : '' }}>S2(Tamilnadu, Punducherry, Karaikal, Mahe)</option>
+                     <option value="S3" {{ (isset($clientdata) && $clientdata->iex_region=="S3") ? 'selected' : '' }}>S3(Kerla)</option>
+                     <option value="W1" {{ (isset($clientdata) && $clientdata->iex_region=="W1") ? 'selected' : '' }}>W1(Madhya Pradesh)</option>
+                     <option value="W2" {{ (isset($clientdata) && $clientdata->iex_region=="W2") ? 'selected' : '' }}>W2(Maharashtra, Gujarat, DD, DNH, North Goa)</option>
+                     <option value="W3" {{ (isset($clientdata) && $clientdata->iex_region=="W3") ? 'selected' : '' }}>W3(Chhattisharh)</option>
                   </select>
                </div>
             </div>
@@ -306,19 +306,19 @@
                   <label  class="control-label">PXIL REGION</label>
                   <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="pxil_region" name="pxil_region" value="{{ $clientdata->pxil_region}}">
                      <option value=" ">Select Region</option>
-                     <option value="A1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A1") ? 'selected' : '' }}>A1(Tripura, Mainpur, Mizoram, Nagaland)</option>
-                     <option value="A2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="A2") ? 'selected' : '' }}>A2(Assam, Arunachal Pradesh, Meghalaya)</option>
-                     <option value="E1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="E1") ? 'selected' : '' }}>E1(West Bengal, Sikkim, Bihar, Jharkhand)</option>
-                     <option value="E2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="E2") ? 'selected' : '' }}>E2(Odisha)</option>
-                     <option value="N1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N1") ? 'selected' : '' }}>N1(J&K, HP, Chandigarh, Haryana)</option>
-                     <option value="N2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N2") ? 'selected' : '' }}>N2(UP, Uttaranchal, Rajasthan, Delhi)</option>
-                     <option value="N3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="N3") ? 'selected' : '' }}>N3(Punjab)</option>
-                     <option value="S1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S1") ? 'selected' : '' }}>S1(AP,Telangana, Karnataka, Pondicherry, SG)</option>
-                     <option value="S2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S2") ? 'selected' : '' }}>S2(Tamilnadu, Punducherry, Karaikal, Mahe)</option>
-                     <option value="S3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="S3") ? 'selected' : '' }}>S3(Kerla)</option>
-                     <option value="W1" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W1") ? 'selected' : '' }}>W1(Madhya Pradesh)</option>
-                     <option value="W2" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W2") ? 'selected' : '' }}>W2(Maharashtra, Gujarat, DD, DNH, North Goa)</option>
-                     <option value="W3" {{ (isset($exchangeIexDetails[0]) && $exchangeIexDetails[0]->iex_region=="W3") ? 'selected' : '' }}>W3(Chhattisharh)</option>
+                     <option value="A1" {{ (isset($clientdata) && $clientdata->pxil_region=="A1") ? 'selected' : '' }}>A1(Tripura, Mainpur, Mizoram, Nagaland)</option>
+                     <option value="A2" {{ (isset($clientdata) && $clientdata->pxil_region=="A2") ? 'selected' : '' }}>A2(Assam, Arunachal Pradesh, Meghalaya)</option>
+                     <option value="E1" {{ (isset($clientdata) && $clientdata->pxil_region=="E1") ? 'selected' : '' }}>E1(West Bengal, Sikkim, Bihar, Jharkhand)</option>
+                     <option value="E2" {{ (isset($clientdata) && $clientdata->pxil_region=="E2") ? 'selected' : '' }}>E2(Odisha)</option>
+                     <option value="N1" {{ (isset($clientdata) && $clientdata->pxil_region=="N1") ? 'selected' : '' }}>N1(J&K, HP, Chandigarh, Haryana)</option>
+                     <option value="N2" {{ (isset($clientdata) && $clientdata->pxil_region=="N2") ? 'selected' : '' }}>N2(UP, Uttaranchal, Rajasthan, Delhi)</option>
+                     <option value="N3" {{ (isset($clientdata) && $clientdata->pxil_region=="N3") ? 'selected' : '' }}>N3(Punjab)</option>
+                     <option value="S1" {{ (isset($clientdata) && $clientdata->pxil_region=="S1") ? 'selected' : '' }}>S1(AP,Telangana, Karnataka, Pondicherry, SG)</option>
+                     <option value="S2" {{ (isset($clientdata) && $clientdata->pxil_region=="S2") ? 'selected' : '' }}>S2(Tamilnadu, Punducherry, Karaikal, Mahe)</option>
+                     <option value="S3" {{ (isset($clientdata) && $clientdata->pxil_region=="S3") ? 'selected' : '' }}>S3(Kerla)</option>
+                     <option value="W1" {{ (isset($clientdata) && $clientdata->pxil_region=="W1") ? 'selected' : '' }}>W1(Madhya Pradesh)</option>
+                     <option value="W2" {{ (isset($clientdata) && $clientdata->pxil_region=="W2") ? 'selected' : '' }}>W2(Maharashtra, Gujarat, DD, DNH, North Goa)</option>
+                     <option value="W3" {{ (isset($clientdata) && $clientdata->pxil_region=="W3") ? 'selected' : '' }}>W3(Chhattisharh)</option>
                   </select>
                </div>
             </div>
@@ -373,7 +373,7 @@
             </div>
             <div class="row">
                <div class="col-md-3">
-                  <label  class="control-label">PART OF INTERCONNECTION</label>
+                  <label  class="control-label">POINT OF INTERCONNECTION</label>
                   <div class="form-group">
                      <div class="col-md-1 " style="margin-left:-6px;">
                         <input type="checkbox" class="minimal1 pull-left disabled-class" id="inter_discom" name="inter_discom"  disabled  value="inter_discom" @if((isset($clientdata->inter_discom)&&$clientdata->inter_discom=='DISCOM'))? checked="checked" @endif >

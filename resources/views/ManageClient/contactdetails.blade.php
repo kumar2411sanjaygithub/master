@@ -112,13 +112,10 @@
                                     <td><a href="#" data-toggle="modal" data-target="#myModal"><u>SET</u></a></td>
                                     <td><a href="edit_contact_details.html"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp<a href="#" class="text-danger"><span class="glyphicon glyphicon-trash "></span></a></td>
                                  </tr> -->
-                                 @if(count($contactdetails)>0)
-                    <?php
-                    $i=1;
-                    ?>
-                    @foreach ($contactdetails as $key => $value)
+                                 
+                  @forelse ($contactdetails as $key => $value)
                       <tr>
-                        <td class="text-center">{{ $i }}</td>
+                        <td class="text-center">{{$key+$contactdetails->firstItem()}}</td>
                         <td class="text-center">{{ $value->name }}</td>
                         <td class="text-center">{{ $value->designation }}</td>
                         <td class="text-center">{{ $value->email }}</td>
@@ -129,16 +126,22 @@
                           <a href="/delete/contact/{{$value->id}}"><span class="glyphicon glyphicon-trash text-danger" id="remove-bank-detail" contact_detail_id="{{ $value->id }}"></span></a>
                         </td>
                       </tr>
-                      <?php
-                    $i++;
-                    ?>
-                    @endforeach
-                     @else
-                     <tr class="alert-danger" ><th colspan='7'>No Data Found.</th></tr>
-                     @endif
+                       @empty
+                            <tr class="alert-danger" ><th colspan='9'>No Data Found.</th></tr>
+                            @endforelse
 
                               </tbody>
                            </table>
+
+                           <div class=" col-md-12">
+                            <div class="col-md-6"><br>
+                              Total Records: {{ $contactdetails->total() }}
+                            </div>
+                            <div class="col-md-6">
+                            <div class=" pull-right">{{$contactdetails->links()}}</div>
+                          </div>
+                        </div>
+                        
                         </div>
                      </div>
                   </div>

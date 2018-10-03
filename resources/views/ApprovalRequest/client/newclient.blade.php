@@ -121,8 +121,8 @@
          <td><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button>&nbsp<button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></td>
 
       </tr> -->
-                                <?php $i=1; ?>
-                                @foreach ($approveclient as $key => $value)
+                               
+                                @forelse ($approveclient as $key => $value)
                                 <?php $val = @json_encode($value,true); ?>
 
                                   <tr>
@@ -132,7 +132,7 @@
 
                                     <td>
 
-                                      <div class="text-center">{{$i}}</div>
+                                      <div class="text-center">{{$key+$approveclient->firstItem()}}</div>
                                       </td>
                                     <td class="text-center"><a href="/basic/{{$value->id}}/view" id="pop">{{$value->company_name}}</a></td>
                                     <td class="text-center">{{$value->gstin}}</td>
@@ -158,10 +158,21 @@
                                     @endif
 
                                   </tr>
-                                <?php $i++; ?>
-                                @endforeach
-                    </tbody>
-                 </table>
+                                
+                                @empty 
+                                <tr class="alert-danger" ><th colspan='9'>No Data Found.</th></tr>
+                            @endforelse
+
+                              </tbody>
+                           </table>
+                           <div class=" col-md-12">
+                            <div class="col-md-6"><br>
+                              Total Records: {{ $approveclient->total() }}
+                            </div>
+                            <div class="col-md-6">
+                            <div class=" pull-right">{{$approveclient->links()}}</div>
+                          </div>
+                        </div>
               </div>
           </div>
     </section>

@@ -115,18 +115,18 @@ text-transform : uppercase
                                        </thead>
                                        <tbody>
 
-                                              @if(count($clientData)>0)
+                                            
                                           <?php
-                                          $i=1;
+                                         
                                            $input_lebels = \App\Common\Languages\ManageClientLang::input_labels();
                                           ?>
-                                          @foreach ($clientData as $key => $value)
+                                          @forelse ($clientData as $key => $value)
                                           <tr>
 
 
                                                 <td style="padding:5px!important;"><input type="checkbox" class="minimal1 vl deletedbutton" value="{{ $value->id }}" name="select_all"></td>
 
-                                               <td class="text-center vl">{{ $i }}</td>
+                                               <td class="text-center vl">{{ $key+$clientData->firstItem() }}</td>
                                                <td class="text-center vl uc">{{ $input_lebels[$value->attribute_name]}}</td>
                                                <td class="text-center vl">
                                                 @if(in_array($value->old_att_value,$state_data))
@@ -158,15 +158,20 @@ text-transform : uppercase
 
                                              <td class="vl"><a href="/modified/{{ $value->id }}/approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/modified/{{ $value->id }}/rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
                                           </tr>
-                                        <?php
-                                       $i++;
-                                       ?>
-                                       @endforeach
-                                       @else
+                                        
+                                       @empty
                                        <tr class="alert-danger" ><th colspan='6'>No Data Found.</th></tr>
-                                       @endif
+                                       @endforelse
                                        </tbody>
                                     </table>
+                                     <div class=" col-md-12">
+                            <div class="col-md-6"><br>
+                              Total Records: {{ $clientData->total() }}
+                            </div>
+                            <div class="col-md-6">
+                            <div class=" pull-right">{{$clientData->links()}}</div>
+                          </div>
+                        </div>
                                  </div>
                               </div>
                      </div>

@@ -114,13 +114,10 @@
       </thead>
       <tbody>
 
-                            @if(count($employeeData)>0)
-
-                            <?php $i=1; ?>
-                            @foreach ($employeeData as $key => $value)
+                            @forelse ($employeeData as $key => $value)
                             <tr>
                               <td><input type="checkbox" name="select_all" value="{{ $value->id }}" class="minimal1 @if($value->approve_status =='1' ||$value->approve_status =='2') @else deletedbutton @endif" @if($value->approve_status =='1' ||$value->approve_status =='2') disabled @endif></td>
-                              <td><span class="">{{$i}}</span></td>
+                              <td><span class="">{{$key+$employeeData->firstItem()}}</span></td>
                               <td >{{ $value->user['name'] }} </td>
                               <td class="text-center">{{ $value->user['username'] }} </td>
                               <!-- <td class="text-center">{{ $value->official_id }}</td> -->
@@ -172,16 +169,20 @@
                                 </td>
                               @endif
                             </tr>
-                            <?php
-                              $i++;
-                            ?>
-                              @endforeach
-                                       @else
-                                       <tr class="alert-danger" ><th colspan='9'>No Data Found.</th></tr>
-                                       @endif
+                            @empty
+                            <tr class="alert-danger" ><th colspan='9'>No Data Found.</th></tr>
+                            @endforelse
+                                      
       </tbody>
       </table>
-
+      <div class="row">
+      <div class="col-md-6"><br>
+        Total Records: {{ $employeeData->total() }}
+      </div>
+      <div class="col-md-6">
+      <div class=" pull-right">{{$employeeData->links()}}</div>
+    </div>
+  </div>
   <!-- /.box-body -->
 </div>
 </div>

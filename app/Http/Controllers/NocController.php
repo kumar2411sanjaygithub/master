@@ -166,7 +166,7 @@ class NocController extends Controller
         
         $noc->save();
     	//return view('ManageClient.nocdetails');
-        return redirect()->back()->with('message','Detail added successfully and sent to Approver');
+        return redirect()->back()->with('message','Client details saved successfully and submitted for Approval');
     }
     public function edit_nocdetails($id='',$eid=''){
         $noc_id=$eid;

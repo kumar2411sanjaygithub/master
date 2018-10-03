@@ -96,10 +96,10 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <?php $i=1; ?>
-                            @foreach ($Department as $key => $value)
+                           
+                            @forelse ($Department as $key => $value)
                             <tr>
-                              <td class="text-center">{{ $i }}</td>
+                              <td class="text-center">{{$key+$Department->firstItem()}}</td>
                               <td class="text-center aks-caps">{{$value->depatment_name}}</td>
                               <td class="text-center">{{$value->description}}</td>
                               <td class="text-center">{{$value->creator_name()}}</td>
@@ -130,10 +130,20 @@
            </form>
          </div>
                             </tr>
-                          <?php $i++; ?>
-                            @endforeach
+                          
+                            @empty
+                             <tr class="alert-danger" ><th colspan='9'>No Data Found.</th></tr>
+                            @endforelse
                           </tbody>
                    </table>
+                   <div class=" col-md-12">
+                            <div class="col-md-6"><br>
+                              Total Records: {{ $Department->total() }}
+                            </div>
+                            <div class="col-md-6">
+                            <div class=" pull-right">{{$Department->links()}}</div>
+                          </div>
+                        </div>
                 </div>
                 <!-- /.box-body -->
              </div>

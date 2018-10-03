@@ -19,7 +19,7 @@ class EmployeeApprovalController extends Controller
 	public function approveemployeeview()
 	{
 
-        $employeeData = User::orderBy('created_at','desc')->where('id','!=',1)->get()->whereIn('emp_app_status',array(0, 1, 2));
+        $employeeData = User::orderBy('created_at','desc')->where('id','!=',1)->whereIn('emp_app_status',array(0, 1, 2))->paginate(15);
         //dd($employeeData);
         //$role = Role::all()->pluck('role_name','id')->toArray();
         // $roleofficials = Roleofficials::all();
@@ -67,11 +67,11 @@ class EmployeeApprovalController extends Controller
         {
           $keys=array('mob_number'=>'Mobile Number','employee_id'=>'Employee Id','name'=>'Employee Name','email'=>'Email','contact_number'=>'Contact No.','username'=>'User Name','password'=>'Password','role_id'=>'Role','designation'=>'Designation','department_id'=>'Department','line1'=>'Address Line 1','line2'=>'Address Line 2','country'=>'Country','state'=>'State','city'=>'City','pin_code'=>'Pin Code','comm_mob'=>'Communication Number','comm_telephone'=>'Telephones','telephone_number'=>'Telephone Number');
 
-            $employeeData = Employeeupdatestatus::whereIn('approve_status',array(0,1,2))->get();
+            $employeeData = Employeeupdatestatus::whereIn('approve_status',array(0,1,2))->latest()->paginate(15);
              $state_data = array_keys(\App\Common\StateList::get_states());
             // $role = Role::all()->pluck('role_name','id')->toArray();
 
-            $state_data = array_keys(\App\Common\StateList::get_states());
+           
 
             return view('ApprovalRequest.employee.existingemployee',compact('employeeData','keys','state_data'));
         }
@@ -85,8 +85,14 @@ class EmployeeApprovalController extends Controller
 
 
         if($keyname == 'department_id'){
-
+          dd($keyname);
           $updates->value = Department::where('depatment_name', $updates->value)->pluck('id');
+          $updates->value=$updates->value[0];
+        }
+        if($keyname == 'role'){
+         
+          $updates->value = Role::where('id', $updates->value)->pluck('name');
+           
           $updates->value=$updates->value[0];
         }
          if($keyname == 'state'){
