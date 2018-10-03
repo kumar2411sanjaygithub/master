@@ -99,11 +99,8 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  @if(count($exchangedetails)>0)
-                              <?php
-                              $i=1;
-                              ?>
-                              @foreach ($exchangedetails as $key => $value)
+                                
+                              @forelse ($exchangedetails as $key => $value)
                            @php
                               $date1 = date("Y-m-d",strtotime("today midnight"));
                               $date2=date('Y-m-d',strtotime($value->validity_to));
@@ -118,7 +115,7 @@
 
 
                                <tr>
-                                  <td class="text-center">{{ $i }}</td>
+                                  <td class="text-center">{{$key+$exchangedetails->firstItem()}}</td>
                                   <td class="text-center">{{ $value->ex_type }}</td>
                                   <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
                                   <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
@@ -129,15 +126,21 @@
                                     <a href="/delete/exchange/{{$value->id}}"><span class="glyphicon glyphicon-trash text-danger" id="remove-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>
                                   </td>
                               </tr>
-                              <?php
-                            $i++;
-                            ?>
-                            @endforeach
-                             @else
+                              
+                           
+                             @empty
                              <tr class="alert-danger" ><th colspan='7'>No Data Found.</th></tr>
-                             @endif
+                              @endforelse
                                 </tbody>
                                 </table>
+                                 <div class=" col-md-12">
+                            <div class="col-md-6"><br>
+                              Total Records: {{ $exchangedetails->total() }}
+                            </div>
+                            <div class="col-md-6">
+                            <div class=" pull-right">{{$exchangedetails->links()}}</div>
+                          </div>
+                        </div>
                                 </div>
                                 </div>
                           </div>

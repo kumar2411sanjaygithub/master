@@ -19,7 +19,7 @@ class PermissionListController extends Controller
     public function index()
     {
        
-        $permissions = PermissionList::all();
+        $permissions = PermissionList::paginate(15);
 
         return view('ManageOfficials.permission_list', compact('permissions'));
     }
@@ -60,7 +60,7 @@ class PermissionListController extends Controller
             $permission->slug = request('slug');
             $permission->description = request('description');
             $permission->save();   
-            return redirect()->route('permissionlist.index')->with('success', 'Permission Added Successfully.');
+            return redirect()->route('permissionlist.index')->with('success', 'Permission Assigned Successfully.');
         }
     }
 

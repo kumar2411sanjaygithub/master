@@ -383,7 +383,7 @@
             </div>
             <div class="row">
                <div class="col-md-3">
-                  <label  class="control-label">PART OF INTERCONNECTION</label>
+                  <label  class="control-label">POINTOF INTERCONNECTION</label>
                   <div class="form-group">
                      <div class="col-md-1 " style="margin-left:-6px;">
                         <input type="checkbox" class="minimal1 pull-left disabled-class" id="inter_discom" name="inter_discom"  disabled  value="DISCOM" @if((isset($clientdata->inter_discom)&&$clientdata->inter_discom=='DISCOM'))? checked="checked" @endif >

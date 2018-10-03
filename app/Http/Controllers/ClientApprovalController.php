@@ -23,7 +23,7 @@ class ClientApprovalController extends Controller
 {
 	public function approvenew()
 	{
-		$approveclient = Client::orderBy('created_at','desc')->get()->whereIn('client_app_status',array(0, 1, 2));
+		$approveclient = Client::orderBy('created_at','desc')->whereIn('client_app_status',array(0, 1, 2))->paginate(15);
 
 		return view('ApprovalRequest.client.newclient',compact('approveclient'));
 	}
@@ -156,7 +156,7 @@ class ClientApprovalController extends Controller
 
 
     public function approveexisting(){
-        $clientdata = Client::latest()->where('client_app_status','1')->get();
+        $clientdata = Client::latest()->where('client_app_status','1')->paginate(15);
 
         return view('ApprovalRequest.client.viewclient',compact('clientdata'));
         //return view('ApprovalRequest.client.existing')
@@ -166,7 +166,7 @@ class ClientApprovalController extends Controller
     {
         $user_id = $request['id'];
         $client_id  =  $user_id;
-        $clientData = Approvalrequest::select('id','updated_attribute_value','attribute_name','approval_type','client_id','created_at','old_att_value','updated_by')->where('approval_type','client')->where('client_id',$request['id'])->where('status', 0)->orderBy('created_at','desc')->get();
+        $clientData = Approvalrequest::select('id','updated_attribute_value','attribute_name','approval_type','client_id','created_at','old_att_value','updated_by')->where('approval_type','client')->where('client_id',$request['id'])->where('status', 0)->orderBy('created_at','desc')->paginate(15);
         $state_data = array_keys(\App\Common\StateList::get_states());
         $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$request['id'])->get();
 

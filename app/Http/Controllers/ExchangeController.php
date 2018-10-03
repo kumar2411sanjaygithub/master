@@ -29,7 +29,7 @@ class ExchangeController extends Controller
 
         $client_id=$id;
         //$exchangedetails = Exchange::where('client_id',$id)->where('status',1)->get();
-        $exchangedetails = DB::table('exchange')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',1)->orwhere('del_status',4); })->where('client_id',$id)->where('status',1)->get();
+        $exchangedetails = DB::table('exchange')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',1)->orwhere('del_status',4); })->where('client_id',$id)->where('status',1)->paginate(15);
         $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
          //dd($exchangedetails);
 

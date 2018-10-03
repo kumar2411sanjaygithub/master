@@ -45,14 +45,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                 @isset($clientdata)
-
-                              <?php
-                                $i=1;
-                              ?>
-                              @foreach ($clientdata as $key => $value)
+                
+                              @forelse ($clientdata as $key => $value)
                               <tr>
-                                <td class="text-center">{{ $i }}</td>
+                                <td class="text-center">{{ $key+$clientdata->firstItem() }}</td>
                                 <td class="text-center" style="width:40%;">{{ $value->company_name }} </td>
                                 <td class="text-center">{{ $value->iex_portfolio }}</td>
                                 <td class="text-center">{{ $value->pxil_portfolio }}</td>
@@ -61,13 +57,22 @@
                                   <a href="/basic/approval/{{$value->id}}" class="text-decoration: underline"><u>BASIC</u></a>&nbsp&nbsp&nbsp&nbsp<a href="/contact/approval/{{$value->id}}"><u>CONTACT</u></a>&nbsp&nbsp&nbsp&nbsp<a href="/exchangeapproval/{{$value->id}}"><u>EXCHANGE FILE</u></a>&nbsp&nbsp&nbsp&nbsp<a href="/nocapproval/{{$value->id}}"><u>NOC</u></a>&nbsp&nbsp&nbsp&nbsp<a href="/bankapproval/{{$value->id}}"><u>BANK</u></a>
                                 </td>
                               </tr>
-                            <?php
-                              $i++;
-                            ?>
-                              @endforeach
-                              @endisset
-                </tbody>
-                </table>
+                           
+                              @empty
+                <tr class="alert-danger" ><th colspan='9'>No Data Found.</th></tr>
+                            @endforelse
+
+                              </tbody>
+                           </table>
+
+                           <div class=" col-md-12">
+                            <div class="col-md-6"><br>
+                              Total Records: {{ $clientdata->total() }}
+                            </div>
+                            <div class="col-md-6">
+                            <div class=" pull-right">{{$clientdata->links()}}</div>
+                          </div>
+                        </div>
             </div>
 
           </div>

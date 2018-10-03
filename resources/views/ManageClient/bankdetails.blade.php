@@ -99,13 +99,10 @@
     </tr>
   </thead>
   <tbody>
-     @if(count($bankdetails)>0)
-                    <?php
-                    $i=1;
-                    ?>
-                    @foreach ($bankdetails as $key => $value)
+     
+                    @forelse ($bankdetails as $key => $value)
                       <tr>
-                        <td class="text-center">{{ $i }}</td>
+                        <td class="text-center">{{$key+$bankdetails->firstItem()}}</td>
                         <td class="text-center">{{ $value->bank_name }}</td>
                         <td class="text-center">{{ $value->branch_name }}</td>
                         <td class="text-center">{{ $value->account_number }}</td>
@@ -116,16 +113,21 @@
                           <a href="/delete/bank/{{$value->id}}"><span class="glyphicon glyphicon-trash text-danger" id="remove-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>
                         </td>
                       </tr>
-                      <?php
-                    $i++;
-                    ?>
-                    @endforeach
-                   @else
+                     
+                   @empty
                    <tr class="alert-danger" ><th colspan='7'>No Data Found.</th></tr>
-                   @endif
+                   @endforelse
 
-  </tbody>
-</table>
+            </tbody>
+          </table>
+                              <div class=" col-md-12">
+                            <div class="col-md-6"><br>
+                              Total Records: {{ $bankdetails->total() }}
+                            </div>
+                            <div class="col-md-6">
+                            <div class=" pull-right">{{$bankdetails->links()}}</div>
+                          </div>
+                        </div>
   </div>
 </div>
 

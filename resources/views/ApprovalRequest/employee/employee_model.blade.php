@@ -83,6 +83,7 @@
                   </div>
                   <label class="col-sm-3 control-label">STATE</label>
                   <div class="col-sm-3">
+                   
                       <p>{{ $value->state }}</p>
                   </div> 
 

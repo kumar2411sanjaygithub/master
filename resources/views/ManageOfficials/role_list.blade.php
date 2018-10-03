@@ -91,11 +91,10 @@
       </tr>
       </thead>
       <tbody>
-         @php $i=1; @endphp
-         @if (count($roles) > 0)
-            @foreach ($roles as $k=>$role)
+        
+            @forelse ($roles as $k=>$role)
                <tr>
-                 <td>{{$i}}</td>
+                 <td>{{$k+$roles->firstItem()}}</td>
                  <td>{{@$role->getDepartment->depatment_name}}</td>
                  <td>{{$role->name}}</td>
                  <td><a href="{{ url('assignpermission/'.$role->id) }}"><u>ASSIGN PERMISIONS</u></a></td>
@@ -128,16 +127,23 @@
                    </form>
                  </div>
                </tr>
-               @php $i++; @endphp
-           @endforeach
-         @else
+               
+         @empty
            <tr>
                <td colspan="7" style="background-color: #c74343a6;"><b>No Data Found.</b></td>
            </tr>
-         @endif
+         @endforelse
 
       </tbody>
       </table>
+                            <div class=" col-md-12">
+                            <div class="col-md-6"><br>
+                              Total Records: {{ $roles->total() }}
+                            </div>
+                            <div class="col-md-6">
+                            <div class=" pull-right">{{$roles->links()}}</div>
+                          </div>
+                        </div>
   </div>
   <!-- /.box-body -->
 </div>

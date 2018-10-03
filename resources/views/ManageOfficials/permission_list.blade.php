@@ -33,7 +33,7 @@
           <span class="text-danger">{{ $errors->first('permission_name') }}</span>
     </div>
   <div class="col-md-3 {{ $errors->has('slug') ? 'has-error' : '' }}">
-     <label  class="control-label">SLAG</label>
+     <label  class="control-label">SLUG</label>
      <input class="form-control input-sm" type="text" placeholder="ENTER SLAG" name="slug" value="{{(isset($permissions->id)&& $permissions->slug)?$permissions->slug:old('slug')}}">
       <span class="text-danger">{{ $errors->first('slug') }}</span>
   </div>
@@ -67,18 +67,17 @@
             <tr>
               <th class="srno">SR.NO</th>
               <th>PERMISSION NAME</th>
-              <th>SLAG</th>
+              <th>SLUG</th>
               <th>DESCRIPTION</th>
               <th>CREATED DATE</th>
               <th class="act1">ACTION</th>
             </tr>
             </thead>
             <tbody>
-               @php $i=1; @endphp
-               @if (count($permissions) > 0)
-                  @foreach ($permissions as $k=>$permission)
+              
+                  @forelse ($permissions as $k=>$permission)
                      <tr>
-                       <td>{{$i}}</td>
+                       <td>{{ $k+$permissions->firstItem()}}</td>
                        <td>{{$permission->permission_name}}</td>
                        <td>{{$permission->slug}}</td>
                        <td>{{$permission->description}}</td>
@@ -110,15 +109,22 @@
                          </form>
                        </div>
                      </tr>
-                     @php $i++; @endphp
-                 @endforeach
-               @else
+                  
+               @empty
                  <tr>
                      <td colspan="7" style="background-color: #c74343a6;"><b>No Data Found.</b></td>
                  </tr>
-               @endif
+               @endforelse
             </tbody>
             </table>
+            <div class=" col-md-12">
+                            <div class="col-md-6"><br>
+                              Total Records: {{ $permissions->total() }}
+                            </div>
+                            <div class="col-md-6">
+                            <div class=" pull-right">{{$permissions->links()}}</div>
+                          </div>
+                        </div>
         </div>
         <!-- /.box-body -->
       </div>

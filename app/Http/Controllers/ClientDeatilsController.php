@@ -21,7 +21,7 @@ class ClientDeatilsController extends Controller
 {
 	public function viewlist()
 	{
-		$clientdata = Client::latest()->where('client_app_status','1')->get();
+		$clientdata = Client::latest()->where('client_app_status','1')->paginate(15);
 
 		return view('ManageClient.addclient',compact('clientdata'));
 	}
@@ -176,7 +176,7 @@ class ClientDeatilsController extends Controller
 
         $action_info='view';
             $clientdata = Client::select('*')->where('id',$id)->first();
-
+           
                 $voltage_array=array();
                 $sldc=StateDiscom::where('state',@$clientdata->conn_state)->first();
                 $voltage_data=json_decode(@$sldc->voltage);
@@ -406,7 +406,7 @@ class ClientDeatilsController extends Controller
     public function bankdetails($id){
         $client_id=$id;
        // $bankdetails = Bank::where('client_id',$id)->where('status',1)->get();
-        $bankdetails = DB::table('bank')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',1)->orwhere('del_status',4); })->where('client_id',$id)->where('status',1)->get();
+        $bankdetails = DB::table('bank')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',1)->orwhere('del_status',4); })->where('client_id',$id)->where('status',1)->paginate(15);
 
        $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
 
@@ -437,7 +437,7 @@ class ClientDeatilsController extends Controller
         $bankdetail->virtual_account_number = $request->input('virtual_account_number');
         //dd(3);
         $bankdetail->save();
-        return redirect()->back()->with('message','Detail added successfully and sent to Approver');
+        return redirect()->back()->with('message','Client details saved successfully and submitted for Approval');
 
     }
 
