@@ -90,10 +90,9 @@
               </div></div>
 
                 <div class="row">
-                   <div class="col-md-5"></div>
-                   <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" id="vg6" name="vg6">SAVE</button></div>
-
-                   <div class="col-md-5"></div>
+                   <div class="col-md-1 pull-right">
+                     <button type="submit" class="btn btn-block btn-info btn-xs pull-right" id="vg6" name="vg6">SAVE</button>
+                   </div>
                 </div>
              </div>
           </div>
@@ -116,7 +115,7 @@
           </div>
        </div>
       </div>
-    <div class="box">
+    <div class="box mt3">
        <div class="box-body table-responsive">
           <table id="example1" class="table table-bordered table-striped table-hover text-center">
              <thead>

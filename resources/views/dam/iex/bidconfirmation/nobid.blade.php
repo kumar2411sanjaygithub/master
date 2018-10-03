@@ -22,10 +22,8 @@
   <!-- Header End -->
   <!-- Body Start -->
   <section class="content">
-     <div class="row">
-     <div class="col-xs-12">
-     <div class="box">
-        <div class="box-body">
+     <div class="row mb3">
+
            <!-- <div class="row">
               <div class="col-md-3">
                  <label class="control-label">Select Date</label>
@@ -49,8 +47,7 @@
                      </span>
                </div>
              </div>
-        </div>
-     </div>
+         </div>
      <div class="box">
         <div class="box-body table-responsive">
            <table id="example1" class="table table-bordered table-striped table-hover text-center">

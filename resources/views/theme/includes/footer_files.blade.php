@@ -85,56 +85,19 @@
               return false;
           });
 
-          // tooltip for edit and delete buttons global
+          // tooltip for global
 
-          $(document).ready(function() {
-              $(".glyphicon-pencil").hover(function() {
-                  $(".glyphicon-pencil").attr('title', 'Edit');
-              });
-              $(".glyphicon-trash").hover(function() {
-                  $(".glyphicon-trash").attr('title', 'Delete');
-              });
-              // var radhe = document.documentElement.outerHTML;
-              // var a = $("radhe").find("button").text();
-              // alert(a);
-              var input = $( ":button" ).text();
-              $( "p" ).text( "No. of butttons(s): " + input.length  );
-          });
-
-          // lakhan tooltip code start
-
-          $(document).ready(function() {
-              $(".add_btn").hover(function() {
-                  $(".add_btn").attr('title', 'Add');
-              });
-              $(".edit_btn").hover(function() {
-                  $(".edit_btn").attr('title', 'Edit');
-              });
-              $(".view_btn").hover(function() {
-                  $(".view_btn").attr('title', 'View');
-              });
-              $(".delete_btn").hover(function() {
-                  $(".delete_btn").attr('title', 'Delete');
-              });
-              $(".reject_btn").hover(function() {
-                  $(".reject_btn").attr('title', 'Reject');
-              });
-              $(".approve_btn").hover(function() {
-                  $(".approve_btn").attr('title', 'Approve');
-              });
-              $(".approve_all_btn").hover(function() {
-                  $(".approve_all_btn").attr('title', 'Approve');
-              });
-              $(".reject_all_btn").hover(function() {
-                  $(".reject_all_btn").attr('title', 'Reject All');
-              });
-              $(".select_all_btn").hover(function() {
-                  $(".select_all_btn").attr('title', 'Reject All');
-              });
-              $(".delete_all_btn").hover(function() {
-                  $(".delete_all_btn").attr('title', 'Delete All');
-              });
-          // tooltip code
-              $('[aks="tooltip"]').tooltip();
-          });
+       $(document).ready(function(){
+         $('.glyphicon-repeat').attr('title','Resend SMS').attr('data-toggle', 'tooltip').attr('data-placement', 'bottom').tooltip();
+         $('.glyphicon-envelope').attr('title','Send SMS').attr('data-toggle', 'tooltip').attr('data-placement', 'bottom').tooltip();
+         $('.glyphicon-send').attr('title','Send Mail').attr('data-toggle', 'tooltip').attr('data-placement', 'bottom').tooltip();
+         $('.glyphicon-retweet').attr('title','Re-Send Mail').attr('data-toggle', 'tooltip').attr('data-placement', 'bottom').tooltip();
+         $('.glyphicon-eye-open').attr('title','View').attr('data-toggle', 'tooltip').attr('data-placement', 'bottom').tooltip();
+         $('.glyphicon-pencil').attr('title','Edit').attr('data-toggle', 'tooltip').attr('data-placement', 'bottom').tooltip();
+         $('.glyphicon-trash').attr('title','Delete').attr('data-toggle', 'tooltip').attr('data-placement', 'bottom').tooltip();
+         $('.glyphicon-ok').attr('title','Approve').attr('data-toggle', 'tooltip').attr('data-placement', 'bottom').tooltip();
+         $('.glyphicon-remove').attr('title','Reject').attr('data-toggle', 'tooltip').attr('data-placement', 'bottom').tooltip();
+         $('[download="download"]').attr('title', 'Download').attr('data-toggle', 'tooltip').attr('data-placement', 'bottom').tooltip();
+         $('[download="download"]').html('<span class="glyphicon glyphicon-download"></span>');
+       });
       </script>
