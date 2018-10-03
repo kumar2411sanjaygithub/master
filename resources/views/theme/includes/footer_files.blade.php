@@ -93,3 +93,8 @@ $('.alphanum').keypress(function (e) {
       });
   });
 </script>
+<script>
+$(document).ready(function(){
+  $('[aks="tooltip"]').tooltip({placement: "bottom"});
+});
+</script>

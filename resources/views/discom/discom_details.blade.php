@@ -165,7 +165,7 @@
             </tr>
             @empty
             <tr><td class="alert-danger" colspan="8">Record not found</td><tr>
-            @endforeach
+            @endforelse
           </tbody>
         </table>
      </div>

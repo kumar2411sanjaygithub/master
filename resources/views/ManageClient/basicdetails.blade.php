@@ -20,7 +20,7 @@
 
          <form method="post" action="/client/saveclient">
           {{ csrf_field() }}
-            <div class="box" >
+            <div class="box mt3" >
 
             <div class="box-body">
             <h5><label  class="control-label"><u>CLIENT DETAILS</u></label></h5><hr>
@@ -58,19 +58,26 @@
               <input class="form-control input-sm" type="text" placeholder="ENTER PRIMARY MAIL ID"name="email" id="email" value="{{old('email')}}">
                <span class="text-danger">{{ $errors->first('email') }}</span>
               </div>
-              <div class="col-md-3">
+             
+                <div class="col-md-3 {{ $errors->has('short_id') ? 'has-error' : '' }}">
               <label  class="control-label">SHORT ID</label>
             <input class="form-control input-sm" type="text" placeholder="ENTER SHORT ID" name="short_id" id="short_id" value="{{old('short_id')}}">
+            <span class="text-danger">{{ $errors->first('short_id') }}</span>
               </div>
-              <div class="col-md-3">
+            
+             
+                <div class="col-md-3 {{ $errors->has('old_sap') ? 'has-error' : '' }}">
               <label  class="control-label">OLD SAP CODE</label>
               <input class="form-control input-sm" type="text" placeholder="ENTER OLD SAP CODE" name="old_sap" id="old_sap" value="{{old('old_sap')}}" >
-              </div>
+               <span class="text-danger">{{ $errors->first('old_sap') }}</span>
+            </div>
             </div>
             <div class="row">
-              <div class="col-md-3">
+            
+                <div class="col-md-3 {{ $errors->has('new_sap') ? 'has-error' : '' }}">
             <label  class="control-label">SAP CODE</label>
               <input class="form-control input-sm" type="text" placeholder="ENTER SAP CODE" name="new_sap" id="new_sap" value="{{old('new_sap')}}">
+              <span class="text-danger">{{ $errors->first('new_sap') }}</span>
               </div>
               <!-- <div class="col-md-3">
                 <label  class="control-label">CRN</label>
@@ -80,12 +87,14 @@
 
           <h5><label  class="control-label"><u>REGISTERED OFFICE ADDRESS</u></label></h5>  <hr>
             <div class="row">
+              
               <div class="col-md-3 {{ $errors->has('reg_line1') ? 'has-error' : '' }}">
               <label  class="control-label">LINE-1</label><span class="text-danger"><strong>*</strong></span>
               <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-1" name="reg_line1" id="reg_line1" value="{{old('reg_line1')}}">
               <span class="text-danger">{{ $errors->first('reg_line1') }}</span>
               </div>
-              <div class="col-md-3">
+             
+                <div class="col-md-3 {{ $errors->has('new_sap') ? 'has-error' : '' }}">
               <label  class="control-label">LINE-2</label>
                 <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-2"  name="reg_line2" id="reg_line2" value="{{old('reg_line2')}}">
               </div>
@@ -131,9 +140,11 @@
                 <input class="form-control input-sm num" maxlength="10" type="text" placeholder="ENTER MOBILE NUMBER"  id="reg_mob" name="reg_mob" value="{{old('reg_mob')}}">
                 <span class="text-danger">{{ $errors->first('reg_mob') }}</span>
               </div>
-              <div class="col-md-3">
+              
+                <div class="col-md-3 {{ $errors->has('reg_telephone') ? 'has-error' : '' }}">
             <label  class="control-label">TELEPHONE</label>
                 <input class="form-control input-sm num" maxlength="15" type="text" placeholder="ENTER TELEPHONE NUMBER" id="reg_telephone" name="reg_telephone" value="{{old('reg_telephone')}}">
+                 <span class="text-danger">{{ $errors->first('reg_telephone') }}</span>
               </div>
             </div>
             <div class="row">
@@ -146,15 +157,20 @@
     </div>   <div class="col-md-5"></div>
   </div><hr>
             <div class="row">
-              <div class="col-md-3">
+              
+                <div class="col-md-3 {{ $errors->has('bill_line1') ? 'has-error' : '' }}">
               <label  class="control-label">LINE-1</label>
               <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-1" id="bill_line1" name="bill_line1" value="{{old('bill_line1')}}">
+               <span class="text-danger">{{ $errors->first('bill_line1') }}</span>
               </div>
-              <div class="col-md-3">
+             
+                <div class="col-md-3 {{ $errors->has('bill_line2') ? 'has-error' : '' }}">
               <label  class="control-label">LINE-2</label>
                 <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-2" id="bill_line2" name="bill_line2">
+                 <span class="text-danger">{{ $errors->first('bill_line2') }}</span>
               </div>
-              <div class="col-md-3">
+             
+                <div class="col-md-3 {{ $errors->has('bill_country') ? 'has-error' : '' }}">
               <label  class="control-label">COUNTRY</label>
               <select class="form-control input-sm" style="width: 100%;" id="bill_country" name="bill_country"value="{{old('bill_country')}}">
                   <option value="">SELECT</option>
@@ -164,6 +180,7 @@
                 </select>
               </div>
               <div class="col-md-3">
+
               <label  class="control-label">STATE</label>
               <select class="form-control input-sm" style="width: 100%;" id="bill_state" name="bill_state" value="{{old('bill_state')}}">
                   <option value="">SELECT</option>
@@ -178,7 +195,8 @@
             </div>
 
             <div class="row">
-              <div class="col-md-3">
+              
+                <div class="col-md-3 {{ $errors->has('bill_city') ? 'has-error' : '' }}">
               <label  class="control-label">CITY</label>
               <input class="form-control input-sm" style="width: 100%;" id="bill_city" name="bill_city" value="{{old('bill_city')}}" placeholder="ENTER CITY">
 
@@ -208,13 +226,17 @@
         </div>   <div class="col-md-5"></div>
       </div><hr>
             <div class="row">
-              <div class="col-md-3">
+             
+                <div class="col-md-3 {{ $errors->has('del_lin1') ? 'has-error' : '' }}">
               <label  class="control-label">LINE-1</label>
               <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-1" id="del_lin1" name="del_lin1" value="{{old('del_lin1')}}">
+               <span class="text-danger">{{ $errors->first('del_lin1') }}</span>
               </div>
-              <div class="col-md-3">
+             <div class="col-md-3 {{ $errors->has('del_lin2') ? 'has-error' : '' }}">
               <label  class="control-label">LINE-2</label>
+              
                 <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS LINE-2" id="del_lin2" name="del_lin2" value="{{old('del_lin2')}}">
+                 <span class="text-danger">{{ $errors->first('del_lin2') }}</span>
               </div>
               <div class="col-md-3">
               <label  class="control-label">COUNTRY</label>
@@ -239,9 +261,11 @@
             </div>
 
             <div class="row">
-              <div class="col-md-3">
+              
+                <div class="col-md-3 {{ $errors->has('del_city') ? 'has-error' : '' }}">
               <label  class="control-label">CITY</label>
               <input class="form-control input-sm" style="width: 100%;" id="del_city" name="del_city" value="{{old('del_city')}}" placeholder="ENTER CITY">
+               <span class="text-danger">{{ $errors->first('del_city') }}</span>
 
               </div>
               <div class="col-md-3">
@@ -260,13 +284,17 @@
 
             <h5><label  class="control-label"><u>EXCHANGE DETAILS</u></label></h5><hr>
             <div class="row">
-              <div class="col-md-3">
+            
+                <div class="col-md-3 {{ $errors->has('iex_client_name') ? 'has-error' : '' }}">
               <label  class="control-label">IEX CLIENT NAME</label>
               <input class="form-control input-sm" type="text" placeholder="ENTER IEX CLIENT NAME" id="iex_client_name" name="iex_client_name" value="{{old('iex_client_name')}}">
+               <span class="text-danger">{{ $errors->first('iex_client_name') }}</span>
               </div>
-              <div class="col-md-3">
+            
+                <div class="col-md-3 {{ $errors->has('iex_portfolio') ? 'has-error' : '' }}">
               <label  class="control-label">IEX PORTFOLIO CODE</label>
                 <input class="form-control input-sm" type="text" placeholder="ENTER IEX PORTFOLIO CODE"  id="iex_portfolio" name="iex_portfolio" value="{{old('iex_portfolio')}}">
+                 <span class="text-danger">{{ $errors->first('iex_portfolio') }}</span>
               </div>
               <div class="col-md-3">
               <label  class="control-label">IEX STATUS</label>
@@ -301,14 +329,18 @@
             </div>
 
             <div class="row">
-              <div class="col-md-3">
+           
+                <div class="col-md-3 {{ $errors->has('pxil_client_name') ? 'has-error' : '' }}">
               <label  class="control-label">PXIL CLIENT NAME</label>
             <input class="form-control input-sm" type="text" placeholder="ENTER PXIL CLIENT NAME"  id="pxil_client_name" name="pxil_client_name" value="{{old('pxil_client_name')}}">
+             <span class="text-danger">{{ $errors->first('pxil_client_name') }}</span>
               </div>
 
-              <div class="col-md-3">
+             
+                <div class="col-md-3 {{ $errors->has('pxil_portfolio') ? 'has-error' : '' }}">
               <label  class="control-label">PXIL PORTFOLIO CODE</label>
             <input class="form-control input-sm" type="text" placeholder="ENTER PXIL PORTFOLIO CODE" id="pxil_portfolio" name="pxil_portfolio" value="{{old('pxil_portfolio')}}">
+             <span class="text-danger">{{ $errors->first('pxil_portfolio') }}</span>
               </div>
               <div class="col-md-3">
             <label  class="control-label">PXIL STATUS</label>
@@ -411,13 +443,19 @@
             </div>
               </div>
                <div id="hidecontentDiv">
-              <div class="col-md-3">
+           
+                <div class="col-md-3 {{ $errors->has('feeder_name') ? 'has-error' : '' }}">
             <label  class="control-label">FEEDER NAME</label>
             <input class="form-control input-sm" type="text" placeholder="ENTER FEEDER NAME" name="feeder_name" id="feeder_name" value="{{old('feeder_name')}}">
+             <span class="text-danger">{{ $errors->first('feeder_name') }}</span>
               </div>
-              <div class="col-md-3">
+            
+                <div class="col-md-3 {{ $errors->has('feeder_code') ? 'has-error' : '' }}">
             <label  class="control-label">FEEDER CODE</label>
+
+
             <input class="form-control input-sm" type="text" placeholder="ENTER FEEDER CODE" name="feeder_code" id="feeder_code" value="{{old('feeder_code')}}">
+             <span class="text-danger">{{ $errors->first('feeder_code') }}</span>
               </div>
             </div>
 
@@ -426,13 +464,17 @@
               <label  class="control-label"> NAME OF SUBSTATION</label>
             <input class="form-control input-sm" type="text" placeholder="ENTER SUBSTATION NAME" id="name_of_substation" name="name_of_substation" value="{{old('name_of_substation')}}">
               </div>
-              <div class="col-md-3">
+             
+                <div class="col-md-3 {{ $errors->has('maxm_injection') ? 'has-error' : '' }}">
             <label  class="control-label">MAXIMUM INJECTION QUANTUM (MW)</label>
             <input class="form-control input-sm" type="text" placeholder="ENTER INJECTION QUANTUM" name="maxm_injection" id="maxm_injection" value="{{old('maxm_injection')}}">
+             <span class="text-danger">{{ $errors->first('maxm_injection') }}</span>
               </div>
-              <div class="col-md-3">
+            
+                <div class="col-md-3 {{ $errors->has('maxm_withdrawal') ? 'has-error' : '' }}">
             <label  class="control-label">MAXIMUM WITHDRAWAL QUANTUM (MW)</label>
             <input class="form-control input-sm" type="text" placeholder="ENTER WITHDRAWAL QUANTUM" name="maxm_withdrawal" id="maxm_withdrawal" value="{{old('maxm_withdrawal')}}">
+             <span class="text-danger">{{ $errors->first('maxm_withdrawal') }}</span>
               </div>
               <div class="col-md-3">
               <label  class="control-label">NOC APPLICATION PUNCHED BY</label>
@@ -447,9 +489,10 @@
 
         <h5><label  class="control-label"><u>FINANCIAL ARRANGEMENT</u></label></h5><hr>
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-3 {{ $errors->has('payment') ? 'has-error' : '' }}">
               <label  class="control-label">LATER PAYMENT PENALTY(%)</label>
               <input class="form-control input-sm" type="text" placeholder="ENTER LATER PAYMENT PENALTY(%)" name="payment" id="payment" value="{{old('payment')}}">
+               <span class="text-danger">{{ $errors->first('payment') }}</span>
               </div>
               <div class="col-md-3">
               <label  class="control-label">PAYMENT OBLIGATION</label>
@@ -459,14 +502,14 @@
                   <option value="Advance" @if(old('obligation')=='Advance')selected @endif>Advance</option>
                 </select>
               </div>
+              <div class="col-md-4"></div>
+           
+                    <div class="col-md-1 mt23"><button type="submit" class="btn btn-block btn-info btn-xs" id="saveclient">SAVE</button></div>
+                  <div class="col-md-1 mt23"><a href="{{route('basic.details')}}"><input type="button" class="btn btn-block btn-danger btn-xs"value="Cancel"></a></div>
+           
             </div>
             <hr>
-              <div class="row">
-                 <div class="col-md-5"></div>
-                  <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" id="saveclient">SAVE</button></div>
-                  <div class="col-md-1"><a href="{{route('basic.details')}}"><input type="button" class="btn btn-block btn-danger btn-xs"value="Cancel"></a></div>
-                <div class="col-md-5"></div>
-              </div>
+           
               <div class="row">&nbsp;</div>
               </div>
                 </div>

@@ -134,7 +134,9 @@
                                                <td class="text-center vl">{{ $value->designation }}</td>
                                                <td class="text-center vl">{{ $value->email }}</td>
                                                <td class="text-center vl">{{ $value->mob_num }}</td>
-                                             <td class="vl"><a href="/addcontact/{{ $value->id }}/approved/contact_temp"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/addcontact/{{ $value->id }}/rejected/contact_temp"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
+                                             <td class="vl"><a href="/addcontact/{{ $value->id }}/approved/contact_temp"><span  class="text-success glyphicon glyphicon-ok" name="cd4" id="cd4"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                              <a href="/addcontact/{{ $value->id }}/rejected/contact_temp"><span class="text-danger glyphicon glyphicon-remove" name="re1" id="re1"></span></a></td>
                                           </tr>
                                         <?php
                                        $i++;
@@ -251,7 +253,9 @@
                                                <td class="text-center">{{ $input_lebels[$value->attribute_name]}}</td>
                                                <td class="text-center">{{ $value->old_att_value }}</td>
                                                <td class="text-center">{{ $value->updated_attribute_value }}</td>
-                                             <td  class="vl"><a href="/contact/modified/{{ $value->id }}/approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/contact/modified/{{ $value->id }}/rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
+                                             <td  class="vl"><a href="/contact/modified/{{ $value->id }}/approved"><span  class="text-success glyphicon glyphicon-ok" name="cd0" id="cd0"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                              <a href="/contact/modified/{{ $value->id }}/rejected"><span  class="text-danger glyphicon glyphicon-remove" name="cd0" id="cd0"></span></a></td>
                                           </tr>
                                         <?php
                                        $i++;
@@ -373,9 +377,9 @@
                                                     <td class="text-center vl">{{ $value->mob_num }}</td>
                                                     <td class="text-center vl">
 
-                                                          <a href="/delete_contact/{{ $value->id }}/approved/contact"><button type="button" class="btn  btn-info btn-xs">Approve</button></a>
+                                                          <a href="/delete_contact/{{ $value->id }}/approved/contact"><span  class="text-success glyphicon glyphicon-ok" name="cd7" id="cd7"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                                          <a href="/delete_contact/{{ $value->id }}/rejected/contact"><button type="button" class="btn  btn-danger btn-xs">Reject</button></a>
+                                                          <a href="/delete_contact/{{ $value->id }}/rejected/contact"><span  class="text-danger glyphicon glyphicon-remove" name="cd9" id="cd9"></span></a>
 
                                                     </td>
                                                 </tr>

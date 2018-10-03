@@ -42,7 +42,7 @@
       {{ csrf_field() }}
       <div class="row {{(isset($get_contact_details)||!$errors->isEmpty())?'':'divhide'}}" id="contactbox">
         <div class="col-xs-12">
-        <div class="box" id="cbox">
+        <div class="box mt3" id="cbox">
            <div class="box-body">
       <div class="row ">
       <div class="col-md-3 {{ $errors->has('name') ? 'has-error' : '' }}">
@@ -69,14 +69,14 @@
   </div>
      <div class="row">&nbsp;</div>
       <div class="row">
-         <div class="col-md-5"></div>
+         <div class="col-md-10"></div>
          @if(isset($get_contact_details))
           <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" id="save" name="save">UPDATE</button></div>
           @else
           <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs" id="save" name="save">SAVE</button></div>
           @endif
           <div class="col-md-1"><a href="{{ URL('/contactdetails/'.$client_id) }}" ><input type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="CANCEL"></a></div>
-        <div class="col-md-5"></div>
+       
       </div>
       </div>
     </div></div></div>
@@ -88,7 +88,7 @@
 
                <div class="row">
                   <div class="col-xs-12">
-                     <div class="box">
+                     <div class="box mt3">
                         <div class="box-body table-responsive">
                            <table class="table table-bordered text-center table-striped table-hover table-condensed">
                               <thead>

@@ -21,7 +21,7 @@ class ContactController extends Controller
         $contact_id=$eid;
         $client_id=$id;
         $get_contact_details = Contact::where('id',$contact_id)->where('status',1)->withTrashed()->first();
-        $contactdetails = Contact::where('client_id',$client_id)->where('status',1)->withTrashed()->get();
+        $contactdetails = Contact::where('client_id',$client_id)->where('status',1)->withTrashed()->paginate(15);
  // dd($client_id);
         $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
         return view('ManageClient.contactdetails',compact('contactdetails','client_id','get_contact_details','client_details'));
@@ -89,13 +89,16 @@ class ContactController extends Controller
     }
     public function update_contactdetails(Request $request ,$contact_detail_id)
     {
-        //  $this->validate($request, [
-        //     'name' => 'required|max:100',
-        //     'designation' => 'required|max:100',
-        //     'email' => 'required|email',
-        //     'mobile_no' => 'required|regex:/^[0-9]{10}$/',
-        // ]);
-
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'designation' => 'required|max:100',
+            'email' => 'required|email',
+            'mobile_no' => 'required|regex:/^[0-9]{10}$/',
+        ]);
+        //   if($validator->fails())
+        // {
+        //     return Redirect::back()->withErrors($validator)->withInput();
+        // }
     	$client_id = $request->input('client_id');
         $contactdetail = Contact::find($contact_detail_id)->toArray();
         $datas =array();
@@ -112,6 +115,7 @@ class ContactController extends Controller
 
 
         $result=array_diff($dataArray,$datas);
+
         if($this->generateApprovalrequest($result,'contact',$client_id,$contact_detail_id,$datas)==false){
             return redirect()->route('contactdetails', ['id' => $client_id])->withErrors(['pending'=>'There is already a change request pending for approval.']);
         }
@@ -141,7 +145,7 @@ class ContactController extends Controller
     }
 
     function generateApprovalrequest($data, $type, $client_id, $reference_id='',$datas){
-        $apprval_req_pending = Approvalrequest::where('client_id',$client_id)->where('status','0')->get();
+        $apprval_req_pending = Approvalrequest::where('client_id',$client_id)->where('status','0')->where('approval_type','contact')->get();
         if($apprval_req_pending->count()>0)
         {
           return false;

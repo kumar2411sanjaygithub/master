@@ -135,7 +135,7 @@
                                                <td class="text-center vl">{{ $value->account_number }}</td>
                                                <td class="text-center vl">{{ $value->ifsc}}</td>
                                                <td class="text-center vl">{{ $value->virtual_account_number }}</td>
-                                             <td class="vl"><a href="/add/{{ $value->id }}/approved/bank_temp"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/add/{{ $value->id }}/rejected/bank_temp"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
+                                             <td class="vl"><a href="/add/{{ $value->id }}/approved/bank_temp"><span  class="text-success glyphicon glyphicon-ok" name="" id=""></span></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/add/{{ $value->id }}/rejected/bank_temp"><span  class="text-danger glyphicon glyphicon-remove" name="" id=""></span></a></td>
                                           </tr>
                                         <?php
                                        $i++;
@@ -252,7 +252,7 @@
                                                <td class="text-center vl">{{ $input_lebels[$value->attribute_name]}}</td>
                                                <td class="text-center vl">{{ $value->old_att_value }}</td>
                                                <td class="text-center vl">{{ $value->updated_attribute_value }}</td>
-                                             <td class="vl"><a href="/modified/{{ $value->id }}/approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/modified/{{ $value->id }}/rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
+                                             <td class="vl"><a href="/modified/{{ $value->id }}/approved"><span  class="text-success glyphicon glyphicon-ok" name="" id=""></span></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/modified/{{ $value->id }}/rejected"><span  class="text-danger glyphicon glyphicon-remove" name="" id=""></span></a></td>
                                           </tr>
                                         <?php
                                        $i++;
@@ -377,9 +377,9 @@
                                                <td class="text-center vl">{{ $value->virtual_account_number }}</td>
                                                <td class="text-center vl">
 
-                                                        <a href="/deletebank/{{ $value->id }}/approved/bank"><button type="button" class="btn  btn-info btn-xs">Approve</button></a>
+                                                        <a href="/deletebank/{{ $value->id }}/approved/bank"><span  class="text-success glyphicon glyphicon-ok" name="" id=""></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                                        <a href="/deletebank/{{ $value->id }}/rejected/bank"><button type="button" class="btn  btn-danger btn-xs">Reject</button></a>
+                                                        <a href="/deletebank/{{ $value->id }}/rejected/bank"><span  class="text-danger glyphicon glyphicon-remove" name="" id=""></span></a>
 
                                                </td>
                                              </tr>

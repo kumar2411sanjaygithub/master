@@ -82,7 +82,7 @@ min-width:100px;
 
       <div class="row {{(isset($get_noc_details)||!$errors->isEmpty())?'':'divhide'}}" id="nocbox">
         <div class="col-xs-12">
-     <div class="box" id="noccbox">
+     <div class="box mt3" id="noccbox">
     <div class="box-body">
     <div class="row">
       <div class="col-md-3  {{ $errors->has('noc_application_no') ? 'has-error' : '' }}">
@@ -219,18 +219,17 @@ min-width:100px;
 <input class="form-control input-sm" type="file" placeholder="ENTER UPLOAD NOC FILE" id="upload_noc" name="upload_noc" value="{{isset($get_noc_details)?$get_noc_details->upload_noc:''}}">
 <span class="text-danger">{{ $errors->first('upload_noc') }}</span>
 </div>
+<div class="col-md-4"></div>
+  @if(isset($get_noc_details))
+          <div class="col-md-1 mt23"><button type="submit" class="btn btn-block btn-info btn-xs" onclick="removeDisabled()" id="save" name="save">UPDATE</button></div>
+          @else
+          <div class="col-md-1 mt23"><button type="submit" class="btn btn-block btn-success btn-xs" onclick="removeDisabled()" id="save" name="save">SAVE</button></div>
+          @endif
+          <div class="col-md-1 mt23"><a href="/nocdetails/{{@$client_id}}" type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="CANCEL" >CANCEL</a></div>
 </div>
 
      <div class="row">&nbsp;</div>
-      <div class="row">
-         <div class="col-md-5"></div>
-          @if(isset($get_noc_details))
-          <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" onclick="removeDisabled()" id="save" name="save">UPDATE</button></div>
-          @else
-          <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs" onclick="removeDisabled()" id="save" name="save">SAVE</button></div>
-          @endif
-          <div class="col-md-1"><a href="/nocdetails/{{@$client_id}}" type="button" class="btn btn-block btn-danger btn-xs" id="bn7" name="bn7" value="CANCEL" >CANCEL</a></div>
-      </div>
+   
       </div>
     </div>
     </div>

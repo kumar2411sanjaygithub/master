@@ -58,14 +58,14 @@
                                <label  class="control-label">DESCRIPTION</label>
                                <input class="form-control input-sm" type="text" placeholder="ENTER DESCRIPTION" id="description" name="description">
                             </div>
-                            <div class="col-md-3">
-                              <div class="col-md-6" style="margin-top:22px;">
+                            <div class="col-md-4"></div>
+                              <div class="col-md-1 mt23" >
                                   <button type="submit" id= "submitdepartment" class="btn btn-block btn-info btn-xs">SAVE</button>
                               </div>
-                              <div class="col-md-6" style="margin-top:22px;">
+                              <div class="col-md-1 mt23">
                                   <a href="{{ route('departments') }}"><input type="button"  class="btn btn-danger btn-block  btn-xs pull-right"value="Cancel"></a>
                               </div>
-                            </div>
+                           
                         </div>
 
                       </div>
@@ -80,7 +80,7 @@
                   </div>
                 </div>
              </div>
-             <div class="box">
+             <div class="box mt3">
                 <div class="box-body table-responsive">
                    <table id="example1" class="table table-bordered table-striped table-hover text-center">
                       <thead class="tablehead">
@@ -106,7 +106,7 @@
                               <td class="text-center">{{@date('d/m/Y',strtotime($value->created_at)) }}</td>
 
                               <td class="text-center">
-                                <a href="/manageofficials/editdepartments/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                                <a href="/manageofficials/editdepartments/{{$value->id}}"><span class="glyphicon glyphicon-pencil" aks="tooltip"></span></a>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 <a href="" data-toggle="modal" data-target="#ConvertData{{ $value->id }}" name="" id="convert-disabled"><span class="glyphicon glyphicon-trash"></span></a>
                               </td>
@@ -115,15 +115,15 @@
             {{ csrf_field() }}
            <div class="modal-dialog modal-confirm">
              <div class="modal-content">
-               <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+               <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
                  <h4 class="modal-title text-center"></h4>
-               </div>
+               </div> -->
                <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
                  <p style="font-size: 18px;font-weight:400;color:black!important; text-align:center;">Are you sure you want to delete this record?</p>
                </div>
                <div class="modal-footer">
-                 <button type="submit" class="btn btn-danger">Yes</button>
-                 <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+                 <button type="submit" class="btn btn-danger btn-xs">Yes</button>
+                 <button type="button" class="btn btn-info btn-xs" data-dismiss="modal">No</button>
                </div>
              </div>
            </div>
