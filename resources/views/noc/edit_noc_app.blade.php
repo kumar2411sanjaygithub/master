@@ -44,7 +44,7 @@
                      <label  class="control-label">SLDC <span class="text-danger">*</span></label>
                     <select class="form-control input-sm" style="width: 100%;" id="sldc" name="sldc">
                         <option value="">PLEASE SELECT SLDC</option>
-                        @if (count($sldc_array) > 0)                        
+                        @if (count($sldc_array) > 0)
                           @foreach($sldc_array as $sldc)
                               <option value="{{$sldc}}" {{ isset($noc_data) && $noc_data->sldc == $sldc ? 'selected="selected"' : '' }}>{{$sldc}}</option>
                           @endforeach
@@ -52,7 +52,7 @@
                           <option value="">No data.</option>
                         @endif
                     </select>
-                    <span class="text-danger">{{ $errors->first('sldc') }}</span>                                              
+                    <span class="text-danger">{{ $errors->first('sldc') }}</span>
                   </div>
                   <div class="col-md-3 {{ $errors->has('noc_type') ? 'has-error' : '' }}">
                      <label  class="control-label">NOC TYPE <span class="text-danger">*</span></label>
@@ -61,7 +61,7 @@
                         <option value="buy" {{ isset($noc_data) && $noc_data->noc_type == "buy" ? 'selected="selected"' : '' }}>BUY</option>
                         <option value="sell" {{ isset($noc_data) && $noc_data->noc_type == "sell" ? 'selected="selected"' : '' }}>SELL</option>
                      </select>
-                    <span class="text-danger">{{ $errors->first('noc_type') }}</span>                                               
+                    <span class="text-danger">{{ $errors->first('noc_type') }}</span>
                   </div>
                   <div class="col-md-3 {{ $errors->has('exchange_type') ? 'has-error' : '' }}">
                      <label  class="control-label">EXCHANGE TYPE <span class="text-danger">*</span></label>
@@ -70,12 +70,12 @@
                         <option value="iex" {{ isset($noc_data) && $noc_data->exchange_type == "iex" ? 'selected="selected"' : '' }}>IEX</option>
                         <option value="pxil" {{ isset($noc_data) && $noc_data->exchange_type == "pxil" ? 'selected="selected"' : '' }}>PXIL</option>
                      </select>
-                    <span class="text-danger">{{ $errors->first('exchange_type') }}</span>                                               
+                    <span class="text-danger">{{ $errors->first('exchange_type') }}</span>
                   </div>
                   <div class="col-md-3 {{ $errors->has('quantum') ? 'has-error' : '' }}">
                      <label  class="control-label">QUANTUM <span class="text-danger">*</span></label>
                      <input class="form-control input-sm" type="text" placeholder="VALUE" id="quantum" name="quantum" value="{{ isset($noc_data) ? $noc_data->quantum : '' }}">
-                    <span class="text-danger">{{ $errors->first('quantum') }}</span>                                              
+                    <span class="text-danger">{{ $errors->first('quantum') }}</span>
                   </div>
                </div>
                <div class="row">
@@ -87,14 +87,14 @@
                         </div>
                         <input type="text" class="form-control pull-right input-sm" id="datepicker"  name="start_date" autocomplete="off" placeholder="DD/MM/YYYY" value="{{ isset($noc_data) ? date('d/m/Y',strtotime($noc_data->start_date)) : '' }}">
                      </div>
-                    <span class="text-danger">{{ $errors->first('start_date') }}</span>                                               
+                    <span class="text-danger">{{ $errors->first('start_date') }}</span>
                   </div>
-                  <div class="col-md-1 {{ $errors->has('start_time') ? 'has-error' : '' }}">
+                  <div class="col-md-1 {{ $errors->has('start_time') ? 'has-error' : '' }} mlpl0">
                      <label  class="control-label">TIME <span class="text-danger">*</span></label>
                      <div class="input-group">
                         <input type="text" class="form-control timepicker" name="start_time" value="{{ isset($noc_data) ? $noc_data->start_time : '' }}">
                      </div>
-                    <span class="text-danger">{{ $errors->first('start_time') }}</span>                                    
+                    <span class="text-danger">{{ $errors->first('start_time') }}</span>
                   </div>
                   <div class="col-md-2 {{ $errors->has('end_date') ? 'has-error' : '' }}">
                      <label  class="control-label">VALIDITY END DATE <span class="text-danger">*</span></label>
@@ -104,14 +104,14 @@
                         </div>
                         <input type="text" class="form-control pull-right input-sm" id="datepicker1"  name="end_date" autocomplete="off" placeholder="DD/MM/YYYY" value="{{ isset($noc_data) ? date('d/m/Y',strtotime($noc_data->end_date)) : '' }}">
                      </div>
-                      <span class="text-danger">{{ $errors->first('end_date') }}</span>                          
+                      <span class="text-danger">{{ $errors->first('end_date') }}</span>
                   </div>
-                  <div class="col-md-1 {{ $errors->has('end_time') ? 'has-error' : '' }}">
+                  <div class="col-md-1 {{ $errors->has('end_time') ? 'has-error' : '' }} mlpl0">
                      <label  class="control-label">TIME <span class="text-danger">*</span></label>
                      <div class="input-group">
                         <input type="text" class="form-control timepicker" name="end_time" value="{{ isset($noc_data) ? $noc_data->end_time : '' }}">
                      </div>
-                      <span class="text-danger">{{ $errors->first('end_time') }}</span>                          
+                      <span class="text-danger">{{ $errors->first('end_time') }}</span>
                   </div>
                   <div class="col-md-3">
                      <label  class="control-label">ATTACH NOC REQUEST</label>
@@ -121,7 +121,7 @@
                   <div class="col-md-1"></div>
                   <div class="col-md-1 mt23"><button type="submit" class="btn btn-block btn-info btn-xs">UPDATE</button></div>
                 <div class="col-md-1 mt23"><a href="{{route('getclientData',['id'=>$client_id])}}"><button class="btn btn-danger btn-xs" value="Cancel" type="button">CANCEL</button></a>
-                </div>  
+                </div>
 
                </div>
 

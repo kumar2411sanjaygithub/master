@@ -119,8 +119,8 @@
                                   <td class="text-center">{{ $value->ex_type }}</td>
                                   <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
                                   <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
-                                  <td class="text-center"><a href="{{url('downloads/'.$value->file_upload)}}" ></a><span class="glyphicon glyphicon-download"></span></td>
-                                  <td>{{ $valid }}</td>
+                                  <td class="text-center"><a href="{{url('downloads/'.$value->file_upload)}}" ><span class="glyphicon glyphicon-download"></span></td>
+                                  <td>{{ $valid }}</a></td>
                                   <td class="text-center">
                                     <a href="{{url('/editexchangedetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
                                     <a href="/delete/exchange/{{$value->id}}"><span class="glyphicon glyphicon-trash text-danger" id="remove-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>
