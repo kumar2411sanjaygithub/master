@@ -13,7 +13,7 @@
    </h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">POC & Discom Losses</a></li>
+      <li><a href="#">POC & DISCOM LOSSES</a></li>
       <li><a href="#" class="active">POC Add</a></li>
    </ol>
 </section>
@@ -103,15 +103,12 @@
                     <input class="form-control input-sm num" type="text" placeholder="VALUE" id="withdraw_poc_loss" name="withdraw_poc_loss">
                     <span class="text-danger">{{ $errors->first('withdraw_poc_loss') }}</span>
                  </div>
-               </div>
-               <div class="row">&nbsp;</div>
-               <div class="row">
-                 <div class="col-md-12 text-center">
-                   <button type="submit" class="btn btn-info btn-xs">SAVE</button>
+                 <div class="col-md-6 text-right mt23">
+                   <button type="submit" class="btn btn-info btn-xs">SAVE</button>&nbsp;&nbsp;&nbsp;&nbsp;
                  <button type="button" class="btn btn-danger btn-xs poc-cancel">CANCEL</button>
                </div>
-              </div>
-              <div class="row">&nbsp;</div>
+
+               </div>
            </div>
         </div>
       </div>
@@ -123,12 +120,12 @@
         <a class="btn btn-info btn-xs poc-btn pull-right mr5" name=" "><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</a>
       </div>
     </div>
-  <div class="box">
+  <div class="box mt3">
      <div class="box-body table-responsive">
         <table class="table table-bordered text-center">
           <thead class="tablehead">
             <tr>
-              <th class="text-center"><u>S.No</u></th>
+              <th class="text-center"><u>Sr.No</u></th>
               <th class="text-center"><u>Application From Date</u></th>
               <th class="text-center"><u>Application To Date</u></th>
               <th class="text-center"><u>Region</u></th>

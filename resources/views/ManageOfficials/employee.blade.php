@@ -169,10 +169,9 @@
 <div class="row">&nbsp;</div>
  <div class="row">
 
-      <div class="col-md-5"></div>
+      <div class="col-md-10"></div>
       <div class="col-md-1 "><button type="submit" class="btn btn-info btn-block btn-xs" id="save_officials">SAVE</button></div>
       <div class="col-md-1 "><a href="{{ route('employee') }}" class="btn btn-danger btn-block btn-xs" value="Cancel">CANCEL</a></div>
-      <div class="col-md-5"></div>
 
    </div>
  </div>

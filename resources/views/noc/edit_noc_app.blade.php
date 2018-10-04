@@ -118,16 +118,13 @@
                      <input class="form-control input-sm" type="file" placeholder="" id="noc_file" name="noc_file">
                      <input class="form-control input-sm" type="hidden" placeholder="" id="old_noc_file" name="old_noc_file"  value="{{ isset($noc_data) ? $noc_data->noc_file : '' }}">
                   </div>
-               </div>
-               <div class="row">&nbsp;</div>
-               <div class="row">
-                  <div class="col-md-5"></div>
-                  <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs">UPDATE</button></div>
-                <div class="col-md-1"><a href="{{route('getclientData',['id'=>$client_id])}}"><button class="btn btn-danger btn-xs" value="Cancel" type="button">CANCEL</button></a>
-                </div>    
+                  <div class="col-md-1"></div>
+                  <div class="col-md-1 mt23"><button type="submit" class="btn btn-block btn-info btn-xs">UPDATE</button></div>
+                <div class="col-md-1 mt23"><a href="{{route('getclientData',['id'=>$client_id])}}"><button class="btn btn-danger btn-xs" value="Cancel" type="button">CANCEL</button></a>
+                </div>  
 
-                  <div class="col-md-5"></div>
                </div>
+
              </form>
              </div>
             </div>

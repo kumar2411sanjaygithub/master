@@ -13,7 +13,7 @@
    </h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">POC & Discom Losses</a></li>
+      <li><a href="#">POC & DISCOM LOSSES</a></li>
       <li><a href="#" class="active">POC Add</a></li>
    </ol>
 </section>
@@ -104,14 +104,12 @@
                     <input class="form-control input-sm num" value="{{ $pocData->withdraw_poc_loss }}" type="text" placeholder="VALUE" id="withdraw_poc_loss" name="withdraw_poc_loss">
                     <span class="text-danger">{{ $errors->first('withdraw_poc_loss') }}</span>
                  </div>
-               </div>
-               <div class="row">&nbsp;</div>
-                 <div class="col-md-12 text-center">
-                   <button type="submit" class="btn btn-info btn-xs">SAVE</button>
+                 <div class="col-md-6 text-right mt23">
+                   <button type="submit" class="btn btn-info btn-xs">UPDATE</button>&nbsp;&nbsp;&nbsp;&nbsp;
                    <a href="/poc" type="button" class="btn btn-danger btn-xs">CANCEL</a>
                  </div>
-              </div>
-              <div class="row">&nbsp;</div>
+
+               </div>
            </div>
         </div>
       </div>

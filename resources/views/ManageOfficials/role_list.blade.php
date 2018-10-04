@@ -59,6 +59,8 @@
   <input class="form-control input-sm" type="text" placeholder="ENTER ROLE" name="name" value="{{(isset($role->id)&& $role->name)?$role->name:old('name')}}">
     <span class="text-danger">{{ $errors->first('name') }}</span>
   </div>
+   <div class="col-md-4">
+   </div>
 <div class="col-md-1 mt3">
   <label  class="control-label"></label>
   <button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
@@ -98,7 +100,7 @@
                  <td>{{@$role->getDepartment->depatment_name}}</td>
                  <td>{{$role->name}}</td>
                  <td><a href="{{ url('assignpermission/'.$role->id) }}"><u>ASSIGN PERMISIONS</u></a></td>
-                 <td>{{@$role->getuser->name}}</td>
+                 <td>{{ucwords(@$role->getuser->name)}}</td>
                  <td>{{ date('d/m/Y',strtotime($role->created_at))}}</td>
                  <td>
                   <a href="{{ route('roles.edit',[$role->id]) }}"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;&nbsp;

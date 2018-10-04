@@ -19,14 +19,14 @@ class PpaDetailsController extends Controller
   public function ppadetails()
   {
     $ppaData = Ppadetails::where('status','1')->paginate(10);
-    $clientData = Client::all();
+    $clientData = Client::where('client_app_status','1')->get();
     return view('ppa.ppa_details',compact('ppaData','clientData'));
   }
   public function findbid($id)
   {
     $id = $id;
     $ppaData = Client::where('id',$id)->first();
-    $clientData = Client::all();
+    $clientData = Client::where('client_app_status','1')->get();
     return view('ppa.bidsetting',compact('ppaData','id','clientData'));
   }
 public function findppa($id)
@@ -36,7 +36,7 @@ public function findppa($id)
   // $ppaData = Client::where('id',$id)->first();
   $ppaData = Ppadetails::where('client_id',$id)->latest()->paginate(15);
   // dd($ppaData);
-  $clientData = Client::all();
+  $clientData = Client::where('client_app_status','1')->get();
   return view('ppa.addppa',compact('ppaData','id','clientData'));
 }
   public function saveppa(Request $request)
@@ -140,7 +140,7 @@ public function findppa($id)
 
 public function viewbidsetting()
   {
-    $clientData = Client::all();
+    $clientData = Client::where('client_app_status','1')->get();
     return view('ppa.bidsetting',compact('clientData'));
   }
 

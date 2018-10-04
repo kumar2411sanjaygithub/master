@@ -102,7 +102,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                                    <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
                                    </div>
-                                   <input type="text" autocomplete="off" disabled="disabled" value="{{old('issue_date')}}" name="issue_date" class="form-control pull-right input-sm" id="issue_date">
+                                   <input type="text" autocomplete="off" @if(old('type')=='3' ||old('type')=='2') @else  disabled="disabled" @endif value="{{old('issue_date')}}" name="issue_date" class="form-control pull-right input-sm" id="issue_date">
                                 </div>
                                 <span class="text-danger">{{ $errors->first('issue_date') }}</span>
                              </div>
@@ -122,12 +122,12 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                                    <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
                                    </div>
-                                   <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{old('revocable_date')}}" name="revocable_date" id="revocable_date" disabled="disabled">
+                                   <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{old('revocable_date')}}" name="revocable_date" id="revocable_date" @if(old('type')=='3' ||old('type')=='2') @else  disabled="disabled" @endif>
                                 </div>
                              </div>
                              <div class="col-md-3 {{ $errors->has('document') ? 'has-error' : '' }}">
                                 <label  class="control-label">UPLOAD DOCUMENT</label><span class="text-danger"><strong>*</strong></span>
-                                <input class="file form-control input-sm" type="file" value="{{old('document')}}" name="document" id="upload" placeholder="ENTER POC LOSSES" disabled="disabled" style="padding:4px 4px;">
+                                <input class="file form-control input-sm" type="file" value="{{old('document')}}" name="document" id="upload" placeholder="ENTER POC LOSSES" @if(old('type')=='3' ||old('type')=='2') @else  disabled="disabled" @endif style="padding:4px 4px;">
                                 <span class="text-danger">{{ $errors->first('document') }}</span>
                              </div>
                           </div>
@@ -186,7 +186,12 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                            <td>@if($value->issue_date){{date('d/m/Y', strtotime($value->issue_date))}} @endif</td>
                            <td>@if($value->expiry_date){{date('d/m/Y', strtotime($value->expiry_date))}} @endif</td>
                            <td>@if($value->revocable_date){{date('d/m/Y', strtotime($value->revocable_date))}} @endif</td>
-                           <td><a href="{{url('documents/psm/'.$value->document)}}" download="download">View</a></td>
+                           <td>
+                            @if($value->document)
+                            <a href="{{url('documents/psm/'.$value->document)}}" download="download">View</a>
+                            @endif
+
+                          </td>
                            <td>{{$value->description}}</td>
                            <td>
                              <a href="/editpsmdetails/{{$value->id}}/{{$value->client_id}}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;

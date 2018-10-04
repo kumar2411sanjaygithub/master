@@ -100,7 +100,7 @@
                     </div>
                     <div class="col-md-3 {{ $errors->has('document') ? 'has-error' : '' }}">
                        <label  class="control-label">UPLOAD DOCUMENT</label>
-                       <input class="form-control input-sm" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif type="file" value="{{$psmData->document}}" name="document" id="upload" placeholder="ENTER POC LOSSES">
+                       <input class="form-control input-sm file" @if(($psmData->type == 0) || ($psmData->type == 1)) disabled="disabled" @endif type="file" value="{{$psmData->document}}" name="document" id="upload" placeholder="ENTER POC LOSSES">
                        <input class="form-control input-sm" type="hidden" value="{{ $psmData->document }}" name="old">
 
                        <span class="text-danger">{{ $errors->first('document') }}</span>
@@ -111,14 +111,11 @@
                        <label  class="control-label">DESCRIPTION</label>
                        <input class="form-control input-sm" type="text" value="{{$psmData->description}}" name="description" placeholder="ENTER DESCRIPTION">
                     </div>
-                 </div>
-                 <div class="row">&nbsp;</div>
-                 <div class="row">
-                    <div class="col-md-5"></div>
+                    <div class="col-md-7"></div>
                     <input type="hidden" name="client_id" value="{{$psmData->client_id}}">
-                    <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                    <div class="col-md-1"><a href="{{url('/psm/psmdetails/'.$psmData->client_id)}}" class="btn btn-block btn-danger btn-xs">CANCEL</a></div>
-                    <div class="col-md-5"></div>
+                    <div class="col-md-1 mt23"><button type="submit" class="btn btn-block btn-info btn-xs">UPDATE</button></div>
+                    <div class="col-md-1 mt23"><a href="{{url('/psm/psmdetails/'.$psmData->client_id)}}" class="btn btn-block btn-danger btn-xs">CANCEL</a></div>
+
                  </div>
               </div>
            </div>
