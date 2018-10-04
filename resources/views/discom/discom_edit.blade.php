@@ -108,15 +108,12 @@
                     <input class="form-control input-sm num" value="{{ $discomData->withdraw_poc_loss }}" type="text" placeholder="VALUE" id="withdraw_poc_loss" name="withdraw_poc_loss">
                     <span class="text-danger">{{ $errors->first('withdraw_poc_loss') }}</span>
                  </div>
-               </div>
-               <div class="row">&nbsp;</div>
-                 <div class="col-md-12 text-center">
-                   <button type="submit" class="btn btn-info btn-xs">SAVE</button>
-                   <a href="/discom"><button type="button" class="btn btn-danger btn-xs">CANCEL</button></a>
+                 <div class="col-md-3"></div>
+                 <div class="col-md-3 mt23">
+                   <div class="col-md-6"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
+                   <div class="col-md-6"><a href="/discom"><button type="button" class="btn btn-block btn-danger btn-xs">CANCEL</button></a></div>
                  </div>
-
-              </div>
-              <div class="row">&nbsp;</div>
+               </div>
            </div>
         </div>
       </div>

@@ -15,18 +15,14 @@
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">MANAGE CLIENT</a></li>
       <li><a href="#">DAM</a></li>
-
       <li><a href="#">IEX</a></li>
       <li><a href="#"><u> VALIDATION SETTING</u></a></li>
    </ol>
-
 </section>
 <!-- Content Header (Page header) -->
 <!-- Main content -->
   <section class="content">
     <div class="clearfix"></div>
-     <!-- <br> -->
-     <!-- success msg -->
      @if(session()->has('message'))
        <div class="alert alert-success mt10">
        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
