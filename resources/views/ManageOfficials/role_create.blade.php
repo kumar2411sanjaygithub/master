@@ -50,6 +50,8 @@
   <input class="form-control input-sm" type="text" placeholder="ENTER ROLE" name="name" value="{{(isset($role->id)&& $role->name)?$role->name:old('name')}}">
     <span class="text-danger">{{ $errors->first('name') }}</span>
   </div>
+ <div class="col-md-4">
+ </div>  
 <div class="col-md-1 mt3">
   <label  class="control-label"></label>
   <button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button>

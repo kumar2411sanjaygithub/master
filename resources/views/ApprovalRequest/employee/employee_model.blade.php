@@ -84,7 +84,7 @@
                   <label class="col-sm-3 control-label">STATE</label>
                   <div class="col-sm-3">
                    
-                      <p>{{ $value->state }}</p>
+                      <p> @if(!empty($value->state) && $value->state!='PLEASE SELECT'){{  \App\Common\StateList::get_state_name($value->state) }}@endif</p>
                   </div> 
 
                 </div>

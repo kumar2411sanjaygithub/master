@@ -31,7 +31,8 @@ min-width:100px;
      </h5>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-        <li><a href="{{route('billsetting.nocbilllist')}}"><u>NOC APPLICATION</u></a></li>
+        <li><a href="#"> NOC</a></li>
+        <li><a href="{{route('billsetting.nocbilllist')}}"><u>NOC BILLING SETTING</u></a></li>
       </ol>
     </section>
 
@@ -172,13 +173,13 @@ min-width:100px;
 </div>
     <div class="row">&nbsp;</div>
      <div class="row">
-        <div class="col-md-5"></div>
+      <div class="col-md-11"></div>
         @if(isset($edit_nocBilling))
          <div class="col-md-1"><button type="submit" id="checkValidation" class="btn btn-block btn-info btn-xs">UPDATE</button></div>
          @else
           <div class="col-md-1"><button type="submit" id="checkValidation" class="btn btn-block btn-success btn-xs">SAVE</button></div>
          @endif
-        <div class="col-md-5"></div>
+        
      </div>
 </div>
 </form>
@@ -303,7 +304,10 @@ min-width:100px;
             $('#discom_noc_application_for').show(); 
             $('#sldc_noc_application_for').show(); 
         } 
-
+        else if($('#noc_application_for').val() == '')  {
+          $('#discom_noc_application_for').hide(); 
+          $('#sldc_noc_application_for').hide();
+        }
 
       var state=$('#state').val();
       if(state!='')

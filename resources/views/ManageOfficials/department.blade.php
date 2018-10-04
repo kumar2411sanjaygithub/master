@@ -58,7 +58,8 @@
                                <label  class="control-label">DESCRIPTION</label>
                                <input class="form-control input-sm" type="text" placeholder="ENTER DESCRIPTION" id="description" name="description">
                             </div>
-                            
+                             <div class="col-md-4">
+                             </div>
                            
                               <div class="col-md-1" style="margin-top:22px;">
                                   <button type="submit" id= "submitdepartment" class="btn btn-block btn-info btn-xs">SAVE</button>

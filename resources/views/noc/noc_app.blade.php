@@ -222,13 +222,18 @@ min-width:100px;
                      <label  class="control-label">ATTACH NOC REQUEST</label>
                      <input class="form-control input-sm" type="file" placeholder="" id="noc_file" name="noc_file" style="padding:4px 4px;">
                   </div>
+                   <div class="col-md-1"></div>
+                  <div class="col-md-1 mt23"><button type="submit" class="btn btn-block btn-success btn-xs">INITIATE</button></div>
+                <div class="col-md-1 mt23"><a href="{{route('getclientData',['id'=>$client_id])}}"><button class="btn btn-danger btn-xs" value="Cancel" type="button">CANCEL</button></a>
+                </div>    
+
                </div>
-               <div class="row">&nbsp;</div>
+<!--                <div class="row">&nbsp;</div>
                <div class="row">
                   <div class="col-md-5"></div>
                   <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs">INITIATE</button></div>
                   <div class="col-md-5"></div>
-               </div>
+               </div> -->
              </form>
              </div>
             </div>
@@ -260,10 +265,10 @@ min-width:100px;
                         <th rowspan="2" class="vl scroll-table5" >NOC APPLICATON</th>
                         <th rowspan="2" class="vl scroll-table5" >ACTION</th>
                         <th colspan="3" class="vl scroll-table4">DEBIT NOTE</th>
-                        <th rowspan="2" class="vl scroll-table5" >SDLC &nbsp;ACTION&nbsp; STATUS</th>
+                        <th rowspan="2" class="vl scroll-table5" >SLDC &nbsp;ACTION&nbsp; STATUS</th>
                      </tr>
                      <tr>
-                        <th class="vl scroll-table3">SDLC</th>
+                        <th class="vl scroll-table3">SLDC</th>
                         <th class="vl scroll-table3">DISCOM</th>
                         <th class="vl scroll-table3">EMAIL</th>
                      </tr>
