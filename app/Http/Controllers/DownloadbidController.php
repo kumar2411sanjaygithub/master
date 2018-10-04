@@ -49,13 +49,13 @@ class DownloadbidController extends Controller
     {
       $date = date("Y-m-d",strtotime("+1 day", strtotime(date("Y-m-d"))));
         $bidData = DB::table('place_bid')
-            ->selectRaw('place_bid.bid_date,place_bid.order_no,client.cin as cin_no,place_bid.client_id,client.company_name,client.iex_portfolio,sum(bid_price) as sum')
-            ->rightjoin('clients as client', 'place_bid.client_id', '=', 'client.id')
-            ->groupBy('client_id')
-            ->where('place_bid.status', '1')
-            ->where('place_bid.bid_date', $date)
-            ->WhereNull('deleted_at')
-            ->get();
+        ->selectRaw('place_bid.bid_date,place_bid.order_no,client.cin as cin_no, place_bid.client_id, client.company_name, client.iex_portfolio, sum(bid_price) as sum, common_feeder_option')
+        ->rightjoin('clients as client', 'place_bid.client_id', '=', 'client.id')
+        ->groupBy('client_id')
+        ->where('place_bid.status', '1')
+        ->where('place_bid.bid_date', $date)
+        ->WhereNull('deleted_at')
+        ->get();
 
 
         return view('dam.iex.downloadbid.downloadbid',compact('bidData','date'));
