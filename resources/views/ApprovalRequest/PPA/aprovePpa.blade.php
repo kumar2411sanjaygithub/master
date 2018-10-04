@@ -110,10 +110,10 @@ span.hifan{margin-right:10px!important;}
                                     </div>
                                     <div class="modal-footer">
                                        <div class="text-center">
-                                      <button type="button" href="#"   class="btn btn-info">
+                                      <button type="button" href="#" class="btn btn-xs btn-info">
                                         <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
                                       </button>
-                                      <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                      <button type="button" class="btn btn-xs btn-danger" data-dismiss="modal">No</button>
                                     </div>
                                     </div>
                                   </div>
