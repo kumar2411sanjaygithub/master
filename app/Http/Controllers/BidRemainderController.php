@@ -29,17 +29,9 @@ class BidRemainderController extends Controller
 		 $a = array();
 		 $data['clients'] = Client::select('id','company_name','iex_portfolio')->get();
 		 foreach ($data['clients'] as $key => $value) {
-//dd($value->id);
 			$d = Placebid::select('*')->where('status','0')->orderBy('bid_date','desc')->take(1)->get()->toArray();
-			//$d = DB::table('place_bid')->orderBy('bid_date','desc')->where('status','1')->where('client_id',$value->id)->orderBy('bid_date','desc')->take(1)->get();
-			//dd($d);
-
-			
 			$sms = $value->sms()->where('status','1')->where('client_id',[$value->id])->orderBy('created_at','desc')->take(1)->get()->toArray();
 			$email = $value->email()->where('status','1')->where('client_id',[$value->id])->orderBy('created_at','desc')->take(1)->get()->toArray();
-			
-
-			// dd($d);
 			$a[]= array(
 				'client_id' => $value->id,
 				'company_name' => $value->company_name,
@@ -52,9 +44,9 @@ class BidRemainderController extends Controller
 			);
 		}
 		
-		 return view('dam.iex.bidplacement.bidplacement',['a'=>$a,'id'=>$id]); 
+		    return view('dam.iex.bidplacement.bidplacement',['a'=>$a,'id'=>$id]); 
 	
-	}
+	    }
 		else
 		{
 
@@ -62,10 +54,6 @@ class BidRemainderController extends Controller
 		 	$data['clients'] = Client::select('id','company_name','iex_portfolio')->where('id',$id)->get();
 		 	//dd($data['clients'][0]['company_name']);
 			$d = Placebid::where('client_id',$id)->where('status','0')->orderBy('bid_date','desc')->take(1)->get()->toArray();
-			//$d = DB::table('place_bid')->orderBy('bid_date','desc')->where('status','1')->where('client_id',$value->id)->orderBy('bid_date','desc')->take(1)->get();
-			//dd($d);
-			
-			
 			$sms = SmsLog::where('status','1')->where('client_id',$id)->orderBy('created_at','desc')->take(1)->get()->toArray();
 			$email = EmailLog::where('status','1')->where('client_id',$id)->orderBy('created_at','desc')->take(1)->get()->toArray();
 			
@@ -78,36 +66,9 @@ class BidRemainderController extends Controller
 				'sms_submission_time' =>explode(" ",(isset($sms[0])?$sms[0]['created_at']:'')),
 				'email_submission_time' =>explode(" ",(isset($email[0])?$email[0]['created_at']:'')),
 			);
-		
-
-
-		return view('dam.iex.bidplacement.bidplacement',['a'=>$a,'id'=>$id]); 
+		  return view('dam.iex.bidplacement.bidplacement',['a'=>$a,'id'=>$id]); 
 		}
 		 
 	}
-
-
-	// public function sending_mail($id){
- //      $client_mail = Contactdetail::select('email','name')->where('client_id', $id)->where('bid_alert','yes')->get()->toArray();
- //      // dd($client_mail);
-     
- //      $data = array('name'=>"Virat Gandhi");
- //      $out = Mail::send('email.email', $data, function($message) use ($client_mail) {
- //         foreach ($client_mail as $key => $user) {
- //           $message->to($user['email'], $user['name']);
- //         }
- //         $message->subject('BID Not Recieved  for DD '.date('d-M-Y'));
- //         $message->cc('php11@cybuzzsc.com');
- //         $message->bcc('php9@cybuzzsc.com');
- //         $message->from('php5@cybuzzsc.com','shalu gupta');
- //      });
- //      // print_r($out);
- //      //echo "Mail sent successfully"; 
- //      return redirect()->back()->with('message', 'Mail has been sent successfully');
-
-     //}
-
-
-	
 
 }	
