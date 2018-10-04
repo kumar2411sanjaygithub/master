@@ -24,11 +24,11 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{ route('lead.index') }}"><i class="fa fa-circle-o"></i>Lead</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i>Task</a></li>
+            <!-- <li><a href="#"><i class="fa fa-circle-o"></i>Task</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i>Deal</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i>Email Management</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i>Maps</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i>Reports</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i>Reports</a></li> -->
           </ul>
         </li>
         <!-- CRM Menu End -->
@@ -59,11 +59,11 @@
                   <ul class="treeview-menu" style="display: none;">
                     <li><a href="{{ route('addppadetailss') }}"><i class="fa fa-circle-o"></i>PPA</a></li>
                     <li><a href="{{ route('bid.bidview') }}"><i class="fa fa-circle-o"></i>Bid Setting</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Bill Setting</a></li>
+                    <!-- <li><a href="#"><i class="fa fa-circle-o"></i>Bill Setting</a></li> -->
                     <li><a href="{{ route('validationSetting') }}"><i class="fa fa-circle-o"></i>Validation Setting</a></li>
                   </ul>
                 </li>
-                <li class="treeview">
+                <!-- <li class="treeview">
                   <a href="#"><i class="fa fa-circle-o"></i> PXIL
                     <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
@@ -75,10 +75,10 @@
                     <li><a href="#"><i class="fa fa-circle-o"></i>Bill Setting</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>Validation Setting</a></li>
                   </ul>
-                </li>
+                </li> -->
               </ul>
             </li>
-            <li class="treeview">
+            <!-- <li class="treeview">
               <a href="#"><i class="fa fa-circle-o"></i> TAM
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -108,8 +108,8 @@
                   </ul>
                 </li>
               </ul>
-            </li>
-            <li class="treeview">
+            </li> -->
+            <!-- <li class="treeview">
               <a href="#"><i class="fa fa-circle-o"></i> REC
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -122,8 +122,8 @@
                 <li><a href="#"><i class="fa fa-circle-o"></i>Success Fee</a></li>
                 <li><a href="{{route('rec-exchange.exchangeViewindex')}}"><i class="fa fa-circle-o"></i>Exchange Ratio</a></li>
               </ul>
-            </li>
-            <li class="treeview">
+            </li> -->
+            <!-- <li class="treeview">
               <a href="#"><i class="fa fa-circle-o"></i> ESCERT
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -135,7 +135,7 @@
                 <li><a href="#"><i class="fa fa-circle-o"></i>Due Days</a></li>
                 <li><a href="#"><i class="fa fa-circle-o"></i>Success Fee</a></li>
               </ul>
-            </li>
+            </li> -->
             <li><a href="{{ route('agsetting') }}"><i class="fa fa-circle-o"></i>Accoutn Group Setting</a></li>
             <li><a href="{{ route('bared.barreddetails') }}"><i class="fa fa-circle-o"></i>Barred Client</a></li>
             <li><a href="{{route('tmnameview')}}"><i class="fa fa-circle-o"></i>TM Name Setting</a></li>
@@ -192,7 +192,7 @@
                 <li><a href="{{ route('approve.existingemployee') }}"><i class="fa fa-circle-o"></i> Existing</a></li>
               </ul>
             </li>
-            <li><a href="{{route('insufficientpsm')}}"><i class="fa fa-circle-o"></i> Insufficient PSM</a></li>
+            <!-- <li><a href="{{route('insufficientpsm')}}"><i class="fa fa-circle-o"></i> Insufficient PSM</a></li> -->
             <li><a href="{{ route('approveppa')}}"><i class="fa fa-circle-o"></i> PPA</a></li>
           </ul>
         </li>
@@ -236,7 +236,7 @@
                     <li><a href="/placebid/power"><i class="fa fa-circle-o"></i>Place Bid</a></li>
                     <li><a href="/power/orderbook"><i class="fa fa-circle-o"></i>Order Book</a></li>
                     <li><a href="/power/downloadbid"><i class="fa fa-circle-o"></i>Download Bid</a></li>
-                    <li class="treeview">
+                    <!-- <li class="treeview">
                       <a href="#"><i class="fa fa-circle-o"></i> Bid Confirmation
                         <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
@@ -248,7 +248,7 @@
                         <li><a href="{{route('deletedbid')}}"><i class="fa fa-circle-o"></i>Deleted</a></li>
                         <li><a href="{{route('nobid')}}"><i class="fa fa-circle-o"></i>No Bid</a></li>
                       </ul>
-                    </li>
+                    </li> -->
                     <li><a href="/bidplacement/bidplacement"><i class="fa fa-circle-o"></i>Bid Placement Reminder</a></li>
                     <li class="treeview">
                       <a href="#"><i class="fa fa-circle-o"></i> Import
@@ -274,11 +274,11 @@
                         <li><a href="{{ route('discomdetails')}}"><i class="fa fa-circle-o"></i>STU/DISCOM</a></li>
                       </ul>
                     </li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>RTC</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Profitablity</a></li>
+                    <!-- <li><a href="#"><i class="fa fa-circle-o"></i>RTC</a></li> -->
+                    <!-- <li><a href="#"><i class="fa fa-circle-o"></i>Profitablity</a></li> -->
                   </ul>
                 </li>
-                <li class="treeview">
+                <!-- <li class="treeview">
                   <a href="#"><i class="fa fa-circle-o"></i> PXIL
                     <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
@@ -290,7 +290,7 @@
                     <li><a href="#"><i class="fa fa-circle-o"></i>Bill Setting</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>Validation Setting</a></li>
                   </ul>
-                </li>
+                </li> -->
               </ul>
         </li>
         <!-- DAM Menu End -->
