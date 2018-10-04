@@ -99,12 +99,12 @@
 <div class="col-md-3"></div>
 <div class="col-md-3"></div>
   <!-- <div class="col-md-3"><label class="control-label" style="margin-top:5px;">CLIENTS WHO HAVE OPTED NO BID</label></div> -->
-<div class="col-md-4">
+<!-- <div class="col-md-4">
   <a href="#" id="remainder_mail" class="btn btn-info btn-xs pull-right" name="" id="">
   <span class="glyphicon glyphicon-send"> </span>&nbsp SEND E-MAIL TO ALL</a>
   <a href="#" id="remainder_sms" class="btn btn-info btn-xs pull-right mr5" name="" id="">
     <span class="glyphicon glyphicon-send"> </span>&nbsp SEND SMS TO ALL</a>
-</div>
+</div> -->
 
 
 </div>
