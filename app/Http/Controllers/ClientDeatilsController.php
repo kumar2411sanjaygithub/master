@@ -89,8 +89,8 @@ class ClientDeatilsController extends Controller
             'feeder_code'=>'nullable',
             'conn_discom'=>'nullable',
             'conn_state'=>'nullable',
-            'maxm_injection'=>'nullable|numeric|max:4',
-            'maxm_withdrawal'=>'nullable|numeric|max:4',
+            'maxm_injection'=>'nullable|digits_between:1,8',
+            'maxm_withdrawal'=>'nullable|digits_between:1,8',
             'payment'=>'nullable|numeric',
             'obligation'=>'nullable',
             'noc_punched_by'=>'nullable'
@@ -263,13 +263,13 @@ class ClientDeatilsController extends Controller
         $validator = validator::make($request->all(),[
 
             'company_name' => 'required|max:100',
-            'gstin' => 'required|regex:/^[0-9]{2}[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z][0-9A-z]{3}$/|unique:clients|max:15',
-            'pan' => 'required|regex:/^[a-zA-Z]{3}[ABCEFGHJLTabcefghjl]{1}[a-zA-Z]{1}\d{4}[a-zA-Z]{1}$/|unique:clients|max:10',
+            'gstin' => 'required|regex:/^[0-9]{2}[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z][0-9A-z]{3}$/|max:15',
+            'pan' => 'required|regex:/^[a-zA-Z]{3}[ABCEFGHJLTabcefghjl]{1}[a-zA-Z]{1}\d{4}[a-zA-Z]{1}$/|max:10',
             'short_id' => 'nullable|max:15|regex:/^[\w-]*$/',
             'old_sap'=>'nullable|regex:/^[\w-]*$/|max:15',
             'new_sap'=>'nullable|regex:/^[\w-]*$/|max:15',
             'pri_contact_no'=>'required|regex:/^[0-9]{10}$/',
-            'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|unique:clients|min:21|max:21',
+            'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|min:21|max:21',
             'email'=>'required|email|max:81',
             'reg_line1' => 'required|max:50',
             'reg_line2' => 'min:0|max:50',
@@ -315,8 +315,8 @@ class ClientDeatilsController extends Controller
             'feeder_code'=>'nullable',
             'conn_discom'=>'nullable',
             'conn_state'=>'nullable',
-            'maxm_injection'=>'nullable|numeric|max:4',
-            'maxm_withdrawal'=>'nullable|numeric|max:4',
+            'maxm_injection'=>'nullable|digits_between:1,8',
+            'maxm_withdrawal'=>'nullable|digits_between:1,8',
             'payment'=>'nullable|numeric',
             'obligation'=>'nullable',
             'noc_punched_by'=>'nullable'
