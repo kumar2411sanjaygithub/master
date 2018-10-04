@@ -12,7 +12,11 @@
 */
 
 Route::get('/', function () {
+  if(Auth::check()){
+    return redirect('lead');
+  }else{
     return view('auth/login');
+  }
 });
 
 Auth::routes();
@@ -21,7 +25,7 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function ()
 {
-    Route::get('/home', 'HomeController@index')->name('home');
+    // Route::get('/home', 'HomeController@index')->name('home');
 	//shalu gupta manage officiaial
 	Route::get('/departments', ['uses'=>'ManageOfficialsController@departmentview'])->name('departments');
 	Route::post('/departments/create',['as'=>'departments_create','uses'=>'ManageOfficialsController@savedepartment']);

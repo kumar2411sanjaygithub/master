@@ -3,14 +3,14 @@
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree">
         <!-- Dashboard Menu Start -->
-        <li>
+        <!-- <li>
           <a href="{{url('home')}}"><i class="fa fa-dashboard"></i>
             <span>Dashboard</span>
-            <!-- <span class="pull-right-container">
+            <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
-            </span> -->
+            </span>
           </a>
-        </li>
+        </li> -->
         <!-- Dashboard Menu End -->
 
         <!-- CRM Menu Start -->
@@ -136,7 +136,7 @@
                 <li><a href="#"><i class="fa fa-circle-o"></i>Success Fee</a></li>
               </ul>
             </li> -->
-            <li><a href="{{ route('agsetting') }}"><i class="fa fa-circle-o"></i>Accoutn Group Setting</a></li>
+            <li><a href="{{ route('agsetting') }}"><i class="fa fa-circle-o"></i>Account Group Setting</a></li>
             <li><a href="{{ route('bared.barreddetails') }}"><i class="fa fa-circle-o"></i>Barred Client</a></li>
             <li><a href="{{route('tmnameview')}}"><i class="fa fa-circle-o"></i>TM Name Setting</a></li>
           </ul>
