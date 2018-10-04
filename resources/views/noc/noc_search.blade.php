@@ -83,7 +83,7 @@
                     <td>{{date('d/m/Y',strtotime($noc_approved->end_date))}}</td>
                     <td>
                       @if($noc_approved->noc_file)
-                        <a href="{{url('fileNdownloads/'.$noc_approved->noc_file)}}" target="_blank" aks="tooltip" title="VIEW FILE">View</a>
+                        <a href="{{url('fileNdownloads/'.$noc_approved->noc_file)}}" target="_blank" aks="tooltip" title="Download"><span class="glyphicon glyphicon-download"></span></a>
                       @endif
                     </td>
                     <td>
