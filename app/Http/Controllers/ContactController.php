@@ -17,36 +17,33 @@ use Illuminate\Support\Facades\Redirect;
 
 class ContactController extends Controller
 {
-    public function edit_contactdetails($id='',$eid=''){
+    public function edit_contactdetails($id='',$eid='')
+    {
         $contact_id=$eid;
         $client_id=$id;
         $get_contact_details = Contact::where('id',$contact_id)->where('status',1)->withTrashed()->first();
         $contactdetails = Contact::where('client_id',$client_id)->where('status',1)->withTrashed()->paginate(15);
- // dd($client_id);
         $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
         return view('ManageClient.contactdetails',compact('contactdetails','client_id','get_contact_details','client_details'));
 
     }
 
-    public function contactdetails($id){
+    public function contactdetails($id)
+    {
 
         $client_id=$id;
-        //$contactdetails = Exchange::where('client_id',$id)->where('status',1)->get();
-        // $contactdetails = DB::table('contact')->select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',2); })->where('client_id',$id)->where('status',1)->get();
         $contactdetails = Contact::select('*')->where(function($q) { $q->where('del_status',0)->orwhere('del_status',1)->orwhere('del_status',4); })->where('client_id',$id)->where('status',1)->paginate(15);
-
         $alert_type = ServiseAlert::select('*')->where('client_id',$id)->get();
         $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
-        //dd($client_details[0]['company_name']);
-     //dd($client_id);
         return view('ManageClient.contactdetails',compact('contactdetails','client_id','alert_type','client_details'));
     }
-    public function add_contactdetails(Request $request){
+
+    public function add_contactdetails(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|regex:/^[a-zA-Z\.\s]*$/|max:100',
             'designation' => 'required|regex:/^[a-zA-Z\.\s]*$/|max:100',
             'email' => 'required|unique:contact|email',
-            //'required|min:1|unique:department,depatment_name,NULL,id,deleted_at,NULL',
             'mob_num' => 'required|unique:contact|regex:/^[0-9]{10}$/',
         ]);
         if($validator->fails())
@@ -63,6 +60,7 @@ class ContactController extends Controller
         $contactdetail->save();
         return redirect()->back()->with('message','Detail added successfully and sent for approval.');
     }
+
     public function addservices(Request $request, $id)
     {
 
@@ -87,18 +85,15 @@ class ContactController extends Controller
         $service->save();
         return redirect()->back()->with('message','Email/SMS request saved successfully and sent to approver');
     }
+
     public function update_contactdetails(Request $request ,$contact_detail_id)
     {
-        $this->validate($request, [
+        $validatedData=$this->validate($request, [
             'name' => 'required|max:100',
             'designation' => 'required|max:100',
             'email' => 'required|email',
-            'mobile_no' => 'required|regex:/^[0-9]{10}$/',
+            'mob_num' => 'required|regex:/^[0-9]{10}$/',
         ]);
-        //   if($validator->fails())
-        // {
-        //     return Redirect::back()->withErrors($validator)->withInput();
-        // }
     	$client_id = $request->input('client_id');
         $contactdetail = Contact::find($contact_detail_id)->toArray();
         $datas =array();
@@ -113,9 +108,7 @@ class ContactController extends Controller
         $dataArray['email'] = $request->input('email');
         $dataArray['mob_num'] = $request->input('mob_num');
 
-
         $result=array_diff($dataArray,$datas);
-
         if($this->generateApprovalrequest($result,'contact',$client_id,$contact_detail_id,$datas)==false){
             return redirect()->route('contactdetails', ['id' => $client_id])->withErrors(['pending'=>'There is already a change request pending for approval.']);
         }
@@ -129,9 +122,6 @@ class ContactController extends Controller
         $contact = Contact::find($contact_detail_id);
         $contact->del_status = 1;
         $contact->update();
-
-
-
         return redirect()->back()->with('message','contact detail request successfully and sent to approver');
     }
 
@@ -141,35 +131,33 @@ class ContactController extends Controller
         $client = Client::find($client_id);
         $alert_type = ServiseAlert::select('*')->get();
         return view('ManageClient.service',compact('client_id','alert_type','client'));
-
     }
 
-    function generateApprovalrequest($data, $type, $client_id, $reference_id='',$datas){
+    function generateApprovalrequest($data, $type, $client_id, $reference_id='',$datas)
+    {
         $apprval_req_pending = Approvalrequest::where('client_id',$client_id)->where('status','0')->where('approval_type','contact')->get();
         if($apprval_req_pending->count()>0)
         {
           return false;
         }
-        else{
-          $arrayKey = array_keys($data);
-
-          $arrayValue = array_values($data);
-          //$keys = array('bill_address_line_2'=>'Address Line 1');
-           foreach($data as $key=>$value){
-            //dd($key);
-             $approvalRequest = new Approvalrequest();
+        else
+        {
+         $arrayKey = array_keys($data);
+         $arrayValue = array_values($data);
+           foreach($data as $key=>$value)
+           {
+              $approvalRequest = new Approvalrequest();
               $approvalRequest->client_id       = $client_id;
               $approvalRequest->attribute_name  = $key;
               $approvalRequest->updated_attribute_value =  $value;
               $approvalRequest->approval_type   = $type;
               $approvalRequest->old_att_value   = isset($datas[$key])?$datas[$key]:'-';
-              //$approvalRequest->updated_by      = \Auth::id();
               //$approvalRequest->approved_by      = '';
               $approvalRequest->status          = '0';
               $approvalRequest->reference_id    = $reference_id;
               $approvalRequest->save();
           }
           return true;
-      }
+        }
     }
 }
