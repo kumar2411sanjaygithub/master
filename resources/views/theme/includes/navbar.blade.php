@@ -136,7 +136,7 @@
                 <li><a href="#"><i class="fa fa-circle-o"></i>Success Fee</a></li>
               </ul>
             </li> -->
-            <li><a href="{{ route('agsetting') }}"><i class="fa fa-circle-o"></i>Accoutn Group Setting</a></li>
+            <li><a href="{{ route('agsetting') }}"><i class="fa fa-circle-o"></i>Account Group Setting</a></li>
             <li><a href="{{ route('bared.barreddetails') }}"><i class="fa fa-circle-o"></i>Barred Client</a></li>
             <li><a href="{{route('tmnameview')}}"><i class="fa fa-circle-o"></i>TM Name Setting</a></li>
           </ul>
