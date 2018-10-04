@@ -102,7 +102,8 @@
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="reg_country" name="reg_country" value="{{old('reg_country')}}">
                  <option value="">SELECT</option>
-                 <option value="India">India</option>
+               
+                 <option value="India" {{((isset($clientData)&&$clientData->reg_country=='India')||old('reg_country')=='India')?'selected="selected"':''}}>India</option>
 
                 </select>
               <span class="text-danger">{{ $errors->first('reg_country') }}</span>
@@ -115,7 +116,8 @@
           $state_list = \App\Common\StateList::get_states();
           ?>
           @foreach($state_list as $state_code=>$state_ar)
-           <option value="{{$state_code}}" {{ isset($clientData) && $clientData->reg_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
+
+           <option value="{{$state_code}}" {{ isset($clientData) && $clientData->reg_state == $state_code || old('reg_state')==  $state_code? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
           @endforeach
 
 
@@ -174,7 +176,8 @@
               <label  class="control-label">COUNTRY</label>
               <select class="form-control input-sm" style="width: 100%;" id="bill_country" name="bill_country"value="{{old('bill_country')}}">
                   <option value="">SELECT</option>
-                  <option value="India">India</option>
+                 
+                    <option value="India" {{((isset($clientData)&&$clientData->bill_country=='India')||old('bill_country')=='India')?'selected="selected"':''}}>India</option>
 
 
                 </select>
@@ -187,8 +190,8 @@
                   <?php
           $state_list = \App\Common\StateList::get_states();
           ?>
-          @foreach($state_list as $state_code=>$state_ar)
-           <option value="{{$state_code}}" {{ isset($clientData) && $clientData->bill_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
+           @foreach($state_list as $state_code=>$state_ar)
+          <option value="{{$state_code}}" {{ isset($clientData) && $clientData->bill_state == $state_code || old('bill_state')==  $state_code? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
           @endforeach
                 </select>
               </div>
@@ -242,7 +245,8 @@
               <label  class="control-label">COUNTRY</label>
               <select class="form-control input-sm" style="width: 100%;" id="del_country" name="del_country" value="{{old('del_country')}}">
                   <option value="">SELECT</option>
-                  <option value="India">India</option>
+                  <option value="India" {{((isset($clientData)&&$clientData->del_country=='India')||old('del_country')=='India')?'selected="selected"':''}}>India</option>
+
                 </select>
               </div>
               <div class="col-md-3">
@@ -254,7 +258,7 @@
           $state_list = \App\Common\StateList::get_states();
           ?>
           @foreach($state_list as $state_code=>$state_ar)
-           <option value="{{$state_code}}" {{ isset($clientData) && $clientData->del_state == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
+          <option value="{{$state_code}}" {{ isset($clientData) && $clientData->del_state == $state_code || old('del_state')==  $state_code? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
           @endforeach
                 </select>
               </div>
@@ -300,9 +304,11 @@
               <label  class="control-label">IEX STATUS</label>
               <select class="form-control input-sm " style="width: 100%;"  id="iex_status" name="iex_status" value="{{old('iex_status')}}">
                   <option value="">SELECT</option>
-                              <option value="Active" {{ isset($clientData) && $clientData->iex_status == 'Active' ? 'selected="selected"' : '' }}>Active</option>
-                              <option value="Inactive" {{ isset($clientData) && $clientData->iex_status == 'Inactive' ? 'selected="selected"' : '' }}>Inactive</option>
-                              <option value="Suspended" {{ isset($clientData) && $clientData->iex_status == 'Suspended' ? 'selected="selected"' : '' }}>Suspended</option>
+                              
+                               <option value="Active" {{((isset($clientData)&&$clientData->iex_status=='Active')||old('iex_status')=='Active')?'selected="selected"':''}}>Active</option>
+                               <option value="Inactive" {{((isset($clientData)&&$clientData->iex_status=='Inactive')||old('iex_status')=='Inactive')?'selected="selected"':''}}>Inactive</option>
+                               <option value="Suspended" {{((isset($clientData)&&$clientData->iex_status=='Suspended')||old('iex_status')=='Suspended')?'selected="selected"':''}}>Suspended</option>
+
 
                 </select>
               </div>
@@ -346,9 +352,9 @@
             <label  class="control-label">PXIL STATUS</label>
             <select class="form-control input-sm" style="width: 100%;" id="pxil_status" name="pxil_status" value="{{old('pxil_status')}}">
                 <option value="">SELECT</option>
-                              <option value="Active" {{ isset($clientData) && $clientData->iex_status == 'Active' ? 'selected="selected"' : '' }}>Active</option>
-                              <option value="Inactive" {{ isset($clientData) && $clientData->iex_status == 'Inactive' ? 'selected="selected"' : '' }}>Inactive</option>
-                              <option value="Suspended" {{ isset($clientData) && $clientData->iex_status == 'Suspended' ? 'selected="selected"' : '' }}>Suspended</option>
+                              <option value="Active" {{((isset($clientData)&&$clientData->pxil_status=='Active')||old('pxil_status')=='Active')?'selected="selected"':''}}>Active</option>
+                               <option value="Inactive" {{((isset($clientData)&&$clientData->pxil_status=='Inactive')||old('pxil_status')=='Inactive')?'selected="selected"':''}}>Inactive</option>
+                               <option value="Suspended" {{((isset($clientData)&&$clientData->pxil_status=='Suspended')||old('pxil_status')=='Suspended')?'selected="selected"':''}}>Suspended</option>
 
               </select>
               </div>
