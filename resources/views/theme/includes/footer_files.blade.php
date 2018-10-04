@@ -101,9 +101,8 @@
          $('[download="download"]').attr('title', 'Download').attr('data-toggle', 'tooltip').attr('data-placement', 'bottom').tooltip();
          $('[download="download"]').html('<span class="glyphicon glyphicon-download"></span>');
        });
-      </script>
 
-      <script>
+
         $(document).ready(function(){
            $('[aks="tooltip"]').tooltip({placement: "bottom"});
         });
