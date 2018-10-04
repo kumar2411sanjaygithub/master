@@ -13,8 +13,8 @@
    </h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">POC & Discom Losses</a></li>
-      <li><a href="#" class="active">Discom Add</a></li>
+      <li><a href="#">POC & DISCOM LOSSES</a></li>
+      <li><a href="#" class="active">DISCOM ADD</a></li>
    </ol>
 </section>
 <!-- Content Header (Page header) -->
@@ -112,15 +112,13 @@
                     <input class="form-control input-sm num" type="text" placeholder="DISCOM LOSSES" value="{{old('withdraw_poc_loss')}}" id="withdraw_poc_loss" name="withdraw_poc_loss">
                     <span class="text-danger">{{ $errors->first('withdraw_poc_loss') }}</span>
                  </div>
+                 <div class="col-md-3"></div>
+                 <div class="col-md-3 mt23">
+                   <div class="col-md-6"><button type="submit" class="btn btn-block btn-info btn-xs pull-right">SAVE</button></div>
+                   <div class="col-md-6"><button type="button" class="btn btn-block btn-danger btn-xs discom-cancel pull-right">CANCEL</button></div>
+                 </div>
                </div>
-               <div class="row">&nbsp;</div>
-               <div class="row">
-                 <div class="col-md-12 text-center">
-                   <button type="submit" class="btn btn-info btn-xs">SAVE</button>
-                 <button type="button" class="btn btn-danger btn-xs discom-cancel">CANCEL</button>
-               </div>
-              </div>
-              <div class="row">&nbsp;</div>
+
            </div>
         </div>
       </div>
@@ -132,7 +130,7 @@
         <a class="btn btn-info btn-xs discom-btn pull-right mr5" name=" "><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</a>
       </div>
     </div>
-  <div class="box">
+  <div class="box mt3">
      <div class="box-body table-responsive">
         <table class="table table-bordered text-center">
           <thead class="tablehead">

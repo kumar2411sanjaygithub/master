@@ -37,9 +37,9 @@
                            <div class="input-group-addon">
                               <i class="fa fa-calendar"></i>
                            </div>
-                           <input type="text" autocomplete="off" value="{{ $ppaData->validity_from }}" class="form-control pull-right input-sm" id="datepicker" name="validity_from">
-                            <span class="text-danger">{{ $errors->first('validity_from') }}</span>
+                           <input type="text" autocomplete="off" value="{{ date('d/m/Y',strtotime($ppaData->validity_from)) }}" class="form-control pull-right input-sm" id="datepicker" name="validity_from">
                         </div>
+                        <span class="text-danger">{{ $errors->first('validity_from') }}</span>
                      </div>
                      <div class="col-md-3 {{ $errors->has('validity_to') ? 'has-error' : '' }}">
                         <label  class="control-label">VALIDITY END DATE</label><span class="text-danger"><strong>*</strong></span>
@@ -47,9 +47,9 @@
                            <div class="input-group-addon">
                               <i class="fa fa-calendar"></i>
                            </div>
-                           <input type="text"  autocomplete="off" value="{{ $ppaData->validity_to }}" class="form-control pull-right input-sm" id="datepicker1" name="validity_to">
-                            <span class="text-danger">{{ $errors->first('validity_to') }}</span>
+                           <input type="text"  autocomplete="off" value="{{ date('d/m/Y',strtotime($ppaData->validity_to)) }}" class="form-control pull-right input-sm" id="datepicker1" name="validity_to">
                         </div>
+                        <span class="text-danger">{{ $errors->first('validity_to') }}</span>
                      </div>
                      <div class="col-md-3 {{ $errors->has('file_path') ? 'has-error' : '' }}">
                         <label  class="control-label">UPLOAD DOCUMENT</label><span class="text-danger"><strong></strong></span>
@@ -72,7 +72,7 @@
 
                  $('#datepicker').datepicker({
                   autoclose: true,
-                  format: 'yyyy-mm-dd',
+                  format: 'dd/mm/yyyy',
                 }).on('changeDate', function (selected) {
                    var startDate = new Date(selected.date.valueOf());
                    $('#datepicker1').datepicker('setStartDate', startDate);
@@ -81,7 +81,7 @@
                  });
                 $('#datepicker1').datepicker({
                   autoclose: true,
-                  format: 'yyyy-mm-dd',
+                  format: 'dd/mm/yyyy',
                 }).on('changeDate', function (selected) {
                      var endDate = new Date(selected.date.valueOf());
                      $('#datepicker').datepicker('setEndDate', endDate);
