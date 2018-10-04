@@ -3,14 +3,14 @@
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree">
         <!-- Dashboard Menu Start -->
-        <li>
+        <!-- <li>
           <a href="{{url('home')}}"><i class="fa fa-dashboard"></i>
             <span>Dashboard</span>
-            <!-- <span class="pull-right-container">
+            <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
-            </span> -->
+            </span>
           </a>
-        </li>
+        </li> -->
         <!-- Dashboard Menu End -->
 
         <!-- CRM Menu Start -->
