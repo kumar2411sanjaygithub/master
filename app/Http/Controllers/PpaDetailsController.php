@@ -19,14 +19,14 @@ class PpaDetailsController extends Controller
   public function ppadetails()
   {
     $ppaData = Ppadetails::where('status','1')->paginate(10);
-    $clientData = Client::all();
+    $clientData = Client::where('client_app_status','1')->get();
     return view('ppa.ppa_details',compact('ppaData','clientData'));
   }
   public function findbid($id)
   {
     $id = $id;
     $ppaData = Client::where('id',$id)->first();
-    $clientData = Client::all();
+    $clientData = Client::where('client_app_status','1')->get();
     return view('ppa.bidsetting',compact('ppaData','id','clientData'));
   }
 public function findppa($id)
@@ -36,7 +36,7 @@ public function findppa($id)
   // $ppaData = Client::where('id',$id)->first();
   $ppaData = Ppadetails::where('client_id',$id)->latest()->paginate(15);
   // dd($ppaData);
-  $clientData = Client::all();
+  $clientData = Client::where('client_app_status','1')->get();
   return view('ppa.addppa',compact('ppaData','id','clientData'));
 }
   public function saveppa(Request $request)
@@ -58,10 +58,17 @@ public function findppa($id)
        {
            $imageName = "";
        }
+
+       // Convert Date Format
+        $commerce_date = strtr($request->input('validity_from'), '/', '-');
+        $new_start_date = date("Y-m-d", strtotime($commerce_date));
+        $commerce_end_date = strtr($request->input('validity_to'), '/', '-');
+        $new_end_date = date("Y-m-d", strtotime($commerce_end_date));
+
        // $ppadetails = new Ppadetails();
        $ppadetails = new PpaApprovedetails();
-       $ppadetails->validity_from = date('Y-m-d', strtotime($request->input('validity_from')));
-       $ppadetails->validity_to = date('Y-m-d', strtotime($request->input('validity_to')));
+       $ppadetails->validity_from = $new_start_date;
+       $ppadetails->validity_to = $new_end_date;
        $ppadetails->client_id = $request->input('client');
        $ppadetails->file_path = $imageName;
        $ppadetails->status = 0;
@@ -88,7 +95,7 @@ public function findppa($id)
            {
                $imageName = time().'.'.request()->file_path->getClientOriginalName();
                request()->file_path->move(public_path('documents/ppa/'), $imageName);
-               unlink('documents/ppa/'.request()->old);
+               // unlink('documents/ppa/'.request()->old);
            }
            else
            {
@@ -106,10 +113,14 @@ public function findppa($id)
         $datas['validity_from'] = $ppadetail['validity_from'];
         $datas['validity_to'] = $ppadetail['validity_to'];
         //$datas['file_path'] = $ppadetail['file_path'];
-
+        // Convert Date Format
+         $commerce_date = strtr($request->input('validity_from'), '/', '-');
+         $new_start_date = date("Y-m-d", strtotime($commerce_date));
+         $commerce_end_date = strtr($request->input('validity_to'), '/', '-');
+         $new_end_date = date("Y-m-d", strtotime($commerce_end_date));
         $dataArray =array();
-        $dataArray['validity_from'] = date('Y-m-d', strtotime($request->input('validity_from')));
-        $dataArray['validity_to'] = date('Y-m-d', strtotime($request->input('validity_to')));
+        $dataArray['validity_from'] = $new_start_date;
+        $dataArray['validity_to'] = $new_end_date;
         // $dataArray['email'] = $request->input('email');
         $result=array_diff($dataArray,$datas);
 
@@ -140,7 +151,7 @@ public function findppa($id)
 
 public function viewbidsetting()
   {
-    $clientData = Client::all();
+    $clientData = Client::where('client_app_status','1')->get();
     return view('ppa.bidsetting',compact('clientData'));
   }
 

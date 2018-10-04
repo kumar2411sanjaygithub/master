@@ -5,8 +5,8 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
         <li><a href="#">APPROVE REQUEST</a></li>
-        <li><a href="active">EMPLOYEE</a></li>
-        <li><a href="active"><u>NEW</u></a></li>
+        <li><a href="#">EMPLOYEE</a></li>
+        <li><a href="#"><u>NEW</u></a></li>
       </ol>
     </section>
     <section class="content">
@@ -95,7 +95,7 @@
 
         </div>
 
-        <div class="box">
+        <div class="box mt3">
             <div class="box-body table-responsive">
     <table id="example1" class="table table-bordered table-striped table-hover text-center">
       <thead>

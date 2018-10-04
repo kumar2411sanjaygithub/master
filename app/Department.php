@@ -19,7 +19,7 @@ class Department extends Model
     public function creator_name(){
         if($this->creator()->count() > 0)
         {
-            return strtoupper($this->creator()->select('name')->get()->toArray()['0']['name']);
+            return ucwords($this->creator()->select('name')->get()->toArray()['0']['name']);
         }
         return '';
   }

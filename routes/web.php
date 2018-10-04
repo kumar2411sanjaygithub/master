@@ -81,7 +81,9 @@ Route::group(['middleware' => 'auth'], function ()
     Route::get('/PPA/aprovePpa/{id}/{type}',['as'=>'PPA.aprovePpa','uses'=>'PpaApprovalController@newapprove']);
     Route::get('/modifiedPpa/{id}/{type}',['as'=>'PPA.modified','uses'=>'PpaApprovalController@Modifiedapprove']);
     Route::get('/deletedPPA/{id}/{type}',['as'=>'PPA.modified','uses'=>'PpaApprovalController@delete_PPA']);
-
+  Route::post('/ppa-details/{tag}','PpaApprovalController@ppaAllApp');
+  Route::post('/ppadetails/allModified/{tag}','PpaApprovalController@ppaAllModified');
+  Route::post('ppa/deletedd/request/{tag}','PpaApprovalController@ppaAllDeleted');
 
   /*******************************************************
   | ValidationSetting Routes

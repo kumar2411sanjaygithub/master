@@ -31,7 +31,7 @@
                   <div class="col-md-2 {{ $errors->has('state') ? 'has-error' : '' }}">
                     <label  class="control-label">STATE</label>
                     <select class="form-control input-sm" style="width: 100%;" id="state" name="state" {{isset($get_state_discom)?"disabled='disabled'":''}}>
-                        <option value="">PLEASE SELECT STATE</option>
+                        <option value="">SELECT STATE</option>
                          <?php
                           $state_list = \App\Common\StateList::get_states();
                               ?>
@@ -150,14 +150,14 @@
             </div>
 
               <div class="row">
-                 <div class="col-md-5"></div>
+                 <div class="col-md-10"></div>
                  @if(isset($get_state_discom))
                   <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">UPDATE</button></div>
                   @else
                   <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs">SAVE</button></div>
                   @endif
                   <div class="col-md-1"><button type="reset" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
-                <div class="col-md-5"></div>
+               
               </div>
           </form>
         </div>
@@ -290,7 +290,16 @@
                   @endif
                 </tbody>
                 </table>
-                {{ $stateDiscomData->links() }}
+                 <div class="row">
+                   <div class="col-md-6"><br>
+                     Total Records: {{ $stateDiscomData->total() }}
+                   </div>
+                   <div class="col-md-6">
+                     <div class="pull-right"> {{ $stateDiscomData->links() }}</div>
+                   </div>
+                 </div>
+                
+               
             </div>
             <!-- /.box-body -->
           </div>
