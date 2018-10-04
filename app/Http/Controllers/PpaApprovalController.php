@@ -103,7 +103,7 @@ class PpaApprovalController extends Controller
          $ppadetails->save();
          $ppa->status = 1;
          $ppa->update();
-            }         
+            }
             return Redirect::back()->with('success', 'User details successfully approved.');
           }
           elseif ($tag=='Rejected') {
@@ -113,7 +113,7 @@ class PpaApprovalController extends Controller
             }
             return Redirect::back()->with('success', 'User details successfully rejected.');
         }
-        
+
     }
 
      public function Modifiedapprove($id,$type)
@@ -153,7 +153,7 @@ class PpaApprovalController extends Controller
             $exchange->update();
             $updatestemp->status = 1;
             $updatestemp->update();
-            }         
+            }
             return Redirect::back()->with('success', 'User details successfully approved.');
           }
           elseif ($tag=='Rejected') {
@@ -162,7 +162,7 @@ class PpaApprovalController extends Controller
             }
             return Redirect::back()->with('success', 'User details successfully rejected.');
         }
-        
+
     }
 
 
@@ -186,7 +186,7 @@ class PpaApprovalController extends Controller
                   return Redirect::back()->with('success', 'User details successfully rejected.');
         }
      }
-     
+
      public function ppaAllDeleted(Request $request,$tag='')
     {
         $approvalstatus_id=$request['selected_status'];
@@ -198,7 +198,7 @@ class PpaApprovalController extends Controller
                    Ppadetails::destroy($id);
                    $new->del_status = 2;
                    $new->update();
-            }         
+            }
             return Redirect::back()->with('success', 'User details successfully approved.');
           }
           elseif ($tag=='Rejected') {
@@ -210,7 +210,7 @@ class PpaApprovalController extends Controller
             }
             return Redirect::back()->with('success', 'User details successfully rejected.');
         }
-        
+
     }
 
 }
