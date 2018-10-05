@@ -97,9 +97,9 @@ class PsmdetailsController extends Controller
       {
         $validator = $this->validate($request, [
         "type"=>"required",
-        "received_date"=>"required|date",
+        "received_date"=>"required|date_format:d/m/Y",
         "amount"=>"required",
-        "expiry_date"=>"required|date|after:received_date|after:issue_date",
+        "expiry_date"=>"required|date_format:d/m/Y|after:received_date|after:issue_date",
       ]);
     }
 
@@ -108,11 +108,11 @@ class PsmdetailsController extends Controller
       {
         $validator = $this->validate($request, [
         "type"=>"required",
-        "received_date"=>"required|date",
+        "received_date"=>"required|date_format:d/m/Y",
         "amount"=>"required",
         "issue_date"=>"required",
         "document"=>"required",
-        "expiry_date"=>"required|date|after:received_date|after:issue_date",
+        "expiry_date"=>"required|date_format:d/m/Y|after:received_date|after:issue_date",
       ]);
 
 
@@ -193,9 +193,9 @@ class PsmdetailsController extends Controller
       {
         $validator = $this->validate($request, [
         "type"=>"required",
-        "received_date"=>"required|date",
+        "received_date"=>"required|date_format:d/m/Y",
         "amount"=>"required",
-        "expiry_date"=>"required|date|after:received_date|after:issue_date",
+        "expiry_date"=>"required|date_format:d/m/Y|after:received_date|after:issue_date",
       ]);
     }
       $psm = Psmdetails::find($id);
@@ -203,10 +203,10 @@ class PsmdetailsController extends Controller
       {
         $validator = $this->validate($request, [
         "type"=>"required",
-        "received_date"=>"required|date",
+        "received_date"=>"required|date_format:d/m/Y",
         "amount"=>"required",
         "issue_date"=>"required",
-        "expiry_date"=>"required|date|after:received_date|after:issue_date",
+        "expiry_date"=>"required|date_format:d/m/Y|after:received_date|after:issue_date",
       ]);
         if(isset(request()->document))
            {

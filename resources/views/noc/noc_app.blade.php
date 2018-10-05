@@ -345,7 +345,7 @@ min-width:100px;
                         </td>
                         <td class="vl">
 
-                          @if(@$noc_list['client']['nocbilling']['noc_application_for']=='both' || @$noc_list['client']['nocbilling']['noc_application_for']=='sldc')
+                          @if((@$noc_list['client']['nocbilling']['noc_application_for']=='both' && @$noc_list['client']['nocbilling']['sldc']!='')|| @$noc_list['client']['nocbilling']['noc_application_for']=='sldc')
                             <a href="/generatesldcPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if($noc_list->status==1 ||$noc_list->status==2||(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_sldc_debit=='')) class="disabled" @else @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit=='') @else class="disabled hidediv" @endif @endif><span class="label edited fnt">GENERATE</span></a>
 
                             <a href="{{url('/downlNewFile/'.$noc_list->generate_sldc_debit)}}"  @if($noc_list->status==3 && $noc_list->generate_sldc_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_sldc_debit!=''))  @else class="disabled hidediv" @endif @endif><span class="label success fnt">DOWNLOAD</span></a>
@@ -357,7 +357,7 @@ min-width:100px;
                         </td>
                         <td class="vl">
                        
-                          @if(@$noc_list['client']['nocbilling']['noc_application_for']=='both' || @$noc_list['client']['nocbilling']['noc_application_for']=='discom')
+                          @if((@$noc_list['client']['nocbilling']['noc_application_for']=='both' && @$noc_list['client']['nocbilling']['discom']!='') || @$noc_list['client']['nocbilling']['noc_application_for']=='discom')
                             <a href="/generatediscomPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if($noc_list->status==1 ||$noc_list->status==2||(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit=='')) class="disabled" @else @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit=='') @else class="disabled hidediv" @endif @endif><span class="label edited fnt">GENERATE</span></a>
                             <a href="{{url('/downlNewFile/'.$noc_list->generate_discom_debit)}}" @if($noc_list->status==3 && $noc_list->generate_discom_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit!=''))   @else class="disabled hidediv" @endif @endif><span class="label success fnt">DOWNLOAD</span></a>
 

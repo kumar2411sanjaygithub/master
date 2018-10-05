@@ -51,22 +51,36 @@ class DiscomSLDCController extends Controller
         ]);
 
         $blk_sldc=array();
+        $blk_add=array();
         foreach(request('sldc') as $k=>$sldc_name)
         {
             $kk=$k+1;
             $new_array=array($kk=>$sldc_name);
             array_push($blk_sldc,$new_array);
+
+            $new_array_add=array($kk=>$request->sldc_add[$k]);
+            array_push($blk_add,$new_array_add);
+            //print_r($new_array_add);
         }
         $json_sldc=json_encode($blk_sldc);
+        $json_add=json_encode($blk_add);
+
+         //dd($json_add);   
 
         $blk_discom=array();
+        $blk_discom_add=array();
         foreach(request('discom') as $key=>$discom_name)
         {
             $kkey=$key+1;
             $discom_array=array($kkey=>$discom_name);
             array_push($blk_discom,$discom_array);
+
+            $discom_array_add=array($kkey=>$request->discom_add[$key]);
+            array_push($blk_discom_add,$discom_array_add);
+
         }
         $json_discom=json_encode($blk_discom);
+        $json_discom_add=json_encode($blk_discom_add);
 
         $blk_voltage=array();
         foreach(request('voltage') as $keys=>$voltage_name)
@@ -81,7 +95,9 @@ class DiscomSLDCController extends Controller
         $statediscom = new StateDiscom;
         $statediscom->state = request('state');
         $statediscom->sldc =$json_sldc;
+        $statediscom->sldc_address =$json_add;
         $statediscom->discom = $json_discom;
+        $statediscom->discom_address =$json_discom_add;
         $statediscom->voltage =$json_voltage;                               
         $statediscom->save();  
 

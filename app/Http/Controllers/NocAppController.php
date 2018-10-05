@@ -653,6 +653,7 @@ class NocAppController extends Controller
     {
         $get_data=NocApp::with('client')->where('id',$id)->first();
         $get_client=NocApp::find(1)->client()->where('id',$get_data->client_id)->get();
+        dd($get_data->client->conn_state);
         if($get_data->exchange_type=='both')
         {
             $exchange='IEX/PXIL';
@@ -762,7 +763,7 @@ class NocAppController extends Controller
         $noc_bill_details=NocBilling::where('state',$client->conn_state)->first();
         $get_client=Client::find(1)->nocbilling()->where('id',$c_id)->first();
         //NocBilling
-
+        dd($get_client);
         if($get_data->exchange_type=='both')
         {
             $exchange='IEX/PXIL';
