@@ -101,17 +101,15 @@ min-width:100px;
    </ol>
 </section>
    @if (\Session::has('error'))
-      <div class="alert alert-danger" id="successMessage">
-         <ul>
-             <li>{!! \Session::get('error') !!}</li>
-         </ul>
-      </div>
+    <div class="alert alert-danger alert-dismissible fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+     <span class="glyphicon glyphicon-ban-circle"></span> {!! \Session::get('error') !!}
+    </div>
    @endif
    @if (\Session::has('success'))
-      <div class="alert alert-success" id="successMessage">
-         <ul>
-             <li>{!! \Session::get('success') !!}</li>
-         </ul>
+      <div class="alert alert-success alert-dismissible fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+       <span class="glyphicon glyphicon-ok"></span> {!! \Session::get('success') !!}
       </div>
    @endif
 
@@ -344,7 +342,15 @@ min-width:100px;
                         </td>
                         <td class="vl">
 
-                          @if(@$noc_list['client']['nocbilling']['noc_application_for']=='both' || @$noc_list['client']['nocbilling']['noc_application_for']=='sldc')
+                          @foreach(@$noc_list['client']['nocbilling'] as $bill_details)
+                            @php
+                              if($bill_details->sldc!=''&&$bill_details->sldc==$noc_list->sldc && $bill_details->state==$client_detail->conn_state)
+                              {
+                                $checksldc='yes';
+                              }
+                            @endphp
+                          @endforeach
+                          @if(@$checksldc=='yes')
                             <a href="/generatesldcPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if($noc_list->status==1 ||$noc_list->status==2||(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_sldc_debit=='')) class="disabled" @else @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit=='') @else class="disabled hidediv" @endif @endif><span class="label edited fnt">GENERATE</span></a>
 
                             <a href="{{url('/downlNewFile/'.$noc_list->generate_sldc_debit)}}"  @if($noc_list->status==3 && $noc_list->generate_sldc_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_sldc_debit!=''))  @else class="disabled hidediv" @endif @endif><span class="label success fnt">DOWNLOAD</span></a>
@@ -356,7 +362,8 @@ min-width:100px;
                         </td>
                         <td class="vl">
 
-                          @if(@$noc_list['client']['nocbilling']['noc_application_for']=='both' || @$noc_list['client']['nocbilling']['noc_application_for']=='discom')
+
+                          @if(isset($noc_bill_discom))
                             <a href="/generatediscomPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if($noc_list->status==1 ||$noc_list->status==2||(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit=='')) class="disabled" @else @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit=='') @else class="disabled hidediv" @endif @endif><span class="label edited fnt">GENERATE</span></a>
                             <a href="{{url('/downlNewFile/'.$noc_list->generate_discom_debit)}}" @if($noc_list->status==3 && $noc_list->generate_discom_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit!=''))   @else class="disabled hidediv" @endif @endif><span class="label success fnt">DOWNLOAD</span></a>
 
@@ -366,7 +373,7 @@ min-width:100px;
 
                         </td>
                         <td class="vl">
-                          {{-- <a href="/noc/email-debit/{{$noc_list->id}}/client/{{$client_id}}" @if($noc_list->status==1) class="disabled" @else @if($noc_list->status==3 ||$noc_list->status==4 ||$noc_list->status==5)  @else class="disabled" @endif @endif><span class="label success fnt">SEND EMAIL</span></a> --}}
+                         <a href="/noc/email-debit/{{$noc_list->id}}/client/{{$client_id}}" @if($noc_list->status==1) class="disabled" @else @if($noc_list->status==3 ||$noc_list->status==4 ||$noc_list->status==5)  @else class="disabled" @endif @endif><span class="label success fnt">SEND EMAIL</span></a>
                         </td>
                         <td class="vertical-align">
                           @if($noc_list->status==1 || $noc_list->status==2 || $noc_list->status==3)

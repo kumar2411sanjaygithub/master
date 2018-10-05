@@ -49,6 +49,15 @@ min-width:100px;
 
 }
 </style>
+<section class="content-header">
+  
+   <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
+      <li><a href="/basicdetails">MANAGE CLIENT</a></li>
+      <li><a href="/basicdetails">CLIENT BASIC DETAILS</a></li>
+      <li class="#"><u>NOC DETAILS</u></li>
+   </ol>
+</section>
 
 <section class="content">
    @if(session()->has('message'))
@@ -59,23 +68,26 @@ min-width:100px;
           @endif
 
     <div class="row">
-        <div class="col-xs-12">
-
-          <div class="row">
-            <div class="col-md-6 pull-left">
+        
+            <div class="col-md-8 pull-left">
                 <h5 class="pull-left"><label class="control-label pull-right mt-1"><u>NOC DETAILS</u></h5> &nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
             </div>
-            <div class="col-md-6 pull-right">
-                    <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mt7"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
-                    @if(empty($get_noc_details))
-                    <button class="btn btn-info btn-xs pull-right mr5 mt7" id="add"><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
-                    @endif
+            <div class="col-md-4 pull-right">
+                   
             </div>
           </div>
 
       <div class="row">
 
         <div class="col-xs-12">
+          <div class="row">
+          <div class="col-md-12">
+                   <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mt7"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+                                    @if(empty($get_noc_details))
+                    <button class="btn btn-info btn-xs pull-right mr5 mt7" id="add"><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
+                    @endif
+                  </div>
+                </div>
 
         <form method ="post" action="{{isset($get_noc_details)?url('noc_edit/'.$get_noc_details->id):route('noc_create')}}" enctype="multipart/form-data">
            {{ csrf_field() }}
@@ -209,7 +221,8 @@ min-width:100px;
   <label  class="control-label">DISCOM LOSSES</label>
   <input class="form-control input-sm" type="text" disabled placeholder="ENTER DISCOM LOSSES" id="discom_losses" name="discom_losses" value="{{isset($get_noc_details)?$get_noc_details->discom_losses:''}}">
   </div>
-
+</div>
+<div class="row">
 <div class="col-md-3">
 <label  class="control-label">FINAL NOC QUANTUM</label>
   <input class="form-control input-sm" type="text" placeholder="ENTER FINAL NOC QUANTUM"id="final_quantum" name="final_quantum" value="{{isset($get_noc_details)?$get_noc_details->final_quantum:''}}" disabled>
@@ -235,6 +248,7 @@ min-width:100px;
     </div>
     </form>
   </div>
+  
 
 <div class="box">
   <div class="box-body table-responsive scroll-table-container">
@@ -388,8 +402,14 @@ min-width:100px;
          if(nocval == 'Ex-Bus')
          {
           var client_id=$('#client').val();
-          // alert(client_id);
-           $("#noc_quantum").val('');
+          var noc_type=$('#noc_type').val();
+          $("#noc_quantum").val('');
+          if(noc_type=='')
+          {
+            alert('Please Select NOC Application.');
+            return false;
+          }
+
           if(client_id!='')
           {
               $.ajax({
@@ -405,6 +425,12 @@ min-width:100px;
                     {
                       document.getElementById("region_entity").disabled = false;
                       document.getElementById("region").disabled = false;
+                    }
+                    else
+                    {
+                      alert('Losses are not set.Firstly set losses');
+                      return false;
+
                     }
                   }
               });

@@ -13,6 +13,15 @@ a.disabled {
 }
 span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
 </style>
+<section class="content-header">
+  
+   <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
+      <li><a href="/basicdetails">MANAGE CLIENT</a></li>
+      <li><a href="/basicdetails">CLIENT BASIC DETAILS</a></li>
+      <li class="#"><u>PSM DETAILS</u></li>
+   </ol>
+</section>
 
 <!-- Content Header (Page header) -->
 <!-- Main content -->
@@ -43,21 +52,26 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
        </div>
      @endif
 
-      <div class="row">
-         <div class="col-xs-12">
+      
+        
            <div class="row mb3">
-             <div class="col-md-9 pull-left">
+             <div class="col-md-8 pull-left">
                <h5 class="hid">
                   <label  class="control-label"><u class="setword">Payment Security Mechanism(PSM) Details</u></label>
                   &nbsp; {{@$clientData->company_name}}<span class="hifan">|</span>{{@$clientData->crn_no}}<span class="hifan">|</span>{{@$clientData->iex_portfolio}}<span class="hifan">|</span>{{@$clientData->pxil_portfolio}}
                </h5>
              </div>
-             <div class="col-md-3 pull-right">
+             <div class="col-md-4 pull-right">
+              
+             </div>
+           </div>
+            <div class="row">
+              <div class="col-md-12">
                <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mt7 "><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
                <a class="mt7 mr5 btn btn-info btn-xs pull-right apdbtn hid @if($errors->isEmpty()) @else hidden  @endif">
                <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PSM</a>
-             </div>
-           </div>
+            </div>
+          </div>
            <form method="post" enctype="multipart/form-data" action="{{ url('psm/psmdetails/'.$id) }}" class="mt3 apd @if($errors->isEmpty())hidden @else  @endif">
              {{ csrf_field()}}
             <div class="row">
@@ -145,6 +159,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                  </div>
               </div>
             </form>
+           
 
             <div class="box">
                <div class="box-body table-responsive">
@@ -328,13 +343,15 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
      //Date picker
      $('#datepicker').datepicker({
        autoclose: true,
-       format: 'dd-mm-yyyy',
+       format: 'dd/mm/yyyy',
      })
      $('#issue_date').datepicker({
        autoclose: true,
-       format: 'dd-mm-yyyy',
+       format: 'dd/mm/yyyy',
      }).on('changeDate', function (selected) {
         var startDate = new Date(selected.date.valueOf());
+        // For Next Date selected not same date selected
+        startDate.setDate(startDate.getDate(new Date(selected.date.valueOf()))+1);
         $('#datepicker2').datepicker('setStartDate', startDate);
       }).on('clearDate', function (selected) {
           $('#datepicker2').datepicker('setStartDate', null);
@@ -343,20 +360,22 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
 
      $(".datepicker").datepicker({
        autoclose: true,
-       format: 'dd-mm-yyyy',
+       format: 'dd/mm/yyyy',
      })
      $('#datepicker2').datepicker({
        autoclose: true,
-       format: 'dd-mm-yyyy',
+       format: 'dd/mm/yyyy',
      }).on('changeDate', function (selected) {
           var endDate = new Date(selected.date.valueOf());
+        // For Next Date selected not same date selected          
+         endDate.setDate(endDate.getDate(new Date(selected.date.valueOf()))-1);          
           $('#issue_date').datepicker('setEndDate', endDate);
       }).on('clearDate', function (selected) {
           $('#issue_date').datepicker('setEndDate', null);
       });
      $('#revocable_date').datepicker({
        autoclose: true,
-       format: 'dd-mm-yyyy',
+       format: 'dd/mm/yyyy',
      })
 
    })

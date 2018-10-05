@@ -1,21 +1,24 @@
 @extends('theme.layouts.default')
 @section('content')
+<style>
+  .np{padding-left:0px!important;}
+  .nm{margin-left:0px!important;}
+</style>
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h5>
     <label  class="control-label"><u>DISCOM</u> <u>&</u> <u>SLDC</u> <u>LIST OF STATE</u></label>
      </h5>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-        <li><a href="#">TRADER'S SETTING</a></li>
-        <li><a href="{{route('discom-sldc-state.index')}}"><u>DISCOM</u> <u>&</u> <u>SLDC</u></a></li>
+        <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
+        <li><a href="/discom-sldc-state">TRADER'S SETTING</a></li>
+        <li class =""><u>DISCOM</u> <u>&</u> <u>SLDC</u></li>
       </ol>
     </section>
    @if (\Session::has('success'))
-      <div class="alert alert-success" id="successMessage">
-         <ul>
-             <li>{!! \Session::get('success') !!}</li>
-         </ul>
+      <div class="alert alert-success alert-dismissible fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+       <span class="glyphicon glyphicon-ok"></span> {!! \Session::get('success') !!}
       </div>
    @endif
     <!-- Main content -->
@@ -28,7 +31,7 @@
               {{csrf_field()}}
                {{ (@$get_state_discom->id!='')?method_field('PATCH'):method_field('POST')}}
               <div class="row">
-                  <div class="col-md-2 {{ $errors->has('state') ? 'has-error' : '' }}">
+                  <div class="col-md-3 {{ $errors->has('state') ? 'has-error' : '' }}">
                     <label  class="control-label">STATE</label>
                     <select class="form-control input-sm" style="width: 100%;" id="state" name="state" {{isset($get_state_discom)?"disabled='disabled'":''}}>
                         <option value="">SELECT STATE</option>
@@ -43,30 +46,45 @@
                     </select>
                     <span class="text-danger">{{ $errors->first('state') }}</span>
                 </div>
-              <div class="col-md-3">
-                 <div class="col-sm-12 col-md-12" id='TextBoxesGroup2'>
+              </div>
+              <div class="row mt5">
+              <div class="col-md-5 nm np">
+                 <div class="col-sm-12 col-md-12 nm np" id='TextBoxesGroup2'>
                    <div id="TextBoxDiv2">
-                      <label  class="control-label">SLDC</label>
-                      <input class="form-control input-sm" type="text" placeholder="ENTER SLDC 1" id="textbox2" name="sldc[]">
+                    <div class="col-sm-6 col-md-6">
+                        <label  class="control-label">SLDC NAME</label>
+                        <input class="form-control input-sm" type="text" placeholder="ENTER SLDC 1" id="textbox2" name="sldc[]">
+                    </div>
+                      <div class="col-sm-6 col-md-6">
+                        <label  class="control-label">SLDC ADDRESS</label>
+                        <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS 1" id="textbox2" name="sldc_add[]">                        
+                      </div>
                 </div>
-                 <button type="button" class="btn btn-info btn-xs" id="addButton2" style="margin-left:103%;margin-top:-50px;"><i class="glyphicon glyphicon-plus pointer" ></i></button>
+                 <button type="button" class="btn btn-info btn-xs" id="addButton2" style="margin-left:98%;margin-top:-47px;"><i class="glyphicon glyphicon-plus pointer" ></i></button>
                </div>
                 @php
                   @$get_sldc=json_decode(@$get_state_discom->sldc);
+                  @$get_sldc_arr_add=json_decode($get_state_discom->sldc_address,TRUE);
+
                   if(@$get_sldc)
                   {
-                  foreach($get_sldc as $sldc_datas)
+                  foreach($get_sldc as $sd=>$sldc_datas)
                   {
                     foreach($sldc_datas as $sk=>$sldc_data)
                     {
                       if($sldc_data!='')
                       {
                 @endphp
-                     <div class="col-sm-12 col-md-12" id=>
+                     <div class="col-sm-12 col-md-12 nm np" id=>
                        <div id="">
-                          <input class="form-control input-sm" type="text" placeholder="ENTER SLDC 1" name="sldc[]" value="{{$sldc_data}}">
+                        <div class="col-sm-6 col-md-6">
+                          <input class="form-control input-sm" type="text" placeholder="ENTER SLDC" name="sldc[]" value="{{$sldc_data}}">
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                        <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS" id="textbox2" name="sldc_add[]" value='{{@$get_sldc_arr_add[$sd][$sk]}}'>                        
+                        </div>                        
                     </div>
-                     <a href="{{url('discom-sldc-state/delsldc/'.$get_state_discom->id.'/e_del/'.$sk)}}" class="btn btn-danger btn-xs" style="margin-left:103%;margin-top:-50px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
+                     <a href="{{url('discom-sldc-state/delsldc/'.$get_state_discom->id.'/e_del/'.$sk)}}" class="btn btn-danger btn-xs" style="margin-left:98%;margin-top:-47px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
                    </div>
               @php
                       }
@@ -74,33 +92,46 @@
                   }
                 }
               @endphp
-              <div class="col-sm-12 col-md-12" id='TextBoxesGroup22'>
+              <div class="col-sm-12 col-md-12 nm np" id='TextBoxesGroup22'>
               </div>
             </div>
-              <div class="col-md-3">
-                 <div class="col-md-12" id='TextBoxesGroup'>
+              <div class="col-md-5 nm np">
+                 <div class="col-md-12 nm np" id='TextBoxesGroup'>
                    <div id="TextBoxDiv1">
-                      <label  class="control-label">DISCOM</label>
+                    <div class="col-sm-6 col-md-6">
+                      <label  class="control-label">DISCOM NAME</label>
                       <input class="form-control input-sm" type="text" placeholder="ENTER DISCOM 1" id="textbox1" name="discom[]">
+
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                      <label  class="control-label">DISCOM ADDRESS</label>
+                      <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS 1" id="textbox1" name="discom_add[]">
+                    </div>
                 </div>
-                 <button type="button" class="btn btn-info btn-xs" id="addButton" style="margin-left:103%;margin-top:-50px;"><i class="glyphicon glyphicon-plus pointer" ></i></button>
+                 <button type="button" class="btn btn-info btn-xs" id="addButton" style="margin-left:98%;margin-top:-47px;"><i class="glyphicon glyphicon-plus pointer" ></i></button>
                </div>
                 @php
                   @$get_discom=json_decode($get_state_discom->discom);
+                  @$get_discom_arr_add=json_decode($get_state_discom->discom_address,TRUE);                  
                   if(@$get_discom)
                   {
-                  foreach($get_discom as $discom_datas)
+                  foreach($get_discom as $dd=>$discom_datas)
                   {
                     foreach($discom_datas as $dk=>$discom_data)
                     {
                       if($discom_data!='')
                       {
                 @endphp
-                     <div class="col-sm-12 col-md-12" id=>
+                     <div class="col-sm-12 col-md-12 nm np" id=>
                        <div id="">
-                          <input class="form-control input-sm" type="text" placeholder="ENTER DISCOM 1" name="discom[]" value="{{$discom_data}}">
+                        <div class="col-sm-6 col-md-6">
+                          <input class="form-control input-sm" type="text" placeholder="ENTER DISCOM" name="discom[]" value="{{$discom_data}}">
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                          <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS" id="textbox1" name="discom_add[]" value="{{@$get_discom_arr_add[$dd][$dk]}}">
+                        </div>
                     </div>
-                     <a href="{{url('discom-sldc-state/deldiscom/'.$get_state_discom->id.'/e_del/'.$dk)}}" class="btn btn-danger btn-xs" style="margin-left:103%;margin-top:-50px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
+                     <a href="{{url('discom-sldc-state/deldiscom/'.$get_state_discom->id.'/e_del/'.$dk)}}" class="btn btn-danger btn-xs" style="margin-left:98%;margin-top:-47px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
                    </div>
               @php
                       }
@@ -108,17 +139,17 @@
                   }
                 }
               @endphp
-              <div class="col-md-12" id='TextBoxesGroup11'>
+              <div class="col-md-12 nm np" id='TextBoxesGroup11'>
               </div>
             </div>
 
-              <div class="col-md-3">
-                 <div class="col-md-12" id='TextBoxesGroup3'>
+              <div class="col-md-2" style="width: 15.666667% !important;">
+                 <div class="col-md-12 np nm" id='TextBoxesGroup3'>
                    <div id="TextBoxDiv3">
                       <label  class="control-label">VOLTAGE</label>
-                      <input class="form-control input-sm" type="text" placeholder="ENTER VOLTAGE 1" id="textbox3" name="voltage[]">
+                      <input class="form-control input-sm" type="text" placeholder="VOLTAGE 1" id="textbox3" name="voltage[]">
                 </div>
-                 <button type="button" class="btn btn-info btn-xs" id="addButton3" style="margin-left:103%;margin-top:-50px;"><i class="glyphicon glyphicon-plus pointer" ></i></button>
+                 <button type="button" class="btn btn-info btn-xs" id="addButton3" style="margin-left:105%;margin-top:-48px;"><i class="glyphicon glyphicon-plus pointer" ></i></button>
                </div>
                 @php
                   @$get_voltage=json_decode(@$get_state_discom->voltage);
@@ -131,11 +162,11 @@
                       if($voltage_data!='')
                       {
                 @endphp
-                     <div class="col-sm-12 col-md-12" id=>
+                     <div class="col-sm-12 col-md-12 np nm" id=>
                        <div id="">
-                          <input class="form-control input-sm" type="text" placeholder="ENTER VOLTAGE 1" name="voltage[]" value="{{$voltage_data}}">
+                          <input class="form-control input-sm" type="text" placeholder="VOLTAGE" name="voltage[]" value="{{$voltage_data}}">
                     </div>
-                     <a href="{{url('discom-sldc-state/delvoltage/'.$get_state_discom->id.'/e_del/'.$vk)}}" class="btn btn-danger btn-xs" style="margin-left:103%;margin-top:-50px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
+                     <a href="{{url('discom-sldc-state/delvoltage/'.$get_state_discom->id.'/e_del/'.$vk)}}" class="btn btn-danger btn-xs" style="margin-left:105%;margin-top:-48px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
                    </div>
               @php
                       }
@@ -143,7 +174,7 @@
                   }
                 }
               @endphp
-              <div class="col-md-12" id='TextBoxesGroup33'>
+              <div class="col-md-12 np" id='TextBoxesGroup33'>
               </div>
             </div>
 
@@ -157,7 +188,7 @@
                   <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs">SAVE</button></div>
                   @endif
                   <div class="col-md-1"><button type="reset" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
-               
+
               </div>
           </form>
         </div>
@@ -196,17 +227,19 @@
                             $sldc_arr=json_decode($stateDiscom->sldc,TRUE);
                             $last_sldc_Element = end($sldc_arr);
 
-                            foreach($sldc_arr as $sldc_datas)
+                            $sldc_arr_add=json_decode($stateDiscom->sldc_address,TRUE);
+                            
+                            foreach($sldc_arr as $p=>$sldc_datas)
                             {
                               foreach($sldc_datas as $sk=>$sldc_data)
                               {
                                 if($sk!=key($last_sldc_Element))
                                 {
-                                  echo $sldc_data.',&nbsp;';
+                                  echo $sldc_data.'[ '.@$sldc_arr_add[$p][$sk].' ],&nbsp;</br>';
                                 }
                                 else
                                 {
-                                  echo $sldc_data;
+                                  echo $sldc_data.'[ '.@$sldc_arr_add[$p][$sk].' ]';
                                 }
                               }
                             }
@@ -215,18 +248,21 @@
                         <td>
                           @php
                             $discom_arr=json_decode($stateDiscom->discom,TRUE);
+                            $discom_arr_add=json_decode($stateDiscom->discom_address,TRUE);
                             $last_discom_Element = end($discom_arr);
-                            foreach($discom_arr as $discom_datas)
+                            foreach($discom_arr as $p=>$discom_datas)
                             {
                               foreach($discom_datas as $dk=>$discom_data)
                               {
                                 if($dk!=key($last_discom_Element))
                                 {
-                                  echo $discom_data.',&nbsp;';
+                                  echo $discom_data.'[ '.@$discom_arr_add[$p][$dk].' ],&nbsp;</br>';
                                 }
                                 else
                                 {
-                                  echo $discom_data;
+                                  if($last_discom_Element[$dk]!=''){
+                                  echo $discom_data.'[ '.@$discom_arr_add[$p][$dk].' ]';
+                                  }
                                 }
                               }
                             }
@@ -298,8 +334,8 @@
                      <div class="pull-right"> {{ $stateDiscomData->links() }}</div>
                    </div>
                  </div>
-                
-               
+
+
             </div>
             <!-- /.box-body -->
           </div>
@@ -315,7 +351,7 @@
 
   var a=2;var b=2;var c=2;
   $(document).delegate("#addButton","click",function(){
-  $("#TextBoxesGroup11").append('<div class=" extra-discom-container"><input type="text" class="form-control input-sm" placeholder="ENTER DISCOM '+a+'" id="fx'+a+'" name="discom[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="discom-subtract" style="margin-left:103%;margin-top:-50px;"></i></span></div>');
+  $("#TextBoxesGroup11").append('<div class=" extra-discom-container"><div class="col-md-6"><input type="text" class="form-control input-sm" placeholder="ENTER DISCOM '+a+'" id="fx'+a+'" name="discom[]" value="" autocomplete="nope"></div><div class="col-md-6"><input type="text" class="form-control input-sm" placeholder="ENTER ADDRESS '+a+'" id="fx'+a+'" name="discom_add[]" value="" autocomplete="nope"></div><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="discom-subtract" style="margin-left:98%;margin-top:-47px;"></i></span></div>');
   $('#fx'+a).focus();
   count_row();
   a+=1;
@@ -330,7 +366,7 @@ $(document).delegate("#discom-subtract","click",function(){
 });
 
   $(document).delegate("#addButton2","click",function(){
-  $("#TextBoxesGroup22").append('<div class=" extra-sldc-container"><input type="text" class="form-control input-sm" placeholder="ENTER SLDC '+b+'" id="fx1'+b+'" name="sldc[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="sldc-subtract" style="margin-left:103%;margin-top:-50px;"></i></span></div>');
+  $("#TextBoxesGroup22").append('<div class=" extra-sldc-container"><div class="col-md-6"><input type="text" class="form-control input-sm" placeholder="ENTER SLDC '+b+'" id="fx1'+b+'" name="sldc[]" value="" autocomplete="nope"></div><div class="col-md-6"><input type="text" class="form-control input-sm" placeholder="ENTER ADDRESS '+b+'" id="fx1'+b+'" name="sldc_add[]" value="" autocomplete="nope"></div><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="sldc-subtract" style="margin-left:98%;margin-top:-47px;"></i></span></div>');
   $('#fx1'+b).focus();
   count_row();
   b+=1;
@@ -345,7 +381,7 @@ $(document).delegate("#sldc-subtract","click",function(){
 });
 
   $(document).delegate("#addButton3","click",function(){
-  $("#TextBoxesGroup33").append('<div class=" extra-voltage-container"><input type="text" class="form-control input-sm" placeholder="ENTER VOLTAGE '+c+'" id="fx2'+c+'" name="voltage[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="voltage-subtract" style="margin-left:103%;margin-top:-50px;"></i></span></div>');
+  $("#TextBoxesGroup33").append('<div class=" extra-voltage-container"><input type="text" class="form-control input-sm" placeholder="VOLTAGE '+c+'" id="fx2'+c+'" name="voltage[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="voltage-subtract" style="margin-left:105%;margin-top:-48px;"></i></span></div>');
   $('#fx2'+c).focus();
   count_row();
   c+=1;

@@ -4,8 +4,8 @@
       <h5><label  class="control-label"><u>CREATE LEAD</u></label></h5>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-        <li><a href="#">CRM</a></li>
-        <li><a href="#">LEAD</a></li>
+        <li><a href="/lead">CRM</a></li>
+        <li><a href="/lead">LEAD</a></li>
         <li class="#"><u>CREATE</u></li>
       </ol>
     </section>

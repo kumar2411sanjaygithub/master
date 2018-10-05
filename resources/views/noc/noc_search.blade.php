@@ -1,5 +1,6 @@
 @extends('theme.layouts.default')
 @section('content')
+
 <style type="text/css">
   .hidediv{
     display:none;
@@ -13,9 +14,9 @@
       <label  class="control-label"><u>NOC</u> <u>APPLICATON</u></label>
    </h5>
    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">NOC </a></li>
-      <li><a href="{{route('noc-applications.index')}}"><u>NOC</u> <u>APPLICATION</u></a></li>
+      <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
+      <li><a href="">NOC </a></li>
+      <li class=""><u>NOC</u> <u>APPLICATION</u></li>
    </ol>
 </section>
    @if (\Session::has('error'))
@@ -56,6 +57,7 @@
             <thead>
               <tr>
                 <th>SR.NO</th>
+                <th>CLIENT NAME</th>                
                 <th>APPLICATON NO.</th>
                 <th>SLDC</th>
                 <th>NOC TYPE</th>
@@ -73,7 +75,7 @@
                  @foreach ($approved_noc as $k=>$noc_approved)
                   <tr>
                     <td>{{$i}}</td>
-
+                    <td>{{@$noc_approved->client->company_name}}</td>
                     <td><a href="{{url('/getclientData/'.$noc_approved->client_id)}}">{{$noc_approved->application_no}}</a></td>
                     <td>{{strtoupper($noc_approved->sldc)}}</td>
                     <td>{{strtoupper($noc_approved->noc_type)}}</td>
@@ -108,7 +110,7 @@
     <!-- /.content -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>

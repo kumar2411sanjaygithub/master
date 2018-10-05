@@ -10,14 +10,12 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-   <h5><label  class="control-label">Trading Margin (TM) Name Setting</label></h5>
+   <h5><label  class="control-label">(TS) Name Setting</label></h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-    <li><a href="/basicdetails">MANAGE CLIENT</a></li>
-    
-      <li><a href="">TRADER'S SETTING</a></li>
-      
-      <li class="#"><u>TM NAME SETTING</u></li>
+      <li><a href="#">MANAGE CLIENT</a></li>
+      <li><a href="#">TRADER'S SETTING</a></li>
+      <li><a href="#"><u>TM NAME SETTING</u></a></li>
    </ol>
 </section>
   <div class="clearfix"></div>
@@ -87,6 +85,27 @@
            </div>
         </div>
      </div>
+  </div>
+  <div class="row">
+    <dic class="col-md-12">
+      <div class="col-md-4">
+        <label>Name</label>
+        <input type="text" name="name" id="name" class="form-control">
+      </div>
+      <div class="col-md-4">
+        <label>Address</label>
+        <input type="text" name="address" id="address" class="form-control">
+      </div>
+      <div class="col-md-4">
+        <label>Mobile No.</label>
+        <input type="text" maxlength="10" name="mobile" id="mobile" class="form-control">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="text-center"><button type="submit" name="submit">Save</button></div>
+      </div>
+    </div>
   </div>
   </form>
 </section>

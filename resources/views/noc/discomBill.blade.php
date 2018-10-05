@@ -20,15 +20,14 @@
                   <div id="emp5">{{$client_city}}, @if(!empty($client_state) && $client_state!='PLEASE SELECT'){{  \App\Common\StateList::get_state_name($client_state) }},@endif</div>
                   <div id="emp6">{{$client_country}}, PIN-{{$client_pin}}.</div>
               </div>
-                    <div class="row">&nbsp;</div>
-                  <div class="row">&nbsp;</div>
+
                   <div class="row">&nbsp;</div>
                   <span style="float:right;">Date:{{$date}}</span>
              <div style="font-size:14px;font-weight:600;">Debit Note Number: {{$application_no}}</div>
 
               <div class="row">&nbsp;</div>
               <div class="row">&nbsp;</div>
-              <div class="text-center" style="font-size:15px;font-weight:600;">Sub:Debit Note for {{$client_name}}({{$challan_no}})</div>
+              <div class="text-center" style="font-size:15px;font-weight:600;">Sub:Debit Note for {{$client_name}} ({{$client_iex_portfolio}})</div>
                  <div class="row">&nbsp;</div>
              <div style="margin-left:20%;">
                 <table class="table table-bordered text-center table-condensed" style="width:80%;">
@@ -40,22 +39,49 @@
                   </tr>
                   <tr>
                     <td  style="font-size:12px;vertical-align:middle;">1</td>
-                    <td  style="font-size:12px;">Debit Note for NOC raised to DISCOM for<br>{{$client_name}} for the Period<br>from {{$from_date}} to {{$end_date}}.</td>
+                    <td  style="font-size:12px;">Debit Note for NOC raised to {{$discom}} for<br>{{$client_name}} for the Period<br>from {{$from_date}} to {{$end_date}}.</td>
                     <td  style="font-size:12px;vertical-align:middle;font-weight:600;">Rs. {{$amount}}</td>
+                  </tr>
+                  @if($gst_applicable=='YES')
+                  <tr>
+                    <td  style="font-size:12px;vertical-align:middle;">2</td>
+                    <td  style="font-size:12px;">CGST</td>
+                    <td  style="font-size:12px;vertical-align:middle;font-weight:600;">Rs.  {{isset($cgst)?$cgst:0}}</td>
+                  </tr>
+                  <tr>
+                    <td  style="font-size:12px;vertical-align:middle;">3</td>
+                    <td  style="font-size:12px;">SGST</td>
+                    <td  style="font-size:12px;vertical-align:middle;font-weight:600;">Rs. {{isset($sgst)?$sgst:0}}</td>
+                  </tr>
+                  <tr>
+                    <td  style="font-size:12px;vertical-align:middle;">4</td>
+                    <td  style="font-size:12px;">UTGST</td>
+                    <td  style="font-size:12px;vertical-align:middle;font-weight:600;">Rs. {{isset($utgst)?$utgst:0}}</td>
+                  </tr>
+                  <tr>
+                    <td  style="font-size:12px;vertical-align:middle;">5</td>
+                    <td  style="font-size:12px;">IGST</td>
+                    <td  style="font-size:12px;vertical-align:middle;font-weight:600;">Rs. {{isset($igst)?$igst:0}}</td>
+                  </tr>
+                  @php $gst_total=@$cgst+@$sgst+@$utgst+@$igst; @endphp
+                  @endif
+                  @php $grand_total=$amount+@$gst_total @endphp
+                  <tr>
+                    <td  style="font-size:12px;vertical-align:middle;"></td>
+                    <td  style="font-size:12px;">Total Amount</td>
+                    <td  style="font-size:12px;vertical-align:middle;font-weight:600;">Rs. {{$grand_total}}</td>
                   </tr>
                   </tbody>
                 </table>
              </div>
              <div class="row">&nbsp;</div>
                 @php
-                    $convert_word = \App\Common\FinancialFunctions::getIndianCurrency($amount);
+                    $convert_word = \App\Common\FinancialFunctions::getIndianCurrency($grand_total);
                 @endphp
-             <div class="row text-center" style="font-size:15px;font-weight:600;">Net Amount Payable: {{ucwords($convert_word) }} Only</div>
+             <div class="row text-center" style="font-size:15px;font-weight:600;">Net Amount Payable: {{ucwords($convert_word) }}</div>
              <div class="row">&nbsp;</div>
-             <div class="row">&nbsp;</div>
-            <div class="row">&nbsp;</div>
             <div class="row text-center" style="font-size:14px;font-weight:600;"><span style="font-size:18px;">*</span>This is a computer generated bill hence do not require any signature.</div>
-               <div style="margin-top:12.5%;text-align:center;">
+               <div @if($gst_applicable=='YES') style="margin-top:6.5%;text-align:center;" @else style="margin-top:12.5%;text-align:center;" @endif>
                      <div style="font-size:10px;font-weight:600;color:#4169E1;">Tata Power Trading Company Limited</div>
                      <div style="font-size:10px;font-weight:600;color:#4169E1;">Shatabdi Bhawan,2nd floor ,B 12-13,Sector-4,Noida-20130 Tel.: 0120-6102210/610 2213 Fax 0120-2540050/2540085</div>
                      <div style="font-size:10px;font-weight:600;color:#4169E1;">Website www.tatapowertrading.com Email:power@tatapowertrading.com</div>
