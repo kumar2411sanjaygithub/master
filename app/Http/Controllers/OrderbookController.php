@@ -23,17 +23,11 @@ class OrderbookController extends Controller
 
     public function orderbookdata(Request $request)
     {
-      // dd("radhe");
+
       $fromDate = date('Y-m-d',strtotime(str_replace('/','-',$request->input('date_from'))));
       $toDate = date('Y-m-d',strtotime(str_replace('/','-',$request->input('date_to'))));
+
       $client_id = $request->input('client_id');
-
-        // $bid_type = $request->input('bid_type');
-        // $order_status = $request->input('order_status');
-        // $sort_status = $request->input('sort_status');
-        // $exchange = $request->input('exchange');
-        // $order_nature = $request->input('order_nature');
-
         // get all iex place bid data
         // DB::enableQueryLog();
        $placebidData = DB::table('place_bid')

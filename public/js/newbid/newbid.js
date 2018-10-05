@@ -378,7 +378,6 @@ jQuery(document).ready(function() {
             jQuery("#bid_price").focus();
             return false;
         }
-
         var exchange = '';
         if (jQuery('#exchange_pxil').is(':checked')) {
             var exchange = 'pxil';
@@ -438,7 +437,6 @@ jQuery(document).ready(function() {
                 _token: jQuery('#_token').val()
             }
         }
-        // console.log(bidData);
         var url = '/placebid/addnewbid/power';
 
         jQuery.ajax({
@@ -466,14 +464,14 @@ jQuery(document).ready(function() {
                                 '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataProcess[i].id + '"><em class="bg-blue-500"></em>' +
                                 '</label>' +
                                 '</td>' +
-                                '<td class="text-danger">' + data.placebidDataProcess[i].bid_type + '</td>' +
-                                '<td class="text-danger">' + data.placebidDataProcess[i].bid_action + '</td>' +
+                                '<td class="text-danger uc-first">' + data.placebidDataProcess[i].bid_type + '</td>' +
+                                '<td class="text-danger uc-first">' + data.placebidDataProcess[i].bid_action + '</td>' +
                                 '<td class="text-danger">' + data.placebidDataProcess[i].time_slot_from + '</td>' +
                                 '<td class="text-danger">' + data.placebidDataProcess[i].time_slot_to + '</td>' +
                                 '<td class="text-danger">-' + data.placebidDataProcess[i].bid_mw + '</td>' +
                                 '<td class="text-danger">' + data.placebidDataProcess[i].bid_price + '</td>' +
                                 '<td>' +
-                                '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/delete.svg"></span>' +
+                                '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataProcess[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '"></span>'+
                                 '</td>' +
                                 '</tr>';
                         } else {
@@ -483,14 +481,14 @@ jQuery(document).ready(function() {
                                 '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataProcess[i].id + '"><em class="bg-blue-500"></em>' +
                                 '</label>' +
                                 '</td>' +
-                                '<td class="text-success">' + data.placebidDataProcess[i].bid_type + '</td>' +
-                                '<td class="text-success">' + data.placebidDataProcess[i].bid_action + '</td>' +
+                                '<td class="text-success uc-first">' + data.placebidDataProcess[i].bid_type + '</td>' +
+                                '<td class="text-success uc-first">' + data.placebidDataProcess[i].bid_action + '</td>' +
                                 '<td class="text-success">' + data.placebidDataProcess[i].time_slot_from + '</td>' +
                                 '<td class="text-success">' + data.placebidDataProcess[i].time_slot_to + '</td>' +
                                 '<td class="text-success">' + data.placebidDataProcess[i].bid_mw + '</td>' +
                                 '<td class="text-success">' + data.placebidDataProcess[i].bid_price + '</td>' +
                                 '<td>' +
-                                '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/delete.svg"></span>' +
+                                '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataProcess[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '"></span>'+
                                 '</td>' +
                                 '</tr>';
                         }
@@ -557,8 +555,22 @@ jQuery(document).ready(function() {
                 jQuery(".recordtable").removeClass('hidden');
                 // jQuery('#bid_type').val(''),
                 // jQuery('#bid_action').val(''),
-                jQuery('#time_slot_from').val(''),
-                    jQuery('#time_slot_to').val(''),
+                var timeslot = timeSlotFn();
+                val = "";
+                for (var i = 0; i < timeslot.length; i++) {
+                    val += '<option value="' + timeslot[i] + '">' + timeslot[i] + '</option>';
+                }
+                val += '<option value="24:00">24:00</option>';
+                jQuery("#time_slot_from").html(val);
+
+                val = "";
+                for (var i = 0; i < timeslot.length; i++) {
+                    if (timeslot[i] > '00:00') {
+                        val += '<option value="' + timeslot[i] + '">' + timeslot[i] + '</option>';
+                    }
+                }
+                val += '<option value="24:00">24:00</option>';
+                jQuery("#time_slot_to").html(val);
                     jQuery('#bid_mw').val(''),
                     jQuery('#bid_price').val(''),
                     jQuery("#no_of_block").val(''),
@@ -625,14 +637,14 @@ jQuery(document).ready(function() {
                                 '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataSubmitted[i].id + '"><em class="bg-blue-500"></em>' +
                                 '</label>' +
                                 '</td>' +
-                                '<td class="text-danger">' + data.placebidDataSubmitted[i].bid_type + '</td>' +
-                                '<td class="text-danger">' + data.placebidDataSubmitted[i].bid_action + '</td>' +
+                                '<td class="text-danger uc-first">' + data.placebidDataSubmitted[i].bid_type + '</td>' +
+                                '<td class="text-danger uc-first">' + data.placebidDataSubmitted[i].bid_action + '</td>' +
                                 '<td class="text-danger">' + data.placebidDataSubmitted[i].time_slot_from + '</td>' +
                                 '<td class="text-danger">' + data.placebidDataSubmitted[i].time_slot_to + '</td>' +
                                 '<td class="text-danger">-' + data.placebidDataSubmitted[i].bid_mw + '</td>' +
                                 '<td class="text-danger">' + data.placebidDataSubmitted[i].bid_price + '</td>' +
                                 '<td>' +
-                                '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataSubmitted[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataSubmitted[i].id + '" src="/img/assets/delete.svg"></span>' +
+                                '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataSubmitted[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataSubmitted[i].id + '"></span>'+
                                 '</td>' +
                                 '</tr>';
                         } else {
@@ -642,14 +654,14 @@ jQuery(document).ready(function() {
                                 '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataSubmitted[i].id + '"><em class="bg-blue-500"></em>' +
                                 '</label>' +
                                 '</td>' +
-                                '<td class="text-success">' + data.placebidDataSubmitted[i].bid_type + '</td>' +
-                                '<td class="text-success">' + data.placebidDataSubmitted[i].bid_action + '</td>' +
+                                '<td class="text-success uc-first">' + data.placebidDataSubmitted[i].bid_type + '</td>' +
+                                '<td class="text-success uc-first">' + data.placebidDataSubmitted[i].bid_action + '</td>' +
                                 '<td class="text-success">' + data.placebidDataSubmitted[i].time_slot_from + '</td>' +
                                 '<td class="text-success">' + data.placebidDataSubmitted[i].time_slot_to + '</td>' +
                                 '<td class="text-success">' + data.placebidDataSubmitted[i].bid_mw + '</td>' +
                                 '<td class="text-success">' + data.placebidDataSubmitted[i].bid_price + '</td>' +
                                 '<td>' +
-                                '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataSubmitted[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataSubmitted[i].id + '" src="/img/assets/delete.svg"></span>' +
+                                '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataSubmitted[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataSubmitted[i].id + '"></span>'+
                                 '</td>' +
                                 '</tr>';
                         }
@@ -724,14 +736,14 @@ jQuery(document).ready(function() {
                                 '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataProcess[i].id + '"><em class="bg-blue-500"></em>' +
                                 '</label>' +
                                 '</td>' +
-                                '<td class="text-danger">' + data.placebidDataProcess[i].bid_type + '</td>' +
-                                '<td class="text-danger">' + data.placebidDataProcess[i].bid_action + '</td>' +
+                                '<td class="text-danger uc-first">' + data.placebidDataProcess[i].bid_type + '</td>' +
+                                '<td class="text-danger uc-first">' + data.placebidDataProcess[i].bid_action + '</td>' +
                                 '<td class="text-danger">' + data.placebidDataProcess[i].time_slot_from + '</td>' +
                                 '<td class="text-danger">' + data.placebidDataProcess[i].time_slot_to + '</td>' +
                                 '<td class="text-danger">-' + data.placebidDataProcess[i].bid_mw + '</td>' +
                                 '<td class="text-danger">' + data.placebidDataProcess[i].bid_price + '</td>' +
                                 '<td>' +
-                                '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/delete.svg"></span>' +
+                                '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataProcess[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '"></span>'+
                                 '</td>' +
                                 '</tr>';
                         } else {
@@ -741,14 +753,14 @@ jQuery(document).ready(function() {
                                 '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataProcess[i].id + '"><em class="bg-blue-500"></em>' +
                                 '</label>' +
                                 '</td>' +
-                                '<td class="text-success">' + data.placebidDataProcess[i].bid_type + '</td>' +
-                                '<td class="text-success">' + data.placebidDataProcess[i].bid_action + '</td>' +
+                                '<td class="text-success uc-first">' + data.placebidDataProcess[i].bid_type + '</td>' +
+                                '<td class="text-success uc-first">' + data.placebidDataProcess[i].bid_action + '</td>' +
                                 '<td class="text-success">' + data.placebidDataProcess[i].time_slot_from + '</td>' +
                                 '<td class="text-success">' + data.placebidDataProcess[i].time_slot_to + '</td>' +
                                 '<td class="text-success">' + data.placebidDataProcess[i].bid_mw + '</td>' +
                                 '<td class="text-success">' + data.placebidDataProcess[i].bid_price + '</td>' +
                                 '<td>' +
-                                '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/delete.svg"></span>' +
+                                '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataProcess[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '"></span>'+
                                 '</td>' +
                                 '</tr>';
                         }
@@ -998,14 +1010,14 @@ jQuery(document).ready(function() {
                                         '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataProcess[i].id + '"><em class="bg-blue-500"></em>' +
                                         '</label>' +
                                         '</td>' +
-                                        '<td class="text-danger">' + data.placebidDataProcess[i].bid_type + '</td>' +
-                                        '<td class="text-danger">' + data.placebidDataProcess[i].bid_action + '</td>' +
+                                        '<td class="text-danger uc-first">' + data.placebidDataProcess[i].bid_type + '</td>' +
+                                        '<td class="text-danger uc-first">' + data.placebidDataProcess[i].bid_action + '</td>' +
                                         '<td class="text-danger">' + data.placebidDataProcess[i].time_slot_from + '</td>' +
                                         '<td class="text-danger">' + data.placebidDataProcess[i].time_slot_to + '</td>' +
                                         '<td class="text-danger">-' + data.placebidDataProcess[i].bid_mw + '</td>' +
                                         '<td class="text-danger">' + data.placebidDataProcess[i].bid_price + '</td>' +
                                         '<td>' +
-                                        '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/delete.svg"></span>' +
+                                        '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataProcess[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '"></span>'+
                                         '</td>' +
                                         '</tr>';
                                 } else {
@@ -1015,14 +1027,14 @@ jQuery(document).ready(function() {
                                         '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataProcess[i].id + '"><em class="bg-blue-500"></em>' +
                                         '</label>' +
                                         '</td>' +
-                                        '<td class="text-success">' + data.placebidDataProcess[i].bid_type + '</td>' +
-                                        '<td class="text-success">' + data.placebidDataProcess[i].bid_action + '</td>' +
+                                        '<td class="text-success uc-first">' + data.placebidDataProcess[i].bid_type + '</td>' +
+                                        '<td class="text-success uc-first">' + data.placebidDataProcess[i].bid_action + '</td>' +
                                         '<td class="text-success">' + data.placebidDataProcess[i].time_slot_from + '</td>' +
                                         '<td class="text-success">' + data.placebidDataProcess[i].time_slot_to + '</td>' +
                                         '<td class="text-success">' + data.placebidDataProcess[i].bid_mw + '</td>' +
                                         '<td class="text-success">' + data.placebidDataProcess[i].bid_price + '</td>' +
                                         '<td>' +
-                                        '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/delete.svg"></span>' +
+                                        '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataProcess[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '"></span>'+
                                         '</td>' +
                                         '</tr>';
                                 }
@@ -1332,14 +1344,14 @@ jQuery(document).ready(function() {
                                         '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataForEdit[i].id + '"><em class="bg-blue-500"></em>' +
                                         '</label>' +
                                         '</td>' +
-                                        '<td class="text-danger">' + data.placebidDataForEdit[i].bid_type + '</td>' +
-                                        '<td class="text-danger">' + data.placebidDataForEdit[i].bid_action + '</td>' +
+                                        '<td class="text-danger uc-first">' + data.placebidDataForEdit[i].bid_type + '</td>' +
+                                        '<td class="text-danger uc-first">' + data.placebidDataForEdit[i].bid_action + '</td>' +
                                         '<td class="text-danger">' + data.placebidDataForEdit[i].time_slot_from + '</td>' +
                                         '<td class="text-danger">' + data.placebidDataForEdit[i].time_slot_to + '</td>' +
                                         '<td class="text-danger">-' + data.placebidDataForEdit[i].bid_mw + '</td>' +
                                         '<td class="text-danger">' + data.placebidDataForEdit[i].bid_price + '</td>' +
                                         '<td>' +
-                                        '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataForEdit[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataForEdit[i].id + '" src="/img/assets/delete.svg"></span>' +
+                                        '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataForEdit[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataForEdit[i].id + '"></span>'+
                                         '</td>' +
                                         '</tr>';
                                 } else {
@@ -1349,14 +1361,14 @@ jQuery(document).ready(function() {
                                         '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataForEdit[i].id + '"><em class="bg-blue-500"></em>' +
                                         '</label>' +
                                         '</td>' +
-                                        '<td class="text-success">' + data.placebidDataForEdit[i].bid_type + '</td>' +
-                                        '<td class="text-success">' + data.placebidDataForEdit[i].bid_action + '</td>' +
+                                        '<td class="text-success uc-first">' + data.placebidDataForEdit[i].bid_type + '</td>' +
+                                        '<td class="text-success uc-first">' + data.placebidDataForEdit[i].bid_action + '</td>' +
                                         '<td class="text-success">' + data.placebidDataForEdit[i].time_slot_from + '</td>' +
                                         '<td class="text-success">' + data.placebidDataForEdit[i].time_slot_to + '</td>' +
                                         '<td class="text-success">' + data.placebidDataForEdit[i].bid_mw + '</td>' +
                                         '<td class="text-success">' + data.placebidDataForEdit[i].bid_price + '</td>' +
                                         '<td>' +
-                                        '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataForEdit[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataForEdit[i].id + '" src="/img/assets/delete.svg"></span>' +
+                                        '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataForEdit[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataForEdit[i].id + '"></span>'+
                                         '</td>' +
                                         '</tr>';
                                 }
@@ -1647,14 +1659,14 @@ jQuery(document).ready(function() {
                                 '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataProcess[i].id + '"><em class="bg-blue-500"></em>' +
                                 '</label>' +
                                 '</td>' +
-                                '<td class="text-danger">' + data.placebidDataProcess[i].bid_type + '</td>' +
-                                '<td class="text-danger">' + data.placebidDataProcess[i].bid_action + '</td>' +
+                                '<td class="text-danger uc-first">' + data.placebidDataProcess[i].bid_type + '</td>' +
+                                '<td class="text-danger uc-first">' + data.placebidDataProcess[i].bid_action + '</td>' +
                                 '<td class="text-danger">' + data.placebidDataProcess[i].time_slot_from + '</td>' +
                                 '<td class="text-danger">' + data.placebidDataProcess[i].time_slot_to + '</td>' +
                                 '<td class="text-danger">-' + data.placebidDataProcess[i].bid_mw + '</td>' +
                                 '<td class="text-danger">' + data.placebidDataProcess[i].bid_price + '</td>' +
                                 '<td>' +
-                                '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/delete.svg"></span>' +
+                                '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataProcess[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '"></span>'+
                                 '</td>' +
                                 '</tr>';
                         } else {
@@ -1664,14 +1676,14 @@ jQuery(document).ready(function() {
                                 '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataProcess[i].id + '"><em class="bg-blue-500"></em>' +
                                 '</label>' +
                                 '</td>' +
-                                '<td class="text-success">' + data.placebidDataProcess[i].bid_type + '</td>' +
-                                '<td class="text-success">' + data.placebidDataProcess[i].bid_action + '</td>' +
+                                '<td class="text-success uc-first">' + data.placebidDataProcess[i].bid_type + '</td>' +
+                                '<td class="text-success uc-first">' + data.placebidDataProcess[i].bid_action + '</td>' +
                                 '<td class="text-success">' + data.placebidDataProcess[i].time_slot_from + '</td>' +
                                 '<td class="text-success">' + data.placebidDataProcess[i].time_slot_to + '</td>' +
                                 '<td class="text-success">' + data.placebidDataProcess[i].bid_mw + '</td>' +
                                 '<td class="text-success">' + data.placebidDataProcess[i].bid_price + '</td>' +
                                 '<td>' +
-                                '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/delete.svg"></span>' +
+                                '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataProcess[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '"></span>'+
                                 '</td>' +
                                 '</tr>';
                         }
@@ -1971,14 +1983,14 @@ jQuery(document).delegate('.ui-menu-item', 'click', function() {
                             '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataProcess[i].id + '"><em class="bg-blue-500"></em>' +
                             '</label>' +
                             '</td>' +
-                            '<td class="text-danger">' + data.placebidDataProcess[i].bid_type + '</td>' +
-                            '<td class="text-danger">' + data.placebidDataProcess[i].bid_action + '</td>' +
+                            '<td class="text-danger uc-first">' + data.placebidDataProcess[i].bid_type + '</td>' +
+                            '<td class="text-danger uc-first">' + data.placebidDataProcess[i].bid_action + '</td>' +
                             '<td class="text-danger">' + data.placebidDataProcess[i].time_slot_from + '</td>' +
                             '<td class="text-danger">' + data.placebidDataProcess[i].time_slot_to + '</td>' +
                             '<td class="text-danger">-' + data.placebidDataProcess[i].bid_mw + '</td>' +
                             '<td class="text-danger">' + data.placebidDataProcess[i].bid_price + '</td>' +
                             '<td>' +
-                            '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/delete.svg"></span>' +
+                            '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataProcess[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '"></span>'+
                             '</td>' +
                             '</tr>';
                     } else {
@@ -1988,14 +2000,14 @@ jQuery(document).delegate('.ui-menu-item', 'click', function() {
                             '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataProcess[i].id + '"><em class="bg-blue-500"></em>' +
                             '</label>' +
                             '</td>' +
-                            '<td class="text-success">' + data.placebidDataProcess[i].bid_type + '</td>' +
-                            '<td class="text-success">' + data.placebidDataProcess[i].bid_action + '</td>' +
+                            '<td class="text-success uc-first">' + data.placebidDataProcess[i].bid_type + '</td>' +
+                            '<td class="text-success uc-first">' + data.placebidDataProcess[i].bid_action + '</td>' +
                             '<td class="text-success">' + data.placebidDataProcess[i].time_slot_from + '</td>' +
                             '<td class="text-success">' + data.placebidDataProcess[i].time_slot_to + '</td>' +
                             '<td class="text-success">' + data.placebidDataProcess[i].bid_mw + '</td>' +
                             '<td class="text-success">' + data.placebidDataProcess[i].bid_price + '</td>' +
                             '<td>' +
-                            '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/delete.svg"></span>' +
+                            '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataProcess[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '"></span>'+
                             '</td>' +
                             '</tr>';
                     }
@@ -2239,14 +2251,14 @@ jQuery(document).ready(function() {
                                 '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataProcess[i].id + '"><em class="bg-blue-500"></em>' +
                                 '</label>' +
                                 '</td>' +
-                                '<td class="text-danger">' + data.placebidDataProcess[i].bid_type + '</td>' +
-                                '<td class="text-danger">' + data.placebidDataProcess[i].bid_action + '</td>' +
+                                '<td class="text-danger uc-first">' + data.placebidDataProcess[i].bid_type + '</td>' +
+                                '<td class="text-danger uc-first">' + data.placebidDataProcess[i].bid_action + '</td>' +
                                 '<td class="text-danger">' + data.placebidDataProcess[i].time_slot_from + '</td>' +
                                 '<td class="text-danger">' + data.placebidDataProcess[i].time_slot_to + '</td>' +
                                 '<td class="text-danger">-' + data.placebidDataProcess[i].bid_mw + '</td>' +
                                 '<td class="text-danger">' + data.placebidDataProcess[i].bid_price + '</td>' +
                                 '<td>' +
-                                '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/delete.svg"></span>' +
+                                '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataProcess[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '"></span>'+
                                 '</td>' +
                                 '</tr>';
                         } else {
@@ -2256,14 +2268,14 @@ jQuery(document).ready(function() {
                                 '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataProcess[i].id + '"><em class="bg-blue-500"></em>' +
                                 '</label>' +
                                 '</td>' +
-                                '<td class="text-success">' + data.placebidDataProcess[i].bid_type + '</td>' +
-                                '<td class="text-success">' + data.placebidDataProcess[i].bid_action + '</td>' +
+                                '<td class="text-success uc-first">' + data.placebidDataProcess[i].bid_type + '</td>' +
+                                '<td class="text-success uc-first">' + data.placebidDataProcess[i].bid_action + '</td>' +
                                 '<td class="text-success">' + data.placebidDataProcess[i].time_slot_from + '</td>' +
                                 '<td class="text-success">' + data.placebidDataProcess[i].time_slot_to + '</td>' +
                                 '<td class="text-success">' + data.placebidDataProcess[i].bid_mw + '</td>' +
                                 '<td class="text-success">' + data.placebidDataProcess[i].bid_price + '</td>' +
                                 '<td>' +
-                                '<span><img class="headericon zoom edit-bid" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/edit.svg"> | <img class="headericon zoom" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '" src="/img/assets/delete.svg"></span>' +
+                                '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataProcess[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataProcess[i].id + '"></span>'+
                                 '</td>' +
                                 '</tr>';
                         }
