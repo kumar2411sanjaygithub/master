@@ -1,5 +1,6 @@
 @extends('theme.layouts.default')
 @section('content')
+
 <style type="text/css">
   .hidediv{
     display:none;
@@ -13,9 +14,9 @@
       <label  class="control-label"><u>NOC</u> <u>APPLICATON</u></label>
    </h5>
    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">NOC </a></li>
-      <li><a href="{{route('noc-applications.index')}}"><u>NOC</u> <u>APPLICATION</u></a></li>
+      <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
+      <li><a href="">NOC </a></li>
+      <li class=""><u>NOC</u> <u>APPLICATION</u></li>
    </ol>
 </section>
    @if (\Session::has('error'))

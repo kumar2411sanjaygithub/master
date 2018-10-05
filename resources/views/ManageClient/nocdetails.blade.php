@@ -49,6 +49,15 @@ min-width:100px;
 
 }
 </style>
+<section class="content-header">
+  
+   <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
+      <li><a href="/basicdetails">MANAGE CLIENT</a></li>
+      <li><a href="/basicdetails">CLIENT BASIC DETAILS</a></li>
+      <li class="#"><u>NOC DETAILS</u></li>
+   </ol>
+</section>
 
 <section class="content">
    @if(session()->has('message'))
@@ -59,23 +68,26 @@ min-width:100px;
           @endif
 
     <div class="row">
-        <div class="col-xs-12">
-
-          <div class="row">
-            <div class="col-md-6 pull-left">
+        
+            <div class="col-md-8 pull-left">
                 <h5 class="pull-left"><label class="control-label pull-right mt-1"><u>NOC DETAILS</u></h5> &nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
             </div>
-            <div class="col-md-6 pull-right">
-                    <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mt7"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
-                    @if(empty($get_noc_details))
-                    <button class="btn btn-info btn-xs pull-right mr5 mt7" id="add"><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
-                    @endif
+            <div class="col-md-4 pull-right">
+                   
             </div>
           </div>
 
       <div class="row">
 
         <div class="col-xs-12">
+          <div class="row">
+          <div class="col-md-12">
+                   <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mt7"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+                                    @if(empty($get_noc_details))
+                    <button class="btn btn-info btn-xs pull-right mr5 mt7" id="add"><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
+                    @endif
+                  </div>
+                </div>
 
         <form method ="post" action="{{isset($get_noc_details)?url('noc_edit/'.$get_noc_details->id):route('noc_create')}}" enctype="multipart/form-data">
            {{ csrf_field() }}
@@ -235,6 +247,7 @@ min-width:100px;
     </div>
     </form>
   </div>
+  
 
 <div class="box">
   <div class="box-body table-responsive scroll-table-container">

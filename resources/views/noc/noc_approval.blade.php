@@ -6,9 +6,9 @@
             <label  class="control-label"><u>NOC</u> <u>APPLICATON</u> <u>APPROVAL</u></label>
          </h5>
          <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-            <li><a href="#">NOC </a></li>
-            <li><a href="{{route('nocapplicationapproval')}}"><u>NOC</u> <u>APPLICATION</u>  <u>APPROVAL</u></a></li>
+            <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
+            <li><a href="">NOC </a></li>
+            <li class="{{route('nocapplicationapproval')}}"><u>NOC</u> <u>APPLICATION</u>  <u>APPROVAL</u></li>
          </ol>
       </section>
    @if (\Session::has('success'))

@@ -506,6 +506,12 @@ Route::post('/client_bill_list','InvoiceController@client_list')->name('list');
 
 
 
+ /*******************************************************
+  DISCOM- WITHDRAWL AND INJECTION LOSSES
+/*******************************************************/
+Route::post('/discom/upload','DiscomController@import')->name('import-discom-losses');
+Route::post('/poc/upload','PocController@import')->name('import-poc-losses');
+
 
 
 

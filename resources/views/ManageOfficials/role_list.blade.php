@@ -6,8 +6,8 @@
     <h5><label  class="control-label"><u>ROLE LIST</u></label></h5>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-        <li><a href="#">MANAGE EMPLOYEE</a></li>
-        <li><a href="#"><u>ROLE & PERMISION</u></a></li>
+        <li><a href="/roles">MANAGE EMPLOYEE</a></li>
+        <li class="#"><u>ROLE & PERMISION</u></li>
       </ol>
     </section>
 
