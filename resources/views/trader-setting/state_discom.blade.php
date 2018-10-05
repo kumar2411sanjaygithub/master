@@ -16,10 +16,9 @@
       </ol>
     </section>
    @if (\Session::has('success'))
-      <div class="alert alert-success" id="successMessage">
-         <ul>
-             <li>{!! \Session::get('success') !!}</li>
-         </ul>
+      <div class="alert alert-success alert-dismissible fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+       <span class="glyphicon glyphicon-ok"></span> {!! \Session::get('success') !!}
       </div>
    @endif
     <!-- Main content -->
@@ -32,7 +31,7 @@
               {{csrf_field()}}
                {{ (@$get_state_discom->id!='')?method_field('PATCH'):method_field('POST')}}
               <div class="row">
-                  <div class="col-md-2 {{ $errors->has('state') ? 'has-error' : '' }}">
+                  <div class="col-md-3 {{ $errors->has('state') ? 'has-error' : '' }}">
                     <label  class="control-label">STATE</label>
                     <select class="form-control input-sm" style="width: 100%;" id="state" name="state" {{isset($get_state_discom)?"disabled='disabled'":''}}>
                         <option value="">SELECT STATE</option>
@@ -48,7 +47,7 @@
                     <span class="text-danger">{{ $errors->first('state') }}</span>
                 </div>
               </div>
-              <div class="row">
+              <div class="row mt5">
               <div class="col-md-5 nm np">
                  <div class="col-sm-12 col-md-12 nm np" id='TextBoxesGroup2'>
                    <div id="TextBoxDiv2">
@@ -61,7 +60,7 @@
                         <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS 1" id="textbox2" name="sldc_add[]">                        
                       </div>
                 </div>
-                 <button type="button" class="btn btn-info btn-xs" id="addButton2" style="margin-left:103%;margin-top:-50px;"><i class="glyphicon glyphicon-plus pointer" ></i></button>
+                 <button type="button" class="btn btn-info btn-xs" id="addButton2" style="margin-left:98%;margin-top:-47px;"><i class="glyphicon glyphicon-plus pointer" ></i></button>
                </div>
                 @php
                   @$get_sldc=json_decode(@$get_state_discom->sldc);
@@ -79,13 +78,13 @@
                      <div class="col-sm-12 col-md-12 nm np" id=>
                        <div id="">
                         <div class="col-sm-6 col-md-6">
-                          <input class="form-control input-sm" type="text" placeholder="ENTER SLDC 1" name="sldc[]" value="{{$sldc_data}}">
+                          <input class="form-control input-sm" type="text" placeholder="ENTER SLDC" name="sldc[]" value="{{$sldc_data}}">
                         </div>
                         <div class="col-sm-6 col-md-6">
-                        <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS 1" id="textbox2" name="sldc_add[]" value='{{@$get_sldc_arr_add[$sd][$sk]}}'>                        
+                        <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS" id="textbox2" name="sldc_add[]" value='{{@$get_sldc_arr_add[$sd][$sk]}}'>                        
                         </div>                        
                     </div>
-                     <a href="{{url('discom-sldc-state/delsldc/'.$get_state_discom->id.'/e_del/'.$sk)}}" class="btn btn-danger btn-xs" style="margin-left:103%;margin-top:-50px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
+                     <a href="{{url('discom-sldc-state/delsldc/'.$get_state_discom->id.'/e_del/'.$sk)}}" class="btn btn-danger btn-xs" style="margin-left:98%;margin-top:-47px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
                    </div>
               @php
                       }
@@ -109,7 +108,7 @@
                       <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS 1" id="textbox1" name="discom_add[]">
                     </div>
                 </div>
-                 <button type="button" class="btn btn-info btn-xs" id="addButton" style="margin-left:103%;margin-top:-50px;"><i class="glyphicon glyphicon-plus pointer" ></i></button>
+                 <button type="button" class="btn btn-info btn-xs" id="addButton" style="margin-left:98%;margin-top:-47px;"><i class="glyphicon glyphicon-plus pointer" ></i></button>
                </div>
                 @php
                   @$get_discom=json_decode($get_state_discom->discom);
@@ -126,13 +125,13 @@
                      <div class="col-sm-12 col-md-12 nm np" id=>
                        <div id="">
                         <div class="col-sm-6 col-md-6">
-                          <input class="form-control input-sm" type="text" placeholder="ENTER DISCOM 1" name="discom[]" value="{{$discom_data}}">
+                          <input class="form-control input-sm" type="text" placeholder="ENTER DISCOM" name="discom[]" value="{{$discom_data}}">
                         </div>
                         <div class="col-sm-6 col-md-6">
-                          <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS 1" id="textbox1" name="discom_add[]" value="{{@$get_discom_arr_add[$dd][$dk]}}">
+                          <input class="form-control input-sm" type="text" placeholder="ENTER ADDRESS" id="textbox1" name="discom_add[]" value="{{@$get_discom_arr_add[$dd][$dk]}}">
                         </div>
                     </div>
-                     <a href="{{url('discom-sldc-state/deldiscom/'.$get_state_discom->id.'/e_del/'.$dk)}}" class="btn btn-danger btn-xs" style="margin-left:103%;margin-top:-50px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
+                     <a href="{{url('discom-sldc-state/deldiscom/'.$get_state_discom->id.'/e_del/'.$dk)}}" class="btn btn-danger btn-xs" style="margin-left:98%;margin-top:-47px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
                    </div>
               @php
                       }
@@ -144,13 +143,13 @@
               </div>
             </div>
 
-              <div class="col-md-1">
+              <div class="col-md-2" style="width: 15.666667% !important;">
                  <div class="col-md-12 np nm" id='TextBoxesGroup3'>
                    <div id="TextBoxDiv3">
                       <label  class="control-label">VOLTAGE</label>
-                      <input class="form-control input-sm" type="text" placeholder="VOL1" id="textbox3" name="voltage[]">
+                      <input class="form-control input-sm" type="text" placeholder="VOLTAGE 1" id="textbox3" name="voltage[]">
                 </div>
-                 <button type="button" class="btn btn-info btn-xs" id="addButton3" style="margin-left:121%;margin-top:-50px;"><i class="glyphicon glyphicon-plus pointer" ></i></button>
+                 <button type="button" class="btn btn-info btn-xs" id="addButton3" style="margin-left:105%;margin-top:-48px;"><i class="glyphicon glyphicon-plus pointer" ></i></button>
                </div>
                 @php
                   @$get_voltage=json_decode(@$get_state_discom->voltage);
@@ -165,9 +164,9 @@
                 @endphp
                      <div class="col-sm-12 col-md-12 np nm" id=>
                        <div id="">
-                          <input class="form-control input-sm" type="text" placeholder="ENTER VOLTAGE 1" name="voltage[]" value="{{$voltage_data}}">
+                          <input class="form-control input-sm" type="text" placeholder="VOLTAGE" name="voltage[]" value="{{$voltage_data}}">
                     </div>
-                     <a href="{{url('discom-sldc-state/delvoltage/'.$get_state_discom->id.'/e_del/'.$vk)}}" class="btn btn-danger btn-xs" style="margin-left:121%;margin-top:-50px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
+                     <a href="{{url('discom-sldc-state/delvoltage/'.$get_state_discom->id.'/e_del/'.$vk)}}" class="btn btn-danger btn-xs" style="margin-left:105%;margin-top:-48px;"><i class="glyphicon glyphicon-minus pointer" ></i></a>
                    </div>
               @php
                       }
@@ -352,7 +351,7 @@
 
   var a=2;var b=2;var c=2;
   $(document).delegate("#addButton","click",function(){
-  $("#TextBoxesGroup11").append('<div class=" extra-discom-container"><div class="col-md-6"><input type="text" class="form-control input-sm" placeholder="ENTER DISCOM '+a+'" id="fx'+a+'" name="discom[]" value="" autocomplete="nope"></div><div class="col-md-6"><input type="text" class="form-control input-sm" placeholder="ENTER ADDRESS '+a+'" id="fx'+a+'" name="discom_add[]" value="" autocomplete="nope"></div><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="discom-subtract" style="margin-left:103%;margin-top:-50px;"></i></span></div>');
+  $("#TextBoxesGroup11").append('<div class=" extra-discom-container"><div class="col-md-6"><input type="text" class="form-control input-sm" placeholder="ENTER DISCOM '+a+'" id="fx'+a+'" name="discom[]" value="" autocomplete="nope"></div><div class="col-md-6"><input type="text" class="form-control input-sm" placeholder="ENTER ADDRESS '+a+'" id="fx'+a+'" name="discom_add[]" value="" autocomplete="nope"></div><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="discom-subtract" style="margin-left:98%;margin-top:-47px;"></i></span></div>');
   $('#fx'+a).focus();
   count_row();
   a+=1;
@@ -367,7 +366,7 @@ $(document).delegate("#discom-subtract","click",function(){
 });
 
   $(document).delegate("#addButton2","click",function(){
-  $("#TextBoxesGroup22").append('<div class=" extra-sldc-container"><div class="col-md-6"><input type="text" class="form-control input-sm" placeholder="ENTER SLDC '+b+'" id="fx1'+b+'" name="sldc[]" value="" autocomplete="nope"></div><div class="col-md-6"><input type="text" class="form-control input-sm" placeholder="ENTER ADDRESS '+b+'" id="fx1'+b+'" name="sldc_add[]" value="" autocomplete="nope"></div><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="sldc-subtract" style="margin-left:103%;margin-top:-50px;"></i></span></div>');
+  $("#TextBoxesGroup22").append('<div class=" extra-sldc-container"><div class="col-md-6"><input type="text" class="form-control input-sm" placeholder="ENTER SLDC '+b+'" id="fx1'+b+'" name="sldc[]" value="" autocomplete="nope"></div><div class="col-md-6"><input type="text" class="form-control input-sm" placeholder="ENTER ADDRESS '+b+'" id="fx1'+b+'" name="sldc_add[]" value="" autocomplete="nope"></div><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="sldc-subtract" style="margin-left:98%;margin-top:-47px;"></i></span></div>');
   $('#fx1'+b).focus();
   count_row();
   b+=1;
@@ -382,7 +381,7 @@ $(document).delegate("#sldc-subtract","click",function(){
 });
 
   $(document).delegate("#addButton3","click",function(){
-  $("#TextBoxesGroup33").append('<div class=" extra-voltage-container"><input type="text" class="form-control input-sm" placeholder="VOLTAGE '+c+'" id="fx2'+c+'" name="voltage[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="voltage-subtract" style="margin-left:121%;margin-top:-50px;"></i></span></div>');
+  $("#TextBoxesGroup33").append('<div class=" extra-voltage-container"><input type="text" class="form-control input-sm" placeholder="VOLTAGE '+c+'" id="fx2'+c+'" name="voltage[]" value="" autocomplete="nope"><span class=""><i class="glyphicon glyphicon-minus pointer btn btn-danger btn-xs" id="voltage-subtract" style="margin-left:105%;margin-top:-48px;"></i></span></div>');
   $('#fx2'+c).focus();
   count_row();
   c+=1;
