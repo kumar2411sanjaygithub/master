@@ -55,12 +55,6 @@
                <div class="well well-sm">
                 <div class="row " >
                    <div class="col-md-6">
-                      <!-- <div class="input-group input-group-sm">
-                         <input type="text" class="form-control" placeholder="SEARCH CLIENT...........">
-                         <span class="input-group-btn">
-                         <button type="button" class="btn btn-info btn-flat" id="se1" name="se1"><span class="glyphicon glyphicon-search"></span></button>
-                         </span>
-                      </div> -->
                       <div class="  {{ $errors->has('user_id') ? 'has-error' : '' }}">
                           <select class="" name="user_id" id="select-client" data-live-search="true">
                               <option value="">Search Client</option>
@@ -73,17 +67,18 @@
                           <span class="text-danger">{{ $errors->first('user_id') }}</span>
                        </div>
                    </div>
-               <div class="col-md-6" style="margin-top:2px;">
-                      <div class="row">
-                      <div class="col-md-3"><span><input type="checkbox" class="minimal" value="NOC" name="noc" id="noc"></span> <label class="control-label" for="noc">NOC</label></div>
+                   <div class="col-md-6" style="margin-top:2px;">
+                          <div class="row">
+                          <div class="col-md-3"><span><input type="checkbox" class="minimal" value="NOC" name="noc" id="noc"></span> <label class="control-label" for="noc">NOC</label></div>
 
-                      <div class="col-md-3"><span><input type="checkbox" class="minimal" value="PPA" name="ppa" id="ppa"></span> <label class="control-label" for="ppa">PPA</label></div>
+                          <div class="col-md-3"><span><input type="checkbox" class="minimal" value="PPA" name="ppa" id="ppa"></span> <label class="control-label" for="ppa">PPA</label></div>
 
-                      <div class="col-md-3"><span><input type="checkbox" class="minimal" value="Exchange" name="exchange" id="exchange"></span> <label class="control-label" for="exchange">EXCHANGE</label></div>
-                      <div class="col-md-3" ><span><input type="checkbox"  class="minimal" value="PSM" name="psm" id="psm"></span> <label class="control-label" for="psm">PSM</label></div>
-                   </div>
+                          <div class="col-md-3"><span><input type="checkbox" class="minimal" value="Exchange" name="exchange" id="exchange"></span> <label class="control-label" for="exchange">EXCHANGE</label></div>
+                          <div class="col-md-3" ><span><input type="checkbox"  class="minimal" value="PSM" name="psm" id="psm"></span> <label class="control-label" for="psm">PSM</label></div>
+                       </div>
+                    </div>
+                  </div>
                 </div>
-              </div></div>
 
                 <div class="row">
                    <div class="col-md-1 pull-right">

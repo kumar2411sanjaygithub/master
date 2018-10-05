@@ -175,7 +175,7 @@ public function addbidsetting(Request $request,$id=''){
     $ppa->bid_cut_off_time = $request->input('bid_cut_off_time');
     $ppa->trader_type = $request->input('trader_type');
     $ppa->save();
-    return redirect()->route('addbiddetailsfind',['id'=>$id])->with('addmsg', 'Data Add Successfully!');
+    return redirect()->route('addbiddetailsfind',['id'=>$id])->with('addmsg', 'Details Added Successfully!');
 }
 
     function generateApprovalrequest($data, $type, $client_id, $reference_id='',$datas){
