@@ -44,9 +44,9 @@
        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
            {{ session()->get('delmsg') }}
        </div>
-     @endif
-    <form method="post" enctype="multipart/form-data" action="{{ url('updatediscom/'.$discomData->id)}}">
-      {{ csrf_field()}}
+     @endif    
+    <form method="post" action="{{route('import-poc-losses')}}" enctype='multipart/form-data'>
+      {!! csrf_field() !!}
       <div class="row">
       <div class="col-xs-12">
         <div class="box">
@@ -58,7 +58,7 @@
                        <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                        </div>
-                       <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{ $discomData->date_from }}" id="datepicker" name="date_from">
+                       <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{ @date('d/m/Y',strtotime($discomData->date_from)) }}" id="datepicker" name="date_from">
                     </div>
                     <span class="text-danger">{{ $errors->first('date_from') }}</span>
                  </div>
@@ -68,7 +68,7 @@
                        <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                        </div>
-                       <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{ $discomData->date_to }}" id="datepicker1" name="date_to">
+                       <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{ @date('d/m/Y',strtotime($discomData->date_to)) }}" id="datepicker1" name="date_to">
                     </div>
                     <span class="text-danger">{{ $errors->first('date_to') }}</span>
 
