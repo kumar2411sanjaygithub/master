@@ -33,7 +33,7 @@ class Client extends Authenticatable
     }
     public function nocbilling()
     {
-        return $this->belongsTo('App\NocBilling','conn_state','state');
+        return $this->hasMany('App\NocBilling','state','conn_state');
     }
 
      public function place_bid()

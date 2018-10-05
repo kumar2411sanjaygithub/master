@@ -60,10 +60,8 @@ min-width:100px;
           $state_list = \App\Common\StateList::get_states();
               ?>
         @foreach($state_list as $state_code=>$state_ar)
-          @if(isset($inset_state)&&!in_array($state_code,@$inset_state)|| isset($edit_nocBilling->id))
             <option value="{{$state_code}}" {{ isset($edit_nocBilling) && $edit_nocBilling->state == $state_code || old('state')==  $state_code? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
 
-          @endif
         @endforeach
     </select>
     <span class="text-danger">{{ $errors->first('state') }}</span>

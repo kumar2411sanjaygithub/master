@@ -129,6 +129,7 @@ class DiscomSLDCController extends Controller
     public function update(Request $request, $id)
     {
         $blk_sldc=array();
+        $blk_add=array();
         $i1=0;$i2=0;$i3=0;
         foreach(request('sldc') as $k=>$sldc_name)
         {
@@ -138,12 +139,20 @@ class DiscomSLDCController extends Controller
                 echo $kk;
                 $new_array=array($kk=>$sldc_name);
                 array_push($blk_sldc,$new_array);
+        
+                $new_array_add=array($kk=>$request->sldc_add[$k]);
+                array_push($blk_add,$new_array_add);
+
+
                 $i1++;
             }
         }
         $json_sldc=json_encode($blk_sldc);
-        
+        $json_add=json_encode($blk_add);
+
         $blk_discom=array();
+        $blk_discom_add=array();
+
         foreach(request('discom') as $key=>$discom_name)
         {   
             if($discom_name!='')
@@ -151,11 +160,17 @@ class DiscomSLDCController extends Controller
                 $kkey=$i2+1;
                 $discom_array=array($kkey=>$discom_name);
                 array_push($blk_discom,$discom_array);
+
+               $discom_array_add=array($kkey=>$request->discom_add[$key]);
+                array_push($blk_discom_add,$discom_array_add);
+
+
                 $i2++;
             }    
             
         }
         $json_discom=json_encode($blk_discom);
+        $json_discom_add=json_encode($blk_discom_add);
 
         $blk_voltage=array();
         foreach(request('voltage') as $keys=>$voltage_name)
@@ -174,6 +189,8 @@ class DiscomSLDCController extends Controller
         $statediscom = StateDiscom::find($id);
         $statediscom->sldc = $json_sldc;
         $statediscom->discom = $json_discom;
+        $statediscom->sldc_address =$json_add;
+        $statediscom->discom_address =$json_discom_add;
         $statediscom->voltage = $json_voltage;                               
         $statediscom->save();   
 
@@ -200,9 +217,11 @@ class DiscomSLDCController extends Controller
     {
         $get_state_discom = StateDiscom::where('id',$id)->first();
         $json_sldc=json_decode($get_state_discom->sldc);
+        $json_sldc_add=json_decode($get_state_discom->sldc_address);
 
         $sldc_array=array();
-        foreach($json_sldc as $sldc)
+        $blk_add=array();        
+        foreach($json_sldc as $s=>$sldc)
         {
             foreach($sldc as $sk=>$sldc_value)
             {
@@ -214,10 +233,24 @@ class DiscomSLDCController extends Controller
             
         }
 
-        $json_sldc=json_encode($sldc_array);
+        foreach($json_sldc_add as $sd=>$sldc_add)
+        {
+            foreach($sldc_add as $sk=>$sldc_value_add)
+            {
+                if($sk!=$eid){
 
+                    $new_array_add=array($sk=>$sldc_value_add);
+                    array_push($blk_add,$new_array_add);
+                }
+            }
+            
+        }
+
+        $json_sldc=json_encode($sldc_array);
+        $json_add=json_encode($blk_add);
         $save_sldc = StateDiscom::findOrFail($id);
         $save_sldc->sldc =$json_sldc;
+        $save_sldc->sldc_address =$json_add;        
         $save_sldc->save();
 
         return redirect()->back()->with('success', 'SLDC Deleted Successfully.');
@@ -227,8 +260,10 @@ class DiscomSLDCController extends Controller
     {
         $get_state_discom = StateDiscom::where('id',$id)->first();
         $json_discom=json_decode($get_state_discom->discom);
+        $json_discom_add=json_decode($get_state_discom->discom_address);
 
         $discom_array=array();
+        $discom_array_val=array();
         foreach($json_discom as $discom)
         {
             foreach($discom as $sk=>$discom_value)
@@ -241,10 +276,24 @@ class DiscomSLDCController extends Controller
             
         }
 
+        foreach($json_discom_add as $discom_add)
+        {
+            foreach($discom_add as $sk=>$discom_value_add)
+            {
+                if($sk!=$eid){
+                    $new_array_dis=array($sk=>$discom_value_add);
+                    array_push($discom_array_val,$new_array_dis);
+                }
+            }
+            
+        }
+
         $json_discom=json_encode($discom_array);
+        $json_discom_json=json_encode($discom_array_val);
 
         $save_discom = StateDiscom::findOrFail($id);
         $save_discom->discom = $json_discom;
+        $save_discom->discom_address =$json_discom_json;        
         $save_discom->save();
 
         return redirect()->back()->with('success', 'DISCOM Deleted Successfully.');

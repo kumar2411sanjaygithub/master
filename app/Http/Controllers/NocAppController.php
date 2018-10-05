@@ -367,19 +367,19 @@ class NocAppController extends Controller
                 }
             }
 
-
-
             $noc_data=NocApp::with(['client'=>function($query){$query->with('nocbilling');}])->orderBy('id','desc')->where('client_id',$client_id)->paginate(10);
             $clientData = Client::where('client_app_status','1')->get();
-            return view('noc.noc_app',compact('client_id','sldc_array','str','noc_data','clientData'));
+
+            $noc_bill_discom=NocBilling::where('state',$client_detail->conn_state)->where('discom',$client_detail->discom)->first();
+
+            //dd($check_sldc);
+            return view('noc.noc_app',compact('client_detail','client_id','sldc_array','str','noc_data','clientData','noc_bill_discom'));
 
         }
         else
         {
            return redirect()->route('noc-applications.index')->with('error','Sorry, No client details find');
         }
-
-
 
     }
 
@@ -652,8 +652,28 @@ class NocAppController extends Controller
     public function generateNocPdf($id='')
     {
         $get_data=NocApp::with('client')->where('id',$id)->first();
-        $get_client=NocApp::find(1)->client()->where('id',$get_data->client_id)->get();
-        dd($get_data->client->conn_state);
+        //$get_client=NocApp::find(1)->client()->where('id',$get_data->client_id)->get();
+        $get_state_discom = StateDiscom::where('state',$get_data->client->conn_state)->orderBy('id','desc')->first();
+        $json_sldc=json_decode($get_state_discom->sldc);
+        $json_sldc_add=json_decode($get_state_discom->sldc_address);
+
+        $sldc_array=array();
+        foreach($json_sldc as $s=>$sldc)
+        {
+            foreach($sldc as $sk=>$sldc_value)
+            {
+                if($get_data->sldc==$sldc_value){
+                    $sldc_name=$sldc_value;
+                   //echo (@$json_sldc_add[$s]->$sk);
+                   // $address=implode(" ",$json_sldc_add[$s]);
+                    $sldc_address=str_replace(',',',<br />',$json_sldc_add[$s]->$sk);
+                }
+            }
+            
+        }
+        // print_r($sldc_address);
+        // die;
+        //dd($sldc_address);
         if($get_data->exchange_type=='both')
         {
             $exchange='IEX/PXIL';
@@ -672,7 +692,7 @@ class NocAppController extends Controller
         $generate_noc = storage_path().'/files/tptcl/noc/generate_noc_application';
         File::isDirectory($generate_noc) or File::makeDirectory($generate_noc, 0777, true, true);
         $conn_state = \App\Common\StateList::get_states()[$get_data['client']->conn_state]['name'];
-        $pdf=PDF::loadView('noc.generate_noc_app',['date'=>date('d.m.Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'exchange'=>strtoupper($exchange),'quantum'=>$get_data->quantum,'from_date'=>date('d.m.Y',strtotime($get_data->start_date)),'end_date'=>date('d.m.Y',strtotime($get_data->end_date)),'amount'=>$get_data->amount,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d.m.Y',strtotime($get_data->transcation_date)),'company_name'=>$get_data['client']->company_name,'short_id'=>$get_data['client']->short_id,'conn_state'=>$conn_state]);
+        $pdf=PDF::loadView('noc.generate_noc_app',['date'=>date('d.m.Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'exchange'=>strtoupper($exchange),'quantum'=>$get_data->quantum,'from_date'=>date('d.m.Y',strtotime($get_data->start_date)),'end_date'=>date('d.m.Y',strtotime($get_data->end_date)),'amount'=>$get_data->amount,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d.m.Y',strtotime($get_data->transcation_date)),'company_name'=>$get_data['client']->company_name,'short_id'=>$get_data['client']->short_id,'conn_state'=>$conn_state,'sldc_name'=>$sldc_name,'sldc_address'=>$sldc_address]);
          $pdf->save($generate_noc.'/'.$pdf_name);
         return redirect()->route('getclientData', ['id' => $get_data->client_id])->with('success','NOC application generated successfully');
         //return $pdf->download('noc-applicaiton.pdf');
@@ -729,9 +749,14 @@ class NocAppController extends Controller
     {
         $get_data=NocApp::where('id',$id)->first();
         $client=Client::where('id',$c_id)->first();
-        $noc_bill_details=NocBilling::where('state',$client->conn_state)->first();
+        $noc_bill_details=NocBilling::where('state',$client->conn_state)->where('sldc',$get_data->sldc)->orderBy('id','desc')->first();
         $get_client=Client::find(1)->nocbilling()->where('id',$c_id)->first();
         //NocBilling
+            $gst_applicable=$noc_bill_details->sldc_gst_applicable;
+            $cgst=$noc_bill_details->sldc_cgst_amt;
+            $sgst=$noc_bill_details->sldc_sgst_amt;
+            $utgst=$noc_bill_details->sldc_utgst_amt;
+            $igst=$noc_bill_details->sldc_igst_amt;
 
         if($get_data->exchange_type=='both')
         {
@@ -751,7 +776,7 @@ class NocAppController extends Controller
         File::isDirectory($generate_noc) or File::makeDirectory($generate_noc, 0777, true, true);
 
 
-        $pdf=PDF::loadView('noc.bill_view',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'client_name'=>strtoupper($client->company_name),'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$noc_bill_details->sldc_amt,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date)),'client_det'=>$client->toArray()]);
+        $pdf=PDF::loadView('noc.bill_view',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'client_name'=>strtoupper($client->company_name),'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$noc_bill_details->sldc_amt,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date)),'client_det'=>$client->toArray(),'cgst'=>@$cgst,'sgst'=>@$sgst,'utgst'=>@$utgst,'igst'=>@$igst,'gst_applicable'=>$gst_applicable]);
         $pdf->save($generate_noc.'/'.$pdf_name);
 
         return redirect()->route('getclientData', ['id' => $get_data->client_id])->with('success','SLDC debit note generate successfully.');
@@ -760,10 +785,15 @@ class NocAppController extends Controller
     {
         $get_data=NocApp::where('id',$id)->first();
         $client=Client::where('id',$c_id)->first();
-        $noc_bill_details=NocBilling::where('state',$client->conn_state)->first();
+        $noc_bill_details=NocBilling::where('state',$client->conn_state)->where('discom',$client->discom)->orderBy('id','desc')->first();
         $get_client=Client::find(1)->nocbilling()->where('id',$c_id)->first();
         //NocBilling
-        dd($get_client);
+            $gst_applicable=$noc_bill_details->discom_gst_applicabale;
+            $cgst=$noc_bill_details->discom_cgst_value;
+            $sgst=$noc_bill_details->discom_sgst_value;
+            $utgst=$noc_bill_details->discom_utgst_value;
+            $igst=$noc_bill_details->discom_igst_value;
+
         if($get_data->exchange_type=='both')
         {
             $exchange='IEX/PXIL';
@@ -772,7 +802,7 @@ class NocAppController extends Controller
         {
             $exchange=$get_data->exchange_type;
         }
-
+        //dd($noc_bill_details);
         $pdf_name=$client->id.'_DEB_DISCOM_'.time().'_'.date('d_m_Y').'.pdf';
         $update_pdf=NocApp::find($id);
         $update_pdf->generate_discom_debit=$pdf_name;
@@ -781,7 +811,7 @@ class NocAppController extends Controller
         $generate_noc = storage_path().'/files/tptcl/noc/bill';
         File::isDirectory($generate_noc) or File::makeDirectory($generate_noc, 0777, true, true);
 
-        $pdf=PDF::loadView('noc.discomBill',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'sldc'=>$get_data->sldc,'client_name'=>strtoupper($client->company_name),'client_add1'=>ucwords($client->bill_line1),'client_add2'=>ucwords($client->bill_line2),'client_city'=>ucwords($client->bill_city),'client_state'=>ucwords($client->bill_state),'client_country'=>ucwords($client->bill_country),'client_pin'=>ucwords($client->bill_pin),'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$noc_bill_details->discom_amt,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date))]);
+        $pdf=PDF::loadView('noc.discomBill',['date'=>date('d-m-Y'),'application_no'=>$get_data->application_no,'discom'=>$client->discom,'client_name'=>strtoupper($client->company_name),'client_add1'=>ucwords($client->bill_line1),'client_add2'=>ucwords($client->bill_line2),'client_city'=>ucwords($client->bill_city),'client_state'=>ucwords($client->bill_state),'client_country'=>ucwords($client->bill_country),'client_pin'=>ucwords($client->bill_pin),'client_iex_portfolio'=>$client->iex_portfolio,'from_date'=>date('d-m-Y',strtotime($get_data->start_date)),'end_date'=>date('d-m-Y',strtotime($get_data->end_date)),'amount'=>$noc_bill_details->discom_amt,'challan_no'=>$get_data->payment_challan_number,'transcation_date'=>date('d-m-Y',strtotime($get_data->transcation_date)),'cgst'=>@$cgst,'sgst'=>@$sgst,'utgst'=>@$utgst,'igst'=>@$igst,'gst_applicable'=>$gst_applicable]);
         $pdf->save($generate_noc.'/'.$pdf_name);
 
         return redirect()->route('getclientData', ['id' => $get_data->client_id])->with('success','DISCOM debit note generate successfully');
