@@ -9,5 +9,11 @@ class NocBilling extends Model
     protected $table = 'tbl_noc_billing_stting';
     public $fillable = ['*'];
     protected $dates = ['deleted_at'];
+
+     public function nocApll()
+    {
+        return $this->belongsTo('App\NocApp','sldc','sldc');
+    }
+
 }
 ?>

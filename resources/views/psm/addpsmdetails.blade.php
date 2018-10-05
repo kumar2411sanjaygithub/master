@@ -343,13 +343,15 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
      //Date picker
      $('#datepicker').datepicker({
        autoclose: true,
-       format: 'dd-mm-yyyy',
+       format: 'dd/mm/yyyy',
      })
      $('#issue_date').datepicker({
        autoclose: true,
-       format: 'dd-mm-yyyy',
+       format: 'dd/mm/yyyy',
      }).on('changeDate', function (selected) {
         var startDate = new Date(selected.date.valueOf());
+        // For Next Date selected not same date selected
+        startDate.setDate(startDate.getDate(new Date(selected.date.valueOf()))+1);
         $('#datepicker2').datepicker('setStartDate', startDate);
       }).on('clearDate', function (selected) {
           $('#datepicker2').datepicker('setStartDate', null);
@@ -358,20 +360,22 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
 
      $(".datepicker").datepicker({
        autoclose: true,
-       format: 'dd-mm-yyyy',
+       format: 'dd/mm/yyyy',
      })
      $('#datepicker2').datepicker({
        autoclose: true,
-       format: 'dd-mm-yyyy',
+       format: 'dd/mm/yyyy',
      }).on('changeDate', function (selected) {
           var endDate = new Date(selected.date.valueOf());
+        // For Next Date selected not same date selected          
+         endDate.setDate(endDate.getDate(new Date(selected.date.valueOf()))-1);          
           $('#issue_date').datepicker('setEndDate', endDate);
       }).on('clearDate', function (selected) {
           $('#issue_date').datepicker('setEndDate', null);
       });
      $('#revocable_date').datepicker({
        autoclose: true,
-       format: 'dd-mm-yyyy',
+       format: 'dd/mm/yyyy',
      })
 
    })

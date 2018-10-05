@@ -79,7 +79,7 @@ span.hifan{margin-right:10px!important;}
                         <div class="col-md-6"></div>
                         <div class="col-md-4">
                               <div class="pull-right">
-                              @if (count($Addexchangedata) > 0)
+                              @if (isset($Addexchangedata) && count($Addexchangedata) > 0)
                               <form class="pull-left" action="{{ url()->to('ppa-details/Approved') }}" method="post" id="approve_data">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="selected_status" class="selected_status">
@@ -89,7 +89,7 @@ span.hifan{margin-right:10px!important;}
                               </form>
                               @endif
                               &nbsp;
-                              @if (count($Addexchangedata) > 0)
+                              @if (isset($Addexchangedata) && count($Addexchangedata) > 0)
                               <form class="pull-right" action="{{ url()->to('ppa-details/Rejected') }}" method="post" id="approve_data">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="selected_status" class="selected_status">
@@ -110,10 +110,10 @@ span.hifan{margin-right:10px!important;}
                                     </div>
                                     <div class="modal-footer">
                                        <div class="text-center">
-                                      <button type="button" href="#"   class="btn btn-info">
+                                      <button type="button" href="#" class="btn btn-xs btn-info">
                                         <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
                                       </button>
-                                      <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                      <button type="button" class="btn btn-xs btn-danger" data-dismiss="modal">No</button>
                                     </div>
                                     </div>
                                   </div>
@@ -201,7 +201,7 @@ span.hifan{margin-right:10px!important;}
                         <div class="col-md-6"></div>
                         <div class="col-md-4">
                             <div class="pull-right">
-                                @if (count($ppaData) > 0)
+                                @if (isset($ppaData) && count($ppaData) > 0)
                                     <form class="pull-left" action="{{ url()->to('ppadetails/allModified/Approved') }}" method="post" id="approve_data">
                                       {{ csrf_field() }}
                                       <input type="hidden" name="selected_status" class="selected_statusM">
@@ -211,7 +211,7 @@ span.hifan{margin-right:10px!important;}
                                     </form>
                                     @endif
                                     &nbsp;&nbsp;
-                                    @if (count($ppaData) > 0)
+                                    @if (isset($ppaData) && count($ppaData) > 0)
                                     <form class="pull-right" action="{{ url()->to('ppadetails/allModified/Rejected') }}" method="post" id="approve_data">
                                       {{ csrf_field() }}
                                       <input type="hidden" name="selected_status" class="selected_statusM">
@@ -329,7 +329,7 @@ span.hifan{margin-right:10px!important;}
                                     <div class="col-md-6"></div>
                                     <div class="col-md-4">
                                       <div class="pull-right">
-                                          @if (count($delexcgData) > 0)
+                                          @if (isset($delexcgData) && count($delexcgData) > 0)
                                               <form class="pull-left" action="{{ url()->to('ppa/deletedd/request/Approved') }}" method="post" id="approve_data">
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="selected_status" class="selected_statusD">
@@ -339,7 +339,7 @@ span.hifan{margin-right:10px!important;}
                                               </form>
                                               @endif
                                               &nbsp;&nbsp;
-                                              @if (count($delexcgData) > 0)
+                                              @if (isset($delexcgData) && count($delexcgData) > 0)
                                               <form class="pull-right" action="{{ url()->to('ppa/deletedd/request/Rejected') }}" method="post" id="approve_data">
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="selected_status" class="selected_statusD">

@@ -60,10 +60,8 @@ min-width:100px;
           $state_list = \App\Common\StateList::get_states();
               ?>
         @foreach($state_list as $state_code=>$state_ar)
-          @if(isset($inset_state)&&!in_array($state_code,@$inset_state)|| isset($edit_nocBilling->id))
             <option value="{{$state_code}}" {{ isset($edit_nocBilling) && $edit_nocBilling->state == $state_code || old('state')==  $state_code? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
 
-          @endif
         @endforeach
     </select>
     <span class="text-danger">{{ $errors->first('state') }}</span>
@@ -288,7 +286,7 @@ min-width:100px;
 </div>
 </section>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 <script>
   $(document).ready(function(){
     $('#noc_application_for').on('click', function() {

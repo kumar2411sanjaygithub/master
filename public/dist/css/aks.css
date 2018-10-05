@@ -90,3 +90,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
 table>thead>tr>th{text-decoration: underline;}
 .mt15{margin-top:15px;}
 h5>label{text-decoration: underline;}
+.mlpl0{margin-left:0px;padding-left:0px;}
+.glyphicon-download{font-size:18px;}
+.glyphicon-ok,.glyphicon-remove{font-size:15px;}
+input[type="file"]{padding:2.499px 4px!important;}

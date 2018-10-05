@@ -159,13 +159,13 @@
             <hr>
             <div class="row">
                <div class="col-md-3 {{ $errors->has('bill_line1') ? 'has-error' : '' }}">
-              
+
                   <label  class="control-label">LINE-1</label>
                   <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS LINE-1" id="bill_line1" name="bill_line1" value="{{(isset($clientdata->bill_line1)) ? $clientdata->bill_line1 : old('bill_line1') }}">
                   <span class="text-danger">{{ $errors->first('bill_line1') }}</span>
                </div>
                <div class="col-md-3 {{ $errors->has('bill_line2') ? 'has-error' : '' }}">
-               
+
                   <label  class="control-label">LINE-2</label>
                   <input class="form-control input-sm disabled-class" type="text"  disabled  placeholder="ENTER ADDRESS LINE-2" id="bill_line2" name="bill_line2" value="{{(isset($clientdata->bill_line2)) ? $clientdata->bill_line2 : old('bill_line2') }}">
                   <span class="text-danger">{{ $errors->first('bill_line2') }}</span>
@@ -493,7 +493,7 @@
                </div>
                <div class="col-md-5"></div>
                  <div class="col-md-1 mt23"><button type="submit" class="btn btn-block btn-info btn-xs saveButton" id="saveclient" style="display:none;">UPDATE</button></div>
-             
+
 
             </div>
             <hr>
@@ -647,12 +647,12 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function() {
-   if ($('#rt1').is(":checked")) 
+   if ($('#rt1').is(":checked"))
    {
 
       $("#hidecontentDiv").hide();
    }
-   if ($('#rt').is(":checked")) 
+   if ($('#rt').is(":checked"))
    {
       $("#hidecontentDiv").show();
    }

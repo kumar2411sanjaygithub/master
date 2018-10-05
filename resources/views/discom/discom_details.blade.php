@@ -125,7 +125,15 @@
     </div>
     </form>
     <div class="row">
-     <div class="col-md-12">
+      <div class="col-md-2">
+         <div class="input-group input-group-sm">
+            <input type="text" class="form-control" id="search" placeholder="SEARCH">
+            <span class="input-group-btn">
+            <button type="button" class="btn btn-info btn-flat"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+         </div>
+      </div>
+     <div class="col-md-10">
         <a href="#" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#myModal">&nbsp IMPORT(CSV/XLSX)</a>
         <a class="btn btn-info btn-xs discom-btn pull-right mr5" name=" "><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</a>
       </div>
@@ -268,5 +276,20 @@ $(document).ready(function(){
   });
 
 });
+</script>
+<script>
+  $("#search").keyup(function () {
+      var value = this.value.toLowerCase().trim();
+
+      $("table tr").each(function (index) {
+          if (!index) return;
+          $(this).find("td").each(function () {
+              var id = $(this).text().toLowerCase().trim();
+              var not_found = (id.indexOf(value) == -1);
+              $(this).closest('tr').toggle(!not_found);
+              return not_found;
+          });
+      });
+  });
 </script>
 @endsection
