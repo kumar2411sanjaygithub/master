@@ -768,7 +768,7 @@ class PlacebidController extends Controller
         // die();
       if($bid_action=='sell'){
       $placebid = Placebid::selectRaw("max(`bid_price`) as bid_price")->where('bid_action','buy')->whereRaw("(((time_slot_from >= CAST('".$time_slot_from.":00' AS time)) and (time_slot_from >= CAST('".$time_slot_from.":00' AS time)) and (time_slot_from <= CAST('".$time_slot_to.":00' AS time) )) or (time_slot_from <= CAST('".$time_slot_from.":00' AS time)) and (time_slot_from <= CAST('".$time_slot_from.":00' AS time)) and (time_slot_to >= CAST('".$time_slot_from.":00' AS time) ))")->where('bid_date',$biddate)->orderBy('bid_price','Asc')->where('client_id',$client_id)->whereNull('deleted_at')->get()->first();
-      dd($placebid);
+      // dd($placebid);
       if($placebid->bid_price!=null){
       if($price<$placebid->bid_price){
         return 0;
