@@ -60,7 +60,7 @@
                        <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                        </div>
-                       <input type="text" placeholder="APPLICATON FROM DATE" class="form-control pull-right input-sm" autocomplete="off" id="datepicker" name="date_from" value="{{ old('date_from')}}">
+                       <input type="text" placeholder="APPLICATON FROM DATE" class="form-control pull-right input-sm" autocomplete="off" id="datepicker" name="date_from" value="{{  @date('Y-m-d',strtotime(old('date_from')))}}">
                      </div>
                       <span class="text-danger">{{ $errors->first('date_from') }}</span>
                  </div>
@@ -70,7 +70,7 @@
                        <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                        </div>
-                       <input type="text" placeholder="APPLICATON TO DATE" class="form-control pull-right input-sm" autocomplete="off" id="datepicker1" name="date_to" value="{{ old('date_to')}}">
+                       <input type="text" placeholder="APPLICATON TO DATE" class="form-control pull-right input-sm" autocomplete="off" id="datepicker1" name="date_to" value="{{  @date('Y-m-d',strtotime(old('date_to')))}}">
                      </div>
                      <span class="text-danger">{{ $errors->first('date_to') }}</span>
 
@@ -126,7 +126,8 @@
          </div>
       </div>
      <div class="col-md-10">
-        <a href="#" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#myModal">&nbsp IMPORT(CSV/XLSX)</a>
+        <a href="#" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#myModal">&nbsp IMPORT(CSV)</a>
+        <a href="/sample/poc_losses.xlsx" class="btn btn-info btn-xs pull-right ml5 mr5">&nbsp DOWNLOAD CSV</a>
         <a class="btn btn-info btn-xs poc-btn pull-right mr5" name=" "><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</a>
       </div>
     </div>
@@ -149,8 +150,8 @@
             @foreach ($lossesData as $key => $value)
             <tr>
               <td class="text-center">{{$key+1}}</td>
-              <td class="text-center">{{ $value->date_from }}</td>
-              <td class="text-center">{{ $value->date_to }}</td>
+              <td class="text-center">{{ @date('d/m/Y',strtotime($value->date_from)) }}</td>
+              <td class="text-center">{{ @date('d/m/Y',strtotime($value->date_to)) }}</td>
               <td class="text-center">{{ $value->region }}</td>
               <td class="text-center">{{ $value->regional_entity }}</td>
               <td class="text-center">{{ $value->injection_poc_loss }}</td>
@@ -171,7 +172,8 @@
   <div class="modal" id="myModal">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
-
+        <form method="post" enctype="multipart/form-data" action="{{ route('import-poc-losses') }}">
+          {{ csrf_field() }}
         <!-- Modal Header -->
         <div class="modal-header text-center">
           <h4 class="modal-title">Import CSV/XLSX</h4>
@@ -180,18 +182,17 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-          <input type="file" name="file">
-          <input type="text" class="form-control pull-right input-sm" autocomplete="off" id="datepicker" name="date_from">
-
-          <input type="text" class="form-control pull-right input-sm" autocomplete="off" id="datepicker1" name="date_to">
+          <input type="file" name="poc_losses_file" accept=".csv" >
 
         </div>
 
         <!-- Modal footer -->
         <div class="modal-footer text-center">
+
+          <button type="submit" class="btn btn-danger text-center">Submit</button>
           <button type="button" class="btn btn-danger text-center" data-dismiss="modal">Close</button>
         </div>
-
+      </form>
       </div>
     </div>
   </div>

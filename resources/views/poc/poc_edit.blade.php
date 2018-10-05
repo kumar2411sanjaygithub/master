@@ -58,7 +58,7 @@
                        <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                        </div>
-                       <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{ $pocData->date_from }}" id="datepicker" name="date_from">
+                       <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{ @date('d/m/Y',strtotime($pocData->date_from)) }}" id="datepicker" name="date_from">
                     </div>
                     <span class="text-danger">{{ $errors->first('date_from') }}</span>
 
@@ -69,7 +69,7 @@
                        <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                        </div>
-                       <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{ $pocData->date_to }}" id="datepicker1" name="date_to">
+                       <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{ @date('d/m/Y',strtotime($pocData->date_to)) }}" id="datepicker1" name="date_to">
                     </div>
                     <span class="text-danger">{{ $errors->first('date_to') }}</span>
                  </div>
