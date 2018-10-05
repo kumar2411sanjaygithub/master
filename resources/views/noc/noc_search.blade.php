@@ -57,6 +57,7 @@
             <thead>
               <tr>
                 <th>SR.NO</th>
+                <th>CLIENT NAME</th>                
                 <th>APPLICATON NO.</th>
                 <th>SLDC</th>
                 <th>NOC TYPE</th>
@@ -74,7 +75,7 @@
                  @foreach ($approved_noc as $k=>$noc_approved)
                   <tr>
                     <td>{{$i}}</td>
-
+                    <td>{{@$noc_approved->client->company_name}}</td>
                     <td><a href="{{url('/getclientData/'.$noc_approved->client_id)}}">{{$noc_approved->application_no}}</a></td>
                     <td>{{strtoupper($noc_approved->sldc)}}</td>
                     <td>{{strtoupper($noc_approved->noc_type)}}</td>

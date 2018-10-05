@@ -72,11 +72,10 @@ input:checked + .slider:before {
 </section>
 
    @if (\Session::has('success'))
-      <div class="alert alert-success" id="successMessage">
-         <ul>
-             <li>{!! \Session::get('success') !!}</li>
-         </ul>
-      </div>
+    <div class="alert alert-success alert-dismissible fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+     <span class="glyphicon glyphicon-ok"></span> {!! \Session::get('success') !!}
+    </div>
    @endif
 
 <!-- Main content -->
@@ -106,7 +105,7 @@ input:checked + .slider:before {
             <td>{{@$client_data->company_name}}</td>
             <td>{{$client_data->iex_portfolio}}</td>
             <td>{{$client_data->pxil_portfolio}}</td>
-            <td>BLOCK<label class="switch"><input type="checkbox" {{ $client_data->barred_status===1 ? 'checked data-toggle=modal data-target=#clientDeactivate'.$client_data->id :  'data-toggle=modal data-target=#clientActivate'.$client_data->id }}><span class="slider round"></span></label>ACTIVE</td>
+            <td>BLOCK &nbsp;&nbsp; <label class="switch" style="position: relative;top: -6px;"><input type="checkbox" {{ $client_data->barred_status===1 ? 'checked data-toggle=modal data-target=#clientDeactivate'.$client_data->id :  'data-toggle=modal data-target=#clientActivate'.$client_data->id }}><span class="slider round"></span></label> &nbsp;&nbsp; ACTIVE</td>
 
           </tr>
           <div id="{{ $client_data->barred_status===1 ? 'clientDeactivate'.$client_data->id : 'clientActivate'.$client_data->id }}" class="modal fade" role="dialog">
@@ -123,8 +122,8 @@ input:checked + .slider:before {
                  <p style="font-style:italic; text-align:center; font-size:18px;">If you click Yes, Client will be {{ $client_data->barred_status===1 ? 'Block' : 'Active' }}.</p>
                </div>
                <div class="modal-footer">
-                 <button type="submit" class="btn btn-info pull-left yes-btn"  style="margin-left: 38%;">YES</button>
-                 <button type="button" class="btn btn-danger pull-right yes-btn" data-dismiss="modal" style="margin-right: 42%;">NO</button>
+                 <button type="submit" class="btn btn-info pull-left yes-btn btn-xs"  style="margin-left: 41%;">YES</button>
+                 <button type="button" class="btn btn-danger pull-right yes-btn btn-xs" data-dismiss="modal" style="margin-right: 45%;">NO</button>
                </div>
                </form>
              </div>
