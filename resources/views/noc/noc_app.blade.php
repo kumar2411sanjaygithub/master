@@ -127,7 +127,6 @@ min-width:100px;
                        @foreach ($clientData as $key => $value)
                        <option value="{{ $value->id }}" data-tokens="{{ $value->id }}.{{ $value->id }}.{{ $value->id }};?>" @if($client_id==$value->id) selected  @endif> {{$value->company_name}} [{{$value->short_id}}] [{{$value->crn_no}}] [{{$value->iex_portfolio}}] [{{$value->pxil_portfolio}}]</option>
                       @endforeach
-
                     </select>
                   </div>
                </div>
@@ -194,7 +193,7 @@ min-width:100px;
                      </div>
                     <span class="text-danger">{{ $errors->first('start_date') }}</span>
                   </div>
-                  <div class="col-md-1 {{ $errors->has('start_time') ? 'has-error' : '' }}">
+                  <div class="col-md-1 {{ $errors->has('start_time') ? 'has-error' : '' }} mlpl0">
                      <label  class="control-label">TIME</label>
                      <div class="input-group">
                         <input type="text" class="form-control timepicker" name="start_time">
@@ -211,7 +210,7 @@ min-width:100px;
                      </div>
                       <span class="text-danger">{{ $errors->first('end_date') }}</span>
                   </div>
-                  <div class="col-md-1 {{ $errors->has('end_time') ? 'has-error' : '' }}">
+                  <div class="col-md-1 {{ $errors->has('end_time') ? 'has-error' : '' }} mlpl0">
                      <label  class="control-label">TIME</label>
                      <div class="input-group">
                         <input type="text" class="form-control timepicker" name="end_time">
@@ -224,8 +223,8 @@ min-width:100px;
                   </div>
                    <div class="col-md-1"></div>
                   <div class="col-md-1 mt23"><button type="submit" class="btn btn-block btn-success btn-xs">INITIATE</button></div>
-                <div class="col-md-1 mt23"><a href="{{route('getclientData',['id'=>$client_id])}}"><button class="btn btn-danger btn-xs" value="Cancel" type="button">CANCEL</button></a>
-                </div>    
+                <div class="col-md-1 mt23"><a href="{{route('getclientData',['id'=>$client_id])}}"><button class="btn btn-block btn-danger btn-xs" value="Cancel" type="button">CANCEL</button></a>
+                </div>
 
                </div>
 <!--                <div class="row">&nbsp;</div>
@@ -334,9 +333,9 @@ min-width:100px;
                            @else
                             @if($noc_list->status==3 && $noc_list->generate_noc_application=='')
                              <a href="/noc/edit/{{$noc_list->id}}"><span class="label edited fnt" >EDIT</span></a>
-                            @else 
+                            @else
                              <a href="" data-toggle="modal" data-target="#alertMessage{{ $noc_list->id }}"><span class="label edited fnt" >EDIT</span></a>
-                            @endif 
+                            @endif
 
                            @endif
 
@@ -361,9 +360,10 @@ min-width:100px;
                             <a href="#" data-toggle="modal" data-target="#deletesldcDebit{{ $noc_list->id }}" @if($noc_list->status==3 && $noc_list->generate_sldc_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_sldc_debit!=''))  class="disabled hidediv" @else class="disabled hidediv" @endif @endif><span class="label danger fnt">DELETE</span></a>
 
                           @endif
-                        
+
                         </td>
                         <td class="vl">
+
 
                           @if(isset($noc_bill_discom))
                             <a href="/generatediscomPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if($noc_list->status==1 ||$noc_list->status==2||(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit=='')) class="disabled" @else @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit=='') @else class="disabled hidediv" @endif @endif><span class="label edited fnt">GENERATE</span></a>
@@ -372,7 +372,7 @@ min-width:100px;
                             <a href="#" data-toggle="modal" data-target="#deletediscomDebit{{ $noc_list->id }}" @if($noc_list->status==3 && $noc_list->generate_discom_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit!=''))  class="disabled hidediv" @else class="disabled hidediv" @endif @endif><span class="label danger fnt">DELETE</span></a>
 
                           @endif
-                      
+
                         </td>
                         <td class="vl">
                          <a href="/noc/email-debit/{{$noc_list->id}}/client/{{$client_id}}" @if($noc_list->status==1) class="disabled" @else @if($noc_list->status==3 ||$noc_list->status==4 ||$noc_list->status==5)  @else class="disabled" @endif @endif><span class="label success fnt">SEND EMAIL</span></a>

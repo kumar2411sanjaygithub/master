@@ -125,21 +125,39 @@
 </script>
 <script>
    $(function () {
-
-     //Date picker
-     $('#datepicker').datepicker({
-       autoclose: true
-     })
-     $('#datepicker1').datepicker({
-       autoclose: true
-     })
-     $('#datepicker2').datepicker({
-       autoclose: true
-     })
-     $('#datepicker3').datepicker({
-       autoclose: true
-     })
-
-   })
+   //
+   //   $('#datepicker').datepicker({
+   //     autoclose: true
+   //   })
+   //   $('#datepicker1').datepicker({
+   //     autoclose: true
+   //   })
+   //   $('#datepicker2').datepicker({
+   //     autoclose: true
+   //   })
+   //   $('#datepicker3').datepicker({
+   //     autoclose: true
+   //   })
+   //
+   // })
+   $('#datepicker').datepicker({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+      }).on('changeDate', function (selected) {
+         var startDate = new Date(selected.date.valueOf());
+         $('#datepicker1').datepicker('setStartDate', startDate);
+       }).on('clearDate', function (selected) {
+           $('#datepicker1').datepicker('setStartDate', null);
+       });
+      $('#datepicker1').datepicker({
+        autoclose: true,
+         format: 'dd/mm/yyyy'
+      }).on('changeDate', function (selected) {
+           var endDate = new Date(selected.date.valueOf());
+           $('#datepicker').datepicker('setEndDate', endDate);
+       }).on('clearDate', function (selected) {
+           $('#datepicker').datepicker('setEndDate', null);
+       });
+ })
 </script>
 @endsection
