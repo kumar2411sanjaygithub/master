@@ -193,16 +193,24 @@
         <!-- Modal body -->
         <div class="modal-body">
           <input type="file" name="file">
+          <!-- <input type="text" class="form-control pull-right input-sm" autocomplete="off" id="datepicker" name="date_from">
+
+          <input type="text" class="form-control pull-right input-sm" autocomplete="off" id="datepicker1" name="date_to"> -->
+
         </div>
 
         <!-- Modal footer -->
-        <div class="modal-footer text-center">
-          <button type="button" class="btn btn-danger text-center" data-dismiss="modal">Close</button>
+        <div class="modal-footer">
+          <div class="col-md-12 text-center">
+          <input type="submit" class="btn btn-xs btn-info">SAVE</button>
+          <button type="button" class="btn btn-xs btn-danger" data-dismiss="modal">Close</button>
+        </div>
         </div>
 
       </div>
     </div>
   </div>
+
 <script type="text/javascript">
  setTimeout(function() {
    $('.alert-success').fadeOut('fast');
