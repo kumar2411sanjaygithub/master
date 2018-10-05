@@ -17,51 +17,46 @@ class ContactApprovalController extends Controller
     public function contactapproval(Request $request)
     {
         $user_id = $request['id'];
-        //dd($request['id']);
         $client_id  =  $user_id;
         $contactData = Approvalrequest::select('id','updated_attribute_value','attribute_name','approval_type','old_att_value','client_id','created_at','updated_by')->where(function($q) { $q->where('approval_type','contact'); })->where('client_id',$request['id'])->where('status', 0)->orderBy('created_at','desc')->get();
         $AddcontactData = ContactTemp::select('*')->where('client_id',$request['id'])->where('status', 0)->orderBy('created_at','desc')->get();
-        //dd($AddcontactData);
-
-        // $delcontact = Contact::select('*')->where('client_id',$request['id'])->where('del_status',1)->orderBy('created_at','desc')->withTrashed()->get();
         $delcontact = Contact::select('*')->where(function($q) { $q->where('del_status',1); })->where('client_id',$request['id'])->orderBy('created_at','desc')->withTrashed()->get();
-        //dd($delcontact);
         $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$request['id'])->get();
-
 
         return view('ApprovalRequest.client.contact_existing',compact('contactData','AddcontactData','delcontact','client_details'));
     }
-     public function addapprove($id,$type,$type2)
-       {
-         
-           if($id!='' && $type=='approved'){
-             
-                $bnc = ContactTemp::find($id);
-                $new_bnc = new Contact();
-                $new_bnc->client_id = $bnc->client_id;
-                $new_bnc->name = $bnc->name;
-                $new_bnc->designation = $bnc->designation;
-                $new_bnc->email = $bnc->email;
-                $new_bnc->mob_num = $bnc->mob_num;
-                $new_bnc->status= 1;
-                $new_bnc->save();
-                $bnc->status = 1; 
-                $bnc->update();
-            
-              
-               return Redirect::back()->with('success', 'User details successfully approved.');
-               }else{
-               $mm = new ContactTemp;
-               $mm::where('id', $id)->update(['status'=> '2']);
-                return Redirect::back()->with('success', 'User details successfully rejected.');
-            }
+    public function addapprove($id,$type,$type2)
+    {         
+      if($id!='' && $type=='approved')
+      {
+        $bnc = ContactTemp::find($id);
+        $new_bnc = new Contact();
+        $new_bnc->client_id = $bnc->client_id;
+        $new_bnc->name = $bnc->name;
+        $new_bnc->designation = $bnc->designation;
+        $new_bnc->email = $bnc->email;
+        $new_bnc->mob_num = $bnc->mob_num;
+        $new_bnc->status= 1;
+        $new_bnc->save();
+        $bnc->status = 1; 
+        $bnc->update();
+
+         return Redirect::back()->with('success', 'User details successfully approved.');
+         }else
+         {
+         $mm = new ContactTemp;
+         $mm::where('id', $id)->update(['status'=> '2']);
+          return Redirect::back()->with('success', 'User details successfully rejected.');
+          }
     }
-     public function clientContactApp(Request $request,$tag='')
+    public function clientContactApp(Request $request,$tag='')
     {
         $approvalstatus_id=$request['selected_status'];
         $array=explode(',',$approvalstatus_id);
-        if($tag=='Approved'){
-          foreach($array as $id){
+        if($tag=='Approved')
+        {
+          foreach($array as $id)
+            {
                 $bnc = ContactTemp::find($id);
                 $new_bnc = new Contact();
                 $new_bnc->client_id = $bnc->client_id;
@@ -75,25 +70,24 @@ class ContactApprovalController extends Controller
                 $bnc->update();
             }         
             return Redirect::back()->with('success', 'User details successfully approved.');
-          }
-          elseif ($tag=='Rejected') {
-            foreach($array as $id){
+        }
+          elseif ($tag=='Rejected') 
+          {
+            foreach($array as $id)
+            {
                $mm = new ContactTemp;
                $mm::where('id', $id)->update(['status'=> '2']);
             }
             return Redirect::back()->with('success', 'User details successfully rejected.');
-        }
-        
+          }  
     }
 
 
-     public function modified($id,$type)
+    public function modified($id,$type)
     {
-         if($id!='' && $type=='approved'){
-            // $model = array('excahnge'=> 'Exchange',
-            //           'client'=>'Client');
+         if($id!='' && $type=='approved')
+         {
             $updatestemp = Approvalrequest::find($id); 
-            //$selectedmodel= '\\App\\'.$model[$updatestemp->approval_type];
             $selectedmodel = new Contact;
             $exchange = $selectedmodel::find($updatestemp->reference_id); 
             $attribute_name = $updatestemp->attribute_name;
@@ -103,19 +97,21 @@ class ContactApprovalController extends Controller
             $updatestemp->update();          
             return Redirect::back()->with('success', 'User details successfully approved.');
 
-         }elseif ($id!='' && $type=='rejected') {
-
+         }elseif ($id!='' && $type=='rejected') 
+         {
             Approvalrequest::where('id', $id)->update(['status'=> '2']);
             return Redirect::back()->with('success', 'User details successfully rejected.');
-        }
+         }
     }
 
-     public function clientContactModApp(Request $request,$tag='')
+    public function clientContactModApp(Request $request,$tag='')
     {
         $approvalstatus_id=$request['selected_status'];
         $array=explode(',',$approvalstatus_id);
-        if($tag=='Approved'){
-          foreach($array as $id){
+        if($tag=='Approved')
+        {
+          foreach($array as $id)
+          {
               $updatestemp = Approvalrequest::find($id); 
               //$selectedmodel= '\\App\\'.$model[$updatestemp->approval_type];
               $selectedmodel = new Contact;
@@ -127,59 +123,61 @@ class ContactApprovalController extends Controller
               $updatestemp->update();   
             }         
             return Redirect::back()->with('success', 'User details successfully approved.');
-          }
-          elseif ($tag=='Rejected') {
-            foreach($array as $id){
+        }
+          elseif ($tag=='Rejected') 
+          {
+            foreach($array as $id)
+            {
               Approvalrequest::where('id', $id)->update(['status'=> '2']);
             }
             return Redirect::back()->with('success', 'User details successfully rejected.');
-        }
-        
+          } 
     }
 
-     public function delete_contact($id,$type,$type2){
-
-        if($id!='' && $type=='approved'){
-         
-                   $new_bnc = new Contact;
-                   $new =  $new_bnc::withTrashed()->find($id);
-                   Contact::destroy($id);
-                   $new->del_status = 2;
-                   $new->update();
-
-            return Redirect::back()->with('success', 'User details successfully approved.');
-           }else{
-            
-                  $new_bnc = new Contact;;
-                  $new =  $new_bnc::withTrashed()->find($id);
-                  $new->del_status = 4 ;
-                  $new->update();
-                  return Redirect::back()->with('success', 'User details successfully rejected.');
+    public function delete_contact($id,$type,$type2)
+    {
+      if($id!='' && $type=='approved')
+      {
+         $new_bnc = new Contact;
+         $new =  $new_bnc::withTrashed()->find($id);
+         Contact::destroy($id);
+         $new->del_status = 2;
+         $new->update();
+         return Redirect::back()->with('success', 'User details successfully approved.');
+      }else
+      { 
+        $new_bnc = new Contact;;
+        $new =  $new_bnc::withTrashed()->find($id);
+        $new->del_status = 4 ;
+        $new->update();
+        return Redirect::back()->with('success', 'User details successfully rejected.');
         }
-     }
-     public function clientContactDelApp(Request $request,$tag='')
+    }
+    public function clientContactDelApp(Request $request,$tag='')
     {
         $approvalstatus_id=$request['selected_status'];
         $array=explode(',',$approvalstatus_id);
-        if($tag=='Approved'){
-          foreach($array as $id){
-                  $new_bnc = new Contact;
-                  $new =  $new_bnc::withTrashed()->find($id);
-                  $new->del_status = 2;
-                  $new->update();
-            }         
+        if($tag=='Approved')
+        {
+          foreach($array as $id)
+          {
+            $new_bnc = new Contact;
+            $new =  $new_bnc::withTrashed()->find($id);
+            $new->del_status = 2;
+            $new->update();
+          }         
             return Redirect::back()->with('success', 'User details successfully approved.');
-          }
-          elseif ($tag=='Rejected') {
-            foreach($array as $id){
+        }
+          elseif ($tag=='Rejected') 
+          {
+            foreach($array as $id)
+            {
                $new_bnc = new Contact;;
                   $new =  $new_bnc::withTrashed()->find($id);
                   $new->del_status = 4;
                   $new->update();
             }
             return Redirect::back()->with('success', 'User details successfully rejected.');
-        }
-        
+        }    
     }
-
 }

@@ -73,10 +73,10 @@
                             </div>
                             <div class="modal-footer">
                                <div class="text-center">
-                              <button type="button" href="#"   class="btn btn-info">
+                              <button type="button" href="#"   class="btn btn-xs btn-info">
                                 <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
                               </button>
-                              <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                              <button type="button" class="btn btn-xs btn-danger" data-dismiss="modal">No</button>
                             </div>
                             </div>
                           </div>
@@ -135,7 +135,7 @@
                                                <td class="text-center vl">{{ $value->ex_type}}</td>
                                                <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
                                                <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
-                                               <td class="text-center vl"><a href="{{url('downloads/'.$value->file_upload)}}" >View</a></td>
+                                               <td class="text-center vl"><a href="{{url('downloads/'.$value->file_upload)}}" ><span class="glyphicon glyphicon-download"></span></a></td>
                                              <td class="vl"  style="padding:5px!important;"><a href="/addexchange/{{ $value->id }}/approved/exchange_temp"><span  class="text-success glyphicon glyphicon-ok" name="cd4" id="cd4"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
                                               <a href="/addexchange/{{ $value->id }}/rejected/exchange_temp"><span  class="text-danger glyphicon glyphicon-remove" name="cd5" id="cd5"></span></a></td>
                                           </tr>

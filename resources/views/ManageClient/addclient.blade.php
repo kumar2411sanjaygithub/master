@@ -35,7 +35,7 @@
             <span class="glyphicon glyphicon-plus"> </span>&nbsp ADD CLIENT</a>
           </div>
           </div>
-          <div class="box">
+          <div class="box mt3">
                 <div class="box-body table-responsive">
               <table id="example1" class="table table-bordered table-striped table-hover text-center">
                 <thead>

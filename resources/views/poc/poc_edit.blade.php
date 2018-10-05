@@ -13,7 +13,7 @@
    </h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">POC & Discom Losses</a></li>
+      <li><a href="#">POC & DISCOM LOSSES</a></li>
       <li><a href="#" class="active">POC Add</a></li>
    </ol>
 </section>
@@ -104,14 +104,12 @@
                     <input class="form-control input-sm num" value="{{ $pocData->withdraw_poc_loss }}" type="text" placeholder="VALUE" id="withdraw_poc_loss" name="withdraw_poc_loss">
                     <span class="text-danger">{{ $errors->first('withdraw_poc_loss') }}</span>
                  </div>
-               </div>
-               <div class="row">&nbsp;</div>
-                 <div class="col-md-12 text-center">
-                   <button type="submit" class="btn btn-info btn-xs">SAVE</button>
+                 <div class="col-md-6 text-right mt23">
+                   <button type="submit" class="btn btn-info btn-xs">UPDATE</button>&nbsp;&nbsp;&nbsp;&nbsp;
                    <a href="/poc" type="button" class="btn btn-danger btn-xs">CANCEL</a>
                  </div>
-              </div>
-              <div class="row">&nbsp;</div>
+
+               </div>
            </div>
         </div>
       </div>
@@ -127,21 +125,39 @@
 </script>
 <script>
    $(function () {
-
-     //Date picker
-     $('#datepicker').datepicker({
-       autoclose: true
-     })
-     $('#datepicker1').datepicker({
-       autoclose: true
-     })
-     $('#datepicker2').datepicker({
-       autoclose: true
-     })
-     $('#datepicker3').datepicker({
-       autoclose: true
-     })
-
-   })
+   //
+   //   $('#datepicker').datepicker({
+   //     autoclose: true
+   //   })
+   //   $('#datepicker1').datepicker({
+   //     autoclose: true
+   //   })
+   //   $('#datepicker2').datepicker({
+   //     autoclose: true
+   //   })
+   //   $('#datepicker3').datepicker({
+   //     autoclose: true
+   //   })
+   //
+   // })
+   $('#datepicker').datepicker({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+      }).on('changeDate', function (selected) {
+         var startDate = new Date(selected.date.valueOf());
+         $('#datepicker1').datepicker('setStartDate', startDate);
+       }).on('clearDate', function (selected) {
+           $('#datepicker1').datepicker('setStartDate', null);
+       });
+      $('#datepicker1').datepicker({
+        autoclose: true,
+         format: 'dd/mm/yyyy'
+      }).on('changeDate', function (selected) {
+           var endDate = new Date(selected.date.valueOf());
+           $('#datepicker').datepicker('setEndDate', endDate);
+       }).on('clearDate', function (selected) {
+           $('#datepicker').datepicker('setEndDate', null);
+       });
+ })
 </script>
 @endsection

@@ -29,7 +29,7 @@ class DiscomController extends Controller
   );
   if($validator->fails())
   {
-      return Redirect::back()->withErrors($validator);
+      return Redirect::back()->withInput()->withErrors($validator);
   }
        $pocdetails = new Discomdetails();
        $pocdetails->date_from = $request->input('date_from');

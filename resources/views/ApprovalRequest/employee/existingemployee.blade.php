@@ -64,10 +64,10 @@
                       </div>
                       <div class="modal-footer">
                          <div class="text-center">
-                        <button type="button" href="#"   class="btn btn-info">
+                        <button type="button" href="#"   class="btn btn-xs btn-info">
                           <a href="" style="color:#fff;text-decoration:none" id="delete-button-modal">Yes</a>
                         </button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-xs btn-danger" data-dismiss="modal">No</button>
                       </div>
                       </div>
                     </div>
@@ -96,7 +96,7 @@
             </div>
           </div>
 
-        <div class="box">
+        <div class="box mt3">
           <div class="box-body">
       <div class="box-body table-responsive">
     <table id="example1" class="table table-bordered table-striped table-hover text-center">

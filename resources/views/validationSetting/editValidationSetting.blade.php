@@ -60,17 +60,17 @@
                 <div class="well well-sm">
                    <div class="row">
                       <div class="col-md-2"></div>
-                      <div class="col-md-1"><span><input type="checkbox" {{ isset($validationsettingData) && $validationsettingData->noc == 'NOC' ? 'checked="checked"' : '' }} name="noc" id="noc" value="NOC"></span> <label class="control-label" for="noc">NOC</label></div>
+                      <div class="col-md-1"><span><input class="minimal" type="checkbox" {{ isset($validationsettingData) && $validationsettingData->noc == 'NOC' ? 'checked="checked"' : '' }} name="noc" id="noc" value="NOC"></span> <label class="control-label" for="noc">NOC</label></div>
                       <div class="col-md-1"></div>
-                      <div class="col-md-1"><span><input type="checkbox" {{ isset($validationsettingData) && $validationsettingData->ppa == 'PPA' ? 'checked="checked"' : '' }} name="ppa" id="ppa" value="PPA"></span> <label class="control-label" for="ppa">PPA</label></div>
+                      <div class="col-md-1"><span><input class="minimal" type="checkbox" {{ isset($validationsettingData) && $validationsettingData->ppa == 'PPA' ? 'checked="checked"' : '' }} name="ppa" id="ppa" value="PPA"></span> <label class="control-label" for="ppa">PPA</label></div>
                       <div class="col-md-1"></div>
-                      <div class="col-md-2"><span><input type="checkbox" {{ isset($validationsettingData) && $validationsettingData->exchange == 'Exchange' ? 'checked="checked"' : '' }} name="exchange" id="exchange" value="Exchange"></span> <label class="control-label" for="exchange">EXCHANGE</label></div>
-                      <div class="col-md-1" ><span><input type="checkbox" {{ isset($validationsettingData) && $validationsettingData->psm == 'PSM' ? 'checked="checked"' : '' }} name="psm" id="psm" value="PSM"></span> <label class="control-label" for="psm">PSM</label></div>
+                      <div class="col-md-2"><span><input class="minimal" type="checkbox" {{ isset($validationsettingData) && $validationsettingData->exchange == 'Exchange' ? 'checked="checked"' : '' }} name="exchange" id="exchange" value="Exchange"></span> <label class="control-label" for="exchange">EXCHANGE</label></div>
+                      <div class="col-md-1" ><span><input class="minimal" type="checkbox" {{ isset($validationsettingData) && $validationsettingData->psm == 'PSM' ? 'checked="checked"' : '' }} name="psm" id="psm" value="PSM"></span> <label class="control-label" for="psm">PSM</label></div>
                    </div>
                 </div>
                 <div class="row">
                   <div class="col-md-10"></div>
-                   <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" id="vg6" name="vg6">SAVE</button></div>
+                   <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs" id="vg6" name="vg6">UPDATE</button></div>
                    <div class="col-md-1"><a href="/validationSetting/validationSetting" class="btn btn-block btn-danger btn-xs" id="vg7" name="vg7">CANCEL</a></div>
                 </div>
              </div>
@@ -108,5 +108,25 @@
     $(document).ready(function() {
    $('#select-client').select2();
 });
+
+$(function () {
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+      checkboxClass: 'icheckbox_flat-blue',
+      radioClass   : 'iradio_flat-blue'
+  })
+  //Red color scheme for iCheck
+  $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+    checkboxClass: 'icheckbox_minimal-red',
+    radioClass   : 'iradio_minimal-red'
+  })
+  //Flat red color scheme for iCheck
+  $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+    checkboxClass: 'icheckbox_flat-blue',
+    radioClass   : 'iradio_flat-blue'
+  })
+
+});
+
+
 </script>
 @endsection

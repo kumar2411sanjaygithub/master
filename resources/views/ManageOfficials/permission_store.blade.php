@@ -43,6 +43,8 @@
      <label  class="control-label">DESCRIPTION</label>
      <input class="form-control input-sm" type="text" placeholder="ENTER DESCRIPTION" name="description" value="{{(isset($permissions->id)&& $permissions->description)?$permissions->description:old('description')}}">
   </div>
+   <div class="col-md-1">
+   </div>
 <div class="col-md-1"  style="margin-top:21px;">
    <button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button>
  </div>

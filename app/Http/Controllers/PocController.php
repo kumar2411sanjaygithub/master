@@ -87,7 +87,7 @@ class PocController extends Controller
   );
   if($validator->fails())
   {
-      return Redirect::back()->withErrors($validator);
+      return Redirect::back()->withInput()->withErrors($validator);
   }
        $pocdetails = new Pocdetails();
        $pocdetails->date_from = $request->input('date_from');

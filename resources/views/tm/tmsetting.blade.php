@@ -78,7 +78,7 @@
               <div class="row">&nbsp;</div>
               <div class="row">
                  <div class="col-md-10"></div>
-                 <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
+                 <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">UPDATE</button></div>
                  <div class="col-md-1"><button type="button" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
               </div>
               <div class="row">&nbsp;</div>

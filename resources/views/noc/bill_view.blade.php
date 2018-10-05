@@ -17,7 +17,7 @@
                   <div class="row">&nbsp;</div>
                   <div id="emp3">{{ $client_det['company_name'] }}</div>
                   <div id="emp4">{{ $client_det['bill_line1'] }}, {{ $client_det['bill_line2'] }}</div>
-                  <div id="emp5">{{ $client_det['bill_city'] }}, {{  \App\Common\StateList::get_state_name($client_det['bill_state']) }}</div>
+                  <div id="emp5">{{ $client_det['bill_city'] }}, @if(!empty($client_det['bill_state']) && $client_det['bill_state']!='PLEASE SELECT'){{  \App\Common\StateList::get_state_name($client_det['bill_state']) }}@endif</div>
                   <div id="emp6">{{ $client_det['bill_country'] }}, PIN-{{ $client_det['bill_pin'] }}</div>
               </div>
                     <div class="row">&nbsp;</div>

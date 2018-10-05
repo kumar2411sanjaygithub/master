@@ -39,39 +39,39 @@ class ClientDeatilsController extends Controller
 			'company_name' => 'required|max:100',
             'gstin' => 'required|regex:/^[0-9]{2}[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z][0-9A-z]{3}$/|unique:clients|max:15',
             'pan' => 'required|regex:/^[a-zA-Z]{3}[ABCEFGHJLTabcefghjl]{1}[a-zA-Z]{1}\d{4}[a-zA-Z]{1}$/|unique:clients|max:10',
-            'short_id' => 'nullable|max:15|regex:/^[a-zA-Z]+$/u',
-            'old_sap'=>'nullable|max:15',
-            'new_sap'=>'nullable|max:15',
+            'short_id' => 'nullable|max:15|regex:/^[\w-]*$/',
+            'old_sap'=>'nullable|regex:/^[\w-]*$/|max:15',
+            'new_sap'=>'nullable|regex:/^[\w-]*$/|max:15',
             'pri_contact_no'=>'required|regex:/^[0-9]{10}$/',
             'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|unique:clients|min:21|max:21',
             'email'=>'required|email|max:81',
-            'reg_line1' => 'required|max:50|regex:/^[\w-]*$/',
-            'reg_line2' => 'min:0|max:50|regex:/^[\w-]*$/',
+            'reg_line1' => 'required|max:50',
+            'reg_line2' => 'min:0|max:50',
             'reg_country' => 'required',
             'reg_state' => 'required',
             'reg_city' => 'required|regex:/^[A-z]+$/|max:25',
             'reg_pin' => 'required|regex:/^[1-9][0-9]{5}$/',
             'reg_mob' => 'required|regex:/^[0-9]{10}$/',
             'reg_telephone' => 'nullable|min:5|max:15',
-            'bill_line1'=>'nullable|max:50|regex:/^[\w-]*$/',
-            'bill_line2'=>'nullable|max:50|regex:/^[\w-]*$/',
+            'bill_line1'=>'nullable|max:50',
+            'bill_line2'=>'nullable|max:50',
             'bill_country'=>'nullable',
             'bill_state'=>'nullable',
             'bill_city'=>'nullable|regex:/^[A-z]+$/|max:25',
             'bill_pin'=>'nullable|regex:/^[1-9][0-9]{5}$/',
             'bill_mob'=>'nullable|regex:/^[0-9]{10}$/',
             'bill_telephone'=>'nullable|min:5|max:15',
-            'del_lin1'=>'nullable|max:50|regex:/^[\w-]*$/',
-            'del_lin2'=>'nullable|max:50|regex:/^[\w-]*$/',
+            'del_lin1'=>'nullable|max:50',
+            'del_lin2'=>'nullable|max:50',
             'del_country'=>'nullable',
             'del_state'=>'nullable',
             'del_city'=>'nullable|regex:/^[A-z]+$/|max:25',
             'del_pin'=>'nullable|regex:/^[1-9][0-9]{5}$/',
             'del_mob'=>'nullable|regex:/^[0-9]{10}$/',
             'del_telephone'=>'nullable|min:5|max:15',
-            'iex_client_name'=>'nullable|regex:/^[\w-]*$/|max:50',
+            'iex_client_name'=>'nullable|max:100',
             'iex_portfolio'=>'nullable|regex:/^[\w-]*$/|max:20',
-            'pxil_client_name'=>'nullable|regex:/^[\w-]*$/|max:50',
+            'pxil_client_name'=>'nullable|max:100',
             'iex_status'=>'nullable',
             'pxil_portfolio'=>'nullable|regex:/^[\w-]*$/|max:20',
             'pxil_status'=>'nullable',
@@ -80,18 +80,18 @@ class ClientDeatilsController extends Controller
             'discom'=>'nullable',
             'voltage'=>'nullable',
             'state_type'=>'nullable',
-            'name_of_substation'=>'nullable',
+            'name_of_substation'=>'nullable|regex:/^[\w-]*$/|max:30',
             'inter_discom'=>'nullable',
             'inter_stu'=>'nullable',
             'inter_poc'=>'nullable',
-            'common_feeder_option'=>'nullable',
-            'feeder_name'=>'nullable',
+            'common_feeder_option'=>'nullable|regex:/^[\w-]*$/|max:30',
+            'feeder_name'=>'nullable|regex:/^[\w-]*$/|max:30',
             'feeder_code'=>'nullable',
             'conn_discom'=>'nullable',
             'conn_state'=>'nullable',
-            'maxm_injection'=>'nullable|regex:/^[0-9]{10}$/',
-            'maxm_withdrawal'=>'nullable|regex:/^[0-9]{10}$/',
-            'payment'=>'nullable|regex:/^[0-9]{30}$/',
+            'maxm_injection'=>'nullable|digits_between:1,8',
+            'maxm_withdrawal'=>'nullable|digits_between:1,8',
+            'payment'=>'nullable|numeric',
             'obligation'=>'nullable',
             'noc_punched_by'=>'nullable'
 
@@ -265,37 +265,39 @@ class ClientDeatilsController extends Controller
             'company_name' => 'required|max:100',
             'gstin' => 'required|regex:/^[0-9]{2}[A-z]{3}[PCAFHTG][A-z][0-9]{4}[A-z][0-9A-z]{3}$/|max:15',
             'pan' => 'required|regex:/^[a-zA-Z]{3}[ABCEFGHJLTabcefghjl]{1}[a-zA-Z]{1}\d{4}[a-zA-Z]{1}$/|max:10',
-            'short_id' => 'nullable|max:15|regex:/^[a-zA-Z]+$/u',
-            'pri_contact_no'=>'required',
-             'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|min:21|max:21',
+            'short_id' => 'nullable|max:15|regex:/^[\w-]*$/',
+            'old_sap'=>'nullable|regex:/^[\w-]*$/|max:15',
+            'new_sap'=>'nullable|regex:/^[\w-]*$/|max:15',
+            'pri_contact_no'=>'required|regex:/^[0-9]{10}$/',
+            'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|min:21|max:21',
             'email'=>'required|email|max:81',
             'reg_line1' => 'required|max:50',
             'reg_line2' => 'min:0|max:50',
             'reg_country' => 'required',
             'reg_state' => 'required',
-            'reg_city' => 'required|regex:/^[a-zA-Z]+$/|max:25',
+            'reg_city' => 'required|regex:/^[A-z]+$/|max:25',
             'reg_pin' => 'required|regex:/^[1-9][0-9]{5}$/',
             'reg_mob' => 'required|regex:/^[0-9]{10}$/',
-            'reg_telephone' => 'min:0|max:50',
-            'bill_line1'=>'nullable|max:50|regex:/^[\w-]*$/',
-            'bill_line2'=>'nullable|max:50|regex:/^[\w-]*$/',
+            'reg_telephone' => 'nullable|min:5|max:15',
+            'bill_line1'=>'nullable|max:50',
+            'bill_line2'=>'nullable|max:50',
             'bill_country'=>'nullable',
             'bill_state'=>'nullable',
             'bill_city'=>'nullable|regex:/^[A-z]+$/|max:25',
             'bill_pin'=>'nullable|regex:/^[1-9][0-9]{5}$/',
             'bill_mob'=>'nullable|regex:/^[0-9]{10}$/',
             'bill_telephone'=>'nullable|min:5|max:15',
-            'del_lin1'=>'nullable|max:50|regex:/^[\w-]*$/',
-            'del_lin2'=>'nullable|max:50|regex:/^[\w-]*$/',
+            'del_lin1'=>'nullable|max:50',
+            'del_lin2'=>'nullable|max:50',
             'del_country'=>'nullable',
             'del_state'=>'nullable',
             'del_city'=>'nullable|regex:/^[A-z]+$/|max:25',
             'del_pin'=>'nullable|regex:/^[1-9][0-9]{5}$/',
             'del_mob'=>'nullable|regex:/^[0-9]{10}$/',
             'del_telephone'=>'nullable|min:5|max:15',
-            'iex_client_name'=>'nullable|regex:/^[\w-]*$/|max:50',
+            'iex_client_name'=>'nullable|max:100',
             'iex_portfolio'=>'nullable|regex:/^[\w-]*$/|max:20',
-            'pxil_client_name'=>'nullable|regex:/^[\w-]*$/|max:50',
+            'pxil_client_name'=>'nullable|max:100',
             'iex_status'=>'nullable',
             'pxil_portfolio'=>'nullable|regex:/^[\w-]*$/|max:20',
             'pxil_status'=>'nullable',
@@ -304,20 +306,21 @@ class ClientDeatilsController extends Controller
             'discom'=>'nullable',
             'voltage'=>'nullable',
             'state_type'=>'nullable',
-            'name_of_substation'=>'nullable',
+            'name_of_substation'=>'nullable|regex:/^[\w-]*$/|max:30',
             'inter_discom'=>'nullable',
             'inter_stu'=>'nullable',
             'inter_poc'=>'nullable',
-            'common_feeder_option'=>'nullable',
-            'feeder_name'=>'nullable',
+            'common_feeder_option'=>'nullable|regex:/^[\w-]*$/|max:30',
+            'feeder_name'=>'nullable|regex:/^[\w-]*$/|max:30',
             'feeder_code'=>'nullable',
             'conn_discom'=>'nullable',
             'conn_state'=>'nullable',
-            'maxm_injection'=>'nullable|regex:/^[0-9]{10}$/',
-            'maxm_withdrawal'=>'nullable|regex:/^[0-9]{10}$/',
-            'payment'=>'nullable|regex:/^[0-9]{30}$/',
+            'maxm_injection'=>'nullable|digits_between:1,8',
+            'maxm_withdrawal'=>'nullable|digits_between:1,8',
+            'payment'=>'nullable|numeric',
             'obligation'=>'nullable',
             'noc_punched_by'=>'nullable'
+
 
 
             ]);
@@ -505,15 +508,8 @@ class ClientDeatilsController extends Controller
             'branch_name' => 'required|regex:/^[a-z\d\-_\s]+$/i|max:50',
             'ifsc' => 'required|regex:/^[A-Za-z]{4}[a-zA-Z0-9]{7}$/|max:11',
         ]);
-
-        // if($validator->fails())
-        // {
-
-        //     return redirect()->back()->withInput($request->input())->withErrors($validator);
-        // }
-
         $bankdetail = new BankTemp();
-       $bankdetail->client_id = $request->client_id;
+        $bankdetail->client_id = $request->client_id;
         $bankdetail->account_number = $request->input('account_number');
         $bankdetail->bank_name = $request->input('bank_name');
         $bankdetail->branch_name = $request->input('branch_name');
@@ -534,16 +530,7 @@ class ClientDeatilsController extends Controller
             'branch_name' => 'required|regex:/^[a-z\d\-_\s]+$/i|max:50',
             'ifsc' => 'required|regex:/^[A-Za-z]{4}[a-zA-Z0-9]{7}$/|max:11',
         ]);
-        //$checkaccountnumber = Bank::where(['account_number'=>$request->input('account_number'),'status'=>1])->where('id','!=',$bank_detail_id)->get()->toArray();
-
-
-
-        // if($checkaccountnumber){
-        //       $validator = Validator::make([], []);
-        //       $validator->getMessageBag()->add('account_no', 'Account Number already registered');
-        //         return response()->json(['errors'=>$validator->errors()],400);
-        // }
-        //Old Logic
+ 
         $client_id=$request->input('client_id');
         $bankdetailtemp = Bank::find($bank_detail_id)->toArray();
 
@@ -686,14 +673,6 @@ class ClientDeatilsController extends Controller
         $clientmaster_newusermapping->group_id = $clientid;
         $clientmaster_newusermapping->group_role = "MainMember";
         $clientmaster_newusermapping->save();
-
-
-        /*$accountStatement_newusermapping = AccountStatement::where('clientid',$clientid)->find($clientid);
-        $accountStatement_newusermapping->group_id = $clientid;
-        $accountStatement_newusermapping->group_role = "MainMember";
-        $accountStatement_newusermapping->save();*/
-
-        //return with('success', 'your data saved');
     }
 
     public function addnewusersforgroup(Request $request)
@@ -701,7 +680,6 @@ class ClientDeatilsController extends Controller
         $clientid     = $request->input('clientid');
         $group_id     = $request->input('group_id');
         $group_name   = $request->input('group_name');
-        //dd($clientid,$group_id,$group_name);
         $clientmaster_newusermapping = Client::where('id',$clientid)->first();
         $clientmaster_newusermapping->group_id = $group_id;
         $clientmaster_newusermapping->group_role = "Member";
@@ -744,7 +722,5 @@ class ClientDeatilsController extends Controller
 
             return response()->json(1);
         }
-        //dd(count($Clientsdetails));
-        //dd('deletegroup',$group_id);
     }
 }

@@ -102,7 +102,11 @@
                                 @foreach($bidData as $key => $value)
                                 <tr>
                                   <td class="text-center">{{  $i  }}</td>
-                                  <td class="text-center">{{ $value->company_name }}</td>
+                                  <td class="text-center">{{ $value->company_name }}
+                                      @if($value->common_feeder_option == 'yes')
+                                          <i class="fa fa-fw fa-flag"></i>
+                                      @endif
+                                  </td>
                                   <td class="text-center">{{ $value->iex_portfolio }}</td>
                                   <td class="text-center">{{  App\Common\FinancialFunctions::getoutstandingbalace($value->client_id) }}</td>
                                   <!-- <td class="text-center"></td> -->

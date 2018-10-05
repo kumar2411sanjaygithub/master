@@ -43,7 +43,7 @@ class PpaApprovalController extends Controller
         $delexcgData = Ppadetails::select('*')->where(function($q) { $q->where('del_status',1); })->where('client_id',$id)->orderBy('created_at','desc')->withTrashed()->get();
         //dd($delcontact);
         $client_details = Client:: select('company_name','iex_portfolio','pxil_portfolio','crn_no')->where('id',$id)->get();
-         $clientData = Client::all();
+         $clientData = Client::where('client_app_status','1')->get();
 
 
         return view('ApprovalRequest.PPA.aprovePpa',compact('ppaData','Addexchangedata','delexcgData','client_details','clientData','client_id'));
@@ -53,7 +53,7 @@ class PpaApprovalController extends Controller
   {
     // $ppaData = PpaApprovedetails::where('status','0')->paginate(10);
     $ppaData=array();
-    $clientData = Client::all();
+    $clientData = Client::where('client_app_status','1')->get();
     return view('ApprovalRequest.PPA.aprovePpa',compact('ppaData','clientData'));
   }
   public function newapprove(Request $request, $id,$type)
@@ -74,15 +74,48 @@ class PpaApprovalController extends Controller
          $ppadetails->save();
          $ppa->status = 1;
          $ppa->update();
-        return Redirect::back()->with('success', 'Client details approved successfully.');
+        return Redirect::back()->with('success', 'User details approved successfully.');
         }
         elseif($id!='' && $type=='Rejected')
         {
         $mm = new PpaApprovedetails;
         $mm::where('id', $id)->update(['status'=> '2']);
-        return Redirect::back()->with('success', 'Client details rejected successfully.');
+        return Redirect::back()->with('success', 'User details rejected successfully.');
         }
     }
+
+     public function ppaAllApp(Request $request,$tag='')
+    {
+        $approvalstatus_id=$request['selected_status'];
+        $array=explode(',',$approvalstatus_id);
+        if($tag=='Approved'){
+          foreach($array as $id){
+                $ppa = PpaApprovedetails::find($id);
+         $ppadetails = new Ppadetails();
+         $ppadetails->client_id = $ppa->client_id;
+         $ppadetails->validity_to = $ppa->validity_to;
+         $ppadetails->validity_from = $ppa->validity_from;
+         $ppadetails->file_path = $ppa->file_path;
+         $ppadetails->remarks = $ppa->remarks;
+         $ppadetails->remarks = $ppa->remarks;
+         $ppadetails->created_by = $ppa->created_by;
+         $ppadetails->status= 1;
+         $ppadetails->save();
+         $ppa->status = 1;
+         $ppa->update();
+            }
+            return Redirect::back()->with('success', 'User details successfully approved.');
+          }
+          elseif ($tag=='Rejected') {
+            foreach($array as $id){
+              $mm = new PpaApprovedetails;
+              $mm::where('id', $id)->update(['status'=> '2']);
+            }
+            return Redirect::back()->with('success', 'User details successfully rejected.');
+        }
+
+    }
+
      public function Modifiedapprove($id,$type)
     {
          if($id!='' && $type=='Approved'){
@@ -105,6 +138,34 @@ class PpaApprovalController extends Controller
             return Redirect::back()->with('success', 'User details successfully rejected.');
         }
     }
+     public function ppaAllModified(Request $request,$tag='')
+    {
+        $approvalstatus_id=$request['selected_status'];
+        $array=explode(',',$approvalstatus_id);
+        if($tag=='Approved'){
+          foreach($array as $id){
+              $updatestemp = Approvalrequest::find($id);
+            //$selectedmodel= '\\App\\'.$model[$updatestemp->approval_type];
+            $selectedmodel = new Ppadetails;
+            $exchange = $selectedmodel::find($updatestemp->reference_id);
+            $attribute_name = $updatestemp->attribute_name;
+            $exchange->$attribute_name = $updatestemp->updated_attribute_value;
+            $exchange->update();
+            $updatestemp->status = 1;
+            $updatestemp->update();
+            }
+            return Redirect::back()->with('success', 'User details successfully approved.');
+          }
+          elseif ($tag=='Rejected') {
+            foreach($array as $id){
+               Approvalrequest::where('id', $id)->update(['status'=> '2']);
+            }
+            return Redirect::back()->with('success', 'User details successfully rejected.');
+        }
+
+    }
+
+
      public function delete_PPA($id,$type){
 
         if($id!='' && $type=='Approved'){
@@ -126,5 +187,30 @@ class PpaApprovalController extends Controller
         }
      }
 
+     public function ppaAllDeleted(Request $request,$tag='')
+    {
+        $approvalstatus_id=$request['selected_status'];
+        $array=explode(',',$approvalstatus_id);
+        if($tag=='Approved'){
+          foreach($array as $id){
+                  $new_bnc = new Ppadetails;
+                   $new =  $new_bnc::withTrashed()->find($id);
+                   Ppadetails::destroy($id);
+                   $new->del_status = 2;
+                   $new->update();
+            }
+            return Redirect::back()->with('success', 'User details successfully approved.');
+          }
+          elseif ($tag=='Rejected') {
+            foreach($array as $id){
+               $new_bnc = new Ppadetails;;
+                  $new =  $new_bnc::withTrashed()->find($id);
+                  $new->del_status = 4 ;
+                  $new->update();
+            }
+            return Redirect::back()->with('success', 'User details successfully rejected.');
+        }
+
+    }
 
 }

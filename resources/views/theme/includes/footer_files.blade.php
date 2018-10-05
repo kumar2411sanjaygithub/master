@@ -101,9 +101,9 @@
          $('[download="download"]').attr('title', 'Download').attr('data-toggle', 'tooltip').attr('data-placement', 'bottom').tooltip();
          $('[download="download"]').html('<span class="glyphicon glyphicon-download"></span>');
        });
-
-
         $(document).ready(function(){
            $('[aks="tooltip"]').tooltip({placement: "bottom"});
+           $('input[type="text"],select,textarea').attr("autocomplete","off");
+
         });
       </script>

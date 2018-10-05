@@ -12,7 +12,11 @@
 */
 
 Route::get('/', function () {
+  if(Auth::check()){
+    return redirect('lead');
+  }else{
     return view('auth/login');
+  }
 });
 
 Auth::routes();
@@ -21,7 +25,7 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function ()
 {
-    Route::get('/home', 'HomeController@index')->name('home');
+    // Route::get('/home', 'HomeController@index')->name('home');
 	//shalu gupta manage officiaial
 	Route::get('/departments', ['uses'=>'ManageOfficialsController@departmentview'])->name('departments');
 	Route::post('/departments/create',['as'=>'departments_create','uses'=>'ManageOfficialsController@savedepartment']);
@@ -81,7 +85,9 @@ Route::group(['middleware' => 'auth'], function ()
     Route::get('/PPA/aprovePpa/{id}/{type}',['as'=>'PPA.aprovePpa','uses'=>'PpaApprovalController@newapprove']);
     Route::get('/modifiedPpa/{id}/{type}',['as'=>'PPA.modified','uses'=>'PpaApprovalController@Modifiedapprove']);
     Route::get('/deletedPPA/{id}/{type}',['as'=>'PPA.modified','uses'=>'PpaApprovalController@delete_PPA']);
-
+  Route::post('/ppa-details/{tag}','PpaApprovalController@ppaAllApp');
+  Route::post('/ppadetails/allModified/{tag}','PpaApprovalController@ppaAllModified');
+  Route::post('ppa/deletedd/request/{tag}','PpaApprovalController@ppaAllDeleted');
 
   /*******************************************************
   | ValidationSetting Routes

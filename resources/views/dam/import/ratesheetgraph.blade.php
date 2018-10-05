@@ -44,7 +44,7 @@
                        <button type="button" class="btn btn-block btn-info btn-xs" name="" id="submit_go">GO</button>
                     </div>
                     <div class="col-md-4"></div>
-                    <div class="col-md-2">
+                    {{--<div class="col-md-2">
                        <a href="#">
                           <div><label  class="control-label">GENERATE ALL</label></div>
                           <span class="glyphicon glyphicon-send"></span>
@@ -55,7 +55,7 @@
                           <div><label  class="control-label">SEND EMAIL TO ALL</label></div>
                           <span class="glyphicon glyphicon-send"></span>
                        </a>
-                    </div>
+                    </div>--}}
                  </div>
               </div>
            </div>
