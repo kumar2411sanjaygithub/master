@@ -131,6 +131,7 @@ Route::group(['middleware' => 'auth'], function ()
   | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
   /*******************************************************/
   Route::get('/tm/tmnamesetting',['as'=>'tmnameview','uses'=>'TmNameController@view']);
+  Route::get('/ts/ts',['as'=>'ts','uses'=>'TsController@view']);
   Route::post('/tm/tmnamesetting',['as'=>'tmnameupdate','uses'=>'TmNameController@update']);
 
     /*******************************************************
@@ -504,6 +505,12 @@ Route::get('/view/invoice/{id}','InvoiceController@view_invoice')->name('view');
 Route::post('/client_bill_list','InvoiceController@client_list')->name('list');
 
 
+
+ /*******************************************************
+  DISCOM- WITHDRAWL AND INJECTION LOSSES
+/*******************************************************/
+Route::post('/discom/upload','DiscomController@import')->name('import-discom-losses');
+Route::post('/poc/upload','PocController@import')->name('import-poc-losses');
 
 
 

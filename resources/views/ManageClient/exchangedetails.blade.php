@@ -1,23 +1,35 @@
 @extends('theme.layouts.default')
 @section('content')
+<style></style>
+<section class="content-header">
+   <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
+      <li><a href="/basicdetails">MANAGE CLIENT</a></li>
+      <li><a href="/basicdetails">CLIENT BASIC DETAILS</a></li>
+      <li class="#"><u>CONTACT DETAILS</u></li>
+   </ol>
+</section>
      <section class="content">
-                    <div class="row">
-                      <div class="col-xs-12">
+                    
                                 <div class="row">
-                                  <div class="col-md-6 pull-left">
+                                  <div class="col-md-8 pull-left">
                                       <h5 class="pull-left"><label class="control-label pull-right mt-1"><u>Upload Exchange File</u></h5> &nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
                                   </div>
-                                  <div class="col-md-6 pull-right">
-                                          <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mt7"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
-                                          <button class="btn btn-info btn-xs pull-right mr5 mt7 {{(isset($get_exchange_details)||!$errors->isEmpty())?'hidden':''}}" id="add"><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
+                                  <div class="col-md-4 pull-right">
+
                                   </div>
-                                </div>
+                              
                                       @if(session()->has('message'))
                                         <div class="alert alert-success alert-dismissible fade in">
                                           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                          <span class="glyphicon glyphicon-ok"></span> &nbsp; {{ session()->get('message') }}
                                         </div>
                                       @endif
+                                      <div class="row">
+                                      <div class="col-md-12">
+                                     <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mt7"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+                                          <button class="btn btn-info btn-xs pull-right mr5 mt7 {{(isset($get_exchange_details)||!$errors->isEmpty())?'hidden':''}}" id="add"><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
+                                    </div></div>
                                   <form method ="post" action="{{isset($get_exchange_details)?url('exchange_edit/'.$get_exchange_details->id):route('exchange_create')}}" enctype="multipart/form-data">
                                    {{ csrf_field() }}
                                    <div class="{{isset($get_exchange_details)?'':'divhide'}}" id="exchangebox">
@@ -82,6 +94,7 @@
                                       </div>
                                     
                                     </form>
+                                    
                                 <div class="box mt3">
 
 
@@ -145,6 +158,7 @@
                                 </div>
                           </div>
                     </div>
+
               </section>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

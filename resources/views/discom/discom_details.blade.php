@@ -12,9 +12,9 @@
       <label  class="control-label">ADD DISCOM</label>
    </h5>
    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">POC & DISCOM LOSSES</a></li>
-      <li><a href="#" class="active">DISCOM ADD</a></li>
+      <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
+      <li><a href="/discom">POC & DISCOM LOSSES</a></li>
+     <li class="#"><u>ADD DISCOM</u></li>
    </ol>
 </section>
 <!-- Content Header (Page header) -->
@@ -134,7 +134,8 @@
          </div>
       </div>
      <div class="col-md-10">
-        <a href="#" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#myModal">&nbsp IMPORT(CSV/XLSX)</a>
+        <a href="#" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#myModal">&nbsp IMPORT(CSV)</a>
+        <a href="/sample/discom_losses.xlsx" class="btn btn-info btn-xs pull-right  ml5 mr5" target="_blank">&nbsp DOWNLOAD CSV</a>
         <a class="btn btn-info btn-xs discom-btn pull-right mr5" name=" "><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</a>
       </div>
     </div>
@@ -157,8 +158,8 @@
             @forelse ($discomData as $key => $value)
             <tr>
               <td class="text-center">{{$key+1}}</td>
-              <td class="text-center">{{ $value->date_from }}</td>
-              <td class="text-center">{{ $value->date_to }}</td>
+              <td class="text-center">{{ @date('d/m/Y',strtotime($value->date_from)) }}</td>
+              <td class="text-center">{{ @date('d/m/Y',strtotime($value->date_to)) }}</td>
               <td class="text-center">{{ $value->region }}</td>
               <td class="text-center">{{ $value->regional_entity }}</td>
               <td class="text-center">{{ $value->injection_poc_loss }}</td>
@@ -183,7 +184,8 @@
   <div class="modal" id="myModal">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
-
+        <form method="post" action="{{route('import-discom-losses')}}" enctype='multipart/form-data'>
+          {!! csrf_field() !!}
         <!-- Modal Header -->
         <div class="modal-header text-center">
           <h4 class="modal-title">Import CSV/XLSX</h4>
@@ -192,17 +194,19 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-          <input type="file" name="file">
+          <input type="file" name="discom_losses_file" accept=".csv">
         </div>
 
         <!-- Modal footer -->
         <div class="modal-footer text-center">
+          <input type="submit" class="btn btn-primary text-center" value="Submit"/>
           <button type="button" class="btn btn-danger text-center" data-dismiss="modal">Close</button>
         </div>
-
+      </form>
       </div>
     </div>
   </div>
+
 <script type="text/javascript">
  setTimeout(function() {
    $('.alert-success').fadeOut('fast');

@@ -6,17 +6,16 @@
             <label  class="control-label"><u>NOC</u> <u>APPLICATON</u> <u>APPROVAL</u></label>
          </h5>
          <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-            <li><a href="#">NOC </a></li>
-            <li><a href="{{route('nocapplicationapproval')}}"><u>NOC</u> <u>APPLICATION</u>  <u>APPROVAL</u></a></li>
+            <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
+            <li><a href="">NOC </a></li>
+            <li class="{{route('nocapplicationapproval')}}"><u>NOC</u> <u>APPLICATION</u>  <u>APPROVAL</u></li>
          </ol>
       </section>
    @if (\Session::has('success'))
-      <div class="alert alert-success" id="successMessage">
-         <ul>
-             <li>{!! \Session::get('success') !!}</li>
-         </ul>
-      </div>
+    <div class="alert alert-success alert-dismissible fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+     <span class="glyphicon glyphicon-ok"></span> {!! \Session::get('success') !!}
+    </div>
    @endif
       <section class="content">
          <div class="row">
@@ -30,109 +29,111 @@
                 <div class="box-body">
 
   <div class="tab-content">
-    <div id="tab1" class="tab-pane fade in active">
-      <table class="table table-bordered text-center">
-    <thead>
-      <tr>
-        <th class="srno">SR.NO</th>
-        <th>CLIENT NAME</th>
-        <th>PORTFOLIO ID</th>
-        <th>APPLICATON NO.</th>
-        <th>SLDC</th>
-        <th>NOC TYPE</th>
-        <th>EXCHANGE TYPE</th>
-        <th>QUANTUM</th>        
-        <th>VALIDITY START DATE</th>
-        <th>VALIDITY END DATE</th>
-        <th>NOC REQUEST</th>
-        <th class="act">ACTION</th>
-      </tr>
-    </thead>
-    <tbody>
-      @php $i=1; @endphp
-      @if (count($noc_for_approval) > 0)
-         @foreach ($noc_for_approval as $k=>$noc_initiated)
+    <div id="tab1" class="tab-pane fade in active table-responsive">
+      <div class="table-responsive">
+        <table class="table table-bordered text-center">
+        <thead>
           <tr>
-            <td>{{$i}}</td>
-            <td>{{@$noc_initiated->client->company_name}}</td>
-            <td>
-                @if($noc_initiated->exchange_type=='pxil')
-                {{@$noc_initiated->client->pxil_portfolio}}
-                @elseif($noc_initiated->exchange_type=='iex')
-                {{@$noc_initiated->client->iex_portfolio}}
-                @endif
-            </td>
-            <td>{{$noc_initiated->application_no}}</td>
-            <td>{{strtoupper($noc_initiated->sldc)}}</td>
-            <td>{{strtoupper($noc_initiated->noc_type)}}</td>
-            <td>{{strtoupper($noc_initiated->exchange_type)}}</td>
-            <td>{{$noc_initiated->quantum}}</td>
-            <td>{{date('d/m/Y',strtotime($noc_initiated->start_date))}}</td>
-            <td>{{date('d/m/Y',strtotime($noc_initiated->end_date))}}</td>
-            <td>                
-                @if($noc_initiated->noc_file)
-                  <a href="{{url('fileNdownloads/'.$noc_initiated->noc_file)}}" target="_blank" aks="tooltip" title="Download"><span class="glyphicon glyphicon-download"></span></a>
-                @endif
-            </td>
-            <td>
-              <a href="" data-toggle="modal" data-target="#approveData{{ $noc_initiated->id }}" class="btn  btn-info btn-xs"><span class="glyphicon glyphicon-ok"></span></a>
-              <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_initiated->id }}" class="btn  btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></a>
-            </td>
-            <div id="deleteData{{ $noc_initiated->id }}" class="modal fade" role="dialog">
-               <form method="POST"  action="{{url('noc-approval-request/'.$noc_initiated->id.'/status/5')}}">
-                {{ csrf_field() }}
-                {{ method_field('DELETE') }}
-               <div class="modal-dialog modal-confirm">
-                 <div class="modal-content">
-                    <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
-                      <h4 class="modal-title text-center">ARE YOU SURE?</h4>
-                    </div> -->
-                   <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                    <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECT THIS NOC APPLICAITON?</p></center>
-                   </div>
-                   <div class="modal-footer">
-                    <div class="text-center">
-                     <button type="submit" class="btn btn-info btn-xs">YES</button>
-                     <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">NO</button>
-                   </div>
-                   </div>
-                 </div>
-               </div>
-               </form>
-             </div>
-            <div id="approveData{{ $noc_initiated->id }}" class="modal fade" role="dialog">
-               <form method="POST"  action="{{url('noc-approval-request/'.$noc_initiated->id.'/status/2')}}">
-                {{ csrf_field() }}
-                {{ method_field('DELETE') }}
-               <div class="modal-dialog modal-confirm">
-                 <div class="modal-content">
-                    <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
-                      <h4 class="modal-title text-center">ARE YOU SURE?</h4>
-                    </div> -->
-                   <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
-                     <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVE THIS NOC APPLICAITON?</p></center>
-                   </div>
-                   <div class="modal-footer">
-                    <div class="text-center">
-                     <button type="submit" class="btn btn-info btn-xs">YES</button>
-                     <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">NO</button>
-                   </div>
-                   </div>
-                 </div>
-               </div>
-               </form>
-             </div>
+            <th class="srno">SR.NO</th>
+            <th>CLIENT NAME</th>
+            <th>PORTFOLIO ID</th>
+            <th>APPLICATON NO.</th>
+            <th>SLDC</th>
+            <th>NOC TYPE</th>
+            <th>EXCHANGE TYPE</th>
+            <th>QUANTUM</th>        
+            <th>VALIDITY START DATE</th>
+            <th>VALIDITY END DATE</th>
+            <th>NOC REQUEST</th>
+            <th class="act">ACTION</th>
           </tr>
-            @php $i++; @endphp
-        @endforeach
-      @else
-        <tr>
-            <td colspan="12" style="background-color: #c74343a6;"><b>No Data Found.</b></td>
-        </tr>
-      @endif
-    </tbody>
-  </table>
-  {{ $noc_for_approval->links() }}
+        </thead>
+        <tbody>
+          @php $i=1; @endphp
+          @if (count($noc_for_approval) > 0)
+             @foreach ($noc_for_approval as $k=>$noc_initiated)
+              <tr>
+                <td>{{$i}}</td>
+                <td>{{@$noc_initiated->client->company_name}}</td>
+                <td>
+                    @if($noc_initiated->exchange_type=='pxil')
+                    {{@$noc_initiated->client->pxil_portfolio}}
+                    @elseif($noc_initiated->exchange_type=='iex')
+                    {{@$noc_initiated->client->iex_portfolio}}
+                    @endif
+                </td>
+                <td>{{$noc_initiated->application_no}}</td>
+                <td>{{strtoupper($noc_initiated->sldc)}}</td>
+                <td>{{strtoupper($noc_initiated->noc_type)}}</td>
+                <td>{{strtoupper($noc_initiated->exchange_type)}}</td>
+                <td>{{$noc_initiated->quantum}}</td>
+                <td>{{date('d/m/Y',strtotime($noc_initiated->start_date))}}</td>
+                <td>{{date('d/m/Y',strtotime($noc_initiated->end_date))}}</td>
+                <td>                
+                    @if($noc_initiated->noc_file)
+                      <a href="{{url('fileNdownloads/'.$noc_initiated->noc_file)}}" target="_blank" aks="tooltip" title="Download"><span class="glyphicon glyphicon-download"></span></a>
+                    @endif
+                </td>
+                <td>
+                  <a href="" data-toggle="modal" data-target="#approveData{{ $noc_initiated->id }}" class="text-success"><span class="glyphicon glyphicon-ok"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_initiated->id }}" class="text-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                </td>
+                <div id="deleteData{{ $noc_initiated->id }}" class="modal fade" role="dialog">
+                   <form method="POST"  action="{{url('noc-approval-request/'.$noc_initiated->id.'/status/5')}}">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                   <div class="modal-dialog modal-confirm">
+                     <div class="modal-content">
+                        <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                          <h4 class="modal-title text-center">ARE YOU SURE?</h4>
+                        </div> -->
+                       <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                        <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO REJECT THIS NOC APPLICAITON?</p></center>
+                       </div>
+                       <div class="modal-footer">
+                        <div class="text-center">
+                         <button type="submit" class="btn btn-info btn-xs">YES</button>
+                         <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">NO</button>
+                       </div>
+                       </div>
+                     </div>
+                   </div>
+                   </form>
+                 </div>
+                <div id="approveData{{ $noc_initiated->id }}" class="modal fade" role="dialog">
+                   <form method="POST"  action="{{url('noc-approval-request/'.$noc_initiated->id.'/status/2')}}">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                   <div class="modal-dialog modal-confirm">
+                     <div class="modal-content">
+                        <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                          <h4 class="modal-title text-center">ARE YOU SURE?</h4>
+                        </div> -->
+                       <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                         <center><p style="font-size: 12px;font-weight: 500;color:black!important;">DO YOU REALLY WANT TO APPROVE THIS NOC APPLICAITON?</p></center>
+                       </div>
+                       <div class="modal-footer">
+                        <div class="text-center">
+                         <button type="submit" class="btn btn-info btn-xs">YES</button>
+                         <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">NO</button>
+                       </div>
+                       </div>
+                     </div>
+                   </div>
+                   </form>
+                 </div>
+              </tr>
+                @php $i++; @endphp
+            @endforeach
+          @else
+            <tr>
+                <td colspan="12" style="background-color: #c74343a6;"><b>No Data Found.</b></td>
+            </tr>
+          @endif
+        </tbody>
+        </table>
+        {{ $noc_for_approval->links() }}
+      </div>
     </div>
     <div id="tab2" class="tab-pane fade">
       <table class="table table-bordered text-center">

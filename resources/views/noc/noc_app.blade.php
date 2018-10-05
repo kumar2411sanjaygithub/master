@@ -101,17 +101,15 @@ min-width:100px;
    </ol>
 </section>
    @if (\Session::has('error'))
-      <div class="alert alert-danger" id="successMessage">
-         <ul>
-             <li>{!! \Session::get('error') !!}</li>
-         </ul>
-      </div>
+    <div class="alert alert-danger alert-dismissible fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+     <span class="glyphicon glyphicon-ban-circle"></span> {!! \Session::get('error') !!}
+    </div>
    @endif
    @if (\Session::has('success'))
-      <div class="alert alert-success" id="successMessage">
-         <ul>
-             <li>{!! \Session::get('success') !!}</li>
-         </ul>
+      <div class="alert alert-success alert-dismissible fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+       <span class="glyphicon glyphicon-ok"></span> {!! \Session::get('success') !!}
       </div>
    @endif
 
