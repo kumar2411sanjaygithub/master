@@ -160,6 +160,7 @@ $(function () {
     format: 'dd/mm/yyyy',
   }).on('changeDate', function (selected) {
      var startDate = new Date(selected.date.valueOf());
+      startDate.setDate(startDate.getDate(new Date(selected.date.valueOf()))+1);     
      $('#datepicker2').datepicker('setStartDate', startDate);
    }).on('clearDate', function (selected) {
        $('#datepicker2').datepicker('setStartDate', null);
@@ -175,6 +176,7 @@ $(function () {
     format: 'dd/mm/yyyy',
   }).on('changeDate', function (selected) {
        var endDate = new Date(selected.date.valueOf());
+        endDate.setDate(endDate.getDate(new Date(selected.date.valueOf()))-1);                 
        $('#issue_date').datepicker('setEndDate', endDate);
    }).on('clearDate', function (selected) {
        $('#issue_date').datepicker('setEndDate', null);

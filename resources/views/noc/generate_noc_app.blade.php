@@ -13,11 +13,9 @@
                <span style="margin-left:40px;">{{$date}}</span><span style="float:right;">{{$application_no}}</span>
                <div style="margin-top:30px;">
                   <div id="emp1">To</div>
-                  <div id="emp2">KPTCL</div>
-                  <div id="emp3">Chief Engineer(Electricity)</div>
-                  <div id="emp4">State Load Despatch Centre</div>
-                  <div id="emp5">No.28 Race Course Cross Road</div>
-                  <div id="emp6">Banglore-560009</div>
+                  <div id="emp2">{{isset($sldc_name)?$sldc_name:''}}</div>
+                  <div id="emp3">{!!isset($sldc_address)?$sldc_address:''!!}</div>
+
                </div>
                <div class="row">&nbsp;</div>
                <div class="row">&nbsp;</div>
