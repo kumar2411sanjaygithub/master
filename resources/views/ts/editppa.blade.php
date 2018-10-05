@@ -5,14 +5,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 @section('content')
 <section class="content-header">
-<h5><label  class="control-label"><u>EDIT PPA DETAILS</u></label></h5>
-   <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="/basicdetails">MANAGE CLIENT</a></li>
-      <li><a href="">DAM</a></li>
-      <li><a href="">IEX</a></li>
-      <li class="#"><u> EDIT PPA DETAILS </u></li>
-   </ol>
+<div class="">Edit PPA DETAILS</div>
  </section>
  <section class="content">
   <div class="clearfix"></div>
@@ -28,7 +21,6 @@
             <div class="box">
               <form method="post" action="{{url('/ppa/updateppadata/'.$ppaData->id)}}" enctype="multipart/form-data">
                 {{ csrf_field() }}
-                <input class="form-control input-sm" type="hidden" value="{{ $ppaData->client_id }}" name="client_id" placeholder="ENTER POC LOSSES">
                <div class="box-body">
                   <div class="row">
                      <div class="col-md-3 {{ $errors->has('validity_from') ? 'has-error' : '' }}">
@@ -37,9 +29,9 @@
                            <div class="input-group-addon">
                               <i class="fa fa-calendar"></i>
                            </div>
-                           <input type="text" autocomplete="off" value="{{ date('d/m/Y',strtotime($ppaData->validity_from)) }}" class="form-control pull-right input-sm" id="datepicker" name="validity_from">
+                           <input type="text" autocomplete="off" value="{{ $ppaData->validity_from }}" class="form-control pull-right input-sm" id="datepicker" name="validity_from">
+                            <span class="text-danger">{{ $errors->first('validity_from') }}</span>
                         </div>
-                        <span class="text-danger">{{ $errors->first('validity_from') }}</span>
                      </div>
                      <div class="col-md-3 {{ $errors->has('validity_to') ? 'has-error' : '' }}">
                         <label  class="control-label">VALIDITY END DATE</label><span class="text-danger"><strong>*</strong></span>
@@ -47,20 +39,26 @@
                            <div class="input-group-addon">
                               <i class="fa fa-calendar"></i>
                            </div>
-                           <input type="text"  autocomplete="off" value="{{ date('d/m/Y',strtotime($ppaData->validity_to)) }}" class="form-control pull-right input-sm" id="datepicker1" name="validity_to">
+                           <input type="text"  autocomplete="off" value="{{ $ppaData->validity_to }}" class="form-control pull-right input-sm" id="datepicker1" name="validity_to">
+                            <span class="text-danger">{{ $errors->first('validity_to') }}</span>
                         </div>
-                        <span class="text-danger">{{ $errors->first('validity_to') }}</span>
                      </div>
                      <div class="col-md-3 {{ $errors->has('file_path') ? 'has-error' : '' }}">
                         <label  class="control-label">UPLOAD DOCUMENT</label><span class="text-danger"><strong></strong></span>
-                        <input class="form-control input-sm file" type="file" value="{{ $ppaData->file_path }}" name="file_path" placeholder="ENTER POC LOSSES">
+                        <input class="form-control input-sm" type="file" value="{{ $ppaData->file_path }}" name="file_path" placeholder="ENTER POC LOSSES">
                         <input class="form-control input-sm" type="hidden" value="{{ $ppaData->file_path }}" name="old" placeholder="ENTER POC LOSSES">
                           <span class="text-danger">{{ $errors->first('file_path') }}</span>
                      </div>
-                     <div class="col-md-1 mt23"><button type="submit" title="SAVE" class="btn btn-block btn-info btn-xs">SAVE</button></div>
-                     <div class="col-md-1 mt23"><a title="CANCEL" href="/addppadetailsfind/{{$ppaData->client_id}}" class="btn btn-block btn-danger btn-xs">CANCEL</a></div>
                   </div>
-                </div>
+                  <div class="row">&nbsp;</div>
+                  <div class="row">
+                     <div class="col-md-5"></div>
+                     <div class="col-md-1"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
+                     <div class="col-md-1"><button type="reset" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
+                     <div class="col-md-5"></div>
+                  </div>
+                  <div class="row">&nbsp;</div>
+               </div>
             </div>
 </form>
  </section>
@@ -81,7 +79,7 @@
                  });
                 $('#datepicker1').datepicker({
                   autoclose: true,
-                  format: 'dd/mm/yyyy',
+                   format: 'dd/mm/yyyy'
                 }).on('changeDate', function (selected) {
                      var endDate = new Date(selected.date.valueOf());
                      $('#datepicker').datepicker('setEndDate', endDate);

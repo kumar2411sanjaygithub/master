@@ -7,9 +7,9 @@
 
             </h5>
             <ol class="breadcrumb">
-               <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-               <li><a href="#">MANAGE CLIENT</a></li>
-               <li><a href="#"><u>ACCOUNT GROUP SETTING</u></a></li>
+               <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
+                <li><a href="/basicdetails">MANAGE CLIENT</a></li>
+               <li class="#"><u>ACCOUNT GROUP SETTING</u></li>
             </ol>
          </section>
          <!-- Main content -->
@@ -21,25 +21,29 @@
                         <div class="row addvalidationsetting hidden">
                            <div class="col-md-12">
                                <select class="form-control selectpicker" name="client_id" id="select-client" data-live-search="true">
-                                 <option value="">Search User</option>
+                                 <option value="">Search Client</option>
                                   @foreach($Clientsdetails as $aa)
                                       @if(!in_array($aa['id'],$role_off) )
-                                 <option value="<?php echo $aa['id']; ?>" data-tokens="<?php echo $aa['company_name']; ?>" @if(isset($client_id) && $aa['id'] == $client_id) selected @endif> <?php echo $aa['company_name']; ?></option>
+                                 <option value="<?php echo $aa['id']; ?>" data-tokens="<?php echo $aa['company_name'].$aa['crn_no']. $aa['short_id']. $aa['iex_portfolio']. $aa['pxil_portfolio'] ?>" @if(isset($client_id) && $aa['id'] == $client_id) selected @endif> <?php echo $aa['company_name'].'  '.'['.$aa['short_id'].']'.'['.$aa['crn_no'].']'.' '.'['.$aa['iex_portfolio'].']'.'['.$aa['pxil_portfolio'].']'; ?></option>
                                       @endif
 
                                  @endforeach
                                </select>
+
+
+
+
                            </div>
                         </div>
                         <div class="row">&nbsp;</div>
                         <div class="row">
                           <div class="col-md-2">
-                             <div class="input-group input-group-sm">
+                             <!-- <div class="input-group input-group-sm">
                                 <input type="text" class="form-control" placeholder="SEARCH" id="search">
                                 <span class="input-group-btn">
                                 <button type="button" class="btn btn-info btn-flat" id="vg8" name="vg8"><span class="glyphicon glyphicon-search"></span></button>
                                 </span>
-                             </div>
+                             </div> -->
                           </div>
                            <div class="col-md-1 pull-right">
                               <button type="button" class="btn btn-xs btn-info pull-right addvalidationsettingbtn"><span class="glyphicon glyphicon-plus"> </span> Add Group</button>
@@ -56,7 +60,7 @@
                                           <div class="row">
                                              <div class="col-md-3"><span class="glyphicon glyphicon-menu-hamburger"></span>&nbsp&nbsp {{$groupdata['group_name']}}</div>
                                              <div class="col-md-7"></div>
-                                             <button type="button" class="btn btn-raised btn-info btn-xs" data-toggle="modal"                                    data-target="#myModal{{$groupdata['client_id']}}""> <span class="glyphicon glyphicon-plus"> </span> Add User</button>
+                                             <button type="button" class="btn btn-raised btn-info btn-xs" data-toggle="modal"  data-target="#myModal{{$groupdata['client_id']}}"> <span class="glyphicon glyphicon-plus"> </span> Add User</button>
                                              <div class="col-md-1"><button type="button" class="btn btn-raised btn-danger btn-xs deletegroup"  value="{{$groupdata['client_id']}}">DELETE</button></div>
                                           </div>
                                        </div>
@@ -81,7 +85,7 @@
                                     <div class="modal-content">
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title"><center>Search New User For {{$groupdata['group_name']}} Group</center></h4>
+                                        <h4 class="modal-title"><center>Search New Client For {{$groupdata['group_name']}} Group</center></h4>
                                       </div>
                                       <div class="modal-body">
                                   <form method="post" action="">
@@ -96,7 +100,7 @@
                                              <select class="form-control selectpicker select-client-modal"
                                              name="client_id"
                                               data-live-search="true">
-                                               <option value="">Search User</option>
+                                               <option value="">Search Client</option>
                                                 @foreach ($Clientsdetails as $aa)
                                                   @if($aa['id']!= $groupdata['client_id'] &&
                                                   $aa['group_id']!= $groupdata['client_id'])

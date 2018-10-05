@@ -4,9 +4,9 @@
     <h5><label  class="control-label"><u>APPROVE</u> <u>NEW</u> <u>CLIENT</u></label></h5>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-        <li><a href="#">APPROVE REQUEST</a></li>
-        <li><a href="active">CLIENT</a></li>
-        <li><a href="active"><u>NEW</u></a></li>
+        <li><a href="/client/new">APPROVE REQUEST</a></li>
+        <li><a href="/client/new">CLIENT</a></li>
+        <li class=""><u>NEW</u></li>
       </ol>
     </section>
 

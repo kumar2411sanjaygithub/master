@@ -6,7 +6,7 @@
    }
 </style>
 <div class="login-box-body">
-   <span  style="margin-top:-4px!important;font-size:20px; font-weight:600;margin-left:28px;">&nbsp; TPTCL  ONLINE  BIDDING  PORTAL </span>
+   <div class="row text-center"><div nowrap class="col-lg-12"><span class="text-center" style="margin-top:-4px!important;font-size:20px; font-weight:600;">&nbsp; TPTCL  ONLINE  BIDDING  PORTAL </span></div></div>
    <div class="row">&nbsp;</div>
    <div class="nav-tabs-custom">
       <ul class="nav nav-pills">
@@ -46,8 +46,8 @@
             </div>
          </form>
          <div class="row">&nbsp;</div>
-         <a class="btn btn-link" href="{{ route('client.password.reset') }}">
-         {{ __('Forgot Password?') }}
+        {{-- <a class="btn btn-link" href="{{ route('client.password.reset') }}">
+         {{ __('Forgot Password?') }} --}}
          </a>
       </div>
       <div id="tab_2" class="tab-pane fade">
@@ -67,8 +67,8 @@
             </div>
          </form>
          <div class="row">&nbsp;</div>
-         <a class="btn btn-link" href="{{ route('password.request') }}">
-         {{ __('Forgot Password?') }}
+         {{--<a class="btn btn-link" href="{{ route('password.request') }}">
+         {{ __('Forgot Password?') }} --}}
          </a>
       </div>
    </div>

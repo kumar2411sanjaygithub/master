@@ -12,9 +12,9 @@
       <label  class="control-label">EDIT POC LOSSES</label>
    </h5>
    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">POC & DISCOM LOSSES</a></li>
-      <li><a href="#" class="active">POC Add</a></li>
+      <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
+      <li><a href="/POC">POC & DISCOM LOSSES</a></li>
+       <li class="#"><u>EDIT POC</u></li>
    </ol>
 </section>
 <!-- Content Header (Page header) -->
@@ -58,7 +58,7 @@
                        <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                        </div>
-                       <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{ $pocData->date_from }}" id="datepicker" name="date_from">
+                       <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{ @date('d/m/Y',strtotime($pocData->date_from)) }}" id="datepicker" name="date_from">
                     </div>
                     <span class="text-danger">{{ $errors->first('date_from') }}</span>
 
@@ -69,7 +69,7 @@
                        <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                        </div>
-                       <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{ $pocData->date_to }}" id="datepicker1" name="date_to">
+                       <input type="text" autocomplete="off" class="form-control pull-right input-sm" value="{{ @date('d/m/Y',strtotime($pocData->date_to)) }}" id="datepicker1" name="date_to">
                     </div>
                     <span class="text-danger">{{ $errors->first('date_to') }}</span>
                  </div>

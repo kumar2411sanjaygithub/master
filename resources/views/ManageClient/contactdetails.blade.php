@@ -9,7 +9,15 @@
 }
 </style>
 
-
+<section class="content-header">
+  
+   <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
+      <li><a href="/basicdetails">MANAGE CLIENT</a></li>
+      <li><a href="/basicdetails">CLIENT BASIC DETAILS</a></li>
+      <li class="#"><u>CONTACT DETAILS</u></li>
+   </ol>
+</section>
     <!-- Main content -->
     <section class="content">
           @if (count($errors) > 0 && $errors->has('pending'))
@@ -22,12 +30,11 @@
 
 
           <div class="row">
-            <div class="col-md-6 pull-left">
+            <div class="col-md-8 pull-left">
                 <h5 class="pull-left"><label class="control-label pull-right mt-1"><u>CONTACT DETAILS</u></h5> &nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
             </div>
-            <div class="col-md-6 pull-right">
-                <a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7 pull-right" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
-                <button class="btn btn-info btn-xs mt7 pull-right mr5 {{(isset($get_contact_details)||!$errors->isEmpty())?'divhide':''}}" id="add"><span class="glyphicon glyphicon-plus"></span>&nbspADD</button>
+            <div class="col-md-4 pull-right">
+
 
             </div>
           </div>
@@ -38,6 +45,8 @@
          <span class="glyphicon glyphicon-ok"></span> &nbsp;{{ session()->get('message') }}
         </div>
         @endif
+         <a href="{{ route('basic.details') }}"><button  class="btn btn-info btn-xs mt7 pull-right" value=" BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp;BACK TO LIST</button></a>
+                <button class="btn btn-info btn-xs mt7 pull-right mr5 {{(isset($get_contact_details)||!$errors->isEmpty())?'divhide':''}}" id="add"><span class="glyphicon glyphicon-plus"></span>&nbspADD</button>
       <form method ="post" action="{{isset($get_contact_details)?url('contact_edit/'.$get_contact_details->id):route('contact_create')}}">
       {{ csrf_field() }}
       <div class="row {{(isset($get_contact_details)||!$errors->isEmpty())?'':'divhide'}}" id="contactbox">
@@ -82,10 +91,7 @@
     </div></div></div>
     </form>
 
-
-
-
-
+               
                <div class="row">
                   <div class="col-xs-12">
                      <div class="box mt3">
