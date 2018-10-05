@@ -3,10 +3,10 @@
 <section class="content-header">
   <h5><label  class="control-label"><u>Download Bid</u></label></h5>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-    <li><a href="#">DEM</a></li>
-    <li><a href="#">IEX</a></li>
-    <li><a href="#"><u>Download Bid</u></a></li>
+    <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
+    <li><a href="/power/downloadbid">DEM</a></li>
+    <li><a href="/power/downloadbid">IEX</a></li>
+    <li class="#"><u>Download Bid</u></li>
   </ol>
 </section>
 <section>

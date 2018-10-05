@@ -8,11 +8,11 @@
   <label  class="control-label"><u>BID PLACEMENT REMINDER</u></label>
    </h5>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">DAM</a></li>
-      <li><a href="#">IEX</a></li>
-      <li><a href="#">BID CONFIRMATION</a></li>
-      <li><a href="#"><u>NO BID</u></a></li>
+      <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
+      <li><a href="">DAM</a></li>
+      <li><a href="">IEX</a></li>
+      <li><a href="/bidplacement/bidplacement">BID CONFIRMATION</a></li>
+      <li class="#"><u>NO BID</u></li>
     </ol>
   </section>
   <section class="content">

@@ -5,8 +5,8 @@
     <h5><label  class="control-label"><u>PERMISION LIST</u></label></h5>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-        <li><a href="#">MANAGE EMPLOYEE</a></li>
-        <li><a href="#">PERMISSION</a></li>
+        <li><a href="/permissionlist">MANAGE EMPLOYEE</a></li>
+        <li class="#"><u>PERMISSION</u></li>
       </ol>
     </section>
 
@@ -33,7 +33,7 @@
           <span class="text-danger">{{ $errors->first('permission_name') }}</span>
     </div>
   <div class="col-md-3 {{ $errors->has('slug') ? 'has-error' : '' }}">
-     <label  class="control-label">SLUG</label>
+     <label  class="control-label">SLAG</label>
      <input class="form-control input-sm" type="text" placeholder="ENTER SLAG" name="slug" value="{{(isset($permissions->id)&& $permissions->slug)?$permissions->slug:old('slug')}}">
       <span class="text-danger">{{ $errors->first('slug') }}</span>
   </div>
@@ -69,7 +69,7 @@
             <tr>
               <th class="srno">SR.NO</th>
               <th>PERMISSION NAME</th>
-              <th>SLUG</th>
+              <th>SLAG</th>
               <th>DESCRIPTION</th>
               <th>CREATED DATE</th>
               <th class="act1">ACTION</th>

@@ -30,9 +30,9 @@ min-width:100px;
     <label  class="control-label"><u>NOC BILLING SETTING</u></label>
      </h5>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-        <li><a href="#"> NOC</a></li>
-        <li><a href="{{route('billsetting.nocbilllist')}}"><u>NOC BILLING SETTING</u></a></li>
+        <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
+        <li><a href=""> NOC</a></li>
+        <li class =""><u>NOC BILLING SETTING</u></li>
       </ol>
     </section>
 

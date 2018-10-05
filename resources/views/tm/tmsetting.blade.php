@@ -13,9 +13,11 @@
    <h5><label  class="control-label">Trading Margin (TM) Name Setting</label></h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">MANAGE CLIENT</a></li>
-      <li><a href="#">TRADER'S SETTING</a></li>
-      <li><a href="#"><u>TM NAME SETTING</u></a></li>
+    <li><a href="/basicdetails">MANAGE CLIENT</a></li>
+    
+      <li><a href="">TRADER'S SETTING</a></li>
+      
+      <li class="#"><u>TM NAME SETTING</u></li>
    </ol>
 </section>
   <div class="clearfix"></div>

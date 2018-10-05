@@ -4,10 +4,10 @@
                <h5 class="pull-left"><label  class="control-label pull-right mt-1"><u>APPROVE EXCHANGE DETAILS</u></h5>&nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
                <ol class="breadcrumb">
                   <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-                  <li><a href="#">APPROVE REQUEST</a></li>
-                  <li><a href="#">CLIENT</a></li>
-                  <li><a href="#">EXISTING</a></li>
-                  <li><a href="#"><u>EXCHANGE DETAILS</u></a></li>
+                  <li><a href="/client/new">APPROVE REQUEST</a></li>
+                  <li><a href="/client/existing">CLIENT</a></li>
+                  <li><a href="/client/existing">EXISTING</a></li>
+                  <li class="#"><u>EXCHANGE DETAILS</u></li>
                </ol>
             </section>
             <!-- Main content -->
@@ -117,7 +117,7 @@
                                              <th class="vl">EXCHANGE TYPE</th>
                                              <th class="vl">VALIDITY FROM</th>
                                              <th class="vl">VALIDITY TO</th>
-                                             <th class="vl">FILE NAME</th>
+                                             <th class="vl">FILE</th>
                                              <th class="act vl">ACTION</th>
                                           </tr>
                                        </thead>
@@ -362,7 +362,7 @@
                                              <th class="vl">EXCHANGE TYPE</th>
                                              <th class="vl">VALIDITY FROM</th>
                                              <th class="vl">VALIDITY TO</th>
-                                             <th class="vl">FILE NAME</th>
+                                             <th class="vl">FILE</th>
                                              <th class="act vl">ACTION</th>
                                           </tr>
                                        </thead>

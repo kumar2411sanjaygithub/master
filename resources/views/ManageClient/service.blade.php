@@ -6,10 +6,10 @@
    <div class="row">
       <div class="col-xs-12">
          <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-8">
                <h5><label class="control-label"><u>SET EMAIL/SMS ALERT</u>&nbsp&nbsp&nbsp&nbsp {{$client->company_name}}</label></h5>
             </div>
-            <div class="col-md-7"></div>
+            <div class="col-md-3"></div>
             <div class="col-md-1" style="margin-left:-30px;"><a href="/contactdetails/{{$client_id}}" class="btn btn-info btn-xs mt7">
                </span><span class="glyphicon glyphicon-forward"></span>&nbsp; BACK TO LIST
                </a>

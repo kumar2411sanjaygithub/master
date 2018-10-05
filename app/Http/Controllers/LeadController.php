@@ -65,18 +65,19 @@ class LeadController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'company_name' => 'required|min:1|max:50',
+            'company_name' => 'required|min:1|max:100',
             'product' => 'required',
             'contact_person' => 'required|regex:/^[a-zA-Z\.\s]+$/u|max:50',
             'contact_number' => 'required',
             'email_id' => 'required',
-            'add_line1' => 'required|max:200',
-            'add_line2' => 'nullable|max:200',
-            'quantum' => 'nullable|regex:/^[0-9]+$/',
+            'add_line1' => 'required|max:100',
+            'add_line2' => 'nullable|max:100',
+            'quantum' => 'nullable|between:0,99.99|max:7',
             'add_country' => 'required',
             'add_state' => 'required',
-            'add_city' => 'required|regex:/^[a-zA-Z ]+$/u|max:30',
+            'add_city' => 'required|regex:/^[a-zA-Z0-9 ,]+$/u|max:30',
             'add_pincode' => 'required|min:6|max:6|not_in:0',
+            'discom'=> 'nullable|regex:/^[0-9A-Za-z.\-_]+$/|max:15',
             //'contact_number' => 'nullable|digits:10',
 
         ]);
@@ -178,16 +179,19 @@ class LeadController extends Controller
     {
 
         $this->validate($request, [
-            'company_name' => 'required|max:50',
-            'contact_person' => 'nullable|regex:/^[a-zA-Z ]+$/u|max:50',
-            'contact_number'=>'required',
-            'add_line1' => 'required|max:200',
-            'add_line2' => 'nullable|max:200',
+           'company_name' => 'required|min:1|max:100',
+            'product' => 'required',
+            'contact_person' => 'required|regex:/^[a-zA-Z\.\s]+$/u|max:50',
+            'contact_number' => 'required',
+            'email_id' => 'required',
+            'add_line1' => 'required|max:100',
+            'add_line2' => 'nullable|max:100',
+            'quantum' => 'nullable|between:0,99.99|max:7',
             'add_country' => 'required',
             'add_state' => 'required',
-            'add_city' => 'required|regex:/^[a-zA-Z ]+$/u|max:30',
+            'add_city' => 'required|regex:/^[a-zA-Z0-9 ,]+$/u|max:30',
             'add_pincode' => 'required|min:6|max:6|not_in:0',
-            'contact_number' => 'nullable|digits:10',
+            'discom'=> 'nullable|regex:/^[0-9A-Za-z.\-_]+$/|max:15',
 
         ]);
         if(request('lead_owner')!='')
