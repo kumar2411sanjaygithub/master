@@ -206,6 +206,7 @@
       </div>
     </div>
   </div>
+
 <script type="text/javascript">
  setTimeout(function() {
    $('.alert-success').fadeOut('fast');

@@ -56,12 +56,6 @@
                <div class="well well-sm">
                 <div class="row " >
                    <div class="col-md-6">
-                      <!-- <div class="input-group input-group-sm">
-                         <input type="text" class="form-control" placeholder="SEARCH CLIENT...........">
-                         <span class="input-group-btn">
-                         <button type="button" class="btn btn-info btn-flat" id="se1" name="se1"><span class="glyphicon glyphicon-search"></span></button>
-                         </span>
-                      </div> -->
                       <div class="  {{ $errors->has('user_id') ? 'has-error' : '' }}">
                           <select class="" name="user_id" id="select-client" data-live-search="true">
                               <option value="">Search Client</option>
@@ -74,17 +68,18 @@
                           <span class="text-danger">{{ $errors->first('user_id') }}</span>
                        </div>
                    </div>
-               <div class="col-md-6" style="margin-top:2px;">
-                      <div class="row">
-                      <div class="col-md-3"><span><input type="checkbox" class="minimal" value="NOC" name="noc" id="noc"></span> <label class="control-label" for="noc">NOC</label></div>
+                   <div class="col-md-6" style="margin-top:2px;">
+                          <div class="row">
+                          <div class="col-md-3"><span><input type="checkbox" class="minimal" value="NOC" name="noc" id="noc"></span> <label class="control-label" for="noc">NOC</label></div>
 
-                      <div class="col-md-3"><span><input type="checkbox" class="minimal" value="PPA" name="ppa" id="ppa"></span> <label class="control-label" for="ppa">PPA</label></div>
+                          <div class="col-md-3"><span><input type="checkbox" class="minimal" value="PPA" name="ppa" id="ppa"></span> <label class="control-label" for="ppa">PPA</label></div>
 
-                      <div class="col-md-3"><span><input type="checkbox" class="minimal" value="Exchange" name="exchange" id="exchange"></span> <label class="control-label" for="exchange">EXCHANGE</label></div>
-                      <div class="col-md-3" ><span><input type="checkbox"  class="minimal" value="PSM" name="psm" id="psm"></span> <label class="control-label" for="psm">PSM</label></div>
-                   </div>
+                          <div class="col-md-3"><span><input type="checkbox" class="minimal" value="Exchange" name="exchange" id="exchange"></span> <label class="control-label" for="exchange">EXCHANGE</label></div>
+                          <div class="col-md-3" ><span><input type="checkbox"  class="minimal" value="PSM" name="psm" id="psm"></span> <label class="control-label" for="psm">PSM</label></div>
+                       </div>
+                    </div>
+                  </div>
                 </div>
-              </div></div>
 
                 <div class="row">
                    <div class="col-md-1 pull-right">
@@ -97,7 +92,7 @@
           <div class="row">
              <div class="col-md-2">
                 <div class="input-group input-group-sm">
-                   <input type="text" class="form-control" placeholder="SEARCH">
+                   <input type="text" class="form-control" id="search" placeholder="SEARCH">
                    <span class="input-group-btn">
                    <button type="button" class="btn btn-info btn-flat" id="vg8" name="vg8"><span class="glyphicon glyphicon-search"></span></button>
                    </span>
@@ -210,5 +205,20 @@ $(function () {
     $(document).ready(function() {
    $('#select-client').select2();
 });
+</script>
+<script>
+  $("#search").keyup(function () {
+      var value = this.value.toLowerCase().trim();
+
+      $("table tr").each(function (index) {
+          if (!index) return;
+          $(this).find("td").each(function () {
+              var id = $(this).text().toLowerCase().trim();
+              var not_found = (id.indexOf(value) == -1);
+              $(this).closest('tr').toggle(!not_found);
+              return not_found;
+          });
+      });
+  });
 </script>
 @endsection

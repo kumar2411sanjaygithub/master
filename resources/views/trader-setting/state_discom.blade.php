@@ -189,7 +189,7 @@
                   <div class="col-md-1"><button type="submit" class="btn btn-block btn-success btn-xs">SAVE</button></div>
                   @endif
                   <div class="col-md-1"><button type="reset" class="btn btn-block btn-danger btn-xs">CANCEL</button></div>
-               
+
               </div>
           </form>
         </div>
@@ -335,8 +335,8 @@
                      <div class="pull-right"> {{ $stateDiscomData->links() }}</div>
                    </div>
                  </div>
-                
-               
+
+
             </div>
             <!-- /.box-body -->
           </div>

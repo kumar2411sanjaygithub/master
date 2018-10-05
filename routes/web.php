@@ -131,6 +131,7 @@ Route::group(['middleware' => 'auth'], function ()
   | Created By : Ashutosh Kr Shukla <php9@cybuzzsc.com>
   /*******************************************************/
   Route::get('/tm/tmnamesetting',['as'=>'tmnameview','uses'=>'TmNameController@view']);
+  Route::get('/ts/ts',['as'=>'ts','uses'=>'TsController@view']);
   Route::post('/tm/tmnamesetting',['as'=>'tmnameupdate','uses'=>'TmNameController@update']);
 
     /*******************************************************
