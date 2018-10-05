@@ -5,7 +5,7 @@
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="#">MANAGE CLIENT</a></li>
-      <li class="#">CLIENT BASIC DETAILS</li>
+      <li><a href="/basicdetails">CLIENT BASIC DETAILS</a></li>
       <li class="#"><u>EDIT CLIENT</u></li>
    </ol>
 </section>

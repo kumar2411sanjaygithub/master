@@ -12,9 +12,9 @@
       <label  class="control-label">ADD DISCOM</label>
    </h5>
    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">POC & DISCOM LOSSES</a></li>
-      <li><a href="#" class="active">DISCOM ADD</a></li>
+      <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
+      <li><a href="/discom">POC & DISCOM LOSSES</a></li>
+     <li class="#"><u>ADD DISCOM</u></li>
    </ol>
 </section>
 <!-- Content Header (Page header) -->

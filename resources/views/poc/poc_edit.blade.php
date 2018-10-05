@@ -12,9 +12,9 @@
       <label  class="control-label">EDIT POC LOSSES</label>
    </h5>
    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">POC & DISCOM LOSSES</a></li>
-      <li><a href="#" class="active">POC Add</a></li>
+      <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
+      <li><a href="/POC">POC & DISCOM LOSSES</a></li>
+       <li class="#"><u>EDIT POC</u></li>
    </ol>
 </section>
 <!-- Content Header (Page header) -->

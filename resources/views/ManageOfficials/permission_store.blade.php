@@ -35,7 +35,7 @@
           <span class="text-danger">{{ $errors->first('permission_name') }}</span>
     </div>
   <div class="col-md-3 {{ $errors->has('slug') ? 'has-error' : '' }}">
-     <label  class="control-label">SLUG</label>
+     <label  class="control-label">SLAG</label>
      <input class="form-control input-sm" type="text" placeholder="ENTER SLAG" name="slug" value="{{(isset($permissions->id)&& $permissions->slug)?$permissions->slug:old('slug')}}">
       <span class="text-danger">{{ $errors->first('slug') }}</span>
   </div>

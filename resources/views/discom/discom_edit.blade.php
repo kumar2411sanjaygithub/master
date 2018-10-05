@@ -13,8 +13,8 @@
    </h5>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">POC & Discom Losses</a></li>
-      <li><a href="#" class="active">Discom Edit</a></li>
+      <li><a href="/discom">POC & DISCOM LOSSES</a></li>
+     <li class="#"><u>EDIT DISCOM</u></li>
    </ol>
 </section>
 <!-- Content Header (Page header) -->

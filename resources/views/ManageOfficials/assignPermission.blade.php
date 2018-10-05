@@ -40,7 +40,7 @@
   <thead>
     <th class="vl">SR.NO</th>
     <th class="vl">PERMISSION NAME</th>
-    <th class="vl">SLUG</th>
+    <th class="vl">SLAG</th>
     <th style="padding-top:5px!important;padding-bottom:5px!important;">ADD </br><input type="checkbox" id="add-checkbox" class="minimal"></th>
     <th style="padding-top:5px!important;padding-bottom:5px!important;">VIEW </br><input type="checkbox" id="view-checkbox" class="minimal"></th>
     <th style="padding-top:5px!important;padding-bottom:5px!important;">EDIT </br><input type="checkbox" id="edit-checkbox"  class="minimal"></th>

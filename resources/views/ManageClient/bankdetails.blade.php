@@ -8,18 +8,26 @@
   display: block;
 }
 </style>
+<section class="content-header">
+  
+   <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
+      <li><a href="/basicdetails">MANAGE CLIENT</a></li>
+      <li><a href="/basicdetails">CLIENT BASIC DETAILS</a></li>
+      <li class="#"><u>BANK DETAILS</u></li>
+   </ol>
+</section>
     <section class="content">
 
       <div class="row">
-        <div class="col-xs-12">
-
-          <div class="row">
-            <div class="col-md-6 pull-left">
+       
+            <div class="col-md-8 pull-left">
+              
                 <h5 class="pull-left"><label class="control-label pull-right mt-1"><u>BANK DETAILS</u></h5> &nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
             </div>
-            <div class="col-md-6 pull-right">
-                    <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mt7"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
-                    <button class="btn btn-info btn-xs pull-right mr5 mt7 {{(isset($get_bank_details)||!$errors->isEmpty())?'divhide':''}} " id="add"><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
+      
+            <div class="col-md-4 pull-right">
+                   
             </div>
           </div>
       @if(session()->has('message'))
@@ -29,6 +37,12 @@
             </div>
 
           @endif
+          <div class="row">
+  <div class="col-md-12">
+ <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mt7"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
+                    <button class="btn btn-info btn-xs pull-right mr5 mt7 {{(isset($get_bank_details)||!$errors->isEmpty())?'divhide':''}} " id="add"><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</button>
+                  </div>
+                </div>
         <form method ="post" action="{{isset($get_bank_details)?url('bank_edit/'.$get_bank_details->id):route('bank_create')}}">
       {{ csrf_field() }}
   <div class="row {{(isset($get_bank_details)||!$errors->isEmpty())?'':'divhide'}}" id="bankbox">

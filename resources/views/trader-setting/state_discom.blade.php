@@ -10,9 +10,9 @@
     <label  class="control-label"><u>DISCOM</u> <u>&</u> <u>SLDC</u> <u>LIST OF STATE</u></label>
      </h5>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-        <li><a href="#">TRADER'S SETTING</a></li>
-        <li><a href="{{route('discom-sldc-state.index')}}"><u>DISCOM</u> <u>&</u> <u>SLDC</u></a></li>
+        <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
+        <li><a href="/discom-sldc-state">TRADER'S SETTING</a></li>
+        <li class =""><u>DISCOM</u> <u>&</u> <u>SLDC</u></li>
       </ol>
     </section>
    @if (\Session::has('success'))

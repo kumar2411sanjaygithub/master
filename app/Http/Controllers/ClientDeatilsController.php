@@ -45,11 +45,11 @@ class ClientDeatilsController extends Controller
             'pri_contact_no'=>'required|regex:/^[0-9]{10}$/',
             'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|unique:clients|min:21|max:21',
             'email'=>'required|email|max:81',
-            'reg_line1' => 'required|max:50',
-            'reg_line2' => 'min:0|max:50',
+            'reg_line1' => 'required|max:100',
+            'reg_line2' => 'min:0|max:100',
             'reg_country' => 'required',
             'reg_state' => 'required',
-            'reg_city' => 'required|regex:/^[A-z]+$/|max:25',
+            'reg_city' => 'required|regex:/^[a-zA-Z0-9 ,]+$/u|max:30',
             'reg_pin' => 'required|regex:/^[1-9][0-9]{5}$/',
             'reg_mob' => 'required|regex:/^[0-9]{10}$/',
             'reg_telephone' => 'nullable|min:5|max:15',
@@ -86,11 +86,11 @@ class ClientDeatilsController extends Controller
             'inter_poc'=>'nullable',
             'common_feeder_option'=>'nullable|regex:/^[\w-]*$/|max:30',
             'feeder_name'=>'nullable|regex:/^[\w-]*$/|max:30',
-            'feeder_code'=>'nullable',
+            'feeder_code'=>'nullable|max:30',
             'conn_discom'=>'nullable',
             'conn_state'=>'nullable',
-            'maxm_injection'=>'nullable|digits_between:1,8',
-            'maxm_withdrawal'=>'nullable|digits_between:1,8',
+            'maxm_injection'=>'nullable|between:0,99.99|max:7',
+            'maxm_withdrawal'=>'nullable|between:0,99.99|max:7',
             'payment'=>'nullable|numeric',
             'obligation'=>'nullable',
             'noc_punched_by'=>'nullable'
@@ -271,11 +271,11 @@ class ClientDeatilsController extends Controller
             'pri_contact_no'=>'required|regex:/^[0-9]{10}$/',
             'cin' => 'required|regex:/^[LU][0-9]{5}[A-z]{2}[0-9]{4}[A-z]{3}[0-9]{6}$/|min:21|max:21',
             'email'=>'required|email|max:81',
-            'reg_line1' => 'required|max:50',
-            'reg_line2' => 'min:0|max:50',
+            'reg_line1' => 'required|max:100',
+            'reg_line2' => 'min:0|max:100',
             'reg_country' => 'required',
             'reg_state' => 'required',
-            'reg_city' => 'required|regex:/^[A-z]+$/|max:25',
+            'reg_city' => 'required|regex:/^[a-zA-Z0-9 ,]+$/u|max:30',
             'reg_pin' => 'required|regex:/^[1-9][0-9]{5}$/',
             'reg_mob' => 'required|regex:/^[0-9]{10}$/',
             'reg_telephone' => 'nullable|min:5|max:15',
@@ -315,8 +315,8 @@ class ClientDeatilsController extends Controller
             'feeder_code'=>'nullable',
             'conn_discom'=>'nullable',
             'conn_state'=>'nullable',
-            'maxm_injection'=>'nullable|digits_between:1,8',
-            'maxm_withdrawal'=>'nullable|digits_between:1,8',
+            'maxm_injection'=>'nullable|between:0,99.99|max:7',
+            'maxm_withdrawal'=>'nullable|between:0,99.99|max:7',
             'payment'=>'nullable|numeric',
             'obligation'=>'nullable',
             'noc_punched_by'=>'nullable'
@@ -469,14 +469,8 @@ class ClientDeatilsController extends Controller
          $dataArray['noc_punched_by'] = $request->input('noc_punched_by');
 
         $result=array_diff_assoc($dataArray,$datas);
-        //print_r($result);
-        //dd($dataArray);
         $this->generateApprovalrequest($result, 'client', $client_id, $basic_id,$datas);
-
-        //return redirect()->route('basicdetails')->with('message','Detail added successfully and sent to Approver');
         return Redirect::back()->with('message', 'Your update request has been successfully submitted for approval..');
-
-
     }
 
 
@@ -549,9 +543,12 @@ class ClientDeatilsController extends Controller
         $dataArray['virtual_account_number'] = $request->input('virtual_account_number');
         $result=array_diff($dataArray,$bankdetailtemp);
 
-        $this->generateApprovalrequest($result, 'bank', $client_id, $bank_detail_id,$datas);
-
-        return redirect()->route('bankdetails', ['id' => $client_id])->with('message','Detail added successfully and sent to Approver');
+        if($this->generateApprovalrequestbank($result,'bank',$client_id,$bank_detail_id,$datas)==false){
+           // dd(1);
+            return redirect()->route('bankdetails', ['id' => $client_id])->with(['message'=>'There is already a change request pending for approval.']);
+        }
+        
+          return redirect()->route('bankdetails', ['id' => $client_id])->with('message','Detail added successfully and sent for approval.');
     }
 
 
@@ -618,6 +615,36 @@ class ClientDeatilsController extends Controller
         }
 
     }
+     function generateApprovalrequestbank($data, $type, $client_id, $reference_id='',$datas)
+    {
+        $apprval_req_pending = Approvalrequest::where('client_id',$client_id)->where('status','0')->where('approval_type','bank')->get();
+
+     
+//dd($apprval_req_pending);
+        if($apprval_req_pending->count()>0)
+        {
+          return false;
+        }
+        else
+        {
+         $arrayKey = array_keys($data);
+         $arrayValue = array_values($data);
+           foreach($data as $key=>$value)
+           {
+              $approvalRequest = new Approvalrequest();
+              $approvalRequest->client_id       = $client_id;
+              $approvalRequest->attribute_name  = $key;
+              $approvalRequest->updated_attribute_value =  $value;
+              $approvalRequest->approval_type   = $type;
+              $approvalRequest->old_att_value   = isset($datas[$key])?$datas[$key]:'-';
+              //$approvalRequest->approved_by      = '';
+              $approvalRequest->status          = '0';
+              $approvalRequest->reference_id    = $reference_id;
+              $approvalRequest->save();
+          }
+          return true;
+        }
+    }
 
     public function barreddetails()
     {
@@ -634,7 +661,7 @@ class ClientDeatilsController extends Controller
     }
     public function accountGroupDetails()
     {
-        $Clientsdetails = Client::select('barred_status','company_name','group_id','group_role','id')->where('barred_status',"1")
+        $Clientsdetails = Client::select('barred_status','short_id','crn_no','iex_portfolio','pxil_portfolio','company_name','group_id','group_role','id')->where('barred_status',"1")
         ->where(function($query){
             $query->where('group_role', '!=', 'MainMember','AND')->orWhereNull('group_role');
         })->get()->toArray();

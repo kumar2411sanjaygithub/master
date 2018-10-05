@@ -12,9 +12,9 @@
 <section class="content-header">
    <h5><label  class="control-label"><u>Common Information</u></label></h5>
    <ol class="breadcrumb">
-      <li><a href="/home"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">Trader's Setting</a></li>
-      <li><a href="#">Common Information</a></li>
+      <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
+      <li><a href="/commonInfo/connoninfo">Trader's Setting</a></li>
+      <li class="#"><u>Common Information</u></li>
       <!-- <li><a href="#">IEX</a></li>
       <li><a href="#"><u> BID SETTING</u></a></li> -->
    </ol>
