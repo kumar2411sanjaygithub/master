@@ -15,5 +15,10 @@ class NocApp extends Model
         return $this->belongsTo('App\Client','client_id','id');
     }
 
+    // public function sldc_address()
+    // {
+    //     $this->client->conn_state;
+    // }
+
 }
 ?>

@@ -75,8 +75,8 @@
                 @endif
             </td>
             <td>
-              <a href="" data-toggle="modal" data-target="#approveData{{ $noc_initiated->id }}" class="btn  btn-info btn-xs">APPROVE</a>
-              <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_initiated->id }}" class="btn  btn-danger btn-xs">REJECT</a>
+              <a href="" data-toggle="modal" data-target="#approveData{{ $noc_initiated->id }}" class="btn  btn-info btn-xs"><span class="glyphicon glyphicon-ok"></span></a>
+              <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_initiated->id }}" class="btn  btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></a>
             </td>
             <div id="deleteData{{ $noc_initiated->id }}" class="modal fade" role="dialog">
                <form method="POST"  action="{{url('noc-approval-request/'.$noc_initiated->id.'/status/5')}}">
@@ -256,8 +256,8 @@
     <!-- /.content -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+ -->
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
