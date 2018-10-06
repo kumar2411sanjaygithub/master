@@ -3,8 +3,8 @@
 <section class="content-header">
    <h5><label  class="control-label"><u>EDIT CLIENT</u></label></h5>
    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
-      <li><a href="#">MANAGE CLIENT</a></li>
+      <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
+      <li><a href="">MANAGE CLIENT</a></li>
       <li><a href="/basicdetails">CLIENT BASIC DETAILS</a></li>
       <li class="#"><u>EDIT CLIENT</u></li>
    </ol>
@@ -111,14 +111,17 @@
                </div>
                <div class="col-md-3 ">
                   <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
-                  <select class="form-control input-sm disabled-class"  disabled  style="width: 100%;"id="reg_state" name="reg_state" value="{{ $clientdata->reg_state}}">
+                  <select class="form-control input-sm disabled-class"  disabled  style="width: 100%;"id="reg_state" name="reg_state">
                      <option value="">SELECT</option>
                      <?php
                         $state_list = \App\Common\StateList::get_states();
+
                         ?>
+
                      @foreach($state_list as $state_code=>$state_ar)
 
-           <option value="{{$state_code}}" {{ ((isset($clientData) && $clientData->reg_state == $state_code) || old('reg_state')==  $state_code)? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
+
+           <option value="{{$state_code}}" {{ ((isset($clientdata) && $clientdata->reg_state == $state_code)||old('reg_state')==$state_code) ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
           @endforeach
 
            
@@ -174,7 +177,7 @@
                   <label  class="control-label">COUNTRY</label>
                   <select class="form-control input-sm disabled-class" disabled style="width: 100%;" id="bill_country" name="bill_country">
                       <option value="">SELECT</option>
-                     <option value="India" {{((isset($clientData)&&$clientData->bill_country=='India')||old('bill_country')=='India')?'selected="selected"':''}}>India</option>
+                    <option value="India" @if(isset($clientdata->bill_country)&&$clientdata->bill_country=='India') selected='selected'@endif>India</option>
                   </select>
                </div>
                <div class="col-md-3">
@@ -236,7 +239,7 @@
                       <option value="">SELECT</option>
                      
 
-                     <option value="India" {{((isset($clientData)&&$clientData->del_country=='India')||old('del_country')=='India')?'selected="selected"':''}}>India</option>
+                    <option value="India" @if(isset($clientdata->del_country)&&$clientdata->del_country=='India') selected='selected'@endif>India</option>
                   </select>
                </div>
                <div class="col-md-3">
@@ -391,11 +394,14 @@
                </div>
                <div class="col-md-3">
                   <label  class="control-label">VOLTAGE LEVEL</label>
-                  <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="voltage" name="voltage" value="{{ $clientdata->voltage}}">
+                  <select class="form-control input-sm disabled-class"  disabled style="width: 100%;" id="voltage" name="voltage">
                     <option value=''>SELECT</option>
                     @foreach($voltage_array as $vol_list)
                      @if(isset($clientdata->voltage))
-                       <option value='{{$vol_list}}' @if((isset($clientdata->voltage)&&$clientdata->voltage==$vol_list))? selected="selected" @endif>{{$vol_list}}</option>
+                       <option value='{{$vol_list}}' @if((isset($clientdata->voltage)&&$clientdata->voltage==$vol_list)|| old('voltage')==$vol_list) ? selected="selected" @endif>{{$vol_list}}</option>
+
+           
+
                       @endif
                     @endforeach
                   </select>

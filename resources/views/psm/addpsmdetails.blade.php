@@ -14,7 +14,7 @@ a.disabled {
 span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
 </style>
 <section class="content-header">
-  
+
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="/basicdetails">MANAGE CLIENT</a></li>
@@ -52,17 +52,17 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
        </div>
      @endif
 
-      
-        
+
+
            <div class="row mb3">
-             <div class="col-md-8 pull-left">
+             <div class="col-md-10 pull-left pr25">
                <h5 class="hid">
                   <label  class="control-label"><u class="setword">Payment Security Mechanism(PSM) Details</u></label>
                   &nbsp; {{@$clientData->company_name}}<span class="hifan">|</span>{{@$clientData->crn_no}}<span class="hifan">|</span>{{@$clientData->iex_portfolio}}<span class="hifan">|</span>{{@$clientData->pxil_portfolio}}
                </h5>
              </div>
-             <div class="col-md-4 pull-right">
-              
+             <div class="col-md-2 pull-right">
+
              </div>
            </div>
             <div class="row">
@@ -159,7 +159,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                  </div>
               </div>
             </form>
-           
+
 
             <div class="box">
                <div class="box-body table-responsive">
@@ -210,8 +210,31 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                            <td>{{$value->description}}</td>
                            <td>
                              <a href="/editpsmdetails/{{$value->id}}/{{$value->client_id}}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                             <a href="/deletepsmdetails/{{$value->id}}" class="text-danger"><span class="glyphicon glyphicon-trash "></span></a>
+                             <a href="" data-toggle="modal" data-target="#ConvertData{{ $value->id }}" name="" id="convert-disabled" class="text-danger"><span class="glyphicon glyphicon-trash "></span></a>
                            </td>
+                           <div id="ConvertData{{ $value->id }}" class="modal fade" role="dialog">
+           <form method="GET"  action="{{url('/deletepsmdetails/'.$value->id)}}">
+            {{ csrf_field() }}
+           <div class="modal-dialog modal-confirm">
+             <div class="modal-content">
+               <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                 <h4 class="modal-title text-center"></h4>
+               </div> -->
+               <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                <center><p style="font-size: 12px;font-weight:500;color:black!important; text-align:center;">DO YOU REALLY WANT TO DELETE THIS RECORD?</p></center> 
+               </div>
+               <div class="modal-footer">
+
+                 
+                <div class="text-center">
+                 <button type="submit" class="btn btn-info btn-xs">YES</button>
+                 <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">NO</button>
+               </div>
+               </div>
+             </div>
+           </div>
+           </form>
+         </div>
                         </tr>
                           <?php $i++; ?>
                         @empty
@@ -367,8 +390,8 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
        format: 'dd/mm/yyyy',
      }).on('changeDate', function (selected) {
           var endDate = new Date(selected.date.valueOf());
-        // For Next Date selected not same date selected          
-         endDate.setDate(endDate.getDate(new Date(selected.date.valueOf()))-1);          
+        // For Next Date selected not same date selected
+         endDate.setDate(endDate.getDate(new Date(selected.date.valueOf()))-1);
           $('#issue_date').datepicker('setEndDate', endDate);
       }).on('clearDate', function (selected) {
           $('#issue_date').datepicker('setEndDate', null);

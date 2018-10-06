@@ -160,15 +160,47 @@
               <td class="text-center">{{$key+1}}</td>
               <td class="text-center">{{ @date('d/m/Y',strtotime($value->date_from)) }}</td>
               <td class="text-center">{{ @date('d/m/Y',strtotime($value->date_to)) }}</td>
-              <td class="text-center">{{ $value->region }}</td>
+               <?php
+               $state_list = \App\Common\StateList::get_states();
+               ?>
+               @foreach($state_list as $state_code=>$state_ar)
+                 @if($state_code==$value->region)
+                 <td class="text-center">{{ $state_ar['name'] }}</td>
+                @endif
+               @endforeach
+            
+              <!-- <td class="text-center">{{ $value->region }}</td> -->
               <td class="text-center">{{ $value->regional_entity }}</td>
               <td class="text-center">{{ $value->injection_poc_loss }}</td>
               <td class="text-center">{{ $value->withdraw_poc_loss }}</td>
               <td class="text-center">
                 <a href="/discom/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
                 &nbsp;&nbsp;&nbsp;
-                <a href="/discom/deletediscom/{{$value->id}}"><span class="glyphicon glyphicon-trash"></span></a>
+                <a href="" data-toggle="modal" data-target="#ConvertData{{ $value->id }}" name="" id="convert-disabled"><span class="glyphicon glyphicon-trash"></span></a>
               </td>
+              <div id="ConvertData{{ $value->id }}" class="modal fade" role="dialog">
+           <form method="GET"  action="{{url('/discom/deletediscom/'.$value->id)}}">
+            {{ csrf_field() }}
+           <div class="modal-dialog modal-confirm">
+             <div class="modal-content">
+               <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                 <h4 class="modal-title text-center"></h4>
+               </div> -->
+               <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                <center><p style="font-size: 12px;font-weight:500;color:black!important; text-align:center;">DO YOU REALLY WANT TO DELETE THIS RECORD?</p></center> 
+               </div>
+               <div class="modal-footer">
+
+                 
+                <div class="text-center">
+                 <button type="submit" class="btn btn-info btn-xs">YES</button>
+                 <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">NO</button>
+               </div>
+               </div>
+             </div>
+           </div>
+           </form>
+         </div>
             </tr>
             @empty
             <tr><td class="alert-danger" colspan="8">Record not found</td><tr>

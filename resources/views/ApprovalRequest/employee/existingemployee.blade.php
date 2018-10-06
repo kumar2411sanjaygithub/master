@@ -30,17 +30,7 @@
                     </span>
               </div>
             </div>
-           <div class="col-md-6"></div>
-            <div class="col-md-4 text-right">
-                @if (count($employeeData) > 0)
-            <form class="pull-right" action="{{ url()->to('exists-employee-approve/Approved') }}" method="post" id="approve_data">
-              {{ csrf_field() }}
-              <input type="hidden" name="selected_status" class="selected_status">
-              <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted" name="cdw5" id="cdw5">APPROVE ALL</button>
-
-              <a data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info btn-xs">APPROVE ALL</a>
-            </form>
-            @endif
+            <div class="col-md-10 text-right" style="margin-right:0px;padding-right:0px;">
 
             @if (count($employeeData) > 0)
             <form class="pull-right" action="{{ url()->to('exists-employee-approve/Rejected') }}" method="post" id="approve_data">
@@ -52,6 +42,15 @@
             </form>
             @endif
 
+                @if (count($employeeData) > 0)
+            <form class="pull-right mr5" action="{{ url()->to('exists-employee-approve/Approved') }}" method="post" id="approve_data">
+              {{ csrf_field() }}
+              <input type="hidden" name="selected_status" class="selected_status">
+              <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted" name="cdw5" id="cdw5">APPROVE ALL</button>
+
+              <a data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info btn-xs">APPROVE ALL</a>
+            </form>
+            @endif
 
                 <div id="myModal" class="modal fade" style="display: none;">
                   <div class="modal-dialog modal-confirm">

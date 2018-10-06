@@ -32,8 +32,8 @@ class DiscomController extends Controller
       return Redirect::back()->withInput()->withErrors($validator);
   }
        $pocdetails = new Discomdetails();
-       $pocdetails->date_from =  date('Y-m-d',strtotime($request->input('date_from')));
-       $pocdetails->date_to =  date('Y-m-d',strtotime($request->input('date_to')));
+       $pocdetails->date_from =  date('Y-m-d',strtotime(strtr($request->input('date_from'), '/', '-')));
+       $pocdetails->date_to =  date('Y-m-d',strtotime(strtr($request->input('date_to'), '/', '-')));
        $pocdetails->region = $request->input('region');
        $pocdetails->regional_entity = $request->input('regional_entity');
        $pocdetails->injection_poc_loss = $request->input('injection_poc_loss');
@@ -85,9 +85,10 @@ class DiscomController extends Controller
             return Redirect::back()->withErrors($validator);
         }
         $pocdetails = Discomdetails::find($id);
-        $pocdetails->date_from =  date('Y-m-d',strtotime($request->input('date_from')));
-        $pocdetails->date_to =  date('Y-m-d',strtotime($request->input('date_to')));
-        $pocdetails->region = $request->input('region');
+       $pocdetails->date_from =  date('Y-m-d',strtotime(strtr($request->input('date_from'), '/', '-')));
+       $pocdetails->date_to =  date('Y-m-d',strtotime(strtr($request->input('date_to'), '/', '-')));
+       $pocdetails->region = $request->input('region');
+      
         $pocdetails->regional_entity = $request->input('regional_entity');
         $pocdetails->injection_poc_loss = $request->input('injection_poc_loss');
         $pocdetails->withdraw_poc_loss = $request->input('withdraw_poc_loss');

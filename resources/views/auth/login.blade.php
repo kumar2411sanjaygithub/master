@@ -6,6 +6,7 @@
    }
 </style>
 <div class="login-box-body">
+  <div class="row text-center" style="position:relative; top:-9px;"><img src="{{url('img/tptcl.png')}}" height="53" width="55"></div>
    <div class="row text-center"><div nowrap class="col-lg-12"><span class="text-center" style="margin-top:-4px!important;font-size:20px; font-weight:600;">&nbsp; TPTCL  ONLINE  BIDDING  PORTAL </span></div></div>
    <div class="row">&nbsp;</div>
    <div class="nav-tabs-custom">
