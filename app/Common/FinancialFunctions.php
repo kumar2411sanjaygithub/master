@@ -109,7 +109,7 @@ class FinancialFunctions
     return $bidData->updated_at;
   }
 
-  public function getoutstandingbalace($client_id, $date)
+  public function getsinglebidtime($client_id, $date)
   {
     $bidData = DB::table('place_bid')
         ->selectRaw('place_bid.updated_at')
