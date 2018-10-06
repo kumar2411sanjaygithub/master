@@ -3,7 +3,7 @@
 <section class="content-header">
 
                <div class="col-md-7"><h5 class="pull-left"><label  class="control-label pull-right mt-1"><u>APPROVE EXCHANGE DETAILS</u></h5>&nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label></div>
-
+               <ol class="breadcrumb">
                   <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
                   <li><a href="/client/new">APPROVE REQUEST</a></li>
                   <li><a href="/client/existing">CLIENT</a></li>
@@ -13,14 +13,17 @@
             </section>
             <!-- Main content -->
             <section class="content">
-               @if (\Session::has('success'))
-                <div class="alert alert-success alert-dismissible fade in">
-                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                 <span class="glyphicon glyphicon-ok"></span> &nbsp; {!! \Session::get('success') !!}
-                </div>
-            @endif
-           
+
                <div class="row">
+                   @if (\Session::has('success'))
+                    <br><br>
+                    <div class="col-md-12">
+                      <div class="alert alert-success alert-dismissible fade in">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                     <span class="glyphicon glyphicon-ok"></span> &nbsp; {!! \Session::get('success') !!}
+                    </div>
+                  </div>
+                  @endif
                   <div class="col-xs-12">
                     <div class="row">
                       <div class="col-md-10">
@@ -42,15 +45,7 @@
                                     <div class="col-md-2"></div>
                                     <div class="col-md-6"></div>
                                     <div class="col-md-4 text-right">
-              @if (count($Addexchangedata) > 0)
-                  <form class="pull-right" action="{{ url()->to('/client/exchange/Approved') }}" method="post" id="approve_data">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="selected_status" class="selected_status">
-                    <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted" name="cdw5" id="cdw5">APPROVE ALL</button>
 
-                    <a data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info btn-xs">APPROVE ALL</a>
-                  </form>
-                  @endif
 
                   @if (count($Addexchangedata) > 0)
                   <form class="pull-right" action="{{ url()->to('/client/exchange/Rejected') }}" method="post" id="approve_data">
@@ -61,7 +56,15 @@
                     <a data-toggle="modal" data-target="#myModalRej" class="btn btn-danger btn-xs mlt">REJECT ALL</a>
                   </form>
                   @endif
+              @if (count($Addexchangedata) > 0)
+                  <form class="pull-right mr5" action="{{ url()->to('/client/exchange/Approved') }}" method="post" id="approve_data">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="selected_status" class="selected_status">
+                    <button type="submit" class="btn  btn-info btn-xs hidden submit-all-deleted" name="cdw5" id="cdw5">APPROVE ALL</button>
 
+                    <a data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info btn-xs">APPROVE ALL</a>
+                  </form>
+                  @endif
 
                       <div id="myModal" class="modal fade" style="display: none;">
                         <div class="modal-dialog modal-confirm">
@@ -255,7 +258,7 @@
                                                 @else
                                                   {{$value->old_att_value}}
                                                 @endif
-                                                
+
                                               </td>
                                                <td class="text-center vl">
                                                 @if(strstr($input_lebels[$value->attribute_name], 'Date') !== false)

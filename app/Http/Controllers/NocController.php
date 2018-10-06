@@ -56,11 +56,11 @@ class NocController extends Controller
              $poc_losses_req=Pocdetails::where('region',$request->region)->where('regional_entity',$request->region_entity)->first();
              if(isset($poc_losses_req)&&$request->noc_type=='sell')
              {
-                $poc_losses=$poc_losses_req->injection_poc_loss;
+                $poc_losses=@$poc_losses_req->injection_poc_loss;
              }
              elseif(isset($poc_losses_req)&&$request->noc_type=='buy')
              {
-                $poc_losses=$poc_losses_req->withdraw_poc_loss;
+                $poc_losses=@$poc_losses_req->withdraw_poc_loss;
              }
              else
              {
@@ -81,7 +81,7 @@ class NocController extends Controller
          if(isset($noc_losses_req->inter_discom)&&$noc_losses_req->inter_discom=='DISCOM')
          {
             $discom_losses=Discomdetails::select('id','withdraw_poc_loss')->where('region',$noc_losses_req->conn_state)->where('regional_entity',$noc_losses_req->voltage)->first();
-            $discom_l=$discom_losses->withdraw_poc_loss;
+            $discom_l=@$discom_losses->withdraw_poc_loss;
          }
          else
          {
@@ -90,7 +90,7 @@ class NocController extends Controller
          if(isset($noc_losses_req->inter_stu)&&$noc_losses_req->inter_stu=='STU')
          {
             $stu_losses=Discomdetails::select('id','injection_poc_loss')->where('region',$noc_losses_req->conn_state)->where('regional_entity',$noc_losses_req->voltage)->first();
-            $stu_l=$stu_losses->injection_poc_loss;
+            $stu_l=@$stu_losses->injection_poc_loss;
          }
          else
          {

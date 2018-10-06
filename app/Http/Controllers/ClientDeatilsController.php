@@ -84,7 +84,7 @@ class ClientDeatilsController extends Controller
             'inter_discom'=>'nullable',
             'inter_stu'=>'nullable',
             'inter_poc'=>'nullable',
-            'common_feeder_option'=>'nullable|regex:/^[\w-]*$/|max:30',
+            'common_feeder_option'=>'nullable',
             'feeder_name'=>'nullable|regex:/^[\w-]*$/|max:30',
             'feeder_code'=>'nullable|max:30',
             'conn_discom'=>'nullable',
@@ -165,7 +165,7 @@ class ClientDeatilsController extends Controller
         $client->payment = $request->input('payment');
         $client->obligation = $request->input('obligation');
         $client->noc_punched_by = $request->input('noc_punched_by');
-        $client->barred_status = 1;
+        $client->barred_status = 0;
         $client->save();
 
         //$lsatinsertedId = $clien->id;
@@ -310,7 +310,7 @@ class ClientDeatilsController extends Controller
             'inter_discom'=>'nullable',
             'inter_stu'=>'nullable',
             'inter_poc'=>'nullable',
-            'common_feeder_option'=>'nullable|regex:/^[\w-]*$/|max:30',
+            'common_feeder_option'=>'nullable',
             'feeder_name'=>'nullable|regex:/^[\w-]*$/|max:30',
             'feeder_code'=>'nullable',
             'conn_discom'=>'nullable',

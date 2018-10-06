@@ -35,7 +35,7 @@ class LeadController extends Controller
     public function index()
     {
 
-        $leads = Lead::paginate(15);
+        $leads = Lead::orderBy('id','desc')->paginate(15);
 
         return view('crm.index', compact('leads'));
     }
@@ -360,6 +360,7 @@ class LeadController extends Controller
             $client->reg_pin = $lead_info->add_pincode;
             $client->pri_contact_no = $lead_info->contact_number;
             $client->client_app_status = 1;
+            $client->barred_status = 1;
             $client->save();
 
             // Create Unique CRN no.

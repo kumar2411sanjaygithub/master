@@ -14,7 +14,7 @@ use Response;
 class DiscomController extends Controller
 {
   public function viewdiscomdetails(){
-    $discomData = Discomdetails::get();
+    $discomData = Discomdetails::paginate(15);
       return view('discom.discom_details',compact('discomData'));
   }
   public function savediscom(Request $request){

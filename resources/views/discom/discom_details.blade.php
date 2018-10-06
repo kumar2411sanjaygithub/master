@@ -157,7 +157,7 @@
           <tbody>
             @forelse ($discomData as $key => $value)
             <tr>
-              <td class="text-center">{{$key+1}}</td>
+              <td class="text-center">{{$key+$discomData->firstItem()}}</td>
               <td class="text-center">{{ @date('d/m/Y',strtotime($value->date_from)) }}</td>
               <td class="text-center">{{ @date('d/m/Y',strtotime($value->date_to)) }}</td>
                <?php
@@ -203,10 +203,19 @@
          </div>
             </tr>
             @empty
-            <tr><td class="alert-danger" colspan="8">Record not found</td><tr>
-            @endforelse
+                   <tr class="alert-danger" ><th colspan='7'>No Data Found.</th></tr>
+                   @endforelse
+         
           </tbody>
         </table>
+        <div class=" col-md-12">
+                            <div class="col-md-6"><br>
+                              Total Records: {{ $discomData->total() }}
+                            </div>
+                            <div class="col-md-6">
+                            <div class=" pull-right">{{$discomData->links()}}</div>
+                          </div>
+                        </div>
      </div>
   </div>
   </section>

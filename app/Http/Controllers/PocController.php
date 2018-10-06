@@ -15,7 +15,7 @@ use Response;
 class PocController extends Controller
 {
   public function viewpocdetails(){
-    $lossesData = Pocdetails::get();
+    $lossesData = Pocdetails::paginate(15);
       return view('poc.poc_details',compact('lossesData'));
   }
 

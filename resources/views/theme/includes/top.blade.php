@@ -1,9 +1,9 @@
 <header class="main-header">
-  <a href="{{url('home')}}" class="logo">
+  <a href="#{{url('home')}}" class="logo">
     <span class="logo-mini"><b>A</b>LT</span>
     <span class="logo-lg"><b>TPTCL</b>&nbsp;ERP</span>
   </a>
-  <nav class="navbar navbar-static-top" >
+  <nav class="navbar navbar-static-top" style="margin-left: 220px;" >
     <!-- Sidebar toggle button-->
     <!-- <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
       <span class="sr-only">Toggle navigation</span>
@@ -216,8 +216,8 @@
               <p><small>{{Auth::user()->email}}</small></p>
             </li>
             <!-- Menu Body -->
-            <li class="user-body">
-              <!-- <div class="row">
+           <!--  <li class="user-body">
+              <div class="row">
                 <div class="col-xs-4 text-center">
                   <a href="#">Followers</a>
                 </div>
@@ -227,16 +227,15 @@
                 <div class="col-xs-4 text-center">
                   <a href="#">Friends</a>
                 </div>
-              </div> -->
-              <!-- /.row -->
-            </li>
+              </div>
+            </li> -->
             <!-- Menu Footer-->
-            <li class="user-footer">
+            <li class="user-footer" style="background: #170c0c73;">
               {{-- <div class="pull-left">
                 <a href="#" class="btn btn-default btn-flat">Profile</a>
               </div> --}}
               <div class="pull-right">
-                <a  href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">Sign out</a>
+                <a  href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-info btn-flat">Sign out</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                  @csrf
                 </form>

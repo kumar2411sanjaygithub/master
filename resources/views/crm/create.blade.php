@@ -163,7 +163,7 @@
               <div class="col-md-3 {{ $errors->has('add_country') ? 'has-error' : '' }}">
               <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="add_country" name="add_country">
-                  <option {{ old('add_country')=='INDIA'? 'selected="selected"' : '' }} value="INDIA">INDIA </option>
+                  <option {{ old('add_country')=='India'? 'selected="selected"' : '' }} value="India">India </option>
               </select>
                <span class="text-danger">{{ $errors->first('add_country') }}</span>
               </div>
