@@ -11,8 +11,7 @@
       <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="">DAM</a></li>
       <li><a href="">IEX</a></li>
-      <li><a href="/bidplacement/bidplacement">BID CONFIRMATION</a></li>
-      <li class="#"><u>NO BID</u></li>
+      <li><a href="/bidplacement/bidplacement">BID PLACEMENT REMINDER</a></li>
     </ol>
   </section>
   <section class="content">
@@ -140,13 +139,13 @@
                <a href = "{{ route('bidplacement.bidmail',[$value['client_id']]) }}" style="color: red;">
                      <span class=" text-danger glyphicon glyphicon-retweet"></span>&nbsp;
                </a>
-              <br/>{{$value['email_submission_time'][1]}}
-              <br/>{{date('d/m/Y',strtotime(str_replace('/','-',$value['email_submission_time'][0])))}}
+              {{$value['email_submission_time'][1]}}
+              {{date('d/m/Y',strtotime(str_replace('/','-',$value['email_submission_time'][0])))}}
 
 
               @else
                 <a href = "{{ route('bidplacement.bidmail',[$value['client_id']]) }}">
-                     <span class="text-success glyphicon glyphicon-send"></span>&nbsp;<br><span class="text-danger"> DD/MM/YY (HH:MM:SS)<span>
+                     <span class="text-success glyphicon glyphicon-send"></span>&nbsp;<span class="text-danger"> DD/MM/YY (HH:MM:SS)<span>
                 </a>
               @endif
           </td>
@@ -155,11 +154,11 @@
                  <a href = "{{ route('bidplacement.bidsms',$value['client_id']) }}" style="color: red;">
                     <span class=" text-danger glyphicon glyphicon-repeat"></span>&nbsp;
 
-                 <br/>{{$value['sms_submission_time'][1]}}
-                 <br/>{{date('d/m/Y',strtotime(str_replace('/','-',$value['sms_submission_time'][0])))}}
+                 {{$value['sms_submission_time'][1]}}
+                 {{date('d/m/Y',strtotime(str_replace('/','-',$value['sms_submission_time'][0])))}}
               @else
                  <a href = "{{ route('bidplacement.bidsms',$value['client_id']) }}">
-                     <span class=" text-success glyphicon glyphicon-envelope"></span>&nbsp; <br> <span class="text-danger">DD/MM/YY (HH:MM:SS)</span>
+                     <span class=" text-success glyphicon glyphicon-envelope"></span>&nbsp; <span class="text-danger">DD/MM/YY (HH:MM:SS)</span>
                  </a>
               @endif
           </td>
