@@ -1,9 +1,11 @@
 @extends('theme.layouts.default')
 @section('content')
 <section class="content-header">
+
         <div class="col-md-7">
                <h5 class="pull-left"><label  class="control-label pull-right mt-1"><u>APPROVE CONTACT DETAILS</u></h5>&nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
              </div>
+
                <ol class="breadcrumb">
                   <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
                   <li><a href="/client/new">APPROVE REQUEST</a></li>
