@@ -42,7 +42,7 @@ class ValidationSettingController extends Controller
             $user[0]->exchange = $request->input('exchange');
             $user[0]->psm = $request->input('psm');
             $user[0]->save();
-            return redirect()->back()->with('message', 'Data Upadated Successfully!');
+            return redirect()->back()->with('message', 'Details Upadated Successfully!');
         }
        else{
             $validationsettingtempt = new Validationsetting();
@@ -52,7 +52,7 @@ class ValidationSettingController extends Controller
             $validationsettingtempt->exchange = $request->input('exchange');
             $validationsettingtempt->psm = $request->input('psm');
             $validationsettingtempt->save();
-            return redirect()->back()->with('message', 'Data Save Successfully!');
+            return redirect()->back()->with('message', 'Details Save Successfully!');
        }
     }
      /**
@@ -111,7 +111,7 @@ class ValidationSettingController extends Controller
     public function deletevalidation($id)
     {
         Validationsetting::destroy($id);
-        return redirect()->back()->with('delmsg', 'Data Deleted Successfully!');
+        return redirect()->back()->with('delmsg', 'Details Deleted Successfully!');
     }
 
 }

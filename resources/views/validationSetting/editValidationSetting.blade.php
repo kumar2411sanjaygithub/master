@@ -25,10 +25,12 @@
   <section class="content">
     <div class="clearfix"></div>
      @if(session()->has('updatemsg'))
-       <div class="alert alert-success  mt10">
-       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-           {{ session()->get('updatemsg') }}
-       </div>
+
+    <div class="alert alert-success alert-dismissible fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+       <span class="glyphicon glyphicon-ok"></span> {{ session()->get('updatemsg') }}
+      </div>
+
      @endif
       <div class="row">
         <div class="col-xs-12">
@@ -74,11 +76,11 @@
       </div>
   </section>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
  setTimeout(function() {
    $('.alert-success').fadeOut('fast');
    }, 2000); // <-
-</script>
+</script> -->
 <script>
    $(function () {
 
