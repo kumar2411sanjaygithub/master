@@ -6,11 +6,11 @@
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="/basicdetails">MANAGE CLIENT</a></li>
       <li><a href="/basicdetails">CLIENT BASIC DETAILS</a></li>
-      <li class="#"><u>CONTACT DETAILS</u></li>
+      <li class="#"><u>Excchange File</u></li>
    </ol>
 </section>
      <section class="content">
-                    
+
                                 <div class="row">
                                   <div class="col-md-8 pull-left">
                                       <h5 class="pull-left"><label class="control-label pull-right mt-1"><u>Upload Exchange File</u></h5> &nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
@@ -18,7 +18,7 @@
                                   <div class="col-md-4 pull-right">
 
                                   </div>
-                              
+
                                       @if(session()->has('message'))
                                         <div class="alert alert-success alert-dismissible fade in">
                                           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -86,15 +86,15 @@
                                               @endif
                                               <div class="col-md-1"><a href="{{ URL('/exchangedetails/'.$client_id) }}" ><input type="button" class="btn btn-block btn-danger btn-xs cancel" id="bn7" name="bn7" value="CANCEL"></a></div>
 
-                                        
+
                                           </div>
 
                                         </div>
                                         </div>
                                       </div>
-                                    
+
                                     </form>
-                                    
+
                                 <div class="box mt3">
 
 
@@ -112,7 +112,7 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                
+
                               @forelse ($exchangedetails as $key => $value)
                            @php
                               $date1 = date("Y-m-d",strtotime("today midnight"));
@@ -139,8 +139,8 @@
                                     <a href="/delete/exchange/{{$value->id}}"><span class="glyphicon glyphicon-trash text-danger" id="remove-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>
                                   </td>
                               </tr>
-                              
-                           
+
+
                              @empty
                              <tr class="alert-danger" ><th colspan='7'>No Data Found.</th></tr>
                               @endforelse

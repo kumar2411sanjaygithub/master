@@ -104,7 +104,7 @@
                                                 @foreach ($Clientsdetails as $aa)
                                                   @if($aa['id']!= $groupdata['client_id'] &&
                                                   $aa['group_id']!= $groupdata['client_id'])
-                                               <option value="<?php echo $aa['id']; ?>" data-tokens="<?php echo $aa['company_name']; ?>" @if(isset($client_id) && $aa['id'] == $client_id) selected @endif> <?php echo $aa['company_name']; ?></option>
+                                               <option value="<?php echo $aa['id']; ?>" data-tokens="<?php echo $aa['company_name']; ?>" @if(isset($client_id) && $aa['id'] == $client_id) selected @endif> [{{$aa['company_name']}}] [{{$aa['crn_no']}}] [{{$aa['iex_portfolio']}}] [{{$aa['pxil_portfolio']}}]</option>
                                                @endif
                                                @endforeach
                                              </select>
