@@ -96,4 +96,31 @@ class FinancialFunctions
   public function view_format($date){
      return date('d-m-Y', strtotime(str_replace('/','-',$date)));
   }
+  public function getblockbidtime($client_id, $date)
+  {
+    $bidData = DB::table('place_bid')
+        ->selectRaw('place_bid.updated_at')
+        ->where('client_id', $client_id)
+        ->where('place_bid.status', '1')
+        ->where('place_bid.bid_date', $date)
+        ->where('place_bid.bid_action', 'block')
+        ->WhereNull('deleted_at')
+        ->first();
+    return $bidData->updated_at;
+  }
+
+  public function getoutstandingbalace($client_id, $date)
+  {
+    $bidData = DB::table('place_bid')
+        ->selectRaw('place_bid.updated_at')
+        ->where('client_id', $client_id)
+        ->where('place_bid.status', '1')
+        ->where('place_bid.bid_date', $date)
+        ->where('place_bid.bid_action', 'single')
+        ->WhereNull('deleted_at')
+        ->first();
+    return $bidData->updated_at;
+  }
+  
+
 }

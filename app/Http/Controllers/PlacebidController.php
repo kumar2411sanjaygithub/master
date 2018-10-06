@@ -338,23 +338,23 @@ class PlacebidController extends Controller
         ->first();
 
         if(isset($PartiCularTimeSlotData->totalBid)){
-            if($request->input('bid_type')=='block'){
-                $totalMwFinal = $PartiCularTimeSlotData->totalBid+($request->input('bid_mw')*$noOfBlock);
+            // if($request->input('bid_type')=='block'){
+                // $totalMwFinal = $PartiCularTimeSlotData->totalBid+($request->input('bid_mw')*$noOfBlock);
 
-            }else{
+            // }else{
                 $totalMwFinal = $PartiCularTimeSlotData->totalBid+$request->input('bid_mw');
-            }
+            // }
             
         }else{
-            if($request->input('bid_type')=='block'){
-                $totalMwFinal = $request->input('bid_mw')*$noOfBlock;
+            // if($request->input('bid_type')=='block'){
+                // $totalMwFinal = $request->input('bid_mw')*$noOfBlock;
 
-            }else{
+            // }else{
                 $totalMwFinal = $request->input('bid_mw');
-            }
+            // }
             
         }
-         // dd($totalMwFinal);
+         dd($totalMwFinal);
         if($validationSetting){
             //Exchange Validation setting and Exchange expire
             if($validationSetting->exchange=='Exchange'){
