@@ -7,6 +7,7 @@ use App\AccountStatement;
 use App\Basicinformation;
 
 use App\User;
+use DB;
 
 class FinancialFunctions
 {
