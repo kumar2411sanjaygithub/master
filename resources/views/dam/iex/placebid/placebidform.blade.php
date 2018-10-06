@@ -61,7 +61,7 @@
                <div class="mda-form-group float-label">
                  <div class="mda-form-control">
                   <label class="control-label">Bid (MW)</label>
-                 <input class="form-control input-sm" type="text" name="bid_mw" id="bid_mw">
+                 <input class="form-control input-sm num" type="text" name="bid_mw" id="bid_mw">
                  <div class="mda-form-control-line"></div>
                  
                  </div>
@@ -71,7 +71,7 @@
                <div class="mda-form-group float-label">
                  <div class="mda-form-control">
                   <label class="control-label">Price (Rs)</label>
-                 <input class="form-control input-sm" type="text" name="bid_price" id="bid_price">
+                 <input class="form-control input-sm num" type="text" name="bid_price" id="bid_price">
                  <div class="mda-form-control-line"></div>
                  
                  </div>
@@ -81,7 +81,7 @@
                <div class="mda-form-group float-label">
                  <div class="mda-form-control">
                   <label class="control-label">No. of Block</label>
-                 <input class="form-control input-sm" type="text" name="no_of_block" id="no_of_block">
+                 <input class="form-control input-sm num" type="text" name="no_of_block" id="no_of_block">
                  <div class="mda-form-control-line"></div>
                  
                  </div>

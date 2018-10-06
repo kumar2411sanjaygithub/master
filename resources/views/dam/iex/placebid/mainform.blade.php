@@ -64,7 +64,7 @@
       <div class="mda-form-group float-label rel-wrapper ui-datepicker-popup dp-theme-primary" id="example-datepicker-container-5">
         <div class="mda-form-control">
           <label class="control-label">Select earlier delivery date</label>
-          <input class="form-control input-sm earlierdate" type="text" data-date="12/13/2016">
+          <input class="form-control input-sm earlierdate" name="earlier_delivery_date" id="earlier_delivery_date" type="text" data-date="12/13/2016">
           <div class="mda-form-control-line"></div>
 
         </div>
@@ -73,7 +73,7 @@
     <div class="col-md-2">
       <label>&nbsp;</label>
       <div class="text-center mt3">
-        <button type="button" class="btn btn-block btn-info btn-xs">Submit Bid</button>
+        <button type="button" class="btn btn-block btn-info btn-xs" id="earlier_bid_submit">Submit Bid</button>
       </div>
     </div>
   </div><br>

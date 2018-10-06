@@ -61,7 +61,7 @@
                 <div class="mda-form-group float-label">
                   <div class="mda-form-control">
                   <label>Bid (MW)</label>
-                  <input class="form-control" type="text" name="bid_mw_updated" id="bid_mw_updated">
+                  <input class="form-control num" type="text" name="bid_mw_updated" id="bid_mw_updated">
                   <div class="mda-form-control-line"></div>
                   </div>
                 </div>
@@ -70,7 +70,7 @@
                 <div class="mda-form-group float-label">
                   <div class="mda-form-control">
                   <label>Price (Rs)</label>
-                  <input class="form-control" type="text" name="bid_price_updated" id="bid_price_updated">
+                  <input class="form-control num" type="text" name="bid_price_updated" id="bid_price_updated">
                   <div class="mda-form-control-line"></div>
                   </div>
                 </div>
