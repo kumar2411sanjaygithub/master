@@ -38,12 +38,12 @@
                         <div class="row">&nbsp;</div>
                         <div class="row">
                           <div class="col-md-2">
-                             <!-- <div class="input-group input-group-sm">
+                             <div class="input-group input-group-sm">
                                 <input type="text" class="form-control" placeholder="SEARCH" id="search">
                                 <span class="input-group-btn">
                                 <button type="button" class="btn btn-info btn-flat" id="vg8" name="vg8"><span class="glyphicon glyphicon-search"></span></button>
                                 </span>
-                             </div> -->
+                             </div>
                           </div>
                            <div class="col-md-1 pull-right">
                               <button type="button" class="btn btn-xs btn-info pull-right addvalidationsettingbtn"><span class="glyphicon glyphicon-plus"> </span> Add Group</button>
@@ -53,12 +53,12 @@
                            <div class="panel-body">
                             @if(count($Groupuserdetails)>0)
                             @foreach($Groupuserdetails as $groupdata)
-                              <div class="panel panel-default">
+                              <div class="panel panel-default contact-name">
                                  <div class="panel-body">
                                     <div class="panel panel-default">
                                        <div class="panel-body">
                                           <div class="row">
-                                             <div class="col-md-3"><span class="glyphicon glyphicon-menu-hamburger"></span>&nbsp&nbsp {{$groupdata['group_name']}}</div>
+                                             <div class="col-md-3"><span class="glyphicon glyphicon-menu-hamburger"></span><span class="bold">&nbsp&nbsp {{$groupdata['group_name']}}</span></div>
                                              <div class="col-md-7"></div>
                                              <button type="button" class="btn btn-raised btn-info btn-xs" data-toggle="modal"  data-target="#myModal{{$groupdata['client_id']}}"> <span class="glyphicon glyphicon-plus"> </span> Add User</button>
                                              <div class="col-md-1"><button type="button" class="btn btn-raised btn-danger btn-xs deletegroup"  value="{{$groupdata['client_id']}}">DELETE</button></div>
@@ -115,7 +115,7 @@
                                   </form>
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Close</button>
                                       </div>
                                     </div>
 
@@ -334,18 +334,18 @@
      </script>
   <script>
     $("#search").keyup(function () {
-        var value = this.value.toLowerCase().trim();
-
-        $("#checksearch").each(function (index) {
-            if (!index) return;
-            $(this).find("td").each(function () {
-                var id = $(this).text().toLowerCase().trim();
-                var not_found = (id.indexOf(value) == -1);
-                $(this).closest('tr').toggle(!not_found);
-                return not_found;
-            });
+        var query = $(this).val().toLowerCase();
+        $('div.contact-name .bold').each(function(){
+             var $this = $(this);
+             if($this.text().toLowerCase().indexOf(query) === -1)
+                 $this.closest('div.contact-name').fadeOut();
+            else $this.closest('div.contact-name').fadeIn();
         });
     });
   </script>
-
+<script type="text/javascript">
+//     $(document).ready(function() {
+//    $('#select-client').select2();
+// });
+</script>
     @endsection

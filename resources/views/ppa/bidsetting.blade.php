@@ -24,10 +24,10 @@
    <!-- <br> -->
    <!-- success msg -->
    @if(session()->has('addmsg'))
-     <div class="alert alert-success mt10" id="success">
-     <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-         {{ session()->get('addmsg') }}
-     </div>
+    <div class="alert alert-success alert-dismissible fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+     <span class="glyphicon glyphicon-ok"></span> {{ session()->get('addmsg') }}
+    </div>
    @endif
 <section class="content">
   <!-- Main content -->

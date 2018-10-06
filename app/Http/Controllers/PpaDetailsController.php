@@ -94,7 +94,9 @@ public function findppa($id)
         if(isset(request()->file_path))
            {
                $imageName = time().'.'.request()->file_path->getClientOriginalName();
-               request()->file_path->move(public_path('documents/ppa/'), $imageName);
+                $contact_path = public_path().'/documents/ppa/';
+                File::isDirectory($contact_path) or File::makeDirectory($contact_path, 0777, true, true);
+               request()->file_path->move($contact_path, $imageName);
                // unlink('documents/ppa/'.request()->old);
            }
            else
@@ -112,7 +114,7 @@ public function findppa($id)
         $datas =array();
         $datas['validity_from'] = $ppadetail['validity_from'];
         $datas['validity_to'] = $ppadetail['validity_to'];
-        //$datas['file_path'] = $ppadetail['file_path'];
+        $datas['file_path'] = $ppadetail['file_path'];
         // Convert Date Format
          $commerce_date = strtr($request->input('validity_from'), '/', '-');
          $new_start_date = date("Y-m-d", strtotime($commerce_date));
@@ -121,6 +123,8 @@ public function findppa($id)
         $dataArray =array();
         $dataArray['validity_from'] = $new_start_date;
         $dataArray['validity_to'] = $new_end_date;
+        $dataArray['file_path'] = $imageName;
+
         // $dataArray['email'] = $request->input('email');
         $result=array_diff($dataArray,$datas);
 
@@ -144,7 +148,7 @@ public function findppa($id)
         $exchange->update();
 
 
-        return redirect()->back()->with('delmsg', 'Data Deleted Successfully!');
+        return redirect()->back()->with('delmsg', 'Data Submitted Successfully And Sent For Approval');
     }
 
 // bid setting start---
