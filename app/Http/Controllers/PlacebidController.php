@@ -304,7 +304,7 @@ class PlacebidController extends Controller
         //   $total_bid_mw = $request->input('bid_mw')*$noOfBlock;
         // }else{
         //   $total_bid_mw = $request->input('bid_mw');
-        // }
+        // } 
 
         // $totalMwFinal = $particulardatedata->totalBid+$total_bid_mw;
 
@@ -991,7 +991,7 @@ class PlacebidController extends Controller
         }
 
         // dd($placebidDataSubmitted);
-        return response()->json(['placebidDataProcess'=> $placebidDataProcess, 'placebidDataSubmitted'=>$placebidDataSubmitted,'getearlierbid'=>$getearlierbid, 'msg' => 'Bid added successfully', 'status' => '1']);
+        return response()->json(['placebidDataProcess' => $placebidDataProcess, 'placebidDataSubmitted' => $placebidDataSubmitted,'getearlierbid' => $getearlierbid, 'msg' => 'Bid added successfully', 'status' => '1']);
     }
 
     public function getbiddetailsbybidtype(Request $request, $trading)

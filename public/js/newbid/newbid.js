@@ -619,14 +619,12 @@ jQuery(document).ready(function() {
             _token: jQuery("#_token").val()
         }
         jQuery.ajax({
-            type: 'post',
+            type: 'post', 
             url: urlget,
             data: dataSubmit,
             dataType: 'json',
             success: function(data) {
-                // console.log(data);
                 var countData = data.getearlierbid.length;
-                // alert(countData);
                 if (countData) {
 
                     var trData = "";
@@ -664,7 +662,6 @@ jQuery(document).ready(function() {
                                 '</td>' +
                                 '</tr>';
                         }
-
                     }
                     jQuery(".recordtable").show('slow');
                     jQuery(".recordtable").removeClass('hidden');
