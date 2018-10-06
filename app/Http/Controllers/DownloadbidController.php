@@ -1568,17 +1568,17 @@ class DownloadbidController extends Controller
 
 
       $msg = "Bid Placed Successfully";
-      if($psm){
-          if(strtolower($checkType)=='buy'){
-         $isBarredHint=$this->validate_psm($exchangeusertemp['client_id'],$portfolio_id,'iex', $formattedBidDate);
-      }
-    }
+    //   if($psm){
+    //       if(strtolower($checkType)=='buy'){
+    //      $isBarredHint=$this->validate_psm($exchangeusertemp->client_id,$portfolio_id,'iex', $formattedBidDate);
+    //   }
+    // }
 
-      if($isBarredHint==1){
-        $msg .= " But Your PSM amount is low";
-      }else if($isBarredHint==2){
-        $msg .= " But Your PSM is not available";
-      }
+      // if($isBarredHint==1){
+      //   $msg .= " But Your PSM amount is low";
+      // }else if($isBarredHint==2){
+      //   $msg .= " But Your PSM is not available";
+      // }
 
       return redirect()->back()->with('success',$msg);
     }

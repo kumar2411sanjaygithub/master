@@ -44,98 +44,102 @@ class PlacebidController extends Controller
       return view('dam.iex.placebid.index',compact('clientData','bidallowedperiod'));
     }
 
-    // public function placesimilarearlierdatebid(Request $request, $trading)
-    // {
-    //     DB::enableQueryLog();
-    //
-    //     $placebidData = DB::table('place_bid')
-    //     ->select('*')
-    //     ->where('trading',$trading)
-    //     ->where('exchange',$request->input('exchange'))
-    //     ->where('client_id',$request->input('client_id'))
-    //     ->where('bid_date','like','%'.$request->input('earlier_delivery_date').'%')
-    //     ->where('status', 1)
-    //     ->get();
-    //     $dataForBid = $placebidData->toArray();
-    //     // print_r(DB::getQueryLog());
-    //     // echo $placebidData->sql();
-    //     // print_r($request->toArray());
-    //     // print_r($dataForBid);
-    //     // exit();
-    //     if(count($dataForBid)>0){
-    //         $i=0;
-    //         foreach ($dataForBid as $key => $value) {
-    //             if($request->input('bid_action')=='sell'){
-    //                  $sign = ">=";
-    //                  $action_final  = "buy";
-    //             }else{
-    //                 $sign = "<=";
-    //                 $action_final  = "sell";
-    //             }
-    //             $sameTimeSlotPrice = DB::table('place_bid')
-    //                 ->select('*')
-    //                 ->where('client_id', $request->input('client_id'))
-    //                 ->where('exchange', $request->input('exchange'))
-    //                 ->where('bid_date', $request->input('bid_date'))
-    //                 ->where('bid_type', $value->bid_type)
-    //                 ->where('bid_action', $action_final)
-    //                 ->where('bid_mw', '=', $value->bid_mw)
-    //                 ->where('bid_price', $value->bid_price)
-    //                 ->where('time_slot_from' ,'>=' , $value->time_slot_from)
-    //                 ->where('time_slot_to','<=' , $value->time_slot_to)
-    //                 ->get();
-    //                 $sameTimeSlotPriceFinal = $sameTimeSlotPrice->toArray();
-    //                // print_r($sameTimeSlotPriceFinal);
-    //                // exit();
-    //                 if(!empty($sameTimeSlotPriceFinal)){
-    //                     if(count($sameTimeSlotPriceFinal) > 0){
-    //                         $ValidateMsg = "You Cant buy and sell at same price " . $request->input('bid_price') . "~" . $value->time_slot_from . "-" . $value->time_slot_to    ;
-    //                         return response()->json(['status' => '1', 'msg'=>$ValidateMsg],400);
-    //                         // return "You Cant buy and sell at same price " . $priceArray[$i] . "~" . $timeslice[$j] . "-" . $timeslice[$j + 1];
-    //                     }
-    //                 }
-    //         }
-    //         foreach ($dataForBid as $key => $value) {
-    //
-    //             $placebid = new Placebid();
-    //             $placebid->trading = $trading;
-    //             $placebid->exchange = $request->input('exchange');
-    //             $placebid->client_id = $request->input('client_id');
-    //             $placebid->bid_date = $request->input('bid_date');
-    //             $placebid->bid_type = $value->bid_type;
-    //             $placebid->bid_action = $value->bid_action;
-    //             $placebid->time_slot_from = $value->time_slot_from;
-    //             $placebid->time_slot_to = $value->time_slot_to;
-    //             $placebid->bid_mw = $value->bid_mw;
-    //             $placebid->bid_price = $value->bid_price;
-    //             $placebid->status = '0';
-    //             $placebid->save();
-    //         $i++;
-    //         }
-    //     }else{
-    //         $ValidateMsg = 'No bid placed on '.$request->input('earlier_delivery_date');
-    //         return response()->json(['status' => '1', 'msg'=>$ValidateMsg],400);
-    //     }
-    //
-    //     $placebidDataProcess = DB::table('place_bid')
-    //     ->select('*')
-    //     ->where('trading',$trading)
-    //     ->where('exchange',$request->input('exchange'))
-    //     ->where('client_id',$request->input('client_id'))
-    //     ->where('bid_date',$request->input('bid_date'))
-    //     ->where('status','0')
-    //     ->get();
-    //
-    //     $placebidDataSubmitted = DB::table('place_bid')
-    //     ->select('*')
-    //     ->where('trading',$trading)
-    //     ->where('exchange',$request->input('exchange'))
-    //     ->where('client_id',$request->input('client_id'))
-    //     ->where('bid_date',$request->input('bid_date'))
-    //     ->get();
-    //
-    //     return response()->json(['placebidDataProcess'=> $placebidDataProcess, 'placebidDataSubmitted'=>$placebidDataSubmitted, 'msg' => 'Bid placed successfully', 'status' => '1']);
-    // }
+    public function placesimilarearlierdatebid(Request $request, $trading)
+    {
+        // DB::enableQueryLog();
+        $var = $request->input('bid_date');
+        $date = str_replace('/', '-', $var);
+        $biddate = date('Y-m-d', strtotime($date));
+
+        $var = $request->input('earlier_delivery_date');
+        $date = str_replace('/', '-', $var);
+        $earlier_delivery_date = date('Y-m-d', strtotime($date));
+
+        $placebidData = DB::table('place_bid')
+        ->select('*')
+        // ->where('trading',$trading)
+        ->where('exchange',$request->input('exchange'))
+        ->where('client_id',$request->input('client_id'))
+        ->where('bid_date', $earlier_delivery_date)
+        ->where('status', 1)
+        ->whereNull('deleted_at')
+        ->get();
+        $dataForBid = $placebidData->toArray();
+        // dd($dataForBid);
+        if(count($dataForBid)>0){
+            $i=0;
+            foreach ($dataForBid as $key => $value) {
+                if($request->input('bid_action')=='sell'){
+                     $sign = ">=";
+                     $action_final  = "buy";
+                }else{
+                    $sign = "<=";
+                    $action_final  = "sell";
+                }
+                $sameTimeSlotPrice = DB::table('place_bid')
+                    ->select('*')
+                    ->where('client_id', $request->input('client_id'))
+                    ->where('exchange', $request->input('exchange'))
+                    ->where('bid_date', $earlier_delivery_date)
+                    ->where('bid_type', $value->bid_type)
+                    ->where('bid_action', $action_final)
+                    ->where('bid_mw', '=', $value->bid_mw)
+                    ->where('bid_price', $value->bid_price)
+                    ->where('time_slot_from' ,'>=' , $value->time_slot_from)
+                    ->where('time_slot_to','<=' , $value->time_slot_to)
+                    ->get();
+                    $sameTimeSlotPriceFinal = $sameTimeSlotPrice->toArray();
+                   // print_r($sameTimeSlotPriceFinal);
+                   // exit();
+                    if(!empty($sameTimeSlotPriceFinal)){
+                        if(count($sameTimeSlotPriceFinal) > 0){
+                            $ValidateMsg = "You Cant buy and sell at same price " . $request->input('bid_price') . "~" . $value->time_slot_from . "-" . $value->time_slot_to    ;
+                            return response()->json(['status' => '1', 'msg'=>$ValidateMsg],400);
+                            // return "You Cant buy and sell at same price " . $priceArray[$i] . "~" . $timeslice[$j] . "-" . $timeslice[$j + 1];
+                        }
+                    }
+            }
+            foreach ($dataForBid as $key => $value) {
+    
+                $placebid = new Placebid();
+                $placebid->trading = $trading;
+                $placebid->exchange = $request->input('exchange');
+                $placebid->client_id = $request->input('client_id');
+                $placebid->bid_date = $biddate;
+                $placebid->bid_type = $value->bid_type;
+                $placebid->bid_action = $value->bid_action;
+                $placebid->time_slot_from = $value->time_slot_from;
+                $placebid->time_slot_to = $value->time_slot_to;
+                $placebid->bid_mw = $value->bid_mw;
+                $placebid->bid_price = $value->bid_price;
+                $placebid->status = '0';
+                $placebid->save();
+            $i++;
+            }
+        }else{
+            $ValidateMsg = 'No bid placed on '.$request->input('earlier_delivery_date');
+            return response()->json(['status' => '1', 'msg'=>$ValidateMsg],400);
+        }
+    
+        $placebidDataProcess = DB::table('place_bid')
+        ->select('*')
+        ->where('trading',$trading)
+        ->where('exchange',$request->input('exchange'))
+        ->where('client_id',$request->input('client_id'))
+        ->where('bid_date',$request->input('bid_date'))
+        ->where('status','0')
+        ->get();
+    
+        $placebidDataSubmitted = DB::table('place_bid')
+        ->select('*')
+        ->where('trading',$trading)
+        ->where('exchange',$request->input('exchange'))
+        ->where('client_id',$request->input('client_id'))
+        ->where('bid_date',$request->input('bid_date'))
+        ->get();
+    
+        return response()->json(['placebidDataProcess'=> $placebidDataProcess, 'placebidDataSubmitted'=>$placebidDataSubmitted, 'msg' => 'Bid placed successfully', 'status' => '1']);
+    }
 
     function getLastBidSubmisstionTime($clientID) {
         $bidSubmissionTime = DB::table('clients')->select('bid_cut_off_time as submission_time')->where('id',$clientID)->get();
