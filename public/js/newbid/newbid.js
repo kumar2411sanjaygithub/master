@@ -619,7 +619,7 @@ jQuery(document).ready(function() {
             _token: jQuery("#_token").val()
         }
         jQuery.ajax({
-            type: 'post', 
+            type: 'post',
             url: urlget,
             data: dataSubmit,
             dataType: 'json',
@@ -628,7 +628,7 @@ jQuery(document).ready(function() {
                 if (countData) {
 
                     var trData = "";
-                    for (var i = 0; i < count; i++) {
+                    for (var i = 0; i < countData; i++) {
                         if (data.getearlierbid[i].bid_action == 'sell') {
                             trData += '<tr class="gradeX" data-row-id="' + data.getearlierbid[i].id + '">' +
                                 '<td>' +
@@ -1108,6 +1108,162 @@ jQuery(document).ready(function() {
 
             }
         }
+    });
+
+
+    jQuery(document).on('click', '#earlier_bid_submit', function(e) {
+        var JsonData = {
+            _token: jQuery('#_token').val(),
+            exchange: 'iex',
+            client_id: jQuery('#client_id').val(),
+            bid_date: jQuery('#bid_date').val(),
+            earlier_delivery_date: jQuery('#earlier_delivery_date').val()
+        }
+        jQuery.ajax({
+            type: "POST",
+            url: "/placebid/placesimilarearlierdatebid/power",
+            cache: false,
+            data: JsonData,
+            success: function(data) {
+                var i = 0;
+                        var already_accordian = jQuery("#accordion .panel-default:first-child").html();
+                        if (already_accordian) {
+                            var header = '';
+                        } else {
+                            var header = '<div class="panel-group" id="accordion">';
+                        }
+
+                jQuery.each(data.placebidDataSubmitted, function(index, value) {
+                            var container = jQuery("#date_" + index).attr('href');
+                            jQuery(container).html('');
+                            jQuery("#date_" + index).html('');
+
+                            jQuery("#collapse0").html('');
+                            jQuery("#date_0").html('');
+
+                            if (!i) {
+                                var area_open = 'true';
+                                var collapse_in = "in";
+                            } else {
+                                var area_open = 'false';
+                                var collapse_in = "";
+                            }
+                            countbidding = countbidding + 1;
+                            var dateindex = index;
+                            dateindex = new Date(dateindex);
+                            header += '<div class="panel panel-default" style="margin-bottom:5px">';
+                            header += '<a data-toggle="collapse" data-parent="#accordion" id="date_' + index + '" href="#collapse' + i + '">';
+                            header += '<div class="panel-heading" >';
+                            header += '<h4 class="panel-title">';
+                            header += ('0' + dateindex.getDate()).slice(-2) + '/' + ('0' + (dateindex.getMonth() + 1)).slice(-2) + '/' + dateindex.getFullYear() + '<span class=" clndr pull-right" data-pack="default"></span>';
+                            header += '</h4>';
+                            header += '</div>';
+                            header += '</a>';
+                            header += '<div id="collapse' + i + '" class="panel-collapse collapse">';
+                            header += '<div class="panel-body">';
+                            header += '<label class="text-info">IEX || Single</label>';
+                            if (dateindex >= current_date) {
+                                header += '<img style="cursor: pointer;" src="/img/assets/edit.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="15px" width="19px">';
+                            } else {
+                                header += '<img style="cursor: pointer;" src="/img/assets/view.svg" bid-type="single" id="' + index + '" class="edit-bid-data" set-delivery-date="" height="15px" width="19px">';
+                            }
+                            header += '<div class="dashed-borderd-table">';
+                            header += '<table class="table table-striped table-sm bid-status">';
+                            header += '<thead class="tablehead">';
+                            header += '<tr>';
+                            header += '<th class="text-center">From</th>';
+                            header += '<th class="text-center">To</th>';
+                            header += '<th class="text-center">Quantum</th>';
+                            header += '<th class="text-center">Rate</th>';
+                            header += '</tr>';
+                            header += '</thead>';
+                            header += '<tbody id="single-bid-data">';
+
+
+
+                            var singleBid = "";
+                            var blockBid = "";
+                            for (var x = 0; x < value.length; x++) {
+
+                                if (value[x].bid_type == 'single') {
+                                    if (value[x].bid_action == 'sell') {
+                                        singleBid += '<tr id="' + value[x].id + '">' +
+                                            '<td class="text-danger">' + value[x].time_slot_from + '</td>' +
+                                            '<td class="text-danger">' + value[x].time_slot_to + '</td>' +
+                                            '<td class="text-danger">-' + value[x].bid_mw + '</td>' +
+                                            '<td class="text-danger">' + value[x].bid_price + '</td>' +
+                                            '</tr>';
+                                    } else {
+                                        singleBid += '<tr id="' + value[x].id + '">' +
+                                            '<td class="text-success">' + value[x].time_slot_from + '</td>' +
+                                            '<td class="text-success">' + value[x].time_slot_to + '</td>' +
+                                            '<td class="text-success">' + value[x].bid_mw + '</td>' +
+                                            '<td class="text-success">' + value[x].bid_price + '</td>' +
+                                            '</tr>';
+                                    }
+                                }
+
+                                if (value[x].bid_type == 'block') {
+                                    if (value[x].bid_action == 'sell') {
+                                        blockBid += '<tr id="' + value[x].id + '">' +
+                                            '<td class="text-danger">' + value[x].time_slot_from + '</td>' +
+                                            '<td class="text-danger">' + value[x].time_slot_to + '</td>' +
+                                            '<td class="text-danger">-' + value[x].bid_mw + '</td>' +
+                                            '<td class="text-danger">' + value[x].bid_price + '</td>' +
+                                            '</tr>';
+                                    } else {
+                                        blockBid += '<tr id="' + value[x].id + '">' +
+                                            '<td class="text-success">' + value[x].time_slot_from + '</td>' +
+                                            '<td class="text-success">' + value[x].time_slot_to + '</td>' +
+                                            '<td class="text-success">' + value[x].bid_mw + '</td>' +
+                                            '<td class="text-success">' + value[x].bid_price + '</td>' +
+                                            '</tr>';
+                                    }
+
+                                }
+                            }
+                            if (!singleBid) {
+                                singleBid = '<tr><td colspan="4" class="text-center">No Bid Found</td></tr>';
+                            }
+                            if (!blockBid) {
+                                blockBid = '<tr><td colspan="4" class="text-center">No Bid Found</td></tr>';
+                            }
+                            header += singleBid + '</tbody></table></div>  <label class="text-info">IEX || Block</label>';
+                            
+                            if (dateindex >= current_date) {
+                                header += '<img style="cursor: pointer;" src="/img/assets/edit.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="15px" width="19px">';
+                            } else {
+                                header += '<img style="cursor: pointer;" src="/img/assets/view.svg"  id="' + index + '" bid-type="block" set-delivery-date="" class="edit-bid-data" height="15px" width="19px">';
+                            }
+                            header += '<div class="dashed-borderd-table"><table class="table table-striped table-sm bid-status"><thead class="tablehead"><tr><th class="text-center">From</th><th class="text-center">To</th><th class="text-center">Quantum</th><th class="text-center">Rate</th></tr></thead><tbody id="block-bid-data">';
+                            header += blockBid + "</tbody></table></div></div></div></div></div>";
+                            // jQuery("#set_delivery_date").html(jQuery("#bid_date").val());
+                            // jQuery("#single-bid-data").html(singleBid);
+                            // jQuery("#block-bid-data").html(blockBid);
+                        });
+                        if (already_accordian) {
+                            jQuery("#accordion").prepend(header);
+                        } else {
+                            jQuery("#accordion").html('');
+                            header += '</div>';
+                            jQuery("#accordion").html(header);
+                        }
+                swal('Success!', 'Bid placed successfully !!!.', 'success');
+            },
+            error: function(response) {
+                var valHtml = '<div class="alert alert-danger fade in alert-dismissible">' +
+                    '<a href="#" class="close" data-dismiss="alert">&times;</a>';
+                if (response.responseJSON.msg) {
+                    valHtml += '<strong>Error! </strong>' + response.responseJSON.msg;
+                } else {
+                    valHtml += '<strong>Error!</strong> Serve error occurred !!!';
+                }
+                valHtml += '</div>';
+                jQuery(".msg_error").fadeIn();
+                jQuery(".msg_error").html(valHtml);
+                jQuery(".msg_error").fadeOut(10000);
+            }
+        });
     });
     var countbidding = 100;
 
