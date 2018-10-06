@@ -127,7 +127,7 @@
       </div>
      <div class="col-md-10">
         <a href="#" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#myModal">&nbsp IMPORT(CSV)</a>
-        <a href="/sample/poc_losses.csv" class="btn btn-info btn-xs pull-right ml5 mr5">&nbsp DOWNLOAD TEMPLATE</a>
+        <a href="/sample/poc_losses.xlsx" class="btn btn-info btn-xs pull-right ml5 mr5">&nbsp DOWNLOAD CSV</a>
         <a class="btn btn-info btn-xs poc-btn pull-right mr5" name=" "><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</a>
       </div>
     </div>
@@ -159,8 +159,32 @@
               <td class="text-center">
                 <a href="/poc/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
                 &nbsp;&nbsp;&nbsp;
-                <a href="/poc/deleteppa/{{$value->id}}"><span class="glyphicon glyphicon-trash"></span></a>
+                <a href="" data-toggle="modal" data-target="#ConvertData{{ $value->id }}" name="" id="convert-disabled"><span class="glyphicon glyphicon-trash"></span></a>
               </td>
+              <div id="ConvertData{{ $value->id }}" class="modal fade" role="dialog">
+           <form method="GET"  action="{{url('/poc/deleteppa/'.$value->id)}}">
+            {{ csrf_field() }}
+           <div class="modal-dialog modal-confirm">
+             <div class="modal-content">
+               <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                 <h4 class="modal-title text-center"></h4>
+               </div> -->
+               <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                <center><p style="font-size: 12px;font-weight:500;color:black!important; text-align:center;">DO YOU REALLY WANT TO DELETE THIS RECORD?</p></center> 
+               </div>
+               <div class="modal-footer">
+
+                 
+                <div class="text-center">
+                 <button type="submit" class="btn btn-info btn-xs">YES</button>
+                 <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">NO</button>
+               </div>
+               </div>
+             </div>
+           </div>
+           </form>
+         </div>
+
             </tr>
             @endforeach
           </tbody>
@@ -189,8 +213,8 @@
         <!-- Modal footer -->
         <div class="modal-footer text-center">
 
-          <button type="submit" class="btn btn-danger text-center">Submit</button>
-          <button type="button" class="btn btn-danger text-center" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-info btn-xs text-center">Submit</button>
+          <button type="button" class="btn btn-danger btn-xs text-center" data-dismiss="modal">Close</button>
         </div>
       </form>
       </div>

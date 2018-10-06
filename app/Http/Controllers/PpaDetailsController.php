@@ -148,7 +148,7 @@ public function findppa($id)
         $exchange->update();
 
 
-        return redirect()->back()->with('delmsg', 'Data Deleted Successfully!');
+        return redirect()->back()->with('delmsg', 'Data Submitted Successfully And Sent For Approval');
     }
 
 // bid setting start---

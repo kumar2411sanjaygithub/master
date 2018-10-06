@@ -95,3 +95,6 @@ h5>label{text-decoration: underline;}
 .glyphicon-ok,.glyphicon-remove{font-size:15px;}
 input[type="file"]{padding:2.499px 4px!important;}
 .pr25{padding-right:25px;}
+.breadcrumb>li>a,.breadcrumb>li>u,.breadcrumb>li>a>u{text-transform:uppercase;}
+table>thead>tr>th{text-transform: uppercase;}
+section.content-header>h5>label.control-label{text-transform: uppercase;}
