@@ -221,7 +221,8 @@ min-width:100px;
   <label  class="control-label">DISCOM LOSSES</label>
   <input class="form-control input-sm" type="text" disabled placeholder="ENTER DISCOM LOSSES" id="discom_losses" name="discom_losses" value="{{isset($get_noc_details)?$get_noc_details->discom_losses:''}}">
   </div>
-
+</div>
+<div class="row">
 <div class="col-md-3">
 <label  class="control-label">FINAL NOC QUANTUM</label>
   <input class="form-control input-sm" type="text" placeholder="ENTER FINAL NOC QUANTUM"id="final_quantum" name="final_quantum" value="{{isset($get_noc_details)?$get_noc_details->final_quantum:''}}" disabled>
@@ -401,8 +402,14 @@ min-width:100px;
          if(nocval == 'Ex-Bus')
          {
           var client_id=$('#client').val();
-          // alert(client_id);
-           $("#noc_quantum").val('');
+          var noc_type=$('#noc_type').val();
+          $("#noc_quantum").val('');
+          if(noc_type=='')
+          {
+            alert('Please Select NOC Application.');
+            return false;
+          }
+
           if(client_id!='')
           {
               $.ajax({
@@ -418,6 +425,12 @@ min-width:100px;
                     {
                       document.getElementById("region_entity").disabled = false;
                       document.getElementById("region").disabled = false;
+                    }
+                    else
+                    {
+                      alert('Losses are not set.Firstly set losses');
+                      return false;
+
                     }
                   }
               });

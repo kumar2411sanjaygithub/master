@@ -92,11 +92,8 @@
   </section>
   <!-- Body End -->
 <!-- Order Book HTML End -->
-
-
 <script>
         src = "{{ route('searchajax') }}";
-
          $(".search_text").autocomplete({
             source: function(request, response) {
                 $.ajax({
@@ -116,70 +113,6 @@
             minLength: 1,
         });
     </script>
-    <script>
 
-   $( "#date_from" ).datepicker({
-      autoclose: true,
-      format:'dd/mm/yyyy'
-    });
-
-   $( "#date_to" ).datepicker({
-      autoclose: true,
-      format:'dd/mm/yyyy'
-    });
-
-  $('.searchBidDeatils').click(function(){
-      // var date_rgx = /(\d{4})-(\d{2})-(\d{2})/;
-      // if(!date_to.match(date_rgx))
-      // {
-      //   alert("Please enter to date in YYYY-MM-DD format")
-      //   $('date_to').focus();
-      //   return false;
-      // }
-      var date_from = $('#date_from').val();
-      var date_to = $('#date_to').val();
-      var client_id = $('.search_text').val();
-     
-      var orderbookData = {
-          client_id: $('#user_id').val(),
-          client_name: $('.search_text').val(),
-          date_to: $('#date_to').val(),
-          date_from: $('#date_from').val(),
-          bid_type: $('#bid_type').val(),
-          order_status: $('#order_status').val(),
-          sort_status: $('#sort_status').val(),
-          exchange: $('#exchange').val(),
-          order_nature: $('#order_nature').val(),
-          _token : $('#_token').val()
-        }
-        console.log(orderbookData);
-        // var bid_array =[];
-        // if($("#bid_type").val()=='block'){
-
-        // }
-        var url = '/orderbook/orderbookdata';
-        $.ajax({
-              type: 'post',
-              url: url,
-              data: orderbookData,
-              dataType: 'json',
-              success: function(data) {
-                console.log(data.placebidData);
-                
-              },
-              error: function (response) {
-                $.each(JSON.parse(response.responseText).errors,function(key,val){
-                     $("#"+key).show();
-                     $("#"+key).text(val);
-                     $("[name='"+key+"']").css('border-color', 'red');
-                   });
-              }
-          });
-
-    });
-
-</script>
-    
-
-
+{{ Html::script('js/orderbook/orderbook.js') }}
 @endsection

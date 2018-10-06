@@ -135,7 +135,7 @@
       </div>
      <div class="col-md-10">
         <a href="#" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#myModal">&nbsp IMPORT(CSV)</a>
-        <a href="/sample/discom_losses.xlsx" class="btn btn-info btn-xs pull-right  ml5 mr5" target="_blank">&nbsp DOWNLOAD CSV</a>
+        <a href="/sample/discom_losses.csv" class="btn btn-info btn-xs pull-right  ml5 mr5" target="_blank">&nbsp DOWNLOAD TEMPLATE</a>
         <a class="btn btn-info btn-xs discom-btn pull-right mr5" name=" "><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</a>
       </div>
     </div>
