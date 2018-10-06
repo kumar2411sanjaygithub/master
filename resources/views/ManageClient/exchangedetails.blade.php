@@ -6,7 +6,7 @@
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="/basicdetails">MANAGE CLIENT</a></li>
       <li><a href="/basicdetails">CLIENT BASIC DETAILS</a></li>
-      <li class="#"><u>CONTACT DETAILS</u></li>
+      <li class="#"><u>EXCHANGE DETAILS</u></li>
    </ol>
 </section>
      <section class="content">
