@@ -82,7 +82,7 @@
   <select class="form-control input-sm" name="department_id" id="department_id">
      <option value="">Select</option>
          @foreach($department as $departmentuser)
-        <option value="{{$departmentuser->id}}">{{$departmentuser->depatment_name}}</option>
+        <option value="{{$departmentuser->id}}" @if(old('department_id')==$departmentuser->id)selected='selected'@endif>{{$departmentuser->depatment_name}}</option>
           @endForeach
         </select>
         <span class="text-danger">{{ $errors->first('role_id') }}</span>
@@ -95,7 +95,9 @@
   <select class="form-control input-sm" name="role_id" id="role_id" style="width: 100%;">
     <option value="">Select</option>
      @foreach($role as $roleuser)
-        <option value="{{$roleuser->id}}">{{$roleuser->name}}</option>
+      @if(old('role_id')==$roleuser->id)
+        <option value="{{$roleuser->id}}" @if(old('role_id')==$roleuser->id)selected='selected'@endif >{{$roleuser->name}}</option>
+        @endif
           @endForeach
         </select>
         <span class="text-danger">{{ $errors->first('role_id') }}</span>
@@ -185,5 +187,33 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+ <script>
 
+ $(document).ready(function(){
+   $('#department_id').on('change', function() {
+
+     var department_id=this.value;
+     if(department_id!='')
+     {
+       $.ajax({
+           url: '{{ url()->to("get_ajax_role") }}',
+           type: 'GET',
+           data: {'department_id':department_id},
+           dataType: 'JSON',
+           success: function(data)
+           {
+             html1='';
+             html1+='<option value="">CHOOSE</option>';
+             $.each(data.role, function(key1, value1){
+              //console.log(value1.name);
+               html1+='<option value="'+value1.id+'">'+value1.name+'</option>';
+             });
+             $('#role_id').html(html1);
+           }
+       });
+     }
+   });
+
+ });
+</script>
   @endsection

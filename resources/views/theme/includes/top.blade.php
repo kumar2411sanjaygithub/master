@@ -1,7 +1,10 @@
 <header class="main-header">
-  <a href="#{{url('home')}}" class="logo">
+  <a href="#{{url('home')}}" class="logo" style="background: #fff!important;">
     <span class="logo-mini"><b>A</b>LT</span>
+    <img src="{{url('img/tptcl.png')}}" height="43" width="45" style="margin-right:151px;margin-bottom:5px;">
     <span class="logo-lg"><b>TPTCL</b>&nbsp;ERP</span>
+    <span style="font-family:'Source Sans Pro',sans-serif!important;font-size:15px; position: absolute; bottom: 6px; left: 25px; font-weight: bold; color:#3c8dbc!important; width:188px;">TPTCL ONLINE</span>
+    <span style="font-family:'Source Sans Pro',sans-serif!important;font-size:15px;position: absolute; bottom: -10px; left: 33px; font-weight: bold; color:#3c8dbc!important; width:188px;">BIDDING PORTAL</span>
   </a>
   <nav class="navbar navbar-static-top" style="margin-left: 220px;" >
     <!-- Sidebar toggle button-->

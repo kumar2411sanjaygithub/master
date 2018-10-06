@@ -262,7 +262,7 @@ Route::get('/basic/{id}/view',['as'=>'basicPrint','uses'=>'ClientDeatilsControll
 Route::post('/client/updateclient/{id}',['as'=>'updatebasic','uses'=>'ClientDeatilsController@updateclient']);
 
 
-
+Route::get('/get_ajax_role',['as'=>'get_ajax_role','uses'=>'ManageOfficialsController@getRoleAjax']);
 
 //CLIENT-BANK----SHALU//
 Route::get('/bankdetails/{id}',['as'=>'bankdetails','uses'=>'ClientDeatilsController@bankdetails']);
