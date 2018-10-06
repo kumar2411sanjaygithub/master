@@ -74,13 +74,13 @@ class PpaApprovalController extends Controller
          $ppadetails->save();
          $ppa->status = 1;
          $ppa->update();
-        return Redirect::back()->with('success', 'User details approved successfully.');
+        return Redirect::back()->with('success', 'Client details approved successfully.');
         }
         elseif($id!='' && $type=='Rejected')
         {
         $mm = new PpaApprovedetails;
         $mm::where('id', $id)->update(['status'=> '2']);
-        return Redirect::back()->with('success', 'User details rejected successfully.');
+        return Redirect::back()->with('success', 'Client details rejected successfully.');
         }
     }
 
@@ -104,14 +104,14 @@ class PpaApprovalController extends Controller
          $ppa->status = 1;
          $ppa->update();
             }
-            return Redirect::back()->with('success', 'User details successfully approved.');
+            return Redirect::back()->with('success', 'Client details successfully approved.');
           }
           elseif ($tag=='Rejected') {
             foreach($array as $id){
               $mm = new PpaApprovedetails;
               $mm::where('id', $id)->update(['status'=> '2']);
             }
-            return Redirect::back()->with('success', 'User details successfully rejected.');
+            return Redirect::back()->with('success', 'Client details successfully rejected.');
         }
 
     }
@@ -130,12 +130,12 @@ class PpaApprovalController extends Controller
             $exchange->update();
             $updatestemp->status = 1;
             $updatestemp->update();
-            return Redirect::back()->with('success', 'User details successfully approved.');
+            return Redirect::back()->with('success', 'Client details successfully approved.');
 
          }elseif ($id!='' && $type=='Rejected') {
 
             Approvalrequest::where('id', $id)->update(['status'=> '2']);
-            return Redirect::back()->with('success', 'User details successfully rejected.');
+            return Redirect::back()->with('success', 'Client details successfully rejected.');
         }
     }
      public function ppaAllModified(Request $request,$tag='')
@@ -154,13 +154,13 @@ class PpaApprovalController extends Controller
             $updatestemp->status = 1;
             $updatestemp->update();
             }
-            return Redirect::back()->with('success', 'User details successfully approved.');
+            return Redirect::back()->with('success', 'Client details successfully approved.');
           }
           elseif ($tag=='Rejected') {
             foreach($array as $id){
                Approvalrequest::where('id', $id)->update(['status'=> '2']);
             }
-            return Redirect::back()->with('success', 'User details successfully rejected.');
+            return Redirect::back()->with('success', 'Client details successfully rejected.');
         }
 
     }
@@ -176,14 +176,14 @@ class PpaApprovalController extends Controller
                    $new->del_status = 2;
                    $new->update();
 
-            return Redirect::back()->with('success', 'User details successfully approved.');
+            return Redirect::back()->with('success', 'Client details successfully approved.');
            }elseif ($id!='' && $type=='Rejected') {
 
                   $new_bnc = new Ppadetails;;
                   $new =  $new_bnc::withTrashed()->find($id);
                   $new->del_status = 4 ;
                   $new->update();
-                  return Redirect::back()->with('success', 'User details successfully rejected.');
+                  return Redirect::back()->with('success', 'Client details successfully rejected.');
         }
      }
 
@@ -199,7 +199,7 @@ class PpaApprovalController extends Controller
                    $new->del_status = 2;
                    $new->update();
             }
-            return Redirect::back()->with('success', 'User details successfully approved.');
+            return Redirect::back()->with('success', 'Client details successfully approved.');
           }
           elseif ($tag=='Rejected') {
             foreach($array as $id){
@@ -208,7 +208,7 @@ class PpaApprovalController extends Controller
                   $new->del_status = 4 ;
                   $new->update();
             }
-            return Redirect::back()->with('success', 'User details successfully rejected.');
+            return Redirect::back()->with('success', 'Client details successfully rejected.');
         }
 
     }
