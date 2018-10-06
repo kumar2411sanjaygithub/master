@@ -308,8 +308,11 @@ min-width:100px;
                             @if($noc_list->status==4 ||$noc_list->status==5 ||$noc_list->status==1)
                               <a class="disabled"><span class="label edited fnt " >EDIT</span></a>
                               @else
-                              <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_list->id }}" ><span class="label edited fnt " >EDIT</span></a>
-
+                                @if($noc_list->generate_sldc_debit!='' || $noc_list->generate_discom_debit!='')
+                                  <a href='' data-toggle="modal" data-target="#billMessagePop{{ $noc_list->id }}"><span class="label edited fnt " >EDIT</span></a>
+                                @else
+                                  <a href="" data-toggle="modal" data-target="#deleteData{{ $noc_list->id }}" ><span class="label edited fnt " >EDIT</span></a>
+                                @endif  
                               @endif
 
                           @else
@@ -475,7 +478,29 @@ min-width:100px;
                            </div>
                            </form>
                          </div>
-
+                        <div id="billMessagePop{{ $noc_list
+                       ->id }}" class="modal fade" role="dialog">
+                           <form method="POST">
+                           <div class="modal-dialog modal-confirm">
+                            <input type="hidden" value="{{isset($str)?$str:''}}" name="client_name">
+                            <input type="hidden" value="{{isset($noc_list->generate_noc_application)?$noc_list->generate_noc_application:''}}" name="noc_file_pdf">
+                             <div class="modal-content">
+                               <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                                 <h4 class="modal-title text-center">ARE YOU SURE?</h4>
+                               </div> -->
+                               <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                                 <center><p style="font-size: 12px;font-weight: 500;color:black!important;">PLEASE DELETE THE ALREADY GENERATED SLDC OR DISCOM BILL TO EDIT PAYMENT.</p></center>
+                               </div>
+                               <div class="modal-footer">
+                                <div class="text-center">
+                                 <!-- <button type="submit" class="btn btn-info btn-xs">YES</button> -->
+                                 <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">CLOSE</button>
+                               </div>
+                               </div>
+                             </div>
+                           </div>
+                           </form>
+                         </div>
 
                         <div id="deletegererateBill{{ $noc_list
                        ->id }}" class="modal fade" role="dialog">

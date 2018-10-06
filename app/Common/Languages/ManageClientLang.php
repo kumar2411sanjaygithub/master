@@ -120,6 +120,7 @@ class ManageClientLang
             'client_app_status'=> 'Status',
             'noc_application_no'=> 'NOC Application No',
             'exchange'=> 'Exchange Type',
+            'file_path'=>'File',
         );
    }
 }
