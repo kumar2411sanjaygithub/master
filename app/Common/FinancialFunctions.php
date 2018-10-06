@@ -96,7 +96,7 @@ class FinancialFunctions
   public function view_format($date){
      return date('d-m-Y', strtotime(str_replace('/','-',$date)));
   }
-  public function getblockbidtime($client_id, $date)
+  public static function getblockbidtime($client_id, $date)
   {
     $bidData = DB::table('place_bid')
         ->selectRaw('place_bid.updated_at')
@@ -109,7 +109,7 @@ class FinancialFunctions
     return $bidData->updated_at;
   }
 
-  public function getsinglebidtime($client_id, $date)
+  public static function getsinglebidtime($client_id, $date)
   {
     $bidData = DB::table('place_bid')
         ->selectRaw('place_bid.updated_at')
