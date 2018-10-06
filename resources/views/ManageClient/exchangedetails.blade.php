@@ -6,13 +6,11 @@
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="/basicdetails">MANAGE CLIENT</a></li>
       <li><a href="/basicdetails">CLIENT BASIC DETAILS</a></li>
-
       <li class="#"><u>EXCHANGE DETAILS</u></li>
-
    </ol>
 </section>
      <section class="content">
-
+                                <div class="col-md-12">
                                 <div class="row">
                                   <div class="col-md-8 pull-left">
                                       <h5 class="pull-left"><label class="control-label pull-right mt-1"><u>Upload Exchange File</u></h5> &nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
@@ -20,13 +18,6 @@
                                   <div class="col-md-4 pull-right">
 
                                   </div>
-
-                                      @if(session()->has('message'))
-                                        <div class="alert alert-success alert-dismissible fade in">
-                                          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                         <span class="glyphicon glyphicon-ok"></span> &nbsp; {{ session()->get('message') }}
-                                        </div>
-                                      @endif
                                       <div class="row">
                                       <div class="col-md-12">
                                      <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mt7"><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
@@ -96,7 +87,12 @@
                                       </div>
 
                                     </form>
-
+                                      @if(session()->has('message'))
+                                        <div class="alert alert-success alert-dismissible fade in">
+                                          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                         <span class="glyphicon glyphicon-ok"></span> &nbsp; {{ session()->get('message') }}
+                                        </div>
+                                      @endif
                                 <div class="box mt3">
 
 
@@ -134,8 +130,8 @@
                                   <td class="text-center">{{ $value->ex_type }}</td>
                                   <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_from)) }}</td>
                                   <td class="text-center">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
-                                  <td class="text-center"><a href="{{url('downloads/'.$value->file_upload)}}" ><span class="glyphicon glyphicon-download"></span></td>
-                                  <td>{{ $valid }}</a></td>
+                                  <td class="text-center"><a href="{{url('downloads/'.$value->file_upload)}}" ><span class="glyphicon glyphicon-download"></span></a></td>
+                                  <td>{{ $valid }}</td>
                                   <td class="text-center">
                                     <a href="{{url('/editexchangedetail/'.$client_id.'/eid/'.$value->id)}}"><span class="glyphicon glyphicon-pencil" id="edit-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
                                     <a href="/delete/exchange/{{$value->id}}"><span class="glyphicon glyphicon-trash text-danger" id="remove-bank-detail" bank_detail_id="{{ $value->id }}"></span></a>
@@ -160,7 +156,7 @@
                                 </div>
                           </div>
                     </div>
-
+</div>
               </section>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

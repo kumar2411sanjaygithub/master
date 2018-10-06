@@ -15,7 +15,7 @@
                </a>
             </div>
          </div>
-         <div class="box">
+         <div class="box mt3">
             <div class="box-header">
               @if(session()->has('message'))
                <div class="alert alert-success alert-dismissible fade in">
@@ -90,7 +90,9 @@
             </div>
             <div class="row">
                <div class="col-md-12">
-                 <div class="text-center"><button type="submit" class="btn btn-info btn-xs">SAVE</button></div>
+                <div class="col-md-12">
+                 <div class="text-right"><button type="submit" class="btn btn-info btn-xs">SAVE</button></div>
+               </div>
                </div>
           </div>
             <div class="row">&nbsp;</div>
