@@ -226,7 +226,7 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-          <input type="file" name="discom_losses_file" accept=".csv">
+          <input type="file" name="discom_losses_file" accept=".csv" required>
         </div>
 
         <!-- Modal footer -->
