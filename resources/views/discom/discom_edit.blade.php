@@ -45,7 +45,7 @@
            {{ session()->get('delmsg') }}
        </div>
      @endif    
-    <form method="post" action="{{route('import-poc-losses')}}" enctype='multipart/form-data'>
+    <form method="post" action="{{url('/updatediscom/'.$discomData->id)}}" enctype='multipart/form-data'>
       {!! csrf_field() !!}
       <div class="row">
       <div class="col-xs-12">
@@ -81,7 +81,7 @@
                           $state_list = \App\Common\StateList::get_states();
                         ?>
                         @foreach($state_list as $state_code=>$state_ar)
-                         <option value="{{ $discomData->region }}" {{ isset($discomData) && $discomData->region == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
+                         <option value="{{ $state_code }}" {{ isset($discomData) && $discomData->region == $state_code ? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
                         @endforeach
                       </select>
                     <span class="text-danger">{{ $errors->first('region') }}</span>
@@ -110,7 +110,7 @@
                  </div>
                  <div class="col-md-3"></div>
                  <div class="col-md-3 mt23">
-                   <div class="col-md-6"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
+                   <div class="col-md-6"><button type="submit" class="btn btn-block btn-info btn-xs">UPDATE</button></div>
                    <div class="col-md-6"><a href="/discom"><button type="button" class="btn btn-block btn-danger btn-xs">CANCEL</button></a></div>
                  </div>
                </div>

@@ -116,6 +116,7 @@
             </span>
          </div>
       </div>
+       </form>
       <div class="col-md-10 pull-right">
         <!-- <a href="/basicdetails" class="btn btn-info btn-xs pull-right" title="BACK TO LIST"><span class="glyphicon glyphicon-forward"></span>&nbsp BACK TO LIST</a> -->
         <a href="#" id="add-ppa" class="btn btn-info btn-xs pull-right mr5"><span class="glyphicon glyphicon-plus"> </span>&nbsp ADD PPA</a>
@@ -157,8 +158,32 @@
                   <td class="text-center">
                     <a href="/ppa/editppa/{{$value->id}}"><span class="glyphicon glyphicon-pencil"></span></a>
                     &nbsp;&nbsp;&nbsp;
-                    <a href="/ppa/deleteppa/{{$value->id}}"><span class="glyphicon glyphicon-trash text-danger"></span></a>
+                    <a href="" data-toggle="modal" data-target="#ConvertData{{ $value->id }}" name="" id="convert-disabled"><span class="glyphicon glyphicon-trash text-danger"></span></a>
                   </td>
+                   </td>
+              <div id="ConvertData{{ $value->id }}" class="modal fade" role="dialog">
+           <form method="GET"  action="{{url('/ppa/deleteppa/'.$value->id)}}">
+            {{ csrf_field() }}
+           <div class="modal-dialog modal-confirm">
+             <div class="modal-content">
+               <!-- <div class="modal-header" style="border-bottom: 2px solid #e5e5e5;">
+                 <h4 class="modal-title text-center"></h4>
+               </div> -->
+               <div class="modal-body" style="border-bottom: 2px solid #e5e5e5;">
+                <center><p style="font-size: 12px;font-weight:500;color:black!important; text-align:center;">DO YOU REALLY WANT TO DELETE THIS RECORD?</p></center> 
+               </div>
+               <div class="modal-footer">
+
+                 
+                <div class="text-center">
+                 <button type="submit" class="btn btn-info btn-xs">YES</button>
+                 <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">NO</button>
+               </div>
+               </div>
+             </div>
+           </div>
+           </form>
+         </div>
                  </tr>
                <?php $i++; ?>
                  @empty
@@ -175,7 +200,7 @@
       </div>
       <!-- /.box-body -->
    </div>
- </form>
+
 </section>
 <!-- /.content -->
 

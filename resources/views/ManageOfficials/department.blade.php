@@ -125,7 +125,7 @@
                </div>
                <div class="modal-footer">
 
-                 <
+                 
                 <div class="text-center">
                  <button type="submit" class="btn btn-info btn-xs">YES</button>
                  <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">NO</button>
