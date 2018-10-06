@@ -59,10 +59,11 @@
                                   <th class="text-center fs14">Sr. No</th>
                                   <th class="text-center fs14">Client Name</th>
                                   <th class="text-center fs14">Portfolio Id</th>
-                                  <th class="text-center fs14">Balance</th>
-                                  <!-- <th class="text-center fs14">Type</th> -->
                                   <th class="text-center fs14">Single Bid</th>
+                                  <th class="text-center fs14">Upload Time (Single)</th>
                                   <th  class="text-center fs14">Block Bid</th>
+                                  <th class="text-center fs14">Upload Time (Block)</th>
+                                  <th class="text-center fs14">Balance</th>
                                 </tr>
                                 <!-- <tr>
                                   <th class="text-center fs14"></th>
@@ -108,7 +109,7 @@
                                       @endif
                                   </td>
                                   <td class="text-center">{{ $value->iex_portfolio }}</td>
-                                  <td class="text-center">{{  App\Common\FinancialFunctions::getoutstandingbalace($value->client_id) }}</td>
+                                  
                                   <!-- <td class="text-center"></td> -->
                                   <!-- <td></td> -->
                                   <td class="text-center">
@@ -116,12 +117,15 @@
                                       <img data-placement="bottom" data-toggle="tooltip" title="Download" src="{{ asset('img/assets/download.svg') }}" height="28px" width="28px">
                                     </a>
                                   </td>
+                                  <td class="text-center">{{  App\Common\FinancialFunctions::getsinglebidtime($value->client_id) }}</td>
                                   <!-- <td>Other</td> -->
                                   <td class="text-center">
                                     <a href="{{ URL::to('/downloadbid/downloadbidexcel/new/block/'.$value->order_no,array($date,$value->client_id)) }}">
                                       <img data-placement="bottom" data-toggle="tooltip" title="Download" src="{{ asset('img/assets/download.svg') }}" height="28px" width="28px">
                                     </a>
                                   </td>
+                                  <td class="text-center">{{  App\Common\FinancialFunctions::getblockbidtime($value->client_id, $date) }}</td>
+                                  <td class="text-center">{{  App\Common\FinancialFunctions::getoutstandingbalace($value->client_id, $date) }}</td>
                                 </tr>
                                 <?php $i++; ?>
                                 @endforeach
