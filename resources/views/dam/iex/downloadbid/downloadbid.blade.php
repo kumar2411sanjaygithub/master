@@ -117,7 +117,7 @@
                                       <img data-placement="bottom" data-toggle="tooltip" title="Download" src="{{ asset('img/assets/download.svg') }}" height="28px" width="28px">
                                     </a>
                                   </td>
-                                  <td class="text-center">{{  App\Common\FinancialFunctions::getsinglebidtime($value->client_id) }}</td>
+                                  <td class="text-center">{{  App\Common\FinancialFunctions::getsinglebidtime($value->client_id, $date) }}</td>
                                   <!-- <td>Other</td> -->
                                   <td class="text-center">
                                     <a href="{{ URL::to('/downloadbid/downloadbidexcel/new/block/'.$value->order_no,array($date,$value->client_id)) }}">
