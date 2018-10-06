@@ -3,7 +3,7 @@
 <section class="content-header">
       <h5><label  class="control-label"><u>CLIENT LIST</u></label></h5>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
+        <li><a href=""><i class="fa fa-dashboard"></i> HOME</a></li>
         <li><a href="/basicdetails">MANAGE CLIENT</a></li>
         <li class="active"><u>CLIENT BASIC DETAILS</u></li>
       </ol>
