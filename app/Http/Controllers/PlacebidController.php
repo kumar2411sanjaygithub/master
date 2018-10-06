@@ -336,12 +336,25 @@ class PlacebidController extends Controller
         ->groupBy('bid_date')
         ->havingRaw("bid_date LIKE '".$biddate."'")
         ->first();
+
         if(isset($PartiCularTimeSlotData->totalBid)){
-            $totalMwFinal = $PartiCularTimeSlotData->totalBid+$request->input('bid_mw');
+            if($request->input('bid_type')=='block'){
+                $totalMwFinal = $PartiCularTimeSlotData->totalBid+($request->input('bid_mw')*$noOfBlock);
+
+            }else{
+                $totalMwFinal = $PartiCularTimeSlotData->totalBid+$request->input('bid_mw');
+            }
+            
         }else{
-            $totalMwFinal = $request->input('bid_mw');
+            if($request->input('bid_type')=='block'){
+                $totalMwFinal = $request->input('bid_mw')*$noOfBlock;
+
+            }else{
+                $totalMwFinal = $request->input('bid_mw');
+            }
+            
         }
-        
+         // dd($totalMwFinal);
         if($validationSetting){
             //Exchange Validation setting and Exchange expire
             if($validationSetting->exchange=='Exchange'){
@@ -1012,10 +1025,10 @@ class PlacebidController extends Controller
         ->where('bid_type',$request['bid_type'])
         ->whereNull('place_bid.deleted_at')
         ->get();
-
+        // dd($placebidDataForEdit);
         $bid_array = $this->downloadbidexcel($request['bid_type'],$biddate,$request->input('client_id'));
 
-
+        // dd($bid_array);
 
         return response()->json(['placebidDataForEdit'=> $placebidDataForEdit , 'bid_array' => $bid_array , 'msg' => 'Bid added successfully' , 'status' => '1']);
     }
@@ -1107,7 +1120,7 @@ class PlacebidController extends Controller
                   ->orderBy('bid_price','DESC')
                   ->get()->toArray();
 
-
+                  // dd($bidData);
               // return Excel::create($order_no, function($excel) use ($bidData) {
 
                 $bidformatted_array=array();
@@ -1115,8 +1128,15 @@ class PlacebidController extends Controller
 
                    $n=0;
                   foreach($bidData as  $biddingarray){
+                    // dd($biddingarray);
                     $startTime = new \DateTime($biddingarray->time_slot_from);
-                    $endTime = new \DateTime($biddingarray->time_slot_to);
+                    if($biddingarray->time_slot_to=='24:00:00'){
+                        $endTime = new \DateTime('23:59:59');
+                    }else{
+                        $endTime = new \DateTime($biddingarray->time_slot_to);
+                    }
+                    
+                    // dd($endTime);
                     $duration = $startTime->diff($endTime); //$duration is a DateInterval object
                     $time = explode(':',$duration->format("%H:%I:%S"));
                     $timeslot =(($time[0]*60) + ($time[1]) + ($time[2]/60))/15;
@@ -1124,7 +1144,7 @@ class PlacebidController extends Controller
                     $timetoslot = date('H:i:s',strtotime('+15 minutes',strtotime($timefromslot)));
                     $bidData[$n]->timecount=$timeslot;
                     $n++;
-
+                    // dd($timeslot);
                     for($c=1;$c<=$timeslot;$c++){
                       if(strtotime($timetoslot)<=strtotime($biddingarray->time_slot_to)){
                       $bdata = array();
@@ -1143,7 +1163,7 @@ class PlacebidController extends Controller
                     }
                   }
 
-
+                  // dd($bidformatted_array);
 
                   // $excel->sheet('sheet', function($sheet) use ($bidData,$bidformatted_array)
                   // {
