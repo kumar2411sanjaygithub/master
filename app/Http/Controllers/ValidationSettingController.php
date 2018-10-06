@@ -100,7 +100,7 @@ class ValidationSettingController extends Controller
         $validationsettingtempttemp->exchange = $request->input('exchange');
         $validationsettingtempttemp->psm = $request->input('psm');
         $validationsettingtempttemp->save();
-        return redirect()->route('validationSetting')->with('message', 'Data Update Successfully!');
+        return redirect()->route('validationSetting')->with('message', 'Details Updated Successfully!');
     }
     /**
      * validationsetting Data is Update here Coding End.
