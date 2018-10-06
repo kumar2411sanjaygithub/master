@@ -60,7 +60,7 @@
                        <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                        </div>
-                       <input type="text" placeholder="APPLICATON FROM DATE" class="form-control pull-right input-sm" autocomplete="off" id="datepicker" name="date_from" value="{{  @date('Y-m-d',strtotime(old('date_from')))}}">
+                       <input type="text" placeholder="APPLICATON FROM DATE" class="form-control pull-right input-sm" autocomplete="off" id="datepicker" name="date_from" value="{{old('date_from')}}">
                      </div>
                       <span class="text-danger">{{ $errors->first('date_from') }}</span>
                  </div>
@@ -70,7 +70,7 @@
                        <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                        </div>
-                       <input type="text" placeholder="APPLICATON TO DATE" class="form-control pull-right input-sm" autocomplete="off" id="datepicker1" name="date_to" value="{{  @date('Y-m-d',strtotime(old('date_to')))}}">
+                       <input type="text" placeholder="APPLICATON TO DATE" class="form-control pull-right input-sm" autocomplete="off" id="datepicker1" name="date_to" value="{{ old('date_to')}}">
                      </div>
                      <span class="text-danger">{{ $errors->first('date_to') }}</span>
 
@@ -128,7 +128,7 @@
      <div class="col-md-10">
         <a href="#" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#myModal">&nbsp IMPORT(CSV)</a>
         <a href="/sample/poc_losses.csv" class="btn btn-info btn-xs pull-right ml5 mr5">&nbsp DOWNLOAD TEMPLATE</a>
-        <a class="btn btn-info btn-xs poc-btn pull-right mr5" name=" "><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</a>
+        <a class="btn btn-info btn-xs poc-btn pull-right mr5" name=" "><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</a>
       </div>
     </div>
   <div class="box mt3">

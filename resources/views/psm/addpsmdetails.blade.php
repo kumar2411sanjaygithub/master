@@ -14,7 +14,7 @@ a.disabled {
 span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
 </style>
 <section class="content-header">
-  
+
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> HOME</a></li>
       <li><a href="/basicdetails">MANAGE CLIENT</a></li>
@@ -52,17 +52,17 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
        </div>
      @endif
 
-      
-        
+
+
            <div class="row mb3">
-             <div class="col-md-8 pull-left">
+             <div class="col-md-10 pull-left pr25">
                <h5 class="hid">
                   <label  class="control-label"><u class="setword">Payment Security Mechanism(PSM) Details</u></label>
                   &nbsp; {{@$clientData->company_name}}<span class="hifan">|</span>{{@$clientData->crn_no}}<span class="hifan">|</span>{{@$clientData->iex_portfolio}}<span class="hifan">|</span>{{@$clientData->pxil_portfolio}}
                </h5>
              </div>
-             <div class="col-md-4 pull-right">
-              
+             <div class="col-md-2 pull-right">
+
              </div>
            </div>
             <div class="row">
@@ -159,7 +159,7 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
                  </div>
               </div>
             </form>
-           
+
 
             <div class="box">
                <div class="box-body table-responsive">
@@ -367,8 +367,8 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
        format: 'dd/mm/yyyy',
      }).on('changeDate', function (selected) {
           var endDate = new Date(selected.date.valueOf());
-        // For Next Date selected not same date selected          
-         endDate.setDate(endDate.getDate(new Date(selected.date.valueOf()))-1);          
+        // For Next Date selected not same date selected
+         endDate.setDate(endDate.getDate(new Date(selected.date.valueOf()))-1);
           $('#issue_date').datepicker('setEndDate', endDate);
       }).on('clearDate', function (selected) {
           $('#issue_date').datepicker('setEndDate', null);
