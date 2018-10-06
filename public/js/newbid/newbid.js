@@ -600,7 +600,6 @@ jQuery(document).ready(function() {
 
     jQuery(".earlierdate").on('change', function() {
         if (jQuery("#client").val() == '') {
-            // alert("Please select client");
             swal('Error!', 'Please select client !!!.', 'error');
             jQuery("#bid_date").val('');
             return false;
@@ -625,43 +624,43 @@ jQuery(document).ready(function() {
             data: dataSubmit,
             dataType: 'json',
             success: function(data) {
-                var count = data.placebidDataSubmitted.length;
-                if (count) {
+                // console.log(data);
+                var countData = data.getearlierbid.length;
+                // alert(countData);
+                if (countData) {
 
                     var trData = "";
                     for (var i = 0; i < count; i++) {
-                        if (data.placebidDataSubmitted[i].bid_action == 'sell') {
-                            trData += '<tr class="gradeX" data-row-id="' + data.placebidDataSubmitted[i].id + '">' +
+                        if (data.getearlierbid[i].bid_action == 'sell') {
+                            trData += '<tr class="gradeX" data-row-id="' + data.getearlierbid[i].id + '">' +
                                 '<td>' +
                                 '<label class="mda-checkbox">' +
-                                '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataSubmitted[i].id + '"><em class="bg-blue-500"></em>' +
+                                '<input type="checkbox" class="_checkbox" data-id="' + data.getearlierbid[i].id + '"><em class="bg-blue-500"></em>' +
                                 '</label>' +
                                 '</td>' +
-                                '<td class="text-danger uc-first">' + data.placebidDataSubmitted[i].bid_type + '</td>' +
-                                '<td class="text-danger uc-first">' + data.placebidDataSubmitted[i].bid_action + '</td>' +
-                                '<td class="text-danger">' + data.placebidDataSubmitted[i].time_slot_from + '</td>' +
-                                '<td class="text-danger">' + data.placebidDataSubmitted[i].time_slot_to + '</td>' +
-                                '<td class="text-danger">-' + data.placebidDataSubmitted[i].bid_mw + '</td>' +
-                                '<td class="text-danger">' + data.placebidDataSubmitted[i].bid_price + '</td>' +
+                                '<td class="text-danger uc-first">' + data.getearlierbid[i].bid_type + '</td>' +
+                                '<td class="text-danger uc-first">' + data.getearlierbid[i].bid_action + '</td>' +
+                                '<td class="text-danger">' + data.getearlierbid[i].time_slot_from + '</td>' +
+                                '<td class="text-danger">' + data.getearlierbid[i].time_slot_to + '</td>' +
+                                '<td class="text-danger">-' + data.getearlierbid[i].bid_mw + '</td>' +
+                                '<td class="text-danger">' + data.getearlierbid[i].bid_price + '</td>' +
                                 '<td>' +
-                                '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataSubmitted[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataSubmitted[i].id + '"></span>'+
                                 '</td>' +
                                 '</tr>';
                         } else {
-                            trData += '<tr class="gradeX" data-row-id="' + data.placebidDataSubmitted[i].id + '">' +
+                            trData += '<tr class="gradeX" data-row-id="' + data.getearlierbid[i].id + '">' +
                                 '<td>' +
                                 '<label class="mda-checkbox">' +
-                                '<input type="checkbox" class="_checkbox" data-id="' + data.placebidDataSubmitted[i].id + '"><em class="bg-blue-500"></em>' +
+                                '<input type="checkbox" class="_checkbox" data-id="' + data.getearlierbid[i].id + '"><em class="bg-blue-500"></em>' +
                                 '</label>' +
                                 '</td>' +
-                                '<td class="text-success uc-first">' + data.placebidDataSubmitted[i].bid_type + '</td>' +
-                                '<td class="text-success uc-first">' + data.placebidDataSubmitted[i].bid_action + '</td>' +
-                                '<td class="text-success">' + data.placebidDataSubmitted[i].time_slot_from + '</td>' +
-                                '<td class="text-success">' + data.placebidDataSubmitted[i].time_slot_to + '</td>' +
-                                '<td class="text-success">' + data.placebidDataSubmitted[i].bid_mw + '</td>' +
-                                '<td class="text-success">' + data.placebidDataSubmitted[i].bid_price + '</td>' +
+                                '<td class="text-success uc-first">' + data.getearlierbid[i].bid_type + '</td>' +
+                                '<td class="text-success uc-first">' + data.getearlierbid[i].bid_action + '</td>' +
+                                '<td class="text-success">' + data.getearlierbid[i].time_slot_from + '</td>' +
+                                '<td class="text-success">' + data.getearlierbid[i].time_slot_to + '</td>' +
+                                '<td class="text-success">' + data.getearlierbid[i].bid_mw + '</td>' +
+                                '<td class="text-success">' + data.getearlierbid[i].bid_price + '</td>' +
                                 '<td>' +
-                                '<span style="cursor: pointer;" class="glyphicon glyphicon-pencil edit-bid" bid_id="' + data.placebidDataSubmitted[i].id + '"></span> | <span style="cursor: pointer;" class="glyphicon glyphicon-trash text-danger" id="remove-bid-data" bid_id="' + data.placebidDataSubmitted[i].id + '"></span>'+
                                 '</td>' +
                                 '</tr>';
                         }

@@ -271,19 +271,20 @@ class PlacebidController extends Controller
         }
 
         //Validate Noc MW in particular Time Slot
-        $PartiCularTimeSlotData = DB::table('place_bid')
-        ->select(DB::raw('sum(bid_mw) as totalBid'))
-        ->where('client_id', $request->input('client_id'))
-        ->where('exchange', $request->input('exchange'))
-        ->where('bid_date', $biddate)
-        ->where('bid_action', $request->input('bid_action'))
-        ->where('time_slot_from' ,'>=' , $request->input('time_slot_from'))
-        ->where('time_slot_to','<=' , $request->input('time_slot_to'))
-        ->whereNull('deleted_at')
-        ->first();
+        // $PartiCularTimeSlotData = DB::table('place_bid')
+        // ->select(DB::raw('sum(bid_mw) as totalBid'))
+        // ->where('client_id', $request->input('client_id'))
+        // ->where('exchange', $request->input('exchange'))
+        // ->where('bid_date', $biddate)
+        // ->where('bid_action', $request->input('bid_action'))
+        // ->where('time_slot_from' ,'>=' , $request->input('time_slot_from'))
+        // ->where('time_slot_to','<=' , $request->input('time_slot_to'))
+        // ->whereNull('delet ed_at')
+        // ->first();
 
-        $totalMwFinal = $PartiCularTimeSlotData->totalBid+$request->input('bid_mw');
-        // dd($totalMwFinal);
+       
+
+        // dd($PartiCularTimeSlotData);
         // if(empty($exchangeData)){
         //     $msg = 'Your Exchange has been expired or not uploaded. Please contact Trader Admin';
         //     return response()->json(['status' => '1', 'msg'=>$msg],400);
@@ -310,6 +311,32 @@ class PlacebidController extends Controller
         // *******************START***********************
         // | Validation setting for Exchange, NOC and PPA 
         // ***********************************************
+
+         $PartiCularTimeSlotData = DB::table('place_bid')
+        ->select(DB::raw('sum(bid_mw) as totalBid'))
+        ->where('client_id', $request->input('client_id'))
+        ->where('exchange', $request->input('exchange'))
+        // ->where('bid_date', $biddate)
+        ->where('bid_action', $request->input('bid_action'))
+        // ->whereRaw("(time_slot_from = CAST('".$request->input('time_slot_from').":00' AS time) and time_slot_to = CAST('".$request->input('time_slot_to').":00' AS time))")
+        // ->orWhereRaw("(time_slot_from > CAST('".$request->input('time_slot_from').":00' AS time) and (time_slot_to > CAST('".$request->input('time_slot_to').":00' AS time) OR time_slot_to < CAST('".$request->input('time_slot_from').":00' AS time)))")
+        // ->orWhereRaw("(time_slot_from < CAST('".$request->input('time_slot_to').":00' AS time) and time_slot_from > CAST('".$request->input('time_slot_from').":00' AS time))")
+        // ->orWhereRaw("(time_slot_from > CAST('".$request->input('time_slot_to').":00' AS time) and time_slot_from < CAST('".$request->input('time_slot_to').":00' AS time))")
+       
+
+       /* ->whereRaw("(time_slot_from <= CAST('".$request->input('time_slot_from').":00' AS time) and time_slot_to >= CAST('".$request->input('time_slot_to').":00' AS time))")
+        ->orWhereRaw("(time_slot_from < CAST('".$request->input('time_slot_from').":00' AS time) and (time_slot_to > CAST('".$request->input('time_slot_to').":00' AS time) OR time_slot_to BETWEEN CAST('".$request->input('time_slot_from').":00' AS time) AND CAST('".$request->input('time_slot_to').":00' AS time)))")
+        ->orWhereRaw("((time_slot_from BETWEEN CAST('".$request->input('time_slot_from').":00' AS time) AND CAST('".$request->input('time_slot_to').":00' AS time)) and time_slot_to > CAST('".$request->input('time_slot_to').":00' AS time))")*/
+        ->whereRaw("((time_slot_from <= CAST('".$request->input('time_slot_from').":00' AS time) and time_slot_to >= CAST('".$request->input('time_slot_to').":00' AS time)) or (time_slot_from <= CAST('".$request->input('time_slot_from').":00' AS time) and (time_slot_to >= CAST('".$request->input('time_slot_to').":00' AS time) OR (time_slot_to >= CAST('".$request->input('time_slot_from').":00' AS time) AND time_slot_to <= CAST('".$request->input('time_slot_to').":00' AS time)))) or ((time_slot_from >= CAST('".$request->input('time_slot_from').":00' AS time) AND time_slot_from <= CAST('".$request->input('time_slot_to').":00' AS time)) and time_slot_to >= CAST('".$request->input('time_slot_to').":00' AS time))or (time_slot_from > CAST('".$request->input('time_slot_from').":00' AS time) AND time_slot_to < CAST('".$request->input('time_slot_to').":00' AS time)))")
+        ->whereNull('deleted_at')
+        ->groupBy('bid_date')
+        ->havingRaw("bid_date LIKE '".$biddate."'")
+        ->first();
+        if(isset($PartiCularTimeSlotData->totalBid)){
+            $totalMwFinal = $PartiCularTimeSlotData->totalBid+$request->input('bid_mw');
+        }else{
+            $totalMwFinal = $request->input('bid_mw');
+        }
         
         if($validationSetting){
             //Exchange Validation setting and Exchange expire
@@ -330,6 +357,7 @@ class PlacebidController extends Controller
             if($validationSetting->noc=='NOC'){
                 $nocData = Noc::selectRaw('*')
                     ->where('client_id',$request->input('client_id'))
+                    ->where('exchange',$request->input('exchange'))
                     ->whereRaw("validity_from <="."'".$biddate."'")
                     ->whereRaw("validity_to >="."'".$biddate."'")
                     ->where('noc_type',$request->input('bid_action'))
@@ -337,18 +365,10 @@ class PlacebidController extends Controller
                 if(empty($nocData)){
                     $msg = 'Your NOC has been expired or not uploaded. Please contact Trader Admin';
                     return response()->json(['status' => '1', 'msg'=>$msg],400);
-                }else{
-                    $nocData = Noc::select('*')
-                                ->where('client_id',$request->input('client_id'))
-                                ->where('exchange',$request->input('exchange'))
-                                ->where('noc_type',$request->input('bid_action'))
-                                ->whereRaw("validity_from <="."'".$biddate."'")
-                                ->whereRaw("validity_to >="."'".$biddate."'")
-                                ->first();
-                    if($nocData->noc_quantum < $totalMwFinal){
-                        $msg = 'You cannot place bid more than your maximum NOC quantum. Your maximum NOC quantum is set to '.strtoupper($nocData->noc_quantum).' for '.$request->input('bid_action').' trade type.';
+                }
+                if($nocData->final_quantum < $totalMwFinal){
+                        $msg = 'You cannot place bid more than your maximum NOC quantum. Your maximum NOC quantum is set to '.strtoupper($nocData->final_quantum).' for '.$request->input('bid_action').' trade type.';
                         return response()->json(['status' => '1', 'msg'=>$msg],400);
-                    }
                 }
             }
             //PPA Setting and validation
@@ -929,6 +949,15 @@ class PlacebidController extends Controller
         ->where('status','0')
         ->get();
 
+        $getearlierbid = DB::table('place_bid')
+        ->select('*')
+        ->where('trading',$trading)
+        ->where('exchange',$request->input('exchange'))
+        ->where('client_id',$request->input('client_id'))
+        ->where('bid_date', $biddate)
+        ->whereNull('place_bid.deleted_at')
+        ->where('status',1)
+        ->get();
 
         // $placebidDataSubmitted = DB::table('place_bid')
         // ->select('*')
@@ -955,14 +984,14 @@ class PlacebidController extends Controller
           ->where('exchange',$request->input('exchange'))
           ->where('client_id',$request->input('client_id'))
           ->where('bid_date',$date->date)
-          // ->where('status',1)
+          ->where('status',1)
           ->whereNull('place_bid.deleted_at')
           ->OrderByRaw("bid_date",'Desc')
           ->get();
         }
 
         // dd($placebidDataSubmitted);
-        return response()->json(['placebidDataProcess'=> $placebidDataProcess, 'placebidDataSubmitted'=>$placebidDataSubmitted, 'msg' => 'Bid added successfully', 'status' => '1']);
+        return response()->json(['placebidDataProcess'=> $placebidDataProcess, 'placebidDataSubmitted'=>$placebidDataSubmitted,'getearlierbid'=>$getearlierbid, 'msg' => 'Bid added successfully', 'status' => '1']);
     }
 
     public function getbiddetailsbybidtype(Request $request, $trading)
