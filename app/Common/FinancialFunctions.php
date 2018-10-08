@@ -104,10 +104,10 @@ class FinancialFunctions
         ->where('client_id', $client_id)
         ->where('place_bid.status', '1')
         ->where('place_bid.bid_date', $date)
-        ->where('place_bid.bid_action', 'block')
+        ->where('place_bid.bid_type', 'block')
         ->WhereNull('deleted_at')
         ->first();
-    return $bidData;
+    return @$bidData->updated_at ? $bidData->updated_at : '-';
   }
 
   public static function getsinglebidtime($client_id, $date)
@@ -117,10 +117,10 @@ class FinancialFunctions
         ->where('client_id', $client_id)
         ->where('place_bid.status', '1')
         ->where('place_bid.bid_date', $date)
-        ->where('place_bid.bid_action', 'single')
+        ->where('place_bid.bid_type', 'single')
         ->WhereNull('deleted_at')
         ->first();
-    return $bidData;
+    return @$bidData->updated_at ? $bidData->updated_at : '-';
   }
   
 
