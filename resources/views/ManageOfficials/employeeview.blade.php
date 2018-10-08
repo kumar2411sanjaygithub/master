@@ -44,6 +44,8 @@
             <button type="button" class="btn btn-info btn-flat"><span class="glyphicon glyphicon-search"></span></button>
           </span>
     </div></div>
+
+    
 <div class="col-md-8"></div>
 <div class="col-md-2">
   <a href="{{ ('officialsadd')}}" class="btn btn-info btn-xs pull-right"  id="ram">
