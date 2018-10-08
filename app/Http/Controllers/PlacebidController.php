@@ -333,7 +333,7 @@ class PlacebidController extends Controller
         ->orWhereRaw("((time_slot_from BETWEEN CAST('".$request->input('time_slot_from').":00' AS time) AND CAST('".$request->input('time_slot_to').":00' AS time)) and time_slot_to > CAST('".$request->input('time_slot_to').":00' AS time))")*/
         ->whereRaw("((time_slot_from <= CAST('".$request->input('time_slot_from').":00' AS time) and time_slot_to >= CAST('".$request->input('time_slot_to').":00' AS time)) or (time_slot_from <= CAST('".$request->input('time_slot_from').":00' AS time) and (time_slot_to >= CAST('".$request->input('time_slot_to').":00' AS time) OR (time_slot_to >= CAST('".$request->input('time_slot_from').":00' AS time) AND time_slot_to <= CAST('".$request->input('time_slot_to').":00' AS time)))) or ((time_slot_from >= CAST('".$request->input('time_slot_from').":00' AS time) AND time_slot_from <= CAST('".$request->input('time_slot_to').":00' AS time)) and time_slot_to >= CAST('".$request->input('time_slot_to').":00' AS time))or (time_slot_from > CAST('".$request->input('time_slot_from').":00' AS time) AND time_slot_to < CAST('".$request->input('time_slot_to').":00' AS time)))")
         ->whereNull('deleted_at')
-        ->groupBy('bid_ date')
+        ->groupBy('bid_date')
         ->havingRaw("bid_date LIKE '".$biddate."'")
         ->first();
 
