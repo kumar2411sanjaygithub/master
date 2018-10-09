@@ -110,7 +110,7 @@
                                 $css='';
                                 @endphp
                                 @if($DownloadStatus == 0)
-                                  <tr style="background-color:green;">
+                                  <tr style="background-color:#abffab;">
                                 @else
                                   <tr>
                                 @endif
