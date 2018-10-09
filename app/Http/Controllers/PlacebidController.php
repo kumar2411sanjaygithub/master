@@ -316,33 +316,15 @@ class PlacebidController extends Controller
         // | Validation setting for Exchange, NOC and PPA 
         // ***********************************************
 
-         $PartiCularTimeSlotData = DB::table('place_bid')
-        ->select(DB::raw('sum(bid_mw) as totalBid'))
-        ->where('client_id', $request->input('client_id'))
-        ->where('exchange', $request->input('exchange'))
-        // ->where('bid_date', $biddate)
-        ->where('bid_action', $request->input('bid_action'))
-        // ->whereRaw("(time_slot_from = CAST('".$request->input('time_slot_from').":00' AS time) and time_slot_to = CAST('".$request->input('time_slot_to').":00' AS time))")
-        // ->orWhereRaw("(time_slot_from > CAST('".$request->input('time_slot_from').":00' AS time) and (time_slot_to > CAST('".$request->input('time_slot_to').":00' AS time) OR time_slot_to < CAST('".$request->input('time_slot_from').":00' AS time)))")
-        // ->orWhereRaw("(time_slot_from < CAST('".$request->input('time_slot_to').":00' AS time) and time_slot_from > CAST('".$request->input('time_slot_from').":00' AS time))")
-        // ->orWhereRaw("(time_slot_from > CAST('".$request->input('time_slot_to').":00' AS time) and time_slot_from < CAST('".$request->input('time_slot_to').":00' AS time))")
-       
+         $PartiCularTimeSlotData = DB::select(DB::Raw("SELECT MAX(ne.BID) AS totalBid FROM (SELECT t.*, SUM(p.bid_mw) AS 'BID' FROM `timeslot` AS t INNER JOIN (SELECT `time_slot_from`,`time_slot_to`,`bid_mw` FROM `place_bid` WHERE bid_date='".$biddate."' AND EXCHANGE='".$request->input('exchange')."' and client_id='".$request->input('client_id')."' AND bid_action='".$request->input('bid_action')."' and (((time_slot_from <= CAST('".$request->input('time_slot_from').":00' AS time) and time_slot_to >= CAST('".$request->input('time_slot_to').":00' AS time)) or (time_slot_from <= CAST('".$request->input('time_slot_from').":00' AS time) and (time_slot_to >= CAST('".$request->input('time_slot_to').":00' AS time) OR (time_slot_to >= CAST('".$request->input('time_slot_from').":00' AS time) AND time_slot_to <= CAST('".$request->input('time_slot_to').":00' AS time)))) or ((time_slot_from >= CAST('".$request->input('time_slot_from').":00' AS time) AND time_slot_from <= CAST('".$request->input('time_slot_to').":00' AS time)) and time_slot_to >= CAST('".$request->input('time_slot_to').":00' AS time))or (time_slot_from > CAST('".$request->input('time_slot_from').":00' AS time) AND time_slot_to < CAST('".$request->input('time_slot_to').":00' AS time)))) and deleted_at IS NULL  ) AS p ON t.fromtime = p.time_slot_from OR t.fromtime BETWEEN p.time_slot_from AND (p.time_slot_to - INTERVAL 1 MINUTE) GROUP BY t.fromtime) AS ne"));
+          // dd($PartiCularTimeSlotData[0]);
 
-       /* ->whereRaw("(time_slot_from <= CAST('".$request->input('time_slot_from').":00' AS time) and time_slot_to >= CAST('".$request->input('time_slot_to').":00' AS time))")
-        ->orWhereRaw("(time_slot_from < CAST('".$request->input('time_slot_from').":00' AS time) and (time_slot_to > CAST('".$request->input('time_slot_to').":00' AS time) OR time_slot_to BETWEEN CAST('".$request->input('time_slot_from').":00' AS time) AND CAST('".$request->input('time_slot_to').":00' AS time)))")
-        ->orWhereRaw("((time_slot_from BETWEEN CAST('".$request->input('time_slot_from').":00' AS time) AND CAST('".$request->input('time_slot_to').":00' AS time)) and time_slot_to > CAST('".$request->input('time_slot_to').":00' AS time))")*/
-        ->whereRaw("((time_slot_from <= CAST('".$request->input('time_slot_from').":00' AS time) and time_slot_to >= CAST('".$request->input('time_slot_to').":00' AS time)) or (time_slot_from <= CAST('".$request->input('time_slot_from').":00' AS time) and (time_slot_to >= CAST('".$request->input('time_slot_to').":00' AS time) OR (time_slot_to >= CAST('".$request->input('time_slot_from').":00' AS time) AND time_slot_to <= CAST('".$request->input('time_slot_to').":00' AS time)))) or ((time_slot_from >= CAST('".$request->input('time_slot_from').":00' AS time) AND time_slot_from <= CAST('".$request->input('time_slot_to').":00' AS time)) and time_slot_to >= CAST('".$request->input('time_slot_to').":00' AS time))or (time_slot_from > CAST('".$request->input('time_slot_from').":00' AS time) AND time_slot_to < CAST('".$request->input('time_slot_to').":00' AS time)))")
-        ->whereNull('deleted_at')
-        ->groupBy('bid_date')
-        ->havingRaw("bid_date LIKE '".$biddate."'")
-        ->first();
-
-        if(isset($PartiCularTimeSlotData->totalBid)){
+        if(isset($PartiCularTimeSlotData[0]->totalBid)){
             // if($request->input('bid_type')=='block'){
                 // $totalMwFinal = $PartiCularTimeSlotData->totalBid+($request->input('bid_mw')*$noOfBlock);
 
             // }else{
-                $totalMwFinal = $PartiCularTimeSlotData->totalBid+$request->input('bid_mw');
+                $totalMwFinal = $PartiCularTimeSlotData[0]->totalBid+$request->input('bid_mw');
             // }
             
         }else{
@@ -490,6 +472,11 @@ class PlacebidController extends Controller
         ->get();
         $msg ="Bid added successfully";
 
+        $var = $request->input('bid_date');
+        $date = str_replace('/', '-', $var);
+        $biddate = date('Y-m-d', strtotime($date));
+
+        $bid_array = $this->downloadbidexcelforview($request['bid_type'],$biddate,$request->input('client_id'));
         // if($request['bid_action']=='buy'&&($validationSetting->psm)){
         //    $isBarredHint=$this->validate_psm($request->input('client_id'),$portfolio_id,'iex', $biddate);
         // }
@@ -499,7 +486,7 @@ class PlacebidController extends Controller
         // }else if($isBarredHint==2){
         //   $msg .= " But Your PSM is not available";
         // }
-        return response()->json(['status' => '0','placebidDataProcess'=> $placebidDataProcess,'placebidDataSubmitted'=>$placebidDataSubmitted, 'msg' => $msg]);
+        return response()->json(['status' => '0','placebidDataProcess'=> $placebidDataProcess,'placebidDataSubmitted'=>$placebidDataSubmitted,'bid_array'=>$bid_array, 'msg' => $msg]);
     }
 
 
@@ -786,6 +773,11 @@ class PlacebidController extends Controller
           ->get();
           $msg ="Bid added successfully";
 
+            $var = $request->input('bid_date');
+            $date = str_replace('/', '-', $var);
+            $biddate = date('Y-m-d', strtotime($date));
+
+            $bid_array = $this->downloadbidexcelforview($request['bid_type'],$biddate,$request->input('client_id'));
           // if($request['bid_action']=='buy'&&($validationSetting->psm)){
           //    $isBarredHint=$this->validate_psm($request->input('client_id'),$portfolio_id,'iex', $biddate);
           // }
@@ -795,7 +787,7 @@ class PlacebidController extends Controller
           // }else if($isBarredHint==2){
           //   $msg .= " But Your PSM is not available";
           // }
-          return response()->json(['status' => '0','placebidDataProcess'=> $placebidDataProcess,'placebidDataSubmitted'=>$placebidDataSubmitted, 'msg' => $msg]);
+          return response()->json(['status' => '0','placebidDataProcess'=> $placebidDataProcess,'placebidDataSubmitted'=>$placebidDataSubmitted,'bid_array'=>$bid_array, 'msg' => $msg]);
 
     }
 
@@ -1046,7 +1038,7 @@ class PlacebidController extends Controller
       }
 
 
-    public function downloadbidexcel($bid_type,$date,$client_id)
+    public function downloadbidexcelforview($bid_type,$date,$client_id)
     {
         // echo DB::enableQueryLog();
 
@@ -1074,7 +1066,6 @@ class PlacebidController extends Controller
                           $bidPrice = DB::table('place_bid')
                               ->join('clients', 'place_bid.client_id', '=', 'clients.id')
                               ->select('place_bid.*')
-                              ->where('place_bid.status', '1')
                               ->where('place_bid.bid_type', $bid_type)
                               ->where('place_bid.bid_date','=', $date)
                               ->where('place_bid.client_id','=',$client_id)
@@ -1112,7 +1103,450 @@ class PlacebidController extends Controller
               $bidData = DB::table('place_bid')
                   ->join('clients', 'place_bid.client_id', '=', 'clients.id')
                   ->selectRaw('place_bid.*')
-                  ->where('place_bid.status', '1')
+                  ->where('place_bid.bid_date','=', $date)
+                  ->where('place_bid.bid_type','=', $bid_type)
+                  ->where('place_bid.client_id','=',$client_id)
+                  ->whereNull('deleted_at')
+                  ->orderBy('bid_price','DESC')
+                  ->get()->toArray();
+
+                  // dd($bidData);
+              // return Excel::create($order_no, function($excel) use ($bidData) {
+
+                $bidformatted_array=array();
+
+
+                   $n=0;
+                  foreach($bidData as  $biddingarray){
+                    // dd($biddingarray);
+                    $startTime = new \DateTime($biddingarray->time_slot_from);
+                    if($biddingarray->time_slot_to=='24:00:00'){
+                        $endTime = new \DateTime('23:59:59');
+                    }else{
+                        $endTime = new \DateTime($biddingarray->time_slot_to);
+                    }
+                    
+                    // dd($endTime);
+                    $duration = $startTime->diff($endTime); //$duration is a DateInterval object
+                    $time = explode(':',$duration->format("%H:%I:%S"));
+                    $timeslot =(($time[0]*60) + ($time[1]) + ($time[2]/60))/15;
+                    $timefromslot = $biddingarray->time_slot_from;
+                    $timetoslot = date('H:i:s',strtotime('+15 minutes',strtotime($timefromslot)));
+                    $bidData[$n]->timecount=$timeslot;
+                    $n++;
+                    // dd($timeslot);
+                    for($c=1;$c<=$timeslot;$c++){
+                      if(strtotime($timetoslot)<=strtotime($biddingarray->time_slot_to)){
+                      $bdata = array();
+                      $bdata['id'] = $c;
+                      $bdata['bid_date'] = $biddingarray->bid_date;
+                      $bdata['bid_id'] = $biddingarray->id;
+                      $bdata['time_slot_from'] = $timefromslot;
+                      $bdata['time_slot_to'] = $timetoslot;
+                      $bdata['bid_mw']= ($biddingarray->bid_action=='buy')?$biddingarray->bid_mw:(-$biddingarray->bid_mw);
+                      $bdata['bid_price'] = $biddingarray->bid_price;
+                      $bdata['bid_action'] = $biddingarray->bid_action;
+                      $timetoslot = date('H:i:s',strtotime('+30 minutes',strtotime($timefromslot)));
+                      $timefromslot = date('H:i:s',strtotime('+15 minutes',strtotime($timefromslot)));
+                      $bidformatted_array=array_merge($bidformatted_array,array($bdata));
+                    }
+                    }
+                  }
+
+                  // dd($bidformatted_array);
+
+                  // $excel->sheet('sheet', function($sheet) use ($bidData,$bidformatted_array)
+                  // {
+
+                       // $sheet->setCellValue('A1', 'W2MH0TPT0000');
+                       // $sheet->setCellValue('B1', 'TPT01');
+                       // $sheet->setCellValue('C1', 'S1TG0TPT0170');
+                       // $sheet->setCellValue('D1', 'INDIA');
+                       $i=2;
+
+                       $timeslice=$this->gettimeslice1();
+
+                       $j=0; $array_time=array(); $price_column='C';
+                       // $sheet->setCellValue($price_column.'2',0);
+                       for($i=0;$i<(count($timeslice))-1;$i++){
+                         $cell=$i+3;
+                         // $sheet->setCellValue('A'.$cell,$timeslice[$j]);
+                         $from = date('H:i:s',strtotime($timeslice[$j]));
+                         $j=$j+1;
+                         // $sheet->setCellValue('B'.$cell,$timeslice[$j]);
+                         $to = date('H:i:s',strtotime($timeslice[$j]));
+                       foreach ($bidformatted_array as $key => $value) {
+
+                         if($value['time_slot_from']==$from){
+                           if(!in_array($value['bid_price'],$array_time)){
+                              if($value['bid_price']){
+                                $array_time[]=$value['bid_price'];
+
+                              }
+
+                           }
+                           if($value['bid_action']=='buy'){
+                           if(!in_array($value['bid_price']+1,$array_time)){
+                              if($value['bid_price']){
+                                  $array_time[]=$value['bid_price']+1;
+
+                              }
+                           }
+                         }else{
+                           if(!in_array($value['bid_price']-1,$array_time)){
+                              if($value['bid_price']){
+                                  $array_time[]=$value['bid_price']-1;
+
+                              }
+                           }
+                         }
+
+
+                         }
+
+
+                           // $sheet->setCellValue('A'.$i, trim($value->time_slot_from));
+                           // $sheet->setCellValue('B'.$i, trim($value->time_slot_to));
+                           // $sheet->setCellValue('C'.$i, trim($value->bid_price));
+                           // $sheet->setCellValue('D'.$i, trim($value->bid_action=='sell' ? '-'.$value->bid_mw : $value->bid_mw));
+                           // $i++;
+
+                       }
+                       }
+
+
+                       $price_column_array=array();
+                       $price_column_array['C']=0;
+                       sort($array_time);
+                       foreach($array_time as $time){
+                       $price_column++;
+                       // $sheet->setCellValue($price_column.'2',$time);
+                       $price_column_array[$price_column]=$time;
+                       }
+                       $price_column++;
+                       // $sheet->setCellValue($price_column.'2',20000);
+                       $price_column_array[$price_column]=20000;
+
+
+                        $array_values = array_values($price_column_array);
+                        $array_keys = array_keys($price_column_array);
+                        $cell=2;
+
+
+
+
+
+                       // for($i=0;$i<(count($timeslice))-1;$i++){
+                       //   $cell++;
+                       //   foreach($price_column_array  as $keyname => $keydata ){
+                       //        $sheet->setCellValue($keyname.$cell,0);
+                       //  }
+                       //
+                       //  // $sheet_price_array=array();
+                       //  // $startkey=3;
+                       //  // foreach($price_column_array as $arra){
+                       //  //   $sheet_price_array[$startkey] = $arra;
+                       //  //   $startkey++;
+                       //  // }
+                       //
+                       //
+                       //
+                       //      $settedvalue=array();
+                       //     foreach ($bidformatted_array as $key => $value) {
+                       //
+                       //
+                       //        $from = date('H:i:s',strtotime($timeslice[$i]));
+                       //       if($value['time_slot_from']==$from){
+                       //         $array=array();
+                       //         $array_fitted = array_search($value['bid_price'],$array_values);
+                       //
+                       //         if($value['bid_action']=='buy'){
+                       //         for($j=$array_fitted;$j>=0;$j--){
+                       //           if(@$locked[$array_values[$j]]){  break; }
+                       //           // print_r($cell); die();
+                       //
+                       //           // if($this->canfilldata($value['id'],$bidformatted_array,'buy',$value['time_slot_from'],$value['time_slot_to'],$array_values[$j],$value['bid_id'],$value['bid_price'],$array_keys[$j].$cell)){
+                       //           //  $settedvalue[$array_keys[$j].$cell] = (@$settedvalue[$array_keys[$j].$cell])?$settedvalue[$array_keys[$j].$cell]:0;
+                       //           //   $sheet->setCellValue($array_keys[$j].$cell,($value['bid_mw']+$settedvalue[$array_keys[$j].$cell]));
+                       //           //   $settedvalue[$array_keys[$j].$cell]=$value['bid_mw'];
+                       //           // }
+                       //
+                       //
+                       //              }
+                       //           }else{
+                       //             $m=0;
+                       //          for($j=$array_fitted;$j<=count($array_keys)-1;$j++){
+                       //
+                       //           if($this->canfilldata($value['id'],$bidformatted_array,'sell',$value['time_slot_from'],$value['time_slot_to'],$array_values[$j],$value['bid_id'],$value['bid_price'],$array_keys[$j].$cell)){
+                       //               // print_r($cell); die();
+                       //               if(@$locked[$array_values[$j]]){  break; }
+                       //                 $settedvalue[$array_keys[$j].$cell] = (@$settedvalue[$array_keys[$j].$cell])?(-$settedvalue[$array_keys[$j].$cell]):0;
+                       //                 $sheet->setCellValue($array_keys[$j].$cell,(-$value['bid_mw']+$settedvalue[$array_keys[$j].$cell]));
+                       //                 $settedvalue[$array_keys[$j].$cell]=$value['bid_mw'];
+                       //               }
+                       //                  }
+                       //
+                       //             // $sheet->setCellValue($array_keys[$j].$cell,$bidData[$key]->bid_mw);
+                       //           }
+                       //           // $locked[$value['bid_price']]=1;
+                       //       }
+                       //     }
+                       //
+                       // }
+
+                      // $sheet->fromArray($data);
+                      $a = '00:00,00:15,00:30,00:45,01:00,01:15,01:30,01:45,02:00,02:15,02:30,02:45,03:00,03:15,03:30,03:45,04:00,04:15,04:30,04:45,05:00,05:15,05:30,05:45,06:00,06:15,06:30,06:45,07:00,07:15,07:30,07:45,08:00,08:15,08:30,08:45,09:00,09:15,09:30,09:45,10:00,10:15,10:30,10:45,11:00,11:15,11:30,11:45,12:00,12:15,12:30,12:45,13:00,13:15,13:30,13:45,14:00,14:15,14:30,14:45,15:00,15:15,15:30,15:45,16:00,16:15,16:30,16:45,17:00,17:15,17:30,17:45,18:00,18:15,18:30,18:45,19:00,19:15,19:30,19:45,20:00,20:15,20:30,20:45,21:00,21:15,21:30,21:45,22:00,22:15,22:30,22:45,23:00,23:15,23:30,23:45,24:00';
+
+                      $timeslice = explode(",", $a);
+                      $new_bid_data=array();
+                      foreach($bidData as $bid)
+                      {
+
+                          for($i=0;$i<$bid->timecount;$i++)
+                          {
+                              $new_bid = clone $bid;
+                              $m=(int) ((15*$i)%60);
+                              $h=(int) ((15*$i)/60);
+                              $new_bid->time_slot_from = date('H:i:s',strtotime('+'.$h.' hours +'.$m.' minutes',strtotime($bid->time_slot_from)));
+                              $new_bid->time_slot_to = date('H:i:s',strtotime('+15 minute',strtotime($new_bid->time_slot_from)));
+                              $new_bid->timecount=1;
+                              $new_bid_data[]=$new_bid;
+                          }
+                      }
+                      $timeslot_wise_bid_data=array();
+                      for($i=0;$i<96;$i++)
+                      {
+                          foreach($new_bid_data as $key=>$value)
+                          {
+                              if($timeslice[$i].":00" == $value->time_slot_from)
+                              {
+                                  $timeslot_wise_bid_data[$i][] = $value;
+                              }
+                          }
+                      }
+
+
+
+                      //To get unique price value
+
+                      //dd($timeslot_wise_bid_data);
+                      $j=0;
+                      $array_time=array();
+                      $price_column='C';
+                      $sheet = array();
+                      for($i=0;$i<(count($timeslice))-1;$i++){
+                          $cell=$i+3;
+                          $sheet['A'][$cell] = $timeslice[$j];
+                          $from = date('H:i:s',strtotime($timeslice[$j]));
+                          $j=$j+1;
+                          $sheet['B'][$cell] = $timeslice[$j];
+                          $to = date('H:i:s',strtotime($timeslice[$j]));
+                          foreach ($bidData as $key => $value) {
+                              if($bidData[$key]->time_slot_from==$from){
+                                  if(!in_array($bidData[$key]->bid_price,$array_time)){
+                                      if($bidData[$key]->bid_price){
+                                          $array_time[]=$bidData[$key]->bid_price;
+
+                                      }
+
+                                  }
+                                  /*
+                                  if($bidData[$key]->bid_action=='buy'){
+                                      if(!in_array($bidData[$key]->bid_price+1,$array_time)){
+                                          if($bidData[$key]->bid_price){
+                                              $array_time[]=$bidData[$key]->bid_price+1;
+
+                                          }
+                                      }
+                                  }else{
+                                      if(!in_array($bidData[$key]->bid_price-1,$array_time)){
+                                          if($bidData[$key]->bid_price){
+                                              $array_time[]=$bidData[$key]->bid_price-1;
+
+                                          }
+                                      }
+                                  }
+                                  */
+                              }
+
+
+
+                              // $sheet->setCellValue('A'.$i, trim($value->time_slot_from));
+                              // $sheet->setCellValue('B'.$i, trim($value->time_slot_to));
+                              // $sheet->setCellValue('C'.$i, trim($value->bid_price));
+                              // $sheet->setCellValue('D'.$i, trim($value->bid_action=='sell' ? '-'.$value->bid_mw : $value->bid_mw));
+                              // $i++;
+
+                          }
+                      }
+                      $price_column_array=array();
+                      $price_column_array['C']=0;
+                      sort($array_time);
+                      foreach($array_time as $time){
+                          $price_column++;
+                          $sheet[$price_column]['2'] = $time;
+                          $price_column_array[$price_column]=$time;
+                      }
+                      $price_column++;
+                      $sheet[$price_column]['2'] = 20000;
+                      $price_column_array[$price_column]=20000;
+
+                      $array_values = array_values($price_column_array);
+                      $array_keys = array_keys($price_column_array);
+                      // print_r($array_values);
+
+                      $pre_sheetdata = array();
+                      $data_lock=array();
+                      for($i=0;$i<96;$i++)
+                      {
+                          if(isset($timeslot_wise_bid_data[$i])){
+                              foreach($timeslot_wise_bid_data[$i] as $k=>$value)
+                              {
+                                  foreach($array_keys as $ak=>$av)
+                                  {
+                                      if(!isset($pre_sheetdata[$i][$av]) || $pre_sheetdata[$i][$av] == 0)
+                                      {
+                                          if($array_values[$ak] == $value->bid_price)
+                                          {
+                                              $pre_sheetdata[$i][$av] = ($value->bid_action=='buy')? $value->bid_mw : "-".$value->bid_mw;
+                                          }
+                                          else{
+                                              $pre_sheetdata[$i][$av]=0;
+                                          }
+                                      }
+                                      elseif(($array_values[$ak] == $value->bid_price) && ($pre_sheetdata[$i][$av] <> 0) && ($value->bid_action=='buy') && $this->gmp_sign((int)$pre_sheetdata[$i][$av])==1)
+                                      {
+                                          $pre_sheetdata[$i][$av]+=$value->bid_mw;
+                                      }
+                                      elseif(($array_values[$ak] == $value->bid_price) && ($pre_sheetdata[$i][$av] <> 0) && ($value->bid_action=='sell') && $this->gmp_sign((int)$pre_sheetdata[$i][$av])==-1)
+                                      {
+                                          $pre_sheetdata[$i][$av]-=$value->bid_mw;
+                                      }
+                                  }
+                              }
+                          }
+                          else
+                          {
+                              foreach($array_keys as $key)
+                              {
+                                  $pre_sheetdata[$i][$key]=0;
+                              }
+                          }
+                      }
+
+                      foreach($pre_sheetdata as $key=>$value)
+                      {
+                          $pre_sheetdata[$key]['A']=$timeslice[$key];
+                          $pre_sheetdata[$key]['B']=$timeslice[$key+1];
+                          $afv = array_filter(array_values($value));
+                          $afk = array_keys($afv);
+                          $x=0;
+                          if(!empty($afv)){
+                            foreach($afv as $k=>$v)
+                            {
+                                if($this->gmp_sign((int)round($v))==1){
+                                    $e = isset($afk[$x-1])?$afk[$x-1]+1:0;
+                                    for($ch=$e; $ch<=$afk[$x];$ch++)
+                                    {
+                                        $new_col = chr(ord('C')+$ch);
+                                        $pre_sheetdata[$key][$new_col]=$v;
+                                    }
+                                }
+                                elseif($this->gmp_sign((int)round($v))==-1){
+                                    $e = isset($afk[$x+1])?$afk[$x+1]-1:count($value)-1;
+                                    for($ch=$afk[$x]; $ch<=$e;$ch++)
+                                    {
+                                        $new_col = chr(ord('C')+$ch);
+                                        $pre_sheetdata[$key][$new_col]=$v;
+                                    }
+                                }
+                                $x++;
+                             }
+                          }
+                          ksort($pre_sheetdata[$key]);
+                      }
+
+                      $client_details['A']='W2MH0TPT0000';
+                      $client_details['B']='TPT0';
+                      $client_details['C']='S1TG0TPT0170';
+                      $client_details['D']='INDIA';
+                      ksort($price_column_array);
+                      $pre_sheetdata = array_merge([$price_column_array], $pre_sheetdata);
+                      $pre_sheetdata['count']=count($array_values)+2;
+                      return $pre_sheetdata;
+                      // $this->generateCSV($pre_sheetdata,$client_id);
+                  // });
+              // })->store('csv', storage_path('excel/exports/singlebids'))->download('csv');
+
+
+            }
+    }
+
+    public function downloadbidexcel($bid_type,$date,$client_id)
+    {
+        // echo DB::enableQueryLog();
+
+          /**
+            * Block Bid Excel Download
+            */
+
+            // $date = date("Y-m-d",strtotime("+1 day", strtotime(date("Y-m-d"))));
+            if($bid_type == 'block'){
+
+                      // DB::enableQueryLog();
+                      $singlebidarray=array();
+                      $bidData = DB::table('place_bid')
+                          ->join('clients', 'place_bid.client_id', '=', 'clients.id')
+                          ->select('place_bid.*')
+                          ->where('place_bid.status', '1')
+                          ->where('place_bid.bid_type', $bid_type)
+                          ->where('place_bid.bid_date','=', $date)
+                          ->where('place_bid.client_id','=',$client_id)
+                          ->where('place_bid.psm_status','1')
+                          ->whereNull('deleted_at')
+                          ->orderBy('time_slot_from','DESC')
+                          ->get();
+
+                          $bidPrice = DB::table('place_bid')
+                              ->join('clients', 'place_bid.client_id', '=', 'clients.id')
+                              ->select('place_bid.*')
+                              ->where('place_bid.bid_type', $bid_type)
+                              ->where('place_bid.bid_date','=', $date)
+                              ->where('place_bid.client_id','=',$client_id)
+                              ->where('place_bid.psm_status','1')
+                              ->whereNull('deleted_at')
+                              ->get();
+
+                // return Excel::create($order_no, function($excel) use ($bidData) {
+                //     $excel->sheet('sheet', function($sheet) use ($bidData)
+                //     {
+                        // $singlebidarray=[];
+                        //  $singlebidarray[1]['A'] = 'W2MH0TPT0000';
+                        //  $singlebidarray[1]['B'] = 'TPT01';
+                        //  $singlebidarray[1]['C'] = 'S1TG0TPT0170';
+                        //  $singlebidarray[1]['D'] = 'INDIA';
+                         $i=1;
+                         foreach ($bidData as $key => $value) {
+                             $singlebidarray[$i]['A'] = trim($value->time_slot_from);
+                             $singlebidarray[$i]['B'] = trim($value->time_slot_to);
+                             $singlebidarray[$i]['C'] = trim($value->bid_price);
+                             $singlebidarray[$i]['D'] = trim($value->bid_action=='sell' ? '-'.$value->bid_mw : $value->bid_mw);
+                             $singlebidarray['count'] = 4;
+                             $i++;
+                         }
+                        // $sheet->fromArray($data);
+                //     });
+                // })->store('csv', storage_path('excel/exports/blockbids/'))->download('csv');
+
+                return $singlebidarray;
+            }
+
+            if($bid_type == 'single'){
+
+              // DB::enableQueryLog();
+              $bidData = DB::table('place_bid')
+                  ->join('clients', 'place_bid.client_id', '=', 'clients.id')
+                  ->selectRaw('place_bid.*')
                   ->where('place_bid.bid_date','=', $date)
                   ->where('place_bid.bid_type','=', $bid_type)
                   ->where('place_bid.client_id','=',$client_id)
@@ -1495,8 +1929,6 @@ class PlacebidController extends Controller
 
 
 
-
-
      /**
      * delete the specified resource from storage.
      *
@@ -1506,9 +1938,9 @@ class PlacebidController extends Controller
      */
     public function deletebid($id)
     {
-        // $bankData = Bankdetail::find($bank_detail_id);
+        
         Placebid::where("id",$id)->delete();
-
+        // $bid_array = $this->downloadbidexcelforview('single',$biddate,$request->input('client_id'));
         return response()->json(['msg' => 'Bid deleted successfully', 'status' => '1']);
     }
 
@@ -1546,8 +1978,13 @@ class PlacebidController extends Controller
         ->where('bid_date',$biddate)
         ->whereNull('deleted_at')
         ->get();
+        $var = $request->input('bid_date');
+        $date = str_replace('/', '-', $var);
+        $biddate = date('Y-m-d', strtotime($date));
 
-        return response()->json(['placebidDataProcess'=> $placebidDataProcess, 'placebidDataSubmitted'=>$placebidDataSubmitted, 'msg' => 'Bid deleted successfully', 'status' => '1']);
+        $bid_array = $this->downloadbidexcelforview('single',$biddate,$request->input('client_id'));
+
+        return response()->json(['placebidDataProcess'=> $placebidDataProcess, 'placebidDataSubmitted'=>$placebidDataSubmitted, 'bid_array'=>$bid_array, 'msg' => 'Bid deleted successfully', 'status' => '1']);
     }
 
 
@@ -1563,7 +2000,7 @@ class PlacebidController extends Controller
         // dd($request->ids);
         // $data = array();
         $biddateData = str_replace('/', '', $request->input('bid_date'));
-        $order_no = 'POWER-IEX-'.$request->input('client_id').'-'.$biddateData;
+        $order_no = 'TPTBID'.$request->input('client_id').'-'.$biddateData;
         $var = $request->input('bid_date');
         $date = str_replace('/', '-', $var);
         $biddate = date('Y-m-d', strtotime($date));
@@ -1611,7 +2048,7 @@ class PlacebidController extends Controller
         ->whereNull('place_bid.deleted_at')
         ->get();
 
-
+        DB::table('dam_iex_bid_download')->where('client_id', '=', $request->input('client_id'))->delete();
          // dd($placebidDataSubmitted);
         return response()->json(['placebidDataSubmitted'=>$placebidDataSubmitted, 'msg' => 'Bid successfully placed', 'status' => '1']);
     }
