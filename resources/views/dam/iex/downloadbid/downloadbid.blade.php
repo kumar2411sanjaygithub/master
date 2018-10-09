@@ -43,11 +43,13 @@
                       <div class="col-md-12">
                         <div class="card ">
                           <div class="card-heading">
-                              <label class=""><span class="fl"><u>Delivery Date :</u></span> &nbsp; {{ $date }}</label>
+                              <label class=""><span class="fl"><u>Delivery Date :</u></span> &nbsp; {{ Carbon\Carbon::parse($date)->format('d/m/Y') }}</label>
 
                               <div class="pull-right">
                               @if(count($bidData))
-                              <a href="{{ URL::to('downloadbidallbids',$date) }}"><img data-placement="bottom" class="ml40" data-toggle="tooltip" title="Download All" src="{{ asset('img/assets/download.svg') }}" height="28px" width="28px"></a>
+                              <a href="{{ URL::to('downloadbidallbids',$date) }}">
+                                <span class="glyphicon glyphicon-download" aks="tooltip" title="Download All"></span>
+                              </a>
                               @endif
                               </div>
                           </div>
@@ -101,11 +103,21 @@
                               <tbody>
                                 <?php $i = 1; ?>
                                 @foreach($bidData as $key => $value)
-                                <tr>
+                                @php
+                                $blockbidtime = \App\Common\FinancialFunctions::getblockbidtime($value->client_id, $date);
+                                $singlebidtime = \App\Common\FinancialFunctions::getsinglebidtime($value->client_id, $date);
+                                $DownloadStatus = \App\Common\FinancialFunctions::getDownloadStatus($value->client_id, $date);
+                                $css='';
+                                @endphp
+                                @if($DownloadStatus == 0)
+                                  <tr style="background-color:green;">
+                                @else
+                                  <tr>
+                                @endif
                                   <td class="text-center">{{  $i  }}</td>
                                   <td class="text-center">{{ $value->company_name }}
                                       @if($value->common_feeder_option == 'yes')
-                                          <i class="fa fa-fw fa-flag"></i>
+                                          <i class="fa fa-fw fa-flag" aks="tooltip" title="{{ $value->feeder_name .' ['.$value->feeder_code.']' }}"></i>
                                       @endif
                                   </td>
                                   <td class="text-center">{{ $value->iex_portfolio }}</td>
@@ -113,19 +125,39 @@
                                   <!-- <td class="text-center"></td> -->
                                   <!-- <td></td> -->
                                   <td class="text-center">
+                                    @if($singlebidtime!='-')
                                     <a href="{{ URL::to('/downloadbid/downloadbidexcel/new/single/'.$value->order_no,array($date,$value->client_id)) }}">
-                                      <img data-placement="bottom" data-toggle="tooltip" title="Download" src="{{ asset('img/assets/download.svg') }}" height="28px" width="28px">
+                                     <span class="glyphicon glyphicon-download" aks="tooltip" title="Download"></span>
                                     </a>
+                                    @else
+                                    -
+                                    @endif
                                   </td>
-                                  <td class="text-center">{{  App\Common\FinancialFunctions::getsinglebidtime($value->client_id, $date) }}</td>
+                                  <td class="text-center">
+                                    @if($singlebidtime != '-')
+                                    {{ Carbon\Carbon::parse($singlebidtime)->format('d/m/Y H:i:s') }}
+                                    @else
+                                    -
+                                    @endif
+                                  </td>
                                   <!-- <td>Other</td> -->
                                   <td class="text-center">
+                                    @if($blockbidtime!='-')
                                     <a href="{{ URL::to('/downloadbid/downloadbidexcel/new/block/'.$value->order_no,array($date,$value->client_id)) }}">
-                                      <img data-placement="bottom" data-toggle="tooltip" title="Download" src="{{ asset('img/assets/download.svg') }}" height="28px" width="28px">
+                                      <span class="glyphicon glyphicon-download" aks="tooltip" title="Download"></span>
                                     </a>
+                                    @else
+                                    -
+                                    @endif
                                   </td>
-                                  <td class="text-center">{{  App\Common\FinancialFunctions::getblockbidtime($value->client_id, $date) }}</td>
-                                  <td class="text-center">{{  App\Common\FinancialFunctions::getoutstandingbalace($value->client_id, $date) }}</td>
+                                  <td class="text-center">
+                                    @if($blockbidtime != '-')
+                                    {{ Carbon\Carbon::parse($blockbidtime)->format('d/m/Y H:i:s') }}
+                                    @else
+                                    -
+                                    @endif
+                                  </td>
+                                  <td class="text-center">{{  @\App\Common\FinancialFunctions::getoutstandingbalace($value->client_id) }}</td>
                                 </tr>
                                 <?php $i++; ?>
                                 @endforeach
