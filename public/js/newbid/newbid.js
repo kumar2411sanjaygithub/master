@@ -498,6 +498,72 @@ jQuery(document).ready(function() {
                     jQuery(".recordtable").removeClass('hidden');
                     jQuery('.show-new-bid').html(trData);
                     // View All bid In Preview and confirm Page
+                    var bid_type = jQuery('#bid_type').val();
+                    if (bid_type == 'single') {
+                        // alert('hi');
+                        var $html5 = '';
+                        var i = 1;
+                        var firstrow = 1;
+                        var startserialno = 0;
+                        var biddingcount = 1;
+                        var starting = 1;
+                        jQuery.each(data.bid_array, function(tya, val) {
+                            
+                            $html5 += '<tr>';
+                            if (tya == 'count') {
+                                var columns = data.bid_array.count;
+                            }
+                            var count = 1;
+                            if ((firstrow) && (bid_type == 'single')) {
+                                $html5 += '<td style="font-weight:900">Block No.</td><td style="font-weight:900">From</td><td style="font-weight:900">To</td>';
+                                firstrow = 0;
+                            }
+                            var startcount = 0;
+                            var startbid = 1;
+                            if (startserialno) {
+                                if (biddingcount != 97) {
+                                    $html5 += '<td>' + biddingcount + '</td>';
+                                    biddingcount = biddingcount + 1;
+                                }
+                            }
+                            startserialno = 1;
+                            Object.keys(val).forEach(function(tyai) {
+                                var vali = val[tyai];
+                                $html5 += '<td style="';
+                                if (!starting) {
+                                    if ((tyai != 'A') && (tyai != 'B')) {
+                                        if (parseInt(vali)) {
+                                            if (parseInt(vali) > 0) {
+                                                $html5 += 'color:#4CAF50';
+                                            } else {
+                                                $html5 += 'color:#F44336';
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    $html5 += 'font-weight:900';
+                                }
+
+
+                                $html5 += '"> ' + vali + ' </td>';
+                                count += 1;
+                                startcount = 1;
+
+                            });
+                            starting = 0;
+                            // for (var extra = 0; extra <= (columns - count); extra++) {
+                            //     // html5+='<td> - </td>';
+                            // }
+                            $html5 += '<tr>';
+                        });
+
+                        $html5 = '<table class="table-datatable table table-striped table-hover">'+$html5+'</table>';
+                        console.log($html5);
+                        jQuery("#biddatarecord").html($html5);
+                    } else {
+                        // alert('hi123');
+                        jQuery("#biddatarecord").html('');
+                    }
 
                 } else {
                     jQuery('.show-new-bid').html('');
@@ -910,6 +976,66 @@ jQuery(document).ready(function() {
                         '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
                         '<strong>Success! </strong>' + data.msg + '</div>';
                     jQuery("#message").html(valHtml);
+                    // alert('hi');
+                        var $html5 = '';
+                        var i = 1;
+                        var firstrow = 1;
+                        var startserialno = 0;
+                        var biddingcount = 1;
+                        var starting = 1;
+                        jQuery.each(data.bid_array, function(tya, val) {
+                            
+                            $html5 += '<tr>';
+                            if (tya == 'count') {
+                                var columns = data.bid_array.count;
+                            }
+                            var count = 1;
+                            
+                                $html5 += '<td style="font-weight:900">Block No.</td><td style="font-weight:900">From</td><td style="font-weight:900">To</td>';
+                                firstrow = 0;
+                            
+                            var startcount = 0;
+                            var startbid = 1;
+                            if (startserialno) {
+                                if (biddingcount != 97) {
+                                    $html5 += '<td>' + biddingcount + '</td>';
+                                    biddingcount = biddingcount + 1;
+                                }
+                            }
+                            startserialno = 1;
+                            Object.keys(val).forEach(function(tyai) {
+                                var vali = val[tyai];
+                                $html5 += '<td style="';
+                                if (!starting) {
+                                    if ((tyai != 'A') && (tyai != 'B')) {
+                                        if (parseInt(vali)) {
+                                            if (parseInt(vali) > 0) {
+                                                $html5 += 'color:#4CAF50';
+                                            } else {
+                                                $html5 += 'color:#F44336';
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    $html5 += 'font-weight:900';
+                                }
+
+
+                                $html5 += '"> ' + vali + ' </td>';
+                                count += 1;
+                                startcount = 1;
+
+                            });
+                            starting = 0;
+                            // for (var extra = 0; extra <= (columns - count); extra++) {
+                            //     // html5+='<td> - </td>';
+                            // }
+                            $html5 += '<tr>';
+                        });
+
+                        $html5 = '<table class="table-datatable table table-striped table-hover">'+$html5+'</table>';
+                        console.log($html5);
+                        jQuery("#biddatarecord").html($html5);
                 },
                 error: function(response) {
                     var valHtml = '<div class="alert alert-danger alert-dismissable" style="margin-top:5px">' +
@@ -1093,6 +1219,69 @@ jQuery(document).ready(function() {
                             jQuery("#single-bid-data").html('');
                             jQuery("#block-bid-data").html('');
                         }
+
+                        
+                        // alert('hi');
+                        var $html5 = '';
+                        var i = 1;
+                        var firstrow = 1;
+                        var startserialno = 0;
+                        var biddingcount = 1;
+                        var starting = 1;
+                        jQuery.each(data.bid_array, function(tya, val) {
+                            
+                            $html5 += '<tr>';
+                            if (tya == 'count') {
+                                var columns = data.bid_array.count;
+                            }
+                            var count = 1;
+                            
+                                $html5 += '<td style="font-weight:900">Block No.</td><td style="font-weight:900">From</td><td style="font-weight:900">To</td>';
+                                firstrow = 0;
+                            
+                            var startcount = 0;
+                            var startbid = 1;
+                            if (startserialno) {
+                                if (biddingcount != 97) {
+                                    $html5 += '<td>' + biddingcount + '</td>';
+                                    biddingcount = biddingcount + 1;
+                                }
+                            }
+                            startserialno = 1;
+                            Object.keys(val).forEach(function(tyai) {
+                                var vali = val[tyai];
+                                $html5 += '<td style="';
+                                if (!starting) {
+                                    if ((tyai != 'A') && (tyai != 'B')) {
+                                        if (parseInt(vali)) {
+                                            if (parseInt(vali) > 0) {
+                                                $html5 += 'color:#4CAF50';
+                                            } else {
+                                                $html5 += 'color:#F44336';
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    $html5 += 'font-weight:900';
+                                }
+
+
+                                $html5 += '"> ' + vali + ' </td>';
+                                count += 1;
+                                startcount = 1;
+
+                            });
+                            starting = 0;
+                            // for (var extra = 0; extra <= (columns - count); extra++) {
+                            //     // html5+='<td> - </td>';
+                            // }
+                            $html5 += '<tr>';
+                        });
+
+                        $html5 = '<table class="table-datatable table table-striped table-hover">'+$html5+'</table>';
+                        // console.log($html5);
+                        jQuery("#biddatarecord").html($html5);
+                    
 
                         swal('Success!', 'All selected bid deleted successfully !!!.', 'success');
                     },
@@ -1902,6 +2091,72 @@ jQuery(document).ready(function() {
                 jQuery(".recordtable").removeClass('hidden');
                 jQuery("#set_delivery_date").html(jQuery("#bid_date").val());
                 // jQuery("#sset_delivery_date").html(jQuery("#bid_date").val());
+                var bid_type = jQuery('#bid_type_updated').val();
+                if (bid_type == 'single') {
+                        // alert('hi');
+                        var $html5 = '';
+                        var i = 1;
+                        var firstrow = 1;
+                        var startserialno = 0;
+                        var biddingcount = 1;
+                        var starting = 1;
+                        jQuery.each(data.bid_array, function(tya, val) {
+                            
+                            $html5 += '<tr>';
+                            if (tya == 'count') {
+                                var columns = data.bid_array.count;
+                            }
+                            var count = 1;
+                            if ((firstrow) && (bid_type == 'single')) {
+                                $html5 += '<td style="font-weight:900">Block No.</td><td style="font-weight:900">From</td><td style="font-weight:900">To</td>';
+                                firstrow = 0;
+                            }
+                            var startcount = 0;
+                            var startbid = 1;
+                            if (startserialno) {
+                                if (biddingcount != 97) {
+                                    $html5 += '<td>' + biddingcount + '</td>';
+                                    biddingcount = biddingcount + 1;
+                                }
+                            }
+                            startserialno = 1;
+                            Object.keys(val).forEach(function(tyai) {
+                                var vali = val[tyai];
+                                $html5 += '<td style="';
+                                if (!starting) {
+                                    if ((tyai != 'A') && (tyai != 'B')) {
+                                        if (parseInt(vali)) {
+                                            if (parseInt(vali) > 0) {
+                                                $html5 += 'color:#4CAF50';
+                                            } else {
+                                                $html5 += 'color:#F44336';
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    $html5 += 'font-weight:900';
+                                }
+
+
+                                $html5 += '"> ' + vali + ' </td>';
+                                count += 1;
+                                startcount = 1;
+
+                            });
+                            starting = 0;
+                            // for (var extra = 0; extra <= (columns - count); extra++) {
+                            //     // html5+='<td> - </td>';
+                            // }
+                            $html5 += '<tr>';
+                        });
+
+                        $html5 = '<table class="table-datatable table table-striped table-hover">'+$html5+'</table>';
+                        console.log($html5);
+                        jQuery("#biddatarecord").html($html5);
+                    } else {
+                        // alert('hi123');
+                        jQuery("#biddatarecord").html('');
+                    }
 
                 swal('Success!', 'Bid updated successfully !!!.', 'success');
                 // jQuery('#myModal').modal('hide');

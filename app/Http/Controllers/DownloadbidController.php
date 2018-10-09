@@ -97,6 +97,9 @@ class DownloadbidController extends Controller
                               ->where('place_bid.psm_status','1')
                               ->whereNull('deleted_at')
                               ->get();
+                          DB::table('dam_iex_bid_download')->insert(
+                              ['client_id' => $client_id, 'bid_date' => $date]
+                          );
 
                 return Excel::create($order_no, function($excel) use ($bidData) {
                     $excel->sheet('sheet', function($sheet) use ($bidData)
@@ -131,7 +134,9 @@ class DownloadbidController extends Controller
                   ->orderBy('bid_price','DESC')
                   ->whereNull('deleted_at')
                   ->get()->toArray();
-
+              DB::table('dam_iex_bid_download')->insert(
+                          ['client_id' => $client_id, 'bid_date' => $date]
+                      );
 
               // return Excel::create($order_no, function($excel) use ($bidData) {
 
@@ -573,7 +578,9 @@ class DownloadbidController extends Controller
               ->where('place_bid.bid_date','=', $date)
               ->whereNull('deleted_at')
               ->get();
-
+          DB::table('dam_iex_bid_download')->insert(
+              ['client_id' => $user->client_id, 'bid_date' => $date]
+          );
    Excel::create('blockbids_'.$user->client_id, function($excel) use ($bidData) {
     $excel->sheet('sheet', function($sheet) use ($bidData)
     {
