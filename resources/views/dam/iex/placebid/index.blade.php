@@ -370,7 +370,7 @@
 
   <div class="clearfix"></div>
 </section>
-{{ Html::script('js/newbid/newbid.js') }}
+{{ Html::script('js/newbid/newbid.js?ver=1.0') }}
 <script>
 $(document).ready(function(){
 jQuery(document).delegate('.piyush_datepicker','change',function(){
