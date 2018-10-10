@@ -106,8 +106,14 @@
                                 @php
                                 $blockbidtime = \App\Common\FinancialFunctions::getblockbidtime($value->client_id, $date);
                                 $singlebidtime = \App\Common\FinancialFunctions::getsinglebidtime($value->client_id, $date);
+                                $DownloadStatus = \App\Common\FinancialFunctions::getDownloadStatus($value->client_id, $date);
+                                $css='';
                                 @endphp
-                                <tr>
+                                @if($DownloadStatus == 0)
+                                  <tr style="background-color:#abffab;">
+                                @else
+                                  <tr>
+                                @endif
                                   <td class="text-center">{{  $i  }}</td>
                                   <td class="text-center">{{ $value->company_name }}
                                       @if($value->common_feeder_option == 'yes')

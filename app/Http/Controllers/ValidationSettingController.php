@@ -63,7 +63,7 @@ class ValidationSettingController extends Controller
     public function validationsettingview()
     {
         $validationsettingData = Validationsetting::latest()->paginate(15);
-        $users = Client::select('id','company_name','short_id','crn_no')->get();
+        $users = Client::select('id','company_name','short_id','crn_no','iex_portfolio','pxil_portfolio')->get();
         // print_r($users->toArray());
         return view('validationSetting.validationSetting',compact('validationsettingData','users'));
     }

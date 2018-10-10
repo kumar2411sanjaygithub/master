@@ -178,7 +178,7 @@ span.hifan{margin-right:10px!important;}
                                                <td class="text-center vl">{{ date('d/m/Y',strtotime($value->validity_to)) }}</td>
                                                <td class="text-center vl">{{$valid}}</td>
                                                <td class="text-center vl"><a href="{{url('/documents/ppa/'.$value->file_path)}}" download='download'>View</a></td>
-                                             <td class="vl"  style="padding:5px!important;"><a href="/PPA/aprovePpa/{{ $value->id }}/Approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>&nbsp<a href="/PPA/aprovePpa/{{ $value->id }}/Rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a></td>
+                                             <td class="vl"  style="padding:5px!important;"><a href="/PPA/aprovePpa/{{ $value->id }}/Approved"><span class="text-success glyphicon glyphicon-ok"></span></a>&nbsp;&nbsp;<a href="/PPA/aprovePpa/{{ $value->id }}/Rejected"><span class=" text-danger glyphicon glyphicon-remove"></span></a></td>
                                           </tr>
                                         <?php
                                        $i++;
@@ -303,8 +303,8 @@ span.hifan{margin-right:10px!important;}
                                                </td>
                                  <td class="vl" style="padding:5px!important;">
                                    @if($value->status == 0)
-                                   <a href="/modifiedPpa/{{$value->id}}/Approved"><button type="button" class="btn  btn-info btn-xs" name="cd4" id="cd4">APPROVE</button></a>
-                                   <a href="/modifiedPpa/{{$value->id}}/Rejected"><button type="button" class="btn  btn-danger btn-xs" name="re1" id="re1">REJECT</button></a>
+                                   <a href="/modifiedPpa/{{$value->id}}/Approved"><span class="text-success glyphicon glyphicon-ok"></span></a>&nbsp;&nbsp;
+                                   <a href="/modifiedPpa/{{$value->id}}/Rejected"><span class=" text-danger glyphicon glyphicon-remove"></span></a>
                                    @elseif($value->status == 1)
                                    <span class="text-info">Approved</span>
                                    @elseif($value->status == 2)
@@ -420,9 +420,9 @@ span.hifan{margin-right:10px!important;}
                                                     <td class="text-center"><a href="{{url('/documents/ppa/'.$value->file_path)}}" download='download'>View</a></td>
                                                     <td class="text-center vl">
 
-                                                          <a href="/deletedPPA/{{ $value->id }}/Approved"><button type="button" class="btn  btn-info btn-xs">APPROVE</button></a>
-
-                                                          <a href="/deletedPPA/{{ $value->id }}/Rejected"><button type="button" class="btn  btn-danger btn-xs">REJECT</button></a>
+                                                          <a href="/deletedPPA/{{ $value->id }}/Approved"><span class="text-success glyphicon glyphicon-ok"></span></a>
+                                                          &nbsp;&nbsp;
+                                                          <a href="/deletedPPA/{{ $value->id }}/Rejected"><span class=" text-danger glyphicon glyphicon-remove"></span></a>
 
                                                     </td>
                                                 </tr>

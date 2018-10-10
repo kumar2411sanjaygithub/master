@@ -47,6 +47,11 @@
            {{ session()->get('delmsg') }}
        </div>
      @endif
+    @if($errors->has('poc_losses_file'))
+        <div class="alert alert-danger">
+          {{ $errors->first('poc_losses_file') }}
+        </div>
+    @endif
     <form method="post" enctype="multipart/form-data" action="{{ route('addpoc')}}">
       {{ csrf_field()}}
       <div class="row poc-tab @if($errors->isEmpty())hidden @else  @endif">
@@ -127,7 +132,7 @@
       </div>
      <div class="col-md-10">
         <a href="#" class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#myModal">&nbsp IMPORT(CSV)</a>
-        <a href="/sample/poc_losses.xlsx" class="btn btn-info btn-xs pull-right ml5 mr5">&nbsp DOWNLOAD CSV</a>
+        <a href="/sample/poc_losses.csv" class="btn btn-info btn-xs pull-right ml5 mr5">&nbsp DOWNLOAD CSV</a>
         <a class="btn btn-info btn-xs poc-btn pull-right mr5" name=" "><span class="glyphicon glyphicon-plus"></span>&nbsp ADD</a>
       </div>
     </div>
@@ -147,9 +152,9 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($lossesData as $key => $value)
+            @forelse ($lossesData as $key => $value)
             <tr>
-              <td class="text-center">{{$key+1}}</td>
+              <td class="text-center">{{$key+$lossesData->firstItem()}}</td>
               <td class="text-center">{{ @date('d/m/Y',strtotime($value->date_from)) }}</td>
               <td class="text-center">{{ @date('d/m/Y',strtotime($value->date_to)) }}</td>
               <td class="text-center">{{ $value->region }}</td>
@@ -186,9 +191,20 @@
          </div>
 
             </tr>
-            @endforeach
+            @empty
+                   <tr class="alert-danger" ><th colspan='7'>No Data Found.</th></tr>
+                   @endforelse
+         
           </tbody>
         </table>
+        <div class=" col-md-12">
+                            <div class="col-md-6"><br>
+                              Total Records: {{ $lossesData->total() }}
+                            </div>
+                            <div class="col-md-6">
+                            <div class=" pull-right">{{$lossesData->links()}}</div>
+                          </div>
+                        </div>
      </div>
   </div>
   </section>

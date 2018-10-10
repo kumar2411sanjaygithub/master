@@ -15,9 +15,13 @@ class AutoCompleteController extends Controller {
        // dd($term);
 
         $ClientmastertempData = DB::table('clients')
-            ->selectRaw("id,concat(COALESCE(company_name,''),'[',COALESCE(iex_portfolio,''),']') as value")
-            ->where('company_name','LIKE','%'.$term.'%')
+            ->selectRaw("id,concat(COALESCE(company_name,''),'[',COALESCE(iex_portfolio,''),'][',COALESCE(pxil_portfolio,''),'][',COALESCE(short_id,''),'][',COALESCE(crn_no,''),']') as value")
             ->where('client_app_status','!=','4')
+            ->where('company_name','LIKE','%'.$term.'%')
+            ->orWhere('iex_portfolio','LIKE','%'.$term.'%')
+            ->orWhere('pxil_portfolio','LIKE','%'.$term.'%')
+            ->orWhere('short_id','LIKE','%'.$term.'%')
+            ->orWhere('crn_no','LIKE','%'.$term.'%')
             ->get();
 
             // ->selectRaw("client_id,client_master.status as clientstatus,concat(COALESCE(company_name,''),'[',COALESCE(short_id,''),'][',COALESCE(crn_no,''),'][',COALESCE(GROUP_CONCAT(portfolio_id SEPARATOR ']['),''),'][',COALESCE(GROUP_CONCAT(ca_client_id SEPARATOR ']['),''),']') as value")

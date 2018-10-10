@@ -15,7 +15,7 @@ use Response;
 class PocController extends Controller
 {
   public function viewpocdetails(){
-    $lossesData = Pocdetails::get();
+    $lossesData = Pocdetails::paginate(15);
       return view('poc.poc_details',compact('lossesData'));
   }
 
@@ -207,11 +207,24 @@ class PocController extends Controller
      }*/
     public function import(Request $request)
     {
-        if($request->file('poc_losses_file'))
+        if($request->file('poc_losses_file')->isValid())
         {
-          $this->validate($request, [
-            "file"=>'mime:csv'
-          ]);
+          // $this->validate($request, [
+          //   "poc_losses_file"=>'mimes:csv'
+          // ]);
+          $validator = Validator::make(
+              [
+                  'file'      => $request->file('poc_losses_file'),
+                  'extension' => strtolower($request->file('poc_losses_file')->getClientOriginalExtension()),
+              ],
+              [
+                  'file'          => 'required',
+                  'extension'      => 'required|in:csv',
+              ]
+          );
+          if ($validator->fails()) {
+              return redirect()->back()->withErrors(['poc_losses_file'=>'Please upload a valid csv file.']);
+          }
           $err_msg_array = array();
           $path = $request->file('poc_losses_file')->getRealPath();
           $import_data = \Excel::load($path, function($reader){
@@ -269,6 +282,12 @@ class PocController extends Controller
               return redirect()->back()->withErrors($errormessage);
             }
           }
+          else{ 
+            return redirect()->back()->withErrors(['poc_losses_file'=>"Please upload a valid csv file with data."]);
+          }
+        }
+        else{
+           return redirect()->back()->withErrors(['poc_losses_file'=>'Please upload a valid csv file.']);
         }
     }
 }

@@ -106,7 +106,7 @@ class ManageOfficialsController extends Controller
           'confirmed' => 'required|same:password',
           'email' => 'required|unique:users,email',
           'role_id' => 'required',
-          'designation' => 'required|regex:/^[0-9A-Za-z.\-_]+$/|max:30',
+          'designation' => 'required|regex:/^[0-9A-Za-z.\-_ ]+$/|max:30',
           'department_id' => 'required',
           'line1' => 'required|max:100',
           'country' => 'required',
@@ -186,7 +186,7 @@ class ManageOfficialsController extends Controller
           //'confirmed' => 'max:20|same:password',
           'email' => 'required|email',
           'role_id' => 'required',
-          'designation' => 'required|regex:/^[0-9A-Za-z.\-_]+$/|max:30',
+          'designation' => 'required|regex:/^[0-9A-Za-z.\-_ ]+$/|max:30',
           'department_id' => 'required',
           'line1' => 'required|max:100',
           'country' => 'required',
@@ -302,5 +302,10 @@ class ManageOfficialsController extends Controller
         User::destroy($id);
         return redirect()->back()->with('delmsg', 'Employee deleted successfully!');
   }
+    public function getRoleAjax(Request $request)
+    {
+       $department_id=Role::where('department_id',$request['department_id'])->get();
 
+      return response()->json(['role' => $department_id],200);
+    }
 }

@@ -187,7 +187,7 @@
                  </tr>
                <?php $i++; ?>
                  @empty
-                 <tr><td class="alert-danger" colspan="6">Record Nont Found</td></tr>
+                 <tr><th class="alert-danger" colspan="6">No Data Found.</th></tr>
                  @endforelse
             </tbody>
          </table>

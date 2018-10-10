@@ -210,7 +210,7 @@
                   <div class="col-md-3 {{ $errors->has('add_country') ? 'has-error' : '' }}">
                      <label  class="control-label">COUNTRY</label><span class="text-danger"><strong>*</strong></span>
                      <select class="form-control input-sm disabled-class" disabled='disabled' style="width: 100%;" id="add_country" name="add_country">
-                        <option value="INDIA" {{ isset($leads->add_country) &&  $leads->add_country == "INDIA" ||old('add_country')=="INDIA"? 'selected="selected"' : '' }}>INDIA</option>
+                        <option value="India" {{ isset($leads->add_country) &&  $leads->add_country == "India" ||old('add_country')=="India"? 'selected="selected"' : '' }}>India</option>
                    </select>
                <span class="text-danger">{{ $errors->first('add_country') }}</span>
                   </div>

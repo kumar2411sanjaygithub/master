@@ -1,9 +1,12 @@
 <header class="main-header">
-  <a href="{{url('home')}}" class="logo">
+  <a href="#{{url('home')}}" class="logo" style="background: #fff!important;">
     <span class="logo-mini"><b>A</b>LT</span>
+    <img src="{{url('img/tptcl.png')}}" height="43" width="45" style="margin-right:151px;margin-bottom:5px;">
     <span class="logo-lg"><b>TPTCL</b>&nbsp;ERP</span>
+    <span style="font-family:'Source Sans Pro',sans-serif!important;font-size:15px; position: absolute; bottom: 6px; left: 25px; font-weight: bold; color:#3c8dbc!important; width:188px;">TPTCL ONLINE</span>
+    <span style="font-family:'Source Sans Pro',sans-serif!important;font-size:15px;position: absolute; bottom: -10px; left: 33px; font-weight: bold; color:#3c8dbc!important; width:188px;">BIDDING PORTAL</span>
   </a>
-  <nav class="navbar navbar-static-top" >
+  <nav class="navbar navbar-static-top" style="margin-left: 220px;" >
     <!-- Sidebar toggle button-->
     <!-- <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
       <span class="sr-only">Toggle navigation</span>
@@ -216,8 +219,8 @@
               <p><small>{{Auth::user()->email}}</small></p>
             </li>
             <!-- Menu Body -->
-            <li class="user-body">
-              <!-- <div class="row">
+           <!--  <li class="user-body">
+              <div class="row">
                 <div class="col-xs-4 text-center">
                   <a href="#">Followers</a>
                 </div>
@@ -227,16 +230,15 @@
                 <div class="col-xs-4 text-center">
                   <a href="#">Friends</a>
                 </div>
-              </div> -->
-              <!-- /.row -->
-            </li>
+              </div>
+            </li> -->
             <!-- Menu Footer-->
-            <li class="user-footer">
+            <li class="user-footer" style="background: #170c0c73;">
               {{-- <div class="pull-left">
                 <a href="#" class="btn btn-default btn-flat">Profile</a>
               </div> --}}
               <div class="pull-right">
-                <a  href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">Sign out</a>
+                <a  href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-info btn-flat">Sign out</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                  @csrf
                 </form>

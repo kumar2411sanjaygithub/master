@@ -16,13 +16,17 @@
             </section>
             <!-- Main content -->
             <section class="content">
-               @if (\Session::has('success'))
-                  <div class="alert alert-success alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                   <span class="glyphicon glyphicon-ok"></span> &nbsp;{{ session()->get('success') }}
-                  </div>
-                @endif
+              
                <div class="row">
+                 @if (\Session::has('success'))
+                    <br><br>
+                    <div class="col-md-12">
+                      <div class="alert alert-success alert-dismissible fade in">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                     <span class="glyphicon glyphicon-ok"></span> &nbsp; {!! \Session::get('success') !!}
+                    </div>
+                  </div>
+                  @endif
                   <div class="col-xs-12">
                     <div class="row">
                     <div class="col-md-10">

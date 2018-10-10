@@ -122,6 +122,16 @@ class FinancialFunctions
         ->first();
     return @$bidData->updated_at ? $bidData->updated_at : '-';
   }
+
+  public static function getDownloadStatus($client_id, $date)
+  {
+    $bidData = DB::table('dam_iex_bid_download')
+        ->selectRaw('count(*) as statusData')
+        ->where('client_id', $client_id)
+        ->where('bid_date', $date)
+        ->first();
+    return $bidData->statusData;
+  }
   
 
 }

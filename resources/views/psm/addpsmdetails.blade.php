@@ -29,43 +29,43 @@ span.hifan{color:#51c0f0;font-size:15px;margin-left:7px;margin-right:7px;}
     <div class="clearfix"></div>
      <!-- <br> -->
      <!-- success msg -->
-     @if(session()->has('message'))
-       <div class="alert alert-success mt10">
-       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-           {{ session()->get('message') }}
-       </div>
-     @endif
-     <!-- query validater     -->
-     <!-- success msg -->
-     @if(session()->has('updatemsg'))
-       <div class="alert alert-success  mt10">
-       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-           {{ session()->get('updatemsg') }}
-       </div>
-     @endif
-     <!-- query validater     -->
-     <!-- success msg -->
-     @if(session()->has('delmsg'))
-       <div class="alert alert-success  mt10" >
-       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-           {{ session()->get('delmsg') }}
-       </div>
-     @endif
-
-
 
            <div class="row mb3">
-             <div class="col-md-10 pull-left pr25">
+             <div class="col-md-8 pull-left pr25">
                <h5 class="hid">
                   <label  class="control-label"><u class="setword">Payment Security Mechanism(PSM) Details</u></label>
                   &nbsp; {{@$clientData->company_name}}<span class="hifan">|</span>{{@$clientData->crn_no}}<span class="hifan">|</span>{{@$clientData->iex_portfolio}}<span class="hifan">|</span>{{@$clientData->pxil_portfolio}}
                </h5>
              </div>
-             <div class="col-md-2 pull-right">
+             <div class="col-md-4 pull-right">
 
              </div>
            </div>
             <div class="row">
+              <div class="col-md-12">
+                 @if(session()->has('message'))
+                   <div class="alert alert-success mt10">
+                   <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                       {{ session()->get('message') }}
+                   </div>
+                 @endif
+                 <!-- query validater     -->
+                 <!-- success msg -->
+                 @if(session()->has('updatemsg'))
+                   <div class="alert alert-success  mt10">
+                   <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                       {{ session()->get('updatemsg') }}
+                   </div>
+                 @endif
+                 <!-- query validater     -->
+                 <!-- success msg -->
+                 @if(session()->has('delmsg'))
+                   <div class="alert alert-success  mt10" >
+                   <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                       {{ session()->get('delmsg') }}
+                   </div>
+                 @endif  
+                 </div>            
               <div class="col-md-12">
                <a href="{{ route('basic.details') }}"><button type="button" class="btn btn-info btn-xs pull-right mt7 "><span class="glyphicon glyphicon-forward"></span>BACK TO LIST</button></a>
                <a class="mt7 mr5 btn btn-info btn-xs pull-right apdbtn hid @if($errors->isEmpty()) @else hidden  @endif">
