@@ -13,3 +13,6 @@ storage/uploads
 vendor
 storage/files
 sftp-config.json
+./storage/*
+storage/*
+storage/downloads/*

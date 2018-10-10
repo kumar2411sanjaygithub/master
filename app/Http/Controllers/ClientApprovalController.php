@@ -44,7 +44,7 @@ class ClientApprovalController extends Controller
                 $cid = $clientData->id;
                 $crn_no = 'CRN00000'.$cid;
                 $password = str_random(10);
-                Client::where('id', $cid)->update(['client_app_status'=>1,'crn_no'=>$crn_no]);
+                Client::where('id', $cid)->update(['client_app_status'=>1,'crn_no'=>$crn_no,'barred_status'=>1]);
                 $data = array('name'=>$clientData->company_name,'email'=>$crn_no,'password'=>Hash::make($password),'id'=>$cid);
                 Credential::insert($data);
                 $dateName = date('d-M-Y');
@@ -93,7 +93,7 @@ class ClientApprovalController extends Controller
                 $cid = $clientData->id;
                 $crn_no = 'CRN00000'.$cid;
                 $password = str_random(10);
-                Client::where('id', $cid)->update(['client_app_status'=>1,'crn_no'=>$crn_no]);
+                Client::where('id', $cid)->update(['client_app_status'=>1,'crn_no'=>$crn_no,'barred_status'=>1]);
                 $data = array('name'=>$clientData->company_name,'email'=>$crn_no,'password'=>Hash::make($password),'id'=>$cid);
                 Credential::insert($data);
                 $dateName = date('d-M-Y');

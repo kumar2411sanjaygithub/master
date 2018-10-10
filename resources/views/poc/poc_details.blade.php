@@ -152,9 +152,9 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($lossesData as $key => $value)
+            @forelse ($lossesData as $key => $value)
             <tr>
-              <td class="text-center">{{$key+1}}</td>
+              <td class="text-center">{{$key+$lossesData->firstItem()}}</td>
               <td class="text-center">{{ @date('d/m/Y',strtotime($value->date_from)) }}</td>
               <td class="text-center">{{ @date('d/m/Y',strtotime($value->date_to)) }}</td>
               <td class="text-center">{{ $value->region }}</td>
@@ -191,9 +191,20 @@
          </div>
 
             </tr>
-            @endforeach
+            @empty
+                   <tr class="alert-danger" ><th colspan='7'>No Data Found.</th></tr>
+                   @endforelse
+         
           </tbody>
         </table>
+        <div class=" col-md-12">
+                            <div class="col-md-6"><br>
+                              Total Records: {{ $lossesData->total() }}
+                            </div>
+                            <div class="col-md-6">
+                            <div class=" pull-right">{{$lossesData->links()}}</div>
+                          </div>
+                        </div>
      </div>
   </div>
   </section>

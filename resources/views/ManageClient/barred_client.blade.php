@@ -71,18 +71,18 @@ input:checked + .slider:before {
   </ol>
 </section>
 
-   @if (\Session::has('success'))
-    <div class="alert alert-success alert-dismissible fade in">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-     <span class="glyphicon glyphicon-ok"></span> {!! \Session::get('success') !!}
-    </div>
-   @endif
+ 
 
 <!-- Main content -->
 <section class="content">
   <div class="row">
     <div class="col-xs-12">
-
+  @if (\Session::has('success'))
+    <div class="alert alert-success alert-dismissible fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+     <span class="glyphicon glyphicon-ok"></span> {!! \Session::get('success') !!}
+    </div>
+   @endif
   <!------------------------------------bank details start--->
 <div class="box">
 <div class="box-body  table-responsive">
@@ -112,14 +112,14 @@ input:checked + .slider:before {
            <div class="modal-dialog">
              <!-- Modal content-->
              <div class="modal-content cat-header">
-               <div class="modal-header">
+               <!-- <div class="modal-header">
                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                 <h4 class="modal-title text-center" style="    font-size: 18px;" ><strong>Are you sure to {{ $client_data->barred_status===1 ? 'Block' : 'Active' }}?</strong></h4>
-               </div>
+                 <h4 class="modal-title text-center" style="    font-size: 18px;" ><strong></strong></h4>
+               </div> -->
                <form id="SignupForm" name="SignupForm"  action="/client-status/{{ $client_data->id }}/status/{{ $client_data->barred_status===1 ? 0 : 1 }}" method="GET"  >
 
                <div class="modal-body">
-                 <p style="font-style:italic; text-align:center; font-size:18px;">If you click Yes, Client will be {{ $client_data->barred_status===1 ? 'Block' : 'Active' }}.</p>
+                 <p style="text-align:center; font-size:12px;font-weight:500;color:black!important; text-align:center;">ARE YOU SURE TO {{ $client_data->barred_status===1 ? 'BLOCK' : 'ACTIVE' }} THIS CLIENT?</p>
                </div>
                <div class="modal-footer">
                  <button type="submit" class="btn btn-info pull-left yes-btn btn-xs"  style="margin-left: 41%;">YES</button>

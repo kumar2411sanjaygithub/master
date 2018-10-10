@@ -60,14 +60,10 @@ min-width:100px;
 </section>
 
 <section class="content">
-   @if(session()->has('message'))
-            <div class="alert alert-success mt10">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                {{ session()->get('message') }}
-            </div>
-          @endif
+  
 
     <div class="row">
+      
         
             <div class="col-md-8 pull-left">
                 <h5 class="pull-left"><label class="control-label pull-right mt-1"><u>NOC DETAILS</u></h5> &nbsp;&nbsp;&nbsp; {{$client_details[0]['company_name']}}<span class="hifan">|</span> {{$client_details[0]['crn_no']}} <span class="hifan">|</span> {{$client_details[0]['iex_portfolio']}}<span class="hifan">|</span> {{$client_details[0]['pxil_portfolio']}}</label>
@@ -76,7 +72,12 @@ min-width:100px;
                    
             </div>
           </div>
-
+ @if(session()->has('message'))
+            <div class="alert alert-success mt10">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                {{ session()->get('message') }}
+            </div>
+          @endif
       <div class="row">
 
         <div class="col-xs-12">

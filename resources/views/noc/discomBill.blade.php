@@ -81,7 +81,7 @@
              <div class="row text-center" style="font-size:15px;font-weight:600;">Net Amount Payable: {{ucwords($convert_word) }}</div>
              <div class="row">&nbsp;</div>
             <div class="row text-center" style="font-size:14px;font-weight:600;"><span style="font-size:18px;">*</span>This is a computer generated bill hence do not require any signature.</div>
-               <div @if($gst_applicable=='YES') style="margin-top:6.5%;text-align:center;" @else style="margin-top:12.5%;text-align:center;" @endif>
+               <div @if($gst_applicable=='YES') style="margin-top:6.5%;text-align:center;" @else style="margin-top:11.5%;text-align:center;" @endif>
                      <div style="font-size:10px;font-weight:600;color:#4169E1;">Tata Power Trading Company Limited</div>
                      <div style="font-size:10px;font-weight:600;color:#4169E1;">Shatabdi Bhawan,2nd floor ,B 12-13,Sector-4,Noida-20130 Tel.: 0120-6102210/610 2213 Fax 0120-2540050/2540085</div>
                      <div style="font-size:10px;font-weight:600;color:#4169E1;">Website www.tatapowertrading.com Email:power@tatapowertrading.com</div>

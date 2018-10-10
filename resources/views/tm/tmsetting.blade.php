@@ -23,12 +23,14 @@
   <div class="clearfix"></div>
    <!-- <br> -->
    <!-- success msg -->
+    <div class="col-xs-12">
    @if(session()->has('addmsg'))
      <div class="alert alert-success mt10" id="success">
      <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
          {{ session()->get('addmsg') }}
      </div>
    @endif
+ </div>
 <section class="content">
   <!-- Main content -->
   <form method="post" action="{{route('tmnameupdate')}}">

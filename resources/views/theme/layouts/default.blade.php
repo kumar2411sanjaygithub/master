@@ -4,7 +4,7 @@
      @include('theme.includes.header')
      @yield('content_head')
 </head>
-<body class="hold-transition skin-black-light fixed sidebar-mini sidebar-mini-expand-feature">
+<body class="hold-transition skin-blue fixed sidebar-mini sidebar-mini-expand-feature">
    <div class="wrapper">
        @include('theme.includes.top')
        @include('theme.includes.navbar')

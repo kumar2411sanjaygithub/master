@@ -666,7 +666,7 @@ class NocAppController extends Controller
                     $sldc_name=$sldc_value;
                    //echo (@$json_sldc_add[$s]->$sk);
                    // $address=implode(" ",$json_sldc_add[$s]);
-                    $sldc_address=str_replace(',',',<br />',$json_sldc_add[$s]->$sk);
+                    $sldc_address=str_replace(',',',<br />',@$json_sldc_add[$s]->$sk);
                 }
             }
             
