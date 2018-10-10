@@ -356,7 +356,7 @@
                            <div class="modal-dialog">
                            <!-- Modal content-->
                            <form method="post" action="{{url('task-update/'.$task
-                         ->id)}}">
+                         ->id)}}" enctype="multipart/form-data">
                             {{csrf_field()}}
                            <div class="modal-content">
                            <div class="modal-header">
@@ -373,9 +373,11 @@
                            <label  class="control-label">STATUS</label>
                            <select class="form-control input-sm" style="width: 100%;" id="status" name="status" required="required">
                            <option value="">SELECT STATUS</option>
+                           <option value="NOT STARTED"  @if($task->status == 'NOT STARTED') {{ 'selected' }} @endif>NOT STARTED</option>
+                           <option value="DEFERRED"  @if($task->status == 'DEFERRED') {{ 'selected' }} @endif>DEFERRED</option>
+                           <option value="IN PROGRESS"  @if($task->status == 'IN PROGRESS') {{ 'selected' }} @endif>IN PROGRESS</option>         
+
                            <option value="COMPLETED" @if($task->status == 'COMPLETED') {{ 'selected' }} @endif>COMPLETED</option>
-                           <option value="WORKING"  @if($task->status == 'WORKING') {{ 'selected' }} @endif>WORKING</option>
-                           <option value="NON-WORKING"  @if($task->status == 'NON-WORKING') {{ 'selected' }} @endif>NON-WORKING</option>
                            </select>
                            </div>
                            </div>
@@ -403,6 +405,19 @@
                               </select>
                            </div>
                            </div>
+                            <div class="row mt3">
+                              <div class="col-md-12">
+                                <label  class="control-label">ATTACHMENT</label>
+                                <input type="file" class="form-control pull-right input-sm" id="task_attachment" name="task_attachment" value="{{$task->task_attachment}}" >              
+                              </div>
+                            </div>
+                           <div class="row mt3">
+                            <div class="col-md-12">
+                              <label  class="control-label">TASK DESCRIPTION</label>
+                                <textarea name="descriptionu" id="descriptionu">{{$task->description}}</textarea>
+                            </div>
+                           </div>
+
                            </div>
                            <div class="modal-footer">
                            <div class="row">
@@ -620,7 +635,7 @@
          <div class="modal fade" id="myModal" role="dialog">
          <div class="modal-dialog">
          <!-- Modal content-->
-         <form method="post" action="{{url('task-lead')}}">
+         <form method="post" action="{{url('task-lead')}}" enctype="multipart/form-data">
           {{csrf_field()}}
          <div class="modal-content">
          <div class="modal-header">
@@ -639,9 +654,10 @@
          <label  class="control-label">STATUS</label>
          <select class="form-control input-sm" style="width: 100%;" id="status" name="status" required="required">
          <option value="">SELECT STATUS</option>
+         <option value="NOT STARTED">NOT STARTED</option>
+         <option value="DEFERRED">DEFERRED</option>
+         <option value="IN PROGRESS">IN PROGRESS</option>         
          <option value="COMPLETED">COMPLETED</option>
-         <option value="WORKING">WORKING</option>
-         <option value="NON-WORKING">NON-WORKING</option>
          </select>
          </div>
          </div>
@@ -668,6 +684,18 @@
               @endif
             </select>
          </div>
+         </div>
+          <div class="row mt3">
+            <div class="col-md-12">
+              <label  class="control-label">ATTACHMENT</label>
+              <input type="file" class="form-control pull-right input-sm" id="task_attachment" name="task_attachment">              
+            </div>
+          </div>
+         <div class="row mt3">
+          <div class="col-md-12">
+            <label  class="control-label">TASK DESCRIPTION</label>
+              <textarea name="description" id="description"></textarea>
+          </div>
          </div>
          </div>
          <div class="modal-footer">
@@ -754,6 +782,11 @@
       <script src="https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script>
       <script>
          CKEDITOR.replace( 'editor1' );
+         CKEDITOR.add 
+         CKEDITOR.replace( 'description' );
+         CKEDITOR.add 
+         CKEDITOR.replace( 'descriptionu' );
+         CKEDITOR.add          
       </script>
 
       <script type="text/javascript">

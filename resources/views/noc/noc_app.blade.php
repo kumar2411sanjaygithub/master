@@ -305,7 +305,7 @@ min-width:100px;
                         </td>
                         <td class="vl">
                           @if(($noc_list->payment_challan_number!='' && $noc_list->bank_name!='' && $noc_list->transcation_date!='' && $noc_list->amount!=''))
-                            @if($noc_list->status==4 ||$noc_list->status==5 ||$noc_list->status==1)
+                            @if($noc_list->status==1)
                               <a class="disabled"><span class="label edited fnt " >EDIT</span></a>
                               @else
                                 @if($noc_list->generate_sldc_debit!='' || $noc_list->generate_discom_debit!='')
@@ -354,11 +354,11 @@ min-width:100px;
                             @endphp
                           @endforeach
                           @if(@$checksldc=='yes')
-                            <a href="/generatesldcPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if($noc_list->status==1 ||$noc_list->status==2||(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_sldc_debit=='')) class="disabled" @else @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit=='') @else class="disabled hidediv" @endif @endif><span class="label edited fnt">GENERATE</span></a>
+                            <a href="/generatesldcPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if($noc_list->status==1 ||$noc_list->status==2) class="disabled" @else @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_sldc_debit=='') @elseif(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_sldc_debit=='') @else class="disabled hidediv" @endif @endif><span class="label edited fnt">GENERATE</span></a>
 
                             <a href="{{url('/downlNewFile/'.$noc_list->generate_sldc_debit)}}"  @if($noc_list->status==3 && $noc_list->generate_sldc_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_sldc_debit!=''))  @else class="disabled hidediv" @endif @endif><span class="label success fnt">DOWNLOAD</span></a>
 
-                            <a href="#" data-toggle="modal" data-target="#deletesldcDebit{{ $noc_list->id }}" @if($noc_list->status==3 && $noc_list->generate_sldc_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_sldc_debit!=''))  class="disabled hidediv" @else class="disabled hidediv" @endif @endif><span class="label danger fnt">DELETE</span></a>
+                            <a href="#" data-toggle="modal" data-target="#deletesldcDebit{{ $noc_list->id }}" @if($noc_list->status==3 && $noc_list->generate_sldc_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_sldc_debit!=''))  class="" @else class="disabled hidediv" @endif @endif><span class="label danger fnt">DELETE</span></a>
 
                           @endif
 
@@ -367,10 +367,11 @@ min-width:100px;
 
 
                           @if(isset($noc_bill_discom))
-                            <a href="/generatediscomPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if($noc_list->status==1 ||$noc_list->status==2||(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit=='')) class="disabled" @else @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit=='') @else class="disabled hidediv" @endif @endif><span class="label edited fnt">GENERATE</span></a>
+                            <a href="/generatediscomPDF/{{$noc_list->id}}/client/{{@$client_id}}" @if($noc_list->status==1 ||$noc_list->status==2) class="disabled" @else @if(($noc_list->status==2 ||$noc_list->status==3) && $noc_list->generate_discom_debit=='')  @elseif(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit=='')
+                                 @else class="disabled hidediv" @endif @endif><span class="label edited fnt">GENERATE</span></a>
                             <a href="{{url('/downlNewFile/'.$noc_list->generate_discom_debit)}}" @if($noc_list->status==3 && $noc_list->generate_discom_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit!=''))   @else class="disabled hidediv" @endif @endif><span class="label success fnt">DOWNLOAD</span></a>
 
-                            <a href="#" data-toggle="modal" data-target="#deletediscomDebit{{ $noc_list->id }}" @if($noc_list->status==3 && $noc_list->generate_discom_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit!=''))  class="disabled hidediv" @else class="disabled hidediv" @endif @endif><span class="label danger fnt">DELETE</span></a>
+                            <a href="#" data-toggle="modal" data-target="#deletediscomDebit{{ $noc_list->id }}" @if($noc_list->status==3 && $noc_list->generate_discom_debit!='') @else @if(($noc_list->status==4 ||$noc_list->status==5)&&$noc_list->generate_discom_debit!=''))  class="" @else class="disabled hidediv" @endif @endif><span class="label danger fnt">DELETE</span></a>
 
                           @endif
 
