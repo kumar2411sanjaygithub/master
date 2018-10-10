@@ -20,6 +20,7 @@ use App\LeadEmail;
 use App\LeadProduct;
 use App\TraderMail;
 use Mail;
+use File;
 use App\LeadCRN;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
@@ -251,6 +252,19 @@ class LeadController extends Controller
      */
     public function taskadd(Request $request)
     {
+
+        if(isset(request()->task_attachment))
+        {
+            $imageName = 'task_'.time().'.'.request()->task_attachment->getClientOriginalName();
+            $noc_path = storage_path().'/files/tptcl/crm/task';
+            File::isDirectory($noc_path) or File::makeDirectory($noc_path, 0777, true, true);
+            request()->task_attachment->move($noc_path, $imageName);
+        }
+        else
+        {
+            $imageName = request('old_noc_file');
+        }
+
         // Convert Date Format
         $commerce_date = strtr(request('due_date'), '/', '-');
         $new_commerce_date = date("Y-m-d", strtotime($commerce_date));
@@ -261,6 +275,8 @@ class LeadController extends Controller
         $task->status = request('status');
         $task->due_date = $new_commerce_date;
         $task->owner = request('owner');
+        $task->task_attachment = $imageName;
+        $task->description = request('description');
         $task->save();
 
         return Redirect::back()->with('success', 'Task added successfully.');
@@ -275,6 +291,19 @@ class LeadController extends Controller
     }
     public function taskupdate(Request $request,$id='')
     {
+        if(isset(request()->task_attachment))
+        {
+            $imageName = time().'.'.request()->task_attachment->getClientOriginalName();
+            $noc_path = storage_path().'/files/tptcl/crm/task';
+            File::isDirectory($noc_path) or File::makeDirectory($noc_path, 0777, true, true);
+            request()->task_attachment->move($noc_path, $imageName);
+        }
+        else
+        {
+            $imageName = request('old_noc_file');
+        }
+
+
         // Convert Date Format
         $commerce_date = strtr(request('due_date'), '/', '-');
         $new_commerce_date = date("Y-m-d", strtotime($commerce_date));
@@ -284,6 +313,8 @@ class LeadController extends Controller
         $task->status = request('status');
         $task->due_date = $new_commerce_date;
         $task->owner = request('owner');
+        $task->task_attachment = $imageName;
+        $task->description = request('descriptionu');
         $task->save();
 
         return Redirect::back()->with('success', 'Task updated successfully.');

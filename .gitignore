@@ -4,6 +4,8 @@ storage/*.key
 storage/upload
 storage/exports
 storage/files/*
+storage/
+public/storage/
 .env.*.php
 .env.php
 .env
