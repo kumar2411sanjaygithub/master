@@ -171,9 +171,9 @@
               <label  class="control-label">STATE</label><span class="text-danger"><strong>*</strong></span>
               <select class="form-control input-sm" style="width: 100%;" id="add_state" name="add_state">
                   <option value="">SELECT STATE</option>
-                   <?php
+                  <?php
                     $state_list = \App\Common\StateList::get_states();
-                        ?>
+                  ?>
                   @foreach($state_list as $state_code=>$state_ar)
                     <option value="{{$state_code}}" {{ isset($officialstData) && $officialstData->comm_state == $state_code ||old('add_state')==$state_code? 'selected="selected"' : '' }}>{{$state_ar['name']}}</option>
                   @endforeach
@@ -200,7 +200,7 @@
               <div class="col-md-4">
               
               </div>
-                <div class="col-md-1" style="margin-top: 20px;"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
+                  <div class="col-md-1" style="margin-top: 20px;"><button type="submit" class="btn btn-block btn-info btn-xs">SAVE</button></div>
                   <div class="col-md-1" style="margin-top: 20px;"><a href="{{url('lead')}}" class="btn btn-block btn-danger btn-xs">CANCEL</a></div>
 
             </div>

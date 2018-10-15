@@ -161,6 +161,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+         Tptcl\Iex\TptclIEXServiceProvider::class,
 
 
     ],

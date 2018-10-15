@@ -388,7 +388,7 @@
                            <div class="input-group-addon">
                            <i class="fa fa-calendar"></i>
                            </div>
-                           <input type="text" class="form-control pull-right input-sm" id="datepicker" name="due_date" value="{{date('d/m/Y',strtotime($task->due_date))}}" placeholder="DD/MM/YYYY" required="required">
+                           <input type="text" class="form-control pull-right input-sm datepickerEdit" id="datepicker1" name="due_date" value="{{date('d/m/Y',strtotime($task->due_date))}}" placeholder="DD/MM/YYYY" required="required">
                            </div>
                            </div>
                            <div class="col-md-6">
@@ -781,19 +781,26 @@
 
       <script src="https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script>
       <script>
-         CKEDITOR.replace( 'editor1' );
+         CKEDITOR.replace('editor1');
          CKEDITOR.add 
-         CKEDITOR.replace( 'description' );
+         CKEDITOR.replace('description');
          CKEDITOR.add 
-         CKEDITOR.replace( 'descriptionu' );
+         CKEDITOR.replace('descriptionu');
          CKEDITOR.add          
       </script>
 
       <script type="text/javascript">
                    //Date picker
-           $('#datepicker').datepicker({
-             autoclose: true
-           })
+          $(function () {        
+            $('#datepicker').datepicker({
+              autoclose: true,
+              format: 'dd/mm/yyyy',
+            });
+            $('.datepickerEdit').datepicker({
+              autoclose: true,
+              format: 'dd/mm/yyyy',
+            });
+          });
       </script>
       <script type="text/javascript">
         $('.enable_edit').click(function(){
@@ -816,10 +823,10 @@
       </script>
       <script>
       $(function() {
-  $('#datetimepicker1').datepicker({
-    language: 'pt-BR'
-  });
-});
+        $('#datetimepicker1').datepicker({
+          language: 'pt-BR'
+        });
+      });
 
       </script>
 @endsection

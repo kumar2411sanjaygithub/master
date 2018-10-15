@@ -1,0 +1,12 @@
+{
+    "name": "tptcl/iex",
+    "description": "You can create the to-do-list of your task.",
+    "authors": [
+        {
+            "name": "tptcl",
+            "email": "php6@cybuzzsc.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

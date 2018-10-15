@@ -31,7 +31,8 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Tptcl\\Iex\\": "packages/tptcl/iex/src/"
         }
     },
     "autoload-dev": {

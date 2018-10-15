@@ -23,7 +23,7 @@
                 {{ session()->get('updatemsg') }}
             </div>
           @endif
-          <!-- query validater     -->
+          <!-- query validater  -->
 
             <div class="box">
               <form method="post" action="{{url('/ppa/updateppadata/'.$ppaData->id)}}" enctype="multipart/form-data">
